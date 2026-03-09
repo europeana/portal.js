@@ -35,7 +35,6 @@
 
 <script>
   import { addContentTierFilter } from '@/plugins/europeana/search';
-  import { langMapValueForLocale } from '@europeana/i18n';
   import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
   import elasticApmReporterMixin from '@/mixins/elasticApmReporter';
   import similarItemsMixin from '@/mixins/similarItems';
@@ -61,22 +60,22 @@
       },
 
       dcType: {
-        type: [String, Object, Array],
+        type: Array,
         default: null
       },
 
       dcSubject: {
-        type: [String, Object, Array],
+        type: Array,
         default: null
       },
 
       dcCreator: {
-        type: [String, Object, Array],
+        type: Array,
         default: null
       },
 
       edmDataProvider: {
-        type: [String, Object, Array],
+        type: Array,
         default: null
       }
     },
@@ -102,7 +101,12 @@
         this.similarItemsAlgorithm = RECOMMENDATION_ALGORITHM;
       } else {
         response = await this.$apis.record.search({
-          query: this.similarItemsQuery(this.identifier, this.similarItemsFields),
+          query: this.similarItemsQuery(this.identifier, {
+            dcSubject: this.dcSubject,
+            dcType: this.dcType,
+            dcCreator: this.dcCreator,
+            edmDataProvider: this.edmDataProvider
+          }),
           qf: addContentTierFilter(),
           rows: 4,
           profile: 'minimal',
@@ -114,26 +118,7 @@
       this.items = response.items;
     },
 
-    computed: {
-      similarItemsFields() {
-        return {
-          dcSubject: this.similarItemsFieldValue(this.dcSubject),
-          dcType: this.similarItemsFieldValue(this.dcType),
-          dcCreator: this.similarItemsFieldValue(this.dcCreator),
-          edmDataProvider: this.similarItemsFieldValue(this.edmDataProvider)
-        };
-      }
-    },
-
     methods: {
-      similarItemsFieldValue(value) {
-        if (!value) {
-          return null;
-        }
-        return langMapValueForLocale(value, this.$i18n.locale)
-          .values
-          .filter(item => typeof item === 'string');
-      },
       // NOTE: do not use computed properties here as they may change when the
       //       item is clicked
       onClickItem(clickedItemId) {

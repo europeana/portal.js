@@ -7,20 +7,20 @@
       name="fade"
     >
       <i18n
-        v-if="dataProviderEntity || dataProvider"
+        v-if="dataProvider"
         data-qa="data provider attribution"
         :path="providedByStringPath"
         tag="div"
       >
         <template #provider>
           <LinkBadge
-            v-if="dataProviderEntity && isEntityUri(dataProviderEntity.id)"
-            :id="dataProviderEntity.id"
+            v-if="isEntityUri(dataProvider.id)"
+            :id="dataProvider.id"
             data-qa="data provider badge"
             badge-variant="secondary"
-            :link-to="collectionLinkGen(dataProviderEntity)"
-            :title="collectionTitle(dataProviderEntity)"
-            :img="$apis.entity.imageUrl(dataProviderEntity)"
+            :link-to="collectionLinkGen(dataProvider)"
+            :title="collectionTitle(dataProvider)"
+            :img="$apis.entity.imageUrl(dataProvider)"
             type="Organization"
             :click-event-handler="badgeClickEventHandler"
           />
@@ -47,7 +47,6 @@
 
 <script>
   import { isEntityUri } from '@/plugins/europeana/entity';
-  import { langMapValueForLocale } from '@europeana/i18n';
   import collectionLinkGenMixin from '@/mixins/collectionLinkGen';
   import { collectionTitle } from '@/utils/europeana/entities/entityLinks';
   import itemPrefLanguage from '@/mixins/europeana/item/itemPrefLanguage';
@@ -72,10 +71,6 @@
         type: Object,
         default: null
       },
-      dataProviderEntity: {
-        type: Object,
-        default: null
-      },
       metadataLanguage: {
         type: String,
         default: null
@@ -93,12 +88,6 @@
     computed: {
       providedByStringPath() {
         return this.userGeneratedContent ? 'provider.providedByUgc' : 'provider.providedBy';
-      },
-      namePrefLanguage() {
-        return this.getPrefLanguage('edmDataProvider', { def: [{ prefLabel: this.dataProvider }] });
-      },
-      displayName() {
-        return langMapValueForLocale(this.dataProviderEntity?.prefLabel || this.dataProvider, this.namePrefLanguage).values[0];
       }
     },
 

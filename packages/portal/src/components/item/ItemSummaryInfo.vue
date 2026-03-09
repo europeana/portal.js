@@ -7,7 +7,7 @@
         :is="(index === 0) ? 'h1' : 'p'"
         v-for="(heading, index) in titles"
         :key="index"
-        :lang="langAttribute(heading.code)"
+        :lang="langAttribute(heading.lang)"
         class="mb-0"
         :class="{ 'font-weight-bold mt-3': (index > 0) }"
       >
@@ -25,11 +25,11 @@
       </component>
     </header>
     <div
-      v-if="description"
+      v-if="descriptions"
       class="description"
     >
       <div
-        v-for="(value, index) in description.values"
+        v-for="(description, index) in descriptions"
         :key="index"
         class="description-text"
       >
@@ -39,10 +39,10 @@
           <!-- eslint-disable vue/no-v-html -->
           <ItemDebiasField
             v-if="!!deBias.terms.dcDescription"
-            :lang="langAttribute(description.code)"
+            :lang="langAttribute(description.lang)"
             class="description-text-paragraph"
             name="dcDescription"
-            :text="(showAll ? value : truncatedDescription)"
+            :text="(showAll ? description.value : truncatedDescription)"
             tag="p"
           >
             <template #default="{ text }">
@@ -51,9 +51,9 @@
           </ItemDebiasField>
           <p
             v-else
-            :lang="langAttribute(description.code)"
+            :lang="langAttribute(description.lang)"
             class="description-text-paragraph"
-            v-html="convertNewLine(showAll ? value : truncatedDescription)"
+            v-html="convertNewLine(showAll ? description.value : truncatedDescription)"
           />
           <!-- eslint-enable vue/no-v-html -->
         </template>
@@ -62,7 +62,7 @@
           :translation-source="description.translationSource"
         />
         <hr
-          v-if="(index + 1) < description.values.length && showAll"
+          v-if="(index + 1) < descriptions.length && showAll"
         >
       </div>
       <b-button
@@ -99,8 +99,8 @@
     inject: ['deBias'],
 
     props: {
-      description: {
-        type: Object,
+      descriptions: {
+        type: Array,
         default: null
       },
       titles: {
@@ -118,12 +118,12 @@
 
     computed: {
       expandableDescription() {
-        return this.description?.values &&
-          (this.description.values.length > 1 || this.description.values[0].length > this.limitCharacters);
+        return this.descriptions &&
+          (this.descriptions.length > 1 || this.descriptions[0].value.length > this.limitCharacters);
       },
       truncatedDescription() {
-        if (this.description?.values) {
-          return truncate(this.description.values[0], this.limitCharacters);
+        if (this.descriptions) {
+          return truncate(this.descriptions[0].value, this.limitCharacters);
         }
         return false;
       },

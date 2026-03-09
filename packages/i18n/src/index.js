@@ -6,6 +6,7 @@ export {
   forEachLangMapValue,
   isLangMap,
   langMapValueForLocale,
+  normalizedLangCode,
   reduceLangMapsForLocale,
   selectLocaleForLangMap,
   undefinedLocaleCodes,

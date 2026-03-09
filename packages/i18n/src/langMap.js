@@ -201,12 +201,18 @@ const setLangMapValues = (returnValues, langMap, key) => {
   returnValues.values = [].concat(langMap[key]);
 };
 
-const setLangCode = (map, key) => {
-  map.code = undefinedLocaleCodes.includes(key) ? '' : normalizedLangCode(key);
+const setLangCode = (map, code) => {
+  map.code = normalizedLangCode(code);
 };
 
-const normalizedLangCode = (key) => {
-  return key.length === 3 ? isoAlpha3Map[key] : key; // if there is a match, find language code
+export const normalizedLangCode = (code) => {
+  if (undefinedLocaleCodes.includes(code)) {
+    return '';
+  } else if (code.length === 3) {
+    return isoAlpha3Map[code];
+  } else {
+    return code;
+  }
 };
 
 const filterEntities = (mappedObject) => {

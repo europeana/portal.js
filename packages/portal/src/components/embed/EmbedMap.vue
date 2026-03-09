@@ -7,9 +7,9 @@
       class="p-3"
     >
       <span
-        :lang="langAttribute(localisedPrefLabel.code)"
+        :lang="langAttribute(location.lang)"
       >
-        {{ localisedPrefLabel.values[0] }}
+        {{ location.value }}
       </span>
       {{ formattedCoordinates }}
     </label>
@@ -29,7 +29,6 @@
 
 <script>
   import langAttributeMixin from '@/mixins/langAttribute';
-  import { langMapValueForLocale } from '@europeana/i18n';
 
   export default {
     name: 'EmbedMap',
@@ -37,18 +36,8 @@
     mixins: [langAttributeMixin],
 
     props: {
-      prefLabel: {
-        type: [String, Object],
-        required: true
-      },
-
-      latitude: {
-        type: Number,
-        required: true
-      },
-
-      longitude: {
-        type: Number,
+      location: {
+        type: [Object],
         required: true
       }
     },
@@ -61,25 +50,21 @@
     },
 
     computed: {
-      localisedPrefLabel() {
-        return langMapValueForLocale(this.prefLabel, this.$i18n.locale);
-      },
-
       formattedCoordinates() {
-        const latitudeSymbol = this.latitude < 0 ? 'S' : 'N';
-        const longitudeSymbol = this.longitude < 0 ? 'W' : 'E';
-        return `${this.latitude}° ${latitudeSymbol} ${this.longitude}° ${longitudeSymbol}`;
+        const latitudeSymbol = this.location.latitude < 0 ? 'S' : 'N';
+        const longitudeSymbol = this.location.longitude < 0 ? 'W' : 'E';
+        return `${this.location.latitude}° ${latitudeSymbol} ${this.location.longitude}° ${longitudeSymbol}`;
       },
 
       marker() {
-        return `${this.latitude},${this.longitude}`;
+        return `${this.location.latitude},${this.location.longitude}`;
       },
 
       bbox() {
-        const xLat = this.latitude - this.latitudeBoundaryDegrees;
-        const xLng = this.longitude - this.longitudeBoundaryDegrees;
-        const yLat = this.latitude + this.latitudeBoundaryDegrees;
-        const yLng = this.longitude + this.longitudeBoundaryDegrees;
+        const xLat = this.location.latitude - this.latitudeBoundaryDegrees;
+        const xLng = this.location.longitude - this.longitudeBoundaryDegrees;
+        const yLat = this.location.latitude + this.latitudeBoundaryDegrees;
+        const yLng = this.location.longitude + this.longitudeBoundaryDegrees;
 
         return `${xLng},${xLat},${yLng},${yLat}`;
       },

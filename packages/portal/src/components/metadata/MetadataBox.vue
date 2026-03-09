@@ -62,9 +62,7 @@
           >
             <EmbedMap
               v-if="mappableLocation && showLocationMap"
-              :pref-label="mappableLocation.prefLabel"
-              :latitude="mappableLocation.latitude"
-              :longitude="mappableLocation.longitude"
+              :location="mappableLocation"
             />
           </b-card-text>
         </b-tab>
@@ -93,7 +91,7 @@
         required: true
       },
       location: {
-        type: Object,
+        type: Array,
         default: null
       },
       metadataLanguage: {
@@ -112,9 +110,7 @@
 
     computed: {
       mappableLocation() {
-        return this.location?.def?.find(loc => (
-          (typeof loc === 'object') && loc.latitude && loc.longitude
-        )) || null;
+        return this.location?.find((loc) => loc.latitude && loc.longitude) || null;
       }
     },
 

@@ -100,7 +100,10 @@
       langAttributeMixin
     ],
 
-    inject: ['deBias'],
+    inject: [
+      'deBias',
+      'entities'
+    ],
 
     props: {
       name: {
