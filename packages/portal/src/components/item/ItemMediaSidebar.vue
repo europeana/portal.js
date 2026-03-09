@@ -103,7 +103,7 @@
           <h2 class="px-3">
             {{ $t('media.sidebar.links') }}
           </h2>
-          <h3 class="px-3">
+          <h3 class="px-3 font-base mb-2">
             {{ $t('media.sidebar.IIIFManifest') }}
           </h3>
           <b-link
@@ -270,7 +270,7 @@
   @import '@europeana/style/scss/transitions';
 
   .media-viewer-sidebar {
-    width: 300px;
+    width: pxToRem(300);
     position: absolute;
     top: 0;
     left: 0;
@@ -296,11 +296,6 @@
 
       h2 {
         font-size: 1.125rem;
-      }
-
-      h3 {
-        font-size: $font-size-base;
-        margin-bottom: 0.5rem;
       }
 
       .manifest-link {

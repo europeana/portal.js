@@ -10,6 +10,7 @@
       :id="labelId"
       data-qa="label"
       class="m-0"
+      :class="{ 'mb-1': context === 'webResource' }"
     >
       {{ displayLabel }}
     </h3>
@@ -112,6 +113,10 @@
         type: [String, Object, Array, Number],
         default: null
       },
+      /**
+       * Context of the metadata
+       * @values default, webResource
+       */
       context: {
         type: String,
         default: 'default'
@@ -214,7 +219,7 @@
     }
 
     h3 {
-      font-size: inherit;
+      font-size: $font-size-small;
       line-height: 1.5;
     }
 
