@@ -7,6 +7,7 @@
       class="media-viewer-sidebar"
       data-qa="item media sidebar"
     >
+      <!-- TODO: create reusable component for tabs e.g. ItemMediaSidebarTab -->
       <b-tabs
         :id="sidebarId"
         v-model="activeTabIndex"
@@ -135,9 +136,15 @@
               @mouseleave="hideTooltips"
             />
           </template>
-          <h2 class="px-3">
+          <h2 class="d-inline-block pl-3 mb-4">
             {{ $t('media.sidebar.metadata') }}
-          </h2>
+          </h2><!-- This comment removes white space
+       --><b-button
+            v-b-tooltip.bottom
+            :title="$t('media.sidebar.metadataInfo')"
+            class="icon-info-outline p-0 tooltip-button ml-1"
+            variant="light-flat"
+          />
           <MediaMetadataList :resource="resource" />
         </b-tab>
       </b-tabs>

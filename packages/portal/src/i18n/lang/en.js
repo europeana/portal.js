@@ -1080,6 +1080,7 @@ export default {
       "IIIFManifest": "IIIF Manifest",
       "links": "Links",
       "metadata": "Media metadata",
+      "metadataInfo": "Information about the media you are currently viewing.",
       "search": "Search",
       "searchPlaceholder": "Enter terms",
       "show": "Show sidebar"
