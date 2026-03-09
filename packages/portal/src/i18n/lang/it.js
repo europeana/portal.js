@@ -844,10 +844,12 @@ export default {
     "navigation": {
       "about": "Su di noi",
       "collections": "Collezioni",
-      "europeanaClassroom": "Per insegnanti",
+      "educators": "Per gli educatori",
       "featureIdeas": "Idee per le funzionalità",
       "help": "Aiuto",
       "home": "Home",
+      "partners": "Diventa nostro partner",
+      "research": "Per i ricercatori",
       "shareYourCollections": "Condividi le tue collezioni",
       "stories": "Storie"
     },
@@ -897,11 +899,10 @@ export default {
         "title": "Servizi che vorremmo utilizzare."
       },
       "consentNotice": {
-        "description": "CIAO! Possiamo abilitare alcuni servizi aggiuntivi per l'analisi e la sicurezza? Potrai sempre modificare o revocare il tuo consenso in un secondo momento.",
-        "learnMore": "Fammi scegliere"
+        "description": "Possiamo per favore abilitare i servizi per sicurezza, analisi e contenuti di terze parti?",
+        "learnMore": "Gestisci le impostazioni dei cookie"
       },
-      "decline": "Rifiuto",
-      "ok": "Ok",
+      "decline": "Rifiuta",
       "purposes": {
         "2D": {
           "title": "Media 2D"
@@ -954,6 +955,10 @@ export default {
       "auth-strategy": {
         "description": "Ricorda la strategia di autorizzazione da utilizzare per accedere.",
         "title": "Strategia di autenticazione"
+      },
+      "cloudflare": {
+        "description": "Ricorda che la verifica di sicurezza è stata superata con successo.",
+        "title": "Cloudflare"
       },
       "debugSettings": {
         "description": "Aiuta il debug delle richieste API",

@@ -809,7 +809,7 @@ export default {
   "filterResults": "Filtrera resultat",
   "footer": {
     "customiseWebsiteLanguage": "Anpassa webbplatsens språk",
-    "findUsElsewhere": "Hitta oss någon annanstans",
+    "findUsElsewhere": "Vi finns också på",
     "footer": "Sidfot",
     "imageDescription": "Finansieras av Europeiska unionen",
     "navigation": {
@@ -823,11 +823,11 @@ export default {
       "registerApiKey": "Registrera dig för en API-nyckel",
       "seeApiRequests": "Se förfrågningar till Europeana API:er",
       "subscribe": "Prenumerera på vårt nyhetsbrev",
-      "supportingTechnicalPartners": "Stödja tekniska partners",
+      "supportingTechnicalPartners": "Våra tekniska partners",
       "terms": "Villkor och policyer"
     },
     "ourMission": "Vårt uppdrag",
-    "ourMissionQuote": "Europeana stöttar kulturarvssektorn i den digitala omvandlingen. Vi utvecklar expertis, verktyg och grundprinciper för att gynna digital förändring och uppmuntra partnerskap som främjar innovation."
+    "ourMissionQuote": "Europeana stöttar kulturarvssektorn i den digitala omställningen. Vi utvecklar expertis, verktyg och grundprinciper för att gynna digital förändring och uppmuntra partnerskap som främjar innovation."
   },
   "galleries": {
     "description": "Utforska våra gallerier",
@@ -844,10 +844,12 @@ export default {
     "navigation": {
       "about": "Om",
       "collections": "Samlingar",
-      "europeanaClassroom": "För lärare",
+      "educators": "För pedagoger",
       "featureIdeas": "Idéer för funktioner",
       "help": "Hjälp",
       "home": "Hem",
+      "partners": "Samarbeta med oss",
+      "research": "För forskare",
       "shareYourCollections": "Dela dina samlingar",
       "stories": "Berättelser"
     },
@@ -862,7 +864,7 @@ export default {
   },
   "homeLinkAlt": "Europeana hem",
   "homePage": {
-    "discoverEditorial": "Senaste berättelserna",
+    "discoverEditorial": "De senaste berättelserna",
     "storiesCTA": "Se alla berättelser",
     "subHeadline": "Sök, spara och dela konst, böcker, filmer och musik från tusentals kulturinstitutioner",
     "themesTitle": "Utforska efter tema",
@@ -897,11 +899,10 @@ export default {
         "title": "Tjänster som vi skulle vilja använda."
       },
       "consentNotice": {
-        "description": "Hej! Kan vi aktivera några ytterligare tjänster för analys och säkerhet? Du kan alltid ändra eller återkalla ditt samtycke senare.",
-        "learnMore": "Låt mig välja"
+        "description": "Kan vi aktivera tjänster för säkerhet, analys och tredjepartsinnehåll?",
+        "learnMore": "Hantera cookieinställningar"
       },
-      "decline": "jag avböjer",
-      "ok": "Okej",
+      "decline": "Neka",
       "purposes": {
         "2D": {
           "title": "2D-media"
@@ -954,6 +955,10 @@ export default {
       "auth-strategy": {
         "description": "Kommer ihåg den auktoriserings strategi som ska användas för att logga in.",
         "title": "Auth-strategi"
+      },
+      "cloudflare": {
+        "description": "Påminner om att säkerhetsutmaningen har klarats av framgångsrikt.",
+        "title": "Cloudflare"
       },
       "debugSettings": {
         "description": "Hjälper till att felsöka API -begäranden",

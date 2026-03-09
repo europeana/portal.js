@@ -844,10 +844,12 @@ export default {
     "navigation": {
       "about": "Dwarna",
       "collections": "Kollezzjonijiet",
-      "europeanaClassroom": "Għall-għalliema",
+      "educators": "Għall-edukaturi",
       "featureIdeas": "Ideat tal-karatteristiċi",
       "help": "Għajnuna",
       "home": "Paġna Ewlenija",
+      "partners": "Issieħeb magħna",
+      "research": "Għall‑riċerkaturi",
       "shareYourCollections": "Aqsam il-kollezzjonijiet tiegħek",
       "stories": "Stejjer"
     },
@@ -897,11 +899,10 @@ export default {
         "title": "Servizzi li nixtiequ nużaw."
       },
       "consentNotice": {
-        "description": "Hi! Nistgħu jekk jogħġbok nippermettu xi servizzi addizzjonali għall-analiżi u s-sigurtà? Tista' dejjem tibdel jew tirtira l-kunsens tiegħek aktar tard.",
-        "learnMore": "Ħa nagħżel"
+        "description": "Nistgħu jekk jogħġbok inħaddmu s-servizzi għas-sigurtà, l-analitiċi u l-kontenut ta’ partijiet terzi?",
+        "learnMore": "Immaniġġja s-settings tal-cookies"
       },
-      "decline": "Jien niċħad",
-      "ok": "Okay",
+      "decline": "Irrifjuta",
       "purposes": {
         "2D": {
           "title": "Midja 2D"
@@ -954,6 +955,10 @@ export default {
       "auth-strategy": {
         "description": "Jiftakar l-istrateġija ta' awtorizzazzjoni biex tużaha biex tilloggja.",
         "title": "L-Istrateġija tal-Auth"
+      },
+      "cloudflare": {
+        "description": "Jiftakar li l-isfida tas-sigurtà ntemmet b’suċċess.",
+        "title": "Cloudflare"
       },
       "debugSettings": {
         "description": "Jgħin id-debugging ta 'talbiet API",

@@ -289,8 +289,7 @@ describe('pages/item/_.vue', () => {
               expect(mocks.redirect.calledWith(303,
                 {
                   name: 'account-login',
-                  query: { redirect: '/en/item/123/abc' },
-                  replace: true
+                  query: { redirect: '/en/item/123/abc' }
                 }
               )).toBe(true);
             });

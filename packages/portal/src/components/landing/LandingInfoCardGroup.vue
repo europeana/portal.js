@@ -1,7 +1,7 @@
 <template>
   <div
     class="landing-info-card-group"
-    :class="[variant, backgroundImageClasses]"
+    :class="backgroundImageClasses"
   >
     <b-container
       class="text-center"
@@ -38,8 +38,7 @@
         v-if="link?.url"
         :destination="link.url"
         data-qa="call to action"
-        class="btn btn-cta"
-        :class="variant === 'ds4ch' ? 'btn-secondary icon-chevron' : 'btn-primary'"
+        class="btn btn-cta btn-primary"
         hide-external-icon
       >
         {{ link.text }}
@@ -91,14 +90,6 @@
       link: {
         type: Object,
         default: null
-      },
-      /**
-       * Variant to define layout and style
-       * @values pro, ds4ch
-       */
-      variant: {
-        type: String,
-        default: 'pro'
       },
       /**
        * Background image Object
@@ -204,39 +195,6 @@
 
     @media (min-width: $bp-4k) {
       margin-bottom: 8rem;
-    }
-  }
-</style>
-
-<!-- Only DS4CH styles after this line! -->
-<style lang="scss" scoped>
-  @import '@europeana/style/scss/DS4CH/variables';
-
-  .landing-info-card-group.ds4ch {
-
-    .header {
-      @media (min-width: $bp-4k) {
-        max-width: 1450px !important;
-        padding-bottom: 5rem;
-      }
-    }
-
-    h2 {
-      @extend %title-2;
-      margin-bottom: 0.75rem;
-
-      @media (min-width: $bp-4k) {
-        margin-bottom: 2rem;
-      }
-    }
-
-    .text {
-      color: $black;
-
-      @media (min-width: $bp-4k) {
-        font-size: 2.5rem;
-        margin-bottom: 3.125rem;
-      }
     }
   }
 </style>

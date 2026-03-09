@@ -844,10 +844,12 @@ export default {
     "navigation": {
       "about": "Despre",
       "collections": "Colecții",
-      "europeanaClassroom": "Pentru profesori",
+      "educators": "Pentru educatori",
       "featureIdeas": "Idei de caracteristici",
       "help": "Help",
       "home": "Acasă",
+      "partners": "Parteneriat cu noi",
+      "research": "Pentru cercetători",
       "shareYourCollections": "Partajați colecțiile dvs.",
       "stories": "Narațiuni"
     },
@@ -897,11 +899,10 @@ export default {
         "title": "Servicii pe care am dori să le folosim."
       },
       "consentNotice": {
-        "description": "Bună! Putem activa unele servicii suplimentare pentru analiză și securitate? Puteți oricând să vă schimbați sau să vă retrageți consimțământul ulterior.",
-        "learnMore": "Lasa-ma sa aleg"
+        "description": "Putem, vă rugăm, să activăm serviciile pentru securitate, analiză și conținut de la terți?",
+        "learnMore": "Gestionează setările cookie"
       },
-      "decline": "Refuz",
-      "ok": "Bine",
+      "decline": "Respinge",
       "purposes": {
         "2D": {
           "title": "Media 2D"
@@ -954,6 +955,10 @@ export default {
       "auth-strategy": {
         "description": "Reține strategia de autorizare de utilizat pentru a vă conecta.",
         "title": "Strategia Auth"
+      },
+      "cloudflare": {
+        "description": "Își amintește că testul de securitate a fost trecut cu succes.",
+        "title": "Cloudflare"
       },
       "debugSettings": {
         "description": "Ajută la depanarea cererilor API",

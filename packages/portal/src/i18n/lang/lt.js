@@ -844,10 +844,12 @@ export default {
     "navigation": {
       "about": "Apie mus",
       "collections": "Kolekcijos",
-      "europeanaClassroom": "Mokytojams",
+      "educators": "Pedagogams",
       "featureIdeas": "Funkcijų idėjos",
       "help": "Pagalba",
       "home": "Pradžia",
+      "partners": "Bendradarbiaukite su mumis",
+      "research": "Tyrėjams",
       "shareYourCollections": "Pasidalykite savo kolekcijomis",
       "stories": "Istorijos"
     },
@@ -897,11 +899,10 @@ export default {
         "title": "Paslaugos, kuriomis norėtume naudotis."
       },
       "consentNotice": {
-        "description": "Sveiki! Ar galėtume įgalinti keletą papildomų analizės ir saugos paslaugų? Savo sutikimą visada galėsite pakeisti arba atšaukti vėliau.",
-        "learnMore": "Leisk man pasirinkti"
+        "description": "Ar galėtume įjungti saugos, analizės ir trečiųjų šalių turinio paslaugas?",
+        "learnMore": "Tvarkyti slapukų nustatymus"
       },
-      "decline": "Aš atsisakau",
-      "ok": "Gerai",
+      "decline": "Atmesti",
       "purposes": {
         "2D": {
           "title": "2D medija"
@@ -954,6 +955,10 @@ export default {
       "auth-strategy": {
         "description": "Prisimena autorizacijos strategiją, kurią reikia naudoti prisijungiant.",
         "title": "Auth strategija"
+      },
+      "cloudflare": {
+        "description": "Prisimena, kad saugumo patikrinimas buvo sėkmingai įvykdytas.",
+        "title": "Cloudflare"
       },
       "debugSettings": {
         "description": "Padeda derinti API užklausas",

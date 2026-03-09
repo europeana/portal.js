@@ -8,6 +8,8 @@
 const APP_SITE_NAME = 'Europeana';
 const APP_PKG_NAME = '@europeana/portal';
 
+import camelCase from 'lodash/camelCase.js';
+
 import versions from './pkg-versions.js';
 
 import { locales as i18nLocales } from '@europeana/i18n';
@@ -59,6 +61,42 @@ const postgresConfig = () => {
   return postgresOptions;
 };
 
+const cacheControlConfig = () => {
+  const config = {
+    enabled: featureIsEnabled('cacheControl'),
+    default: process.env.APP_CACHE_CONTROL_DEFAULT,
+    auth: process.env.APP_CACHE_CONTROL_AUTH || 'no-store',
+    contentful: process.env.APP_CACHE_CONTROL_CONTENTFUL
+  };
+
+  config.route = Object.keys(process.env).filter((key) => key.startsWith('APP_CACHE_CONTROL_ROUTE_')).reduce((memo, key) => {
+    const scope = camelCase(key.replace('APP_CACHE_CONTROL_ROUTE_', ''));
+    memo[scope] = process.env[key];
+    return memo;
+  }, {});
+
+  const contentfulRouteScopes = [
+    'exhibitionsExhibition',
+    'exhibitionsExhibitionChapter',
+    'exhibitionsExhibitionCredits',
+    'featureIdeas',
+    'index',
+    'slug',
+    'stories',
+    'storiesAll',
+    'themes',
+    'themesAll'
+  ];
+
+  for (const scope of contentfulRouteScopes) {
+    if (config.contentful && !config.route[scope]) {
+      config.route[scope] = config.contentful;
+    }
+  }
+
+  return config;
+};
+
 export default {
   /*
   ** Runtime config
@@ -67,6 +105,7 @@ export default {
     app: {
       // TODO: rename env vars to prefix w/ APP_, except feature toggles
       baseUrl: process.env.PORTAL_BASE_URL,
+      cacheControl: cacheControlConfig(),
       debiasAssetId: process.env.APP_DEBIAS_ASSET_ID,
       featureNotification: {
         expiration: featureNotificationExpiration(process.env.APP_FEATURE_NOTIFICATION_EXPIRATION),
@@ -304,6 +343,7 @@ export default {
     '~/plugins/elastic-apm/plugin.client',
     '~/plugins/vue-router-query',
     '~/plugins/vue-matomo.client',
+    '~/plugins/i18n-cookie.client',
     '~/plugins/error',
     '~/plugins/keycloak',
     '~/plugins/axios-logger',
@@ -408,16 +448,30 @@ export default {
 
   router: {
     middleware: [
+      // Early middlewares to apply always
+      //
+      // Remove any cookies from SSRs so that intermediaries will consider
+      // eligible for caching
+      'no-ssr-cookies',
+      // Redirection-related middlewares next
+      //
       // legacy portal redirects MUST go first as they may already include locale
       // but not as first part of URL slug, e.g. /portal/en/search
       'legacy/index',
-      // localise next, so that any redirects are locale-specific for 301 caching
+      // localise next, so that any subsequent redirects are locale-specific
       'l10n',
-      // other redirects may proceed
+      // 301 redirects may proceed
       'trailing-slash',
       'contentful-galleries',
       'set-galleries',
-      'redirects'
+      'redirects',
+      // cache-control last, just before page-specific middleware, so any redirects
+      // etc have already occurred if needed. let intermediaries make their own
+      // decisions what to do with earlier redirects. order is important. later
+      // rules will override earlier ones if they match.
+      'cache-control/default',
+      'cache-control/route',
+      'cache-control/auth'
     ],
     extendRoutes(routes) {
       const nuxtCollectionsPersonsOrPlacesRouteIndex = routes.findIndex(route => route.name === 'collections-persons-or-places');

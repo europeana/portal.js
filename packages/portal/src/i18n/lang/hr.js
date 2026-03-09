@@ -844,10 +844,12 @@ export default {
     "navigation": {
       "about": "O nama",
       "collections": "Zbirke",
-      "europeanaClassroom": "Za nastavnike",
+      "educators": "Za edukatore",
       "featureIdeas": "Ideje za značajke",
       "help": "Pomoć",
       "home": "Početna",
+      "partners": "Postanite naš partner",
+      "research": "Za istraživače",
       "shareYourCollections": "Podijelite svoje zbirke",
       "stories": "Priče"
     },
@@ -897,11 +899,10 @@ export default {
         "title": "Usluge koje bismo željeli koristiti."
       },
       "consentNotice": {
-        "description": "Bok! Možemo li omogućiti neke dodatne usluge za analitiku i sigurnost? Svoj pristanak uvijek možete promijeniti ili povući kasnije.",
-        "learnMore": "Pusti me da izaberem"
+        "description": "Možemo li omogućiti usluge za sigurnost, analitiku i sadržaj treće strane?",
+        "learnMore": "Upravljaj postavkama kolačića"
       },
-      "decline": "Odbijam",
-      "ok": "u redu",
+      "decline": "Odbij",
       "purposes": {
         "2D": {
           "title": "2D mediji"
@@ -954,6 +955,10 @@ export default {
       "auth-strategy": {
         "description": "Sjeća se strategije autorizacije za prijavu.",
         "title": "Auth strategija"
+      },
+      "cloudflare": {
+        "description": "Pamti da je sigurnosna provjera uspješno prošla.",
+        "title": "Cloudflare"
       },
       "debugSettings": {
         "description": "Pomaže u otklanjanju pogrešaka API zahtjeva",

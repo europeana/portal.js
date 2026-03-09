@@ -844,10 +844,12 @@ export default {
     "navigation": {
       "about": "Rólunk",
       "collections": "Gyűjtemények",
-      "europeanaClassroom": "Tanároknak",
+      "educators": "Oktatóknak",
       "featureIdeas": "Funkcióötletek",
       "help": "Súgó",
       "home": "Kezdőlap",
+      "partners": "Legyen a partnerünk",
+      "research": "Kutatóknak",
       "shareYourCollections": "Ossza meg gyűjteményeit",
       "stories": "Történetek"
     },
@@ -897,11 +899,10 @@ export default {
         "title": "Szolgáltatások, amelyeket szeretnénk igénybe venni."
       },
       "consentNotice": {
-        "description": "Üdv! Engedélyezhetünk néhány további szolgáltatást az elemzés és a biztonság érdekében? Hozzájárulásodat később bármikor módosíthatod vagy visszavonhatod.",
-        "learnMore": "Testreszabás"
+        "description": "Engedélyezhetjük a biztonsági, analitikai és harmadik féltől származó tartalmakhoz kapcsolódó szolgáltatásokat?",
+        "learnMore": "Süti beállítások kezelése"
       },
-      "decline": "Elutasítom",
-      "ok": "Rendben",
+      "decline": "Elutasítás",
       "purposes": {
         "2D": {
           "title": "2D média"
@@ -954,6 +955,10 @@ export default {
       "auth-strategy": {
         "description": "Emlékszik a bejelentkezéshez használandó engedélyezési stratégiára.",
         "title": "Auth stratégia"
+      },
+      "cloudflare": {
+        "description": "Megjegyzi, hogy a biztonsági ellenőrzés sikeresen lezajlott.",
+        "title": "Cloudflare"
       },
       "debugSettings": {
         "description": "Segít az API -kérelmek hibakeresésében",
