@@ -1142,6 +1142,7 @@ export default {
       "pin": "Prisekite šį skaitmeninį objektą prie galimų objektų."
     },
     "allMetaData": "Visi metaduomenys",
+    "allMetaDataInfo": "Informacija apie visą skaitmeninį objektą.",
     "clickToCopyEmbedCode": "Spustelėkite įterpimo kodą, kad jį nukopijuotumėte",
     "extendedInformation": "Išplėstinė informacija",
     "goodToKnow": "Naudinga žinoti",

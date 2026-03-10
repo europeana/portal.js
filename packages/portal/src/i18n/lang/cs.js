@@ -1142,6 +1142,7 @@ export default {
       "pin": "Připnout položku k dostupným entitám"
     },
     "allMetaData": "Všechna metadata",
+    "allMetaDataInfo": "Informace o celé této položce.",
     "clickToCopyEmbedCode": "Kliknutím na kód pro vložení jej zkopírujte",
     "extendedInformation": "Bližší informace",
     "goodToKnow": "Užitečné informace",

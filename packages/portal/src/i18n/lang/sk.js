@@ -1142,6 +1142,7 @@ export default {
       "pin": "Pripnúť objekt k dostupným entitám"
     },
     "allMetaData": "Všetky metadáta",
+    "allMetaDataInfo": "Informácie o celom objekte.",
     "clickToCopyEmbedCode": "Kliknutím na vložený kód ho skopírujete",
     "extendedInformation": "Rozšírené informácie",
     "goodToKnow": "Dobré vedieť",

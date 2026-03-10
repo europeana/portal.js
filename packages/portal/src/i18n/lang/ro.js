@@ -1142,6 +1142,7 @@ export default {
       "pin": "Fixați resursă culturală la entitățile disponibile"
     },
     "allMetaData": "Toate metadatele",
+    "allMetaDataInfo": "Informații despre întreaga resursă culturală.",
     "clickToCopyEmbedCode": "Faceți clic pe codul de încorporare pentru a-l copia",
     "extendedInformation": "Informații extinse",
     "goodToKnow": "Bine de știut",

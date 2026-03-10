@@ -1142,6 +1142,7 @@ export default {
       "pin": "Az elem rögzítése az elérhető entitásokhoz."
     },
     "allMetaData": "Minden metaadat",
+    "allMetaDataInfo": "Információ a teljes elemről.",
     "clickToCopyEmbedCode": "Kattints a beágyazási kódra a másoláshoz",
     "extendedInformation": "Kiterjesztett információk",
     "goodToKnow": "Jó tudni",

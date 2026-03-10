@@ -1142,6 +1142,7 @@ export default {
       "pin": "Pin oġġett lill-Entitajiet disponibbli"
     },
     "allMetaData": "Il-metadata kollha",
+    "allMetaDataInfo": "Informazzjoni dwar dan l-oġġett kollu.",
     "clickToCopyEmbedCode": "Ikklikkja fuq il-kodiċi embed biex tikkopjah",
     "extendedInformation": "Informazzjoni estiża",
     "goodToKnow": "Informazzjoni utli",

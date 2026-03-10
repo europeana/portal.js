@@ -1142,6 +1142,7 @@ export default {
       "pin": "Kinnitage üksus saadaolevatele olemitega"
     },
     "allMetaData": "Kogu metateave",
+    "allMetaDataInfo": "Teave selle kogu üksuse kohta.",
     "clickToCopyEmbedCode": "Selle kopeerimiseks klõpsake manustuskoodil",
     "extendedInformation": "Täiendav teave",
     "goodToKnow": "Hea teada",

@@ -1142,6 +1142,7 @@ export default {
       "pin": "Fastgør element til tilgængelige enheder"
     },
     "allMetaData": "Alle metadata",
+    "allMetaDataInfo": "Information om hele genstande.",
     "clickToCopyEmbedCode": "Klik på indlejringskoden for at kopiere den",
     "extendedInformation": "Udvidede oplysninger",
     "goodToKnow": "Værd at vide",
