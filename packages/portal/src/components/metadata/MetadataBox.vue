@@ -33,10 +33,25 @@
           </b-card-text>
         </b-tab>
         <b-tab
+          button-id="all-metadata-tab-link"
           :title-link-attributes="{'data-qa': 'all metadata tab'}"
+          title-link-class="d-flex"
         >
           <template #title>
-            <h2>{{ $t('record.allMetaData') }}</h2>
+            <h2 class="d-inline-block">
+              {{ $t('record.allMetaData') }}
+            </h2>
+            <template v-if="showItemeMetadataTooltip">
+              <span
+                class="icon-info-outline ml-1"
+              />
+              <b-tooltip
+                target="all-metadata-tab-link"
+                placement="bottom"
+              >
+                {{ $t(`record.allMetaDataInfo`) }}
+              </b-tooltip>
+            </template>
           </template>
           <b-card-text
             text-tag="div"
@@ -112,7 +127,8 @@
       return {
         CORE_FIELDS,
         ALL_FIELDS,
-        showLocationMap: false
+        showLocationMap: false,
+        showItemeMetadataTooltip: this.$features.webResourceMetadata
       };
     },
 
@@ -193,5 +209,12 @@
 
   .metadata-box-card {
     border: none;
+  }
+
+  #all-metadata-tab-link {
+    .icon-info-outline {
+      font-size: $font-size-base;
+      color: $darkgrey;
+    }
   }
 </style>
