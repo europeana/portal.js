@@ -112,17 +112,7 @@
         return this.$apis.record.mediaProxyUrl(this.resource.id, this.europeanaIdentifier, { disposition: 'inline' });
       },
       thumbnails() {
-        const isIIIFImageService =
-          (['ImageService2', 'ImageService3'].includes(this.resource.service?.type)) || (
-            []
-              .concat(this.resource.service?.profile)
-              .concat(this.resource.service?.context)
-              .concat(this.resource.service?.dctermsConformsTo)
-              .filter(Boolean)
-              .some((value) => value?.startsWith('http://iiif.io/api/image'))
-          );
-
-        if (isIIIFImageService) {
+        if (this.resource.isIIIFImageService) {
           return {
             large: `${this.resource.service.id}/full/${LARGE_THUMBNAIL_WIDTH},/0/default.jpg`,
             small: `${this.resource.service.id}/full/${SMALL_THUMBNAIL_WIDTH},/0/default.jpg`

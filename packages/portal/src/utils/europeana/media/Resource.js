@@ -60,6 +60,17 @@ export default class EuropeanaMediaResource extends Base {
     return this.#edm;
   }
 
+  get isIIIFImageService() {
+    return (['ImageService2', 'ImageService3'].includes(this.service?.type)) || (
+      []
+        .concat(this.service?.profile)
+        .concat(this.service?.context)
+        .concat(this.service?.dctermsConformsTo)
+        .filter(Boolean)
+        .some((value) => value?.startsWith('http://iiif.io/api/image'))
+    );
+  }
+
   get isOEmbed() {
     return this.service?.dctermsConformsTo === 'https://oembed.com/';
   }
