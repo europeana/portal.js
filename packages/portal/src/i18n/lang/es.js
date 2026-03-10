@@ -1142,6 +1142,7 @@ export default {
       "pin": "Anclar Ítem a entidades disponibles"
     },
     "allMetaData": "Todos los metadatos",
+    "allMetaDataInfo": "Información completa sobre este ítem.",
     "clickToCopyEmbedCode": "Haga clic en el código de inserción para copiarlo",
     "extendedInformation": "Información ampliada",
     "goodToKnow": "Información importante",

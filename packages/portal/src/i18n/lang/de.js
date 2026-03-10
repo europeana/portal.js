@@ -1142,6 +1142,7 @@ export default {
       "pin": "Objekt an verfügbare Entitäten anheften"
     },
     "allMetaData": "Alle Metadaten",
+    "allMetaDataInfo": "Informationen zu diesem gesamten Objekt.",
     "clickToCopyEmbedCode": "Klicken Sie auf den Einbettungscode, um ihn zu kopieren",
     "extendedInformation": "Erweiterte Informationen",
     "goodToKnow": "Gut zu wissen",

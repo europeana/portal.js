@@ -1142,6 +1142,7 @@ export default {
       "pin": "Prikvači predmet na dostupne entitete"
     },
     "allMetaData": "Svi meta podaci",
+    "allMetaDataInfo": "Informacije o cijelom predmeti.",
     "clickToCopyEmbedCode": "Kliknite na kôd za ugrađivanje kako biste ga kopirali.",
     "extendedInformation": "Proširene informacije",
     "goodToKnow": "Dobro je znati",

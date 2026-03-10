@@ -1142,6 +1142,7 @@ export default {
       "pin": "Piespraudiet digitālais objekts pieejamajām entītijām"
     },
     "allMetaData": "Visi metadati",
+    "allMetaDataInfo": "Informācija par visu digitālo objektu.",
     "clickToCopyEmbedCode": "Noklikšķiniet uz iegulšanas koda, lai to kopētu",
     "extendedInformation": "Paplašināta informācija",
     "goodToKnow": "Vērts zināt",

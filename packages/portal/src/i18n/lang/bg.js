@@ -1142,6 +1142,7 @@ export default {
       "pin": "Закачване на обект към налични същества"
     },
     "allMetaData": "Всички метаданни",
+    "allMetaDataInfo": "Информация за целия обекта.",
     "clickToCopyEmbedCode": "Кликнете върху кода за вграждане, за да го копирате.",
     "extendedInformation": "Разширена информация",
     "goodToKnow": "Добре е да се знае",
