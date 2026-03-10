@@ -111,10 +111,10 @@ const fetchPresentation = async(uri) => {
   presentation.value = await EuropeanaMediaPresentation.from(uri);
 };
 
-const setPresentationFromWebResources = (webResources) => {
+const setPresentationFromWebResources = (webResources, services) => {
   presentation.value = new EuropeanaMediaPresentation({
     canvases: webResources.map((wr) => ({
-      resource: EuropeanaMediaResource.fromEDM(wr)
+      resource: EuropeanaMediaResource.fromEDM(wr, services)
     }))
   });
 };

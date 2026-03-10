@@ -14,9 +14,9 @@ export default class EuropeanaMediaService extends Base {
       data.id = edm;
     } else {
       data = this.omitIsUndefined({
-        context: 'http://iiif.io/api/image/2/context.json',
         id: edm.about,
-        profile: edm.doapImplements
+        profile: edm.doapImplements,
+        dctermsConformsTo: [].concat(edm.dctermsConformsTo)[0]
       });
     }
 
