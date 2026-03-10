@@ -1142,6 +1142,7 @@ export default {
       "pin": "Fäst objekt på tillgängliga entiteter"
     },
     "allMetaData": "Alla metadata",
+    "allMetaDataInfo": "Information om hela objektet.",
     "clickToCopyEmbedCode": "Klicka på inbäddningskoden för att kopiera den",
     "extendedInformation": "Utökad information",
     "goodToKnow": "Bra att veta",

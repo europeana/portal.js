@@ -1142,6 +1142,7 @@ export default {
       "pin": "Pripnite enota na razpoložljive entitete"
     },
     "allMetaData": "Vsi metapodatki",
+    "allMetaDataInfo": "Informacije o celotni enoti.",
     "clickToCopyEmbedCode": "Kliknite na kodo za vgradnjo, da jo kopirate",
     "extendedInformation": "Razširjene informacije",
     "goodToKnow": "Dobro je vedeti",

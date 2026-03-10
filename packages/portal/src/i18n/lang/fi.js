@@ -1142,6 +1142,7 @@ export default {
       "pin": "Kiinnitä aineisto käytettävissä oleviin Entiteetteihin"
     },
     "allMetaData": "Kaikki metatiedot",
+    "allMetaDataInfo": "Tietoja tästä koko aineistosta.",
     "clickToCopyEmbedCode": "Napsauta upotuskoodia kopioidaksesi sen",
     "extendedInformation": "Tarkemmat tiedot",
     "goodToKnow": "Hyvä tietää",

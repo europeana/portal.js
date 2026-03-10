@@ -1142,6 +1142,7 @@ export default {
       "pin": "Pino item para Entidades disponíveis"
     },
     "allMetaData": "Todos os metadados",
+    "allMetaDataInfo": "Informação sobre todo este item.",
     "clickToCopyEmbedCode": "Clique no código de incorporação para o copiar",
     "extendedInformation": "Informação detalhada",
     "goodToKnow": "Bom saber",

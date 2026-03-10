@@ -1142,6 +1142,7 @@ export default {
       "pin": "Ainguratu elementua eskuragarri dauden Entitateetan"
     },
     "allMetaData": "Metadatu guztiak",
+    "allMetaDataInfo": "Informazioa elementuak guztiari buruz.",
     "clickToCopyEmbedCode": "Egin klik kapsulatzeko kodean kopiatzeko",
     "extendedInformation": "Informazio zabaldua",
     "goodToKnow": "Ondo dago jakitea",

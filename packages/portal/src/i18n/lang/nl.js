@@ -1142,6 +1142,7 @@ export default {
       "pin": "Pin item aan beschikbare entiteiten"
     },
     "allMetaData": "Alle metadata",
+    "allMetaDataInfo": "Informatie over dit hele object.",
     "clickToCopyEmbedCode": "Klik op de insluitcode om deze te kopiëren",
     "extendedInformation": "Uitgebreide informatie",
     "goodToKnow": "Goed om te weten",

@@ -1142,6 +1142,7 @@ export default {
       "pin": "Aggiungi l'elemento alle entità disponibili"
     },
     "allMetaData": "Tutti i metadati",
+    "allMetaDataInfo": "Informazioni sull'intero oggetto.",
     "clickToCopyEmbedCode": "Fai clic sul codice incorporato per copiarlo.",
     "extendedInformation": "Informazioni estese",
     "goodToKnow": "Caratteristiche",

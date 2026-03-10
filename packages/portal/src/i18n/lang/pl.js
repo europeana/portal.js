@@ -1142,6 +1142,7 @@ export default {
       "pin": "Przypinanie elementu do dostępnych encji"
     },
     "allMetaData": "Wszystkie metadane",
+    "allMetaDataInfo": "Informacje o całym obiekcie cyfrowym.",
     "clickToCopyEmbedCode": "Kliknij kod osadzania, aby go skopiować",
     "extendedInformation": "Informacje rozszerzone",
     "goodToKnow": "Warto wiedzieć",
