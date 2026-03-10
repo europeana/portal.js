@@ -71,6 +71,9 @@ export const forEachLangMapValue = (langMapContainer, callback) => {
 };
 
 export const selectLocaleForLangMap = (langMap, locale) => {
+  if (!langMap) {
+    return null;
+  }
   for (const key of languageKeys(locale)) {
     if (Object.prototype.hasOwnProperty.call(langMap, key)) {
       return key;
@@ -208,7 +211,7 @@ const setLangCode = (map, code) => {
 export const normalizedLangCode = (code) => {
   if (undefinedLocaleCodes.includes(code)) {
     return '';
-  } else if (code.length === 3) {
+  } else if (code?.length === 3) {
     return isoAlpha3Map[code];
   } else {
     return code;
@@ -222,7 +225,7 @@ const filterEntities = (mappedObject) => {
 export const isLangMap = (value) => {
   return (typeof value === 'object') && (value.constructor.name === Object.name) && Object.keys(value).every(key => {
     // TODO: is this good enough to determine lang map or not?
-    return key === 'translationSource' || /^[a-z]{2,3}(-[A-Z]{2})?$/.test(key);
+    return /^[a-z]{2,3}(-[A-Z]{2})?$/.test(key);
   });
 };
 

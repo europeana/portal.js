@@ -160,7 +160,6 @@
     'edmProvider',
     'edmIntermediateProvider',
     'edmRights',
-    'edmUgc',
     'dcRights',
     'dctermsCreated',
     'dctermsIssued',

@@ -1,5 +1,6 @@
 <template>
   <section
+    v-if="dataProvider"
     class="data-provider"
   >
     <transition
@@ -7,7 +8,6 @@
       name="fade"
     >
       <i18n
-        v-if="dataProvider"
         data-qa="data provider attribution"
         :path="providedByStringPath"
         tag="div"
@@ -27,9 +27,9 @@
           <span
             v-else
             data-qa="data provider name"
-            :lang="langAttribute(namePrefLanguage)"
+            :lang="langAttribute(lang)"
           >
-            {{ displayName }}
+            {{ label }}
           </span>
         </template>
       </i18n>
@@ -46,6 +46,9 @@
 </template>
 
 <script>
+  import {
+    normalizedLangCode, selectLocaleForLangMap
+  } from  '@europeana/i18n';
   import { isEntityUri } from '@/plugins/europeana/entity';
   import collectionLinkGenMixin from '@/mixins/collectionLinkGen';
   import { collectionTitle } from '@/utils/europeana/entities/entityLinks';
@@ -86,8 +89,17 @@
     },
 
     computed: {
+      lang() {
+        return normalizedLangCode(this.locale);
+      },
+      locale() {
+        return selectLocaleForLangMap(this.dataProvider.prefLabel, this.metadataLanguage);
+      },
       providedByStringPath() {
         return this.userGeneratedContent ? 'provider.providedByUgc' : 'provider.providedBy';
+      },
+      label() {
+        return [].concat(this.dataProvider.prefLabel?.[this.locale])[0];
       }
     },
 

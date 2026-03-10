@@ -478,7 +478,7 @@ describe('pages/item/_.vue', () => {
 
               expect(wrapper.vm.metadata.dcTitle).toEqual({
                 de: ['Deutscher Titel'],
-                translationSource: 'automated'
+                source: 'automated'
               });
             });
 
@@ -507,7 +507,7 @@ describe('pages/item/_.vue', () => {
 
               await wrapper.vm.fetch();
 
-              expect(wrapper.vm.metadata.dcTitle.translationSource).toBe('automated');
+              expect(wrapper.vm.metadata.dcTitle.source).toBe('automated');
             });
           });
 
@@ -518,7 +518,7 @@ describe('pages/item/_.vue', () => {
 
                 await wrapper.vm.fetch();
 
-                expect(wrapper.vm.metadata.dcDescription.translationSource).toBe('enrichment');
+                expect(wrapper.vm.metadata.dcDescription.source).toBe('enrichment');
               });
             });
             describe('when the value refers to an entity', () => {
@@ -527,7 +527,7 @@ describe('pages/item/_.vue', () => {
 
                 await wrapper.vm.fetch();
 
-                expect(wrapper.vm.metadata.edmIsRelatedTo.translationSource).toBe('enrichment');
+                expect(wrapper.vm.metadata.edmIsRelatedTo.source).toBe('enrichment');
               });
             });
           });
@@ -537,7 +537,7 @@ describe('pages/item/_.vue', () => {
 
               await wrapper.vm.fetch();
 
-              expect(wrapper.vm.metadata.dcType.translationSource).toBeUndefined();
+              expect(wrapper.vm.metadata.dcType.source).toBeUndefined();
             });
           });
         });

@@ -21,7 +21,9 @@
         >
           {{ heading.value }}
         </template>
-        <MetadataOriginLabel :translation-source="heading.translationSource" />
+        <MetadataOriginLabel
+          :source="heading.source"
+        />
       </component>
     </header>
     <div
@@ -59,7 +61,7 @@
         </template>
         <MetadataOriginLabel
           v-if="index === 0 || (translatedItemsEnabled && showAll)"
-          :translation-source="description.translationSource"
+          :source="description.source"
         />
         <hr
           v-if="(index + 1) < descriptions.length && showAll"

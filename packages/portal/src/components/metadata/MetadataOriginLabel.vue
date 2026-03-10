@@ -1,10 +1,10 @@
 <template>
   <b-button
-    v-if="translationSource"
+    v-if="source"
     v-b-tooltip.bottomright
-    :title="$t(`multilingual.${translationSource}`)"
+    :title="$t(`multilingual.${source}`)"
     class="p-0 tooltip-button"
-    :class="translationSource"
+    :class="source"
     variant="light-flat"
     data-qa="translation tooltip"
   />
@@ -15,7 +15,7 @@
     name: 'MetadataOriginLabel',
 
     props: {
-      translationSource: {
+      source: {
         type: String,
         default: null
       }

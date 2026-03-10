@@ -12,6 +12,22 @@ export default class Item extends Base {
     return this.aggregations?.find((agg) => agg.about === `/aggregation/provider${this.about}`);
   }
 
+  get europeanaProxy() {
+    return this.findProxy('europeana') || {};
+  }
+
+  get aggregatorProxy() {
+    return this.findProxy('aggregator') || {};
+  }
+
+  get providerProxy() {
+    return this.findProxy('provider') || {};
+  }
+
+  findProxy(type) {
+    return this.proxies.find((proxy) => proxy.about?.startsWith(`/proxy/${type}/`));
+  }
+
   get iiifPresentationManifest() {
     return this.iiifPresentationManifestForEveryDisplayableWebResource ||
       this.iiifPresentationManifestForWebResourceWithIIIFImageService ||

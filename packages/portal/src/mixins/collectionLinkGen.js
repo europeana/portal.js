@@ -13,7 +13,7 @@ export default {
       return {
         name: 'collections-type-all', params: {
           type: getEntityTypeHumanReadable(uriMatch[1]),
-          pathMatch: getLabelledSlug(collection.id, collection.prefLabel.en)
+          pathMatch: getLabelledSlug(collection.id, collection.prefLabel?.en)
         }
       };
     },

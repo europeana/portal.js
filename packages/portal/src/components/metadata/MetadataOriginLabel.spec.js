@@ -22,7 +22,7 @@ const factory = () => shallowMount(MetadataOriginLabel, {
 
 describe('components/metadata/MetadataOriginLabel', () => {
   describe('when the field was translated', () => {
-    const props = { translationSource: 'automated' };
+    const props = { source: 'automated' };
     const wrapper = factory();
     it('shows a label', async() => {
       await wrapper.setProps(props);
@@ -32,7 +32,7 @@ describe('components/metadata/MetadataOriginLabel', () => {
     });
   });
   describe('when the field was enriched', () => {
-    const props = { translationSource: 'enrichment' };
+    const props = { source: 'enrichment' };
     const wrapper = factory();
     it('shows a label', async() => {
       await wrapper.setProps(props);

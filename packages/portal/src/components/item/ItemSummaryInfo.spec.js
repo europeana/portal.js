@@ -102,10 +102,10 @@ describe('components/item/ItemSummaryInfo', () => {
   describe('when the item is translated', () => {
     const wrapper = factory({
       titles: [
-        { code: 'en', value: 'The title', translationSource: 'automated' },
+        { code: 'en', value: 'The title', source: 'automated' },
         { code: 'en', value: 'The sub-title' }
       ],
-      description: { code: 'en', values: ['The description'], translationSource: 'automated' }
+      description: { code: 'en', values: ['The description'], source: 'automated' }
     }, true);
     it('there is an icon behind the title signifying the translation source', () => {
       const tooltip = wrapper.find('h1 [data-qa="translation tooltip"]');

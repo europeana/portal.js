@@ -77,7 +77,7 @@ describe('components/metadata/MetadataField', () => {
       describe('metadata origin labels', () => {
         describe('when the field has a translation source', () => {
           it('outputs a translation label for a single value', async() => {
-            const props = { name: 'dcCreator', fieldData: { en: ['Artist'], translationSource: 'automated' }, metadataLanguage: 'en' };
+            const props = { name: 'dcCreator', fieldData: { en: ['Artist'], source: 'automated' }, metadataLanguage: 'en' };
             const wrapper = factory();
 
             await wrapper.setProps(props);
@@ -86,7 +86,7 @@ describe('components/metadata/MetadataField', () => {
           });
 
           it('outputs a translation label for a multiple values', async() => {
-            const props = { name: 'dcCreator', fieldData: { en: ['Artist1', 'Artist2'],  translationSource: 'automated' }, metadataLanguage: 'en' };
+            const props = { name: 'dcCreator', fieldData: { en: ['Artist1', 'Artist2'],  source: 'automated' }, metadataLanguage: 'en' };
             const wrapper = factory();
 
             await wrapper.setProps(props);
@@ -290,21 +290,6 @@ describe('components/metadata/MetadataField', () => {
 
             expect(wrapper.vm.isValidFieldData).toBe(false);
           });
-        });
-      });
-
-      describe('when the field name is edmUgc', () => {
-        const props = {
-          name: 'edmUgc',
-          fieldData: 'true'
-        };
-
-        it('is `false`', async() => {
-          const wrapper = factory();
-
-          await wrapper.setProps(props);
-
-          expect(wrapper.vm.isValidFieldData).toBe(false);
         });
       });
     });

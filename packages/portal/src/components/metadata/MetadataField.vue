@@ -16,7 +16,9 @@
       class="m-0 p-0 text-left text-lg-right list-unstyled"
       :aria-labelledby="labelled && labelId"
     >
-      <MetadataOriginLabel :translation-source="fieldData.translationSource" />
+      <MetadataOriginLabel
+        :source="source"
+      />
       <template
         v-for="(item, index) of displayValues"
       >
@@ -44,7 +46,7 @@
           <template
             v-else
           >
-            {{ item.value || item.id }}
+            {{ item.value || item.id || item }}
           </template>
         </li>
       </template>
@@ -53,11 +55,9 @@
 </template>
 
 <script>
-  // import { langMapValueForLocale } from '@europeana/i18n';
   import ItemDebiasField from '../item/ItemDebiasField';
   import MetadataOriginLabel from './MetadataOriginLabel';
   import SmartLink from '../generic/SmartLink';
-  import itemPrefLanguageMixin from '@/mixins/europeana/item/itemPrefLanguage';
   import langAttributeMixin from '@/mixins/langAttribute';
 
   export default {
@@ -70,7 +70,6 @@
     },
 
     mixins: [
-      itemPrefLanguageMixin,
       langAttributeMixin
     ],
 
@@ -89,8 +88,8 @@
         default: null
       },
       fieldData: {
-        type: Object,
-        default: null
+        type: Array,
+        default: () => []
       },
       context: {
         type: String,
@@ -137,44 +136,11 @@
         return (this.limit > -1);
       },
 
-      // prefLanguage() {
-      //   return this.getPrefLanguage(this.name, this.fieldData);
-      // },
-
-      // langMappedValues() {
-      //   if (this.fieldData === null) {
-      //     return null;
-      //   } else if (typeof (this.fieldData) === 'string') {
-      //     return { values: [this.fieldData], code: '' };
-      //   } else if (Array.isArray(this.fieldData)) {
-      //     return { values: this.fieldData, code: '' };
-      //   } else if (Object.prototype.hasOwnProperty.call(this.fieldData, 'url')) {
-      //     return langMapValueForLocale(this.fieldData.value, this.prefLanguage);
-      //   }
-      //   return langMapValueForLocale(this.fieldData, this.prefLanguage, {
-      //     omitUrisIfOtherValues: this.omitUrisIfOtherValues, omitAllUris: this.omitAllUris
-      //   });
-      // },
-
-      // hasValuesForLocale() {
-      //   return (this.langMappedValues?.values?.length || 0) >= 1;
-      // },
-
-      timestampIsUnixEpochValue() {
-        if (['timestampCreated', 'timestampUpdate'].includes(this.name)) {
-          return new Date(this.fieldData).getTime() === 0;
-        } else {
-          return false;
-        }
+      // TODO: should we reduce this to one, or should we show the (potentially
+      //       different) source for each?
+      source() {
+        return this.fieldData.map((item) => item.source).filter(Boolean)[0];
       }
-
-      // TODO: move this up higher
-      // isValidFieldData() {
-      //   return (this.fieldData?.length || 0) > 0 &&
-      //     !this.timestampIsUnixEpochValue &&
-      //     // QUESTION: why are we not displaying the UGC value despite it reaching this component?
-      //     (this.name !== 'edmUgc');
-      // }
     }
   };
 </script>

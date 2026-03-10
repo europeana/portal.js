@@ -57,7 +57,7 @@
               :data-provider="dataProvider"
               :metadata-language="metadataLanguage"
               :is-shown-at="isShownAt"
-              :user-generated-content="metadata.edmUgc === 'true'"
+              :user-generated-content="userGeneratedContent"
             />
           </b-col>
         </b-row>
@@ -227,6 +227,7 @@
         ogImage: null,
         relatedCollections: [],
         type: null,
+        userGeneratedContent: null,
         useProxy: true
       };
     },
@@ -298,7 +299,9 @@
         };
       },
       titles() {
-        return this.metadata.dcTitle.concat(this.metadata.dctermsAlternative).filter(Boolean);
+        return []
+          .concat(this.metadata.dcTitle)
+          .concat(this.metadata.dctermsAlternative).filter(Boolean);
       },
       dataProviderEntityUri() {
         return this.metadata.edmDataProvider?.[0]?.id || null;
@@ -435,7 +438,9 @@
 
         this.entities = this.extractEntities(edm);
 
-        this.metadata = this.extractMetadata(edm);
+        this.metadata = this.extractMetadata(item);
+
+        this.userGeneratedContent = (item.providerAggregation.edmUgc === 'true');
 
         this.media = item.providerAggregation.displayableWebResources.map((wr) => {
           // don't keep WR-level rights statement if same as item-level
@@ -460,8 +465,8 @@
         process.client && this.trackCustomDimensions();
       },
 
-      findProxy(proxies, type) {
-        return proxies.find(proxy => proxy.about?.startsWith(`/proxy/${type}/`));
+      timestampIsUnixEpochValue(timestamp) {
+        return new Date(timestamp).getTime() === 0;
       },
 
       extractEntities(edm) {
@@ -476,96 +481,72 @@
           .map((entity) => reduceLangMapsForLocale(entity, this.metadataLanguage));
       },
 
-      extractEuropeanaProxy(edm) {
-        const europeanaProxy = this.findProxy(edm.proxies, 'europeana') || {};
-
-        // Europeana proxy only really needed for the translate profile
-        if (this.translatingMetadata) {
-          for (const field in europeanaProxy) {
-            if (europeanaProxy[field][this.translationLanguage]) {
-              europeanaProxy[field].translationSource = 'automated';
-            }
-          }
-        } else {
-          forEachLangMapValue(europeanaProxy, (field, locale) => {
-            if (!undefinedLocaleCodes.includes(locale)) {
-              delete europeanaProxy[field][locale];
-            }
-          });
+      attributeTranslation(metadata, source) {
+        if (!this.translationLanguage) {
+          return metadata;
         }
 
-        return europeanaProxy;
-      },
-
-      extractAggregatorProxy(edm) {
-        const aggregatorProxy = this.findProxy(edm.proxies, 'aggregator') || {};
-        const providerProxy = this.extractProviderProxy(edm);
-
-        for (const field in aggregatorProxy) {
-          if (aggregatorProxy[field] && this.localeSpecificFieldValueIsFromEnrichment(field, aggregatorProxy, providerProxy)) {
-            aggregatorProxy[field].translationSource = 'enrichment';
+        for (const field in metadata) {
+          for (const item of metadata[field]) {
+            if (item.lang === this.translationLanguage) {
+              item.source = source;
+            }
           }
         }
 
-        return aggregatorProxy;
+        return metadata;
       },
 
-      extractProviderProxy(edm) {
-        return this.findProxy(edm.proxies, 'provider') || {};
-      },
+      // extractEuropeanaProxy(item) {
+      //   const europeanaProxy = item.europeanaProxy;
 
-      extractEuropeanaCollectionName(edm) {
-        return edm.europeanaCollectionName ? {
-          url: { name: 'search', query: { query: `europeana_collectionName:"${edm.europeanaCollectionName[0]}"` } },
-          value: edm.europeanaCollectionName
-        } : null;
-      },
+      //   // Europeana proxy only really needed for the translate profile
+      //   if (this.translatingMetadata) {
+      //     for (const field in europeanaProxy) {
+      //       if (europeanaProxy[field][this.translationLanguage]) {
+      //         europeanaProxy[field].source = 'automated';
+      //       }
+      //     }
+      //   } else {
+      //     forEachLangMapValue(europeanaProxy, (field, locale) => {
+      //       if (!undefinedLocaleCodes.includes(locale)) {
+      //         delete europeanaProxy[field][locale];
+      //       }
+      //     });
+      //   }
 
-      /**
-       * Parse the record data based on the data from the API response
-       * @param {Object} edm data from API response
-       * @return {Object} parsed data
-       */
-      extractMetadata(edm) {
-        const providerAggregation = edm.aggregations[0];
-        const europeanaAggregation = edm.europeanaAggregation;
-        const providerProxy = this.extractProviderProxy(edm);
-        const aggregatorProxy = this.extractAggregatorProxy(edm);
-        const europeanaProxy = this.extractEuropeanaProxy(edm);
+      //   return europeanaProxy;
+      // },
 
-        const metadataSources = merge.all([
-          providerAggregation,
-          europeanaAggregation,
-          providerProxy,
-          aggregatorProxy,
-          europeanaProxy,
-          {
-            europeanaCollectionName: edm.europeanaCollectionName[0],
-            timestampCreated: edm.timestamp_created,
-            timestampUpdate: edm.timestamp_update
-          }
-        ]);
+      // extractAggregatorProxy(item) {
+      //   const aggregatorProxy = item.aggregatorProxy;
+      //   const providerProxy = item.providerProxy;
 
-        forEachLangMapValue(metadataSources, (field, locale) => {
-          if (Array.isArray(metadataSources[field][locale]) && metadataSources[field][locale].length > this.MAX_VALUES_PER_METADATA_FIELD) {
-            metadataSources[field][locale] = metadataSources[field][locale].slice(0, this.MAX_VALUES_PER_METADATA_FIELD).concat('…');
-          }
-        });
+      //   for (const field in aggregatorProxy) {
+      //     if (aggregatorProxy[field] && this.localeSpecificFieldValueIsFromEnrichment(field, aggregatorProxy, providerProxy)) {
+      //       aggregatorProxy[field].source = 'enrichment';
+      //     }
+      //   }
 
-        let meta = ALL_METADATA_FIELDS.reduce((memo, field) => {
-          if (metadataSources[field] !== undefined) {
-            if (typeof metadataSources[field] === 'object') {
-              const locale = selectLocaleForLangMap(metadataSources[field], this.metadataLanguage);
+      //   return aggregatorProxy;
+      // },
 
-              const normalisedField = [].concat(metadataSources[field][locale]).map((value) => {
+      normaliseMetadata(metadata) {
+        return ALL_METADATA_FIELDS.reduce((memo, field) => {
+          if (metadata[field] !== undefined) {
+            if (typeof metadata[field] === 'object') {
+              const locale = selectLocaleForLangMap(metadata[field], this.metadataLanguage);
+
+              const normalisedField = [].concat(metadata[field][locale]).map((value) => {
                 const entity = this.entities.find((entity) => entity.about === value);
                 if (entity) {
                   const entityLocale = selectLocaleForLangMap(entity.prefLabel, this.metadataLanguage);
                   const lang = normalizedLangCode(entityLocale);
+                  const value = [].concat(entity.prefLabel?.[entityLocale])?.[0] || null;
                   const entityData = {
                     id: entity.about,
                     lang,
-                    value: [].concat(entity.prefLabel[entityLocale])[0]
+                    value
                   };
 
                   if (entity.latitude) {
@@ -599,21 +580,51 @@
 
               memo[field] = normalisedField;
             } else if (field === 'europeanaCollectionName') {
-              memo[field] = {
-                value: metadataSources[field],
-                url: { name: 'search', query: { query: `europeana_collectionName:"${metadataSources[field]}"` } }
-              };
+              memo[field] = [{
+                value: metadata[field],
+                url: { name: 'search', query: { query: `europeana_collectionName:"${metadata[field]}"` } }
+              }];
             } else {
-              memo[field] = {
-                value: metadataSources[field]
-              };
+              memo[field] = [{ value: metadata[field] }];
             }
           }
 
           return memo;
         }, {});
+      },
 
-        return Object.freeze(meta);
+      /**
+       * Parse the record data based on the data from the API response
+       * @param {Item} item data from API response
+       * @return {Object} parsed data
+       */
+      extractMetadata(item) {
+        const itemMetadata = {
+          europeanaCollectionName: item.europeanaCollectionName[0]
+        };
+        if (!this.timestampIsUnixEpochValue(item.timestamp_created)) {
+          itemMetadata.timestampCreated = item.timestamp_created;
+        }
+        if (!this.timestampIsUnixEpochValue(item.timestamp_update)) {
+          itemMetadata.timestampUpdate = item.timestamp_update;
+        }
+
+        const metadata = merge.all([
+          this.normaliseMetadata(item.providerAggregation),
+          this.normaliseMetadata(item.europeanaAggregation),
+          this.normaliseMetadata(item.providerProxy),
+          this.attributeTranslation(this.normaliseMetadata(item.aggregatorProxy), 'enrichment'),
+          this.attributeTranslation(this.normaliseMetadata(item.europeanaProxy), 'automated'),
+          this.normaliseMetadata(itemMetadata)
+        ]);
+
+        forEachLangMapValue(metadata, (field, locale) => {
+          if (Array.isArray(metadata[field][locale]) && metadata[field][locale].length > this.MAX_VALUES_PER_METADATA_FIELD) {
+            metadata[field][locale] = metadata[field][locale].slice(0, this.MAX_VALUES_PER_METADATA_FIELD).concat('…');
+          }
+        });
+
+        return Object.freeze(metadata);
       },
 
       /**
@@ -677,20 +688,12 @@
             entities = entities?.map((entity) => pick(entity, ['id', 'prefLabel', 'isShownBy', 'logo'])) || [];
             this.relatedCollections = entities.filter((entity) => entity.id !== this.dataProviderEntityUri);
 
-            const dataProviderEntity = entities.find((entity) => entity.id === this.dataProviderEntityUri) || null;
-            if (dataProviderEntity) {
-              const entityLocale = selectLocaleForLangMap(dataProviderEntity.prefLabel, this.metadataLanguage);
-              const lang = normalizedLangCode(entityLocale);
-              this.dataProvider = {
-                id: dataProviderEntity.about,
-                lang,
-                value: [].concat(dataProviderEntity.prefLabel[entityLocale])[0]
-              };
-            }
+            this.dataProvider = entities.find((entity) => entity.id === this.dataProviderEntityUri) || null;
           } catch {
             // don't fall over
           } finally {
             if (!this.dataProvider) {
+              // TODO: is this right? or should it be dereferenced from the entities array?
               this.dataProvider = this.metadata.edmDataProvider[0];
             }
           }
