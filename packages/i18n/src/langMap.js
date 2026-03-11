@@ -70,14 +70,18 @@ export const forEachLangMapValue = (langMapContainer, callback) => {
   }
 };
 
+export const selectPrefLocale = (locales, locale) => {
+  for (const key of languageKeys(locale)) {
+    if (locales.includes(locale)) {
+      return key;
+    }
+  }
+  return locales[0];
+};
+
 export const selectLocaleForLangMap = (langMap, locale) => {
   if (!langMap) {
     return null;
-  }
-  for (const key of languageKeys(locale)) {
-    if (Object.prototype.hasOwnProperty.call(langMap, key)) {
-      return key;
-    }
   }
   if (isJSONLDExpanded(langMap)) {
     for (const key of languageKeys(locale)) {
@@ -86,7 +90,7 @@ export const selectLocaleForLangMap = (langMap, locale) => {
       }
     }
   }
-  return Object.keys(langMap)[0];
+  return selectPrefLocale(Object.keys(langMap), locale);
 };
 
 /**
