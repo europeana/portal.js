@@ -135,7 +135,7 @@
 
   import { BASE_URL as EUROPEANA_DATA_URL, ITEM_URL_PREFIX } from '@/plugins/europeana/data';
   import {
-    forEachLangMapValue, isLangMap, normalizedLangCode, reduceLangMapsForLocale, selectLocaleForLangMap, undefinedLocaleCodes
+    forEachLangMapValue, isLangMap, normalizedLangCode, reduceLangMapsForLocale, selectLocaleForLangMap, selectPrefLocale, undefinedLocaleCodes
   } from  '@europeana/i18n';
   import { isEntityUri, entityParamsFromUri } from '@/plugins/europeana/entity';
   import Item from '@/plugins/europeana/edm/Item.js';
@@ -531,62 +531,77 @@
       //   return aggregatorProxy;
       // },
 
-      normaliseMetadata(metadata) {
-        return ALL_METADATA_FIELDS.reduce((memo, field) => {
-          if (metadata[field] !== undefined) {
-            if (typeof metadata[field] === 'object') {
-              const locale = selectLocaleForLangMap(metadata[field], this.metadataLanguage);
+      normaliseMetadataField(fieldName, field, source) {
+        if (typeof field === 'object') {
+          // const locale = selectLocaleForLangMap(field, this.metadataLanguage);
+          // assume it is a langmap
+          return Object.keys(field).reduce((memo, lang) => {
+            memo.push([].concat(field[lang]).map((value) => ({ lang, source, value })));
+            return memo;
+          }, []).flat();
+        } else {
+          return [{ source, value: field }];
+        }
+        //   return [].concat(field[locale]).map((value) => {
+        //     const entity = this.entities.find((entity) => entity.about === value);
+        //     if (entity) {
+        //       const entityLocale = selectLocaleForLangMap(entity.prefLabel, this.metadataLanguage);
+        //       const lang = normalizedLangCode(entityLocale);
+        //       const value = [].concat(entity.prefLabel?.[entityLocale])?.[0] || null;
+        //       const entityData = {
+        //         source,
+        //         id: entity.about,
+        //         lang,
+        //         value
+        //       };
 
-              const normalisedField = [].concat(metadata[field][locale]).map((value) => {
-                const entity = this.entities.find((entity) => entity.about === value);
-                if (entity) {
-                  const entityLocale = selectLocaleForLangMap(entity.prefLabel, this.metadataLanguage);
-                  const lang = normalizedLangCode(entityLocale);
-                  const value = [].concat(entity.prefLabel?.[entityLocale])?.[0] || null;
-                  const entityData = {
-                    id: entity.about,
-                    lang,
-                    value
-                  };
+        //       if (entity.latitude) {
+        //         entityData.latitude = entity.latitude;
+        //       }
+        //       if (entity.longitude) {
+        //         entityData.longitude = entity.longitude;
+        //       }
 
-                  if (entity.latitude) {
-                    entityData.latitude = entity.latitude;
-                  }
-                  if (entity.longitude) {
-                    entityData.longitude = entity.longitude;
-                  }
+        //       if (isEntityUri(entity.about)) {
+        //         const entityRouteParams = entityParamsFromUri(entity.about);
+        //         entityData.url = { name: 'collections-type-all', params: { type: entityRouteParams.type, pathMatch: entityRouteParams.id } };
+        //       }
 
-                  if (isEntityUri(entity.about)) {
-                    const entityRouteParams = entityParamsFromUri(entity.about);
-                    entityData.url = { name: 'collections-type-all', params: { type: entityRouteParams.type, pathMatch: entityRouteParams.id } };
-                  }
+        //       return entityData;
+        //     }
 
-                  return entityData;
-                }
+        //     const id = value.startsWith?.('http://') || value.startsWith?.('https://') ? value : null;
+        //     if (id) {
+        //       return {
+        //         source,
+        //         id
+        //       };
+        //     }
 
-                const id = value.startsWith?.('http://') || value.startsWith?.('https://') ? value : null;
-                if (id) {
-                  return {
-                    id
-                  };
-                }
+        //     const lang = normalizedLangCode(locale);
+        //     return {
+        //       source,
+        //       lang,
+        //       value
+        //     };
+        //   });
+        // } else if (fieldName === 'europeanaCollectionName') {
+        //   return [{
+        //     source,
+        //     value: field,
+        //     url: { name: 'search', query: { query: `europeana_collectionName:"${field}"` } }
+        //   }];
+        // } else {
+        //   return field = [{ source, value: field }];
+        // }
+      },
 
-                const lang = normalizedLangCode(locale);
-                return {
-                  lang,
-                  value
-                };
-              });
+      normaliseMetadataRecord(metadata) {
+        const source = metadata.about;
 
-              memo[field] = normalisedField;
-            } else if (field === 'europeanaCollectionName') {
-              memo[field] = [{
-                value: metadata[field],
-                url: { name: 'search', query: { query: `europeana_collectionName:"${metadata[field]}"` } }
-              }];
-            } else {
-              memo[field] = [{ value: metadata[field] }];
-            }
+        return ALL_METADATA_FIELDS.reduce((memo, fieldName) => {
+          if (metadata[fieldName] !== undefined) {
+            memo[fieldName] = this.normaliseMetadataField(fieldName, metadata[fieldName], source);
           }
 
           return memo;
@@ -610,13 +625,15 @@
         }
 
         const metadata = merge.all([
-          this.normaliseMetadata(item.providerAggregation),
-          this.normaliseMetadata(item.europeanaAggregation),
-          this.normaliseMetadata(item.providerProxy),
-          this.attributeTranslation(this.normaliseMetadata(item.aggregatorProxy), 'enrichment'),
-          this.attributeTranslation(this.normaliseMetadata(item.europeanaProxy), 'automated'),
-          this.normaliseMetadata(itemMetadata)
+          this.normaliseMetadataRecord(item.providerAggregation),
+          this.normaliseMetadataRecord(item.europeanaAggregation),
+          this.normaliseMetadataRecord(item.providerProxy),
+          this.normaliseMetadataRecord(item.aggregatorProxy),
+          this.normaliseMetadataRecord(item.europeanaProxy),
+          this.normaliseMetadataRecord(itemMetadata)
         ]);
+
+        console.log('metadata', metadata)
 
         forEachLangMapValue(metadata, (field, locale) => {
           if (Array.isArray(metadata[field][locale]) && metadata[field][locale].length > this.MAX_VALUES_PER_METADATA_FIELD) {
