@@ -147,6 +147,9 @@
       displayLabel() {
         if (this.$te(`fieldLabels.${this.context}.${this.name}`)) {
           return this.$t(`fieldLabels.${this.context}.${this.name}`);
+        }
+        if (this.context !== 'default' && this.$te(`fieldLabels.default.${this.name}`)) {
+          return this.$t(`fieldLabels.default.${this.name}`);
         } else {
           return this.name;
         }
