@@ -31,15 +31,27 @@
     },
 
     props: {
+      /**
+       * Web resource to display the metadata of
+       */
       resource: {
         type: Object,
         required: true
+      },
+      /**
+       * Array of web resources to lookup in case resource does not contain the full data
+       */
+      webResources: {
+        type: Array,
+        default: null
       }
     },
 
     computed: {
       resourceMetadata() {
-        return this.resource.edm;
+        const fullWebResource = this.webResources?.find(wr => wr.about === this.resource.edm.about) || this.resource.edm;
+
+        return fullWebResource;
       }
     }
   };

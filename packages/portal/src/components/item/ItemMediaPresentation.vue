@@ -34,6 +34,7 @@
                 :annotation-search="hasAnnotations && hasSearchService"
                 :manifest-uri="uri"
                 :resource="resource"
+                :web-resources="uri && webResources"
                 :show="showSidebar"
                 @keydown.escape.native="showSidebar = false"
               />

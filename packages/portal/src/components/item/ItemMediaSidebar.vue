@@ -144,7 +144,10 @@
             class="icon-info-outline p-0 tooltip-button ml-1"
             variant="light-flat"
           />
-            <MediaMetadataList :resource="resource" />
+            <MediaMetadataList
+              :resource="resource"
+              :web-resources="webResources"
+            />
           </b-tab>
         </template>
       </b-tabs>
@@ -191,6 +194,10 @@
       },
       resource: {
         type: Object,
+        default: null
+      },
+      webResources: {
+        type: Array,
         default: null
       },
       query: {

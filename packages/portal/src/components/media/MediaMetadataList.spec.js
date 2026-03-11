@@ -3,20 +3,41 @@ import MediaMetadataList from '@/components/media/MediaMetadataList';
 
 const localVue = createLocalVue();
 
-const factory = () => shallowMount(MediaMetadataList, {
+const factory = (propsData) => shallowMount(MediaMetadataList, {
   localVue,
-  propsData: { resource: { edm: {
-    about: 'http://www.example.eu/wrAbout',
-    ebucoreHasMimeType: 'image/jpeg'
-  } } },
+  propsData,
   stubs: ['MetadataField']
 });
 
 describe('components/media/MediaMetadataList', () => {
   it('renders a metadata field for each web resource field', () => {
-    const wrapper = factory();
+    const wrapper = factory({ resource: { edm: {
+      about: 'http://www.example.eu/wrAbout',
+      ebucoreHasMimeType: 'image/jpeg'
+    } } });
 
     expect(wrapper.find('metadatafield-stub').exists()).toBe(true);
     expect(wrapper.findAll('metadatafield-stub').length).toBe(2);
+  });
+
+  describe('when web resource needs full metadata lookup', () => {
+    it('gets the data from the relevant web resource', () => {
+      const wrapper = factory({
+        resource: { edm: {
+          about: 'http://www.example.eu/wrAbout1'
+        } },
+        webResources: [{
+          about: 'http://www.example.eu/wrAbout'
+        }, {
+          about: 'http://www.example.eu/wrAbout1',
+          ebucoreHasMimeType: 'image/jpeg',
+          ebucoreOrientation: 'portrait'
+        }]
+      });
+
+      expect(wrapper.find('metadatafield-stub').exists()).toBe(true);
+      expect(wrapper.vm.resourceMetadata.ebucoreOrientation).toBe('portrait');
+      expect(wrapper.findAll('metadatafield-stub').length).toBe(3);
+    });
   });
 });
