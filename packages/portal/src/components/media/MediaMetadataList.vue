@@ -1,10 +1,10 @@
 <template>
-  <div v-if="resourceMetadata">
+  <div v-if="displayWebResourceMetadata">
     <ul
       class="media-viewer-metadata-list list-group"
     >
       <li
-        v-for="(value, key, index) in resourceMetadata"
+        v-for="(value, key, index) in displayWebResourceMetadata"
         :key="index"
       >
         <MetadataField
@@ -22,6 +22,39 @@
 
 <script>
   import MetadataField from '../metadata/MetadataField.vue';
+
+  const displayableFields = [
+    'about',
+    'dcCreator',
+    'dcDescription',
+    'dcFormat',
+    'dcRights',
+    'dcSource',
+    'dcType',
+    'dctermsConformsTo',
+    'dctermsCreated',
+    'dctermsExtent',
+    'dctermsHasPart',
+    'dctermsIsFormatOf',
+    'dctermsIsPartOf',
+    'dctermsIsReferencedBy',
+    'dctermsIssued',
+    'ebucoreAudioChannelNumber',
+    'ebucoreBitRate',
+    'ebucoreDuration',
+    'ebucoreFileByteSize',
+    'ebucoreFrameRate',
+    'ebucoreHasMimeType',
+    'ebucoreHeight',
+    'ebucoreOrientation',
+    'ebucoreSampleRate',
+    'ebucoreSampleSize',
+    'ebucoreWidth',
+    'edmCodecName',
+    'edmComponentColor',
+    'edmHasColorSpace',
+    'edmSpatialResolution'
+  ];
 
   export default {
     name: 'MediaMetadataList',
@@ -48,10 +81,20 @@
     },
 
     computed: {
-      resourceMetadata() {
+      fullWebResource() {
         const fullWebResource = this.webResources?.find(wr => wr.about === this.resource.edm.about) || this.resource.edm;
 
         return fullWebResource;
+      },
+      displayWebResourceMetadata() {
+        const filteredData = this.fullWebResource;
+        for (const key in filteredData) {
+          if (!displayableFields.includes(key)) {
+            delete filteredData[key];
+          }
+        }
+
+        return filteredData;
       }
     }
   };
