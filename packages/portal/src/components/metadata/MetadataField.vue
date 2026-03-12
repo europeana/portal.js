@@ -60,9 +60,18 @@
           :key="index"
           :lang="langAttribute(langMappedValues.code)"
           data-qa="literal value"
+          :class="{ 'colour-swatch-list-item': isColourValue }"
         >
+          <template v-if="isColourValue">
+            <ColourSwatch
+              :hex-code="value"
+            />
+            <span>
+              {{ $t(`facets.COLOURPALETTE.options.${value}`) }}
+            </span>
+          </template>
           <SmartLink
-            v-if="fieldData.url"
+            v-else-if="fieldData.url"
             :destination="fieldData.url"
           >
             {{ value }}
@@ -91,6 +100,7 @@
     name: 'MetadataField',
 
     components: {
+      ColourSwatch: () => import('@/components/generic/ColourSwatch'),
       ItemDebiasField,
       ItemEntityField,
       MetadataOriginLabel,
@@ -204,6 +214,10 @@
 
       isValidFieldData() {
         return !this.timestampIsUnixEpochValue && (this.name !== 'edmUgc');
+      },
+
+      isColourValue() {
+        return this.name === 'edmComponentColor';
       }
     }
   };
@@ -232,7 +246,11 @@
       li {
         display: inline;
 
-        &:not(:last-child)::after {
+        &.colour-swatch-list-item {
+          display: block;
+        }
+
+        &:not(:last-child):not(.colour-swatch-list-item)::after {
           content: ';';
           padding: 0 0.2rem;
         }
