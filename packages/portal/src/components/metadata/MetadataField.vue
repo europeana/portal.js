@@ -71,8 +71,8 @@
             </span>
           </template>
           <SmartLink
-            v-else-if="isLinkValue(value)"
-            :destination="isLinkValue(value)"
+            v-else-if="fieldData.url"
+            :destination="fieldData.url"
           >
             <span>{{ value }}</span>
           </SmartLink>
@@ -228,19 +228,6 @@
     },
 
     methods: {
-      isValidURL(value) {
-        try {
-          const url = new URL(value);
-          if (url.protocol === 'http:' || url.protocol === 'https:') {
-            return value;
-          }
-        } catch (e) {
-          return false;
-        }
-      },
-      isLinkValue(value) {
-        return this.fieldData.url || this.isValidURL(value);
-      },
       isNumberValue(value) {
         return typeof value === 'number';
       }

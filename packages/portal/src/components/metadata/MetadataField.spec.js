@@ -219,7 +219,7 @@ describe('components/metadata/MetadataField', () => {
       expect(fieldValues.length).toBe(2);
     });
   });
-  describe('when there is a linked value', () => {
+  describe('when there is a linked entity value', () => {
     describe('when the link has a url', () => {
       const props = {
         name: 'edmDataProvider',
@@ -236,11 +236,12 @@ describe('components/metadata/MetadataField', () => {
         expect(fieldValues.exists()).toBe(true);
       });
     });
-    describe('when the link has a url string value', () => {
+    describe('when there is a url value', () => {
       const props = {
         name: 'linkAsString',
         fieldData: {
-          value: 'https://www.example.eu/linkToSomewhere'
+          url: 'https://www.example.eu/linkToSomewhere',
+          value: 'linkToSomewhere'
         }
       };
 
