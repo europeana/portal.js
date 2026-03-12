@@ -80,41 +80,6 @@
             class="media-viewer-sidebar-panel"
           />
         </b-tab>
-        <b-tooltip
-          v-if="!!manifestUri"
-          :target="linksTabButtonId"
-          :title="$t('media.sidebar.links')"
-          boundary=".media-viewer-sidebar"
-          placement="right"
-          custom-class="ml-0"
-        />
-        <b-tab
-          v-if="!!manifestUri"
-          data-qa="item media sidebar links"
-          :button-id="linksTabButtonId"
-          lazy
-          :title-link-attributes="{ 'aria-label': $t('media.sidebar.links'), href: '#links' }"
-        >
-          <template #title>
-            <span
-              class="icon icon-link"
-              @mouseleave="hideTooltips"
-            />
-          </template>
-          <h2 class="px-3">
-            {{ $t('media.sidebar.links') }}
-          </h2>
-          <h3 class="px-3 font-base mb-2">
-            {{ $t('media.sidebar.IIIFManifest') }}
-          </h3>
-          <b-link
-            :href="manifestUri"
-            target="_blank"
-            class="manifest-link d-inline-block px-3"
-          >
-            {{ manifestUri }}
-          </b-link>
-        </b-tab>
         <template v-if="$features.webResourceMetadata && resource">
           <b-tooltip
             :target="metadataTabButtonId"
@@ -150,6 +115,41 @@
             />
           </b-tab>
         </template>
+        <b-tooltip
+          v-if="!!manifestUri"
+          :target="linksTabButtonId"
+          :title="$t('media.sidebar.links')"
+          boundary=".media-viewer-sidebar"
+          placement="right"
+          custom-class="ml-0"
+        />
+        <b-tab
+          v-if="!!manifestUri"
+          data-qa="item media sidebar links"
+          :button-id="linksTabButtonId"
+          lazy
+          :title-link-attributes="{ 'aria-label': $t('media.sidebar.links'), href: '#links' }"
+        >
+          <template #title>
+            <span
+              class="icon icon-link"
+              @mouseleave="hideTooltips"
+            />
+          </template>
+          <h2 class="px-3">
+            {{ $t('media.sidebar.links') }}
+          </h2>
+          <h3 class="px-3 font-base mb-2">
+            {{ $t('media.sidebar.IIIFManifest') }}
+          </h3>
+          <b-link
+            :href="manifestUri"
+            target="_blank"
+            class="manifest-link d-inline-block px-3"
+          >
+            {{ manifestUri }}
+          </b-link>
+        </b-tab>
       </b-tabs>
     </div>
   </transition>
@@ -223,11 +223,11 @@
       if (props.annotationSearch) {
         tabHashes.push('#search');
       }
-      if (props.manifestUri) {
-        tabHashes.push('#links');
-      }
       if (props.resource) {
         tabHashes.push('#metadata');
+      }
+      if (props.manifestUri) {
+        tabHashes.push('#links');
       }
 
       const { activeTabHash, activeTabHistory, activeTabIndex, watchTabIndex, unwatchTabIndex } = useActiveTab(tabHashes);
