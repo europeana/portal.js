@@ -205,7 +205,7 @@
         return this.hasDescription ? this.description.values[0] : '';
       },
       resizedLogo() {
-        return getWikimediaThumbnailUrl(this.logo, 72);
+        return getWikimediaThumbnailUrl(this.logo, 120);
       }
     },
     methods: {
