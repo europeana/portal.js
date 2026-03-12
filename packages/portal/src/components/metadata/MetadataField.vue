@@ -77,6 +77,11 @@
             <span>{{ value }}</span>
           </SmartLink>
           <template
+            v-else-if="isNumberValue(value)"
+          >
+            {{ $i18n.n(value) }}
+          </template>
+          <template
             v-else
           >
             {{ value }}
@@ -235,6 +240,9 @@
       },
       isLinkValue(value) {
         return this.fieldData.url || this.isValidURL(value);
+      },
+      isNumberValue(value) {
+        return typeof value === 'number';
       }
     }
   };
