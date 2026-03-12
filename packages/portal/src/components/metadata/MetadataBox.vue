@@ -21,10 +21,10 @@
             <MetadataField
               v-for="name in CORE_FIELDS"
               :key="name"
-              :metadata-language="metadataLanguage"
               :name="name"
               :field-data="metadata[name]"
               :label-id="`${name}-main-label`"
+              class="d-lg-flex"
             />
           </b-card-text>
         </b-tab>
@@ -55,10 +55,10 @@
             <MetadataField
               v-for="name in ALL_FIELDS"
               :key="name"
-              :metadata-language="metadataLanguage"
               :name="name"
               :field-data="metadata[name]"
               :label-id="`${name}-label`"
+              class="d-lg-flex"
             />
           </b-card-text>
         </b-tab>
@@ -109,10 +109,6 @@
       },
       location: {
         type: Object,
-        default: null
-      },
-      metadataLanguage: {
-        type: String,
         default: null
       }
     },

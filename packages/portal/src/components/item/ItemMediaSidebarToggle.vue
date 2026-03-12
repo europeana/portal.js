@@ -61,7 +61,7 @@
 
     @media (min-width: $bp-large) {
       background-color: $white;
-      width: 315px;
+      width: calc(pxToRem(300) + 15px);
       transition: background-color $standard-transition;
 
       &.closed {

@@ -10,7 +10,8 @@ const factory = (propsData = {}) => shallowMount(ItemMediaSidebar, {
   mocks: {
     $n: (num) => num,
     $t: (key) => key,
-    $tc: (key, count) => `${key} ${count}`
+    $tc: (key, count) => `${key} ${count}`,
+    $features: { webResourceMetadata: true }
   },
   stubs: ['b-link', 'b-tooltip', 'MediaAnnotationList', 'MediaAnnotationSearch']
 });
@@ -52,6 +53,16 @@ describe('components/item/ItemMediaSidebar', () => {
         const linksTab = wrapper.find('[data-qa="item media sidebar links"]');
 
         expect(linksTab.exists()).toBe(true);
+      });
+    });
+
+    describe('when there is a web resource', () => {
+      it('has a tab for media metadata', () => {
+        const wrapper = factory({ resource: {} });
+
+        const metadataTab = wrapper.find('[data-qa="item media sidebar metadata"]');
+
+        expect(metadataTab.exists()).toBe(true);
       });
     });
   });

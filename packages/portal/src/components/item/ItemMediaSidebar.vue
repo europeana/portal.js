@@ -7,6 +7,7 @@
       class="media-viewer-sidebar"
       data-qa="item media sidebar"
     >
+      <!-- TODO: create reusable component for tabs e.g. ItemMediaSidebarTab -->
       <b-tabs
         :id="sidebarId"
         v-model="activeTabIndex"
@@ -103,7 +104,7 @@
           <h2 class="px-3">
             {{ $t('media.sidebar.links') }}
           </h2>
-          <h3 class="px-3">
+          <h3 class="px-3 font-base mb-2">
             {{ $t('media.sidebar.IIIFManifest') }}
           </h3>
           <b-link
@@ -114,6 +115,38 @@
             {{ manifestUri }}
           </b-link>
         </b-tab>
+        <template v-if="$features.webResourceMetadata && resource">
+          <b-tooltip
+            :target="metadataTabButtonId"
+            :title="$t('media.sidebar.metadata')"
+            boundary=".media-viewer-sidebar"
+            placement="right"
+            custom-class="ml-0"
+          />
+          <b-tab
+            data-qa="item media sidebar metadata"
+            :button-id="metadataTabButtonId"
+            lazy
+            :title-link-attributes="{ 'aria-label': $t('media.sidebar.metadata'), href: '#metadata' }"
+          >
+            <template #title>
+              <span
+                class="icon icon-metadata"
+                @mouseleave="hideTooltips"
+              />
+            </template>
+            <h2 class="d-inline-block pl-3 mb-4">
+              {{ $t('media.sidebar.metadata') }}
+            </h2><!-- This comment removes white space
+       --><b-button
+            v-b-tooltip.bottom
+            :title="$t('media.sidebar.metadataInfo')"
+            class="icon-info-outline p-0 tooltip-button ml-1"
+            variant="light-flat"
+          />
+            <MediaMetadataList :resource="resource" />
+          </b-tab>
+        </template>
       </b-tabs>
     </div>
   </transition>
@@ -124,6 +157,7 @@
 
   import useActiveTab from '@/composables/activeTab.js';
   import useHideTooltips from '@/composables/hideTooltips.js';
+  import MediaMetadataList from '../media/MediaMetadataList.vue';
 
   export default {
     name: 'ItemMediaSidebar',
@@ -132,7 +166,8 @@
       BTab,
       BTabs,
       MediaAnnotationList: () => import('../media/MediaAnnotationList.vue'),
-      MediaAnnotationSearch: () => import('../media/MediaAnnotationSearch.vue')
+      MediaAnnotationSearch: () => import('../media/MediaAnnotationSearch.vue'),
+      MediaMetadataList
     },
 
     provide() {
@@ -154,6 +189,10 @@
         type: String,
         default: null
       },
+      resource: {
+        type: Object,
+        default: null
+      },
       query: {
         type: String,
         default: null
@@ -168,6 +207,7 @@
       const annotationsTabButtonId = 'item-media-sidebar-annotations-button';
       const searchTabButtonId = 'item-media-sidebar-search-button';
       const linksTabButtonId = 'item-media-sidebar-links-button';
+      const metadataTabButtonId = 'item-media-sidebar-metadata-button';
 
       const tabHashes = [];
       if (props.annotationList) {
@@ -179,9 +219,12 @@
       if (props.manifestUri) {
         tabHashes.push('#links');
       }
+      if (props.resource) {
+        tabHashes.push('#metadata');
+      }
 
       const { activeTabHash, activeTabHistory, activeTabIndex, watchTabIndex, unwatchTabIndex } = useActiveTab(tabHashes);
-      const { hideTooltips } = useHideTooltips([annotationsTabButtonId, searchTabButtonId, linksTabButtonId]);
+      const { hideTooltips } = useHideTooltips([annotationsTabButtonId, searchTabButtonId, linksTabButtonId, metadataTabButtonId]);
 
       return {
         activeTabHash,
@@ -190,6 +233,7 @@
         annotationsTabButtonId,
         hideTooltips,
         linksTabButtonId,
+        metadataTabButtonId,
         searchTabButtonId,
         watchTabIndex,
         unwatchTabIndex
@@ -233,7 +277,7 @@
   @import '@europeana/style/scss/transitions';
 
   .media-viewer-sidebar {
-    width: 300px;
+    width: pxToRem(300);
     position: absolute;
     top: 0;
     left: 0;
@@ -259,11 +303,6 @@
 
       h2 {
         font-size: 1.125rem;
-      }
-
-      h3 {
-        font-size: $font-size-base;
-        margin-bottom: 0.5rem;
       }
 
       .manifest-link {

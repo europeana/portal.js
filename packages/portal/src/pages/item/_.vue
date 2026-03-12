@@ -71,7 +71,6 @@
             <MetadataBox
               :metadata="fieldsAndKeywords"
               :location="locationData"
-              :metadata-language="metadataLanguage"
             />
             <ItemLanguageSelector
               v-if="translatedItemsEnabled"
@@ -175,7 +174,8 @@
         // in descendent components because the latter approach would not hydrate
         // the shared state of those refs after SSR, but provide/inject does
         deBias: computed(() => this.deBias),
-        itemIsDeleted: computed(() => this.isDeleted)
+        itemIsDeleted: computed(() => this.isDeleted),
+        metadataLanguage: this.metadataLanguage
       };
     },
 

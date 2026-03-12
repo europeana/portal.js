@@ -30,6 +30,11 @@ Example:
           <td><span class="icon icon-3d-bold" /></td>
         </tr>
         <tr>
+          <td>Academia</td>
+          <td><code>icon-academia</code></td>
+          <td><span class="icon icon-academia" /></td>
+        </tr>
+        <tr>
           <td>Accept</td>
           <td><code>icon-accept</code></td>
           <td><span class="icon icon-accept" /></td>
@@ -285,6 +290,11 @@ Example:
           <td><span class="icon icon-menu" /></td>
         </tr>
         <tr>
+          <td>Metadata</td>
+          <td><code>icon-metadata</code></td>
+          <td><span class="icon icon-metadata" /></td>
+        </tr>
+        <tr>
           <td>Move xy</td>
           <td><code>icon-ic-move-xy</code></td>
           <td><span class="icon icon-ic-move-xy" /></td>
@@ -304,6 +314,11 @@ Example:
           <td><code>icon-pages</code></td>
           <td><span class="icon icon-pages" /></td>
         </tr>
+        <tr>
+          <td>Partner</td>
+          <td><code>icon-partner</code></td>
+          <td><span class="icon icon-partner" /></td>
+        </tr> 
         <tr>
           <td>Pinterest</td>
           <td><code>icon-pinterest</code></td>
