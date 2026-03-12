@@ -71,10 +71,10 @@
             </span>
           </template>
           <SmartLink
-            v-else-if="fieldData.url"
-            :destination="fieldData.url"
+            v-else-if="isLinkValue(value)"
+            :destination="isLinkValue(value)"
           >
-            {{ value }}
+            <span>{{ value }}</span>
           </SmartLink>
           <template
             v-else
@@ -219,6 +219,23 @@
       isColourValue() {
         return this.name === 'edmComponentColor';
       }
+
+    },
+
+    methods: {
+      isValidURL(value) {
+        try {
+          const url = new URL(value);
+          if (url.protocol === 'http:' || url.protocol === 'https:') {
+            return value;
+          }
+        } catch (e) {
+          return false;
+        }
+      },
+      isLinkValue(value) {
+        return this.fieldData.url || this.isValidURL(value);
+      }
     }
   };
 </script>
@@ -255,9 +272,18 @@
           padding: 0 0.2rem;
         }
 
-        ::v-deep .icon-external-link {
-          vertical-align: initial;
-          font-size: 0.75rem;
+        .is-external-link {
+          display: inline-flex;
+          text-decoration: none;
+
+          span:first-child {
+            text-decoration: underline;
+          }
+
+          .icon-external-link {
+            line-height: 1.5;
+            margin-left: 0.25rem;
+          }
         }
       }
     }

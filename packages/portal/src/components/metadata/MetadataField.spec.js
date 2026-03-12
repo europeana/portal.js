@@ -236,6 +236,21 @@ describe('components/metadata/MetadataField', () => {
         expect(fieldValues.exists()).toBe(true);
       });
     });
+    describe('when the link has a url string value', () => {
+      const props = {
+        name: 'linkAsString',
+        fieldData: {
+          value: 'https://www.example.eu/linkToSomewhere'
+        }
+      };
+
+      it('outputs a field wrapped in a link', () => {
+        const wrapper = factory({ props });
+
+        const fieldValues = wrapper.findAll('[data-qa="literal value"] smartlink-stub');
+        expect(fieldValues.exists()).toBe(true);
+      });
+    });
     describe('when the link has no url', () => {
       const props = {
         name: 'edmDataProvider',
