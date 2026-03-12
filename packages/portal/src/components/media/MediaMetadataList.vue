@@ -24,7 +24,6 @@
   import MetadataField from '../metadata/MetadataField.vue';
 
   const displayableFields = [
-    'about',
     'dcCreator',
     'dcDescription',
     'dcFormat',
@@ -37,7 +36,6 @@
     'dctermsHasPart',
     'dctermsIsFormatOf',
     'dctermsIsPartOf',
-    'dctermsIsReferencedBy',
     'dctermsIssued',
     'ebucoreAudioChannelNumber',
     'ebucoreBitRate',
