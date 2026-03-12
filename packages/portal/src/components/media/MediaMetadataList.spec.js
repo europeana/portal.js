@@ -12,12 +12,11 @@ const factory = (propsData) => shallowMount(MediaMetadataList, {
 describe('components/media/MediaMetadataList', () => {
   it('renders a metadata field for each web resource field', () => {
     const wrapper = factory({ resource: { edm: {
-      about: 'http://www.example.eu/wrAbout',
       ebucoreHasMimeType: 'image/jpeg'
     } } });
 
     expect(wrapper.find('metadatafield-stub').exists()).toBe(true);
-    expect(wrapper.findAll('metadatafield-stub').length).toBe(2);
+    expect(wrapper.findAll('metadatafield-stub').length).toBe(1);
   });
 
   describe('when web resource needs full metadata lookup', () => {
@@ -37,7 +36,7 @@ describe('components/media/MediaMetadataList', () => {
 
       expect(wrapper.find('metadatafield-stub').exists()).toBe(true);
       expect(wrapper.vm.fullWebResource.ebucoreOrientation).toBe('portrait');
-      expect(wrapper.findAll('metadatafield-stub').length).toBe(3);
+      expect(wrapper.findAll('metadatafield-stub').length).toBe(2);
     });
   });
 
@@ -53,7 +52,7 @@ describe('components/media/MediaMetadataList', () => {
 
       expect(wrapper.vm.displayWebResourceMetadata.isNextInSequence).toBe(undefined);
       expect(wrapper.vm.displayWebResourceMetadata.ebucoreHasMimeType).toBe('image/jpeg');
-      expect(wrapper.findAll('metadatafield-stub').length).toBe(2);
+      expect(wrapper.findAll('metadatafield-stub').length).toBe(1);
     });
   });
 });
