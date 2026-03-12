@@ -106,7 +106,7 @@ export default class EuropeanaEntityApi extends EuropeanaApi {
       url = this.context?.$apis?.thumbnail?.edmPreview(entity.isShownBy.thumbnail, { size: 200 });
     // `logo` is a property on organization-type entities
     } else if (entity?.logo?.id) {
-      url = getWikimediaThumbnailUrl(entity.logo.id, 28);
+      url = getWikimediaThumbnailUrl(entity.logo.id, 40);
     }
 
     return url;

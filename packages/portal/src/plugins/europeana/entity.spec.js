@@ -270,10 +270,10 @@ describe('plugins/europeana/entity', () => {
           }
         };
 
-        it('uses it at 28px size', () => {
+        it('uses it at 40px size', () => {
           const imageUrl = (new api).imageUrl(entity);
 
-          expect(imageUrl).toBe('https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Europeana_logo_2015_basic.svg/28px-Europeana_logo_2015_basic.svg.png');
+          expect(imageUrl).toBe('https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Europeana_logo_2015_basic.svg/40px-Europeana_logo_2015_basic.svg.png');
         });
       });
 
