@@ -36,8 +36,24 @@ describe('components/media/MediaMetadataList', () => {
       });
 
       expect(wrapper.find('metadatafield-stub').exists()).toBe(true);
-      expect(wrapper.vm.resourceMetadata.ebucoreOrientation).toBe('portrait');
+      expect(wrapper.vm.fullWebResource.ebucoreOrientation).toBe('portrait');
       expect(wrapper.findAll('metadatafield-stub').length).toBe(3);
+    });
+  });
+
+  describe('displayWebResourceMetadata', () => {
+    it('filters out data not for display', () => {
+      const wrapper = factory({
+        resource: { edm: {
+          about: 'http://www.example.eu/wrAbout1',
+          ebucoreHasMimeType: 'image/jpeg',
+          isNextInSequence: 'http://www.example.eu/wrAbout2'
+        } }
+      });
+
+      expect(wrapper.vm.displayWebResourceMetadata.isNextInSequence).toBe(undefined);
+      expect(wrapper.vm.displayWebResourceMetadata.ebucoreHasMimeType).toBe('image/jpeg');
+      expect(wrapper.findAll('metadatafield-stub').length).toBe(2);
     });
   });
 });
