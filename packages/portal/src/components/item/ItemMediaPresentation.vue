@@ -33,7 +33,7 @@
                 :annotation-list="hasAnnotations"
                 :annotation-search="hasAnnotations && hasSearchService"
                 :manifest-uri="uri"
-                :web-resource="webResource"
+                :web-resource="hasWebResourceMetadataToDisplay && webResource"
                 :show="showSidebar"
                 @keydown.escape.native="showSidebar = false"
               />
@@ -313,8 +313,14 @@
         return !!this.resource;
       },
 
+      hasWebResourceMetadataToDisplay() {
+        return this.$features.webResourceMetadata &&
+          this.hasWebResource &&
+          !this.resource.edm?.forEdmIsShownAt;
+      },
+
       sidebarHasContent() {
-        return this.hasAnnotations || this.hasSearchService || this.hasManifest || this.hasWebResource;
+        return this.hasAnnotations || this.hasSearchService || this.hasWebResourceMetadataToDisplay || this.hasManifest;
       },
 
       multiplePages() {

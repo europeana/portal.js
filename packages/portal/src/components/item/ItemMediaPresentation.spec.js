@@ -22,6 +22,7 @@ const factory = ({ data = {}, propsData = {}, mocks = {} } = {}) => shallowMount
     $error(error) {
       throw error;
     },
+    $features: { webResourceMetadata: true },
     $route: { query: {} },
     $t: (key) => key,
     ...mocks
