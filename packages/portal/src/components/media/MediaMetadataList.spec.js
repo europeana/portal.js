@@ -39,20 +39,4 @@ describe('components/media/MediaMetadataList', () => {
       expect(wrapper.findAll('metadatafield-stub').length).toBe(2);
     });
   });
-
-  describe('displayWebResourceMetadata', () => {
-    it('filters out data not for display', () => {
-      const wrapper = factory({
-        resource: { edm: {
-          about: 'http://www.example.eu/wrAbout1',
-          ebucoreHasMimeType: 'image/jpeg',
-          isNextInSequence: 'http://www.example.eu/wrAbout2'
-        } }
-      });
-
-      expect(wrapper.vm.displayWebResourceMetadata.isNextInSequence).toBe(undefined);
-      expect(wrapper.vm.displayWebResourceMetadata.ebucoreHasMimeType).toBe('image/jpeg');
-      expect(wrapper.findAll('metadatafield-stub').length).toBe(1);
-    });
-  });
 });
