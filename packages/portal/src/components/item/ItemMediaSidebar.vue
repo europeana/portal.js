@@ -80,6 +80,41 @@
             class="media-viewer-sidebar-panel"
           />
         </b-tab>
+        <template v-if="$features.webResourceMetadata && resource">
+          <b-tooltip
+            :target="metadataTabButtonId"
+            :title="$t('media.sidebar.metadata')"
+            boundary=".media-viewer-sidebar"
+            placement="right"
+            custom-class="ml-0"
+          />
+          <b-tab
+            data-qa="item media sidebar metadata"
+            :button-id="metadataTabButtonId"
+            lazy
+            :title-link-attributes="{ 'aria-label': $t('media.sidebar.metadata'), href: '#metadata' }"
+          >
+            <template #title>
+              <span
+                class="icon icon-metadata"
+                @mouseleave="hideTooltips"
+              />
+            </template>
+            <h2 class="d-inline-block pl-3 mb-4">
+              {{ $t('media.sidebar.metadata') }}
+            </h2><!-- This comment removes white space
+       --><b-button
+            v-b-tooltip.bottom
+            :title="$t('media.sidebar.metadataInfo')"
+            class="icon-info-outline p-0 tooltip-button ml-1"
+            variant="light-flat"
+          />
+            <MediaMetadataList
+              :resource="resource"
+              :web-resources="webResources"
+            />
+          </b-tab>
+        </template>
         <b-tooltip
           v-if="!!manifestUri"
           :target="linksTabButtonId"
@@ -115,38 +150,6 @@
             {{ manifestUri }}
           </b-link>
         </b-tab>
-        <template v-if="$features.webResourceMetadata && resource">
-          <b-tooltip
-            :target="metadataTabButtonId"
-            :title="$t('media.sidebar.metadata')"
-            boundary=".media-viewer-sidebar"
-            placement="right"
-            custom-class="ml-0"
-          />
-          <b-tab
-            data-qa="item media sidebar metadata"
-            :button-id="metadataTabButtonId"
-            lazy
-            :title-link-attributes="{ 'aria-label': $t('media.sidebar.metadata'), href: '#metadata' }"
-          >
-            <template #title>
-              <span
-                class="icon icon-metadata"
-                @mouseleave="hideTooltips"
-              />
-            </template>
-            <h2 class="d-inline-block pl-3 mb-4">
-              {{ $t('media.sidebar.metadata') }}
-            </h2><!-- This comment removes white space
-       --><b-button
-            v-b-tooltip.bottom
-            :title="$t('media.sidebar.metadataInfo')"
-            class="icon-info-outline p-0 tooltip-button ml-1"
-            variant="light-flat"
-          />
-            <MediaMetadataList :resource="resource" />
-          </b-tab>
-        </template>
       </b-tabs>
     </div>
   </transition>
@@ -193,6 +196,10 @@
         type: Object,
         default: null
       },
+      webResources: {
+        type: Array,
+        default: null
+      },
       query: {
         type: String,
         default: null
@@ -216,11 +223,11 @@
       if (props.annotationSearch) {
         tabHashes.push('#search');
       }
-      if (props.manifestUri) {
-        tabHashes.push('#links');
-      }
       if (props.resource) {
         tabHashes.push('#metadata');
+      }
+      if (props.manifestUri) {
+        tabHashes.push('#links');
       }
 
       const { activeTabHash, activeTabHistory, activeTabIndex, watchTabIndex, unwatchTabIndex } = useActiveTab(tabHashes);

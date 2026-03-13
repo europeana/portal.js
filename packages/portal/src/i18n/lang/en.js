@@ -821,11 +821,25 @@ export default {
       "year": "Year"
     },
     "webResource": {
-      "about": "RDF About",
-      "dcDescription": "Description",
-      "ebucoreHasMimeType": "Ebucore MIME Type",
-      "edmRights": "Rights statement for this media resource",
-      "rdfAbout": "RDF About"
+      "about": "About",
+      "dcType": "Type of media",
+      "dctermsConformsTo": "Conforms to",
+      "ebucoreAudioChannelNumber": "Audio channels",
+      "ebucoreBitRate": "Bitrate (bps)",
+      "ebucoreDuration": "Duration (ms)",
+      "ebucoreFileByteSize": "File size (bytes)",
+      "ebucoreFrameRate": "Frame rate (fps)",
+      "ebucoreHasMimeType": "MIME Type",
+      "ebucoreHeight": "Height (px)",
+      "ebucoreOrientation": "Orientation",
+      "ebucoreSampleRate": "Sample rate (Hz)",
+      "ebucoreSampleSize": "Sample size (bits)",
+      "ebucoreWidth": "Width (px)",
+      "edmCodecName": "Codec",
+      "edmComponentColor": "Component colour",
+      "edmHasColorSpace": "Colour space",
+      "edmRights": "Rights statement for this media",
+      "edmSpatialResolution": "Spatial resolution (dpi)"
     }
   },
   "filterResults": "Filter results",

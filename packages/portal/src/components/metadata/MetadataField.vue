@@ -60,13 +60,27 @@
           :key="index"
           :lang="langAttribute(langMappedValues.code)"
           data-qa="literal value"
+          :class="{ 'colour-swatch-list-item': isColourValue }"
         >
+          <template v-if="isColourValue">
+            <ColourSwatch
+              :hex-code="value"
+            />
+            <span>
+              {{ $t(`facets.COLOURPALETTE.options.${value}`) }}
+            </span>
+          </template>
           <SmartLink
-            v-if="fieldData.url"
+            v-else-if="fieldData.url"
             :destination="fieldData.url"
           >
-            {{ value }}
+            <span>{{ value }}</span>
           </SmartLink>
+          <template
+            v-else-if="isNumberValue(value)"
+          >
+            {{ $i18n.n(value) }}
+          </template>
           <template
             v-else
           >
@@ -91,6 +105,7 @@
     name: 'MetadataField',
 
     components: {
+      ColourSwatch: () => import('@/components/generic/ColourSwatch'),
       ItemDebiasField,
       ItemEntityField,
       MetadataOriginLabel,
@@ -147,6 +162,9 @@
       displayLabel() {
         if (this.$te(`fieldLabels.${this.context}.${this.name}`)) {
           return this.$t(`fieldLabels.${this.context}.${this.name}`);
+        }
+        if (this.context !== 'default' && this.$te(`fieldLabels.default.${this.name}`)) {
+          return this.$t(`fieldLabels.default.${this.name}`);
         } else {
           return this.name;
         }
@@ -201,6 +219,17 @@
 
       isValidFieldData() {
         return !this.timestampIsUnixEpochValue && (this.name !== 'edmUgc');
+      },
+
+      isColourValue() {
+        return this.name === 'edmComponentColor';
+      }
+
+    },
+
+    methods: {
+      isNumberValue(value) {
+        return typeof value === 'number';
       }
     }
   };
@@ -229,14 +258,27 @@
       li {
         display: inline;
 
-        &:not(:last-child)::after {
+        &.colour-swatch-list-item {
+          display: block;
+        }
+
+        &:not(:last-child):not(.colour-swatch-list-item)::after {
           content: ';';
           padding: 0 0.2rem;
         }
 
-        ::v-deep .icon-external-link {
-          vertical-align: initial;
-          font-size: 0.75rem;
+        .is-external-link {
+          display: inline-flex;
+          text-decoration: none;
+
+          span:first-child {
+            text-decoration: underline;
+          }
+
+          .icon-external-link {
+            line-height: 1.5;
+            margin-left: 0.25rem;
+          }
         }
       }
     }

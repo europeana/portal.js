@@ -463,17 +463,6 @@
             delete wr.webResourceEdmRights;
           }
 
-          // don't store the full web resources when using iiif as the manifest will be used,
-          // but WR-level rights statements still needed by ItemHero and not consistently
-          // obtainable from manifests coming from different sources
-          if (this.iiifPresentationManifest) {
-            for (const key in wr) {
-              if (!['about', 'webResourceEdmRights'].includes(key)) {
-                delete wr[key];
-              }
-            }
-          }
-
           return wr;
         });
 
