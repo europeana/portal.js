@@ -838,8 +838,12 @@ export default {
       "edmCodecName": "Codec",
       "edmComponentColor": "Component colour",
       "edmHasColorSpace": "Colour space",
+      "edmIntendedUsage": "Intended usage",
+      "edmPolygonCount": "Polygon count",
       "edmRights": "Rights statement for this media",
-      "edmSpatialResolution": "Spatial resolution (dpi)"
+      "edmSpatialResolution": "Spatial resolution (dpi)",
+      "edmVertexCount": "Vertex count",
+      "schemaDigitalSourceType": "Digital source type"
     }
   },
   "filterResults": "Filter results",
