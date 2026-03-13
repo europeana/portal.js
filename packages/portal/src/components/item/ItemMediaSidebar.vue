@@ -124,7 +124,6 @@
           v-if="shouldRenderTab('links')"
         >
           <b-tooltip
-            v-if="!!manifestUri"
             :target="linksTabButtonId"
             :title="$t('media.sidebar.links')"
             boundary=".media-viewer-sidebar"
@@ -132,7 +131,6 @@
             custom-class="ml-0"
           />
           <b-tab
-            v-if="!!manifestUri"
             data-qa="item media sidebar links"
             :button-id="linksTabButtonId"
             lazy
