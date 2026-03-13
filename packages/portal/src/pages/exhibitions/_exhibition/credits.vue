@@ -65,9 +65,10 @@
               cols="12"
               class="mt-3 col-lg-8"
             >
-              <LinkList
-                :items="chapterPagesToLinkListItems(hasPartCollection.items, identifier)"
-                :title="$t('exhibitions.chapters')"
+              <ExhibitionChapterLinkList
+                :chapters="hasPartCollection.items"
+                :exhibition-identifier="identifier"
+                :credits="credits"
               />
             </b-col>
           </b-row>
@@ -108,11 +109,11 @@
   import ClientOnly from 'vue-client-only';
   import { marked } from 'marked';
 
+  import ExhibitionChapterLinkList from '@/components/exhibition/ExhibitionChapterLinkList.vue';
   import ShareSocialModal from '../../../components/share/ShareSocialModal.vue';
   import ShareButton from '../../../components/share/ShareButton.vue';
   import { useLogEvent } from '@/composables/logEvent.js';
   import exhibitionCreditsPageGraphql from '@/graphql/queries/exhibitionCreditsPage.graphql';
-  import exhibitionChapters from '@/mixins/exhibitionChapters';
   import pageMetaMixin from '@/mixins/pageMeta';
 
   export default {
@@ -122,14 +123,13 @@
       ClientOnly,
       EntityBadges: () => import('@/components/entity/EntityBadges'),
       ErrorMessage: () => import('@/components/error/ErrorMessage'),
+      ExhibitionChapterLinkList,
       LoadingSpinner: () => import('@/components/generic/LoadingSpinner'),
-      LinkList: () => import('../../../components/generic/LinkList'),
       ShareButton,
       ShareSocialModal,
       ThemeBadges: () => import('@/components/theme/ThemeBadges')
     },
     mixins: [
-      exhibitionChapters,
       pageMetaMixin
     ],
     setup() {
