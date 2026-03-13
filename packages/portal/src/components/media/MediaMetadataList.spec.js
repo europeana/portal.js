@@ -11,32 +11,11 @@ const factory = (propsData) => shallowMount(MediaMetadataList, {
 
 describe('components/media/MediaMetadataList', () => {
   it('renders a metadata field for each web resource field', () => {
-    const wrapper = factory({ resource: { edm: {
+    const wrapper = factory({ webResource: {
       ebucoreHasMimeType: 'image/jpeg'
-    } } });
+    } });
 
     expect(wrapper.find('metadatafield-stub').exists()).toBe(true);
     expect(wrapper.findAll('metadatafield-stub').length).toBe(1);
-  });
-
-  describe('when web resource needs full metadata lookup', () => {
-    it('gets the data from the relevant web resource', () => {
-      const wrapper = factory({
-        resource: { edm: {
-          about: 'http://www.example.eu/wrAbout1'
-        } },
-        webResources: [{
-          about: 'http://www.example.eu/wrAbout'
-        }, {
-          about: 'http://www.example.eu/wrAbout1',
-          ebucoreHasMimeType: 'image/jpeg',
-          ebucoreOrientation: 'portrait'
-        }]
-      });
-
-      expect(wrapper.find('metadatafield-stub').exists()).toBe(true);
-      expect(wrapper.vm.fullWebResource.ebucoreOrientation).toBe('portrait');
-      expect(wrapper.findAll('metadatafield-stub').length).toBe(2);
-    });
   });
 });

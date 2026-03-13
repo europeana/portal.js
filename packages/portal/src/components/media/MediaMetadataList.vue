@@ -7,13 +7,13 @@
         v-for="field in FIELDS"
       >
         <li
-          v-if="fullWebResource[field]"
+          v-if="webResource[field]"
           :key="field"
         >
           <MetadataField
             class="p-3"
             :name="field"
-            :field-data="fullWebResource[field]"
+            :field-data="webResource[field]"
             :label-id="`${field}-label`"
             context="webResource"
           />
@@ -25,6 +25,7 @@
 
 <script>
   import MetadataField from '../metadata/MetadataField.vue';
+  import WebResource from '@/plugins/europeana/edm/WebResource.js';
 
   const FIELDS = [
     'dcTitle',
@@ -74,17 +75,9 @@
       /**
        * Web resource to display the metadata of
        */
-      resource: {
-        type: Object,
+      webResource: {
+        type: WebResource,
         required: true
-      },
-      /**
-       * Array of web resources to lookup in case resource does not contain the full data
-       * TODO: this should happen higher up
-       */
-      webResources: {
-        type: Array,
-        default: null
       }
     },
 
@@ -92,14 +85,6 @@
       return {
         FIELDS
       };
-    },
-
-    computed: {
-      fullWebResource() {
-        const fullWebResource = this.webResources?.find((wr) => wr.about === this.resource.edm.about) || this.resource.edm;
-
-        return fullWebResource;
-      }
     }
   };
 </script>

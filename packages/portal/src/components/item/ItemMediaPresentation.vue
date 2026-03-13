@@ -33,8 +33,7 @@
                 :annotation-list="hasAnnotations"
                 :annotation-search="hasAnnotations && hasSearchService"
                 :manifest-uri="uri"
-                :resource="hasWebResourceMetadataToDisplay && resource"
-                :web-resources="uri && webResources"
+                :web-resource="hasWebResourceMetadataToDisplay && webResource"
                 :show="showSidebar"
                 @keydown.escape.native="showSidebar = false"
               />
@@ -290,6 +289,10 @@
     fetchOnServer: false,
 
     computed: {
+      webResource() {
+        return this.webResources?.find((wr) => wr.about === this.resource?.id) || this.resource?.edm || null;
+      },
+
       displayThumbnail() {
         if (this.hasAnnotations) {
           return false;

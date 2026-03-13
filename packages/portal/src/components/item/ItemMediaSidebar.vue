@@ -116,8 +116,7 @@
             variant="light-flat"
           />
             <MediaMetadataList
-              :resource="resource"
-              :web-resources="webResources"
+              :web-resource="webResource"
             />
           </b-tab>
         </template>
@@ -202,12 +201,8 @@
         type: String,
         default: null
       },
-      resource: {
+      webResource: {
         type: Object,
-        default: null
-      },
-      webResources: {
-        type: Array,
         default: null
       },
       query: {
@@ -233,7 +228,7 @@
       if (props.annotationSearch) {
         tabHashes.push('#search');
       }
-      if (props.resource) {
+      if (props.webResource) {
         tabHashes.push('#metadata');
       }
       if (props.manifestUri) {
