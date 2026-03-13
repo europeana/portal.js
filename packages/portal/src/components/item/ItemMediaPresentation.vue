@@ -147,6 +147,7 @@
   import LoadingSpinner from '../generic/LoadingSpinner.vue';
   import MediaCardImage from '../media/MediaCardImage.vue';
   import useItemMediaPresentation from '@/composables/itemMediaPresentation.js';
+  import { FIELDS as WEB_RESOURCE_METADATA_DISPLAY_FIELDS } from '@/components/media/MediaMetadataList.vue';
 
   export class ItemMediaPresentationError extends Error {
     constructor(message) {
@@ -309,14 +310,9 @@
         return !!this.uri;
       },
 
-      hasWebResource() {
-        return !!this.resource;
-      },
-
       hasWebResourceMetadataToDisplay() {
         return this.$features.webResourceMetadata &&
-          this.hasWebResource &&
-          !this.resource.edm?.forEdmIsShownAt;
+          WEB_RESOURCE_METADATA_DISPLAY_FIELDS.some((field) => !!this.resource?.edm?.[field]);
       },
 
       sidebarHasContent() {
