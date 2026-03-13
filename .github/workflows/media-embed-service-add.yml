@@ -56,7 +56,7 @@ jobs:
       -
         name: Create pull request
         id: cpr
-        uses: peter-evans/create-pull-request@v4
+        uses: peter-evans/create-pull-request@v8
         with:
           branch: ${{ env.PR_BRANCH }}
           commit-message: "feat: add ${{ inputs.name }} media embed service"
