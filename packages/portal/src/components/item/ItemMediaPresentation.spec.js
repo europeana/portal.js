@@ -105,14 +105,35 @@ describe('components/item/ItemMediaPresentation', () => {
         });
       });
 
-      describe('or when there is a web resource', () => {
+      describe('or when there is a web resource with displayable metadata', () => {
         it('is visible', () => {
-          stubItemMediaPresentationComposable({ resource: {} });
+          stubItemMediaPresentationComposable({ resource: { edm: { dcTitle: 'depiction' } } });
           const wrapper = factory();
 
           const sidebarToggle = wrapper.find('itemmediasidebartoggle-stub');
 
           expect(sidebarToggle.isVisible()).toBe(true);
+        });
+      });
+
+      describe('or when there is a manifest link', () => {
+        it('is visible', () => {
+          const wrapper = factory({ propsData: { uri: 'http://iiif.example.org/123/manifest' } });
+
+          const sidebarToggle = wrapper.find('itemmediasidebartoggle-stub');
+
+          expect(sidebarToggle.isVisible()).toBe(true);
+        });
+      });
+
+      describe('otherwise', () => {
+        it('is not rendered', () => {
+          stubItemMediaPresentationComposable({ resource: { edm: { about: 'https://www.example.org/image.jpeg' } } });
+          const wrapper = factory();
+
+          const sidebarToggle = wrapper.find('itemmediasidebartoggle-stub');
+
+          expect(sidebarToggle.exists()).toBe(false);
         });
       });
     });

@@ -27,7 +27,7 @@
   import MetadataField from '../metadata/MetadataField.vue';
   import WebResource from '@/plugins/europeana/edm/WebResource.js';
 
-  const FIELDS = [
+  export const FIELDS = [
     'dcTitle',
     'dcCreator',
     'dcDescription',
