@@ -1,21 +1,24 @@
 <template>
-  <div v-if="displayWebResourceMetadata">
+  <div>
     <ul
       class="media-viewer-metadata-list list-group"
     >
-      <li
-        v-for="(value, key, index) in displayWebResourceMetadata"
-        :key="index"
+      <template
+        v-for="field in FIELDS"
       >
-        <MetadataField
-          :key="key"
-          class="p-3"
-          :name="key"
-          :field-data="value"
-          :label-id="`${key}-label`"
-          context="webResource"
-        />
-      </li>
+        <li
+          v-if="fullWebResource[field]"
+          :key="field"
+        >
+          <MetadataField
+            class="p-3"
+            :name="field"
+            :field-data="fullWebResource[field]"
+            :label-id="`${field}-label`"
+            context="webResource"
+          />
+        </li>
+      </template>
     </ul>
   </div>
 </template>
@@ -23,7 +26,8 @@
 <script>
   import MetadataField from '../metadata/MetadataField.vue';
 
-  const displayableFields = [
+  const FIELDS = [
+    'dcTitle',
     'dcCreator',
     'dcDescription',
     'dcFormat',
@@ -37,6 +41,7 @@
     'dctermsIsFormatOf',
     'dctermsIsPartOf',
     'dctermsIssued',
+    'dctermsTemporal',
     'ebucoreAudioChannelNumber',
     'ebucoreBitRate',
     'ebucoreDuration',
@@ -51,7 +56,11 @@
     'edmCodecName',
     'edmComponentColor',
     'edmHasColorSpace',
-    'edmSpatialResolution'
+    'edmIntendedUsage',
+    'edmPolygonCount',
+    'edmSpatialResolution',
+    'edmVertexCount',
+    'schemaDigitalSourceType'
   ];
 
   export default {
@@ -71,6 +80,7 @@
       },
       /**
        * Array of web resources to lookup in case resource does not contain the full data
+       * TODO: this should happen higher up
        */
       webResources: {
         type: Array,
@@ -78,21 +88,17 @@
       }
     },
 
+    data() {
+      return {
+        FIELDS
+      };
+    },
+
     computed: {
       fullWebResource() {
-        const fullWebResource = this.webResources?.find(wr => wr.about === this.resource.edm.about) || this.resource.edm;
+        const fullWebResource = this.webResources?.find((wr) => wr.about === this.resource.edm.about) || this.resource.edm;
 
         return fullWebResource;
-      },
-      displayWebResourceMetadata() {
-        const filteredData = this.fullWebResource;
-        for (const key in filteredData) {
-          if (!displayableFields.includes(key)) {
-            delete filteredData[key];
-          }
-        }
-
-        return filteredData;
       }
     }
   };
