@@ -58,7 +58,7 @@ describe('components/item/ItemMediaSidebar', () => {
 
     describe('when there is a web resource', () => {
       it('has a tab for media metadata', () => {
-        const wrapper = factory({ resource: {} });
+        const wrapper = factory({ webResource: {} });
 
         const metadataTab = wrapper.find('[data-qa="item media sidebar metadata"]');
 
