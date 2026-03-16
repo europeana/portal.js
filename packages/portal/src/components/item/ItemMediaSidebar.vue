@@ -316,8 +316,14 @@
       padding: 1rem 0;
       overflow: auto;
 
-      h2 {
+      h2,
+      .tooltip-button {
         font-size: 1.125rem;
+        line-height: 1.5rem;
+      }
+
+      .tooltip-button {
+        vertical-align: text-top;
       }
 
       .manifest-link {
