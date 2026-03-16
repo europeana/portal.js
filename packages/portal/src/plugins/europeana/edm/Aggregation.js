@@ -88,7 +88,7 @@ export default class Aggregation extends Base {
         uris.unshift(this.edmIsShownAt);
       }
 
-      const wrs = uris.map((uri) => (this.webResources || []).find((wr) => wr.about === uri));
+      const wrs = [...new Set(uris.map((uri) => (this.webResources || []).find((wr) => wr.about === uri)))];
 
       // Sort by isNextInSequence property if present
       this.#displayableWebResources = sortByIsNextInSequence(wrs);

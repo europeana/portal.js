@@ -116,6 +116,31 @@ describe('plugins/europeana/edm/Aggregation', () => {
         expect(displayableWebResources[2].about).toBe(hasView[1]);
         expect(displayableWebResources[3].about).toBe(hasView[2]);
       });
+
+      it('does NOT duplicate resources when the edmObject or edmIsShownBy is also a hasView', () => {
+        const edmObject = 'https://example.org/object.jpeg';
+        const edmIsShownBy = edmObject;
+        const isShownAt = 'https://example.org/other';
+        const hasView = ['https://example.org/hasView.jpeg', edmObject];
+        const edm = {
+          edmIsShownBy,
+          edmObject,
+          hasView,
+          webResources: [
+            { about: edmObject },
+            { about: hasView[0] },
+            { about: isShownAt }
+          ]
+        };
+
+        const displayableWebResources = new Aggregation(edm).displayableWebResources;
+        console.log(displayableWebResources);
+
+        expect(displayableWebResources.length).toBe(2);
+        expect(displayableWebResources.find((wr) => wr.about === edmObject)).toBeTruthy();
+        expect(displayableWebResources.find((wr) => wr.about === edmIsShownBy)).toBeTruthy();
+        expect(displayableWebResources.find((wr) => wr.about === hasView[0])).toBeTruthy();
+      });
     });
 
     describe('iiifPresentationManifestWebResources', () => {
