@@ -799,11 +799,29 @@ export default {
       "year": "Έτος"
     },
     "webResource": {
-      "about": "RDF σχετικά με",
-      "dcDescription": "Περιγραφή",
-      "ebucoreHasMimeType": "Τύπος Ebucore MIME",
-      "edmRights": "Δικαιώματα χρήσης για αυτό το πολυμέσο",
-      "rdfAbout": "RDF Σχετικά με"
+      "about": "Σχετικά",
+      "dctermsConformsTo": "Συμμορφώνεται με",
+      "dcType": "Τύπος μέσου",
+      "ebucoreAudioChannelNumber": "Κανάλια ήχου",
+      "ebucoreBitRate": "Ρυθμός μετάδοσης bit (bps)",
+      "ebucoreDuration": "Διάρκεια (ms)",
+      "ebucoreFileByteSize": "Μέγεθος αρχείου (bytes)",
+      "ebucoreFrameRate": "Ρυθμός καρέ (fps)",
+      "ebucoreHasMimeType": "Τύπος MIME",
+      "ebucoreHeight": "Ύψος (px)",
+      "ebucoreOrientation": "Προσανατολισμός",
+      "ebucoreSampleRate": "Ρυθμός δειγματοληψίας (Hz)",
+      "ebucoreSampleSize": "Μέγεθος δείγματος (bits)",
+      "ebucoreWidth": "Πλάτος (px)",
+      "edmCodecName": "Κωδικοποιητής",
+      "edmComponentColor": "Χρώμα εξαρτήματος",
+      "edmHasColorSpace": "Χρωματικός χώρος",
+      "edmIntendedUsage": "Προβλεπόμενη χρήση",
+      "edmPolygonCount": "Αριθμός πολυγώνων",
+      "edmRights": "Δήλωση δικαιωμάτων για αυτό το μέσο",
+      "edmSpatialResolution": "Χωρική ανάλυση (dpi)",
+      "edmVertexCount": "Αριθμός κορυφών",
+      "schemaDigitalSourceType": "Τύπος ψηφιακής πηγής"
     }
   },
   "filterResults": "Αποτελέσματα φίλτρου",
@@ -1037,6 +1055,8 @@ export default {
       "hide": "Απόκρυψη πλαϊνής γραμμής",
       "IIIFManifest": "IIIF Μανιφέστο",
       "links": "Σύνδεσμοι",
+      "metadata": "Μεταδεδομένα πολυμέσων",
+      "metadataInfo": "Πληροφορίες για το μέσο που προβάλλετε αυτή τη στιγμή.",
       "search": "Αναζήτηση",
       "searchPlaceholder": "Εισάγετε όρους",
       "show": "Εμφάνιση πλαϊνής γραμμής"

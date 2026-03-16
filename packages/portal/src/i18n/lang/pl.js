@@ -799,11 +799,29 @@ export default {
       "year": "Rok"
     },
     "webResource": {
-      "about": "RDF Informacje",
-      "dcDescription": "Opis",
-      "ebucoreHasMimeType": "Typ MIME Ebucore",
-      "edmRights": "Oświadczenie prawne na ten zasób medialny",
-      "rdfAbout": "RDF Informacje"
+      "about": "O",
+      "dctermsConformsTo": "Zgodny z",
+      "dcType": "Typ mediów",
+      "ebucoreAudioChannelNumber": "Kanały audio",
+      "ebucoreBitRate": "Przepływność (bps)",
+      "ebucoreDuration": "Czas trwania (ms)",
+      "ebucoreFileByteSize": "Rozmiar pliku (bajty)",
+      "ebucoreFrameRate": "Liczba klatek na sekundę (fps)",
+      "ebucoreHasMimeType": "Typ MIME",
+      "ebucoreHeight": "Wysokość (px)",
+      "ebucoreOrientation": "Orientacja",
+      "ebucoreSampleRate": "Częstotliwość próbkowania (Hz)",
+      "ebucoreSampleSize": "Rozmiar próbki (bity)",
+      "ebucoreWidth": "Szerokość (px)",
+      "edmCodecName": "Kodek",
+      "edmComponentColor": "Kolor komponentu",
+      "edmHasColorSpace": "Przestrzeń kolorów",
+      "edmIntendedUsage": "Przeznaczenie",
+      "edmPolygonCount": "Liczba wielokątów",
+      "edmRights": "Oświadczenie o prawach dla tego medium",
+      "edmSpatialResolution": "Rozdzielczość przestrzenna (dpi)",
+      "edmVertexCount": "Liczba wierzchołków",
+      "schemaDigitalSourceType": "Typ źródła cyfrowego"
     }
   },
   "filterResults": "Wyniki filtrowania",
@@ -1037,6 +1055,8 @@ export default {
       "hide": "Ukryj pasek boczny",
       "IIIFManifest": "IIIF Manifest",
       "links": "Linki",
+      "metadata": "Metadane multimediów",
+      "metadataInfo": "Informacje o aktualnie przeglądanych mediach.",
       "search": "Szukaj",
       "searchPlaceholder": "Wprowadź terminy",
       "show": "Pokaż pasek boczny"

@@ -799,11 +799,29 @@ export default {
       "year": "An"
     },
     "webResource": {
-      "about": "Despre RDF",
-      "dcDescription": "Descriere",
-      "ebucoreHasMimeType": "Tip Ebucore MIME",
-      "edmRights": "Mențiunea privind drepturile intelectuale pentru această resursă media",
-      "rdfAbout": "Despre RDF"
+      "about": "Despre",
+      "dctermsConformsTo": "Conform cu",
+      "dcType": "Tip de media",
+      "ebucoreAudioChannelNumber": "Canale audio",
+      "ebucoreBitRate": "Rată de biți (bps)",
+      "ebucoreDuration": "Durată (ms)",
+      "ebucoreFileByteSize": "Dimensiune fișier (octeți)",
+      "ebucoreFrameRate": "Rată de cadre (fps)",
+      "ebucoreHasMimeType": "Tip MIME",
+      "ebucoreHeight": "Înălțime (px)",
+      "ebucoreOrientation": "Orientare",
+      "ebucoreSampleRate": "Rată de eșantionare (Hz)",
+      "ebucoreSampleSize": "Dimensiunea eșantionului (biți)",
+      "ebucoreWidth": "Lățime (px)",
+      "edmCodecName": "Codec",
+      "edmComponentColor": "Culoarea componentei",
+      "edmHasColorSpace": "Spațiu de culoare",
+      "edmIntendedUsage": "Utilizare prevăzută",
+      "edmPolygonCount": "Număr de poligoane",
+      "edmRights": "Declarație de drepturi pentru acest media",
+      "edmSpatialResolution": "Rezoluție spațială (dpi)",
+      "edmVertexCount": "Număr de vârfuri",
+      "schemaDigitalSourceType": "Tip sursă digitală"
     }
   },
   "filterResults": "Filtrați rezultatele",
@@ -1037,6 +1055,8 @@ export default {
       "hide": "Ascunde bara laterală",
       "IIIFManifest": "IIIF Manifest",
       "links": "Linkuri",
+      "metadata": "Metadate media",
+      "metadataInfo": "Informații despre conținutul media pe care îl vizualizați în prezent.",
       "search": "Căutare",
       "searchPlaceholder": "Introduceți termeni",
       "show": "Afișați bara laterală"

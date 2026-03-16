@@ -822,8 +822,8 @@ export default {
     },
     "webResource": {
       "about": "About",
-      "dcType": "Type of media",
       "dctermsConformsTo": "Conforms to",
+      "dcType": "Type of media",
       "ebucoreAudioChannelNumber": "Audio channels",
       "ebucoreBitRate": "Bitrate (bps)",
       "ebucoreDuration": "Duration (ms)",

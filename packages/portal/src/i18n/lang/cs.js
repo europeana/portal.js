@@ -799,11 +799,29 @@ export default {
       "year": "Rok"
     },
     "webResource": {
-      "about": "RDF About",
-      "dcDescription": "Popis",
-      "ebucoreHasMimeType": "Ebucore typ MIME",
-      "edmRights": "Výrok o právech pro tento mediální zdrojvýrok o právech",
-      "rdfAbout": "RDF About"
+      "about": "O",
+      "dctermsConformsTo": "Odpovídá",
+      "dcType": "Typ média",
+      "ebucoreAudioChannelNumber": "Zvukové kanály",
+      "ebucoreBitRate": "Datový tok (bps)",
+      "ebucoreDuration": "Trvání (ms)",
+      "ebucoreFileByteSize": "Velikost souboru (bajty)",
+      "ebucoreFrameRate": "Snímková frekvence (fps)",
+      "ebucoreHasMimeType": "Typ MIME",
+      "ebucoreHeight": "Výška (px)",
+      "ebucoreOrientation": "Orientace",
+      "ebucoreSampleRate": "Vzorkovací frekvence (Hz)",
+      "ebucoreSampleSize": "Velikost vzorku (bity)",
+      "ebucoreWidth": "Šířka (px)",
+      "edmCodecName": "Kodek",
+      "edmComponentColor": "Barva komponenty",
+      "edmHasColorSpace": "Barevný prostor",
+      "edmIntendedUsage": "Zamýšlené použití",
+      "edmPolygonCount": "Počet polygonů",
+      "edmRights": "Prohlášení o právech k tomuto médiu",
+      "edmSpatialResolution": "Prostorové rozlišení (dpi)",
+      "edmVertexCount": "Počet vrcholů",
+      "schemaDigitalSourceType": "Typ digitálního zdroje"
     }
   },
   "filterResults": "Filtrovat výsledky",
@@ -1037,6 +1055,8 @@ export default {
       "hide": "Skrýt postranní panel",
       "IIIFManifest": "IIIF Manifest",
       "links": "Odkazy",
+      "metadata": "Metadata médií",
+      "metadataInfo": "Informace o médiích, která si právě prohlížíte.",
       "search": "Vyhledat",
       "searchPlaceholder": "Zadejte podmínky",
       "show": "Zobrazit postranní panel"

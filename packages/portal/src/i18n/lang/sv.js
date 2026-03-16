@@ -799,11 +799,29 @@ export default {
       "year": "År"
     },
     "webResource": {
-      "about": "RDF Om",
-      "dcDescription": "Beskrivning",
-      "ebucoreHasMimeType": "Ebucore MIME-typ",
-      "edmRights": "Rättighetsmärkning för denna medieresurs",
-      "rdfAbout": "RDF Om"
+      "about": "Om",
+      "dctermsConformsTo": "Överensstämmer med",
+      "dcType": "Typ av media",
+      "ebucoreAudioChannelNumber": "Ljudkanaler",
+      "ebucoreBitRate": "Bithastighet (bps)",
+      "ebucoreDuration": "Varaktighet (ms)",
+      "ebucoreFileByteSize": "Filstorlek (byte)",
+      "ebucoreFrameRate": "Bildfrekvens (fps)",
+      "ebucoreHasMimeType": "MIME-typ",
+      "ebucoreHeight": "Höjd (px)",
+      "ebucoreOrientation": "Orientering",
+      "ebucoreSampleRate": "Samplingsfrekvens (Hz)",
+      "ebucoreSampleSize": "Samplingsstorlek (bitar)",
+      "ebucoreWidth": "Bredd (px)",
+      "edmCodecName": "Codec",
+      "edmComponentColor": "Komponentfärg",
+      "edmHasColorSpace": "Färgrymd",
+      "edmIntendedUsage": "Avsedd användning",
+      "edmPolygonCount": "Polygonantal",
+      "edmRights": "Rättighetsbeskrivning för denna media",
+      "edmSpatialResolution": "Spatial upplösning (dpi)",
+      "edmVertexCount": "Antal hörnpunkter",
+      "schemaDigitalSourceType": "Digital källtyp"
     }
   },
   "filterResults": "Filtrera resultat",
@@ -1037,6 +1055,8 @@ export default {
       "hide": "Dölj sidofältet",
       "IIIFManifest": "IIIF Manifest",
       "links": "Länkar",
+      "metadata": "Mediametadata",
+      "metadataInfo": "Information om det media som visas just nu.",
       "search": "Sök",
       "searchPlaceholder": "Ange villkor",
       "show": "Visa sidofältet"

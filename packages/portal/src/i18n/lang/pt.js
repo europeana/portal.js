@@ -799,11 +799,29 @@ export default {
       "year": "Ano"
     },
     "webResource": {
-      "about": "RDF Acerca",
-      "dcDescription": "Descrição",
-      "ebucoreHasMimeType": "Ebucore Tipo MIME",
-      "edmRights": "Declaração de direitos para este recurso de média",
-      "rdfAbout": "RDF Acerca"
+      "about": "Sobre",
+      "dctermsConformsTo": "Em conformidade com",
+      "dcType": "Tipo de média",
+      "ebucoreAudioChannelNumber": "Canais de áudio",
+      "ebucoreBitRate": "Taxa de bits (bps)",
+      "ebucoreDuration": "Duração (ms)",
+      "ebucoreFileByteSize": "Tamanho do ficheiro (bytes)",
+      "ebucoreFrameRate": "Taxa de quadros (fps)",
+      "ebucoreHasMimeType": "Tipo MIME",
+      "ebucoreHeight": "Altura (px)",
+      "ebucoreOrientation": "Orientação",
+      "ebucoreSampleRate": "Taxa de amostragem (Hz)",
+      "ebucoreSampleSize": "Tamanho da amostra (bits)",
+      "ebucoreWidth": "Largura (px)",
+      "edmCodecName": "Codec",
+      "edmComponentColor": "Cor do componente",
+      "edmHasColorSpace": "Espaço de cor",
+      "edmIntendedUsage": "Utilização prevista",
+      "edmPolygonCount": "Contagem de polígonos",
+      "edmRights": "Declaração de direitos para este meio de comunicação",
+      "edmSpatialResolution": "Resolução espacial (dpi)",
+      "edmVertexCount": "Contagem de vértices",
+      "schemaDigitalSourceType": "Tipo de fonte digital"
     }
   },
   "filterResults": "Filtrar resultados",
@@ -1037,6 +1055,8 @@ export default {
       "hide": "Ocultar barra lateral",
       "IIIFManifest": "Manifesto IIIF",
       "links": "Links",
+      "metadata": "Metadados de mídia",
+      "metadataInfo": "Informações sobre o conteúdo multimédia que está a visualizar neste momento.",
       "search": "Procurar",
       "searchPlaceholder": "Insira os termos",
       "show": "Mostrar barra lateral"

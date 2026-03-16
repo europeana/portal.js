@@ -799,11 +799,29 @@ export default {
       "year": "Jahr"
     },
     "webResource": {
-      "about": "RDF Über",
-      "dcDescription": "Beschreibung",
-      "ebucoreHasMimeType": "Ebucore MIME-Typ",
-      "edmRights": "Rechtehinweise für diese Medienressource",
-      "rdfAbout": "RDF Über"
+      "about": "Über",
+      "dctermsConformsTo": "Entspricht",
+      "dcType": "Medientyp",
+      "ebucoreAudioChannelNumber": "Audiokanäle",
+      "ebucoreBitRate": "Bitrate (bps)",
+      "ebucoreDuration": "Dauer (ms)",
+      "ebucoreFileByteSize": "Dateigröße (Bytes)",
+      "ebucoreFrameRate": "Bildrate (fps)",
+      "ebucoreHasMimeType": "MIME-Typ",
+      "ebucoreHeight": "Höhe (px)",
+      "ebucoreOrientation": "Ausrichtung",
+      "ebucoreSampleRate": "Abtastrate (Hz)",
+      "ebucoreSampleSize": "Abtastgröße (Bit)",
+      "ebucoreWidth": "Breite (px)",
+      "edmCodecName": "Codec",
+      "edmComponentColor": "Komponentenfarbe",
+      "edmHasColorSpace": "Farbraum",
+      "edmIntendedUsage": "Verwendungszweck",
+      "edmPolygonCount": "Polygonanzahl",
+      "edmRights": "Rechteerklärung für dieses Medium",
+      "edmSpatialResolution": "Räumliche Auflösung (dpi)",
+      "edmVertexCount": "Anzahl der Vertices",
+      "schemaDigitalSourceType": "Digitaler Quellentyp"
     }
   },
   "filterResults": "Filter Ergebnisse",
@@ -1037,6 +1055,8 @@ export default {
       "hide": "Seitenleiste ausblenden",
       "IIIFManifest": "IIIF-Manifest",
       "links": "Links",
+      "metadata": "Medien-Metadaten",
+      "metadataInfo": "Informationen über die Medien, die Sie gerade ansehen.",
       "search": "Suche",
       "searchPlaceholder": "Begriffe eingeben",
       "show": "Seitenleiste anzeigen"
