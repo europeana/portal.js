@@ -460,6 +460,7 @@
   .media-viewer-inner-wrapper {
     @include media-viewer-height;
     background-color: $black;
+    border-bottom: 1px solid $lightbluemagenta;
 
     @media (max-width: ($bp-large - 1px)) {
       position: relative;

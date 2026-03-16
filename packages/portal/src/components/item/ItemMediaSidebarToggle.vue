@@ -56,13 +56,15 @@
     background-color: rgba($white, 0.95);
     position: absolute;
     left: 0;
-    bottom: 0;
     z-index: 3;
 
     @media (min-width: $bp-large) {
       background-color: $white;
+      bottom: 0;
       width: calc(pxToRem(300) + 15px);
       transition: background-color $standard-transition;
+      border-top: 1px solid $lightbluemagenta;
+      border-bottom: 1px solid $lightbluemagenta;
 
       &.closed {
         background-color: transparent;
