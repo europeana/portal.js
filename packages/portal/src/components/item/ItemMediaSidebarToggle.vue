@@ -67,6 +67,7 @@
       border-bottom: 1px solid $lightbluemagenta;
 
       &.closed {
+        border-top: 0;
         background-color: transparent;
         transition: background-color $standard-transition;
       }
