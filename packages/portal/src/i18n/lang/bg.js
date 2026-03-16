@@ -799,11 +799,29 @@ export default {
       "year": "Година"
     },
     "webResource": {
-      "about": "Относно RDF",
-      "dcDescription": "Описание",
-      "ebucoreHasMimeType": "Тип Ebucore MIME",
-      "edmRights": "Лиценз за този медиен ресурс",
-      "rdfAbout": "Относно RDF"
+      "about": "Относно",
+      "dctermsConformsTo": "Съответства на",
+      "dcType": "Вид медия",
+      "ebucoreAudioChannelNumber": "Аудио канали",
+      "ebucoreBitRate": "Битрейт (bps)",
+      "ebucoreDuration": "Продължителност (ms)",
+      "ebucoreFileByteSize": "Размер на файла (байтове)",
+      "ebucoreFrameRate": "Честота на кадрите (fps)",
+      "ebucoreHasMimeType": "MIME тип",
+      "ebucoreHeight": "Височина (px)",
+      "ebucoreOrientation": "Ориентация",
+      "ebucoreSampleRate": "Честота на дискретизация (Hz)",
+      "ebucoreSampleSize": "Размер на извадката (битове)",
+      "ebucoreWidth": "Ширина (px)",
+      "edmCodecName": "Кодек",
+      "edmComponentColor": "Цвят на компонента",
+      "edmHasColorSpace": "Цветово пространство",
+      "edmIntendedUsage": "Предназначена употреба",
+      "edmPolygonCount": "Брой полигони",
+      "edmRights": "Декларация за права за тази медия",
+      "edmSpatialResolution": "Пространствена разделителна способност (dpi)",
+      "edmVertexCount": "Брой върхове",
+      "schemaDigitalSourceType": "Тип цифров източник"
     }
   },
   "filterResults": "Филтриране на резултати",
@@ -1037,6 +1055,8 @@ export default {
       "hide": "Скриване на страничната лента",
       "IIIFManifest": "IIIF Манифест",
       "links": "Връзки",
+      "metadata": "Метаданни на медията",
+      "metadataInfo": "Информация за медията, която в момента преглеждате.",
       "search": "Търсене",
       "searchPlaceholder": "Въведете термини",
       "show": "Показване на страничната лента"

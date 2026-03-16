@@ -799,11 +799,29 @@ export default {
       "year": "Vuosi"
     },
     "webResource": {
-      "about": "RDF-tiedot",
-      "dcDescription": "Kuvaus",
-      "ebucoreHasMimeType": "Ebucore MIME -tyyppi",
-      "edmRights": "Käyttöoikeus mediaresurssin lisenssi",
-      "rdfAbout": "RDF-tiedot"
+      "about": "Tietoja",
+      "dctermsConformsTo": "Noudattaa",
+      "dcType": "Mediatyyppi",
+      "ebucoreAudioChannelNumber": "Äänikanavat",
+      "ebucoreBitRate": "Bittinopeus (bps)",
+      "ebucoreDuration": "Kesto (ms)",
+      "ebucoreFileByteSize": "Tiedostokoko (tavua)",
+      "ebucoreFrameRate": "Kuvataajuus (fps)",
+      "ebucoreHasMimeType": "MIME-tyyppi",
+      "ebucoreHeight": "Korkeus (px)",
+      "ebucoreOrientation": "Suunta",
+      "ebucoreSampleRate": "Näytteenottotaajuus (Hz)",
+      "ebucoreSampleSize": "Näytteen koko (bittiä)",
+      "ebucoreWidth": "Leveys (px)",
+      "edmCodecName": "Koodekki",
+      "edmComponentColor": "Komponentin väri",
+      "edmHasColorSpace": "Väriavaruus",
+      "edmIntendedUsage": "Käyttötarkoitus",
+      "edmPolygonCount": "Polygonien määrä",
+      "edmRights": "Tämän median oikeudet",
+      "edmSpatialResolution": "Spatiaalinen erottelutarkkuus (dpi)",
+      "edmVertexCount": "Vertex-määrä",
+      "schemaDigitalSourceType": "Digitaalinen lähdetyyppi"
     }
   },
   "filterResults": "Suodata tulokset",
@@ -1037,6 +1055,8 @@ export default {
       "hide": "Piilota sivupalkki",
       "IIIFManifest": "IIIF manifesti",
       "links": "Linkit",
+      "metadata": "Median metatiedot",
+      "metadataInfo": "Teave hetkel vaadatava meedia kohta.",
       "search": "Hae",
       "searchPlaceholder": "Syötä ehdot",
       "show": "Näytä sivupalkki"

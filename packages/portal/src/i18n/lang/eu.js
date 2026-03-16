@@ -799,11 +799,29 @@ export default {
       "year": "Urtea"
     },
     "webResource": {
-      "about": "RDF buruz",
-      "dcDescription": "Deskribapena",
-      "ebucoreHasMimeType": "Ebucore MIME mota",
-      "edmRights": "Baliabide honetarako baimenen egoera",
-      "rdfAbout": "RDF"
+      "about": "Buruz",
+      "dctermsConformsTo": "Bat dator honekin",
+      "dcType": "Euskarri mota",
+      "ebucoreAudioChannelNumber": "Audio kanalak",
+      "ebucoreBitRate": "Bit-tasa (bps)",
+      "ebucoreDuration": "Iraupena (ms)",
+      "ebucoreFileByteSize": "Fitxategi-tamaina (byteak)",
+      "ebucoreFrameRate": "Fotograma-tasa (fps)",
+      "ebucoreHasMimeType": "MIME mota",
+      "ebucoreHeight": "Altuera (px)",
+      "ebucoreOrientation": "Orientazioa",
+      "ebucoreSampleRate": "Lagin-maiztasuna (Hz)",
+      "ebucoreSampleSize": "Lagin-tamaina (bitak)",
+      "ebucoreWidth": "Zabalera (px)",
+      "edmCodecName": "Kodek",
+      "edmComponentColor": "Osagaiaren kolorea",
+      "edmHasColorSpace": "Kolore-espazioa",
+      "edmIntendedUsage": "Aurreikusitako erabilera",
+      "edmPolygonCount": "Poligono kopurua",
+      "edmRights": "Komunikabide honen eskubideen adierazpena",
+      "edmSpatialResolution": "Bereizmen espaziala (dpi)",
+      "edmVertexCount": "Erpin kopurua",
+      "schemaDigitalSourceType": "Iturri digital mota"
     }
   },
   "filterResults": "Iragazi emaitzak",
@@ -1037,6 +1055,8 @@ export default {
       "hide": "Ezkutatu alboko barra",
       "IIIFManifest": "IIIF Manifestua",
       "links": "Loturak",
+      "metadata": "Multimedia metadatuak",
+      "metadataInfo": "Une honetan ikusten ari zaren multimedia-edukiari buruzko informazioa.",
       "search": "Bilatu",
       "searchPlaceholder": "Sartu terminoak",
       "show": "Erakutsi alboko barra"

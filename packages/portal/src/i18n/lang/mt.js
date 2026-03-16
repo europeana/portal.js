@@ -799,11 +799,29 @@ export default {
       "year": "Sena"
     },
     "webResource": {
-      "about": "Dwar RDF",
-      "dcDescription": "Deskrizzjoni",
-      "ebucoreHasMimeType": "It-Tip Ebucore MIME",
-      "edmRights": "Dikjarazzjoni tad-drittijiet ta' din ir-riżorsa tal-midja",
-      "rdfAbout": "Dwar RDF"
+      "about": "Dwar",
+      "dctermsConformsTo": "Jikkonforma ma’",
+      "dcType": "Tip ta' midja",
+      "ebucoreAudioChannelNumber": "Kanali tal-awdjo",
+      "ebucoreBitRate": "Rata tal-bits (bps)",
+      "ebucoreDuration": "Tul (ms)",
+      "ebucoreFileByteSize": "Daqs tal-fajl (bytes)",
+      "ebucoreFrameRate": "Rata tal-frejms (fps)",
+      "ebucoreHasMimeType": "Tip ta' MIME",
+      "ebucoreHeight": "Għoli (px)",
+      "ebucoreOrientation": "Orjentazzjoni",
+      "ebucoreSampleRate": "Rata tal-kampjunar (Hz)",
+      "ebucoreSampleSize": "Daqs tal-kampjun (bits)",
+      "ebucoreWidth": "Wisa’ (px)",
+      "edmCodecName": "Kodek",
+      "edmComponentColor": "Kulur tal-komponent",
+      "edmHasColorSpace": "Spazju tal-kulur",
+      "edmIntendedUsage": "Użu maħsub",
+      "edmPolygonCount": "Għadd ta' poligoni",
+      "edmRights": "Dikjarazzjoni tad-drittijiet għal din il-midja",
+      "edmSpatialResolution": "Riżoluzzjoni spazjali (dpi)",
+      "edmVertexCount": "Għadd ta’ vertices",
+      "schemaDigitalSourceType": "Tip ta’ sors diġitali"
     }
   },
   "filterResults": "Riżultati tal-filtru",
@@ -1037,6 +1055,8 @@ export default {
       "hide": "Aħbi l-istrixxa tal-ġenb",
       "IIIFManifest": "IIIF Manifest",
       "links": "Links",
+      "metadata": "Metadejta tal-midja",
+      "metadataInfo": "Informazzjoni dwar il-midja li qed tara bħalissa.",
       "search": "Fittex",
       "searchPlaceholder": "Daħħal it-termini",
       "show": "Uri l-istrixxa tal-ġenb"

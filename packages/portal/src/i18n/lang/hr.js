@@ -799,11 +799,29 @@ export default {
       "year": "Godina"
     },
     "webResource": {
-      "about": "O RDF",
-      "dcDescription": "Opis",
-      "ebucoreHasMimeType": "Ebucore MIME tip",
-      "edmRights": "Uvjeti korištenja za ovaj medijski resurs",
-      "rdfAbout": "RDF O"
+      "about": "O",
+      "dctermsConformsTo": "Sukladno s",
+      "dcType": "Vrsta medija",
+      "ebucoreAudioChannelNumber": "Audio kanali",
+      "ebucoreBitRate": "Brzina prijenosa (bps)",
+      "ebucoreDuration": "Trajanje (ms)",
+      "ebucoreFileByteSize": "Veličina datoteke (bajtovi)",
+      "ebucoreFrameRate": "Broj sličica u sekundi (fps)",
+      "ebucoreHasMimeType": "MIME tip",
+      "ebucoreHeight": "Visina (px)",
+      "ebucoreOrientation": "Orijentacija",
+      "ebucoreSampleRate": "Frekvencija uzorkovanja (Hz)",
+      "ebucoreSampleSize": "Veličina uzorka (bitovi)",
+      "ebucoreWidth": "Širina (px)",
+      "edmCodecName": "Kodek",
+      "edmComponentColor": "Boja komponente",
+      "edmHasColorSpace": "Prostor boja",
+      "edmIntendedUsage": "Namjena",
+      "edmPolygonCount": "Broj poligona",
+      "edmRights": "Izjava o pravima za ovaj medij",
+      "edmSpatialResolution": "Prostorna razlučivost (dpi)",
+      "edmVertexCount": "Broj vrhova",
+      "schemaDigitalSourceType": "Vrsta digitalnog izvora"
     }
   },
   "filterResults": "Filtrirajte rezultate",
@@ -1037,6 +1055,8 @@ export default {
       "hide": "Sakrij bočnu traku",
       "IIIFManifest": "IIIF Manifest",
       "links": "Linkovi",
+      "metadata": "Metapodaci medija",
+      "metadataInfo": "Informacije o mediju koji trenutno pregledavate.",
       "search": "Traži",
       "searchPlaceholder": "Unesite pojmove",
       "show": "Prikaži bočnu traku"

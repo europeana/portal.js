@@ -799,11 +799,29 @@ export default {
       "year": "Év"
     },
     "webResource": {
-      "about": "RDF Névjegy",
-      "dcDescription": "Leírás",
-      "ebucoreHasMimeType": "Ebucore MIME típus",
-      "edmRights": "A médiaforrás szerzői jogai",
-      "rdfAbout": "RDF Névjegy"
+      "about": "Névjegy",
+      "dctermsConformsTo": "Megfelel",
+      "dcType": "Médiatípus",
+      "ebucoreAudioChannelNumber": "Hangcsatornák",
+      "ebucoreBitRate": "Bitráta (bps)",
+      "ebucoreDuration": "Időtartam (ms)",
+      "ebucoreFileByteSize": "Fájlméret (bájt)",
+      "ebucoreFrameRate": "Képkockasebesség (fps)",
+      "ebucoreHasMimeType": "MIME-típus",
+      "ebucoreHeight": "Magasság (px)",
+      "ebucoreOrientation": "Tájolás",
+      "ebucoreSampleRate": "Mintavételi frekvencia (Hz)",
+      "ebucoreSampleSize": "Minta mérete (bit)",
+      "ebucoreWidth": "Szélesség (px)",
+      "edmCodecName": "Kodek",
+      "edmComponentColor": "Komponens színe",
+      "edmHasColorSpace": "Színtér",
+      "edmIntendedUsage": "Tervezett felhasználás",
+      "edmPolygonCount": "Poligonok száma",
+      "edmRights": "Jognyilatkozat ehhez a médiához",
+      "edmSpatialResolution": "Térbeli felbontás (dpi)",
+      "edmVertexCount": "Csúcspontok száma",
+      "schemaDigitalSourceType": "Digitális forrástípus"
     }
   },
   "filterResults": "Találatok szűrése",
@@ -1037,6 +1055,8 @@ export default {
       "hide": "Oldalsáv elrejtése",
       "IIIFManifest": "IIIF Manifest",
       "links": "Linkek",
+      "metadata": "Média metaadatok",
+      "metadataInfo": "Információk a jelenleg megtekintett médiáról.",
       "search": "Keresés",
       "searchPlaceholder": "Kifejezések megadása",
       "show": "Oldalsáv megjelenítése"

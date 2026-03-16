@@ -799,11 +799,29 @@ export default {
       "year": "Bliain"
     },
     "webResource": {
-      "about": "Maidir le RDF",
-      "dcDescription": "Tuairisc",
-      "ebucoreHasMimeType": "Cineál MIME Ebucore",
-      "edmRights": "Ráiteas um Chearta ceadúnas don acmhainn meán seo",
-      "rdfAbout": "Maidir le RDF"
+      "about": "Maidir le",
+      "dctermsConformsTo": "Comhlíonann",
+      "dcType": "Cineál meáin",
+      "ebucoreAudioChannelNumber": "Cainéil fuaime",
+      "ebucoreBitRate": "Ráta giotán (bps)",
+      "ebucoreDuration": "Fad (ms)",
+      "ebucoreFileByteSize": "Méid comhaid (bearta)",
+      "ebucoreFrameRate": "Ráta frámaí (fps)",
+      "ebucoreHasMimeType": "Cineál MIME",
+      "ebucoreHeight": "Airde (px)",
+      "ebucoreOrientation": "Treoshuíomh",
+      "ebucoreSampleRate": "Ráta samplála (Hz)",
+      "ebucoreSampleSize": "Méid na samplaí (giotáin)",
+      "ebucoreWidth": "Leithead (px)",
+      "edmCodecName": "Códec",
+      "edmComponentColor": "Dath comhpháirte",
+      "edmHasColorSpace": "Spás datha",
+      "edmIntendedUsage": "Úsáid beartaithe",
+      "edmPolygonCount": "Líon na bpolagán",
+      "edmRights": "Ráiteas cearta don mheán seo",
+      "edmSpatialResolution": "Taifeach spásúil (dpi)",
+      "edmVertexCount": "Líon na rinn",
+      "schemaDigitalSourceType": "Cineál foinse dhigiteach"
     }
   },
   "filterResults": "Scag torthaí",
@@ -1037,6 +1055,8 @@ export default {
       "hide": "Folaigh bharra taoibh",
       "IIIFManifest": "Manifest IIIF",
       "links": "Naisc",
+      "metadata": "Meiteashonraí meáin",
+      "metadataInfo": "Faisnéis faoin meán atá á fhéachaint agat faoi láthair.",
       "search": "Cuardaigh",
       "searchPlaceholder": "Cuir isteach téarmaí",
       "show": "Taispeáin barra taoibh"

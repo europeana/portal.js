@@ -799,11 +799,29 @@ export default {
       "year": "Jaar"
     },
     "webResource": {
-      "about": "RDF Over",
-      "dcDescription": "Omschrijving",
-      "ebucoreHasMimeType": "Ebucore MIME-type",
-      "edmRights": "Rechtenstatus voor deze mediabron",
-      "rdfAbout": "RDF Over"
+      "about": "Over",
+      "dctermsConformsTo": "Voldoet aan",
+      "dcType": "Soort media",
+      "ebucoreAudioChannelNumber": "Audiokanalen",
+      "ebucoreBitRate": "Bitrate (bps)",
+      "ebucoreDuration": "Duur (ms)",
+      "ebucoreFileByteSize": "Bestandsgrootte (bytes)",
+      "ebucoreFrameRate": "Framesnelheid (fps)",
+      "ebucoreHasMimeType": "MIME-type",
+      "ebucoreHeight": "Hoogte (px)",
+      "ebucoreOrientation": "Oriëntatie",
+      "ebucoreSampleRate": "Samplefrequentie (Hz)",
+      "ebucoreSampleSize": "Steekproefgrootte (bits)",
+      "ebucoreWidth": "Breedte (px)",
+      "edmCodecName": "Codec",
+      "edmComponentColor": "Component kleur",
+      "edmHasColorSpace": "Kleurruimte",
+      "edmIntendedUsage": "Beoogd gebruik",
+      "edmPolygonCount": "Aantal polygonen",
+      "edmRights": "Rechtenverklaring voor deze media",
+      "edmSpatialResolution": "Ruimtelijke resolutie (dpi)",
+      "edmVertexCount": "Aantal hoekpunten",
+      "schemaDigitalSourceType": "Digitaal brontype"
     }
   },
   "filterResults": "Resultaten filteren",
@@ -1037,6 +1055,8 @@ export default {
       "hide": "Verberg zijbalk",
       "IIIFManifest": "IIIF Manifest",
       "links": "Links",
+      "metadata": "Media-metadata",
+      "metadataInfo": "Informatie over de media die u nu bekijkt.",
       "search": "Zoeken",
       "searchPlaceholder": "Voer termen in",
       "show": "Zijbalk weergeven"

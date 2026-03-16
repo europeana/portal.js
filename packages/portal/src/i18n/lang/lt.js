@@ -799,11 +799,29 @@ export default {
       "year": "Metai"
     },
     "webResource": {
-      "about": "RDF Apie",
-      "dcDescription": "Aprašymas",
-      "ebucoreHasMimeType": "„Ebucore“ MIME tipas",
-      "edmRights": "Šio medijos šaltinio Teisių pareikštys",
-      "rdfAbout": "RDF Apie"
+      "about": "Apie",
+      "dctermsConformsTo": "Atitinka",
+      "dcType": "Medijos tipas",
+      "ebucoreAudioChannelNumber": "Garso kanalai",
+      "ebucoreBitRate": "Bitų sparta (bps)",
+      "ebucoreDuration": "Trukmė (ms)",
+      "ebucoreFileByteSize": "Failo dydis (baitais)",
+      "ebucoreFrameRate": "Kadrų dažnis (fps)",
+      "ebucoreHasMimeType": "MIME tipas",
+      "ebucoreHeight": "Aukštis (px)",
+      "ebucoreOrientation": "Orientacija",
+      "ebucoreSampleRate": "Diskretizavimo dažnis (Hz)",
+      "ebucoreSampleSize": "Imties dydis (bitais)",
+      "ebucoreWidth": "Plotis (px)",
+      "edmCodecName": "Kodekas",
+      "edmComponentColor": "Komponento spalva",
+      "edmHasColorSpace": "Spalvų erdvė",
+      "edmIntendedUsage": "Numatytoji paskirtis",
+      "edmPolygonCount": "Poligonų skaičius",
+      "edmRights": "Šios medijos teisių pareiškimas",
+      "edmSpatialResolution": "Erdvinė raiška (dpi)",
+      "edmVertexCount": "Viršūnių skaičius",
+      "schemaDigitalSourceType": "Skaitmeninio šaltinio tipas"
     }
   },
   "filterResults": "Filtruoti rezultatus",
@@ -1037,6 +1055,8 @@ export default {
       "hide": "Slėpti šoninę juostą",
       "IIIFManifest": "IIIF manifestas",
       "links": "Nuorodos",
+      "metadata": "Medijos metaduomenys",
+      "metadataInfo": "Informacija apie šiuo metu peržiūrimą mediją.",
       "search": "Paieška",
       "searchPlaceholder": "Įveskite terminus",
       "show": "Rodyti šoninę juostą"

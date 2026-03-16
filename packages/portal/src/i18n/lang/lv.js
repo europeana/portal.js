@@ -799,11 +799,29 @@ export default {
       "year": "Gads"
     },
     "webResource": {
-      "about": "RDF Par",
-      "dcDescription": "Apraksts",
-      "ebucoreHasMimeType": "Ebucore MIME veids",
-      "edmRights": "Tiesību statuss par tiesībām saistībā ar šo multivides resursu",
-      "rdfAbout": "Par radiopeilētāju (RDF)"
+      "about": "Par",
+      "dctermsConformsTo": "Atbilst",
+      "dcType": "Mediju veids",
+      "ebucoreAudioChannelNumber": "Audio kanāli",
+      "ebucoreBitRate": "Bitu pārraides ātrums (bps)",
+      "ebucoreDuration": "Ilgums (ms)",
+      "ebucoreFileByteSize": "Faila izmērs (baiti)",
+      "ebucoreFrameRate": "Kadru nomaiņas ātrums (fps)",
+      "ebucoreHasMimeType": "MIME tips",
+      "ebucoreHeight": "Augstums (px)",
+      "ebucoreOrientation": "Orientācija",
+      "ebucoreSampleRate": "Diskretizācijas frekvence (Hz)",
+      "ebucoreSampleSize": "Parauga lielums (biti)",
+      "ebucoreWidth": "Platums (px)",
+      "edmCodecName": "Kodeks",
+      "edmComponentColor": "Komponenta krāsa",
+      "edmHasColorSpace": "Krāsu telpa",
+      "edmIntendedUsage": "Paredzētais lietojums",
+      "edmPolygonCount": "Poligonu skaits",
+      "edmRights": "Šī multivides satura tiesību paziņojums",
+      "edmSpatialResolution": "Telpiskā izšķirtspēja (dpi)",
+      "edmVertexCount": "Virsotņu skaits",
+      "schemaDigitalSourceType": "Digitālā avota tips"
     }
   },
   "filterResults": "Filtrēt rezultātus",
@@ -1037,6 +1055,8 @@ export default {
       "hide": "Paslēpt sānjoslu",
       "IIIFManifest": "IIIF manifests",
       "links": "Saites",
+      "metadata": "Multivides metadati",
+      "metadataInfo": "Informācija par mediju, ko pašlaik skatāties.",
       "search": "Meklēt",
       "searchPlaceholder": "Ievadiet terminus",
       "show": "Rādīt sānjoslu"
