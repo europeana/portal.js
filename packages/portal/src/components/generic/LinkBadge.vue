@@ -14,7 +14,7 @@
         v-if="imageUrl && type === 'Organization'"
         class="organisation-logo mr-2"
         data-qa="entity logo"
-        :style="`background-image: url(${imageUrl})`"
+        :style="`background-image: url('${imageUrl}')`"
       />
       <b-img
         v-else-if="imageUrl"
