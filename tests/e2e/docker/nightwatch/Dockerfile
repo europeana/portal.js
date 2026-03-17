@@ -20,6 +20,8 @@ RUN apk add --no-cache \
       nodejs \
       npm
 
+RUN node -v
+
 RUN mkdir screenshots
 
 COPY package*.json ./
