@@ -80,6 +80,7 @@ export default class Aggregation extends Base {
 
   get displayableWebResources() {
     if (!this.#displayableWebResources) {
+      // prevent duplicates, e.g.
       const uris = new Set();
 
       if (this.edmIsShownBy) {
@@ -88,8 +89,10 @@ export default class Aggregation extends Base {
         uris.add(this.edmIsShownAt);
       }
 
-      for (const view of this.hasView) {
-        uris.add(view);
+      if (this.hasView) {
+        for (const view of this.hasView) {
+          uris.add(view);
+        }
       }
 
       const wrs = [...uris].map((uri) => (this.webResources || []).find((wr) => wr.about === uri));
