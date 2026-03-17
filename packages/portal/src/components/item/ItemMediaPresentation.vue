@@ -82,7 +82,6 @@
             <template
               v-else-if="displayThumbnail"
             >
-              <!-- TODO: mv into own component, e.g. ItemMediaPreview? -->
               <MediaCardImage
                 :offset="page - 1"
                 data-qa="item media thumbnail"
@@ -460,6 +459,7 @@
   .media-viewer-inner-wrapper {
     @include media-viewer-height;
     background-color: $black;
+    border-bottom: 1px solid $lightbluemagenta;
 
     @media (max-width: ($bp-large - 1px)) {
       position: relative;
