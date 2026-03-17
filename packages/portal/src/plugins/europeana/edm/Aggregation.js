@@ -80,7 +80,7 @@ export default class Aggregation extends Base {
 
   get displayableWebResources() {
     if (!this.#displayableWebResources) {
-      // prevent duplicates, e.g.
+      // prevent duplicates, e.g. isShownBy also being hasView
       const uris = new Set();
 
       if (this.edmIsShownBy) {
