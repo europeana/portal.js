@@ -8,7 +8,8 @@ const FILE_PATHS = {
   ],
   githubWorkflows: [
     '../.github/workflows/ci.yml',
-    '../.github/workflows/lokalise.yml',
+    '../.github/workflows/lokalise-pull.yml',
+    '../.github/workflows/media-embed-service-add.yml',
     '../.github/workflows/npm.yml'
   ],
   nvmRc: '../.nvmrc',
