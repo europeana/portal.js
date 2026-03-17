@@ -61,6 +61,7 @@
   } from '@/plugins/europeana/thumbnail.js';
 
   export default {
+    // TODO: rename to ItemMediaPreview?
     name: 'MediaCardImage',
 
     components: {

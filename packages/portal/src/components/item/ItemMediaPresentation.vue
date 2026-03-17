@@ -82,7 +82,6 @@
             <template
               v-else-if="displayThumbnail"
             >
-              <!-- TODO: mv into own component, e.g. ItemMediaPreview? -->
               <MediaCardImage
                 :offset="page - 1"
                 data-qa="item media thumbnail"
