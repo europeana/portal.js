@@ -6,7 +6,10 @@ WORKDIR /app
 
 # Tell Percy to use local Chromium
 ENV PERCY_BROWSER_EXECUTABLE=/usr/bin/chromium-browser
+
 ENV PERCY_CLIENT_ERROR_LOGS=false
+
+ENV NODE_OPTIONS="--abort-on-uncaught-exception"
 
 # Install local Chromium and dependencies for puppeteer, used by Percy
 # See: https://github.com/puppeteer/puppeteer/blob/main/docs/troubleshooting.md#running-on-alpine
