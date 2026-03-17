@@ -117,27 +117,26 @@ describe('plugins/europeana/edm/Aggregation', () => {
         expect(displayableWebResources[3].about).toBe(hasView[2]);
       });
 
-      it('does NOT duplicate resources when the edmObject or edmIsShownBy is also a hasView', () => {
-        const edmObject = 'https://example.org/object.jpeg';
-        const edmIsShownBy = edmObject;
+      it('does NOT duplicate resources when the edmIsShownAt or edmIsShownBy is also a hasView', () => {
+        const edmIsShownAt = 'https://example.org/object.jpeg';
+        const edmIsShownBy = edmIsShownAt;
         const isShownAt = 'https://example.org/other';
-        const hasView = ['https://example.org/hasView.jpeg', edmObject];
+        const hasView = ['https://example.org/hasView.jpeg', edmIsShownAt];
         const edm = {
           edmIsShownBy,
-          edmObject,
+          edmIsShownAt,
           hasView,
           webResources: [
-            { about: edmObject },
+            { about: edmIsShownAt },
             { about: hasView[0] },
             { about: isShownAt }
           ]
         };
 
         const displayableWebResources = new Aggregation(edm).displayableWebResources;
-        console.log(displayableWebResources);
 
         expect(displayableWebResources.length).toBe(2);
-        expect(displayableWebResources.find((wr) => wr.about === edmObject)).toBeTruthy();
+        expect(displayableWebResources.find((wr) => wr.about === edmIsShownAt)).toBeTruthy();
         expect(displayableWebResources.find((wr) => wr.about === edmIsShownBy)).toBeTruthy();
         expect(displayableWebResources.find((wr) => wr.about === hasView[0])).toBeTruthy();
       });
