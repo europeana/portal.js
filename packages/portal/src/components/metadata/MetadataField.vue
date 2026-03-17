@@ -93,6 +93,7 @@
 </template>
 
 <script>
+  import camelCase from 'lodash/camelCase.js';
   import { langMapValueForLocale } from '@europeana/i18n';
   import ItemDebiasField from '../item/ItemDebiasField';
   import ItemEntityField from '../item/ItemEntityField';
@@ -159,15 +160,24 @@
     },
 
     computed: {
+      nameWithoutContext() {
+        if (this.name.startsWith(this.context)) {
+          return camelCase(this.name.replace(this.context, ''));
+        }
+        return this.name;
+      },
       displayLabel() {
-        if (this.$te(`fieldLabels.${this.context}.${this.name}`)) {
-          return this.$t(`fieldLabels.${this.context}.${this.name}`);
+        if (this.$te(`fieldLabels.${this.context}.${this.nameWithoutContext}`)) {
+          return this.$t(`fieldLabels.${this.context}.${this.nameWithoutContext}`);
         }
-        if (this.context !== 'default' && this.$te(`fieldLabels.default.${this.name}`)) {
-          return this.$t(`fieldLabels.default.${this.name}`);
-        } else {
-          return this.name;
+
+        if (this.context !== 'default') {
+          if (this.$te(`fieldLabels.default.${this.nameWithoutContext}`)) {
+            return this.$t(`fieldLabels.default.${this.nameWithoutContext}`);
+          }
         }
+
+        return this.name;
       },
       displayValues() {
         const display = { ...this.langMappedValues };
