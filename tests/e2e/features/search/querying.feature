@@ -94,9 +94,8 @@ Feature: Search querying
   Scenario: Clicking outside the search form
     When I visit a `search page with a search query`
     And I enter "frog" in the `search box`
+    And I see the `search form dropdown`
     And I click the `search sidebar`
-    Then I see a `context label` with the text "frog"
-    And I enter "spawn" in the `search box`
-    And I click a `item preview`
-    Then I see an `item page`
+    And I don't see the `search form dropdown`
+    Then I see a `context label` with the text "art"
     

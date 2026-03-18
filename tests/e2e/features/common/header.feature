@@ -44,6 +44,6 @@ Feature: Page Header
     Then I see a link to "/en" in the `sidebar navigation`
     And I see a link to "/en/collections" in the `sidebar navigation`
     And I see a link to "/en/share-your-collections" in the `sidebar navigation`
-    And I see a link to "/en/europeana-classroom" in the `sidebar navigation`
+    And I see a link to "/en/educators" in the `sidebar navigation`
     And I see a link to "/en/about-us" in the `sidebar navigation`
     And I see a link to "/en/help" in the `sidebar navigation`

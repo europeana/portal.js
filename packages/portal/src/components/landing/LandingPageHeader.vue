@@ -1,18 +1,25 @@
 <template>
   <header
     id="header"
-    v-visible-on-scroll
+    v-visible-on-scroll="navigationLinks"
     class="page-header m-0 show xxl-page"
+    :class="{'fixed': navigationLinks}"
     role="banner"
     data-qa="header"
   >
-    <b-navbar
-      role="navigation"
-      class="header-navbar d-flex align-items-center justify-content-end"
+    <component
+      :is="navigationLinks ? 'b-navbar' : 'b-container'"
+      :role="navigationLinks && 'navigation'"
+      class="header-navbar d-flex align-items-center"
+      :class="{ 'justify-content-end': navigationLinks }"
     >
       <SmartLink
         :destination="{ name: 'index' }"
-        class="logo d-inline-flex mt-1 mr-lg-auto ml-lg-0 pl-4 pl-lg-0"
+        class="logo d-inline-flex mt-1 mr-lg-auto ml-lg-0"
+        :class="{
+          'pl-4 pl-lg-0': navigationLinks,
+          'pl-3 pl-sm-0': !navigationLinks
+        }"
       >
         <img
           :src="logoSrc"
@@ -21,10 +28,13 @@
         >
       </SmartLink>
       <LandingPageNavigation
+        v-if="navigationLinks"
         class="d-none d-lg-flex"
         data-qa="top navigation"
+        :links="navigationLinks"
       />
       <b-button
+        v-if="navigationLinks"
         v-b-toggle.sidebar
         variant="light-flat"
         class="navbar-toggle button-icon-only d-lg-none"
@@ -33,8 +43,9 @@
       >
         <span class="icon icon-menu" />
       </b-button>
-    </b-navbar>
+    </component>
     <b-sidebar
+      v-if="navigationLinks"
       id="sidebar"
       bg-variant="white"
       right
@@ -56,6 +67,7 @@
       <LandingPageNavigation
         data-qa="top navigation"
         class="px-4"
+        :links="navigationLinks"
       />
     </b-sidebar>
   </header>
@@ -63,7 +75,6 @@
 
 <script>
   import visibleOnScrollDirective from '@europeana/vue-visible-on-scroll';
-
   import LandingPageNavigation from '@/components/landing/LandingPageNavigation';
   import SmartLink from '@/components/generic/SmartLink';
 
@@ -79,10 +90,30 @@
       'visible-on-scroll': visibleOnScrollDirective
     },
 
+    inject: ['pageIdentifier'],
+
     data() {
       return {
-        logoSrc: require('@europeana/style/img/landing/apis-logo.svg')
+        apisPage: {
+          logoSrc: require('@europeana/style/img/landing/apis-logo.svg'),
+          navigationLinks: [
+            { url: '#europeana-ap-is-and-how-they-work-together', text: this.$t('landing.apis.header.navigation.europeanaApis') },
+            { url: '#try-it-out', text: this.$t('landing.apis.header.navigation.apiDemo') },
+            { url: '#find-inspiration', text: this.$t('landing.apis.header.navigation.findInspiration') },
+            { url: '#frequently-asked-questions-faq', text: this.$t('landing.apis.header.navigation.faq') }
+          ]
+        },
+        defaultLogoSrc: require('@europeana/style/img/logo.svg')
       };
+    },
+
+    computed: {
+      logoSrc() {
+        return this.pageIdentifier === 'apis' ? this.apisPage.logoSrc : this.defaultLogoSrc;
+      },
+      navigationLinks() {
+        return this.pageIdentifier === 'apis' ? this.apisPage.navigationLinks : null;
+      }
     }
   };
 </script>
@@ -107,16 +138,33 @@
   }
 
   .page-header {
-    background: $white;
-    position: fixed;
+    position: absolute;
     right: 0;
     top: 0;
     left: 0;
-    padding: 0;
     z-index: 11;
 
-    @media (min-width: $bp-large) {
-      transition: $standard-transition;
+    &.fixed {
+      background: $white;
+      position: fixed;
+      padding: 0;
+      box-shadow: $boxshadow-small;
+
+      @media (min-width: $bp-large) {
+        transition: $standard-transition;
+      }
+    }
+
+    .container {
+      @media (min-width: $bp-xxl) {
+        max-width: 1250px;
+        padding-left: 0;
+        padding-right: 0;
+      }
+
+      @media (min-width: $bp-4k) {
+        max-width: 2500px;
+      }
     }
   }
 
@@ -140,7 +188,6 @@
     height: 3.5rem;
     padding-left: 2rem;
     padding-right: 2rem;
-    box-shadow: $boxshadow-small;
 
     @media (min-width: $bp-large) {
       padding-left: 4rem;

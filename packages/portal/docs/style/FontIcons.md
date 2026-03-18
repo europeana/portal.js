@@ -30,6 +30,11 @@ Example:
           <td><span class="icon icon-3d-bold" /></td>
         </tr>
         <tr>
+          <td>Academia</td>
+          <td><code>icon-academia</code></td>
+          <td><span class="icon icon-academia" /></td>
+        </tr>
+        <tr>
           <td>Accept</td>
           <td><code>icon-accept</code></td>
           <td><span class="icon icon-accept" /></td>
@@ -78,6 +83,11 @@ Example:
           <td>Back</td>
           <td><code>icon-back</code></td>
           <td><span class="icon icon-back" /></td>
+        </tr>
+        <tr>
+          <td>Bluesky</td>
+          <td><code>icon-bsky</code></td>
+          <td><span class="icon icon-bsky" /></td>
         </tr>
         <tr>
           <td>Cancel circle</td>
@@ -280,6 +290,11 @@ Example:
           <td><span class="icon icon-menu" /></td>
         </tr>
         <tr>
+          <td>Metadata</td>
+          <td><code>icon-metadata</code></td>
+          <td><span class="icon icon-metadata" /></td>
+        </tr>
+        <tr>
           <td>Move xy</td>
           <td><code>icon-ic-move-xy</code></td>
           <td><span class="icon icon-ic-move-xy" /></td>
@@ -300,6 +315,11 @@ Example:
           <td><span class="icon icon-pages" /></td>
         </tr>
         <tr>
+          <td>Partner</td>
+          <td><code>icon-partner</code></td>
+          <td><span class="icon icon-partner" /></td>
+        </tr> 
+        <tr>
           <td>Pinterest</td>
           <td><code>icon-pinterest</code></td>
           <td><span class="icon icon-pinterest" /></td>
@@ -313,6 +333,11 @@ Example:
           <td>Pin outlined</td>
           <td><code>icon-pin-outlined</code></td>
           <td><span class="icon icon-pin-outlined" /></td>
+        </tr>
+        <tr>
+          <td>Quote</td>
+          <td><code>icon-quote</code></td>
+          <td><span class="icon icon-quote" /></td>
         </tr>
         <tr>
           <td>Reject</td>
@@ -478,11 +503,6 @@ Example:
           <td>View mosaic</td>
           <td><code>icon-view-mosaic</code></td>
           <td><span class="icon icon-view-mosaic" /></td>
-        </tr>
-        <tr>
-          <td>X</td>
-          <td><code>icon-x</code></td>
-          <td><span class="icon icon-x" /></td>
         </tr>
         <tr>
           <td>Zoom in</td>

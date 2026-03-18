@@ -28,14 +28,10 @@
       SmartLink
     },
 
-    computed: {
-      links() {
-        return [
-          { url: '#europeana-ap-is-and-how-they-work-together', text: this.$t('landing.apis.header.navigation.europeanaApis') },
-          { url: '#try-it-out', text: this.$t('landing.apis.header.navigation.apiDemo') },
-          { url: '#find-inspiration', text: this.$t('landing.apis.header.navigation.findInspiration') },
-          { url: '#frequently-asked-questions-faq', text: this.$t('landing.apis.header.navigation.faq') }
-        ];
+    props: {
+      links: {
+        type: Array,
+        default: () => []
       }
     }
   };

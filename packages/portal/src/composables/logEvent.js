@@ -1,5 +1,5 @@
 import axios from 'axios';
-import isbot from 'isbot';
+import { isbot } from 'isbot';
 import { getCurrentInstance, watchEffect } from 'vue';
 
 export function useLogEvent() {
@@ -26,9 +26,17 @@ export function useLogEvent() {
 
   const sendEventLog = async(actionType, objectUri, session) => {
     const data = {
-      actionType,
-      objectUri,
-      sessionId: session?.id
+      action: {
+        type: actionType
+      },
+      object: {
+        uri: objectUri
+      },
+      session: {
+        activatedAt: session.activatedAt,
+        activatedBy: session.activatedBy,
+        uuid: session?.id
+      }
     };
 
     await axios({

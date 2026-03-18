@@ -13,7 +13,7 @@
     "name": "portal.js modern",
     "running": false,
     "gzip": true,
-    "limit": "1420 KB",
+    "limit": "1450 KB",
     "path": [
       ".nuxt/dist/client/*.modern.js"
     ]

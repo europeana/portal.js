@@ -80,15 +80,22 @@ export default class Aggregation extends Base {
 
   get displayableWebResources() {
     if (!this.#displayableWebResources) {
-      const uris = [].concat(this.hasView || []);
+      // prevent duplicates, e.g. isShownBy also being hasView
+      const uris = new Set();
 
       if (this.edmIsShownBy) {
-        uris.unshift(this.edmIsShownBy);
+        uris.add(this.edmIsShownBy);
       } else if (this.edmIsShownAt) {
-        uris.unshift(this.edmIsShownAt);
+        uris.add(this.edmIsShownAt);
       }
 
-      const wrs = uris.map((uri) => (this.webResources || []).find((wr) => wr.about === uri));
+      if (this.hasView) {
+        for (const view of this.hasView) {
+          uris.add(view);
+        }
+      }
+
+      const wrs = [...uris].map((uri) => (this.webResources || []).find((wr) => wr.about === uri));
 
       // Sort by isNextInSequence property if present
       this.#displayableWebResources = sortByIsNextInSequence(wrs);

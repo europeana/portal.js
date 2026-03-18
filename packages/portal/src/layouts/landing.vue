@@ -30,6 +30,8 @@
 </template>
 
 <script>
+  import { computed } from 'vue';
+
   import LandingPageHeader from '@/components/landing/LandingPageHeader';
   import LandingPageFooter from '@/components/landing/LandingPageFooter';
   import ProvideCanonicalUrl from '@/components/provide/ProvideCanonicalUrl';
@@ -43,6 +45,14 @@
       LandingPageFooter,
       PageCookiesWidget: () => import('@/components/page/PageCookiesWidget'),
       ProvideCanonicalUrl
+    },
+
+    provide() {
+      return {
+        pageIdentifier: computed(() => {
+          return this.$route?.params?.pathMatch || this.$config?.app?.homeLandingPageSlug;
+        })
+      };
     },
 
     head() {

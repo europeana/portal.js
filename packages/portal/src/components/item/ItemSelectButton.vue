@@ -60,7 +60,6 @@
           window.addEventListener('keyup', this.handleKeyup);
         } else {
           window.removeEventListener('keyup', this.handleKeyup);
-          this.$store.commit('set/setSelected', []);
         }
       }
     },

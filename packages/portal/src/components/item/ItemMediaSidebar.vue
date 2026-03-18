@@ -7,113 +7,156 @@
       class="media-viewer-sidebar"
       data-qa="item media sidebar"
     >
+      <!-- TODO: create reusable component for tabs e.g. ItemMediaSidebarTab -->
       <b-tabs
         :id="sidebarId"
         v-model="activeTabIndex"
         vertical
       >
-        <!-- Place tooltip outside tab to prevent being lazy loaded -->
-        <b-tooltip
-          v-if="annotationList"
-          :target="annotationsTabButtonId"
-          :title="$t('media.sidebar.annotations')"
-          boundary=".media-viewer-sidebar"
-          placement="right"
-          custom-class="ml-0"
-        />
-        <b-tab
-          v-if="annotationList"
-          data-qa="item media sidebar annotations"
-          :button-id="annotationsTabButtonId"
-          :title-link-attributes="{ 'aria-label': $t('media.sidebar.annotations'), href: '#annotations' }"
+        <template
+          v-if="shouldRenderTab('annotations')"
         >
-          <template #title>
-            <!-- Listen to mouseleave on span, on b-tab does not work -->
-            <span
-              class="icon icon-annotations"
-              @mouseleave="hideTooltips"
-            />
-          </template>
-          <h2
-            class="px-3"
-            data-qa="item media sidebar annotations title"
-          >
-            {{ $tc('media.sidebar.annotationsCount', $n(annotationsCount)) }}
-          </h2>
-          <MediaAnnotationList
-            v-if="activeTabHistory.includes('#annotations')"
-            :active="activeTabHash === '#annotations'"
-            class="media-viewer-sidebar-panel"
-            @fetched="handleAnnotationsFetched"
+          <!-- Place tooltip outside tab to prevent being lazy loaded -->
+          <b-tooltip
+            :target="annotationsTabButtonId"
+            :title="$t('media.sidebar.annotations')"
+            boundary=".media-viewer-sidebar"
+            placement="right"
+            custom-class="ml-0"
           />
-        </b-tab>
-        <b-tooltip
-          v-if="annotationSearch"
-          :target="searchTabButtonId"
-          :title="$t('media.sidebar.search')"
-          boundary=".media-viewer-sidebar"
-          placement="right"
-          custom-class="ml-0"
-        />
-        <b-tab
-          v-if="annotationSearch"
-          data-qa="item media sidebar search"
-          :button-id="searchTabButtonId"
-          :title-link-attributes="{ 'aria-label': $t('media.sidebar.search'), href: '#search' }"
-        >
-          <template #title>
-            <span
-              class="icon icon-search-in-text"
-              @mouseleave="hideTooltips"
-            />
-          </template>
-          <h2
-            id="item-media-sidebar-search-title"
-            class="px-3"
+          <b-tab
+            data-qa="item media sidebar annotations"
+            :button-id="annotationsTabButtonId"
+            :title-link-attributes="{ 'aria-label': $t('media.sidebar.annotations'), href: '#annotations' }"
           >
-            {{ $t('media.sidebar.search') }}
-          </h2>
-          <MediaAnnotationSearch
-            v-if="activeTabHistory.includes('#search')"
-            :active="activeTabHash === '#search'"
-            class="media-viewer-sidebar-panel"
+            <template #title>
+              <!-- Listen to mouseleave on span, on b-tab does not work -->
+              <span
+                class="icon icon-annotations"
+                @mouseleave="hideTooltips"
+              />
+            </template>
+            <h2
+              class="px-3"
+              data-qa="item media sidebar annotations title"
+            >
+              {{ $tc('media.sidebar.annotationsCount', $n(annotationsCount)) }}
+            </h2>
+            <MediaAnnotationList
+              v-if="activeTabHistory.includes('#annotations')"
+              :active="activeTabHash === '#annotations'"
+              class="media-viewer-sidebar-panel"
+              @fetched="handleAnnotationsFetched"
+            />
+          </b-tab>
+        </template>
+        <template
+          v-if="shouldRenderTab('search')"
+        >
+          <b-tooltip
+            :target="searchTabButtonId"
+            :title="$t('media.sidebar.search')"
+            boundary=".media-viewer-sidebar"
+            placement="right"
+            custom-class="ml-0"
           />
-        </b-tab>
-        <b-tooltip
-          v-if="!!manifestUri"
-          :target="linksTabButtonId"
-          :title="$t('media.sidebar.links')"
-          boundary=".media-viewer-sidebar"
-          placement="right"
-          custom-class="ml-0"
-        />
-        <b-tab
-          v-if="!!manifestUri"
-          data-qa="item media sidebar links"
-          :button-id="linksTabButtonId"
-          lazy
-          :title-link-attributes="{ 'aria-label': $t('media.sidebar.links'), href: '#links' }"
-        >
-          <template #title>
-            <span
-              class="icon icon-link"
-              @mouseleave="hideTooltips"
-            />
-          </template>
-          <h2 class="px-3">
-            {{ $t('media.sidebar.links') }}
-          </h2>
-          <h3 class="px-3">
-            {{ $t('media.sidebar.IIIFManifest') }}
-          </h3>
-          <b-link
-            :href="manifestUri"
-            target="_blank"
-            class="manifest-link d-inline-block px-3"
+          <b-tab
+            data-qa="item media sidebar search"
+            :button-id="searchTabButtonId"
+            :title-link-attributes="{ 'aria-label': $t('media.sidebar.search'), href: '#search' }"
           >
-            {{ manifestUri }}
-          </b-link>
-        </b-tab>
+            <template #title>
+              <span
+                class="icon icon-search-in-text"
+                @mouseleave="hideTooltips"
+              />
+            </template>
+            <h2
+              id="item-media-sidebar-search-title"
+              class="px-3"
+            >
+              {{ $t('media.sidebar.search') }}
+            </h2>
+            <MediaAnnotationSearch
+              v-if="activeTabHistory.includes('#search')"
+              :active="activeTabHash === '#search'"
+              class="media-viewer-sidebar-panel"
+            />
+          </b-tab>
+        </template>
+        <template
+          v-if="shouldRenderTab('metadata')"
+        >
+          <b-tooltip
+            :target="metadataTabButtonId"
+            :title="$t('media.sidebar.metadata')"
+            boundary=".media-viewer-sidebar"
+            placement="right"
+            custom-class="ml-0"
+          />
+          <b-tab
+            data-qa="item media sidebar metadata"
+            :button-id="metadataTabButtonId"
+            lazy
+            :title-link-attributes="{ 'aria-label': $t('media.sidebar.metadata'), href: '#metadata' }"
+          >
+            <template #title>
+              <span
+                class="icon icon-metadata"
+                @mouseleave="hideTooltips"
+              />
+            </template>
+            <h2 class="d-inline-block pl-3 mb-4">
+              {{ $t('media.sidebar.metadata') }}
+            </h2><!-- This comment removes white space
+       --><b-button
+            v-b-tooltip.bottom
+            :title="$t('media.sidebar.metadataInfo')"
+            class="icon-info-outline p-0 tooltip-button ml-1"
+            variant="light-flat"
+          />
+            <MediaMetadataList
+              :web-resource="webResource"
+            />
+          </b-tab>
+        </template>
+        <template
+          v-if="shouldRenderTab('links')"
+        >
+          <b-tooltip
+            :target="linksTabButtonId"
+            :title="$t('media.sidebar.links')"
+            boundary=".media-viewer-sidebar"
+            placement="right"
+            custom-class="ml-0"
+          />
+          <b-tab
+            data-qa="item media sidebar links"
+            :button-id="linksTabButtonId"
+            lazy
+            :title-link-attributes="{ 'aria-label': $t('media.sidebar.links'), href: '#links' }"
+          >
+            <template #title>
+              <span
+                class="icon icon-link"
+                @mouseleave="hideTooltips"
+              />
+            </template>
+            <h2 class="px-3">
+              {{ $t('media.sidebar.links') }}
+            </h2>
+            <h3 class="px-3 font-base mb-2">
+              {{ $t('media.sidebar.IIIFManifest') }}
+            </h3>
+            <b-link
+              :href="manifestUri"
+              target="_blank"
+              class="manifest-link d-inline-block px-3"
+            >
+              {{ manifestUri }}
+            </b-link>
+          </b-tab>
+        </template>
       </b-tabs>
     </div>
   </transition>
@@ -124,6 +167,7 @@
 
   import useActiveTab from '@/composables/activeTab.js';
   import useHideTooltips from '@/composables/hideTooltips.js';
+  import MediaMetadataList from '../media/MediaMetadataList.vue';
 
   export default {
     name: 'ItemMediaSidebar',
@@ -132,7 +176,8 @@
       BTab,
       BTabs,
       MediaAnnotationList: () => import('../media/MediaAnnotationList.vue'),
-      MediaAnnotationSearch: () => import('../media/MediaAnnotationSearch.vue')
+      MediaAnnotationSearch: () => import('../media/MediaAnnotationSearch.vue'),
+      MediaMetadataList
     },
 
     provide() {
@@ -154,6 +199,10 @@
         type: String,
         default: null
       },
+      webResource: {
+        type: Object,
+        default: null
+      },
       query: {
         type: String,
         default: null
@@ -168,6 +217,7 @@
       const annotationsTabButtonId = 'item-media-sidebar-annotations-button';
       const searchTabButtonId = 'item-media-sidebar-search-button';
       const linksTabButtonId = 'item-media-sidebar-links-button';
+      const metadataTabButtonId = 'item-media-sidebar-metadata-button';
 
       const tabHashes = [];
       if (props.annotationList) {
@@ -176,12 +226,15 @@
       if (props.annotationSearch) {
         tabHashes.push('#search');
       }
+      if (props.webResource) {
+        tabHashes.push('#metadata');
+      }
       if (props.manifestUri) {
         tabHashes.push('#links');
       }
 
       const { activeTabHash, activeTabHistory, activeTabIndex, watchTabIndex, unwatchTabIndex } = useActiveTab(tabHashes);
-      const { hideTooltips } = useHideTooltips([annotationsTabButtonId, searchTabButtonId, linksTabButtonId]);
+      const { hideTooltips } = useHideTooltips([annotationsTabButtonId, searchTabButtonId, linksTabButtonId, metadataTabButtonId]);
 
       return {
         activeTabHash,
@@ -190,7 +243,9 @@
         annotationsTabButtonId,
         hideTooltips,
         linksTabButtonId,
+        metadataTabButtonId,
         searchTabButtonId,
+        tabHashes,
         watchTabIndex,
         unwatchTabIndex
       };
@@ -223,6 +278,10 @@
     methods: {
       handleAnnotationsFetched(annotationsLength) {
         this.annotationsCount = annotationsLength;
+      },
+
+      shouldRenderTab(tab) {
+        return this.tabHashes.includes(`#${tab}`);
       }
     }
   };
@@ -233,7 +292,7 @@
   @import '@europeana/style/scss/transitions';
 
   .media-viewer-sidebar {
-    width: 300px;
+    width: pxToRem(300);
     position: absolute;
     top: 0;
     left: 0;
@@ -257,13 +316,14 @@
       padding: 1rem 0;
       overflow: auto;
 
-      h2 {
+      h2,
+      .tooltip-button {
         font-size: 1.125rem;
+        line-height: 1.5rem;
       }
 
-      h3 {
-        font-size: $font-size-base;
-        margin-bottom: 0.5rem;
+      .tooltip-button {
+        vertical-align: text-top;
       }
 
       .manifest-link {

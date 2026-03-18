@@ -11,6 +11,7 @@ export default {
   projects: [
     '<rootDir>/packages/i18n',
     '<rootDir>/packages/portal',
+    '<rootDir>/packages/vue-contentful-graphql',
     '<rootDir>/packages/vue-router-query',
     '<rootDir>/packages/vue-session',
     '<rootDir>/packages/vue-visible-on-scroll'

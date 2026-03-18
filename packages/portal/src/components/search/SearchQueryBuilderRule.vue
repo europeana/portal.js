@@ -249,10 +249,6 @@
       display: flex;
       align-items: stretch;
       flex-wrap: wrap;
-
-      @media (min-width: $bp-large) {
-        flex-wrap: nowrap;
-      }
     }
   }
 
@@ -260,8 +256,7 @@
     flex-basis: 100%;
 
     @media (min-width: $bp-large) {
-      flex-basis: calc(33%);
-    }
+      flex: 1 0 auto;    }
 
     @at-root .xxl-page & {
       @media (min-width: $bp-4k) {

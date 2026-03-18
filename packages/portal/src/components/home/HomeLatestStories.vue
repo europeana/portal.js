@@ -30,6 +30,7 @@
 
 <script>
   import ContentCard from '../content/ContentCard';
+  import latestEditorialContentGraphql from '@/graphql/queries/latestEditorialContent.graphql';
   import { contentfulEntryUrl } from '@/utils/contentful/entry-url.js';
 
   export default {
@@ -52,8 +53,8 @@
         limit: 3
       };
 
-      const response = await this.$contentful.query('latestEditorialContent', variables);
-      const entries = response.data.data;
+      const response = await this.$contentful.query(latestEditorialContentGraphql, variables);
+      const entries = response.data;
 
       // Select four stories: at least one of each type, max two of each type;
       // sorted by date published, most recent first

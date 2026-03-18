@@ -4,7 +4,6 @@ import BootstrapVue from 'bootstrap-vue';
 import { VueMasonryPlugin } from 'vue-masonry';
 import VueI18n from 'vue-i18n';
 
-import contentfulModuleAssets from '@europeana/portal/src/modules/contentful/templates/assets.js';
 import messages from '@europeana/portal/src/i18n/lang/en.js';
 import sampleData from '@europeana/portal/docs/sample-data.js';
 
@@ -89,9 +88,6 @@ Object.assign(Vue.prototype, {
   },
   $auth: { $storage: { setUniversal: () => {} }, loginWith: () => {} },
   $config: {},
-  $contentful: {
-    assets: contentfulModuleAssets({ store })
-  },
   $cookies: { get: () => {}, set: () => {} },
   $features: {},
   $fetchState: {},

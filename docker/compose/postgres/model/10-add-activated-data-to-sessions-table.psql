@@ -1,0 +1,7 @@
+SET search_path TO EVENTS;
+
+ALTER TABLE sessions
+ADD COLUMN activated_by VARCHAR(32);
+
+ALTER TABLE sessions
+ADD COLUMN activated_at TIMESTAMPTZ;

@@ -30,7 +30,7 @@
   import pick from 'lodash/pick.js';
 
   import collectionLinkGenMixin from '@/mixins/collectionLinkGen';
-  import europeanaEntityLinks from '@/mixins/europeana/entities/entityLinks';
+  import { collectionTitle } from '@/utils/europeana/entities/entityLinks';
   import LinkBadge from '../generic/LinkBadge';
 
   export default {
@@ -41,8 +41,7 @@
     },
 
     mixins: [
-      collectionLinkGenMixin,
-      europeanaEntityLinks
+      collectionLinkGenMixin
     ],
 
     props: {
@@ -100,6 +99,7 @@
     },
 
     methods: {
+      collectionTitle,
       draw() {
         this.$nextTick(() => {
           this.$redrawVueMasonry?.();

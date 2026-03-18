@@ -7,6 +7,7 @@
   @at-root .xxl-page & {
     @media (min-width: $bp-4k) {
       padding: calc(1.5 * 0.375rem) calc(1.5 * 0.75rem);
+      border-radius: $border-radius-small-4k;
     }
   }
 
@@ -83,13 +84,11 @@
   color: $darkgrey;
   font-size: $font-size-small;
   border: 1px solid $offwhite;
-  border-radius: 0.25rem;
   font-weight: 600;
 
   @at-root .xxl-page & {
     @media (min-width: $bp-4k) {
       font-size: $font-size-small-4k;
-      border-radius: calc(1.5 * 0.25rem);
     }
   }
 
@@ -363,6 +362,10 @@
 
   &.icon-clear {
     font-size: $font-size-small;
+
+    @media (min-width: $bp-4k) {
+      font-size: $font-size-small-4k;
+    }
   }
 
   .icon-pin,

@@ -44,6 +44,7 @@
 <script>
   import StoryPost from '@/components/story/StoryPost';
   import { useLogEvent } from '@/composables/logEvent.js';
+  import storyPageGraphql from '@/graphql/queries/storyPage.graphql';
   import pageMetaMixin from '@/mixins/pageMeta';
 
   export default {
@@ -66,6 +67,7 @@
 
     setup() {
       const { logEvent } = useLogEvent();
+
       return { logEvent };
     },
 
@@ -84,8 +86,8 @@
 
       let data;
       try {
-        const response = await this.$contentful.query('storyPage', variables);
-        data = response.data.data;
+        const response = await this.$contentful.query(storyPageGraphql, variables);
+        data = response.data;
       } catch (e) {
         this.$error(e);
       }

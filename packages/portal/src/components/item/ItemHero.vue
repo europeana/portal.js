@@ -12,6 +12,7 @@
       :item-id="identifier"
       :provider-url="providerUrl"
       :web-resources="media"
+      :services="services"
       :edm-type="edmType"
       @select="selectMedia"
     />
@@ -77,19 +78,21 @@
 
 <script>
   import ClientOnly from 'vue-client-only';
+
   import DownloadWidget from '../download/DownloadWidget';
   import RightsStatementButton from '../generic/RightsStatementButton';
   import ShareSnippet from '@/components/share/ShareSnippet';
   import ShareSocialModal from '../share/ShareSocialModal';
   import ShareButton from '../share/ShareButton';
   import WebResource from '@/plugins/europeana/edm/WebResource';
-  import rightsStatementMixin from '@/mixins/rightsStatement';
   import { oEmbedForEndpoint } from '@/utils/services/oembed.js';
   import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
 
   const TRANSCRIBATHON_URL_ROOT = /^https?:\/\/europeana\.transcribathon\.eu\//;
 
   export default {
+    name: 'ItemHero',
+
     components: {
       ClientOnly,
       DownloadWidget,
@@ -103,12 +106,9 @@
       NotificationBanner: () => import('@/components/generic/NotificationBanner')
     },
 
-    mixins: [
-      rightsStatementMixin
-    ],
-
     inject: ['itemIsDeleted'],
 
+    // TODO: much prop drilling happening here
     props: {
       allMediaUris: {
         type: Array,
@@ -130,6 +130,10 @@
         type: Array,
         default: () => [],
         validator: (prop) => Array.isArray(prop) && prop.every((item) => item instanceof WebResource)
+      },
+      services: {
+        type: Array,
+        default: null
       },
       attributionFields: {
         type: Object,
@@ -202,12 +206,14 @@
         return this.allMediaUris.some(uri => uri === url);
       },
       selectMedia(resource) {
-        this.selectedMedia = new WebResource({
-          // media prop may contain some metadata not available from iiif-derived
-          // resource emitted from ItemMediaPresentation, e.g. rights statement
-          ...this.media.find((wr) => wr.about === resource.about),
-          ...resource
-        });
+        if (resource) {
+          this.selectedMedia = new WebResource({
+            // media prop may contain some metadata not available from iiif-derived
+            // resource emitted from ItemMediaPresentation, e.g. rights statement
+            ...this.media.find((wr) => wr.about === resource.about),
+            ...resource
+          });
+        }
       },
       async fetchEmbedCode() {
         if (this.embedCode) {

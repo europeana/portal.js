@@ -87,7 +87,7 @@
 <script>
   import SearchRemovalChip from './SearchRemovalChip';
   import { entityParamsFromUri } from '@/plugins/europeana/entity';
-  import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
+  import { organizationEntityNativeName } from '@/utils/europeana/entities/organizations.js';
 
   export default {
     name: 'SearchResultsContext',
@@ -95,10 +95,6 @@
     components: {
       SearchRemovalChip
     },
-
-    mixins: [
-      europeanaEntitiesOrganizationsMixin
-    ],
 
     props: {
       /**
@@ -221,6 +217,10 @@
           return null;
         }
       }
+    },
+
+    methods: {
+      organizationEntityNativeName
     }
   };
 </script>

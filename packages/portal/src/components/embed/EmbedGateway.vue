@@ -22,7 +22,7 @@
         >
           <MediaCardImage
             v-if="media"
-            :media="media"
+            :resource="media"
             :lazy="false"
             :linkable="false"
             thumbnail-size="large"
@@ -110,6 +110,7 @@
 </template>
 
 <script>
+  import EuropeanaMediaResource from '@/utils/europeana/media/Resource.js';
   import klaroMixin from '@/mixins/klaro.js';
   import serviceForUrl from '@/utils/services/index.js';
   import useScrollTo from '@/composables/scrollTo.js';
@@ -131,7 +132,7 @@
         default: null
       },
       media: {
-        type: Object,
+        type: EuropeanaMediaResource,
         default: null
       },
       url: {
@@ -166,8 +167,12 @@
       },
 
       providerName() {
-        if (this.provider && this.$te(`klaro.services.${this.provider.name}.title`)) {
-          return this.$t(`klaro.services.${this.provider.name}.title`);
+        if (this.provider) {
+          if (this.$te(`klaro.services.${this.provider.name}.title`)) {
+            return this.$t(`klaro.services.${this.provider.name}.title`);
+          } else {
+            return this.provider.title;
+          }
         } else {
           return this.$t('klaro.services.unknownProvider');
         }

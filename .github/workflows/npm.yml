@@ -4,13 +4,21 @@ on:
   release:
     types: [published]
 
+permissions:
+  id-token: write  # Required for OIDC
+  contents: read
+
 jobs:
-  style:
+  npm-publish:
+    name: NPM publish
+    strategy:
+      matrix:
+        package: [style]
     runs-on: ubuntu-latest
     steps:
       -
         name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
       - uses: pnpm/action-setup@v4
         name: Install pnpm
         with:
@@ -27,4 +35,4 @@ jobs:
         name: Publish to NPM
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
-        run: pnpm publish --access public --filter @europeana/style
+        run: pnpm --filter @europeana/style publish --access public

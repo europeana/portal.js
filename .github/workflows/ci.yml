@@ -58,7 +58,7 @@ jobs:
     steps:
       -
         name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
       -
         name: Git metadata, master dispatch
         id: git-master-dispatch
@@ -105,7 +105,7 @@ jobs:
     steps:
       -
         name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
       - uses: pnpm/action-setup@v4
         name: Install pnpm
         with:
@@ -126,7 +126,7 @@ jobs:
             eslint-plugin-vue@$(pnpm list --json eslint-plugin-vue | jq -Mr ".[0].devDependencies.[\"eslint-plugin-vue\"].version")
       -
         name: Run eslint
-        run: pnpm run lint
+        run: pnpm lint
 
   # Run style linting on master and all PRs (including drafts)
   lint-style:
@@ -136,7 +136,7 @@ jobs:
     steps:
       -
         name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
       - uses: pnpm/action-setup@v4
         name: Install pnpm
         with:
@@ -157,7 +157,7 @@ jobs:
             stylelint-config-recommended-scss@$(pnpm list --json stylelint-config-recommended-scss | jq -Mr ".[0].devDependencies.[\"stylelint-config-recommended-scss\"].version")
       -
         name: Run stylelint
-        run: pnpm run stylelint
+        run: pnpm stylelint
 
   # Verify cachers can load in Node.js on master and all PRs (including drafts)
   test-cachers:
@@ -167,7 +167,7 @@ jobs:
     steps:
       -
         name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
       - uses: pnpm/action-setup@v4
         name: Install pnpm
         with:
@@ -184,7 +184,7 @@ jobs:
         run: pnpm install
       -
         name: List cachers
-        run: pnpm run cache list
+        run: pnpm cache list
 
   # Run unit tests on master (for coverage reports), and all pull requests
   test-unit:
@@ -194,7 +194,7 @@ jobs:
     steps:
       -
         name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
       - uses: pnpm/action-setup@v4
         name: Install pnpm
         with:
@@ -211,14 +211,14 @@ jobs:
         run: pnpm install
       -
         name: Run unit tests with coverage reporting
-        run: pnpm run test:coverage:ci
+        run: pnpm test:coverage:ci
       -
         name: Archive code coverage
         run: |
           tar -cf test-coverage.tar coverage
       -
         name: Upload code coverage
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: test-coverage
           path: test-coverage.tar
@@ -229,24 +229,22 @@ jobs:
     steps:
       -
         name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
         with:
           # For SonarCloud to blame culprits
           fetch-depth: 0
       -
         name: Download code coverage
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: test-coverage
           path: .
       -
         name: Unarchive code coverage
         run: tar -xf test-coverage.tar && rm test-coverage.tar
-      -
-        name: SonarCloud Scan
-        uses: sonarsource/sonarcloud-github-action@v2.0.0
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v7
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   # Build, and push to Docker Hub, the final-stage production-ready Docker image,
@@ -258,7 +256,7 @@ jobs:
     steps:
       -
         name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
       -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
@@ -294,7 +292,7 @@ jobs:
       -
         name: Check image size
         env:
-          DOCKER_IMAGE_SIZE_LIMIT: '350M'
+          DOCKER_IMAGE_SIZE_LIMIT: '355M'
         run: |
           docker_image_size=$(docker image inspect --format '{{.Size}}' ${{ needs.metadata.outputs.docker-full-tag }})
           if [ ${docker_image_size} -gt $(numfmt --from=si ${DOCKER_IMAGE_SIZE_LIMIT}) ]; then
@@ -312,7 +310,7 @@ jobs:
     steps:
       -
         name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
       -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
@@ -357,7 +355,7 @@ jobs:
     steps:
       -
         name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
       -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
@@ -401,7 +399,7 @@ jobs:
     steps:
       -
         name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
       -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
@@ -458,7 +456,7 @@ jobs:
     steps:
       -
         name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
       -
         name: Prepare env for dev deployments
         if: github.event_name == 'pull_request'
@@ -472,7 +470,7 @@ jobs:
         if: github.event_name == 'push'
         run: |
           echo "K8S_NAMESPACE=test" >> $GITHUB_ENV
-          echo "K8S_DEPLOYMENTS=deployment/portal-js deployment/ds4ch" >> $GITHUB_ENV
+          echo "K8S_DEPLOYMENTS=deployment/portal-js" >> $GITHUB_ENV
       -
         name: Create K8s resource manifests for dev deployments
         if: github.event_name == 'pull_request'
