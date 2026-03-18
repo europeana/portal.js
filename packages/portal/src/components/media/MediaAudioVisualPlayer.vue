@@ -47,11 +47,17 @@
     data() {
       return {
         options: {
+          // TODO: This removes 'bigPlayButton', but also breaks the play button and play/pause on poster click. Fix or hide in styles.
+          // children: [
+          //   'controlBar'
+          // ],
           controlBar: {
-            // defines which controls to display and in which order
+            // defines which controls to display and in which order. Docs: https://legacy.videojs.org/guides/components/#default-component-tree
             children: [
               'playToggle',
-              'remainingTimeDisplay',
+              'currentTimeDisplay',
+              'timeDivider',
+              'durationDisplay',
               'muteToggle',
               'volumeControl',
               'progressControl',
@@ -89,7 +95,10 @@
   };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+  @import '@europeana/style/scss/variables';
+  @import '@europeana/style/scss/icon-font';
+
   .media-player-wrapper {
     height: 100%;
   }
@@ -100,5 +109,55 @@
     width: auto;
     margin-right: auto;
     margin-left: auto;
+  }
+
+  .video-js {
+    .vjs-big-play-button {
+      width: 0;
+      height: 0;
+      opacity: 0;
+    }
+
+    .vjs-control-bar {
+      display: flex;
+      visibility: visible;
+      opacity: 1;
+      background-color: $black;
+      height: 2.75rem;
+    }
+
+    .vjs-button > .vjs-icon-placeholder::before {
+      position: static;
+      font-size: 1.5rem;
+    }
+
+    .vjs-time-control {
+      font-size: $font-size-extrasmall;
+      padding: 0;
+      min-width: 0;
+    }
+
+    .vjs-time-divider {
+      margin-left: 0.25rem;
+      margin-right: 0.25rem;
+    }
+
+    .vjs-current-time, .vjs-duration, .vjs-time-divider {
+      display: flex;
+      align-items: center;
+    }
+
+    .vjs-volume-control {
+      align-items: center;
+    }
+
+    .vjs-progress-control {
+      display: flex;
+    }
+
+    .vjs-fullscreen-control .vjs-icon-placeholder::before {
+      @extend %icon-font;
+      content: '\e95f';
+    }
   }
 </style>
