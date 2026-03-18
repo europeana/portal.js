@@ -2,8 +2,17 @@
   <div
     class="media-player-wrapper"
   >
+    <iframe
+      v-if="isEUScreenMedia"
+      data-qa="media player"
+      allowfullscreen="true"
+      :src="localePath({ name: 'media', query: { id: itemId, mediaUrl: url, mediaType: format } })"
+      class="media-player"
+      :title="$t('record.mediaPlayer')"
+    />
     <component
       :is="format.startsWith('audio/') ? 'audio' : 'video'"
+      v-else
       :key="url"
       ref="avPlayer"
       class="media-player video-js"
@@ -71,20 +80,30 @@
       };
     },
 
+    computed: {
+      isEUScreenMedia() {
+        return this.url?.startsWith('http://www.euscreen.eu/item.html') ||
+          this.url?.startsWith('https://www.euscreen.eu/item.html') || false;
+      }
+
+    },
+
     mounted() {
-      this.player = videojs(this.$refs.avPlayer, {
-        ...this.options,
-        languages: {
-          // Adds custom translations. Docs: https://legacy.videojs.org/guides/languages/#per-player-translations
-          [this.$i18n.locale]: this.$t('audioVisualPlayer')
-        },
-        sources: [
-          {
-            src: this.url,
-            type: this.format
-          }
-        ]
-      });
+      if (!this.isEUScreenMedia) {
+        this.player = videojs(this.$refs.avPlayer, {
+          ...this.options,
+          languages: {
+            // Adds custom translations. Docs: https://legacy.videojs.org/guides/languages/#per-player-translations
+            [this.$i18n.locale]: this.$t('audioVisualPlayer')
+          },
+          sources: [
+            {
+              src: this.url,
+              type: this.format
+            }
+          ]
+        });
+      }
     },
 
     beforeDestroy() {
