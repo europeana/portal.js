@@ -74,6 +74,10 @@
     mounted() {
       this.player = videojs(this.$refs.avPlayer, {
         ...this.options,
+        languages: {
+          // Adds custom translations. Docs: https://legacy.videojs.org/guides/languages/#per-player-translations
+          [this.$i18n.locale]: this.$t('audioVisualPlayer')
+        },
         sources: [
           {
             src: this.url,
@@ -81,10 +85,6 @@
           }
         ]
       });
-
-      // TODO: use our own translations?
-      const translationsInCurrentLocale = require(`video.js/dist/lang/${this.$i18n.locale}.json`);
-      videojs.addLanguage(this.$i18n.locale, translationsInCurrentLocale);
     },
 
     beforeDestroy() {
