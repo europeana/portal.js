@@ -8,8 +8,10 @@ ENV CHROMEDRIVER_SKIP_DOWNLOAD=true \
 
 WORKDIR /app
 
-COPY package*.json ./
+RUN apk add pnpm
 
-RUN npm ci
+COPY package.json pnpm-*.yaml ./
+
+RUN pnpm install
 
 CMD ["npm", "run", "start"]

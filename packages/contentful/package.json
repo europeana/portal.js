@@ -17,7 +17,7 @@
     "Leonie Peters <leonie.peters@europeana.eu>"
   ],
   "dependencies": {
-    "@europeana/portal": "^2.26.1-alpha.0",
+    "@europeana/portal": "workspace:*",
     "axios": "^0.21.4",
     "chalk": "^2.4.1",
     "contentful-cli": "^3.9.9",

@@ -1,0 +1,11 @@
+packages:
+  - packages/*
+  - '!**/tests/**'
+ignoredBuiltDependencies:
+  - '@parcel/watcher'
+  - nx
+  - spawn-sync
+onlyBuiltDependencies:
+  - bootstrap-vue
+  - core-js
+  - nuxt
