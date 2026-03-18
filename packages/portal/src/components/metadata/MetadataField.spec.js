@@ -51,16 +51,34 @@ describe('components/metadata/MetadataField', () => {
       });
 
       describe('a labelled field with a labelling context', () => {
-        const props = {
-          name: 'edmRights',
-          fieldData: { def: 'http://rightsstatements.org/vocab/InC/1.0/' },
-          context: 'webResource'
-        };
-        it('outputs the context specific translated label', () => {
-          const wrapper = factory({ props });
+        describe('with the context in the field name', () => {
+          const props = {
+            name: 'webResourceEdmRights',
+            fieldData: { def: 'http://rightsstatements.org/vocab/InC/1.0/' },
+            context: 'webResource'
+          };
 
-          const fieldName = wrapper.find('[data-qa="metadata field"] [data-qa="label"]');
-          expect(fieldName.text()).toBe('fieldLabels.webResource.edmRights');
+          it('strips the context from the field name to translate the label', () => {
+            const wrapper = factory({ props });
+
+            const fieldName = wrapper.find('[data-qa="metadata field"] [data-qa="label"]');
+            expect(fieldName.text()).toBe('fieldLabels.webResource.edmRights');
+          });
+        });
+
+        describe('without the context in the field name', () => {
+          const props = {
+            name: 'dcTitle',
+            fieldData: { en: 'Title' },
+            context: 'webResource'
+          };
+
+          it('outputs the context specific translated label', () => {
+            const wrapper = factory({ props });
+
+            const fieldName = wrapper.find('[data-qa="metadata field"] [data-qa="label"]');
+            expect(fieldName.text()).toBe('fieldLabels.webResource.dcTitle');
+          });
         });
       });
 
