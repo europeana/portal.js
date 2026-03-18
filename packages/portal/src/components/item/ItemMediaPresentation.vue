@@ -67,6 +67,7 @@
               :format="resource.format"
               :item-id="itemId"
               class="media-viewer-content"
+              :poster="thumbnailForAVPoster"
             />
             <EmbedGateway
               v-else-if="resource?.isOEmbed || resource?.edm?.isOEmbed"
@@ -332,6 +333,10 @@
 
       addSidebarToggleMaxWidth() {
         return !this.viewableImageResource && this.sidebarHasContent;
+      },
+
+      thumbnailForAVPoster() {
+        return this.$apis.thumbnail.forWebResource(this.resource.edm).large;
       }
     },
 
