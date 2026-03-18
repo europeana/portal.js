@@ -1,17 +1,18 @@
 [
   {
+    "name": "ait",
+    "oembed": "https://hosting1.ait.co.at/oembed",
+    "schemes": [
+      "https://hosting1.ait.co.at/u/kochg/incoming/*"
+    ],
+    "title": "AIT"
+  },
+  {
     "name": "arctur3DViewer",
     "schemes": [
       "https://3dviewer.arctur.si/*"
     ],
     "title": "Arctur 3Dviewer"
-  },
-  {
-    "name": "theCyprusInstitute",
-    "schemes": [
-      "https://apacwebstorage.hpcf.cyi.ac.cy/threedimensionalmodels/3D/*"
-    ],
-    "title": "The Cyprus Institute"
   },
   {
     "name": "eureka3D",
@@ -58,6 +59,13 @@
       "https://www.spatial.io/embed/*"
     ],
     "title": "Spatial"
+  },
+  {
+    "name": "theCyprusInstitute",
+    "schemes": [
+      "https://apacwebstorage.hpcf.cyi.ac.cy/threedimensionalmodels/3D/*"
+    ],
+    "title": "The Cyprus Institute"
   },
   {
     "name": "weave",
