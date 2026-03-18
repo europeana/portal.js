@@ -151,6 +151,7 @@
 
         @media (min-width: $bp-4k) {
           font-size: $font-size-xl-4k;
+          margin-bottom: 0.75rem;
         }
       }
 
@@ -168,10 +169,10 @@
       font-weight: 700;
       border-radius: 0.25em;
       margin-top: 0;
-    }
 
-    @media (min-width: $bp-4k) {
-      font-size: $font-size-base-4k;
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-base-4k;
+      }
     }
 
     &.light {

@@ -41,20 +41,15 @@ const HTML_IMAGE_MEDIA_TYPES = [
 const HTML_VIDEO_MEDIA_TYPES = [MEDIA_TYPE_VIDEO_OGG, MEDIA_TYPE_VIDEO_WEBM];
 
 export default class WebResource extends Base {
-  static fields = [
-    'about',
-    'dctermsIsReferencedBy',
-    'ebucoreHasMimeType',
-    'ebucoreHeight',
-    'ebucoreWidth',
-    'edmCodecName',
-    'forEdmIsShownAt',
-    'isNextInSequence',
-    'preview',
-    'rdfType',
-    'svcsHasService',
-    'webResourceEdmRights'
-  ];
+  // TODO: this is getting called multiple times for the same resource on
+  //       the item page; optimise
+  constructor(data) {
+    super(data);
+
+    // delete large unused fields
+    delete this.htmlAttributionSnippet;
+    delete this.textAttributionSnippet;
+  }
 
   get id() {
     return this.about;

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="xxl-page page mb-3 mb-sm-5"
+    class="xxl-page page api-keys-page mb-3 mb-sm-5"
   >
     <b-container fluid>
       <UserHeader />
@@ -33,7 +33,7 @@
                   <b-row>
                     <b-col
                       xl="6"
-                      class="text-center text-sm-left"
+                      class="text-center text-sm-left mb-sm-3"
                     >
                       <h2>{{ $t('apiKeys.sections.personalKeys.heading') }}</h2>
                       <i18n
@@ -55,39 +55,17 @@
                       </i18n>
                     </b-col>
                   </b-row>
-                  <b-table
+                  <UserApiKeysTable
                     v-if="personalKeys.length > 0"
-                    :fields="tableFields"
-                    :items="personalKeys"
-                    :tbody-tr-class="tableRowClass"
-                    striped
-                    hover
-                    class="borderless"
-                  >
-                    <template #cell(client_id)="data">
-                      <span
-                        v-if="data.item?.state === 'disabled'"
-                        class="disabled"
-                      >
-                        {{ data.value }} — {{ $t('statuses.disabled') }}
-                      </span>
-                      <template v-else>
-                        {{ data.value }}
-                      </template>
-                    </template>
-                    <template #cell(actions)="data">
-                      <UserApiKeyActionsMenu
-                        v-if="data.item"
-                        :id="`personal-api-key-actions-menu-${data.index}`"
-                        :api-key="data.item"
-                        @disable="handleDisableApiKey"
-                      />
-                    </template>
-                  </b-table>
-                  <b-row>
+                    :api-keys="personalKeys"
+                    :is-disabled="isDisabled"
+                    class="mb-3 mb-sm-5"
+                    data-qa="personal api keys table"
+                    @keyDisabled="handleDisableApiKey"
+                  />
+                  <b-row v-if="noActivePersonalKeys">
                     <b-col xl="6">
                       <b-form
-                        v-if="noActivePersonalKeys"
                         data-qa="request personal api key form"
                         @submit.prevent="handleSubmitCreatePersonalKeyForm"
                       >
@@ -105,7 +83,7 @@
                                   :to="localePath('/rights/terms-of-use#europeana-api')"
                                   target="_blank"
                                 >
-                                  {{ $t('apiKeys.sections.personalKeys.create.termsOfUseLinkText') }}
+                                  {{ $t('apiKeys.sections.termsOfUseLinkText') }}
                                   <span class="icon-external-link" /><!-- This comment removes white space
                                   --><span class="sr-only">
                                     ({{ $t('newWindow') }})
@@ -124,6 +102,45 @@
                       </b-form>
                     </b-col>
                   </b-row>
+                  <b-row>
+                    <b-col
+                      xl="6"
+                      class="text-center text-sm-left mt-3 mt-sm-5 mb-sm-3"
+                    >
+                      <h2>{{ $t('apiKeys.sections.projectKeys.heading') }}</h2>
+                      <i18n
+                        path="apiKeys.sections.projectKeys.description"
+                        tag="p"
+                      >
+                        <template #termsOfUseLink>
+                          <NuxtLink
+                            :to="localePath('/rights/terms-of-use#europeana-api')"
+                            target="_blank"
+                          >
+                            {{ $t('apiKeys.sections.termsOfUseLinkText') }}
+                            <span class="icon-external-link" /><!-- This comment removes white space
+                          --><span class="sr-only">
+                            ({{ $t('newWindow') }})
+                          </span>
+                          </NuxtLink>
+                        </template>
+                      </i18n>
+                    </b-col>
+                  </b-row>
+                  <UserApiKeysTable
+                    v-if="projectKeys.length > 0"
+                    :api-keys="projectKeys"
+                    :is-disabled="isDisabled"
+                    type="project"
+                    class="mb-3 mb-sm-5"
+                    data-qa="project api keys table"
+                    @keyDisabled="handleDisableApiKey"
+                  />
+                  <b-row>
+                    <b-col>
+                      <UserProjectApiKeyForm />
+                    </b-col>
+                  </b-row>
                 </template>
               </b-col>
             </b-row>
@@ -135,11 +152,9 @@
 </template>
 
 <script>
-  import { BTable } from 'bootstrap-vue';
-
   import AlertMessage from '@/components/generic/AlertMessage';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
-  import UserApiKeyActionsMenu from '@/components/user/UserApiKeyActionsMenu';
+  import UserProjectApiKeyForm from '@/components/user/UserProjectApiKeyForm';
   import UserHeader from '@/components/user/UserHeader';
   import pageMetaMixin from '@/mixins/pageMeta';
 
@@ -148,9 +163,9 @@
 
     components: {
       AlertMessage,
-      BTable,
       LoadingSpinner,
-      UserApiKeyActionsMenu,
+      UserApiKeysTable: () => import('@/components/user/UserApiKeysTable'),
+      UserProjectApiKeyForm,
       UserHeader
     },
 
@@ -165,12 +180,8 @@
         apiKeyToActOn: null,
         confirmPersonalKeyTermsOfUse: false,
         personalKeys: [],
-        showConfirmDangerModal: false,
-        tableFields: [
-          { key: 'created', label: this.$t('apiKeys.table.fields.created.label'), sortable: true },
-          { key: 'client_id', label: this.$t('apiKeys.table.fields.clientId.label') },
-          { key: 'actions', label: '' }
-        ]
+        projectKeys: [],
+        showConfirmDangerModal: false
       };
     },
 
@@ -178,11 +189,13 @@
       const apiKeys = await this.$apis.auth.getUserClients();
       this.personalKeys = apiKeys
         .filter((apiKey) => apiKey.type === 'PersonalKey');
+      this.projectKeys = apiKeys
+        .filter((apiKey) => apiKey.type === 'ProjectKey');
     },
 
     computed: {
       noActivePersonalKeys() {
-        return this.personalKeys.every((apiKey) => apiKey.state === 'disabled');
+        return this.personalKeys.every((apiKey) => this.isDisabled(apiKey));
       },
 
       pageMeta() {
@@ -206,11 +219,8 @@
         }
       },
 
-      tableRowClass(item, type) {
-        if (type === 'row' && item?.state === 'disabled') {
-          return 'disabled';
-        }
-        return undefined;
+      isDisabled(apiKey) {
+        return apiKey?.state === 'disabled';
       }
     }
   };
@@ -218,78 +228,55 @@
 
 <style lang="scss">
   @import '@europeana/style/scss/variables';
-  @import '@europeana/style/scss/icon-font';
-  @import '@europeana/style/scss/table';
 
-  .profile-back-link {
-    font-size: $font-size-small;
-    text-decoration: none;
-
-    @media (min-width: $bp-4k) {
-      font-size: $font-size-small-4k;
-    }
-
-    &:hover {
-      color: $blue;
-    }
-
-    .icon-arrow-down:before {
-      display: inline-block;
-      transform: rotate(90deg);
-      font-size: $font-size-base;
-
-      @media (min-width: $bp-4k) {
-        font-size: $font-size-base-4k;
+  .api-keys-page {
+    .container {
+      @media (min-width: $bp-extralarge) {
+        max-width: 1250px;
       }
-    }
-  }
-
-  .api-keys-page-content {
-    h2 {
-      @extend %title-3;
-    }
-
-    p, p a, span, span a {
-      color: $darkgrey;
-    }
-
-    .icon-external-link {
-      font-size: $font-size-extrasmall;
 
       @media (min-width: $bp-4k) {
-        font-size: $font-size-extrasmall-4k;
+        max-width: 2100px;
       }
     }
 
-    .table {
-      td {
-        font-weight: 600;
+    .profile-back-link {
+      font-size: $font-size-small;
+      text-decoration: none;
+
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-small-4k;
+      }
+
+      &:hover {
+        color: $blue;
+      }
+
+      .icon-arrow-down:before {
+        display: inline-block;
+        transform: rotate(90deg);
+        font-size: $font-size-base;
+
+        @media (min-width: $bp-4k) {
+          font-size: $font-size-base-4k;
+        }
+      }
+    }
+
+    .api-keys-page-content {
+      h2 {
+        @extend %title-3;
+      }
+
+      p, p a, span, span a {
         color: $darkgrey;
-
-        .dropdown-menu {
-          box-shadow: $boxshadow-large;
-          border: none;
-          border-radius: 0rem;
-          border-bottom-right-radius: 0.25rem;
-          border-bottom-left-radius: 0.25rem;
-        }
-
-        .btn-link:focus, .btn-link:hover {
-          text-decoration: none;
-        }
-        .btn:focus {
-          box-shadow: none;
-        }
       }
 
-      tr {
-        &.disabled {
-          opacity: 70%;
-          font-style: italic;
-        }
+      .icon-external-link {
+        font-size: $font-size-extrasmall;
 
-        &:last-child td {
-          border-bottom: 1px solid $middlegrey;
+        @media (min-width: $bp-4k) {
+          font-size: $font-size-extrasmall-4k;
         }
       }
     }

@@ -141,7 +141,7 @@
 
     @at-root .xxl-page & {
       @media (min-width: $bp-4k) {
-        margin: 0 calc(1.5 * 0.25rem) calc(1.5 * 0.25rem);
+        margin: 0 calc(1.5 * 0.25rem) 0.75rem;
       }
     }
   }

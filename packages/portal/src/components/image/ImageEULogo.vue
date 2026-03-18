@@ -28,24 +28,28 @@
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
 
-  .bottom-right {
-    position: absolute;
-    bottom: 1rem;
-    right: 1rem;
-    max-width: calc(100vw - 5rem); // viewport width minus space for image attribution icon
-    height: auto; // image shrinks on mobile so height is not fixed
-    max-height: 64px;
-
-    @media (min-width: $bp-small) {
-      left: 1rem;
-      margin-left: auto;
-      margin-right: auto;
-    }
-  }
-
   img {
     @media (min-width: $bp-4k) {
       height: 96px;
+    }
+
+    &.bottom-right {
+      position: absolute;
+      bottom: 1rem;
+      right: 1rem;
+      max-width: calc(100vw - 5rem); // viewport width minus space for image attribution icon
+      height: auto; // image shrinks on mobile so height is not fixed
+      max-height: 64px;
+
+      @media (min-width: $bp-small) {
+        left: 1rem;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      @media (min-width: $bp-4k) {
+        max-height: 96px;
+      }
     }
   }
 </style>

@@ -41,6 +41,7 @@
   import SearchForm from '@/components/search/SearchForm';
   import AttributionToggle from '@/components/generic/AttributionToggle';
   import EULogo from '@/components/image/ImageEULogo';
+  import { responsiveBackgroundImageCSSVars } from '@/utils/contentful/assets.js';
   import { FULL_VIEWPORT_PRESETS_FOCUS_FACE as CSS_VARS_PRESETS } from '@/utils/contentful/imageCropPresets';
 
   export default {
@@ -62,7 +63,7 @@
     computed: {
       imageCSSVars() {
         return this.backgroundImage?.image &&
-          this.$contentful.assets.responsiveBackgroundImageCSSVars(
+          responsiveBackgroundImageCSSVars(
             this.backgroundImage.image,
             CSS_VARS_PRESETS
           );
@@ -174,19 +175,19 @@
       h1,
       .sub-headline,
       .open:not(.top-search) {
-        width: 25em;
-        min-width: 644px;
+        width: 40.25rem;
+        max-width: 100%;
         margin-left: auto;
         margin-right: auto;
 
         @media (min-width: $bp-4k) {
-          min-width: calc(1.5 * 644px);
+          width: calc(1.5 * 40.25rem);
         }
       }
 
       h1 {
         width: auto;
-        max-width: 744px;
+        max-width: 46.5rem;
       }
     }
 

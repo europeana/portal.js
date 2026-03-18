@@ -69,16 +69,16 @@
 
   .mosaic-container {
     height: 100vw;
-    min-height: 300px;
+    min-height: pxToRem(300);
     margin-left: -$grid-gutter;
     margin-right: -$grid-gutter;
 
     @media (min-width: $bp-large) {
-      height: 600px;
+      height: pxToRem(600);
     }
 
     @media (min-width: $bp-extralarge) {
-      min-height: 600px;
+      min-height: pxToRem(600);
       height: 50vw;
     }
 
@@ -87,33 +87,36 @@
     }
 
     @media (min-width: $bp-wqhd) {
-      height: 1100px;
+      height: pxToRem(1100);
     }
   }
 
+  $min-mosaic-card-width: pxToRem(112);
+
   .mosaic-column-1,
   .mosaic-column-2 {
-    flex: 0 0 calc(50%);
+    flex: 0 0 max(50%, $min-mosaic-card-width);
     width: 50%;
+    width: max(50%, $min-mosaic-card-width);
 
     @media (min-width: $bp-large) {
-      flex: 0 0 calc(25%);
+      flex: 0 0 max(25%, $min-mosaic-card-width);
       width: auto;
     }
 
-    @media (min-width: $bp-4k) {
-      flex: 0 0 calc(25%);
+    @media (min-width: $bp-extralarge) {
+      flex-shrink: 1;
     }
   }
 
   .mosaic-column-3 {
-    @media (min-width: $bp-large) {
+    @media (min-width: $bp-extralarge) {
       width: 0;
-      flex: 0 0 calc(50%);
+      flex: 0 0 max(50%, calc(3 * $min-mosaic-card-width));
     }
 
-    @media (min-width: $bp-4k) {
-      flex: 0 0 calc(50%);
+    @media (min-width: $bp-xxxl) {
+      flex: 0 0 max(50%, calc(4 * $min-mosaic-card-width));
     }
   }
 

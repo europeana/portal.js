@@ -28,7 +28,7 @@ export default {
     "publicCollections": "Galerii publice",
     "publishedCollections": "Galeriile Publicate",
     "settings": "Setări",
-    "title": "Contul meu",
+    "title": "Profilul meu",
     "tooltip": {
       "EntityBestItemsSet": "O galerie organizată arată resurse culturale fixate dintr-o anumită colecție",
       "private": "O galerie privată poate fi vizualizată doar de dvs.",
@@ -49,7 +49,6 @@ export default {
     "confirm": "Confirmă",
     "continue": "continua",
     "depublish": "Depublicați",
-    "disable": "Dezactivează",
     "download": "Descarcă",
     "edit": "Editare",
     "filter": "Filtru",
@@ -86,25 +85,50 @@ export default {
     "vote": "Vot"
   },
   "apiKeys": {
+    "actions": {
+      "closeMenu": "Închideți meniul de gestionare a cheilor",
+      "disable": "Dezactivați cheia",
+      "reEnable": "Reactivează cheia",
+      "showMenu": "Afișează meniul de gestionare a cheilor"
+    },
+    "disable": {
+      "promptText1": "Sigur doriți să dezactivați această cheie API?",
+      "promptText2": "După ce dezactivați această cheie, nu o veți mai putea utiliza în proiectul dvs. Acest lucru se va întâmpla imediat. Va trebui să ne trimiteți un e-mail la api@europeana.eu pentru a activa din nou cheia API.",
+      "title": "Dezactivați cheia API"
+    },
+    "reEnable": {
+      "text": "Pentru a reactiva această cheie API, vă rugăm să ne trimiteți un e-mail la api@europeana.eu sau să ne contactați prin widgetul de feedback din partea de jos a ferestrei.",
+      "title": "Reactivează cheia API"
+    },
     "sections": {
       "personalKeys": {
         "create": {
           "button": "Solicitați o cheie API personală",
-          "checkbox": "Confirm că am citit și accept cheia API {termsOfUseLink}.",
-          "termsOfUseLinkText": "termeni de utilizare"
+          "checkbox": "Confirm că am citit și accept cheia API {termsOfUseLink}."
         },
-        "description": "Învață și testează cum să folosești API-urile cu propria ta cheie API personală. Te rugăm să nu o distribui. {howToLink}",
+        "description": "Învață și testează cum să folosești API-urile cu propria ta cheie API personală. Te rugăm să nu o distribui. {howToLink}.",
         "heading": "Cheie API personală",
-        "howToLinkText": "Cum să folosești cheia ta."
-      }
+        "howToLinkText": "Cum să folosești cheia ta"
+      },
+      "projectKeys": {
+        "description": "Pentru fiecare proiect pe care trebuie să îl construiți, vă vom furniza o cheie dedicată. Cheile de proiect au limite mai mari și alte caracteristici speciale – citiți mai multe în cheia API {termsOfUseLink}. Dacă doriți să modificați informațiile despre proiectul dvs., vă rugăm să trimiteți un e-mail la api@europeana.eu, iar noi vom face modificările pentru dvs.",
+        "heading": "Chei API de proiect"
+      },
+      "termsOfUseLinkText": "termeni de utilizare"
     },
     "table": {
       "fields": {
+        "actions": {
+          "label": "Gestionarea cheilor API"
+        },
         "clientId": {
           "label": "Cheia API"
         },
         "created": {
           "label": "Data creării"
+        },
+        "name": {
+          "label": "Numele proiectului"
         }
       }
     },
@@ -190,8 +214,35 @@ export default {
     "startDate": "Data de început",
     "to": "la"
   },
+  "debias": {
+    "background": {
+      "link": "Proiectul DE-BIAS",
+      "text": "Aceste informații au fost create de {link} (2023/2024) pentru a ajuta la contextualizarea termenilor învechiți și dăunători din descrierile colecțiilor."
+    },
+    "headings": {
+      "alternatives": "Alternative sugerate",
+      "recommendations": "Recomandări de utilizare",
+      "source": "Sursă"
+    },
+    "termNotFound": "Această pagină este disponibilă numai în limba termenului părtinitor.",
+    "tooltip": {
+      "linkToPage": "Citește explicația completă oferită de {projectName}"
+    }
+  },
   "debug": {
     "apiRequests": {
+      "form": {
+        "apiKey": {
+          "descriptionLine1": "Introduceți cheia API Europeana și va fi folosită în linkurile către solicitările API.",
+          "descriptionLine2": "Aveți nevoie de o cheie API? Înregistrați-vă pentru una {link}.",
+          "here": "aici",
+          "label": "Cheia API",
+          "usePersonal": {
+            "linkText": "Introduceți cheia API personală",
+            "prompt": "{link} și va fi utilizat."
+          }
+        }
+      },
       "noRequests": "Pe această pagină nu au fost folosite solicitări către API-urile Europeana."
     }
   },
@@ -199,9 +250,6 @@ export default {
   "directions": {
     "left": "Stânga",
     "right": "Dreapta"
-  },
-  "ds4ch": {
-    "broughtBy": "Adus vouă de"
   },
   "edmIsShownAtLinkAlt": "Vizualizează pe site-ul furnizorului",
   "embedNotification": {
@@ -239,6 +287,18 @@ export default {
   },
   "error": "Eroare",
   "errorMessage": {
+    "authClientDisabled": {
+      "description": "Această cheie API a fost deja dezactivată, poate într-un alt tab al browserului.",
+      "title": "Cheia este deja dezactivată"
+    },
+    "authDuplicateKey": {
+      "description": "Utilizatorii pot avea doar o singură cheie personală activată, destinată utilizării personale.",
+      "title": "Aveți deja o cheie personală"
+    },
+    "authKeyLimitReached": {
+      "description": "O nouă cheie personală nu poate fi creată deoarece ați atins limita de chei personale dezactivate. Vă rugăm să ne trimiteți un e-mail la api@europeana.eu sau să ne contactați prin widgetul de feedback din partea de jos a ferestrei.",
+      "title": "Ați atins limita de chei personale"
+    },
     "galleryLocked": {
       "description": "Editarea este temporar dezactivată, iar modificările dvs. nu au fost salvate. Vă rugăm să încercați din nou mai târziu.",
       "title": "Actualizarea a eșuat"
@@ -652,6 +712,18 @@ export default {
       },
       "select": "Selectați dacă puteți utiliza acest lucru"
     },
+    "RIGHTS": {
+      "name": "Declarație de drepturi",
+      "select": "Selectați declarațiile de drepturi"
+    },
+    "sort": {
+      "name": "Sortează după",
+      "options": {
+        "proxy_dcterms_issued+asc": "Data emiterii (de la cea mai veche)",
+        "proxy_dcterms_issued+desc": "Data emiterii (cele mai noi primele)"
+      },
+      "select": "Selectați modul de sortare a rezultatelor"
+    },
     "TYPE": {
       "name": "Tip de media",
       "options": {
@@ -727,18 +799,34 @@ export default {
       "year": "An"
     },
     "webResource": {
-      "about": "Despre RDF",
-      "dcDescription": "Descriere",
-      "ebucoreHasMimeType": "Tip Ebucore MIME",
-      "edmRights": "Mențiunea privind drepturile intelectuale pentru această resursă media",
-      "rdfAbout": "Despre RDF"
+      "about": "Despre",
+      "dctermsConformsTo": "Conform cu",
+      "dcType": "Tip de media",
+      "ebucoreAudioChannelNumber": "Canale audio",
+      "ebucoreBitRate": "Rată de biți (bps)",
+      "ebucoreDuration": "Durată (ms)",
+      "ebucoreFileByteSize": "Dimensiune fișier (octeți)",
+      "ebucoreFrameRate": "Rată de cadre (fps)",
+      "ebucoreHasMimeType": "Tip MIME",
+      "ebucoreHeight": "Înălțime (px)",
+      "ebucoreOrientation": "Orientare",
+      "ebucoreSampleRate": "Rată de eșantionare (Hz)",
+      "ebucoreSampleSize": "Dimensiunea eșantionului (biți)",
+      "ebucoreWidth": "Lățime (px)",
+      "edmCodecName": "Codec",
+      "edmComponentColor": "Culoarea componentei",
+      "edmHasColorSpace": "Spațiu de culoare",
+      "edmIntendedUsage": "Utilizare prevăzută",
+      "edmPolygonCount": "Număr de poligoane",
+      "edmRights": "Declarație de drepturi pentru acest media",
+      "edmSpatialResolution": "Rezoluție spațială (dpi)",
+      "edmVertexCount": "Număr de vârfuri",
+      "schemaDigitalSourceType": "Tip sursă digitală"
     }
   },
   "filterResults": "Filtrați rezultatele",
   "footer": {
     "customiseWebsiteLanguage": "Personalizați limba de pe pagina de internet",
-    "disclaimerLine1": "Europeana este o inițiativă a Uniunii Europene, finanțată de Connecting Europe Facility al Uniunii Europene și de statele membre ale Uniunii Europene. Serviciile Europeana, inclusiv acest site web, sunt operate de un consorțiu condus de Fundația Europeana în temeiul unui contract de servicii cu Comisia Europeană.",
-    "disclaimerLine2": "Comisia Europeană nu garantează acuratețea informațiilor și nu își asumă nicio răspundere sau răspundere cu privire la informațiile de pe acest site web. Nici Comisia Europeană, nici nicio persoană care acționează în numele Comisiei Europene, nu este responsabilă sau răspunzătoare pentru acuratețea sau utilizarea informațiilor de pe acest site web.",
     "findUsElsewhere": "Ne puteți găsi și în altă parte",
     "footer": "Subsol",
     "imageDescription": "Finanțat de Uniunea Europeană",
@@ -750,6 +838,7 @@ export default {
       "help": "Help",
       "MoreInfoLabel": "Mai multe informații",
       "privacy": "Declarație de confidențialitate",
+      "registerApiKey": "Înregistrați-vă pentru o cheie API",
       "seeApiRequests": "Vedeți solicitările către API-urile Europeana",
       "subscribe": "Abonează-te la buletinul nostru de știri",
       "supportingTechnicalPartners": "Sprijinirea partenerilor tehnici",
@@ -773,10 +862,12 @@ export default {
     "navigation": {
       "about": "Despre",
       "collections": "Colecții",
-      "europeanaClassroom": "Pentru profesori",
+      "educators": "Pentru educatori",
       "featureIdeas": "Idei de caracteristici",
       "help": "Help",
-      "home": "Pagină natală",
+      "home": "Acasă",
+      "partners": "Parteneriat cu noi",
+      "research": "Pentru cercetători",
       "shareYourCollections": "Partajați colecțiile dvs.",
       "stories": "Narațiuni"
     },
@@ -826,11 +917,10 @@ export default {
         "title": "Servicii pe care am dori să le folosim."
       },
       "consentNotice": {
-        "description": "Bună! Putem activa unele servicii suplimentare pentru analiză și securitate? Puteți oricând să vă schimbați sau să vă retrageți consimțământul ulterior.",
-        "learnMore": "Lasa-ma sa aleg"
+        "description": "Putem, vă rugăm, să activăm serviciile pentru securitate, analiză și conținut de la terți?",
+        "learnMore": "Gestionează setările cookie"
       },
-      "decline": "Refuz",
-      "ok": "Bine",
+      "decline": "Respinge",
       "purposes": {
         "2D": {
           "title": "Media 2D"
@@ -880,115 +970,29 @@ export default {
       }
     },
     "services": {
-      "albinLarsson": {
-        "title": "Albin Larsson"
-      },
-      "archiveOrg": {
-        "title": "Archive.org"
-      },
-      "arctur3DViewer": {
-        "title": "Arctur 3Dviewer"
-      },
       "auth-strategy": {
         "description": "Reține strategia de autorizare de utilizat pentru a vă conecta.",
         "title": "Strategia Auth"
       },
-      "behance": {
-        "title": "Behance"
-      },
-      "bookWidgets": {
-        "title": "Book Widgets"
-      },
-      "britishLibrarySounds": {
-        "title": "British Library Sounds"
-      },
-      "buzzsprout": {
-        "title": "Buzzsprout"
-      },
-      "codepen": {
-        "title": "Codepen"
-      },
-      "datawrapper": {
-        "title": "Datawrapper"
+      "cloudflare": {
+        "description": "Își amintește că testul de securitate a fost trecut cu succes.",
+        "title": "Cloudflare"
       },
       "debugSettings": {
         "description": "Ajută la depanarea cererilor API",
         "title": "Comutare depanare"
       },
-      "deutschesFilmportal": {
-        "title": "Deutsches Filmportal"
-      },
-      "deutscheWelle": {
-        "title": "Deutsche Welle"
-      },
-      "digitalRepositoryOfIreland": {
-        "title": "Digital Repository of Ireland"
-      },
-      "eclap": {
-        "title": "Eclap"
-      },
-      "ecorpus": {
-        "title": "Ecorpus"
-      },
-      "eureka3D": {
-        "title": "EUreka3D"
-      },
-      "europeanParliamentMultimediaService": {
-        "title": "European parliament multimedia service"
-      },
-      "euscreen": {
-        "title": "Euscreen"
-      },
-      "freesound": {
-        "title": "Freesound"
-      },
-      "gallica": {
-        "title": "Gallica"
-      },
-      "giphy": {
-        "title": "Giphy"
-      },
-      "googleDocs": {
-        "title": "Google Docs"
-      },
-      "googleDrive": {
-        "title": "Google Drive"
-      },
-      "gotlandPictureStones": {
-        "title": "Gotland Picture Stones"
-      },
       "hotjar": {
-        "description": "Activează un widget de sondaj, oferindu-vă opțiunea de a răspunde la sondajele noastre privind satisfacția vizitatorilor.",
+        "description": "Colectează date de utilizare pentru a ne ajuta să analizăm interacțiunile utilizatorilor. Activează un widget de sondaj care vă oferă opțiunea de a răspunde la sondajele noastre privind satisfacția vizitatorilor.",
         "title": "Hotjar"
-      },
-      "humap": {
-        "title": "Humap"
       },
       "i18n": {
         "description": "Reține limba de interfață preferată pentru acces viitor.",
         "title": "Codul limbii"
       },
-      "instagram": {
-        "title": "Instagram"
-      },
-      "institutNationalDeLAudiovisuel": {
-        "title": "Institut National de l'Audiovisuel"
-      },
-      "internetCulturale": {
-        "title": "Internet Culturale"
-      },
-      "jigsawplanet": {
-        "title": "Jigsawplanet"
-      },
       "jira-servicedesk": {
         "description": "Activează widgetul de feedback, oferindu-vă opțiunea de a ne contacta.",
         "title": "Birou de service Jira"
-      },
-      "kompakkt": {
-        "title": "Kompakkt"
-      },
-      "kystreise": {
-        "title": "Kystreise"
       },
       "matomo": {
         "description": "Colectează statistici anonime cu privire la modul în care vizitatorii interacționează cu site-ul web.",
@@ -998,97 +1002,18 @@ export default {
         "description": "Își amintește dacă preferați să obțineți rezultate de căutare multilingve.",
         "title": "Căutare multilingvă"
       },
-      "myAdventCalendar": {
-        "title": "My Advent Calendar"
-      },
-      "myminifactory": {
-        "title": "Myminifactory"
-      },
-      "nakala": {
-        "title": "Nakala"
-      },
       "newFeatureNotification": {
         "description": "Afișează o notificare atunci când devin disponibile caracteristici noi.",
         "title": "Notificare pentru funcții noi"
-      },
-      "openbeelden": {
-        "title": "Openbeelden"
-      },
-      "phonobase": {
-        "title": "Phonobase"
-      },
-      "pinterest": {
-        "title": "Pinterest"
-      },
-      "prezi": {
-        "title": "Prezi"
       },
       "searchResultsView": {
         "description": "Ține minte dacă preferați să vedeți rezultatele căutării, galeriile și preferințele dvs. într-o vizualizare listă, grilă sau mozaic.",
         "title": "Rezultatul căutării, galerii și vizualizarea aprecieri (listă/grilă/mozaic)"
       },
-      "serveiDeGestioDocumentalArxius": {
-        "title": "Servei de Gestió Documental, Arxius"
-      },
-      "sketchfab": {
-        "title": "Sketchfab"
-      },
-      "slidebean": {
-        "title": "Slidebean"
-      },
-      "soundArchivesOfTheCNRS": {
-        "title": "Sound archives of the CNRS"
-      },
-      "soundCloud": {
-        "title": "SoundCloud"
-      },
-      "spatial": {
-        "title": "Spatial"
-      },
-      "theCyprusInstitute": {
-        "title": "The Cyprus Institute"
-      },
-      "tibAvPortal": {
-        "title": "TIB AV-Portal"
-      },
-      "tv3": {
-        "title": "TV3 Televisió de Catalunya"
-      },
-      "universityOfCaliforniaSanDiego": {
-        "title": "University of California, San Diego"
-      },
-      "unknownProvider": "furnizor necunoscut",
-      "vimeo": {
-        "title": "Vimeo"
-      },
-      "weave": {
-        "title": "WEAVE"
-      },
-      "wheeldecide": {
-        "title": "Wheeldecide"
-      },
-      "wikidata": {
-        "title": "Wikidata"
-      },
-      "woobox": {
-        "title": "Woobox"
-      },
-      "x": {
-        "title": "X"
-      },
-      "youTube": {
-        "title": "YouTube"
-      }
+      "unknownProvider": "furnizor necunoscut"
     }
   },
   "landing": {
-    "apis": {
-      "header": {
-        "navigation": {
-          "faq": "FAQ"
-        }
-      }
-    },
     "counts": {
       "apiRequests": "Solicitări API lunare, în medie",
       "dataProviders": "Furnizorii de date",
@@ -1130,6 +1055,8 @@ export default {
       "hide": "Ascunde bara laterală",
       "IIIFManifest": "IIIF Manifest",
       "links": "Linkuri",
+      "metadata": "Metadate media",
+      "metadataInfo": "Informații despre conținutul media pe care îl vizualizați în prezent.",
       "search": "Căutare",
       "searchPlaceholder": "Introduceți termeni",
       "show": "Afișați bara laterală"
@@ -1179,9 +1106,6 @@ export default {
   "newWindow": "se deschide într-o fereastră nouă",
   "noMoreResults": "Nu mai există rezultate pentru interogarea de căutare.",
   "noResults": "Niciun rezultat",
-  "notificationBanner": {
-    "text": "{\"one\":\"\",\"few\":\"\",\"other\":\"\"}"
-  },
   "of": "De",
   "organisation": {
     "city": "Oraș",
@@ -1238,9 +1162,8 @@ export default {
       "pin": "Fixați resursă culturală la entitățile disponibile"
     },
     "allMetaData": "Toate metadatele",
+    "allMetaDataInfo": "Informații despre întreaga resursă culturală.",
     "clickToCopyEmbedCode": "Faceți clic pe codul de încorporare pentru a-l copia",
-    "debias": "De-bias",
-    "explanationby": "Explicație oferită de {0}",
     "extendedInformation": "Informații extinse",
     "goodToKnow": "Bine de știut",
     "hideAll": "Ascunde toate informațiile",
@@ -1354,7 +1277,7 @@ export default {
   },
   "searchFilters": "Filtre de căutare {count}",
   "searchHasLoaded": "{0} rezultate returnate",
-  "searchPlaceholder": "Căutați peste 50 de milioane de resurse culturale",
+  "searchPlaceholder": "Căutați peste 60 de milioane de resurse culturale",
   "searchResults": "Căutare",
   "searchResultsFor": "{0} - Căutare",
   "searchSuggestions": "Sugestii de căutare",

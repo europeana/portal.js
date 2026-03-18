@@ -215,8 +215,8 @@
   @import '@europeana/style/scss/variables';
   @import '@europeana/style/scss/swiper';
 
-  $slide-height: 385px;
-  $slide-height-4k: 500px;
+  $slide-height: pxToRem(385);
+  $slide-height-4k: pxToRem(500);
 
   .stacked-cards-wrapper {
     font-size: 1rem;
@@ -302,7 +302,7 @@
   }
 
   .swiper-slide {
-    width: 245px;
+    width: min(100vw, pxToRem(245));
     height: $slide-height;
     max-width: $max-card-width;
     overflow: visible;
@@ -313,23 +313,23 @@
     margin-bottom: 2.25rem;
 
     @media (min-width: $bp-medium) {
-      width: 280px;
+      width: pxToRem(280);
     }
 
     @media (min-width: $bp-large) {
-      width: 300px;
+      width: pxToRem(300);
     }
 
     @media (min-width: $bp-extralarge) {
-      width: 320px;
+      width: pxToRem(320);
     }
 
     @media (min-width: $bp-xxl) {
-      width: 355px;
+      width: pxToRem(355);
     }
 
     @media (min-width: $bp-4k) {
-      width: 480px;
+      width: pxToRem(480);
       height: $slide-height-4k;
       margin-top: calc(1.5 * 2.25rem);
       margin-bottom: calc(1.5 * 2.25rem);

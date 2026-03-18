@@ -13,13 +13,13 @@
     />
     <!-- eslint-enable vue/no-v-html -->
     <SmartLink
-      :destination="link.url"
+      :destination="link?.url"
       data-qa="call to action"
       class="btn btn-cta my-0"
       :class="buttonVariant"
       hide-external-icon
     >
-      {{ link.text }}
+      {{ link?.text }}
     </SmartLink>
   </div>
 </template>
@@ -80,7 +80,7 @@
 
     @media (min-width: $bp-large) {
       width: calc(50%);
-      max-width: calc($max-text-column-width + 100px);
+      max-width: calc($max-text-column-width + 6.25rem);
     }
   }
 </style>

@@ -74,10 +74,10 @@
   import ClientOnly from 'vue-client-only';
 
   import SearchInterface from '@/components/search/SearchInterface';
-  import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
+  import { organizationEntityNativeName, organizationEntityNonNativeEnglishName } from '@/utils/europeana/entities/organizations.js';
   import pageMetaMixin from '@/mixins/pageMeta';
   import entityBestItemsSetMixin from '@/mixins/europeana/entities/entityBestItemsSet';
-  import redirectToMixin from '@/mixins/redirectTo';
+  import { redirectToPrefPath } from '@/utils/redirect/redirectToPrefPath.js';
 
   import {
     getEntityTypeApi, getEntityUri, getEntityQuery, normalizeEntityId
@@ -98,9 +98,7 @@
 
     mixins: [
       entityBestItemsSetMixin,
-      europeanaEntitiesOrganizationsMixin,
-      pageMetaMixin,
-      redirectToMixin
+      pageMetaMixin
     ],
 
     beforeRouteLeave(to, from, next) {
@@ -113,10 +111,6 @@
       this.$store.commit('entity/setPinned', []);
       next();
     },
-
-    middleware: [
-      'sanitisePageQuery'
-    ],
 
     data() {
       return {
@@ -147,13 +141,20 @@
         const entity = await this.$apis.entity.get(this.collectionType, this.$route.params.pathMatch);
 
         this.$store.commit('entity/setEntity', pick(entity, [
-          'id', 'logo', 'note', 'description', 'homepage', 'prefLabel', 'isShownBy', 'hasAddress', 'acronym', 'type', 'sameAs'
+          'id', 'logo', 'note', 'description', 'homepage', 'prefLabel', 'isShownBy', 'hasAddress', 'acronym', 'type'
         ]));
         this.$store.commit('search/setCollectionLabel', this.title.values[0]);
 
         this.userIsEntitiesEditor && await this.setBestItems();
 
-        return this.redirectToPrefPath(this.entity.id, this.entity.prefLabel.en);
+        // TODO: don't do this on SSRs, it's too expensive. instead just update
+        //       window.location when mounted, and set Content-Location response
+        //       header, and canonical urls to include the prefLabel
+        redirectToPrefPath(
+          this.entity.id,
+          this.entity.prefLabel.en,
+          { route: this.$route, redirect: this.$nuxt.context.redirect }
+        );
       } catch (e) {
         this.$error(e, { scope: 'page' });
       }
@@ -178,7 +179,7 @@
         const defaultParams = {};
 
         if (this.entity) {
-          const entityQuery = getEntityQuery([this.entity.id].concat(this.entity.sameAs || []));
+          const entityQuery = getEntityQuery(this.entity.id);
           defaultParams.qf = [entityQuery];
           defaultParams.query = entityQuery; // Triggering best bets.
         }
@@ -305,6 +306,8 @@
       }
     },
     methods: {
+      organizationEntityNativeName,
+      organizationEntityNonNativeEnglishName,
       handleEntityRelatedCollectionsFetched(relatedCollections) {
         this.relatedCollections = relatedCollections;
       },

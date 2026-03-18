@@ -1,6 +1,6 @@
 import baseData from './index.js';
 
-const PICK = ['slug', 'prefLabel'];
+const PICK = ['id', 'slug', 'prefLabel'];
 const LOCALISE = 'prefLabel';
 const SORT = 'prefLabel';
 

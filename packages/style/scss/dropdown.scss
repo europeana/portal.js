@@ -21,6 +21,13 @@
   .dropdown-item {
     text-decoration: none;
 
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        padding: calc(1.5 * 0.25rem) calc(1.5 * 1.5rem);
+        line-height: 1.5rem;
+      }
+    }
+
     &:hover {
       background-color: $lightgrey;
     }
@@ -43,6 +50,10 @@
         font-size: $font-size-extrasmall-4k;
       }
     }
+  }
+
+  .dropdown-menu {
+    padding: 0.75rem 0;
   }
 
   &.multilingual-selector .dropdown-menu {

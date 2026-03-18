@@ -10,7 +10,7 @@ export default class Monitor {
   /**
    * @typedef {Object} MonitorOptions
    * @property {string[]} events Document events to listen to for activity.
-   *   Defaults to `['keypress', 'mousedown', 'mousemove', 'scroll', 'touchstart']`.
+   *   Defaults to `['drag', 'keydown', 'mousedown', 'mousemove', 'scroll', 'touchstart', 'wheel']`.
    * @property {number} interval Number of seconds to pause event listeners
    *   after activity is detected before resuming them. Defaults to 60 seconds.
    */
@@ -46,8 +46,8 @@ export default class Monitor {
     setTimeout(this.start.bind(this), this.interval * 1000);
   }
 
-  #listener() {
-    this.callback();
+  #listener(event) {
+    this.callback(event);
     this.pause();
   }
 }

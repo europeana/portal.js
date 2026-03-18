@@ -1,0 +1,52 @@
+#import "../fragments/imageFields.graphql"
+#import "../fragments/illustrationFields.graphql"
+#import "../fragments/imageWithAttributionFields.graphql"
+
+query HomePage(
+	$locale: String!
+	$preview: Boolean = false
+	$identifier: String
+	$date: DateTime
+) {
+	homePageCollection(
+		preview: $preview
+		locale: $locale
+		order: datePublished_DESC
+		limit: 1
+		where: { identifier: $identifier, datePublished_lte: $date }
+	) {
+		items {
+			name
+			identifier
+			sectionsCollection(limit: 3) {
+				items {
+					__typename
+					... on PrimaryCallToAction {
+						name
+						nameEN: name(locale: "en-GB")
+						text
+						relatedLink {
+							url
+							text
+						}
+						image {
+							...illustrationFields
+						}
+					}
+				}
+			}
+			image {
+				...imageFields
+			}
+			primaryImageSetOfPageCollection(limit: 1, order: sys_publishedAt_DESC) {
+				items {
+					hasPartCollection {
+						items {
+							...imageWithAttributionFields
+						}
+					}
+				}
+			}
+		}
+	}
+}

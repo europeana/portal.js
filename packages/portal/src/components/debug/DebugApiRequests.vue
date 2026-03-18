@@ -223,11 +223,6 @@
     &#api-requests {
       font-family: $font-family-sans-serif;
 
-      .modal-title {
-        font-size: 1.5rem;
-        font-weight: 600;
-      }
-
       ol {
         list-style: none;
         counter-reset: item;
@@ -236,20 +231,30 @@
 
       li {
         counter-increment: item;
-        margin-bottom: 10px;
+        margin-bottom: 0.625rem;
         line-height: 1.2;
         padding-left: 2rem;
+
+        @media (min-width: $bp-4k) {
+          margin-bottom: 1.25rem;
+        }
+
+        &:before {
+          content: counter(item);
+          margin-left: -2rem;
+          background: #e83e8c;
+          border-radius: 100%;
+          color: $white;
+          width: 1.2em;
+          text-align: center;
+          display: inline-block;
+        }
       }
 
-      li::before {
-        content: counter(item);
-        margin-left: -2rem;
-        background: #e83e8c;
-        border-radius: 100%;
-        color: white;
-        width: 1.2rem;
-        text-align: center;
-        display: inline-block;
+      .logo img {
+        @media (min-width: $bp-4k) {
+          height: 46px;
+        }
       }
     }
   }

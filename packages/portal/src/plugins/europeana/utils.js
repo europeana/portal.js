@@ -1,10 +1,7 @@
 import kebabCase from 'lodash/kebabCase.js';
 
 /**
- * Retrieves the path for an entity or gallery, based on id and name/title
- *
- * If `entityPage.name` is present, that will be used in the slug. Otherwise
- * `prefLabel.en` if present.
+ * Retrieves the path for an entity or gallery, based on id and name
  *
  * @param {string} id entity/set ID, i.e. data.europeana.eu URI
  * @param {string} name the English name of the entity/set title

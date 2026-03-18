@@ -1,3 +1,5 @@
+import { optimisedSrc } from '@/utils/contentful/assets.js';
+
 export default {
   methods: {
     chapterPagesToLinkListItems(chapters, identifier) {
@@ -35,7 +37,7 @@ export default {
 
     optimisedBackgroundImageUrl(chapter) {
       // FIXME: the height is far too large for the context; reduce it
-      return this.$contentful?.assets?.optimisedSrc(
+      return optimisedSrc(
         chapter?.primaryImageOfPage?.image,
         { w: 800, h: 800 }
       ) || chapter?.primaryImageOfPage?.image?.url;

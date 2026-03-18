@@ -21,18 +21,33 @@
             <MetadataField
               v-for="name in CORE_FIELDS"
               :key="name"
-              :metadata-language="metadataLanguage"
               :name="name"
               :field-data="metadata[name]"
               :label-id="`${name}-main-label`"
+              class="d-lg-flex"
             />
           </b-card-text>
         </b-tab>
         <b-tab
+          button-id="all-metadata-tab-link"
           :title-link-attributes="{'data-qa': 'all metadata tab'}"
+          title-link-class="d-flex"
         >
           <template #title>
-            <h2>{{ $t('record.allMetaData') }}</h2>
+            <h2 class="d-inline-block">
+              {{ $t('record.allMetaData') }}
+            </h2>
+            <template v-if="showItemeMetadataTooltip">
+              <span
+                class="icon-info-outline ml-1"
+              />
+              <b-tooltip
+                target="all-metadata-tab-link"
+                placement="bottom"
+              >
+                {{ $t(`record.allMetaDataInfo`) }}
+              </b-tooltip>
+            </template>
           </template>
           <b-card-text
             text-tag="div"
@@ -40,10 +55,10 @@
             <MetadataField
               v-for="name in ALL_FIELDS"
               :key="name"
-              :metadata-language="metadataLanguage"
               :name="name"
               :field-data="metadata[name]"
               :label-id="`${name}-label`"
+              class="d-lg-flex"
             />
           </b-card-text>
         </b-tab>
@@ -95,10 +110,6 @@
       location: {
         type: Object,
         default: null
-      },
-      metadataLanguage: {
-        type: String,
-        default: null
       }
     },
 
@@ -106,7 +117,8 @@
       return {
         CORE_FIELDS,
         ALL_FIELDS,
-        showLocationMap: false
+        showLocationMap: false,
+        showItemeMetadataTooltip: this.$features.webResourceMetadata
       };
     },
 
@@ -189,5 +201,13 @@
 
   .metadata-box-card {
     border: none;
+  }
+
+  #all-metadata-tab-link {
+    .icon-info-outline {
+      font-size: $font-size-base;
+      line-height: $font-size-small;
+      color: $darkgrey;
+    }
   }
 </style>
