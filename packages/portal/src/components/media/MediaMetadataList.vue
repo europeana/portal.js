@@ -32,7 +32,7 @@
     'dcCreator',
     'dcDescription',
     'dcFormat',
-    'dcRights',
+    'webResourceDcRights',
     'dcSource',
     'dcType',
     'dctermsConformsTo',
