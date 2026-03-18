@@ -44,7 +44,7 @@
               <p>{{ $t('items.noMoreItems') }}</p>
             </slot>
             <slot
-              v-else-if="items.length === 0"
+              v-else-if="!items || items.length === 0"
               name="no-items"
             >
               <p>{{ $t('items.noItems') }}</p>
@@ -187,7 +187,7 @@
       },
 
       noMoreItems() {
-        return (this.total > 0) && (this.items.length === 0);
+        return (this.total > 0) && (this.items?.length === 0);
       },
 
       routeQueryView() {

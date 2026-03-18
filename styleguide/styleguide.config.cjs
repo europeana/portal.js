@@ -126,13 +126,6 @@ module.exports = async() => {
           name,
           components: `../packages/portal/src/components/${name.toLowerCase()}/[A-Z]*.vue`
         })))
-      },
-      {
-        name: 'DS4CH',
-        sections: [{
-          name: 'DS4CH',
-          components: '../packages/portal/src/components/DS4CH/[A-Z]*.vue'
-        }]
       }
     ],
     assetsDir: '../packages/style',

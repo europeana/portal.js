@@ -23,12 +23,9 @@
 </template>
 
 <script>
-  import rightsStatement from '../../mixins/rightsStatement';
+  import { rightsNameAndIcon } from '@/utils/europeana/rightsStatement';
 
   export default {
-    mixins: [
-      rightsStatement
-    ],
     props: {
       rightsStatementUrl: {
         type: String,
@@ -42,6 +39,10 @@
         type: String,
         default: 'icons'
       }
+    },
+
+    methods: {
+      rightsNameAndIcon
     }
   };
 </script>

@@ -53,9 +53,9 @@
             url: `https://www.facebook.com/sharer/sharer.php?display=page&u=${this.shareUrl}`
           },
           {
-            identifier: 'x',
-            name: 'X',
-            url: `https://twitter.com/intent/tweet?text=${this.shareUrl}`
+            identifier: 'bsky',
+            name: 'Bluesky',
+            url: `https://bsky.app/intent/compose?text=${this.shareUrl}`
           },
           {
             identifier: 'pinterest',
@@ -117,17 +117,17 @@
       }
     }
 
-    &.x {
-      $x-black: #000000;
-      border: solid 1px $x-black;
-      color: $x-black;
+    &.bsky {
+      $bsky-blue: #0085ff;
+      border: solid 1px $bsky-blue;
+      color: $bsky-blue;
 
       &:not(:disabled):not(.disabled) {
         &:active,
         &.active {
-          color: $x-black;
+          color: $bsky-blue;
           background-color: $white;
-          border-color: $x-black;
+          border-color: $bsky-blue;
         }
       }
     }

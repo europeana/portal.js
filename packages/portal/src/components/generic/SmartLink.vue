@@ -141,7 +141,7 @@
 
 <style lang="scss">
   .smart-link {
-    .btn .icon-external-link {
+    &.btn .icon-external-link {
       margin-left: 0.5rem;
     }
   }

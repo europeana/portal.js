@@ -8,8 +8,14 @@
 
     layout: 'minimal',
 
+    created() {
+      if (process.client) {
+        this.$keycloak.login({ replace: true });
+      }
+    },
+
     mounted() {
-      this.$keycloak.login();
+      this.$keycloak.login({ replace: true });
     }
   };
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div
     class="landing-cta"
-    :class="[variant, { 'bg-lightgrey': defaultBackground }]"
+    :class="{ 'bg-lightgrey': defaultBackground }"
   >
     <div
       v-if="backgroundImage"
@@ -17,7 +17,7 @@
         :title="title"
         :text="text"
         :link="link"
-        :button-variant="variant === 'ds4ch' ? 'btn-primary': 'btn-outline-primary'"
+        :button-variant="buttonVariant"
       />
     </b-container>
   </div>
@@ -25,6 +25,7 @@
 
 <script>
   import ContentPrimaryCallToAction from '@/components/content/ContentPrimaryCallToAction';
+  import { responsiveBackgroundImageCSSVars } from '@/utils/contentful/assets.js';
 
   const CSS_VARS_PRESETS = {
     small: { w: 576, h: 350, fit: 'fill' },
@@ -73,14 +74,6 @@
       backgroundImage: {
         type: Object,
         default: () => {}
-      },
-      /**
-       * Variant to define layout and style
-       * @values pro, ds4ch
-       */
-      variant: {
-        type: String,
-        default: 'pro'
       }
     },
 
@@ -91,13 +84,19 @@
           'bg-position-y-center': ['left', 'right'].includes(this.backgroundImage?.profile?.focus),
           'bg-color-highlight': this.backgroundImage?.profile?.background === 'highlight'
         },
-        imageCSSVars: this.backgroundImage?.image && this.$contentful.assets.responsiveBackgroundImageCSSVars(
+        imageCSSVars: this.backgroundImage?.image && responsiveBackgroundImageCSSVars(
           this.backgroundImage?.image,
           CSS_VARS_PRESETS,
           this.backgroundImage?.profile
         ),
-        defaultBackground: this.variant === 'pro' && !this.backgroundImage?.profile && !this.backgroundImage?.image
+        defaultBackground: !this.backgroundImage?.profile && !this.backgroundImage?.image
       };
+    },
+
+    computed: {
+      buttonVariant() {
+        return this.defaultBackground ? 'btn-primary' : 'btn-outline-primary';
+      }
     }
   };
 </script>
@@ -182,16 +181,5 @@
     ::v-deep &.text-white .primary-cta-rich-text a {
       color: $white;
     }
-  }
-</style>
-
-<!-- Only DS4CH styles after this line! -->
-<style lang="scss" scoped>
-  @import '@europeana/style/scss/DS4CH/variables';
-  @import '@europeana/style/scss/responsive-background-image';
-
-  .landing-cta.ds4ch {
-    background-color: $black;
-    color: $white;
   }
 </style>

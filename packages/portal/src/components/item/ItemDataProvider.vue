@@ -49,7 +49,7 @@
   import { isEntityUri } from '@/plugins/europeana/entity';
   import { langMapValueForLocale } from '@europeana/i18n';
   import collectionLinkGenMixin from '@/mixins/collectionLinkGen';
-  import europeanaEntityLinks from '@/mixins/europeana/entities/entityLinks';
+  import { collectionTitle } from '@/utils/europeana/entities/entityLinks';
   import itemPrefLanguage from '@/mixins/europeana/item/itemPrefLanguage';
   import langAttributeMixin from '@/mixins/langAttribute';
 
@@ -65,8 +65,7 @@
     mixins: [
       itemPrefLanguage,
       langAttributeMixin,
-      collectionLinkGenMixin,
-      europeanaEntityLinks
+      collectionLinkGenMixin
     ],
     props: {
       dataProvider: {
@@ -104,6 +103,7 @@
     },
 
     methods: {
+      collectionTitle,
       isEntityUri(uri) {
         return isEntityUri(uri);
       },

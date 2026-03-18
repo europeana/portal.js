@@ -1,4 +1,3 @@
-version: "3"
 services:
   nginx:
     image: europeana/portal.js-nginx:${NGINX_IMAGE_VERSION:-latest}

@@ -111,8 +111,8 @@
 
   import LoadingSpinner from '../generic/LoadingSpinner';
   import PaginationNavInput from '@/components/generic/PaginationNavInput';
+  import { organizationEntityNativeName, organizationEntityNonNativeEnglishName } from '@/utils/europeana/entities/organizations.js';
   import SmartLink from '../generic/SmartLink';
-  import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
   import langAttributeMixin from '@/mixins/langAttribute';
   import { langMapValueForLocale } from '@europeana/i18n';
 
@@ -128,7 +128,6 @@
     },
 
     mixins: [
-      europeanaEntitiesOrganizationsMixin,
       langAttributeMixin
     ],
 
@@ -239,10 +238,12 @@
     },
 
     methods: {
+      organizationEntityNativeName,
+      organizationEntityNonNativeEnglishName,
       organisationData(org) {
-        const nativeName = this.organizationEntityNativeName({ ...org, type: 'Organization' });
+        const nativeName = this.organizationEntityNativeName(org);
         const nativeNameLangMapValue = langMapValueForLocale(nativeName, this.$i18n.locale);
-        const englishName = this.organizationEntityNonNativeEnglishName({ ...org, type: 'Organization' });
+        const englishName = this.organizationEntityNonNativeEnglishName(org);
         const englishNameLangMapValue = englishName && langMapValueForLocale(englishName, this.$i18n.locale);
 
         return {

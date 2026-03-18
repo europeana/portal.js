@@ -1,0 +1,33 @@
+query FeatureIdeasPage($locale: String!, $preview: Boolean = false) {
+  featureIdeasPageCollection(limit: 1, locale: $locale, preview: $preview) {
+    items {
+      name
+      description
+      image {
+        url
+        description
+      }
+      text
+      hasPartCollection {
+        items {
+          ... on VoteableFeature {
+            name
+            identifier
+            text
+            image {
+              ... on Illustration {
+                image {
+                  url
+                  description
+                  contentType
+                  width
+                  height
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

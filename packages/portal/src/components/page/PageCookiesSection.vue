@@ -103,8 +103,10 @@
       label() {
         if (this.serviceData.services) {
           return this.$t(`klaro.main.purposes.${this.serviceData.name}.title`);
-        } else {
+        } else if (this.$te(`klaro.services.${this.serviceData.name}.title`)) {
           return this.$t(`klaro.services.${this.serviceData.name}.title`);
+        } else {
+          return this.serviceData.title;
         }
       },
       description() {

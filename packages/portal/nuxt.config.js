@@ -8,6 +8,8 @@
 const APP_SITE_NAME = 'Europeana';
 const APP_PKG_NAME = '@europeana/portal';
 
+import camelCase from 'lodash/camelCase.js';
+
 import versions from './pkg-versions.js';
 
 import { locales as i18nLocales } from '@europeana/i18n';
@@ -59,6 +61,42 @@ const postgresConfig = () => {
   return postgresOptions;
 };
 
+const cacheControlConfig = () => {
+  const config = {
+    enabled: featureIsEnabled('cacheControl'),
+    default: process.env.APP_CACHE_CONTROL_DEFAULT,
+    auth: process.env.APP_CACHE_CONTROL_AUTH || 'no-store',
+    contentful: process.env.APP_CACHE_CONTROL_CONTENTFUL
+  };
+
+  config.route = Object.keys(process.env).filter((key) => key.startsWith('APP_CACHE_CONTROL_ROUTE_')).reduce((memo, key) => {
+    const scope = camelCase(key.replace('APP_CACHE_CONTROL_ROUTE_', ''));
+    memo[scope] = process.env[key];
+    return memo;
+  }, {});
+
+  const contentfulRouteScopes = [
+    'exhibitionsExhibition',
+    'exhibitionsExhibitionChapter',
+    'exhibitionsExhibitionCredits',
+    'featureIdeas',
+    'index',
+    'slug',
+    'stories',
+    'storiesAll',
+    'themes',
+    'themesAll'
+  ];
+
+  for (const scope of contentfulRouteScopes) {
+    if (config.contentful && !config.route[scope]) {
+      config.route[scope] = config.contentful;
+    }
+  }
+
+  return config;
+};
+
 export default {
   /*
   ** Runtime config
@@ -67,9 +105,8 @@ export default {
     app: {
       // TODO: rename env vars to prefix w/ APP_, except feature toggles
       baseUrl: process.env.PORTAL_BASE_URL,
-      galleries: {
-        europeanaAccount: process.env.APP_GALLERIES_EUROPEANA_ACCOUNT || 'europeana'
-      },
+      cacheControl: cacheControlConfig(),
+      debiasAssetId: process.env.APP_DEBIAS_ASSET_ID,
       featureNotification: {
         expiration: featureNotificationExpiration(process.env.APP_FEATURE_NOTIFICATION_EXPIRATION),
         locales: process.env.APP_FEATURE_NOTIFICATION_LOCALES?.split(','),
@@ -80,13 +117,17 @@ export default {
           origin: [process.env.PORTAL_BASE_URL].concat(process.env.APP_FEEDBACK_CORS_ORIGIN?.split(',')).filter((origin) => !!origin)
         }
       },
+      galleries: {
+        europeanaAccount: process.env.APP_GALLERIES_EUROPEANA_ACCOUNT || 'europeana'
+      },
       homeLandingPageSlug: process.env.APP_HOME_LANDING_PAGE_SLUG,
       internalLinkDomain: process.env.INTERNAL_LINK_DOMAIN,
       notificationBanner: process.env.APP_NOTIFICATION_BANNER,
-      siteName: APP_SITE_NAME,
+      projectApiKeyFormUrl: process.env.PROJECT_API_KEY_FORM_URL,
       search: {
         translateLocales: (process.env.APP_SEARCH_TRANSLATE_LOCALES || '').split(',')
-      }
+      },
+      siteName: APP_SITE_NAME
     },
     auth: {
       strategies: {
@@ -294,23 +335,26 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '~/plugins/elastic-apm/plugin.server',
+    '~/plugins/cookieless-redirect.server',
+    '~/plugins/elastic-apm/plugin.client',
     '~/plugins/vue-router-query',
     '~/plugins/vue-matomo.client',
+    '~/plugins/i18n-cookie.client',
     '~/plugins/error',
     '~/plugins/keycloak',
+    '~/plugins/axios-logger',
     '~/plugins/axios-cache-interceptor.client',
     '~/plugins/axios.server',
     '~/plugins/vue-session.client',
     '~/plugins/vue-announcer.client',
     '~/plugins/vue-masonry.client',
     '~/plugins/features',
-    '~/plugins/jsdom-domparser.server'
+    '~/plugins/jsdom-domparser.server',
+    '~/plugins/vue-contentful-graphql'
   ],
 
   buildModules: [
-    '~/modules/contentful',
-    '~/modules/axios-logger',
-    '~/modules/query-sanitiser',
     '@nuxtjs/auth'
   ],
 
@@ -318,7 +362,6 @@ export default {
   ** Nuxt.js modules
   */
   modules: [
-    '~/modules/elastic-apm',
     'bootstrap-vue/nuxt',
     'cookie-universal-nuxt',
     // WARN: do not move this to buildModules, else custom transaction naming
@@ -375,7 +418,10 @@ export default {
       }
     },
     defaultStrategy: 'keycloak',
-    plugins: ['~/plugins/europeana-apis', '~/plugins/user-likes.client']
+    plugins: [
+      '~/plugins/europeana-apis',
+      '~/plugins/liked-items.client'
+    ]
   },
 
   axios: {
@@ -398,12 +444,30 @@ export default {
 
   router: {
     middleware: [
-      'trailing-slash',
+      // Early middlewares to apply always
+      //
+      // Remove any cookies from SSRs so that intermediaries will consider
+      // eligible for caching
+      'no-ssr-cookies',
+      // Redirection-related middlewares next
+      //
+      // legacy portal redirects MUST go first as they may already include locale
+      // but not as first part of URL slug, e.g. /portal/en/search
       'legacy/index',
+      // localise next, so that any subsequent redirects are locale-specific
       'l10n',
+      // 301 redirects may proceed
+      'trailing-slash',
       'contentful-galleries',
       'set-galleries',
-      'redirects'
+      'redirects',
+      // cache-control last, just before page-specific middleware, so any redirects
+      // etc have already occurred if needed. let intermediaries make their own
+      // decisions what to do with earlier redirects. order is important. later
+      // rules will override earlier ones if they match.
+      'cache-control/default',
+      'cache-control/route',
+      'cache-control/auth'
     ],
     extendRoutes(routes) {
       const nuxtCollectionsPersonsOrPlacesRouteIndex = routes.findIndex(route => route.name === 'collections-persons-or-places');
@@ -469,6 +533,13 @@ export default {
         type: 'javascript/auto'
       });
 
+      // GraphQL files
+      config.module.rules.push({
+        test: /\.(graphql|gql)$/,
+        exclude: /node_modules/,
+        loader: 'graphql-tag/loader'
+      });
+
       // Extend webpack config only for client bundle
       if (isClient) {
         // Build source maps to aid debugging in production builds
@@ -486,6 +557,7 @@ export default {
     transpile: [
       '@europeana/i18n',
       '@europeana/oembed',
+      '@europeana/vue-contentful-graphql',
       '@europeana/vue-visible-on-scroll',
       'axios-cache-interceptor',
       'color-parse',
@@ -499,6 +571,7 @@ export default {
       'ol/extent.js',
       'ol/events.js',
       'ol/format/IIIFInfo.js',
+      'ol/geom/flat/intersectsextent.js',
       'ol/geom/LineString.js',
       'ol/interaction/DragBox.js',
       'ol/layer/Image.js',
@@ -507,7 +580,9 @@ export default {
       'ol/Map.js',
       'ol/proj.js',
       'ol/proj/epsg3857.js',
+      'ol/proj/utm.js',
       'ol/render/canvas/ZIndexContext.js',
+      'ol/renderer/canvas/VectorLayer.js',
       'ol/render/Feature.js',
       'ol/reproj/DataTile.js',
       'ol/reproj/Tile.js',

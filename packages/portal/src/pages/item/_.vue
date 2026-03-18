@@ -23,6 +23,7 @@
           :all-media-uris="allMediaUris"
           :identifier="identifier"
           :media="webResources"
+          :services="services"
           :edm-rights="edmRights"
           :edm-type="type"
           :attribution-fields="attributionFields"
@@ -70,7 +71,6 @@
             <MetadataBox
               :metadata="fieldsAndKeywords"
               :location="locationData"
-              :metadata-language="metadataLanguage"
             />
             <ItemLanguageSelector
               v-if="translatedItemsEnabled"
@@ -141,9 +141,9 @@
   } from  '@europeana/i18n';
   import Item from '@/plugins/europeana/edm/Item.js';
   import WebResource from '@/plugins/europeana/edm/WebResource.js';
+  import { redirectToAltRoute } from '@/utils/redirect/redirectToAltRoute.js';
   import stringify from '@/utils/text/stringify.js';
   import pageMetaMixin from '@/mixins/pageMeta';
-  import redirectToMixin from '@/mixins/redirectTo';
 
   import waitFor from '@/utils/waitFor.js';
 
@@ -163,8 +163,7 @@
     },
 
     mixins: [
-      pageMetaMixin,
-      redirectToMixin
+      pageMetaMixin
     ],
 
     inject: ['canonicalUrl'],
@@ -175,15 +174,38 @@
         // in descendent components because the latter approach would not hydrate
         // the shared state of those refs after SSR, but provide/inject does
         deBias: computed(() => this.deBias),
-        itemIsDeleted: computed(() => this.isDeleted)
+        itemIsDeleted: computed(() => this.isDeleted),
+        metadataLanguage: this.metadataLanguage
       };
     },
 
+    middleware: [
+      // When entering a translated item page, but not logged-in,
+      // redirect to Keycloak to login, unless user just logged out in which case,
+      // redirect to page without translation.
+      ({ $auth, redirect, route }) => {
+        if (route.query.lang && !$auth.loggedIn) {
+          if ($auth.$storage.getUniversal('portalLoggingOut')) {
+            // just logged out: redirect to page w/o lang param
+            return redirectToAltRoute({ query: { lang: undefined } }, { redirect, route, status: 303 });
+          } else {
+            // not yet logged-in: redirect to login
+            return redirect(303, { name: 'account-login', query: { redirect: route.fullPath } });
+          }
+        }
+      }
+    ],
+
     setup() {
-      const { parseAnnotations: parseDeBiasAnnotations, terms: deBiasTerms, definitions: deBiasDefinitions } = useDeBias();
+      const {
+        parseAnnotations: parseDeBiasAnnotations,
+        terms: deBiasTerms,
+        definitions: deBiasDefinitions,
+        ids: deBiasIds
+      } = useDeBias();
       const { logEvent } = useLogEvent();
 
-      return { deBiasDefinitions, deBiasTerms, logEvent, parseDeBiasAnnotations };
+      return { deBiasDefinitions, deBiasIds, deBiasTerms, logEvent, parseDeBiasAnnotations };
     },
 
     data() {
@@ -193,7 +215,7 @@
         annotations: [],
         cardGridClass: null,
         dataProviderEntity: null,
-        deBias: { definitions: [], terms: [] },
+        deBias: { definitions: {}, ids: {}, terms: {} },
         entities: [],
         error: null,
         fromTranslationError: null,
@@ -206,21 +228,17 @@
         metadata: {},
         ogImage: null,
         relatedCollections: [],
+        services: [],
         type: null,
         useProxy: true
       };
     },
 
     async fetch() {
-      // When entering a translated item page, but not logged in, redirect to non-translated item page
-      if (this.$route.query.lang && !this.$auth.loggedIn) {
-        this.redirectToAltRoute({ query: { lang: undefined } });
-      } else {
-        await Promise.all([
-          this.fetchMetadata(),
-          this.fetchAnnotations()
-        ]);
-      }
+      await Promise.all([
+        this.fetchMetadata(),
+        this.fetchAnnotations()
+      ]);
     },
 
     head() {
@@ -353,9 +371,12 @@
 
     mounted() {
       this.fetchEntities();
-      if (!this.$fetchState.error && !this.$fetchState.pending) {
+      if (!this.$fetchState.error) {
         this.logEvent('view', `${ITEM_URL_PREFIX}${this.identifier}`, this.$session);
-        this.trackCustomDimensions();
+
+        if (!this.$fetchState.pending) {
+          this.trackCustomDimensions();
+        }
       }
     },
 
@@ -397,7 +418,7 @@
         const edm = data.object;
 
         if (this.identifier !== edm.about) {
-          return this.redirectToAltRoute({ params: { pathMatch: edm.about?.slice(1) } });
+          return redirectToAltRoute({ params: { pathMatch: edm.about?.slice(1) } }, { redirect: this.$nuxt.context.redirect, route: this.$route });
         }
 
         this.type = edm.type;
@@ -442,19 +463,10 @@
             delete wr.webResourceEdmRights;
           }
 
-          // don't store the full web resources when using iiif as the manifest will be used,
-          // but WR-level rights statements still needed by ItemHero and not consistently
-          // obtainable from manifests coming from different sources
-          if (this.iiifPresentationManifest) {
-            for (const key in wr) {
-              if (!['about', 'webResourceEdmRights'].includes(key)) {
-                delete wr[key];
-              }
-            }
-          }
-
           return wr;
         });
+
+        this.services = item.services;
 
         process.client && this.trackCustomDimensions();
       },
@@ -621,6 +633,7 @@
           this.parseDeBiasAnnotations(annotations, { fields: ALL_METADATA_FIELDS, lang: this.$i18n.locale });
           this.deBias = {
             definitions: this.deBiasDefinitions,
+            ids: this.deBiasIds,
             terms: this.deBiasTerms
           };
 

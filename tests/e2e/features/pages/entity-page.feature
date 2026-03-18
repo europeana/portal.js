@@ -26,15 +26,13 @@ Feature: Entity page
     When I open an `entity page`
     And I see the `entity page`
     Then I see `related entities`
-    And I see the `Map related chip` in the `related entities`
-    And I see the `Codex related chip` in the `related entities`
+    And I see the `Book related chip` in the `related entities`
     And I see the `Monograph related chip` in the `related entities`
-    And I see the `Print related chip` in the `related entities`
 
   Scenario: Click on a related entity
     When I open an `entity page`
     And I see the `entity page`
-    And I click the `Map related chip`
+    And I click the `Book related chip`
     Then I should not be on the `entity page`
 
   Scenario: Navigating to a related item

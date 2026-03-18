@@ -15,30 +15,33 @@
       toaster="b-toaster-bottom-left"
     >
       <p>{{ $t('klaro.main.consentNotice.description') }}</p>
-      <div class="d-flex justify-content-between align-items-center">
+      <div class="d-flex flex-wrap justify-content-between align-items-center">
         <b-button
           data-qa="learn more button"
-          class="p-0"
+          class="p-0 mb-2"
           variant="link"
           @click="openCookieModal"
         >
           {{ $t('klaro.main.consentNotice.learnMore') }}
         </b-button>
-        <b-button
-          data-qa="decline button"
-          variant="outline-primary"
-          class="ml-auto mr-2"
-          @click="declineAndHide"
-        >
-          {{ $t('klaro.main.decline') }}
-        </b-button>
-        <b-button
-          data-qa="accept all button"
-          variant="success"
-          @click="acceptAndHide"
-        >
-          {{ $t('klaro.main.ok') }}
-        </b-button>
+        <div class="d-flex flex-wrap justify-content-end align-items-center ml-auto">
+          <b-button
+            data-qa="decline button"
+            variant="outline-primary"
+            class="ml-auto mb-2"
+            @click="declineAndHide"
+          >
+            {{ $t('klaro.main.decline') }}
+          </b-button>
+          <b-button
+            data-qa="accept all button"
+            variant="success"
+            class="ml-2 mb-2"
+            @click="acceptAndHide"
+          >
+            {{ $t('klaro.main.acceptAll') }}
+          </b-button>
+        </div>
       </div>
     </b-toast>
     <!-- TODO Move modal into own component -->
@@ -352,12 +355,16 @@
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
 
-  .cookie-notice {
-    max-width: 400px;
-    width: 400px;
+  ::v-deep .cookie-notice {
+    max-width: calc(100vw - 1rem);
+    width: pxToRem(400);
 
     .btn-link {
       font-size: $font-size-small;
+    }
+
+    .toast-body {
+      padding-bottom: 0.5rem;
     }
   }
 </style>

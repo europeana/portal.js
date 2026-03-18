@@ -2,7 +2,6 @@
   <b-container
     data-qa="search interface"
     class="search-page-container side-filters-enabled"
-    :class="{ 'search-bar-open': showSearchBar }"
   >
     <b-row
       class="flex-row flex-nowrap"
@@ -149,6 +148,7 @@
   import { addContentTierFilter, filtersFromQf } from '@/plugins/europeana/search';
   import advancedSearchMixin from '@/mixins/advancedSearch.js';
   import useScrollTo from '@/composables/scrollTo.js';
+  import { useSelectedItems } from '@/composables/selectedItems.js';
   import SearchMultilingualButton from './SearchMultilingualButton.vue';
 
   export default {
@@ -192,7 +192,9 @@
 
     setup() {
       const { scrollToSelector } = useScrollTo();
-      return { scrollToSelector };
+      const { clear: clearSelectedItems } = useSelectedItems();
+
+      return { clearSelectedItems, scrollToSelector };
     },
 
     data() {
@@ -306,8 +308,9 @@
         return this.totalResults === 0 || !this.totalResults;
       },
       showErrorMessage() {
-        return !this.$fetchState.error?.code ||
-          !['searchResultsNotFound', 'searchPaginationLimitExceeded'].includes(this.$fetchState.error?.code);
+        return !(this.$fetchState.error?.code || this.$fetchState.error?.cause?.code) ||
+          !('searchResultsNotFound' === this.$fetchState.error?.code ||
+            'searchPaginationLimitExceeded' === this.$fetchState.error?.cause?.code);
       },
       collection() {
         return filtersFromQf(this.apiParams.qf).collection?.[0];
@@ -344,6 +347,7 @@
       '$route.query.qf': 'watchRouteQueryQf',
       '$route.query.query': 'handleSearchParamsChanged',
       '$route.query.reusability': 'handleSearchParamsChanged',
+      '$route.query.sort': 'handleSearchParamsChanged',
       '$route.query.translate': 'handleSearchParamsChanged'
     },
 
@@ -565,7 +569,7 @@
       },
 
       resetItemMultiSelect() {
-        this.$store.commit('set/setSelected', []);
+        this.clearSelectedItems();
       }
     }
   };
@@ -626,14 +630,6 @@
 
   &.open::before {
     content: '-';
-  }
-}
-
-.search-bar-open {
-  padding-top: 4.275rem !important;
-
-  @media (min-width: $bp-4k) {
-    padding-top: 6.6rem !important;
   }
 }
 </style>

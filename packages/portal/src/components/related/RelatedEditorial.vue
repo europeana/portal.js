@@ -54,8 +54,8 @@
 </template>
 
 <script>
-  import { contentfulEntryUrl } from '@/utils/contentful/entry-url.js';
   import ContentCard from '../content/ContentCard';
+  import { contentfulEntryUrl } from '@/utils/contentful/entry-url.js';
 
   export default {
     name: 'RelatedEditorial',
@@ -123,14 +123,16 @@
         limit: this.limit
       };
 
-      let queryName = 'relatedContent';
+      let graphql;
       if (this.entityUri) {
-        queryName = 'entityRelatedContent';
+        graphql = await import('@/graphql/queries/entityRelatedContent.graphql');
       } else if (this.theme) {
-        queryName = 'themeRelatedContent';
+        graphql = await import('@/graphql/queries/themeRelatedContent.graphql');
+      } else {
+        graphql = await import('@/graphql/queries/relatedContent.graphql');
       }
-      const response = await this.$contentful.query(queryName, variables);
-      const entries = response.data.data;
+      const response = await this.$contentful.query(graphql, variables);
+      const entries = response.data;
 
       this.related = entries.storyCollection.items
         .concat(entries.exhibitionPageCollection.items)

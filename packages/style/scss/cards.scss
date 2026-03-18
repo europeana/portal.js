@@ -34,6 +34,7 @@
   height: auto;
   line-height: $card-line-height;
   transition: box-shadow 0.25s;
+  min-width: $min-card-width;
 
   @at-root .xxl-page & {
     @media (min-width: $bp-4k) {
@@ -125,18 +126,18 @@
     }
 
     .is-external-link {
-      display: flex;
-      align-items: center;
+      display: inline-flex;
 
-      span {
-        text-overflow: ellipsis;
+      .link-text {
         overflow: hidden;
-        white-space: nowrap;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+      }
 
-        &.icon-external-link {
-          flex-shrink: 0;
-          margin-left: 5px;
-        }
+      .icon-external-link {
+        margin-top: 0.25rem;
+        margin-left: 0.25rem;
       }
     }
   }
@@ -544,7 +545,7 @@
 
 .xxl-page .card {
   @media (min-width: $bp-xxxl) {
-    min-width: $min-card-width;
+    min-width: $min-card-width-xxxl;
     max-width: $max-card-width;
   }
 }

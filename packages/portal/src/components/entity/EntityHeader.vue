@@ -7,7 +7,7 @@
       v-if="resizedLogo"
       class="organisation-logo mb-2"
       data-qa="entity logo"
-      :style="`background-image: url(${resizedLogo})`"
+      :style="`background-image: url('${resizedLogo}')`"
     />
     <b-card-title
       title-tag="h2"
@@ -205,7 +205,7 @@
         return this.hasDescription ? this.description.values[0] : '';
       },
       resizedLogo() {
-        return getWikimediaThumbnailUrl(this.logo, 72);
+        return getWikimediaThumbnailUrl(this.logo, 120);
       }
     },
     methods: {

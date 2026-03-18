@@ -13,6 +13,10 @@
   content: '\e935';
 }
 
+.icon-academia::before {
+  content: '\e971';
+}
+
 .icon-accept::before {
   content: '\e938';
 }
@@ -51,6 +55,10 @@
 
 .icon-back::before {
   content: '\ea40';
+}
+
+.icon-bsky::before {
+  content: '\e906';
 }
 
 .icon-cancel-circle::before {
@@ -213,6 +221,10 @@
   content: '\e9bd';
 }
 
+.icon-metadata:before {
+  content: '\e973';
+}
+
 .icon-ic-move-xy::before {
   content: '\e959';
 }
@@ -229,6 +241,10 @@
   content: '\e963';
 }
 
+.icon-partner:before {
+  content: '\e972';
+}
+
 .icon-pinterest::before {
   content: '\e908';
 }
@@ -239,6 +255,10 @@
 
 .icon-pin-outlined::before {
   content: '\e936';
+}
+
+.icon-quote::before {
+  content: '\e928';
 }
 
 .icon-reject::before {
@@ -367,10 +387,6 @@
 
 .icon-view-mosaic::before {
   content: '\e94a';
-}
-
-.icon-x::before {
-  content: '\e906';
 }
 
 .icon-zoom-in:before {

@@ -3,16 +3,27 @@ import { computed, onBeforeMount, ref, watch } from 'vue';
 // vue2-helpers provides helpers that do
 import { useRoute, useRouter } from 'vue2-helpers/vue-router';
 
-export default function useActiveTab(tabHashes) {
+export default function useActiveTab(tabHashes, options = {}) {
+  const { replaceRoute } = {
+    replaceRoute: true,
+    ...options
+  };
+  const routerUpdateAction = replaceRoute ? 'replace' : 'push';
+
   const router = useRouter();
   const route = useRoute();
   const activeTabIndex = ref(-1);
   const activeTabHistory = ref([]);
 
   const setActiveTabIndexFromRouteHash = () => {
-    if (tabHashes.includes(route?.hash)) {
-      activeTabIndex.value = tabHashes.indexOf(route.hash);
-      activeTabHistory.value.push(activeTabHash.value);
+    if (route) {
+      if (!route.hash) {
+        activeTabIndex.value = 0;
+        activeTabHistory.value.push(activeTabHash.value);
+      } else if (tabHashes.includes(route.hash)) {
+        activeTabIndex.value = tabHashes.indexOf(route.hash);
+        activeTabHistory.value.push(activeTabHash.value);
+      }
     }
   };
 
@@ -29,17 +40,14 @@ export default function useActiveTab(tabHashes) {
     if (activeTabIndex.value !== -1) {
       activeTabHistory.value.push(activeTabHash.value);
       if (activeTabHash.value !== route.hash) {
-        router.replace({ ...route, hash: activeTabHash.value });
+        router[routerUpdateAction]({ ...route, hash: activeTabHash.value });
       }
     }
 
     unwatchTabIndex = watch(activeTabIndex, () => {
-      if (route.hash && !tabHashes.includes(route.hash)) {
-        return;
-      }
       if (activeTabIndex.value !== -1) {
         activeTabHistory.value.push(activeTabHash.value);
-        router.replace({ ...route, hash: activeTabHash.value });
+        router[routerUpdateAction]({ ...route, hash: activeTabHash.value });
       }
     });
   };
