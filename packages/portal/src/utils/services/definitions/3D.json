@@ -7,11 +7,12 @@
     "title": "Arctur 3Dviewer"
   },
   {
-    "name": "theCyprusInstitute",
+    "name": "eKultura",
+    "oembed": "https://ekultura.hr/oembed",
     "schemes": [
-      "https://apacwebstorage.hpcf.cyi.ac.cy/threedimensionalmodels/3D/*"
+      "https://ekultura.hr/items/*"
     ],
-    "title": "The Cyprus Institute"
+    "title": "eKultura"
   },
   {
     "name": "eureka3D",
@@ -58,6 +59,13 @@
       "https://www.spatial.io/embed/*"
     ],
     "title": "Spatial"
+  },
+  {
+    "name": "theCyprusInstitute",
+    "schemes": [
+      "https://apacwebstorage.hpcf.cyi.ac.cy/threedimensionalmodels/3D/*"
+    ],
+    "title": "The Cyprus Institute"
   },
   {
     "name": "weave",
