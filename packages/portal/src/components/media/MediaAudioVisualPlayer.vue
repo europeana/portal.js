@@ -2,15 +2,19 @@
   <div
     class="media-player-wrapper"
   >
-    <component
-      :is="mediaFormat.startsWith('audio/') ? 'audio' : 'video'"
-      :key="mediaUrl"
-      ref="avPlayer"
-      class="media-player video-js"
-      controls
-      :title="$t('record.mediaPlayer')"
-      :poster="poster"
-    />
+    <template
+      v-if="mediaComponent"
+    >
+      <component
+        :is="mediaComponent"
+        :key="mediaUrl"
+        ref="avPlayer"
+        class="media-player video-js"
+        controls
+        :title="$t('record.mediaPlayer')"
+        :poster="poster"
+      />
+    </template>
   </div>
 </template>
 
@@ -47,8 +51,8 @@
 
     data() {
       return {
-        mediaFormat: this.format,
-        mediaUrl: this.url,
+        mediaFormat: null,
+        mediaUrl: null,
         options: {
           // TODO: This removes 'bigPlayButton', but also breaks the play button and play/pause on poster click. Fix or hide in styles.
           // children: [
@@ -80,9 +84,10 @@
 
         this.mediaUrl = response.data.location;
         this.mediaFormat = response.data.format;
+      } else {
+        this.mediaUrl = this.url;
+        this.mediaFormat = this.format;
       }
-
-      process.client && this.initVideojs();
     },
 
     computed: {
@@ -98,12 +103,21 @@
 
       euScreenEmbedUrl() {
         return this.euScreenId && `https://euscreen.embd.eu/${this.euScreenId}`;
+      },
+
+      mediaComponent() {
+        if (this.mediaFormat?.startsWith('audio/')) {
+          return 'audio';
+        } else if (this.mediaFormat?.startsWith('video/')) {
+          return 'video';
+        }
+        return undefined;
       }
     },
 
-    mounted() {
-      if (!this.$fetchState.pending) {
-        this.initVideojs();
+    watch: {
+      mediaComponent() {
+        process.client && this.initVideojs();
       }
     },
 
@@ -112,7 +126,16 @@
     },
 
     methods: {
-      initVideojs() {
+      async initVideojs() {
+        this.player?.dispose();
+
+        // wait for the ref to be created and inserted into the DOM
+        await this.$nextTick();
+
+        if (!this.$refs.avPlayer) {
+          return;
+        }
+
         this.player = videojs(this.$refs.avPlayer, {
           ...this.options,
           languages: {
