@@ -27,6 +27,7 @@
   import videojs from 'video.js';
   // TODO: consider if this is needed when overriding styles
   import 'video.js/dist/video-js.min.css';
+  import 'videojs-youtube';
 
   export default {
     name: 'MediaAudioVisualPlayer',
@@ -50,6 +51,14 @@
       url: {
         type: String,
         required: true
+      },
+      /**
+       * video service to handle differently
+       * @values: 'EUScreen', 'youTube'
+       */
+      service: {
+        type: String,
+        default: null
       }
     },
 
@@ -82,10 +91,11 @@
 
     computed: {
       isEUScreenMedia() {
-        return this.url?.startsWith('http://www.euscreen.eu/item.html') ||
-          this.url?.startsWith('https://www.euscreen.eu/item.html') || false;
+        return this.service === 'EUScreen';
+      },
+      isYouTubeMedia() {
+        return this.service === 'youTube';
       }
-
     },
 
     mounted() {
@@ -99,9 +109,10 @@
           sources: [
             {
               src: this.url,
-              type: this.format
+              type: this.isYouTubeMedia ? 'video/youtube' : this.format
             }
-          ]
+          ],
+          ...this.isYouTubeMedia && { techOrder: ['youtube', 'html5'] }
         });
       }
     },

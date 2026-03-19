@@ -61,13 +61,15 @@
                 @toggleFullscreen="toggleFullscreen"
               />
             </MediaImageViewer>
+            <!-- TODO: YouTube video's should be still via embed gateway -->
             <MediaAudioVisualPlayer
-              v-else-if="resource?.edm?.isPlayableMedia"
+              v-else-if="resource?.edm?.isPlayableMedia || youTubeVideo"
               :url="resource.id"
               :format="resource.format"
               :item-id="itemId"
               class="media-viewer-content"
               :poster="thumbnailForAVPoster"
+              :service="audioVisualService"
             />
             <EmbedGateway
               v-else-if="resource?.isOEmbed || resource?.edm?.isOEmbed"
@@ -148,6 +150,7 @@
   import MediaCardImage from '../media/MediaCardImage.vue';
   import useItemMediaPresentation from '@/composables/itemMediaPresentation.js';
   import { FIELDS as WEB_RESOURCE_METADATA_DISPLAY_FIELDS } from '@/components/media/MediaMetadataList.vue';
+  import serviceForUrl from '@/utils/services/index.js';
 
   export class ItemMediaPresentationError extends Error {
     constructor(message) {
@@ -337,6 +340,20 @@
 
       thumbnailForAVPoster() {
         return this.$apis.thumbnail.forWebResource(this.resource.edm).large;
+      },
+
+      youTubeVideo() {
+        return ['youTube'].includes(serviceForUrl(this.resource.id)?.name);
+      },
+
+      audioVisualService() {
+        if (this.resource.edm.isEUScreenMedia) {
+          return 'EUScreen';
+        }
+        if (this.youTubeVideo) {
+          return 'youTube';
+        }
+        return null;
       }
     },
 

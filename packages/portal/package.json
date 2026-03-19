@@ -82,6 +82,7 @@
     "style-resources-loader": "^1.4.1",
     "svg-url-loader": "^7.1.1",
     "video.js": "^8.23.7",
+    "videojs-youtube": "^3.0.1",
     "vue-masonry": "^0.13.0",
     "vue-matomo": "^4.2.0",
     "vuedraggable": "^2.24.3"
