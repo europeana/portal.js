@@ -25,6 +25,7 @@ const factory = ({ data = {}, propsData = {}, mocks = {} } = {}) => shallowMount
     $features: { webResourceMetadata: true },
     $route: { query: {} },
     $t: (key) => key,
+    localePath: (path) => path,
     ...mocks
   },
   provide: {
