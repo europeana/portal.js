@@ -2,18 +2,9 @@
   <div
     class="media-player-wrapper"
   >
-    <iframe
-      v-if="isEUScreenMedia"
-      data-qa="media player"
-      allowfullscreen="true"
-      :src="localePath({ name: 'media', query: { id: itemId, mediaUrl: url, mediaType: format } })"
-      class="media-player"
-      :title="$t('record.mediaPlayer')"
-    />
     <component
-      :is="format.startsWith('audio/') ? 'audio' : 'video'"
-      v-else
-      :key="url"
+      :is="mediaFormat.startsWith('audio/') ? 'audio' : 'video'"
+      :key="mediaUrl"
       ref="avPlayer"
       class="media-player video-js"
       controls
@@ -24,6 +15,7 @@
 </template>
 
 <script>
+  import axios from 'axios';
   import videojs from 'video.js';
   // TODO: consider if this is needed when overriding styles
   import 'video.js/dist/video-js.min.css';
@@ -55,6 +47,8 @@
 
     data() {
       return {
+        mediaFormat: this.format,
+        mediaUrl: this.url,
         options: {
           // TODO: This removes 'bigPlayButton', but also breaks the play button and play/pause on poster click. Fix or hide in styles.
           // children: [
@@ -80,16 +74,45 @@
       };
     },
 
+    async fetch() {
+      if (this.euScreenId) {
+        const response = await axios.get(this.euScreenEmbedUrl);
+
+        this.mediaUrl = response.data.location;
+        this.mediaFormat = response.data.format;
+      }
+
+      process.client && this.initVideojs();
+    },
+
     computed: {
       isEUScreenMedia() {
         return this.url?.startsWith('http://www.euscreen.eu/item.html') ||
-          this.url?.startsWith('https://www.euscreen.eu/item.html') || false;
-      }
+          this.url?.startsWith('https://www.euscreen.eu/item.html') ||
+          false;
+      },
 
+      euScreenId() {
+        return this.isEUScreenMedia && new URL(this.url).searchParams.get('id');
+      },
+
+      euScreenEmbedUrl() {
+        return this.euScreenId && `https://euscreen.embd.eu/${this.euScreenId}`;
+      }
     },
 
     mounted() {
-      if (!this.isEUScreenMedia) {
+      if (!this.$fetchState.pending) {
+        this.initVideojs();
+      }
+    },
+
+    beforeDestroy() {
+      this.player?.dispose();
+    },
+
+    methods: {
+      initVideojs() {
         this.player = videojs(this.$refs.avPlayer, {
           ...this.options,
           languages: {
@@ -98,17 +121,11 @@
           },
           sources: [
             {
-              src: this.url,
-              type: this.format
+              src: this.mediaUrl,
+              type: this.mediaFormat
             }
           ]
         });
-      }
-    },
-
-    beforeDestroy() {
-      if (this.player) {
-        this.player.dispose();
       }
     }
   };
