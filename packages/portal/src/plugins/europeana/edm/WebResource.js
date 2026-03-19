@@ -21,6 +21,7 @@ const MEDIA_TYPE_TEXT = 'text';
 const MEDIA_TYPE_VIDEO = 'video';
 const MEDIA_TYPE_VIDEO_OGG = `${MEDIA_TYPE_VIDEO}/ogg`;
 const MEDIA_TYPE_VIDEO_MP4 = `${MEDIA_TYPE_VIDEO}/mp4`;
+const MEDIA_TYPE_VIDEO_M4V = `${MEDIA_TYPE_VIDEO}/x-m4v`;
 const MEDIA_TYPE_VIDEO_WEBM = `${MEDIA_TYPE_VIDEO}/webm`;
 
 const MEDIA_CODEC_H264 = 'h264';
@@ -44,7 +45,11 @@ const HTML_IMAGE_MEDIA_TYPES = [
   MEDIA_TYPE_IMAGE_SVG_XML,
   MEDIA_TYPE_IMAGE_WEBP
 ];
-const HTML_VIDEO_MEDIA_TYPES = [MEDIA_TYPE_VIDEO_OGG, MEDIA_TYPE_VIDEO_WEBM];
+const HTML_VIDEO_MEDIA_TYPES = [
+  MEDIA_TYPE_VIDEO_OGG,
+  MEDIA_TYPE_VIDEO_M4V,
+  MEDIA_TYPE_VIDEO_WEBM
+];
 
 export default class WebResource extends Base {
   // TODO: this is getting called multiple times for the same resource on
