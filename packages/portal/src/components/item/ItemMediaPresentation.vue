@@ -61,14 +61,25 @@
                 @toggleFullscreen="toggleFullscreen"
               />
             </MediaImageViewer>
-            <MediaAudioVisualPlayer
+            <template
               v-else-if="resource?.edm?.isPlayableMedia"
-              :url="resource.id"
-              :format="resource.format"
-              :item-id="itemId"
-              class="media-viewer-content"
-              :poster="thumbnailForAVPoster"
-            />
+            >
+              <MediaAudioVisualPlayer
+                v-if="$features.videojs"
+                :url="resource.id"
+                :format="resource.format"
+                :item-id="itemId"
+                class="media-viewer-content"
+                :poster="thumbnailForAVPoster"
+              />
+              <MediaEuropeanaMediaPlayer
+                v-else
+                :url="resource.id"
+                :format="resource.format"
+                :item-id="itemId"
+                class="media-viewer-content"
+              />
+            </template>
             <EmbedGateway
               v-else-if="resource?.isOEmbed || resource?.edm?.isOEmbed"
               class="media-viewer-content"
@@ -169,6 +180,7 @@
       ItemMediaThumbnails: () => import('./ItemMediaThumbnails.vue'),
       LoadingSpinner,
       MediaAudioVisualPlayer: () => import('../media/MediaAudioVisualPlayer.vue'),
+      MediaEuropeanaMediaPlayer: () => import('../media/MediaEuropeanaMediaPlayer.vue'),
       MediaCardImage,
       MediaImageViewer: () => import('../media/MediaImageViewer.vue'),
       MediaImageViewerControls: () => import('../media/MediaImageViewerControls.vue')
