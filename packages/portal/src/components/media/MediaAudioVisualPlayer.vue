@@ -13,6 +13,7 @@
         controls
         :title="$t('record.mediaPlayer')"
         :poster="poster"
+        preload="none"
       />
     </template>
   </div>
