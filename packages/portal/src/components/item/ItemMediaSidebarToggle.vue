@@ -62,14 +62,15 @@
       background-color: $white;
       bottom: 0;
       width: calc(pxToRem(300) + 15px);
-      transition: background-color $standard-transition;
+      transition: background-color, border-top $standard-transition;
       border-top: 1px solid $lightbluemagenta;
       border-bottom: 1px solid $lightbluemagenta;
 
       &.closed {
         border-top: 0;
         background-color: transparent;
-        transition: background-color $standard-transition;
+        transition: background-color, border-top $standard-transition;
+        width: auto;
       }
     }
   }
