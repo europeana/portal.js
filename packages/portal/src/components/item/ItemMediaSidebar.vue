@@ -106,15 +106,18 @@
                 @mouseleave="hideTooltips"
               />
             </template>
-            <h2 class="d-inline-block pl-3 mb-4">
-              {{ $t('media.sidebar.metadata') }}
-            </h2><!-- This comment removes white space
-       --><b-button
-            v-b-tooltip.bottom
-            :title="$t('media.sidebar.metadataInfo')"
-            class="icon-info-outline p-0 tooltip-button ml-1"
-            variant="light-flat"
-          />
+            <div class="metadata-title-wrapper px-3 mb-3">
+              <h2 class="d-inline mb-0">
+                {{ $t('media.sidebar.metadata') }}<!-- This comment removes white space
+              -->
+              </h2><!-- This comment removes white space
+              --><b-button
+                v-b-tooltip.bottom
+                :title="$t('media.sidebar.metadataInfo')"
+                class="icon-info-outline p-0 tooltip-button ml-1"
+                variant="light-flat"
+              />
+            </div>
             <MediaMetadataList
               :web-resource="webResource"
             />
@@ -335,6 +338,14 @@
 
     .icon {
       font-size: $font-size-large;
+    }
+
+    .metadata-title-wrapper {
+      white-space: nowrap;
+
+      h2 {
+        white-space: wrap;
+      }
     }
   }
 </style>
