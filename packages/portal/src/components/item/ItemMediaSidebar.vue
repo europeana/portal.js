@@ -315,6 +315,14 @@
       overflow-wrap: break-word;
     }
 
+    .metadata-title-wrapper {
+      white-space: nowrap;
+
+      h2 {
+        white-space: wrap;
+      }
+    }
+
     ::v-deep .tab-content {
       padding: 1rem 0;
       overflow: auto;
@@ -338,14 +346,6 @@
 
     .icon {
       font-size: $font-size-large;
-    }
-
-    .metadata-title-wrapper {
-      white-space: nowrap;
-
-      h2 {
-        white-space: wrap;
-      }
     }
   }
 </style>
