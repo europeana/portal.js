@@ -1,4 +1,4 @@
-ARG node_version=20
+ARG node_version=22
 
 FROM node:${node_version}-alpine
 
