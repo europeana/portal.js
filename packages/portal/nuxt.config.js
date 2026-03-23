@@ -341,6 +341,7 @@ export default {
     '~/plugins/elastic-apm/plugin.server',
     '~/plugins/cookieless-redirect.server',
     '~/plugins/elastic-apm/plugin.client',
+    '~/plugins/cookies',
     '~/plugins/vue-router-query',
     '~/plugins/vue-matomo.client',
     '~/plugins/i18n-cookie.client',
@@ -367,7 +368,6 @@ export default {
   */
   modules: [
     'bootstrap-vue/nuxt',
-    'cookie-universal-nuxt',
     // WARN: do not move this to buildModules, else custom transaction naming
     //       by elastic-apm module won't be applied.
     ['@nuxtjs/i18n', {
@@ -567,6 +567,7 @@ export default {
       'color-parse',
       'color-rgba',
       'color-space',
+      'cookie',
       'dom7',
       'ol/Collection.js',
       'ol/color.js',
