@@ -145,7 +145,6 @@
 
       parseSubtitles(input) {
         return input.trim().split(/[\r\n]{2,}/).map((seq) => seq.trim().split(/[\r\n]/)).map((seq) => {
-          console.log('seq', seq);
           const timespan = seq[1].split(' --> ');
 
           const startTime = this.parseTimeToSeconds(timespan[0]);
@@ -173,9 +172,7 @@
             return;
           }
 
-          console.log('anno.body.value', anno.body.value);
           const subtitles = this.parseSubtitles(anno.body.value);
-          console.log('subtitles', subtitles);
           for (const subtitle of subtitles) {
             const cue = new VTTCue(subtitle.start, subtitle.end, subtitle.text);
             cue.line = -2;
