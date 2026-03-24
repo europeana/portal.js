@@ -106,15 +106,15 @@
                 @mouseleave="hideTooltips"
               />
             </template>
-            <div class="metadata-title-wrapper px-3 mb-3">
-              <h2 class="d-inline mb-0">
+            <div class="title-wrapper px-3 mb-3">
+              <h2 class="d-inline mb-0 mr-1">
                 {{ $t('media.sidebar.metadata') }}<!-- This comment removes white space
               -->
               </h2><!-- This comment removes white space
               --><b-button
                 v-b-tooltip.bottom
                 :title="$t('media.sidebar.metadataInfo')"
-                class="icon-info-outline p-0 tooltip-button ml-1"
+                class="icon-info-outline p-0 tooltip-button"
                 variant="light-flat"
               />
             </div>
@@ -315,14 +315,6 @@
       overflow-wrap: break-word;
     }
 
-    .metadata-title-wrapper {
-      white-space: nowrap;
-
-      h2 {
-        white-space: wrap;
-      }
-    }
-
     ::v-deep .tab-content {
       padding: 1rem 0;
       overflow: auto;
@@ -333,8 +325,15 @@
         line-height: 1.5rem;
       }
 
-      .tooltip-button {
-        vertical-align: text-top;
+      .title-wrapper {
+        max-width: calc(100% - 1.125rem); // leave space for absolute positioned tooltip button
+        position: relative;
+
+        .tooltip-button {
+          vertical-align: text-top;
+          position: absolute;
+          line-height: 1.625rem;
+        }
       }
 
       .manifest-link {
