@@ -168,7 +168,6 @@
     }
   }
 
-  // TODO: mv to @/utils/europeana/media/
   export class ItemMediaPresentationSubtitleTrack {
     kind = 'subtitles';
     label;
