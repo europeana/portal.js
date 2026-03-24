@@ -58,7 +58,7 @@ export function useSubtitles(annotations, resource) {
 
   watchEffect(() => {
     subtitles.value = annotations?.value
-      ?.filter((anno) => anno.target?.source === resource?.id)
+      ?.filter((anno) => anno.target?.source === resource?.value?.id)
       .map((anno) => new ItemMediaPresentationSubtitleTrack(anno.body));
   });
 
