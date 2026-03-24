@@ -1489,5 +1489,10 @@ export default {
   "views": {
     "count": "{count} view | {count} views"
   },
-  "website": "Website"
+  "website": "Website",
+  "audioVisualPlayer": {
+    "Play": "Play and test custom translation",
+    "Pause": "Pause and test custom translation",
+    "Current Time": "Current Time and test custom translation"
+  }
 };

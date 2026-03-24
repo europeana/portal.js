@@ -175,7 +175,8 @@
         // the shared state of those refs after SSR, but provide/inject does
         deBias: computed(() => this.deBias),
         itemIsDeleted: computed(() => this.isDeleted),
-        metadataLanguage: this.metadataLanguage
+        metadataLanguage: this.metadataLanguage,
+        subtitlingAnnotations: computed(() => this.subtitlingAnnotations)
       };
     },
 
@@ -328,6 +329,9 @@
       },
       dataProviderEntityLabel() {
         return this.metadata.edmDataProvider?.def?.[0].prefLabel;
+      },
+      subtitlingAnnotations() {
+        return this.annotationsByMotivation('subtitling');
       },
       taggingAnnotations() {
         return this.annotationsByMotivation('tagging');
@@ -627,7 +631,7 @@
         try {
           const annotations = await this.$apis.annotation.search({
             query: `target_record_id:"${this.identifier}"`,
-            qf: 'motivation:(highlighting OR linkForContributing OR tagging)',
+            qf: 'motivation:(highlighting OR linkForContributing OR tagging OR subtitling)',
             profile: 'dereference'
           });
           this.parseDeBiasAnnotations(annotations, { fields: ALL_METADATA_FIELDS, lang: this.$i18n.locale });
@@ -637,7 +641,7 @@
             terms: this.deBiasTerms
           };
 
-          this.annotations = (annotations || []).filter((anno) => ['linkForContributing', 'tagging'].includes(anno.motivation));
+          this.annotations = (annotations || []).filter((anno) => ['linkForContributing', 'subtitling', 'tagging'].includes(anno.motivation));
         } catch {
           // don't let an Annotation API error bring the whole page down
           this.annotations = [];
