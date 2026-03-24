@@ -28,6 +28,8 @@
   export default {
     name: 'MediaAudioVisualPlayer',
 
+    inject: ['subtitlingAnnotations'],
+
     props: {
       format: {
         type: String,
@@ -119,6 +121,10 @@
     watch: {
       mediaComponent() {
         process.client && this.initVideojs();
+      },
+
+      subtitlingAnnotations() {
+        process.client && this.initTextTracks();
       }
     },
 
@@ -127,6 +133,57 @@
     },
 
     methods: {
+      parseTimeToSeconds(time) {
+        const splitMilliseconds = time.split(',');
+        const milliseconds = new Number(splitMilliseconds[1]);
+        const splitHoursMinutesSeconds = splitMilliseconds[0].split(':');
+        const seconds = new Number(splitHoursMinutesSeconds[2]);
+        const minutes = new Number(splitHoursMinutesSeconds[1]);
+        const hours = new Number(splitHoursMinutesSeconds[0]);
+        return (hours * 60 * 60) + (minutes * 60) + seconds + (milliseconds / 1_000);
+      },
+
+      parseSubtitles(input) {
+        return input.trim().split(/[\r\n]{2,}/).map((seq) => seq.trim().split(/[\r\n]/)).map((seq) => {
+          console.log('seq', seq);
+          const timespan = seq[1].split(' --> ');
+
+          const startTime = this.parseTimeToSeconds(timespan[0]);
+          const endTime = this.parseTimeToSeconds(timespan[1]);
+
+          return ({ start: startTime, end: endTime, text: seq[2] });
+        });
+      },
+
+      initTextTracks() {
+        if (!this.player || ((this.subtitlingAnnotations?.length || 0) === 0)) {
+          return;
+        }
+
+        for (const anno of this.subtitlingAnnotations) {
+          let textTrack;
+          try {
+            textTrack = this.player.addTextTrack('subtitles', anno.body.language?.toUpperCase(), anno.body.language);
+          } catch {
+            // the next return will handle the error quietly
+          }
+
+          if (!textTrack) {
+            // player isn't ready; leave
+            return;
+          }
+
+          console.log('anno.body.value', anno.body.value);
+          const subtitles = this.parseSubtitles(anno.body.value);
+          console.log('subtitles', subtitles);
+          for (const subtitle of subtitles) {
+            const cue = new VTTCue(subtitle.start, subtitle.end, subtitle.text);
+            cue.line = -2;
+            textTrack.addCue(cue);
+          }
+        }
+      },
+
       async initVideojs() {
         this.player?.dispose();
 
@@ -150,6 +207,8 @@
             }
           ]
         });
+
+        this.player.ready(this.initTextTracks);
       }
     }
   };
