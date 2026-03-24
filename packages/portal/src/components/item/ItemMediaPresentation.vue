@@ -71,6 +71,7 @@
                 :item-id="itemId"
                 class="media-viewer-content"
                 :poster="thumbnailForAVPoster"
+                :subtitles="subtitles"
               />
               <MediaEuropeanaMediaPlayer
                 v-else
@@ -167,6 +168,60 @@
     }
   }
 
+  // TODO: mv to @/utils/europeana/media/
+  export class ItemMediaPresentationSubtitleTrack {
+    kind = 'subtitles';
+    label;
+    language;
+    cues = [];
+
+    constructor(annoBody) {
+      this.label = annoBody.language?.toUpperCase();
+      this.language = annoBody.language;
+      this.cues = this.constructor.parseAnnoBodyValue(annoBody.value);
+    }
+
+    static parseAnnoBodyValue(annoBodyValue) {
+      return annoBodyValue
+        .trim()
+        .split(/[\r\n]{2,}/)
+        .map((seq) => ItemMediaPresentationSubtitleCue.parseSRTSequence(seq));
+    }
+  }
+
+  export class ItemMediaPresentationSubtitleCue {
+    startTime;
+    endTime;
+    text;
+
+    constructor(startTime, endTime, text) {
+      this.startTime = startTime;
+      this.endTime = endTime;
+      this.text = text;
+    }
+
+    static parseSRTSequence(sequence) {
+      const parts = sequence.trim().split(/[\r\n]/);
+      const timespan = parts[1].split(' --> ');
+
+      const startTime = this.parseSRTTimeToSeconds(timespan[0]);
+      const endTime = this.parseSRTTimeToSeconds(timespan[1]);
+      const text = parts[2];
+
+      return new ItemMediaPresentationSubtitleCue(startTime, endTime, text);
+    }
+
+    static parseSRTTimeToSeconds(time) {
+      const splitMilliseconds = time.split(',');
+      const milliseconds = new Number(splitMilliseconds[1]);
+      const splitHoursMinutesSeconds = splitMilliseconds[0].split(':');
+      const seconds = new Number(splitHoursMinutesSeconds[2]);
+      const minutes = new Number(splitHoursMinutesSeconds[1]);
+      const hours = new Number(splitHoursMinutesSeconds[0]);
+      return (hours * 60 * 60) + (minutes * 60) + seconds + (milliseconds / 1000);
+    }
+  }
+
   export default {
     name: 'ItemMediaPresentation',
 
@@ -186,7 +241,7 @@
       MediaImageViewerControls: () => import('../media/MediaImageViewerControls.vue')
     },
 
-    inject: ['itemIsDeleted'],
+    inject: ['itemIsDeleted', 'subtitlingAnnotations'],
 
     props: {
       uri: {
@@ -302,6 +357,12 @@
     fetchOnServer: false,
 
     computed: {
+      subtitles() {
+        return this.subtitlingAnnotations
+          .filter((anno) => anno.target?.source === this.resource?.id)
+          .map((anno) => new ItemMediaPresentationSubtitleTrack(anno.body));
+      },
+
       webResource() {
         return this.webResources?.find((wr) => wr.about === this.resource?.id) || this.resource?.edm || null;
       },

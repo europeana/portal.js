@@ -25,10 +25,10 @@
   // TODO: consider if this is needed when overriding styles
   import 'video.js/dist/video-js.min.css';
 
+  import { ItemMediaPresentationSubtitleTrack } from '../item/ItemMediaPresentation.vue';
+
   export default {
     name: 'MediaAudioVisualPlayer',
-
-    inject: ['subtitlingAnnotations'],
 
     props: {
       format: {
@@ -44,6 +44,12 @@
       poster: {
         type: String,
         default: null
+      },
+
+      subtitles: {
+        type: Array,
+        default: () => [],
+        validator: (prop) => Array.isArray(prop) && prop.every((item) => item instanceof ItemMediaPresentationSubtitleTrack)
       },
 
       url: {
@@ -133,36 +139,15 @@
     },
 
     methods: {
-      parseTimeToSeconds(time) {
-        const splitMilliseconds = time.split(',');
-        const milliseconds = new Number(splitMilliseconds[1]);
-        const splitHoursMinutesSeconds = splitMilliseconds[0].split(':');
-        const seconds = new Number(splitHoursMinutesSeconds[2]);
-        const minutes = new Number(splitHoursMinutesSeconds[1]);
-        const hours = new Number(splitHoursMinutesSeconds[0]);
-        return (hours * 60 * 60) + (minutes * 60) + seconds + (milliseconds / 1000);
-      },
-
-      parseSubtitles(input) {
-        return input.trim().split(/[\r\n]{2,}/).map((seq) => seq.trim().split(/[\r\n]/)).map((seq) => {
-          const timespan = seq[1].split(' --> ');
-
-          const startTime = this.parseTimeToSeconds(timespan[0]);
-          const endTime = this.parseTimeToSeconds(timespan[1]);
-
-          return ({ start: startTime, end: endTime, text: seq[2] });
-        });
-      },
-
       initTextTracks() {
-        if (!this.player || ((this.subtitlingAnnotations?.length || 0) === 0)) {
+        if (!this.player || (this.subtitles.length === 0)) {
           return;
         }
 
-        for (const anno of this.subtitlingAnnotations) {
+        for (const track of this.subtitles) {
           let textTrack;
           try {
-            textTrack = this.player.addTextTrack('subtitles', anno.body.language?.toUpperCase(), anno.body.language);
+            textTrack = this.player.addTextTrack(track.kind, track.label, track.language);
           } catch {
             // the next return will handle the error quietly
           }
@@ -172,9 +157,8 @@
             return;
           }
 
-          const subtitles = this.parseSubtitles(anno.body.value);
-          for (const subtitle of subtitles) {
-            const cue = new VTTCue(subtitle.start, subtitle.end, subtitle.text);
+          for (const trackCue of track.cues) {
+            const cue = new VTTCue(trackCue.startTime, trackCue.endTime, trackCue.text);
             cue.line = -2;
             textTrack.addCue(cue);
           }
