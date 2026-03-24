@@ -129,7 +129,7 @@
         process.client && this.initVideojs();
       },
 
-      subtitlingAnnotations() {
+      subtitles() {
         process.client && this.initTextTracks();
       }
     },
