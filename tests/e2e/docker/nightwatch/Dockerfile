@@ -1,6 +1,6 @@
 # Builds an image for running Nightwatch with Percy
 
-FROM alpine:3
+FROM alpine:3.21.3
 
 WORKDIR /app
 

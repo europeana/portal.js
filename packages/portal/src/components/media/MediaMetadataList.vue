@@ -39,7 +39,6 @@
     'dctermsCreated',
     'dctermsExtent',
     'dctermsHasPart',
-    'dctermsIsFormatOf',
     'dctermsIsPartOf',
     'dctermsIssued',
     'dctermsTemporal',
