@@ -140,7 +140,7 @@
         const seconds = new Number(splitHoursMinutesSeconds[2]);
         const minutes = new Number(splitHoursMinutesSeconds[1]);
         const hours = new Number(splitHoursMinutesSeconds[0]);
-        return (hours * 60 * 60) + (minutes * 60) + seconds + (milliseconds / 1_000);
+        return (hours * 60 * 60) + (minutes * 60) + seconds + (milliseconds / 1000);
       },
 
       parseSubtitles(input) {
