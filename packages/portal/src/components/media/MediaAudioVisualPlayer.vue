@@ -26,6 +26,7 @@
   import 'video.js/dist/video-js.min.css';
 
   import { ItemMediaPresentationSubtitleTrack } from '@/composables/subtitles.js';
+  import { useEuScreen } from '@/composables/euScreen.js';
 
   export default {
     name: 'MediaAudioVisualPlayer',
@@ -58,6 +59,12 @@
       }
     },
 
+    setup(props) {
+      const { embedUrl: euScreenEmbedUrl } = useEuScreen(props.url);
+
+      return { euScreenEmbedUrl };
+    },
+
     data() {
       return {
         mediaFormat: null,
@@ -88,7 +95,7 @@
     },
 
     async fetch() {
-      if (this.euScreenId) {
+      if (this.euScreenEmbedUrl) {
         const response = await axios.get(this.euScreenEmbedUrl);
 
         this.mediaUrl = response.data.location;
@@ -100,20 +107,6 @@
     },
 
     computed: {
-      isEUScreenMedia() {
-        return this.url?.startsWith('http://www.euscreen.eu/item.html') ||
-          this.url?.startsWith('https://www.euscreen.eu/item.html') ||
-          false;
-      },
-
-      euScreenId() {
-        return this.isEUScreenMedia && new URL(this.url).searchParams.get('id');
-      },
-
-      euScreenEmbedUrl() {
-        return this.euScreenId && `https://euscreen.embd.eu/${this.euScreenId}`;
-      },
-
       mediaComponent() {
         if (this.mediaFormat?.startsWith('audio/')) {
           return 'audio';
