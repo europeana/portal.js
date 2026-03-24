@@ -25,7 +25,7 @@
   // TODO: consider if this is needed when overriding styles
   import 'video.js/dist/video-js.min.css';
 
-  import { ItemMediaPresentationSubtitleTrack } from '../item/ItemMediaPresentation.vue';
+  import { ItemMediaPresentationSubtitleTrack } from '@/composables/subtitles.js';
 
   export default {
     name: 'MediaAudioVisualPlayer',

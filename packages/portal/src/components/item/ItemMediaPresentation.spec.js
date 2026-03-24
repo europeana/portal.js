@@ -3,7 +3,7 @@ import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
 
 import { shallowMountNuxt } from '@test/utils.js';
-import ItemMediaPresentation, { ItemMediaPresentationSubtitleTrack } from '@/components/item/ItemMediaPresentation';
+import ItemMediaPresentation from '@/components/item/ItemMediaPresentation';
 import * as itemMediaPresentation from '@/composables/itemMediaPresentation.js';
 
 const localVue = createLocalVue();
@@ -512,26 +512,5 @@ describe('components/item/ItemMediaPresentation', () => {
         expect(wrapper.vm.$refs.itemPages.$el.focus.called).toBe(true);
       });
     });
-  });
-});
-
-describe('ItemMediaPresentationSubtitleTrack', () => {
-  it('parses subtitling annotation body', () => {
-    const annoBody = {
-      language: 'en',
-      value: '1\n00:00:21,840 --> 00:00:24,910\nFirstly, this.\n\n2\n00:00:24,990 --> 00:00:28,500\nSecondly, that.\n'
-    };
-
-    const track = new ItemMediaPresentationSubtitleTrack(annoBody);
-
-    expect(track.kind).toBe('subtitles');
-    expect(track.language).toBe('en');
-    expect(track.label).toBe('EN');
-    expect(track.cues[0].startTime).toBe(21.84);
-    expect(track.cues[0].endTime).toBe(24.91);
-    expect(track.cues[0].text).toBe('Firstly, this.');
-    expect(track.cues[1].startTime).toBe(24.99);
-    expect(track.cues[1].endTime).toBe(28.5);
-    expect(track.cues[1].text).toBe('Secondly, that.');
   });
 });
