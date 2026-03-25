@@ -20,9 +20,7 @@
           v-if="sidebarNav"
           :class="renderIcon(link.url)"
         />
-        <span class="nav-link-text">
-          {{ link.text }}
-        </span>
+        {{ link.text }}
       </b-link>
     </li>
   </b-navbar-nav>
@@ -141,7 +139,6 @@
       text-decoration: none;
       font-size: $font-size-base;
       display: flex;
-      align-items: center;
 
       @media (min-width: $bp-4k) {
         font-size: $font-size-base-4k;
@@ -266,12 +263,6 @@
           .nav-link-icon::before {
             color: $white;
           }
-        }
-
-        .nav-link-text {
-          overflow: hidden;
-          white-space: nowrap;
-          text-overflow: ellipsis;
         }
       }
     }
