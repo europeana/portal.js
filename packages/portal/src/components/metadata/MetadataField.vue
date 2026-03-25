@@ -185,6 +185,15 @@
         if (this.limitDisplayValues && (display.values.length > this.limit)) {
           display.values = display.values.slice(0, this.limit).concat('…');
         }
+
+        if (this.hasCustomValues) {
+          display.values = display.values.map((value => {
+            const key = camelCase(value.split('/').pop());
+
+            return this.$t(`fieldValues.${key}`);
+          }));
+        }
+
         return display;
       },
 
@@ -233,6 +242,10 @@
 
       isColourValue() {
         return this.name === 'edmComponentColor';
+      },
+
+      hasCustomValues() {
+        return ['edmIntendedUsage', 'schemaDigitalSourceType'].includes(this.name);
       }
 
     },

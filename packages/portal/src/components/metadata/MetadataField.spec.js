@@ -148,6 +148,16 @@ describe('components/metadata/MetadataField', () => {
         expect(fieldValues.at(1).text()).toBe('…');
       });
 
+      describe('when there are custom values', () => {
+        it('gets the translation string', () => {
+          const props = { name: 'edmIntendedUsage', fieldData: ['http://data.europeana.eu/vocabulary/usageArea/Research'] };
+          const wrapper = factory({ props });
+
+          const fieldValues = wrapper.findAll('[data-qa="metadata field"] ul [data-qa="literal value"]');
+          expect(fieldValues.at(0).text()).toBe('fieldValues.research');
+        });
+      });
+
       describe('URIs', () => {
         describe('with omitUrisIfOtherValues set to true', () => {
           it('omits them if there are other values in any language', () => {
