@@ -266,12 +266,6 @@
             color: $white;
           }
         }
-
-        .nav-link-text {
-          overflow: hidden;
-          white-space: wrap;
-          text-overflow: ellipsis;
-        }
       }
     }
   }
