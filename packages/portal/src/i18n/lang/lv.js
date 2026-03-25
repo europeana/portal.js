@@ -867,7 +867,7 @@ export default {
       "help": "Palīdzība",
       "home": "Sākumlapa",
       "partners": "Sadarbojieties ar mums",
-      "research": "Pētniekiem",
+      "research": "Akadēmijai un pētniecībai",
       "shareYourCollections": "Kopīgojiet savas kolekcijas",
       "stories": "Stāsti"
     },

@@ -867,7 +867,7 @@ export default {
       "help": "Hjälp",
       "home": "Hem",
       "partners": "Samarbeta med oss",
-      "research": "För forskare",
+      "research": "För akademi och forskning",
       "shareYourCollections": "Dela dina samlingar",
       "stories": "Berättelser"
     },

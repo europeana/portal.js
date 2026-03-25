@@ -867,7 +867,7 @@ export default {
       "help": "Aide",
       "home": "Accueil",
       "partners": "Collaborez avec nous",
-      "research": "Pour les chercheurs",
+      "research": "Pour le monde universitaire et la recherche",
       "shareYourCollections": "Partagez vos collections",
       "stories": "Histoires"
     },

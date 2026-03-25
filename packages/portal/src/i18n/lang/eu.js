@@ -867,7 +867,7 @@ export default {
       "help": "Laguntza",
       "home": "Etxea",
       "partners": "Izan zaitez gure bazkide",
-      "research": "Ikertzaileentzat",
+      "research": "Akademia eta ikerketarako",
       "shareYourCollections": "Partekatu zure bildumak",
       "stories": "Istorioak"
     },
