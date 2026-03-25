@@ -20,9 +20,7 @@
           v-if="sidebarNav"
           :class="renderIcon(link.url)"
         />
-        <span class="nav-link-text">
-          {{ link.text }}
-        </span>
+        {{ link.text }}
       </b-link>
     </li>
   </b-navbar-nav>
