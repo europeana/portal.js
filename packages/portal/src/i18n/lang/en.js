@@ -890,7 +890,7 @@ export default {
       "help": "Help",
       "home": "Home",
       "partners": "Partner with us",
-      "research": "For researchers",
+      "research": "For academia and research",
       "shareYourCollections": "Share your collections",
       "stories": "Stories"
     },
