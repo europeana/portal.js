@@ -867,7 +867,7 @@ export default {
       "help": "Abimaterjal",
       "home": "Avaleht",
       "partners": "Tee meiega koostööd",
-      "research": "Teadlastele",
+      "research": "Akadeemilisele ja teadustööle",
       "shareYourCollections": "Jaga oma kogusid",
       "stories": "Lood"
     },

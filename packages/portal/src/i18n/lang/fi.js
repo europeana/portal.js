@@ -867,7 +867,7 @@ export default {
       "help": "Apua",
       "home": "Etusivu",
       "partners": "Ryhdy kumppaniksemme",
-      "research": "Tutkijoille",
+      "research": "Akateemiselle maailmalle ja tutkimukselle",
       "shareYourCollections": "Jaa kokoelmasi",
       "stories": "Tarinat"
     },

@@ -867,7 +867,7 @@ export default {
       "help": "Għajnuna",
       "home": "Paġna Ewlenija",
       "partners": "Issieħeb magħna",
-      "research": "Għall‑riċerkaturi",
+      "research": "Għall-akkademja u r-riċerka",
       "shareYourCollections": "Aqsam il-kollezzjonijiet tiegħek",
       "stories": "Stejjer"
     },

@@ -867,7 +867,7 @@ export default {
       "help": "Pagalba",
       "home": "Pradžia",
       "partners": "Bendradarbiaukite su mumis",
-      "research": "Tyrėjams",
+      "research": "Akademinei bendruomenei ir tyrimams",
       "shareYourCollections": "Pasidalykite savo kolekcijomis",
       "stories": "Istorijos"
     },

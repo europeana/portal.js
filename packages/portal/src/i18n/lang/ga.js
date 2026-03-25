@@ -867,7 +867,7 @@ export default {
       "help": "Cabhair",
       "home": "Baile",
       "partners": "Bí i gcomhpháirt linn",
-      "research": "Do thaighdeoirí",
+      "research": "Don saol acadúil agus don taighde",
       "shareYourCollections": "Comhroinn do bhailiúcháin",
       "stories": "Scéalta"
     },

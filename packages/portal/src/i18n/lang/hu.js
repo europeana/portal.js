@@ -867,7 +867,7 @@ export default {
       "help": "Súgó",
       "home": "Kezdőlap",
       "partners": "Legyen a partnerünk",
-      "research": "Kutatóknak",
+      "research": "Akadémiai és kutatási szféra számára",
       "shareYourCollections": "Ossza meg gyűjteményeit",
       "stories": "Történetek"
     },

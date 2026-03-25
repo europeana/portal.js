@@ -867,7 +867,7 @@ export default {
       "help": "Помощ",
       "home": "Начало",
       "partners": "Партнирайте си с нас",
-      "research": "За изследователи",
+      "research": "За академични среди и изследвания",
       "shareYourCollections": "Споделете вашите колекции",
       "stories": "Истории"
     },

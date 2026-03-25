@@ -867,7 +867,7 @@ export default {
       "help": "Pomoč",
       "home": "Domov",
       "partners": "Postanite naš partner",
-      "research": "Za raziskovalce",
+      "research": "Za akademsko in raziskovalno sfero",
       "shareYourCollections": "Delite svoje zbirke",
       "stories": "Zgodbe"
     },
