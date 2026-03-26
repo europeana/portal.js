@@ -170,6 +170,7 @@ export default {
       }
     },
     europeana: {
+      // TODO: remove API keys
       apis: europeanaApisRuntimeConfig({ scope: 'public' })
     },
     features: features(),

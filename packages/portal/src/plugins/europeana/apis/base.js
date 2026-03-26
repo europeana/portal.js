@@ -97,9 +97,9 @@ export default class EuropeanaApi {
 
   get axiosInstanceOptions() {
     const params = {};
-    if (this.constructor.AUTHENTICATING) {
-      params.wskey = this.key;
-    }
+    // if (this.constructor.AUTHENTICATING) {
+    //   params.wskey = this.key;
+    // }
 
     return {
       baseURL: this.baseURL,

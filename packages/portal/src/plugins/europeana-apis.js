@@ -69,7 +69,15 @@ export default (context, inject) => {
   context.store.registerModule(MODULE_NAME, storeModule);
 
   const plugin = API_IDS.reduce((memo, id) => {
-    memo[id] = new APIS[id](context);
+    const api = new APIS[id](context);
+
+    if (api.constructor.AUTHENTICATING) {
+      api.config.url = api.constructor.BASE_URL.replace('https://api.europeana.eu', `${context.$config.app.baseUrl}/_api`);
+      console.log('authenticating', api.config);
+    }
+
+    memo[id] = api;
+
     return memo;
   }, {});
 

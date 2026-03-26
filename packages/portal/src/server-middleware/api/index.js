@@ -59,6 +59,9 @@ app.get('/version', version);
 import polls from './polls/index.js';
 app.use('/votes', polls);
 
+import europeanaApiProxy from './proxy/index.js';
+europeanaApiProxy(app);
+
 app.all('/*', (req, res) => res.sendStatus(404));
 app.use(errorHandler);
 
