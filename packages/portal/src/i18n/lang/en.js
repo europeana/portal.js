@@ -843,7 +843,26 @@ export default {
       "edmRights": "Rights statement for this media",
       "edmSpatialResolution": "Spatial resolution (dpi)",
       "edmVertexCount": "Vertex count",
-      "schemaDigitalSourceType": "Digital source type"
+      "schemaDigitalSourceType": "Relation with the real world"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Art",
+      "design": "Design",
+      "documentation": "Documentation",
+      "education": "Education",
+      "exhibition": "Exhibition",
+      "gaming": "Gaming",
+      "maintenance": "Maintenance",
+      "research": "Research",
+      "restoration": "Restoration",
+      "tourism": "Tourism"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Reconstruction",
+      "digitalCapture": "Reality capture",
+      "digitalCreation": "Born digital"
     }
   },
   "filterResults": "Filter results",
