@@ -1,11 +1,11 @@
 [
   {
-    "name": "ait",
+    "name": "aitGraz",
     "oembed": "https://hosting1.ait.co.at/oembed",
     "schemes": [
       "https://hosting1.ait.co.at/u/kochg/incoming/*"
     ],
-    "title": "AIT"
+    "title": "AIT Graz"
   },
   {
     "name": "arctur3DViewer",
