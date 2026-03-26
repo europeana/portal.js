@@ -74,8 +74,10 @@ export default (context, inject) => {
 
     // TODO: or just do it for all of them? or derive from APIS in proxy server middleware?
     // if (api.constructor.AUTHENTICATING) {
+    // TODO: only do this on CSR? to eliminate the overhead on SSR of calling self
     if (PROXIED_APIS.includes(id)) {
       api.axios.defaults.baseURL = api.constructor.BASE_URL.replace('https://api.europeana.eu', `${context.$config.app.baseUrl}/_api`);
+      delete api.axios.defaults.headers['x-api-key'];
     }
 
     memo[id] = api;
