@@ -2,6 +2,7 @@
 //       it, e.g. the homepage?
 
 import EuropeanaApiEnvConfig from './europeana/apis/config/env.js';
+import { APIS as PROXIED_APIS } from '@/server-middleware/api/proxy/index.js';
 
 import annotation from './europeana/annotation.js';
 import auth from './europeana/auth.js';
@@ -72,7 +73,8 @@ export default (context, inject) => {
     const api = new APIS[id](context);
 
     // TODO: or just do it for all of them? or derive from APIS in proxy server middleware?
-    if (api.constructor.AUTHENTICATING) {
+    // if (api.constructor.AUTHENTICATING) {
+    if (PROXIED_APIS.includes(id)) {
       api.axios.defaults.baseURL = api.constructor.BASE_URL.replace('https://api.europeana.eu', `${context.$config.app.baseUrl}/_api`);
     }
 
