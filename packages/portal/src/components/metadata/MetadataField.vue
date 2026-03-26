@@ -102,9 +102,6 @@
   import itemPrefLanguageMixin from '@/mixins/europeana/item/itemPrefLanguage';
   import langAttributeMixin from '@/mixins/langAttribute';
 
-  const USAGE_VOCABULARY_BASE_URL = 'http://data.europeana.eu/vocabulary/usageArea/';
-  const DIGITAL_SOURCE_TYPE_BASE_URL = 'https://cv.iptc.org/newscodes/digitalsourcetype/';
-
   export default {
     name: 'MetadataField',
 
@@ -189,17 +186,15 @@
           display.values = display.values.slice(0, this.limit).concat('…');
         }
 
-        if (this.hasVocabularyLookup) {
-          display.values = display.values.map((value => {
-            if (value.startsWith(USAGE_VOCABULARY_BASE_URL) || value.startsWith(DIGITAL_SOURCE_TYPE_BASE_URL)) {
-              const key = camelCase(value.split('/').pop());
-
-              return this.$te(`fieldValues.${key}`) ? this.$t(`fieldValues.${key}`) : value;
-            } else {
-              return value;
+        display.values = display.values.map((value) => {
+          if (value.startsWith?.('http://') || value.startsWith?.('https://')) {
+            const termId = camelCase(value.split('/').pop());
+            if (this.$te(`fieldValues.${this.name}.${termId}`)) {
+              return this.$t(`fieldValues.${this.name}.${termId}`);
             }
-          }));
-        }
+          }
+          return value;
+        });
 
         return display;
       },
@@ -249,12 +244,7 @@
 
       isColourValue() {
         return this.name === 'edmComponentColor';
-      },
-
-      hasVocabularyLookup() {
-        return ['edmIntendedUsage', 'schemaDigitalSourceType'].includes(this.name);
       }
-
     },
 
     methods: {

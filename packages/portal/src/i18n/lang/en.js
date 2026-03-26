@@ -847,19 +847,23 @@ export default {
     }
   },
   "fieldValues": {
-    "art": "Art",
-    "dataDrivenMedia": "Reconstruction",
-    "design": "Design",
-    "digitalCapture": "Reality capture",
-    "digitalCreation": "Born digital",
-    "documentation": "Documentation",
-    "education": "Education",
-    "exhibition": "Exhibition",
-    "gaming": "Gaming",
-    "maintenance": "Maintenance",
-    "research": "Research",
-    "restoration": "Restoration",
-    "tourism": "Tourism"
+    "edmIntendedUsage": {
+      "art": "Art",
+      "design": "Design",
+      "documentation": "Documentation",
+      "education": "Education",
+      "exhibition": "Exhibition",
+      "gaming": "Gaming",
+      "maintenance": "Maintenance",
+      "research": "Research",
+      "restoration": "Restoration",
+      "tourism": "Tourism"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Reconstruction",
+      "digitalCapture": "Reality capture",
+      "digitalCreation": "Born digital"
+    }
   },
   "filterResults": "Filter results",
   "footer": {

@@ -149,50 +149,25 @@ describe('components/metadata/MetadataField', () => {
       });
 
       describe('when the value might have a vocabulary lookup', () => {
-        describe('and the value starts with the usageArea vocabulary URL', () => {
-          const props = { name: 'edmIntendedUsage', fieldData: ['http://data.europeana.eu/vocabulary/usageArea/Research'] };
+        const props = { name: 'edmIntendedUsage', fieldData: ['http://data.europeana.eu/vocabulary/usageArea/Research'] };
+
+        describe('and the value has a translation', () => {
           it('renders the translation string', () => {
-            const wrapper = factory({ props });
+            const wrapper = factory({ props, translationExists: true });
 
             const fieldValues = wrapper.findAll('[data-qa="metadata field"] ul [data-qa="literal value"]');
-            expect(fieldValues.at(0).text()).toBe('fieldValues.research');
-          });
 
-          describe('but there is no existing translation', () => {
-            it('renders the value without lookup', () => {
-              const wrapper = factory({ props, translationExists: false });
-
-              const fieldValues = wrapper.findAll('[data-qa="metadata field"] ul [data-qa="literal value"]');
-              expect(fieldValues.at(0).text()).toBe(props.fieldData[0]);
-            });
+            expect(fieldValues.at(0).text()).toBe('fieldValues.edmIntendedUsage.research');
           });
         });
-        describe('and the value starts with the digital source type URL', () => {
-          const props = { name: 'schemaDigitalSourceType', fieldData: 'https://cv.iptc.org/newscodes/digitalsourcetype/digitalCapture' };
 
-          it('renders the translation string', () => {
-            const wrapper = factory({ props });
-
-            const fieldValues = wrapper.findAll('[data-qa="metadata field"] ul [data-qa="literal value"]');
-            expect(fieldValues.at(0).text()).toBe('fieldValues.digitalCapture');
-          });
-
-          describe('but there is no existing translation', () => {
-            it('renders the value without lookup', () => {
-              const wrapper = factory({ props, translationExists: false });
-
-              const fieldValues = wrapper.findAll('[data-qa="metadata field"] ul [data-qa="literal value"]');
-              expect(fieldValues.at(0).text()).toBe(props.fieldData);
-            });
-          });
-        });
-        describe('but the value starts with an unknown vocabulary lookup', () => {
+        describe('but there is no existing translation', () => {
           it('renders the value without lookup', () => {
-            const props = { name: 'schemaDigitalSourceType', fieldData: 'https://www.example.eu/digitalCapture' };
-            const wrapper = factory({ props });
+            const wrapper = factory({ props, translationExists: false });
 
             const fieldValues = wrapper.findAll('[data-qa="metadata field"] ul [data-qa="literal value"]');
-            expect(fieldValues.at(0).text()).toBe(props.fieldData);
+
+            expect(fieldValues.at(0).text()).toBe(props.fieldData[0]);
           });
         });
       });
@@ -217,7 +192,7 @@ describe('components/metadata/MetadataField', () => {
 
           it('only include them if there are no other values in any other language', () => {
             const props = { name: 'dcCreator', fieldData: { def: ['http://data.europeana.eu/agent/123'] }, omitUrisIfOtherValues: true };
-            const wrapper = factory({ props });
+            const wrapper = factory({ props, translationExists: false });
 
             const fieldValue = wrapper.find('[data-qa="metadata field"] ul [data-qa="literal value"]');
             expect(fieldValue.text()).toBe(props.fieldData.def[0]);
