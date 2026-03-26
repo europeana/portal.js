@@ -2,7 +2,7 @@
 //       it, e.g. the homepage?
 
 import EuropeanaApiEnvConfig from './europeana/apis/config/env.js';
-import { APIS as PROXIED_APIS } from '@/server-middleware/api/proxy/index.js';
+import { APIS as PROXIED_APIS } from '../server-middleware/api/proxy/index.js';
 
 import annotation from './europeana/annotation.js';
 import auth from './europeana/auth.js';
