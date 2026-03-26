@@ -18,7 +18,8 @@ const createProxy = (api) => {
   return (req, res, next) => {
     return fetch(`${baseUrl}${req.url}`, {
       headers: {
-        'X-API-Key': apiKey
+        'X-API-Key': apiKey,
+        'User-Agent': 'Europeana.eu (https://www.europeana.eu)'
       }
     })
       .then((response) => {
