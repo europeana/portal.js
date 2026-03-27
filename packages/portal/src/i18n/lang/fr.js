@@ -821,7 +821,26 @@ export default {
       "edmRights": "Déclaration de droits pour ce média",
       "edmSpatialResolution": "Résolution spatiale (dpi)",
       "edmVertexCount": "Nombre de sommets",
-      "schemaDigitalSourceType": "Type de source numérique"
+      "schemaDigitalSourceType": "Relation avec le monde réel"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Art",
+      "design": "Conception",
+      "documentation": "Documentation",
+      "education": "Éducation",
+      "exhibition": "Exposition",
+      "gaming": "Le Gaming",
+      "maintenance": "Maintenance",
+      "research": "Recherche",
+      "restoration": "Restauration",
+      "tourism": "Tourisme"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Reconstruction",
+      "digitalCapture": "Capture de la réalité",
+      "digitalCreation": "Né numérique"
     }
   },
   "filterResults": "Filtrer les résultats",
@@ -862,7 +881,7 @@ export default {
     "navigation": {
       "about": "À propos d'Europeana",
       "collections": "Collections",
-      "educators": "Pour les éducateurs",
+      "educators": "Pour les enseignants",
       "featureIdeas": "Idées de fonctionnalités",
       "help": "Aide",
       "home": "Accueil",

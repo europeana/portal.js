@@ -821,7 +821,26 @@ export default {
       "edmRights": "Komunikabide honen eskubideen adierazpena",
       "edmSpatialResolution": "Bereizmen espaziala (dpi)",
       "edmVertexCount": "Erpin kopurua",
-      "schemaDigitalSourceType": "Iturri digital mota"
+      "schemaDigitalSourceType": "Mundu errealarekin duen harremana"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Artea",
+      "design": "Diseinua",
+      "documentation": "Dokumentazioa",
+      "education": "Hezkuntza",
+      "exhibition": "Erakusketa",
+      "gaming": "Jokoak",
+      "maintenance": "Mantentzea",
+      "research": "Ikerketa",
+      "restoration": "Rekonstrukzioa",
+      "tourism": "Turismoa"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Berreraikuntza",
+      "digitalCapture": "Errealitatearen kaptura",
+      "digitalCreation": "Jatorriz digitala"
     }
   },
   "filterResults": "Iragazi emaitzak",

@@ -821,7 +821,26 @@ export default {
       "edmRights": "Šios medijos teisių pareiškimas",
       "edmSpatialResolution": "Erdvinė raiška (dpi)",
       "edmVertexCount": "Viršūnių skaičius",
-      "schemaDigitalSourceType": "Skaitmeninio šaltinio tipas"
+      "schemaDigitalSourceType": "Ryšys su realiuoju pasauliu"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Menas",
+      "design": "Dizainas",
+      "documentation": "Dokumentacija",
+      "education": "Švietimas",
+      "exhibition": "Paroda",
+      "gaming": "Žaidimai",
+      "maintenance": "Priežiūra",
+      "research": "Tyrimai",
+      "restoration": "Atkūrimas",
+      "tourism": "Turizmas"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Rekonstrukcija",
+      "digitalCapture": "Realybės fiksavimas",
+      "digitalCreation": "Gimęs skaitmeniniu būdu"
     }
   },
   "filterResults": "Filtruoti rezultatus",

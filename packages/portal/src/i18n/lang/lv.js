@@ -821,7 +821,26 @@ export default {
       "edmRights": "Šī multivides satura tiesību paziņojums",
       "edmSpatialResolution": "Telpiskā izšķirtspēja (dpi)",
       "edmVertexCount": "Virsotņu skaits",
-      "schemaDigitalSourceType": "Digitālā avota tips"
+      "schemaDigitalSourceType": "Saikne ar reālo pasauli"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Māksla",
+      "design": "Dizains",
+      "documentation": "Dokumentācija",
+      "education": "Izglītība",
+      "exhibition": "Izstāde",
+      "gaming": "Spēles",
+      "maintenance": "Apkope",
+      "research": "Pētījumi",
+      "restoration": "Restaurācija",
+      "tourism": "Tūrisms"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Rekonstrukcija",
+      "digitalCapture": "Realitātes uztveršana",
+      "digitalCreation": "Digitāli dzimis"
     }
   },
   "filterResults": "Filtrēt rezultātus",

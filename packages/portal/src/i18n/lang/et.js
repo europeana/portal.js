@@ -821,7 +821,26 @@ export default {
       "edmRights": "Selle meedia õiguste avaldus",
       "edmSpatialResolution": "Ruumiline eraldusvõime (dpi)",
       "edmVertexCount": "Tippude arv",
-      "schemaDigitalSourceType": "Digitaalse allika tüüp"
+      "schemaDigitalSourceType": "Seos reaalse maailmaga"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Kunst",
+      "design": "Disain",
+      "documentation": "Dokumentatsioon",
+      "education": "Haridus",
+      "exhibition": "Näitus",
+      "gaming": "Mängimine",
+      "maintenance": "Hooldus",
+      "research": "Uuringud",
+      "restoration": "Taastamine",
+      "tourism": "Turism"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Rekonstruktsioon",
+      "digitalCapture": "Reaalsuse jäädvustamine",
+      "digitalCreation": "Algselt digivormingus loodud"
     }
   },
   "filterResults": "Filtreeri tulemusi",

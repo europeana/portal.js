@@ -821,7 +821,26 @@ export default {
       "edmRights": "Rettighedserklæring for dette medie",
       "edmSpatialResolution": "Rumlig opløsning (dpi)",
       "edmVertexCount": "Antal hjørner",
-      "schemaDigitalSourceType": "Digital kildetype"
+      "schemaDigitalSourceType": "Forholdet til den virkelige verden"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Kunst",
+      "design": "Design",
+      "documentation": "Dokumentation",
+      "education": "Uddannelse",
+      "exhibition": "Udstilling",
+      "gaming": "Gaming",
+      "maintenance": "Vedligeholdelse",
+      "research": "Forskning",
+      "restoration": "Restaurering",
+      "tourism": "Turisme"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Rekonstruktion",
+      "digitalCapture": "Reality capture",
+      "digitalCreation": "Født digitalt"
     }
   },
   "filterResults": "Filtrer resultater",
