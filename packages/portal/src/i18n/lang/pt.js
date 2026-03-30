@@ -821,7 +821,30 @@ export default {
       "edmRights": "Declaração de direitos para este meio de comunicação",
       "edmSpatialResolution": "Resolução espacial (dpi)",
       "edmVertexCount": "Contagem de vértices",
-      "schemaDigitalSourceType": "Tipo de fonte digital"
+      "schemaDigitalSourceType": "Relação com o mundo real"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Arte",
+      "creativity": "Criatividade",
+      "curation": "Curadoria",
+      "design": "Design",
+      "documentation": "Documentação",
+      "education": "Educação",
+      "exhibition": "Exposição",
+      "gaming": "Gaming",
+      "infotainment": "Infotenimento",
+      "knowledge": "Conhecimento",
+      "maintenance": "Manutenção",
+      "research": "Pesquisa",
+      "restoration": "Restauração",
+      "tourism": "Turismo"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Reconstrução",
+      "digitalCapture": "Captura de realidade",
+      "digitalCreation": "Nascido digital"
     }
   },
   "filterResults": "Filtrar resultados",

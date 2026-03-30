@@ -821,7 +821,30 @@ export default {
       "edmRights": "Rechtenverklaring voor deze media",
       "edmSpatialResolution": "Ruimtelijke resolutie (dpi)",
       "edmVertexCount": "Aantal hoekpunten",
-      "schemaDigitalSourceType": "Digitaal brontype"
+      "schemaDigitalSourceType": "Relatie met de echte wereld"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Kunst",
+      "creativity": "Creativiteit",
+      "curation": "Curatie",
+      "design": "Ontwerp",
+      "documentation": "Documentatie",
+      "education": "Onderwijs",
+      "exhibition": "Tentoonstelling",
+      "gaming": "Gaming",
+      "infotainment": "Infotainment",
+      "knowledge": "Kennis",
+      "maintenance": "Onderhoud",
+      "research": "Onderzoek",
+      "restoration": "Restauratie",
+      "tourism": "Toerisme"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Reconstructie",
+      "digitalCapture": "Reality capture",
+      "digitalCreation": "Digitaal geboren"
     }
   },
   "filterResults": "Resultaten filteren",

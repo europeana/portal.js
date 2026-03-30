@@ -821,7 +821,30 @@ export default {
       "edmRights": "Dikjarazzjoni tad-drittijiet għal din il-midja",
       "edmSpatialResolution": "Riżoluzzjoni spazjali (dpi)",
       "edmVertexCount": "Għadd ta’ vertices",
-      "schemaDigitalSourceType": "Tip ta’ sors diġitali"
+      "schemaDigitalSourceType": "Relazzjoni mad-dinja reali"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Arti",
+      "creativity": "Kreattività",
+      "curation": "Kjurazzjoni",
+      "design": "Disinn",
+      "documentation": "Dokumentazzjoni",
+      "education": "Edukazzjoni",
+      "exhibition": "Wirja",
+      "gaming": "Gaming",
+      "infotainment": "Infotainment",
+      "knowledge": "Għarfien",
+      "maintenance": "Manutenzjoni",
+      "research": "Riċerka",
+      "restoration": "Restawr",
+      "tourism": "Turizmu"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Rikostruzzjoni",
+      "digitalCapture": "Qbid tar-realtà",
+      "digitalCreation": "Mwieled diġitali"
     }
   },
   "filterResults": "Riżultati tal-filtru",

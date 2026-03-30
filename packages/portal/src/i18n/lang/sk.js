@@ -821,7 +821,30 @@ export default {
       "edmRights": "Vyhlásenie o právach pre toto médium",
       "edmSpatialResolution": "Priestorové rozlíšenie (dpi)",
       "edmVertexCount": "Počet vrcholov",
-      "schemaDigitalSourceType": "Typ digitálneho zdroja"
+      "schemaDigitalSourceType": "Vzťah k reálnemu svetu"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Umenie",
+      "creativity": "Kreativita",
+      "curation": "Kurátorstvo",
+      "design": "Dizajn",
+      "documentation": "Dokumentácia",
+      "education": "Vzdelávanie",
+      "exhibition": "Výstava",
+      "gaming": "Gaming",
+      "infotainment": "Infotainment",
+      "knowledge": "Vedomosti",
+      "maintenance": "Údržba",
+      "research": "Výskum",
+      "restoration": "Obnovenie",
+      "tourism": "Cestovný ruch"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Rekonštrukcia",
+      "digitalCapture": "Zachytávanie reality",
+      "digitalCreation": "Digitálne narodený"
     }
   },
   "filterResults": "Filtrovať výsledky",

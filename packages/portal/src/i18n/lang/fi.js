@@ -821,7 +821,30 @@ export default {
       "edmRights": "Tämän median oikeudet",
       "edmSpatialResolution": "Spatiaalinen erottelutarkkuus (dpi)",
       "edmVertexCount": "Vertex-määrä",
-      "schemaDigitalSourceType": "Digitaalinen lähdetyyppi"
+      "schemaDigitalSourceType": "Suhde todelliseen maailmaan"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Taide",
+      "creativity": "Luovuus",
+      "curation": "Kuratointi",
+      "design": "Muotoilu",
+      "documentation": "Dokumentaatio",
+      "education": "Koulutus",
+      "exhibition": "Näyttely",
+      "gaming": "Pelaaminen",
+      "infotainment": "Infotainment",
+      "knowledge": "Tieto",
+      "maintenance": "Huolto",
+      "research": "Tutkimus",
+      "restoration": "Restaurointi",
+      "tourism": "Matkailu"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Rekonstruktio",
+      "digitalCapture": "Todellisuuden tallennus",
+      "digitalCreation": "Syntynyt digitaalisena"
     }
   },
   "filterResults": "Suodata tulokset",
@@ -862,12 +885,12 @@ export default {
     "navigation": {
       "about": "Tietoa meistä",
       "collections": "Kokoelmat",
-      "educators": "Opettajille",
+      "educators": "Kasvattajille",
       "featureIdeas": "Ominaisuus Ideoita",
       "help": "Apua",
       "home": "Etusivu",
       "partners": "Ryhdy kumppaniksemme",
-      "research": "Akateemiselle maailmalle ja tutkimukselle",
+      "research": "Akateemiseen käyttöön ja tutkimukseen",
       "shareYourCollections": "Jaa kokoelmasi",
       "stories": "Tarinat"
     },

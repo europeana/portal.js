@@ -821,7 +821,30 @@ export default {
       "edmRights": "Izjava o pravima za ovaj medij",
       "edmSpatialResolution": "Prostorna razlučivost (dpi)",
       "edmVertexCount": "Broj vrhova",
-      "schemaDigitalSourceType": "Vrsta digitalnog izvora"
+      "schemaDigitalSourceType": "Odnos sa stvarnim svijetom"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Umjetnost",
+      "creativity": "Kreativnost",
+      "curation": "Kuracija",
+      "design": "Dizajn",
+      "documentation": "Dokumentacija",
+      "education": "Obrazovanje",
+      "exhibition": "Izložba",
+      "gaming": "Igranje",
+      "infotainment": "Infotainment",
+      "knowledge": "Znanje",
+      "maintenance": "Održavanje",
+      "research": "Istraživanje",
+      "restoration": "Restauracija",
+      "tourism": "Turizam"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Rekonstrukcija",
+      "digitalCapture": "Snimanje stvarnosti",
+      "digitalCreation": "Izvorno digitalno"
     }
   },
   "filterResults": "Filtrirajte rezultate",
