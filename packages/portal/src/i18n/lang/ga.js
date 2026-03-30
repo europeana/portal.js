@@ -827,11 +827,15 @@ export default {
   "fieldValues": {
     "edmIntendedUsage": {
       "art": "Ealaín",
+      "creativity": "Cruthaitheacht",
+      "curation": "Coimeádadh",
       "design": "Dearadh",
       "documentation": "Doiciméadú",
       "education": "Oideachas",
       "exhibition": "Taispeántas",
       "gaming": "Cluichíocht",
+      "infotainment": "Infotainment",
+      "knowledge": "Eolas",
       "maintenance": "Cothabháil",
       "research": "Taighde",
       "restoration": "Athchóiriú",

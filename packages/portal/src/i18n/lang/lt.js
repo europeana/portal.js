@@ -827,11 +827,15 @@ export default {
   "fieldValues": {
     "edmIntendedUsage": {
       "art": "Menas",
+      "creativity": "Kūrybiškumas",
+      "curation": "Kuravimas",
       "design": "Dizainas",
       "documentation": "Dokumentacija",
       "education": "Švietimas",
       "exhibition": "Paroda",
       "gaming": "Žaidimai",
+      "infotainment": "Infotainment",
+      "knowledge": "Žinios",
       "maintenance": "Priežiūra",
       "research": "Tyrimai",
       "restoration": "Atkūrimas",

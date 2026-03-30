@@ -827,11 +827,15 @@ export default {
   "fieldValues": {
     "edmIntendedUsage": {
       "art": "Artă",
+      "creativity": "Creativitate",
+      "curation": "Curatoriere",
       "design": "Design",
       "documentation": "Documentare",
       "education": "Educație",
       "exhibition": "Expoziţie",
       "gaming": "Gaming",
+      "infotainment": "Infotainment",
+      "knowledge": "Cunoștințe",
       "maintenance": "Mentenanță",
       "research": "Cercetare",
       "restoration": "Restaurare",

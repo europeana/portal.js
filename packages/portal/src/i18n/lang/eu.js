@@ -827,11 +827,15 @@ export default {
   "fieldValues": {
     "edmIntendedUsage": {
       "art": "Artea",
+      "creativity": "Sormena",
+      "curation": "Kudeaketa",
       "design": "Diseinua",
       "documentation": "Dokumentazioa",
       "education": "Hezkuntza",
       "exhibition": "Erakusketa",
       "gaming": "Jokoak",
+      "infotainment": "Infotainment",
+      "knowledge": "Ezagutza",
       "maintenance": "Mantentzea",
       "research": "Ikerketa",
       "restoration": "Rekonstrukzioa",

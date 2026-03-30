@@ -827,11 +827,15 @@ export default {
   "fieldValues": {
     "edmIntendedUsage": {
       "art": "Művészet",
+      "creativity": "Kreativitás",
+      "curation": "Kurátori munka",
       "design": "Tervezés",
       "documentation": "Dokumentáció",
       "education": "Oktatás",
       "exhibition": "Kiállítás",
       "gaming": "Gaming",
+      "infotainment": "Infotainment",
+      "knowledge": "Tudás",
       "maintenance": "Karbantartás",
       "research": "Kutatás",
       "restoration": "Helyreállítás",
