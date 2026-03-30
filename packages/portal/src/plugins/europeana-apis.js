@@ -72,7 +72,6 @@ export default (context, inject) => {
   const plugin = API_IDS.reduce((memo, id) => {
     const api = new APIS[id](context);
 
-    // TODO: or just do it for all of them? or derive from APIS in proxy server middleware?
     if (PROXIED_APIS.includes(id)) {
       if (process.client) {
         api.axios.defaults.baseURL = api.constructor.BASE_URL.replace('https://api.europeana.eu', `${context.$config.app.baseUrl}/_api`);

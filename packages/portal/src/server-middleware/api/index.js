@@ -26,6 +26,17 @@ app.use((req, res, next) => {
   next();
 });
 
+// TODO: assess each endpoint & whether it wants this, e.g. feedback does not
+const forbiddenUnlessSameOrigin = (req, res, next) => {
+  if (req.headers['sec-fetch-site'] === 'same-origin') {
+    next();
+  } else {
+    res.sendStatus(403);
+    res.end();
+  }
+};
+app.use(forbiddenUnlessSameOrigin);
+
 import debugMemoryUsage from './debug/memory-usage.js';
 app.get('/debug/memory-usage', debugMemoryUsage);
 
