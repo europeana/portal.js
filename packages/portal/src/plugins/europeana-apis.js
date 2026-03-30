@@ -2,7 +2,6 @@
 //       it, e.g. the homepage?
 
 import EuropeanaApiEnvConfig from './europeana/apis/config/env.js';
-import { APIS as PROXIED_APIS } from '../server-middleware/api/proxy/index.js';
 
 import annotation from './europeana/annotation.js';
 import auth from './europeana/auth.js';
@@ -72,7 +71,7 @@ export default (context, inject) => {
   const plugin = API_IDS.reduce((memo, id) => {
     const api = new APIS[id](context);
 
-    if (PROXIED_APIS.includes(id)) {
+    if (api.constructor.AUTHENTICATING) {
       if (process.client) {
         api.axios.defaults.baseURL = api.constructor.BASE_URL.replace('https://api.europeana.eu', `${context.$config.app.baseUrl}/_api`);
         delete api.axios.defaults.headers['x-api-key'];

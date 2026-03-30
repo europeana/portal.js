@@ -1,6 +1,7 @@
 import { Readable } from 'stream';
+import { forbiddenUnlessSameOrigin } from '../utils.js';
 
-export const APIS = [
+const APIS = [
   'annotation',
   'entity',
   // FIXME: uses differently named env vars, w/ "RECOMMENDATION"
@@ -43,6 +44,6 @@ const createProxy = (api) => {
 
 export default (app) => {
   for (const api of APIS) {
-    app.use(`/${api}`, createProxy(api));
+    app.use(`/${api}`, forbiddenUnlessSameOrigin, createProxy(api));
   }
 };

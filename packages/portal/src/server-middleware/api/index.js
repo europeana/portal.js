@@ -5,7 +5,7 @@ import apm from 'elastic-apm-node';
 import logging from '../logging.js';
 import pg from './pg.js';
 import keycloak from './keycloak.js';
-import { errorHandler, forbiddenUnlessOriginAllowed, nuxtRuntimeConfig } from './utils.js';
+import { errorHandler, forbiddenUnlessOriginAllowed, forbiddenUnlessSameOrigin, nuxtRuntimeConfig } from './utils.js';
 
 const app = express();
 app.disable('x-powered-by'); // Security: do not disclose technology fingerprints
@@ -26,27 +26,16 @@ app.use((req, res, next) => {
   next();
 });
 
-// TODO: assess each endpoint & whether it wants this, e.g. feedback does not
-const forbiddenUnlessSameOrigin = (req, res, next) => {
-  if (req.headers['sec-fetch-site'] === 'same-origin') {
-    next();
-  } else {
-    res.sendStatus(403);
-    res.end();
-  }
-};
-app.use(forbiddenUnlessSameOrigin);
-
 import debugMemoryUsage from './debug/memory-usage.js';
 app.get('/debug/memory-usage', debugMemoryUsage);
 
 import cache from './cache/index.js';
 const cacheHandler = cache(runtimeConfig.redis);
-app.get('/cache', cacheHandler);
-app.get('/cache/*', cacheHandler);
+app.get('/cache', forbiddenUnlessSameOrigin, cacheHandler);
+app.get('/cache/*', forbiddenUnlessSameOrigin, cacheHandler);
 
 import events from './events/index.js';
-app.use('/events', events);
+app.use('/events', forbiddenUnlessSameOrigin, events);
 
 import jiraServiceDeskFeedback from './jira-service-desk/feedback.js';
 const feedbackCorsOptions = {
@@ -62,13 +51,13 @@ app.post('/jira-service-desk/feedback',
 );
 
 import jiraServiceDeskGalleries from './jira-service-desk/galleries.js';
-app.post('/jira-service-desk/galleries', jiraServiceDeskGalleries(runtimeConfig.jira));
+app.post('/jira-service-desk/galleries', forbiddenUnlessSameOrigin, jiraServiceDeskGalleries(runtimeConfig.jira));
 
 import version from './version.js';
 app.get('/version', version);
 
 import polls from './polls/index.js';
-app.use('/votes', polls);
+app.use('/votes', forbiddenUnlessSameOrigin, polls);
 
 import europeanaApiProxy from './proxy/index.js';
 europeanaApiProxy(app);
