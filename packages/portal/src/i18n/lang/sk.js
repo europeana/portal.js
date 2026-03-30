@@ -827,11 +827,15 @@ export default {
   "fieldValues": {
     "edmIntendedUsage": {
       "art": "Umenie",
+      "creativity": "Kreativita",
+      "curation": "Kurátorstvo",
       "design": "Dizajn",
       "documentation": "Dokumentácia",
       "education": "Vzdelávanie",
       "exhibition": "Výstava",
       "gaming": "Gaming",
+      "infotainment": "Infotainment",
+      "knowledge": "Vedomosti",
       "maintenance": "Údržba",
       "research": "Výskum",
       "restoration": "Obnovenie",

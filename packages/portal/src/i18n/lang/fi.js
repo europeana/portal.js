@@ -827,11 +827,15 @@ export default {
   "fieldValues": {
     "edmIntendedUsage": {
       "art": "Taide",
+      "creativity": "Luovuus",
+      "curation": "Kuratointi",
       "design": "Muotoilu",
       "documentation": "Dokumentaatio",
       "education": "Koulutus",
       "exhibition": "Näyttely",
       "gaming": "Pelaaminen",
+      "infotainment": "Infotainment",
+      "knowledge": "Tieto",
       "maintenance": "Huolto",
       "research": "Tutkimus",
       "restoration": "Restaurointi",

@@ -827,11 +827,15 @@ export default {
   "fieldValues": {
     "edmIntendedUsage": {
       "art": "Kunst",
+      "creativity": "Loovus",
+      "curation": "Kureerimine",
       "design": "Disain",
       "documentation": "Dokumentatsioon",
       "education": "Haridus",
       "exhibition": "Näitus",
       "gaming": "Mängimine",
+      "infotainment": "Infotainment",
+      "knowledge": "Teadmised",
       "maintenance": "Hooldus",
       "research": "Uuringud",
       "restoration": "Taastamine",
