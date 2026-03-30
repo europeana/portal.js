@@ -849,11 +849,15 @@ export default {
   "fieldValues": {
     "edmIntendedUsage": {
       "art": "Art",
+      "creativity": "Creativity",
+      "curation": "Curation",
       "design": "Design",
       "documentation": "Documentation",
       "education": "Education",
       "exhibition": "Exhibition",
       "gaming": "Gaming",
+      "infotainment": "Infotainment",
+      "knowledge": "Knowledge",
       "maintenance": "Maintenance",
       "research": "Research",
       "restoration": "Restoration",
