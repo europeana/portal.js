@@ -11,7 +11,6 @@
         ref="avPlayer"
         class="media-player video-js"
         controls
-        :title="$t('record.mediaPlayer')"
         :poster="poster"
         preload="none"
       />
@@ -70,20 +69,16 @@
         mediaFormat: null,
         mediaUrl: null,
         options: {
-          // TODO: This removes 'bigPlayButton', but also breaks the play button and play/pause on poster click. Fix or hide in styles.
-          // children: [
-          //   'controlBar'
-          // ],
           controlBar: {
             // defines which controls to display and in which order. Docs: https://legacy.videojs.org/guides/components/#default-component-tree
             children: [
+              'progressControl',
               'playToggle',
               'currentTimeDisplay',
               'timeDivider',
               'durationDisplay',
               'muteToggle',
               'volumeControl',
-              'progressControl',
               'subtitlesButton',
               'subsCapsButton',
               'fullscreenToggle'
@@ -199,58 +194,144 @@
   .media-player {
     display: block;
     height: 100%;
-    width: auto;
     margin-right: auto;
     margin-left: auto;
-  }
 
-  .video-js {
-    .vjs-big-play-button {
-      width: 0;
-      height: 0;
-      opacity: 0;
-    }
+    &.video-js {
+      font-family: $font-family-sans-serif;
 
-    .vjs-control-bar {
-      display: flex;
-      visibility: visible;
-      opacity: 1;
-      background-color: $black;
-      height: 2.75rem;
-    }
+      .vjs-big-play-button {
+        // Hide big play button
+        width: 0;
+        height: 0;
+        opacity: 0;
+      }
 
-    .vjs-button > .vjs-icon-placeholder::before {
-      position: static;
-      font-size: 1.5rem;
-    }
+      .vjs-control-bar {
+        display: flex;
+        flex-wrap: wrap;
+        visibility: visible;
+        opacity: 1;
+        background-color: $black;
+        height: 3.25rem;
+      }
 
-    .vjs-time-control {
-      font-size: $font-size-extrasmall;
-      padding: 0;
-      min-width: 0;
-    }
+      .vjs-button > .vjs-icon-placeholder::before {
+        position: static;
+        font-size: 1.5rem;
+      }
 
-    .vjs-time-divider {
-      margin-left: 0.25rem;
-      margin-right: 0.25rem;
-    }
+      .vjs-control:focus,
+      .vjs-control:focus::before {
+        text-shadow: none;
+      }
 
-    .vjs-current-time, .vjs-duration, .vjs-time-divider {
-      display: flex;
-      align-items: center;
-    }
+      .vjs-time-tooltip,
+      .vjs-volume-tooltip {
+        border-radius: $border-radius-small;
+        font-family: $font-family-sans-serif;
+      }
 
-    .vjs-volume-control {
-      align-items: center;
-    }
+      .vjs-time-tooltip {
+        background-color: $white;
+        color: $black;
+        border: 1px solid $black;
+      }
 
-    .vjs-progress-control {
-      display: flex;
-    }
+      .vjs-mouse-display {
+        .vjs-time-tooltip,
+        .vjs-volume-tooltip {
+          color: $white;
+          background-color: $black;
+          border: 1px solid $white;
+        }
+      }
 
-    .vjs-fullscreen-control .vjs-icon-placeholder::before {
-      @extend %icon-font;
-      content: '\e95f';
+      .vjs-slider {
+        background-color: $mediumgrey;
+
+        &:focus {
+          text-shadow: none;
+          box-shadow: none;
+        }
+      }
+
+      .vjs-progress-control {
+        flex-basis: 100%;
+        height: auto;
+
+        .vjs-progress-holder {
+          margin: 0;
+          font-size: 1rem;
+          height: 0.25rem;
+        }
+
+        &:hover {
+          .vjs-time-tooltip {
+            font-size: $font-size-smallest;
+          }
+
+          .vjs-progress-holder {
+            font-size: 1rem;
+          }
+        }
+      }
+
+      .vjs-load-progress div {
+        background-color: $lightgrey;
+      }
+
+      .vjs-play-progress {
+        background-color: $blue;
+
+        &::before {
+          color: $blue;
+          font-size: $font-size-extrasmall;
+          line-height: 0.25rem;
+        }
+      }
+
+      .vjs-time-control {
+        font-size: $font-size-extrasmall;
+        font-weight: 600;
+        padding: 0;
+        min-width: 0;
+      }
+
+      .vjs-time-divider {
+        margin-left: 0.25rem;
+        margin-right: 0.25rem;
+      }
+
+      .vjs-current-time, .vjs-duration, .vjs-time-divider {
+        display: flex;
+        align-items: center;
+      }
+
+      .vjs-volume-control {
+        align-items: center;
+        width: 5rem;
+        margin: 0 auto 0 0.5rem;
+
+        .vjs-volume-bar.vjs-slider-horizontal {
+          width: 5rem;
+          margin: 0;
+
+          .vjs-volume-level {
+            height: 0.25rem;
+
+            &:before {
+              font-size: $font-size-extrasmall;
+              line-height: 0.25rem;
+            }
+          }
+        }
+      }
+
+      .vjs-fullscreen-control .vjs-icon-placeholder::before {
+        @extend %icon-font;
+        content: '\e95f';
+      }
     }
   }
 </style>
