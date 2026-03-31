@@ -328,9 +328,41 @@
         }
       }
 
+      .vjs-play-control:not(.vjs-playing) .vjs-icon-placeholder::before {
+        @extend %icon-font;
+        content: '\e975';
+      }
+
+      .vjs-mute-control {
+        .vjs-icon-placeholder::before,
+        &.vjs-vol-2 .vjs-icon-placeholder::before {
+          @extend %icon-font;
+          content: '\e977';
+        }
+        &.vjs-vol-0 .vjs-icon-placeholder::before {
+          @extend %icon-font;
+          content: '\e978';
+        }
+      }
+
       .vjs-fullscreen-control .vjs-icon-placeholder::before {
         @extend %icon-font;
         content: '\e95f';
+      }
+
+      &.vjs-fullscreen .vjs-fullscreen-control .vjs-icon-placeholder::before {
+        @extend %icon-font;
+        content: '\e960';
+      }
+
+      .vjs-subtitles-button .vjs-icon-placeholder::before {
+        @extend %icon-font;
+        content: '\e976';
+      }
+
+      .vjs-subs-caps-button .vjs-icon-placeholder::before {
+        @extend %icon-font;
+        content: '\e974';
       }
     }
   }
