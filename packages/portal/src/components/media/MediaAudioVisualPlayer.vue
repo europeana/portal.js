@@ -1,6 +1,6 @@
 <template>
   <div
-    class="media-player-wrapper"
+    class="media-player-wrapper h-100 d-flex justify-content-center"
   >
     <template
       v-if="mediaComponent"
@@ -11,7 +11,6 @@
         ref="avPlayer"
         class="media-player video-js"
         controls
-        :poster="poster"
         preload="none"
       />
     </template>
@@ -83,7 +82,8 @@
               'subsCapsButton',
               'fullscreenToggle'
             ]
-          }
+          },
+          poster: this.poster
         },
         player: null
       };
@@ -187,183 +187,215 @@
   @import '@europeana/style/scss/variables';
   @import '@europeana/style/scss/icon-font';
 
-  .media-player-wrapper {
+  .media-player.video-js {
+    font-family: $font-family-sans-serif;
     height: 100%;
-  }
+    min-width: 100%;
 
-  .media-player {
-    display: block;
-    height: 100%;
-    margin-right: auto;
-    margin-left: auto;
+    @media (min-width: $bp-small) {
+      min-width: 31.875rem;
+    }
 
-    &.video-js {
+    @media (min-width: $bp-medium) {
+      min-width: 43.125rem;
+    }
+
+    @media (min-width: $bp-large) {
+      min-width: 48.125rem;
+    }
+    @media (min-width: $bp-extralarge) {
+      min-width: 57.5rem;
+    }
+
+    .vjs-tech {
+      width: auto;
+      height: auto;
+      max-width: 100%;
+      max-height: 100%;
+      bottom: 0;
+      right: 0;
+      margin: auto;
+    }
+
+    .vjs-big-play-button {
+      // Hide big play button
+      width: 0;
+      height: 0;
+      opacity: 0;
+    }
+
+    &.vjs-has-started .vjs-poster {
+        display: none;
+      }
+
+    .vjs-control-bar {
+      display: flex;
+      flex-wrap: wrap;
+      visibility: visible;
+      opacity: 1;
+      background-color: $black;
+      height: 3.25rem;
+    }
+
+    .vjs-button > .vjs-icon-placeholder::before {
+      position: static;
+      font-size: 1.5rem;
+    }
+
+    .vjs-control:focus,
+    .vjs-control:focus::before {
+      text-shadow: none;
+    }
+
+    .vjs-time-tooltip,
+    .vjs-volume-tooltip {
+      border-radius: $border-radius-small;
       font-family: $font-family-sans-serif;
+    }
 
-      .vjs-big-play-button {
-        // Hide big play button
-        width: 0;
-        height: 0;
-        opacity: 0;
-      }
+    .vjs-time-tooltip {
+      background-color: $white;
+      color: $black;
+      border: 1px solid $black;
+    }
 
-      .vjs-control-bar {
-        display: flex;
-        flex-wrap: wrap;
-        visibility: visible;
-        opacity: 1;
-        background-color: $black;
-        height: 3.25rem;
-      }
-
-      .vjs-button > .vjs-icon-placeholder::before {
-        position: static;
-        font-size: 1.5rem;
-      }
-
-      .vjs-control:focus,
-      .vjs-control:focus::before {
-        text-shadow: none;
-      }
-
+    .vjs-mouse-display {
       .vjs-time-tooltip,
       .vjs-volume-tooltip {
-        border-radius: $border-radius-small;
-        font-family: $font-family-sans-serif;
+        color: $white;
+        background-color: $black;
+        border: 1px solid $white;
+      }
+    }
+
+    .vjs-slider {
+      background-color: $mediumgrey;
+
+      &:focus {
+        text-shadow: none;
+        box-shadow: none;
+      }
+    }
+
+    .vjs-progress-control {
+      flex-basis: 100%;
+      height: auto;
+
+      .vjs-progress-holder {
+        margin: 0;
+        font-size: 1rem;
+        height: 0.25rem;
       }
 
-      .vjs-time-tooltip {
-        background-color: $white;
-        color: $black;
-        border: 1px solid $black;
-      }
-
-      .vjs-mouse-display {
-        .vjs-time-tooltip,
-        .vjs-volume-tooltip {
-          color: $white;
-          background-color: $black;
-          border: 1px solid $white;
+      &:hover {
+        .vjs-time-tooltip {
+          font-size: $font-size-smallest;
         }
-      }
-
-      .vjs-slider {
-        background-color: $mediumgrey;
-
-        &:focus {
-          text-shadow: none;
-          box-shadow: none;
-        }
-      }
-
-      .vjs-progress-control {
-        flex-basis: 100%;
-        height: auto;
 
         .vjs-progress-holder {
-          margin: 0;
           font-size: 1rem;
-          height: 0.25rem;
-        }
-
-        &:hover {
-          .vjs-time-tooltip {
-            font-size: $font-size-smallest;
-          }
-
-          .vjs-progress-holder {
-            font-size: 1rem;
-          }
         }
       }
+    }
 
-      .vjs-load-progress div {
-        background-color: $lightgrey;
-      }
+    .vjs-load-progress div {
+      background-color: $lightgrey;
+    }
 
-      .vjs-play-progress {
-        background-color: $blue;
+    .vjs-play-progress {
+      background-color: $blue;
 
-        &::before {
-          color: $blue;
-          font-size: $font-size-extrasmall;
-          line-height: 0.25rem;
-        }
-      }
-
-      .vjs-time-control {
+      &::before {
+        color: $blue;
         font-size: $font-size-extrasmall;
-        font-weight: 600;
-        padding: 0;
-        min-width: 0;
+        line-height: 0.25rem;
       }
+    }
 
-      .vjs-time-divider {
-        margin-left: 0.25rem;
-        margin-right: 0.25rem;
+    .vjs-play-control {
+      @media (max-width: $bp-large) {
+        margin-left: 1rem;
       }
+    }
 
-      .vjs-current-time, .vjs-duration, .vjs-time-divider {
-        display: flex;
-        align-items: center;
-      }
+    .vjs-time-control {
+      font-size: $font-size-extrasmall;
+      font-weight: 600;
+      padding: 0;
+      min-width: 0;
+    }
 
-      .vjs-volume-control {
-        align-items: center;
+    .vjs-time-divider {
+      margin-left: 0.25rem;
+      margin-right: 0.25rem;
+    }
+
+    .vjs-current-time, .vjs-duration, .vjs-time-divider {
+      display: flex;
+      align-items: center;
+    }
+
+    .vjs-volume-control {
+      align-items: center;
+      width: 5rem;
+      margin: 0 auto 0 0.5rem;
+
+      .vjs-volume-bar.vjs-slider-horizontal {
         width: 5rem;
-        margin: 0 auto 0 0.5rem;
+        margin: 0;
 
-        .vjs-volume-bar.vjs-slider-horizontal {
-          width: 5rem;
-          margin: 0;
+        .vjs-volume-level {
+          height: 0.25rem;
 
-          .vjs-volume-level {
-            height: 0.25rem;
-
-            &:before {
-              font-size: $font-size-extrasmall;
-              line-height: 0.25rem;
-            }
+          &:before {
+            font-size: $font-size-extrasmall;
+            line-height: 0.25rem;
           }
         }
       }
+    }
 
-      .vjs-play-control:not(.vjs-playing) .vjs-icon-placeholder::before {
+    .vjs-fullscreen-control {
+      @media (max-width: $bp-large) {
+        margin-right: 1rem;
+      }
+    }
+
+    .vjs-play-control:not(.vjs-playing) .vjs-icon-placeholder::before {
+      @extend %icon-font;
+      content: '\e975';
+    }
+
+    .vjs-mute-control {
+      .vjs-icon-placeholder::before,
+      &.vjs-vol-2 .vjs-icon-placeholder::before {
         @extend %icon-font;
-        content: '\e975';
+        content: '\e977';
       }
-
-      .vjs-mute-control {
-        .vjs-icon-placeholder::before,
-        &.vjs-vol-2 .vjs-icon-placeholder::before {
-          @extend %icon-font;
-          content: '\e977';
-        }
-        &.vjs-vol-0 .vjs-icon-placeholder::before {
-          @extend %icon-font;
-          content: '\e978';
-        }
-      }
-
-      .vjs-fullscreen-control .vjs-icon-placeholder::before {
+      &.vjs-vol-0 .vjs-icon-placeholder::before {
         @extend %icon-font;
-        content: '\e95f';
+        content: '\e978';
       }
+    }
 
-      &.vjs-fullscreen .vjs-fullscreen-control .vjs-icon-placeholder::before {
-        @extend %icon-font;
-        content: '\e960';
-      }
+    .vjs-fullscreen-control .vjs-icon-placeholder::before {
+      @extend %icon-font;
+      content: '\e95f';
+    }
 
-      .vjs-subtitles-button .vjs-icon-placeholder::before {
-        @extend %icon-font;
-        content: '\e976';
-      }
+    &.vjs-fullscreen .vjs-fullscreen-control .vjs-icon-placeholder::before {
+      @extend %icon-font;
+      content: '\e960';
+    }
 
-      .vjs-subs-caps-button .vjs-icon-placeholder::before {
-        @extend %icon-font;
-        content: '\e974';
-      }
+    .vjs-subtitles-button .vjs-icon-placeholder::before {
+      @extend %icon-font;
+      content: '\e976';
+    }
+
+    .vjs-subs-caps-button .vjs-icon-placeholder::before {
+      @extend %icon-font;
+      content: '\e974';
     }
   }
 </style>
