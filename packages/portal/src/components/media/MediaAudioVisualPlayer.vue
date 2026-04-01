@@ -238,6 +238,7 @@
       height: 3.25rem;
     }
 
+    // use control text as tooltip content
     .vjs-control-text {
       position: absolute;
       top: -50%;
@@ -250,7 +251,6 @@
       text-align: center;
       line-height: 1.5;
       opacity: 0;
-      z-index: 10;
       transition: opacity $standard-transition;
     }
 
@@ -277,7 +277,8 @@
       position: relative;
 
       &:hover,
-      &:focus {
+      &:focus,
+      .vjs-menu-button:focus {
         .vjs-control-text {
           opacity: 1;
           clip: unset;
@@ -286,6 +287,16 @@
           width: max-content;
           max-width: min(100vw, pxToRem(200));
           transition: opacity $standard-transition;
+          z-index: 10;
+        }
+
+        // hide tooltips within subtitle menu
+        .vjs-menu-content .vjs-control-text {
+          opacity: 0;
+          height: 0;
+          border: 0;
+          width: 0;
+          z-index: -1;
         }
       }
     }
@@ -403,6 +414,54 @@
           &:before {
             font-size: $font-size-extrasmall;
             line-height: 0.25rem;
+          }
+        }
+      }
+    }
+
+    .vjs-menu-button-popup {
+      // prevent menu showing on hover
+      &.vjs-hover .vjs-menu {
+        display: none;
+      }
+
+      .vjs-menu .vjs-menu-content {
+        font-family: $font-family-sans-serif;
+        bottom: 2rem;
+        right: -1rem;
+        min-width: 10rem;
+        padding: 0.5rem 0;
+        margin: 0.125rem 0 0;
+        background-color: $white;
+        background-clip: padding-box;
+        border: 1px solid rgba(0, 0, 0, 15%);
+        border-radius: $border-radius-small;
+        color: $black;
+
+        li {
+          justify-content: flex-start;
+          padding: 0.25rem 1.5rem;
+          line-height: 1.5;
+          font-size: $font-size-small;
+          text-align: left;
+          text-transform: none;
+
+          &.vjs-menu-item {
+            &:hover,
+            &:focus-visible {
+              background-color: $lightgrey;
+            }
+
+            &.vjs-selected {
+              color: $white;
+              background-color: $blue;
+
+              &:hover,
+              &:focus {
+                color: $white;
+                background-color: $blue;
+              }
+            }
           }
         }
       }
