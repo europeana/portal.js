@@ -193,6 +193,7 @@
     height: 100%;
     min-width: 100%;
 
+    // align initial player width with page content - can grow when media is loaded and wider
     @media (min-width: $bp-small) {
       min-width: 31.875rem;
     }
@@ -208,6 +209,7 @@
       min-width: 57.5rem;
     }
 
+    // let video render at intrinsic dimensions
     .vjs-tech {
       width: auto;
       height: auto;
@@ -218,15 +220,11 @@
       margin: auto;
     }
 
+    // Hide big play button
     .vjs-big-play-button {
-      // Hide big play button
       width: 0;
       height: 0;
       opacity: 0;
-    }
-
-    &.vjs-has-started .vjs-poster {
-      display: none;
     }
 
     .vjs-control-bar {
@@ -254,6 +252,7 @@
       transition: opacity $standard-transition;
     }
 
+    // Prevent tooltips from overflowing viewport
     .vjs-progress-control,
     .vjs-play-control,
     .vjs-current-time,
@@ -273,6 +272,7 @@
       }
     }
 
+    // show tooltips on hover and focus
     .vjs-control {
       position: relative;
 
@@ -303,7 +303,7 @@
 
     .vjs-button > .vjs-icon-placeholder::before {
       position: static;
-      font-size: 1.5rem;
+      font-size: $font-size-large;
     }
 
     .vjs-control:focus,
@@ -347,7 +347,7 @@
 
       .vjs-progress-holder {
         margin: 0;
-        font-size: 1rem;
+        font-size: $font-size-base;
         height: 0.25rem;
       }
 
@@ -357,7 +357,7 @@
         }
 
         .vjs-progress-holder {
-          font-size: 1rem;
+          font-size: $font-size-base;
         }
       }
     }
@@ -473,6 +473,7 @@
       }
     }
 
+    // Override icons with custom icons
     .vjs-subtitles-button .vjs-icon-placeholder::before {
       @extend %icon-font;
       content: '\e976';
