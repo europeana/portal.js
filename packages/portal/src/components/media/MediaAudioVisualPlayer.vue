@@ -83,6 +83,7 @@
               'fullscreenToggle'
             ]
           },
+          noUITitleAttributes: true,
           poster: this.poster
         },
         player: null
@@ -225,8 +226,8 @@
     }
 
     &.vjs-has-started .vjs-poster {
-        display: none;
-      }
+      display: none;
+    }
 
     .vjs-control-bar {
       display: flex;
@@ -235,6 +236,58 @@
       opacity: 1;
       background-color: $black;
       height: 3.25rem;
+    }
+
+    .vjs-control-text {
+      position: absolute;
+      top: -50%;
+      background: $black;
+      color: $white;
+      padding: 0.5rem;
+      border-radius: $border-radius-small;
+      font-size: $font-size-small;
+      font-weight: 400;
+      text-align: center;
+      line-height: 1.5;
+      opacity: 0;
+      z-index: 10;
+      transition: opacity $standard-transition;
+    }
+
+    .vjs-progress-control,
+    .vjs-play-control,
+    .vjs-current-time,
+    .vjs-duration,
+    .vjs-mute-control,
+    .vjs-volume-control {
+      .vjs-control-text {
+        left: 0;
+      }
+    }
+
+    .vjs-subtitles-button,
+    .vjs-subs-caps-button,
+    .vjs-fullscreen-control {
+      .vjs-control-text {
+        right: 0;
+      }
+    }
+
+    .vjs-control {
+      position: relative;
+
+      &:hover,
+      &:focus {
+        .vjs-control-text {
+          opacity: 1;
+          clip: unset;
+          height: auto;
+          border: 1px solid $lightgrey;
+          width: max-content;
+          max-width: min(100vw, pxToRem(200));
+          transition: opacity $standard-transition;
+        }
+      }
     }
 
     .vjs-button > .vjs-icon-placeholder::before {
@@ -313,7 +366,7 @@
     }
 
     .vjs-play-control {
-      @media (max-width: $bp-large) {
+      @media (max-width: $bp-small) {
         margin-left: 1rem;
       }
     }
@@ -361,9 +414,19 @@
       }
     }
 
-    .vjs-play-control:not(.vjs-playing) .vjs-icon-placeholder::before {
+    .vjs-subtitles-button .vjs-icon-placeholder::before {
       @extend %icon-font;
-      content: '\e975';
+      content: '\e976';
+    }
+
+    .vjs-subs-caps-button .vjs-icon-placeholder::before {
+      @extend %icon-font;
+      content: '\e974';
+    }
+
+    .vjs-fullscreen-control .vjs-icon-placeholder::before {
+      @extend %icon-font;
+      content: '\e95f';
     }
 
     .vjs-mute-control {
@@ -378,24 +441,14 @@
       }
     }
 
-    .vjs-fullscreen-control .vjs-icon-placeholder::before {
-      @extend %icon-font;
-      content: '\e95f';
-    }
-
     &.vjs-fullscreen .vjs-fullscreen-control .vjs-icon-placeholder::before {
       @extend %icon-font;
       content: '\e960';
     }
 
-    .vjs-subtitles-button .vjs-icon-placeholder::before {
+    .vjs-play-control:not(.vjs-playing) .vjs-icon-placeholder::before {
       @extend %icon-font;
-      content: '\e976';
-    }
-
-    .vjs-subs-caps-button .vjs-icon-placeholder::before {
-      @extend %icon-font;
-      content: '\e974';
+      content: '\e975';
     }
   }
 </style>
