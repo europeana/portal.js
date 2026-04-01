@@ -229,7 +229,6 @@
 
     .vjs-control-bar {
       display: flex;
-      flex-wrap: wrap;
       visibility: visible;
       opacity: 1;
       background-color: $black;
@@ -342,7 +341,11 @@
     }
 
     .vjs-progress-control {
-      flex-basis: 100%;
+      position: absolute;
+      top: -0.25rem;
+      left: 0;
+      right: 0;
+      width: 100%;
       height: auto;
 
       .vjs-progress-holder {
@@ -376,12 +379,6 @@
       }
     }
 
-    .vjs-play-control {
-      @media (max-width: $bp-small) {
-        margin-left: 1rem;
-      }
-    }
-
     .vjs-time-control {
       font-size: $font-size-extrasmall;
       font-weight: 600;
@@ -401,11 +398,12 @@
 
     .vjs-volume-control {
       align-items: center;
-      width: 5rem;
+      flex: 1 1 5rem; // allow to shrink on very small screen
+      width: auto;
       margin: 0 auto 0 0.5rem;
 
       .vjs-volume-bar.vjs-slider-horizontal {
-        width: 5rem;
+        width: min(5rem, 100%); // allow to shrink on very small screen
         margin: 0;
 
         .vjs-volume-level {
@@ -464,12 +462,6 @@
             }
           }
         }
-      }
-    }
-
-    .vjs-fullscreen-control {
-      @media (max-width: $bp-large) {
-        margin-right: 1rem;
       }
     }
 
