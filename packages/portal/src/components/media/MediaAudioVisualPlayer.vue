@@ -1,6 +1,6 @@
 <template>
   <div
-    class="media-player-wrapper"
+    class="media-player-wrapper h-100 d-flex justify-content-center"
   >
     <template
       v-if="mediaComponent"
@@ -11,8 +11,6 @@
         ref="avPlayer"
         class="media-player video-js"
         controls
-        :title="$t('record.mediaPlayer')"
-        :poster="poster"
         preload="none"
       />
     </template>
@@ -69,26 +67,26 @@
       return {
         mediaFormat: null,
         mediaUrl: null,
+        // Docs: https://legacy.videojs.org/guides/options
         options: {
-          // TODO: This removes 'bigPlayButton', but also breaks the play button and play/pause on poster click. Fix or hide in styles.
-          // children: [
-          //   'controlBar'
-          // ],
           controlBar: {
             // defines which controls to display and in which order. Docs: https://legacy.videojs.org/guides/components/#default-component-tree
             children: [
+              'progressControl',
               'playToggle',
               'currentTimeDisplay',
               'timeDivider',
               'durationDisplay',
               'muteToggle',
               'volumeControl',
-              'progressControl',
               'subtitlesButton',
               'subsCapsButton',
               'fullscreenToggle'
             ]
-          }
+          },
+          noUITitleAttributes: true, // do not add title attributes to controls
+          poster: this.poster, // vjs-poster element; not set on the native video element to prevent duplication
+          textTrackSettings: false // disable captions settings menu
         },
         player: null
       };
@@ -192,19 +190,39 @@
   @import '@europeana/style/scss/variables';
   @import '@europeana/style/scss/icon-font';
 
-  .media-player-wrapper {
+  .media-player.video-js {
+    font-family: $font-family-sans-serif;
     height: 100%;
-  }
+    width: 100%;
 
-  .media-player {
-    display: block;
-    height: 100%;
-    width: auto;
-    margin-right: auto;
-    margin-left: auto;
-  }
+    // align player width with page content
+    @media (min-width: $bp-small) {
+      width: 31.875rem;
+    }
 
-  .video-js {
+    @media (min-width: $bp-medium) {
+      width: 43.125rem;
+    }
+
+    @media (min-width: $bp-large) {
+      width: 48.125rem;
+    }
+    @media (min-width: $bp-extralarge) {
+      width: 57.5rem;
+    }
+
+    // let video render at intrinsic dimensions
+    .vjs-tech {
+      width: auto;
+      height: auto;
+      max-width: 100%;
+      max-height: 100%;
+      bottom: 0;
+      right: 0;
+      margin: auto;
+    }
+
+    // Hide big play button
     .vjs-big-play-button {
       width: 0;
       height: 0;
@@ -216,16 +234,84 @@
       visibility: visible;
       opacity: 1;
       background-color: $black;
-      height: 2.75rem;
+      height: 3.25rem;
     }
 
     .vjs-button > .vjs-icon-placeholder::before {
       position: static;
-      font-size: 1.5rem;
+      font-size: $font-size-large;
+    }
+
+    .vjs-control:focus,
+    .vjs-control:focus::before {
+      text-shadow: none;
+    }
+
+    .vjs-time-tooltip {
+      border-radius: $border-radius-small;
+      font-family: $font-family-sans-serif;
+      background-color: $white;
+      color: $black;
+      border: 1px solid $black;
+    }
+
+    .vjs-mouse-display .vjs-time-tooltip {
+      color: $white;
+      background-color: $black;
+      border: 1px solid $white;
+    }
+
+    .vjs-slider {
+      background-color: $mediumgrey;
+
+      &:focus {
+        text-shadow: none;
+        box-shadow: none;
+      }
+    }
+
+    .vjs-progress-control {
+      position: absolute;
+      top: -0.25rem;
+      left: 0;
+      right: 0;
+      width: 100%;
+      height: auto;
+
+      .vjs-progress-holder {
+        margin: 0;
+        font-size: $font-size-base;
+        height: 0.25rem;
+      }
+
+      &:hover {
+        .vjs-time-tooltip {
+          font-size: $font-size-smallest;
+        }
+
+        .vjs-progress-holder {
+          font-size: $font-size-base;
+        }
+      }
+    }
+
+    .vjs-load-progress div {
+      background-color: $lightgrey;
+    }
+
+    .vjs-play-progress {
+      background-color: $blue;
+
+      &::before {
+        color: $blue;
+        font-size: $font-size-extrasmall;
+        line-height: 0.25rem;
+      }
     }
 
     .vjs-time-control {
       font-size: $font-size-extrasmall;
+      font-weight: 600;
       padding: 0;
       min-width: 0;
     }
@@ -242,15 +328,198 @@
 
     .vjs-volume-control {
       align-items: center;
+      flex: 1 1 5rem; // allow to shrink on very small screen
+      width: auto;
+      margin: 0 auto 0 0.5rem;
+
+      &:hover {
+        .vjs-volume-mouse-display,
+        .vjs-volume-tooltip {
+          display: none;
+        }
+      }
+
+      .vjs-volume-bar.vjs-slider-horizontal {
+        width: min(5rem, 100%); // allow to shrink on very small screen
+        margin: 0;
+
+        .vjs-volume-level {
+          height: 0.25rem;
+
+          &:before {
+            font-size: $font-size-extrasmall;
+            line-height: 0.25rem;
+          }
+        }
+      }
     }
 
-    .vjs-progress-control {
-      display: flex;
+    .vjs-menu-button-popup {
+      // prevent menu showing on hover
+      &.vjs-hover .vjs-menu {
+        display: none;
+      }
+
+      .vjs-menu .vjs-menu-content {
+        font-family: $font-family-sans-serif;
+        bottom: 2rem;
+        right: -1rem;
+        min-width: 10rem;
+        padding: 0.5rem 0;
+        margin: 0.125rem 0 0;
+        background-color: $white;
+        background-clip: padding-box;
+        border: 1px solid rgba(0, 0, 0, 15%);
+        border-radius: $border-radius-small;
+        color: $black;
+
+        li {
+          justify-content: flex-start;
+          padding: 0.25rem 1.5rem;
+          line-height: 1.5;
+          font-size: $font-size-small;
+          text-align: left;
+          text-transform: none;
+
+          &.vjs-menu-item {
+            &:hover,
+            &:focus-visible {
+              background-color: $lightgrey;
+            }
+
+            &.vjs-selected {
+              color: $white;
+              background-color: $blue;
+
+              &:hover,
+              &:focus {
+                color: $white;
+                background-color: $blue;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    // --- Override icons with custom icons ---
+    .vjs-subtitles-button .vjs-icon-placeholder::before {
+      @extend %icon-font;
+      content: '\e976';
+    }
+
+    .vjs-subs-caps-button .vjs-icon-placeholder::before {
+      @extend %icon-font;
+      content: '\e974';
     }
 
     .vjs-fullscreen-control .vjs-icon-placeholder::before {
       @extend %icon-font;
       content: '\e95f';
+    }
+
+    .vjs-mute-control {
+      .vjs-icon-placeholder::before,
+      &.vjs-vol-2 .vjs-icon-placeholder::before {
+        @extend %icon-font;
+        content: '\e977';
+      }
+      &.vjs-vol-0 .vjs-icon-placeholder::before {
+        @extend %icon-font;
+        content: '\e978';
+      }
+    }
+
+    &.vjs-fullscreen .vjs-fullscreen-control .vjs-icon-placeholder::before {
+      @extend %icon-font;
+      content: '\e960';
+    }
+
+    .vjs-play-control:not(.vjs-playing) .vjs-icon-placeholder::before {
+      @extend %icon-font;
+      content: '\e975';
+    }
+
+    // --- Tooltip styles ---
+
+    // Prevent tooltips from overflowing viewport
+    .vjs-mute-control .vjs-control-text {
+      left: 0;
+    }
+
+    .vjs-subtitles-button,
+    .vjs-subs-caps-button,
+    .vjs-fullscreen-control {
+      .vjs-control-text {
+        right: 0;
+      }
+    }
+
+    // use control text as tooltip content
+    .vjs-mute-control,
+    .vjs-fullscreen-control,
+    button.vjs-subtitles-button,
+    button.vjs-subs-caps-button {
+      .vjs-control-text {
+        position: absolute;
+        top: -50%;
+        background: $black;
+        color: $white;
+        padding: 0.5rem;
+        border-radius: $border-radius-small;
+        font-size: $font-size-small;
+        font-weight: 400;
+        text-align: center;
+        line-height: 1.5;
+        opacity: 0;
+        transition: opacity $standard-transition;
+      }
+    }
+
+    @mixin show-tooltip {
+      opacity: 1;
+      clip: unset;
+      height: auto;
+      border: 1px solid $lightgrey;
+      width: max-content;
+      max-width: min(100vw, pxToRem(200));
+      transition: opacity $standard-transition;
+      z-index: 10;
+    }
+
+    // show tooltips on hover and focus
+    .vjs-mute-control,
+    .vjs-fullscreen-control {
+      position: relative;
+
+      &:hover,
+      &:focus {
+        .vjs-control-text {
+          @include show-tooltip;
+        }
+      }
+    }
+
+    button.vjs-subtitles-button:not([aria-expanded='true']),
+    button.vjs-subs-caps-button:not([aria-expanded='true']) {
+      position: relative;
+
+      &:hover,
+      &:focus,
+      .vjs-menu-button:focus {
+        .vjs-control-text {
+          @include show-tooltip;
+        }
+
+        // hide tooltips within subtitle menu
+        .vjs-menu-content .vjs-control-text {
+          opacity: 0;
+          height: 0;
+          border: 0;
+          width: 0;
+          z-index: -1;
+        }
+      }
     }
   }
 </style>
