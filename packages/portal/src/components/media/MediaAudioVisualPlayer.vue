@@ -11,7 +11,6 @@
         ref="avPlayer"
         class="media-player video-js"
         controls
-        :title="$t('record.mediaPlayer')"
         :poster="poster"
         preload="none"
       />
@@ -88,7 +87,9 @@
               'subsCapsButton',
               'fullscreenToggle'
             ]
-          }
+          },
+          noUITitleAttributes: true // do not add title attributes to controls
+          // TODO set language to the media's language
         },
         player: null
       };
@@ -138,9 +139,10 @@
         }
 
         for (const track of this.subtitles) {
+          const trackLabel = this.$t(`audioVisualPlayer.${track.kind}Option`, { language: this.$t(`facets.LANGUAGE.options.${track.label.toLowerCase()}`) });
           let textTrack;
           try {
-            textTrack = this.player.addTextTrack(track.kind, track.label, track.language);
+            textTrack = this.player.addTextTrack(track.kind, trackLabel, track.language);
           } catch {
             // the next return will handle the error quietly
           }
@@ -251,6 +253,10 @@
     .vjs-fullscreen-control .vjs-icon-placeholder::before {
       @extend %icon-font;
       content: '\e95f';
+    }
+
+    .vjs-menu li {
+      text-transform: none;
     }
   }
 </style>
