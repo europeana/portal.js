@@ -67,6 +67,7 @@
       return {
         mediaFormat: null,
         mediaUrl: null,
+        // Docs: https://legacy.videojs.org/guides/options
         options: {
           controlBar: {
             // defines which controls to display and in which order. Docs: https://legacy.videojs.org/guides/components/#default-component-tree
@@ -253,12 +254,7 @@
     }
 
     // Prevent tooltips from overflowing viewport
-    .vjs-progress-control,
-    .vjs-play-control,
-    .vjs-current-time,
-    .vjs-duration,
-    .vjs-mute-control,
-    .vjs-volume-control {
+    .vjs-mute-control {
       .vjs-control-text {
         left: 0;
       }
@@ -273,7 +269,10 @@
     }
 
     // show tooltips on hover and focus
-    .vjs-control {
+    .vjs-mute-control,
+    button.vjs-subtitles-button:not([aria-expanded="true"]),
+    button.vjs-subs-caps-button:not([aria-expanded="true"]),
+    .vjs-fullscreen-control {
       position: relative;
 
       &:hover,
@@ -311,25 +310,25 @@
       text-shadow: none;
     }
 
-    .vjs-time-tooltip,
-    .vjs-volume-tooltip {
-      border-radius: $border-radius-small;
-      font-family: $font-family-sans-serif;
+    .vjs-volume-control:hover {
+      .vjs-volume-mouse-display,
+      .vjs-volume-tooltip {
+        display: none;
+      }
     }
 
     .vjs-time-tooltip {
+      border-radius: $border-radius-small;
+      font-family: $font-family-sans-serif;
       background-color: $white;
       color: $black;
       border: 1px solid $black;
     }
 
-    .vjs-mouse-display {
-      .vjs-time-tooltip,
-      .vjs-volume-tooltip {
-        color: $white;
-        background-color: $black;
-        border: 1px solid $white;
-      }
+    .vjs-mouse-display .vjs-time-tooltip {
+      color: $white;
+      background-color: $black;
+      border: 1px solid $white;
     }
 
     .vjs-slider {
