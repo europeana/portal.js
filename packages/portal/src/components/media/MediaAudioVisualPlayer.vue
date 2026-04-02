@@ -191,22 +191,22 @@
   .media-player.video-js {
     font-family: $font-family-sans-serif;
     height: 100%;
-    min-width: 100%;
+    width: 100%;
 
-    // align initial player width with page content - can grow when media is loaded and wider
+    // align player width with page content
     @media (min-width: $bp-small) {
-      min-width: 31.875rem;
+      width: 31.875rem;
     }
 
     @media (min-width: $bp-medium) {
-      min-width: 43.125rem;
+      width: 43.125rem;
     }
 
     @media (min-width: $bp-large) {
-      min-width: 48.125rem;
+      width: 48.125rem;
     }
     @media (min-width: $bp-extralarge) {
-      min-width: 57.5rem;
+      width: 57.5rem;
     }
 
     // let video render at intrinsic dimensions
