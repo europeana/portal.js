@@ -83,8 +83,9 @@
               'fullscreenToggle'
             ]
           },
-          noUITitleAttributes: true,
-          poster: this.poster
+          noUITitleAttributes: true, // do not add title attributes to controls
+          poster: this.poster, // vjs-poster element; not set on the native video element to prevent duplication
+          textTrackSettings: false // disable captions settings menu
         },
         player: null
       };
