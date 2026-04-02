@@ -106,7 +106,7 @@ describe('components/media/MediaAudioVisualPlayer', () => {
     });
     describe('initTextTracks', () => {
       describe('when there are no subtitles to display', () => {
-        it('does NOT set any text tracks', async() => {
+        it('does NOT set any text tracks or cues', async() => {
           const wrapper = factory();
 
           // init player first, so the tracks can be added to something
@@ -114,26 +114,28 @@ describe('components/media/MediaAudioVisualPlayer', () => {
           await wrapper.vm.initVideojs();
           await wrapper.vm.$nextTick();
 
-          const addTextTrackStub = sinon.stub(wrapper.vm.player, 'addTextTrack').returns({ cues: [] });
+          const addCueStub = sinon.stub();
+          const addTextTrackStub = sinon.stub(wrapper.vm.player, 'addTextTrack').returns({ addCue: addCueStub });
 
           await wrapper.vm.initTextTracks();
 
           expect(addTextTrackStub.notCalled).toBe(true);
+          expect(addCueStub.notCalled).toBe(true);
         });
       });
       describe('when there are subtitles to display', () => {
         const subtitles = [
           new ItemMediaPresentationSubtitleTrack({
             language: 'en',
-            value: '1\n00:00:01,000 --> 00:00:02,000 subtitle \n'
+            value: '1\n00:00:01,000 --> 00:00:02,000\n subtitle \n'
           }),
           new ItemMediaPresentationSubtitleTrack({
             language: 'nl',
-            value: '1\n00:00:01,000 --> 00:00:02,000 ondertitel \n'
+            value: '1\n00:00:01,000 --> 00:00:02,000\n ondertitel \n'
           })
         ];
 
-        it('adds a text track for each subtitle', async() => {
+        it('adds a text track and cues for each subtitle', async() => {
           const wrapper = factory({ propsData: { subtitles } });
 
           // init player first, so the tracks can be added to something
@@ -141,11 +143,13 @@ describe('components/media/MediaAudioVisualPlayer', () => {
           await wrapper.vm.initVideojs();
           await wrapper.vm.$nextTick();
 
-          const addTextTrackStub = sinon.stub(wrapper.vm.player, 'addTextTrack').returns({ cues: [] });
+          const addCueStub = sinon.stub();
+          const addTextTrackStub = sinon.stub(wrapper.vm.player, 'addTextTrack').returns({ addCue: addCueStub });
 
           await wrapper.vm.initTextTracks();
 
           expect(addTextTrackStub.calledTwice).toBe(true);
+          expect(addCueStub.calledTwice).toBe(true);
         });
       });
     });
