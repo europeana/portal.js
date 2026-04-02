@@ -1,4 +1,5 @@
 import { createLocalVue } from '@vue/test-utils';
+import axios from 'axios';
 import { mountNuxt } from '@test/utils.js';
 import sinon from 'sinon';
 import BootstrapVue from 'bootstrap-vue';
@@ -8,14 +9,12 @@ import EntityTable from '@/components/entity/EntityTable.vue';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const $axiosGetStub = sinon.stub();
-
 const factory = (propsData = { type: 'organisations' }) => mountNuxt(EntityTable, {
   localVue,
   propsData,
   mocks: {
     $axios: {
-      get: $axiosGetStub
+      get: axios.get
     },
     $n: (num) => num,
     $t: (key) => key,
@@ -55,13 +54,14 @@ const organisations = [
 ];
 
 describe('components/entity/EntityTable', () => {
+  beforeEach(() => {
+    sinon.stub(axios, 'get');
+  });
+  afterEach(sinon.restore);
+
   describe('fetch()', () => {
     beforeEach(() => {
-      $axiosGetStub.withArgs(middlewarePath).resolves({ data: { 'en/collections/organisations': collections } });
-    });
-
-    afterEach(() => {
-      $axiosGetStub.reset();
+      axios.get.withArgs(middlewarePath).resolves({ data: { 'en/collections/organisations': collections } });
     });
 
     it('sends a get request to the collections server middleware', async() => {
@@ -69,7 +69,7 @@ describe('components/entity/EntityTable', () => {
 
       await wrapper.vm.fetch();
 
-      expect($axiosGetStub.calledWith(middlewarePath)).toBe(true);
+      expect(axios.get.calledWith(middlewarePath)).toBe(true);
     });
 
     it('stores collections from response body on component collections property', async() => {
