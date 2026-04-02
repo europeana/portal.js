@@ -237,69 +237,6 @@
       height: 3.25rem;
     }
 
-    // use control text as tooltip content
-    .vjs-control-text {
-      position: absolute;
-      top: -50%;
-      background: $black;
-      color: $white;
-      padding: 0.5rem;
-      border-radius: $border-radius-small;
-      font-size: $font-size-small;
-      font-weight: 400;
-      text-align: center;
-      line-height: 1.5;
-      opacity: 0;
-      transition: opacity $standard-transition;
-    }
-
-    // Prevent tooltips from overflowing viewport
-    .vjs-mute-control {
-      .vjs-control-text {
-        left: 0;
-      }
-    }
-
-    .vjs-subtitles-button,
-    .vjs-subs-caps-button,
-    .vjs-fullscreen-control {
-      .vjs-control-text {
-        right: 0;
-      }
-    }
-
-    // show tooltips on hover and focus
-    .vjs-mute-control,
-    button.vjs-subtitles-button:not([aria-expanded="true"]),
-    button.vjs-subs-caps-button:not([aria-expanded="true"]),
-    .vjs-fullscreen-control {
-      position: relative;
-
-      &:hover,
-      &:focus,
-      .vjs-menu-button:focus {
-        .vjs-control-text {
-          opacity: 1;
-          clip: unset;
-          height: auto;
-          border: 1px solid $lightgrey;
-          width: max-content;
-          max-width: min(100vw, pxToRem(200));
-          transition: opacity $standard-transition;
-          z-index: 10;
-        }
-
-        // hide tooltips within subtitle menu
-        .vjs-menu-content .vjs-control-text {
-          opacity: 0;
-          height: 0;
-          border: 0;
-          width: 0;
-          z-index: -1;
-        }
-      }
-    }
-
     .vjs-button > .vjs-icon-placeholder::before {
       position: static;
       font-size: $font-size-large;
@@ -308,13 +245,6 @@
     .vjs-control:focus,
     .vjs-control:focus::before {
       text-shadow: none;
-    }
-
-    .vjs-volume-control:hover {
-      .vjs-volume-mouse-display,
-      .vjs-volume-tooltip {
-        display: none;
-      }
     }
 
     .vjs-time-tooltip {
@@ -402,6 +332,13 @@
       width: auto;
       margin: 0 auto 0 0.5rem;
 
+      &:hover {
+        .vjs-volume-mouse-display,
+        .vjs-volume-tooltip {
+          display: none;
+        }
+      }
+
       .vjs-volume-bar.vjs-slider-horizontal {
         width: min(5rem, 100%); // allow to shrink on very small screen
         margin: 0;
@@ -465,7 +402,7 @@
       }
     }
 
-    // Override icons with custom icons
+    // --- Override icons with custom icons ---
     .vjs-subtitles-button .vjs-icon-placeholder::before {
       @extend %icon-font;
       content: '\e976';
@@ -501,6 +438,88 @@
     .vjs-play-control:not(.vjs-playing) .vjs-icon-placeholder::before {
       @extend %icon-font;
       content: '\e975';
+    }
+
+    // --- Tooltip styles ---
+
+    // Prevent tooltips from overflowing viewport
+    .vjs-mute-control .vjs-control-text {
+      left: 0;
+    }
+
+    .vjs-subtitles-button,
+    .vjs-subs-caps-button,
+    .vjs-fullscreen-control {
+      .vjs-control-text {
+        right: 0;
+      }
+    }
+
+    // use control text as tooltip content
+    .vjs-mute-control,
+    .vjs-fullscreen-control,
+    button.vjs-subtitles-button,
+    button.vjs-subs-caps-button {
+      .vjs-control-text {
+        position: absolute;
+        top: -50%;
+        background: $black;
+        color: $white;
+        padding: 0.5rem;
+        border-radius: $border-radius-small;
+        font-size: $font-size-small;
+        font-weight: 400;
+        text-align: center;
+        line-height: 1.5;
+        opacity: 0;
+        transition: opacity $standard-transition;
+      }
+    }
+
+    @mixin show-tooltip {
+      opacity: 1;
+      clip: unset;
+      height: auto;
+      border: 1px solid $lightgrey;
+      width: max-content;
+      max-width: min(100vw, pxToRem(200));
+      transition: opacity $standard-transition;
+      z-index: 10;
+    }
+
+    // show tooltips on hover and focus
+    .vjs-mute-control,
+    .vjs-fullscreen-control {
+      position: relative;
+
+      &:hover,
+      &:focus {
+        .vjs-control-text {
+          @include show-tooltip;
+        }
+      }
+    }
+
+    button.vjs-subtitles-button:not([aria-expanded='true']),
+    button.vjs-subs-caps-button:not([aria-expanded='true']) {
+      position: relative;
+
+      &:hover,
+      &:focus,
+      .vjs-menu-button:focus {
+        .vjs-control-text {
+          @include show-tooltip;
+        }
+
+        // hide tooltips within subtitle menu
+        .vjs-menu-content .vjs-control-text {
+          opacity: 0;
+          height: 0;
+          border: 0;
+          width: 0;
+          z-index: -1;
+        }
+      }
     }
   }
 </style>
