@@ -7,6 +7,7 @@ import { ItemMediaPresentationSubtitleTrack } from '@/composables/subtitles.js';
 
 const localVue = createLocalVue();
 const factory = ({ propsData } = {}) => mountNuxt(MediaAudioVisualPlayer, {
+  attachTo: document.body,
   localVue,
   propsData: {
     format: 'video/mpeg',
@@ -36,19 +37,21 @@ describe('components/media/MediaAudioVisualPlayer', () => {
   });
 
   describe('computed', () => {
-    describe('for a file with audio type', () => {
-      it('renders an audio component', async() => {
-        const wrapper = factory({ propsData: { format: 'audio/mp3' } });
+    describe('mediaComponent', () => {
+      describe('for a file with audio type', () => {
+        it('renders an audio component', async() => {
+          const wrapper = factory({ propsData: { format: 'audio/mp3' } });
 
-        await wrapper.vm.fetch();
-        expect(wrapper.vm.mediaComponent).toBe('audio');
+          await wrapper.vm.fetch();
+          expect(wrapper.vm.mediaComponent).toBe('audio');
+        });
       });
-    });
-    describe('for a file with video type', () => {
-      it('renders a video component', async() => {
-        const wrapper = factory();
-        await wrapper.vm.fetch();
-        expect(wrapper.vm.mediaComponent).toBe('video');
+      describe('for a file with video type', () => {
+        it('renders a video component', async() => {
+          const wrapper = factory();
+          await wrapper.vm.fetch();
+          expect(wrapper.vm.mediaComponent).toBe('video');
+        });
       });
     });
   });
@@ -90,9 +93,9 @@ describe('components/media/MediaAudioVisualPlayer', () => {
 
   describe('methods', () => {
     describe('initVideojs', () => {
-      it('sets player variable to a videojs player', async() => {
+      it('sets player variable to a videojs player with the options from data', async() => {
         const wrapper = factory();
-
+        const expectedOptions = wrapper.vm.options;
         // Setup component so things can be initialised
         await wrapper.vm.fetch();
 
@@ -100,8 +103,8 @@ describe('components/media/MediaAudioVisualPlayer', () => {
         // Wait for next tick when player is set.
         await wrapper.vm.$nextTick();
 
-        // just checks, that an object was asigned. Should this be more specific?
-        expect(typeof wrapper.vm.player).toBe('object');
+        // Add checks if other options/overrides are expected to be set.
+        expect(wrapper.vm.player.options().controlBar.children).toEqual(expectedOptions.controlBar.children);
       });
     });
     describe('initTextTracks', () => {
