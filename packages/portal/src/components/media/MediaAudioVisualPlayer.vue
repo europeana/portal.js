@@ -96,6 +96,7 @@
 
     async fetch() {
       if (this.euScreenEmbedUrl) {
+        // TODO: Error handling on the embed response
         const response = await axios.get(this.euScreenEmbedUrl);
 
         this.mediaUrl = response.data.location;
