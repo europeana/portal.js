@@ -821,7 +821,30 @@ export default {
       "edmRights": "Jognyilatkozat ehhez a médiához",
       "edmSpatialResolution": "Térbeli felbontás (dpi)",
       "edmVertexCount": "Csúcspontok száma",
-      "schemaDigitalSourceType": "Digitális forrástípus"
+      "schemaDigitalSourceType": "Kapcsolat a való világgal"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Művészet",
+      "creativity": "Kreativitás",
+      "curation": "Kurátori munka",
+      "design": "Tervezés",
+      "documentation": "Dokumentáció",
+      "education": "Oktatás",
+      "exhibition": "Kiállítás",
+      "gaming": "Gaming",
+      "infotainment": "Infotainment",
+      "knowledge": "Tudás",
+      "maintenance": "Karbantartás",
+      "research": "Kutatás",
+      "restoration": "Helyreállítás",
+      "tourism": "Turizmus"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Rekonstrukció",
+      "digitalCapture": "Valóságrögzítés",
+      "digitalCreation": "Digitálisan született"
     }
   },
   "filterResults": "Találatok szűrése",
@@ -867,7 +890,7 @@ export default {
       "help": "Súgó",
       "home": "Kezdőlap",
       "partners": "Legyen a partnerünk",
-      "research": "Akadémiai és kutatási szféra számára",
+      "research": "Akadémikusok és kutatók számára",
       "shareYourCollections": "Ossza meg gyűjteményeit",
       "stories": "Történetek"
     },

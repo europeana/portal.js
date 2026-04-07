@@ -821,7 +821,30 @@ export default {
       "edmRights": "Declarație de drepturi pentru acest media",
       "edmSpatialResolution": "Rezoluție spațială (dpi)",
       "edmVertexCount": "Număr de vârfuri",
-      "schemaDigitalSourceType": "Tip sursă digitală"
+      "schemaDigitalSourceType": "Relația cu lumea reală"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Artă",
+      "creativity": "Creativitate",
+      "curation": "Curatoriere",
+      "design": "Design",
+      "documentation": "Documentare",
+      "education": "Educație",
+      "exhibition": "Expoziţie",
+      "gaming": "Gaming",
+      "infotainment": "Infotainment",
+      "knowledge": "Cunoștințe",
+      "maintenance": "Mentenanță",
+      "research": "Cercetare",
+      "restoration": "Restaurare",
+      "tourism": "Turism"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Reconstrucție",
+      "digitalCapture": "Captare a realității",
+      "digitalCreation": "Născut digital"
     }
   },
   "filterResults": "Filtrați rezultatele",

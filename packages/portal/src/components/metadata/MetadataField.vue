@@ -185,6 +185,17 @@
         if (this.limitDisplayValues && (display.values.length > this.limit)) {
           display.values = display.values.slice(0, this.limit).concat('…');
         }
+
+        display.values = display.values.map((value) => {
+          if (value.startsWith?.('http://') || value.startsWith?.('https://')) {
+            const termId = camelCase(value.split('/').pop());
+            if (this.$te(`fieldValues.${this.name}.${termId}`)) {
+              return this.$t(`fieldValues.${this.name}.${termId}`);
+            }
+          }
+          return value;
+        });
+
         return display;
       },
 
@@ -234,7 +245,6 @@
       isColourValue() {
         return this.name === 'edmComponentColor';
       }
-
     },
 
     methods: {

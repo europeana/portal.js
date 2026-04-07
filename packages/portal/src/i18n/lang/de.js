@@ -821,7 +821,30 @@ export default {
       "edmRights": "Rechteerklärung für dieses Medium",
       "edmSpatialResolution": "Räumliche Auflösung (dpi)",
       "edmVertexCount": "Anzahl der Vertices",
-      "schemaDigitalSourceType": "Digitaler Quellentyp"
+      "schemaDigitalSourceType": "Beziehung zur realen Welt"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Kunst",
+      "creativity": "Kreativität",
+      "curation": "Kuratierung",
+      "design": "Design",
+      "documentation": "Dokumentation",
+      "education": "Bildung",
+      "exhibition": "Ausstellung",
+      "gaming": "Gaming",
+      "infotainment": "Infotainment",
+      "knowledge": "Wissen",
+      "maintenance": "Wartung",
+      "research": "Forschung",
+      "restoration": "Wiederherstellung",
+      "tourism": "Tourismus"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Rekonstruktion",
+      "digitalCapture": "Realitätserfassung",
+      "digitalCreation": "Digital geboren"
     }
   },
   "filterResults": "Filter Ergebnisse",
@@ -862,7 +885,7 @@ export default {
     "navigation": {
       "about": "Über (uns)",
       "collections": "Sammlungen",
-      "educators": "Für Lehrkräfte",
+      "educators": "Für Lehrende",
       "featureIdeas": "Funktionsideen",
       "help": "Hilfe",
       "home": "Startseite",

@@ -821,7 +821,30 @@ export default {
       "edmRights": "Декларация за права за тази медия",
       "edmSpatialResolution": "Пространствена разделителна способност (dpi)",
       "edmVertexCount": "Брой върхове",
-      "schemaDigitalSourceType": "Тип цифров източник"
+      "schemaDigitalSourceType": "Връзка с реалния свят"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Изкуство",
+      "creativity": "Креативност",
+      "curation": "Куриране",
+      "design": "Дизайн",
+      "documentation": "Документация",
+      "education": "Образование",
+      "exhibition": "Изложба",
+      "gaming": "Гейминг",
+      "infotainment": "Инфотейнмънт",
+      "knowledge": "Знание",
+      "maintenance": "Поддръжка",
+      "research": "Изследване",
+      "restoration": "Възстановяване",
+      "tourism": "Туризъм"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Реконструкция",
+      "digitalCapture": "Заснемане на реалността",
+      "digitalCreation": "Родено в цифров вид"
     }
   },
   "filterResults": "Филтриране на резултати",

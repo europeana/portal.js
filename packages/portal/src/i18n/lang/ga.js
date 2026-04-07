@@ -821,7 +821,30 @@ export default {
       "edmRights": "Ráiteas cearta don mheán seo",
       "edmSpatialResolution": "Taifeach spásúil (dpi)",
       "edmVertexCount": "Líon na rinn",
-      "schemaDigitalSourceType": "Cineál foinse dhigiteach"
+      "schemaDigitalSourceType": "Gaol leis an bhfíorshaol"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Ealaín",
+      "creativity": "Cruthaitheacht",
+      "curation": "Coimeádadh",
+      "design": "Dearadh",
+      "documentation": "Doiciméadú",
+      "education": "Oideachas",
+      "exhibition": "Taispeántas",
+      "gaming": "Cluichíocht",
+      "infotainment": "Infotainment",
+      "knowledge": "Eolas",
+      "maintenance": "Cothabháil",
+      "research": "Taighde",
+      "restoration": "Athchóiriú",
+      "tourism": "Turasóireacht"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Athchóiriú",
+      "digitalCapture": "Gabháil réaltachta",
+      "digitalCreation": "Rugadh go digiteach"
     }
   },
   "filterResults": "Scag torthaí",
@@ -867,7 +890,7 @@ export default {
       "help": "Cabhair",
       "home": "Baile",
       "partners": "Bí i gcomhpháirt linn",
-      "research": "Don saol acadúil agus don taighde",
+      "research": "Do lucht acadúil agus taighde",
       "shareYourCollections": "Comhroinn do bhailiúcháin",
       "stories": "Scéalta"
     },

@@ -821,7 +821,30 @@ export default {
       "edmRights": "Rättighetsbeskrivning för denna media",
       "edmSpatialResolution": "Spatial upplösning (dpi)",
       "edmVertexCount": "Antal hörnpunkter",
-      "schemaDigitalSourceType": "Digital källtyp"
+      "schemaDigitalSourceType": "Relation till den verkliga världen"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Konst",
+      "creativity": "Kreativitet",
+      "curation": "Kuratering",
+      "design": "Design",
+      "documentation": "Dokumentation",
+      "education": "Utbildning",
+      "exhibition": "Utställning",
+      "gaming": "Gaming",
+      "infotainment": "Infotainment",
+      "knowledge": "Kunskap",
+      "maintenance": "Underhåll",
+      "research": "Forskning",
+      "restoration": "Restaurering",
+      "tourism": "Turism"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Rekonstruktion",
+      "digitalCapture": "Verklighetsfångst",
+      "digitalCreation": "Född digital"
     }
   },
   "filterResults": "Filtrera resultat",

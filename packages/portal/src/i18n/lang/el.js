@@ -821,7 +821,30 @@ export default {
       "edmRights": "Δήλωση δικαιωμάτων για αυτό το μέσο",
       "edmSpatialResolution": "Χωρική ανάλυση (dpi)",
       "edmVertexCount": "Αριθμός κορυφών",
-      "schemaDigitalSourceType": "Τύπος ψηφιακής πηγής"
+      "schemaDigitalSourceType": "Σχέση με τον πραγματικό κόσμο"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Τέχνη",
+      "creativity": "Δημιουργικότητα",
+      "curation": "Επιμέλεια",
+      "design": "Σχεδιασμός",
+      "documentation": "Τεκμηρίωση",
+      "education": "Εκπαίδευση",
+      "exhibition": "Έκθεση",
+      "gaming": "Γκέιμινγκ",
+      "infotainment": "Ψυχαγωγία και ενημέρωση",
+      "knowledge": "Γνώση",
+      "maintenance": "Συντήρηση",
+      "research": "Έρευνα",
+      "restoration": "Αποκατάσταση",
+      "tourism": "Τουρισμός"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Ανακατασκευή",
+      "digitalCapture": "Αποτύπωση πραγματικότητας",
+      "digitalCreation": "Εγγενώς ψηφιακό"
     }
   },
   "filterResults": "Αποτελέσματα φίλτρου",
