@@ -287,10 +287,14 @@
       border: 1px solid $black;
     }
 
-    .vjs-mouse-display .vjs-time-tooltip {
-      color: $white;
-      background-color: $black;
-      border: 1px solid $white;
+    .vjs-mouse-display {
+      z-index: 2;
+
+      .vjs-time-tooltip {
+        color: $white;
+        background-color: $black;
+        border: 1px solid $white;
+      }
     }
 
     .vjs-slider {
