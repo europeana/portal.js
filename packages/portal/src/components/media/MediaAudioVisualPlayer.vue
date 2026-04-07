@@ -304,6 +304,16 @@
         text-shadow: none;
         box-shadow: none;
       }
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 2rem;
+        bottom: -0.875rem;
+        z-index: 1;
+      }
     }
 
     .vjs-progress-control {
