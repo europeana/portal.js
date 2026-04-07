@@ -26,6 +26,11 @@
   import { ItemMediaPresentationSubtitleTrack } from '@/composables/subtitles.js';
   import { useEuScreen } from '@/composables/euScreen.js';
 
+  const controlsWithTooltips = ['.vjs-mute-control',
+                                '.vjs-fullscreen-control',
+                                'button.vjs-subtitles-button',
+                                'button.vjs-subs-caps-button'];
+
   export default {
     name: 'MediaAudioVisualPlayer',
 
@@ -157,6 +162,32 @@
         }
       },
 
+      getControlsWithTooltips() {
+        const playerElement = this.player.el();
+        const elements = [];
+        for (const control of controlsWithTooltips) {
+          elements.push(playerElement.querySelector(control));
+        }
+        return elements.filter(Boolean);
+      },
+
+      // Handle custom hover state - hide tooltips on mouseleave
+      initTooltips() {
+        const controls = this.getControlsWithTooltips();
+        for (const control of controls) {
+          control.addEventListener('mouseenter', () => control.classList.add('show-tooltip'));
+          control.addEventListener('mouseleave', () => {
+            control.classList.remove('show-tooltip');
+            control.blur();
+          });
+        }
+      },
+
+      onPlayerReady() {
+        this.initTextTracks();
+        this.initTooltips();
+      },
+
       async initVideojs() {
         this.player?.dispose();
 
@@ -181,7 +212,7 @@
           ]
         });
 
-        this.player.ready(this.initTextTracks);
+        this.player.ready(this.onPlayerReady);
       }
     }
   };
@@ -493,7 +524,7 @@
     .vjs-fullscreen-control {
       position: relative;
 
-      &:hover,
+      &.show-tooltip,
       &:focus {
         .vjs-control-text {
           @include show-tooltip;
@@ -505,7 +536,7 @@
     button.vjs-subs-caps-button:not([aria-expanded='true']) {
       position: relative;
 
-      &:hover,
+      &.show-tooltip,
       &:focus,
       .vjs-menu-button:focus {
         .vjs-control-text {
