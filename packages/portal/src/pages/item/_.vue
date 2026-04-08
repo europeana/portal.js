@@ -176,7 +176,7 @@
         deBias: computed(() => this.deBias),
         itemIsDeleted: computed(() => this.isDeleted),
         metadataLanguage: this.metadataLanguage,
-        subtitlingAnnotations: computed(() => this.subtitlingAnnotations)
+        textTrackAnnotations: computed(() => this.textTrackAnnotations)
       };
     },
 
@@ -330,7 +330,7 @@
       dataProviderEntityLabel() {
         return this.metadata.edmDataProvider?.def?.[0].prefLabel;
       },
-      subtitlingAnnotations() {
+      textTrackAnnotations() {
         return this.annotationsByMotivation('subtitling').concat(this.annotationsByMotivation('captioning'));
       },
       taggingAnnotations() {

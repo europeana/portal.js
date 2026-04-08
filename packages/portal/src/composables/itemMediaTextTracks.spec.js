@@ -1,6 +1,6 @@
-import { ItemMediaPresentationSubtitleTrack } from './subtitles.js';
+import { ItemMediaPresentationTextTrack } from './itemMediaTextTracks.js';
 
-describe('ItemMediaPresentationSubtitleTrack', () => {
+describe('ItemMediaPresentationTextTrack', () => {
   it('parses subtitling annotation body', () => {
     const anno = {
       body: {
@@ -10,7 +10,7 @@ describe('ItemMediaPresentationSubtitleTrack', () => {
       motivation: 'subtitling'
     };
 
-    const track = new ItemMediaPresentationSubtitleTrack(anno);
+    const track = new ItemMediaPresentationTextTrack(anno);
 
     expect(track.kind).toBe('subtitles');
     expect(track.language).toBe('en');
@@ -33,7 +33,7 @@ describe('ItemMediaPresentationSubtitleTrack', () => {
         motivation: 'captioning'
       };
 
-      const track = new ItemMediaPresentationSubtitleTrack(anno);
+      const track = new ItemMediaPresentationTextTrack(anno);
 
       expect(track.kind).toBe('captions');
     });

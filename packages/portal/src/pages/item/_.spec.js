@@ -799,10 +799,10 @@ describe('pages/item/_.vue', () => {
           const wrapper = await factory();
           await wrapper.setData({ annotations });
 
-          const subtitlingAnnotations = wrapper.vm.annotationsByMotivation('subtitling');
+          const textTrackAnnotations = wrapper.vm.annotationsByMotivation('subtitling');
 
-          expect(subtitlingAnnotations[0].motivation).toBe('subtitling');
-          expect(subtitlingAnnotations.length).toBe(1);
+          expect(textTrackAnnotations[0].motivation).toBe('subtitling');
+          expect(textTrackAnnotations.length).toBe(1);
         });
       });
 
@@ -1016,16 +1016,16 @@ describe('pages/item/_.vue', () => {
       });
     });
 
-    describe('subtitlingAnnotations', () => {
+    describe('textTrackAnnotations', () => {
       it('returns both subtitling and captioning annotations', async() => {
         const wrapper = factory();
         await wrapper.setData({ annotations });
 
-        const subtitlingAnnotations = wrapper.vm.subtitlingAnnotations;
+        const textTrackAnnotations = wrapper.vm.textTrackAnnotations;
 
-        expect(subtitlingAnnotations.length).toBe(2);
-        expect(subtitlingAnnotations[0].motivation).toBe('subtitling');
-        expect(subtitlingAnnotations[1].motivation).toBe('captioning');
+        expect(textTrackAnnotations.length).toBe(2);
+        expect(textTrackAnnotations[0].motivation).toBe('subtitling');
+        expect(textTrackAnnotations[1].motivation).toBe('captioning');
       });
     });
   });

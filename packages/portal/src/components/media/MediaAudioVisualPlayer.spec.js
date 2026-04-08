@@ -3,7 +3,7 @@ import { mountNuxt } from '@test/utils.js';
 import sinon from 'sinon';
 import MediaAudioVisualPlayer from '@/components/media/MediaAudioVisualPlayer.vue';
 import nock from 'nock';
-import { ItemMediaPresentationSubtitleTrack } from '@/composables/subtitles.js';
+import { ItemMediaPresentationTextTrack } from '@/composables/itemMediaTextTracks.js';
 
 const localVue = createLocalVue();
 const factory = ({ propsData } = {}) => mountNuxt(MediaAudioVisualPlayer, {
@@ -13,7 +13,7 @@ const factory = ({ propsData } = {}) => mountNuxt(MediaAudioVisualPlayer, {
     format: 'video/mpeg',
     itemId: '/123/abcdef',
     poster: 'null',
-    subTitles: [],
+    textTracks: [],
     url: 'https://www.example.org/video.mpeg',
     ...propsData
   },
@@ -127,15 +127,15 @@ describe('components/media/MediaAudioVisualPlayer', () => {
         });
       });
       describe('when there are subtitles to display', () => {
-        const subtitles = [
-          new ItemMediaPresentationSubtitleTrack({
+        const textTracks = [
+          new ItemMediaPresentationTextTrack({
             body: {
               language: 'en',
               value: '1\n00:00:01,000 --> 00:00:02,000\n subtitle \n'
             },
             motivation: 'subtitling'
           }),
-          new ItemMediaPresentationSubtitleTrack({
+          new ItemMediaPresentationTextTrack({
             body: {
               language: 'nl',
               value: '1\n00:00:01,000 --> 00:00:02,000\n ondertitel \n'
@@ -145,7 +145,7 @@ describe('components/media/MediaAudioVisualPlayer', () => {
         ];
 
         it('adds a text track and cues for each subtitle', async() => {
-          const wrapper = factory({ propsData: { subtitles } });
+          const wrapper = factory({ propsData: { textTracks } });
 
           // init player first, so the tracks can be added to something
           await wrapper.vm.fetch();

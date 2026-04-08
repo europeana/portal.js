@@ -1,6 +1,6 @@
 import { readonly, ref, watchEffect } from 'vue';
 
-export class ItemMediaPresentationSubtitleTrack {
+export class ItemMediaPresentationTextTrack {
   kind = 'subtitles';
   label;
   language;
@@ -20,11 +20,11 @@ export class ItemMediaPresentationSubtitleTrack {
     return annoBodyValue
       .trim()
       .split(/[\r\n]{2,}/)
-      .map((seq) => ItemMediaPresentationSubtitleCue.parseSRTSequence(seq));
+      .map((seq) => ItemMediaPresentationTextCue.parseSRTSequence(seq));
   }
 }
 
-export class ItemMediaPresentationSubtitleCue {
+export class ItemMediaPresentationTextCue {
   startTime;
   endTime;
   text;
@@ -43,7 +43,7 @@ export class ItemMediaPresentationSubtitleCue {
     const endTime = this.parseSRTTimeToSeconds(timespan[1]);
     const text = parts[2];
 
-    return new ItemMediaPresentationSubtitleCue(startTime, endTime, text);
+    return new ItemMediaPresentationTextCue(startTime, endTime, text);
   }
 
   static parseSRTTimeToSeconds(time) {
@@ -57,16 +57,16 @@ export class ItemMediaPresentationSubtitleCue {
   }
 }
 
-export function useSubtitles(annotations, resource) {
-  const subtitles = ref([]);
+export function useItemMediaTextTracks(annotations, resource) {
+  const textTracks = ref([]);
 
   watchEffect(() => {
-    subtitles.value = annotations?.value
+    textTracks.value = annotations?.value
       ?.filter((anno) => anno.target?.source === resource?.value?.id)
-      .map((anno) => new ItemMediaPresentationSubtitleTrack(anno));
+      .map((anno) => new ItemMediaPresentationTextTrack(anno));
   });
 
   return {
-    subtitles: readonly(subtitles)
+    textTracks: readonly(textTracks)
   };
 }

@@ -23,7 +23,7 @@
   // TODO: consider if this is needed when overriding styles
   import 'video.js/dist/video-js.min.css';
 
-  import { ItemMediaPresentationSubtitleTrack } from '@/composables/subtitles.js';
+  import { ItemMediaPresentationTextTrack } from '@/composables/itemMediaTextTracks.js';
   import { useEuScreen } from '@/composables/euScreen.js';
 
   const controlsWithTooltips = ['.vjs-mute-control',
@@ -50,10 +50,10 @@
         default: null
       },
 
-      subtitles: {
+      textTracks: {
         type: Array,
         default: () => [],
-        validator: (prop) => Array.isArray(prop) && prop.every((item) => item instanceof ItemMediaPresentationSubtitleTrack)
+        validator: (prop) => Array.isArray(prop) && prop.every((item) => item instanceof ItemMediaPresentationTextTrack)
       },
 
       url: {
@@ -126,7 +126,7 @@
         process.client && this.initVideojs();
       },
 
-      subtitles() {
+      textTracks() {
         process.client && this.initTextTracks();
       }
     },
@@ -137,11 +137,11 @@
 
     methods: {
       initTextTracks() {
-        if (!this.player || (this.subtitles.length === 0)) {
+        if (!this.player || (this.textTracks.length === 0)) {
           return;
         }
 
-        for (const track of this.subtitles) {
+        for (const track of this.textTracks) {
           let textTrack;
           try {
             textTrack = this.player.addTextTrack(track.kind, track.label, track.language);
