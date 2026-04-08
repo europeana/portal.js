@@ -156,6 +156,39 @@ const fixtures = {
   }
 };
 
+const annotations = [
+  {
+    motivation: 'linkForContributing',
+    body: 'https://transcribation.europeana.eu'
+  },
+  {
+    motivation: 'transcribing',
+    body: {
+      type: 'FullTextResource',
+      value: 'This is the full transcription!',
+      language: 'en'
+    }
+  },
+  {
+    motivation: 'tagging',
+    body: {
+      type: 'Concept',
+      prefLabel: {
+        en: 'tag',
+        fr: 'tag FR'
+      }
+    }
+  },
+  {
+    motivation: 'subtitling',
+    body: {}
+  },
+  {
+    motivation: 'captioning',
+    body: {}
+  }
+];
+
 const entityFindStub = sinon.stub();
 const logEventSpy = sinon.spy();
 const redirectSpy = sinon.spy();
@@ -725,31 +758,6 @@ describe('pages/item/_.vue', () => {
     });
 
     describe('annotationsByMotivation', () => {
-      const annotations = [
-        {
-          motivation: 'linkForContributing',
-          body: 'https://transcribation.europeana.eu'
-        },
-        {
-          motivation: 'transcribing',
-          body: {
-            type: 'FullTextResource',
-            value: 'This is the full transcription!',
-            language: 'en'
-          }
-        },
-        {
-          motivation: 'tagging',
-          body: {
-            type: 'Concept',
-            prefLabel: {
-              en: 'tag',
-              fr: 'tag FR'
-            }
-          }
-        }
-      ];
-
       describe('when asking for linkForContributing', () => {
         it('has a linkForContributing motivation', async() => {
           const wrapper = await factory();
@@ -783,6 +791,42 @@ describe('pages/item/_.vue', () => {
 
           expect(taggingAnnotations[0].motivation).toBe('transcribing');
           expect(taggingAnnotations.length).toBe(1);
+        });
+      });
+
+      describe('when asking for subtitling annotations', () => {
+        it('has a subtitling motivation', async() => {
+          const wrapper = await factory();
+          await wrapper.setData({ annotations });
+
+          const subtitlingAnnotations = wrapper.vm.annotationsByMotivation('subtitling');
+
+          expect(subtitlingAnnotations[0].motivation).toBe('subtitling');
+          expect(subtitlingAnnotations.length).toBe(1);
+        });
+      });
+
+      describe('when asking for captioning annotations', () => {
+        it('or a captioning motivation', async() => {
+          const wrapper = await factory();
+          await wrapper.setData({ annotations });
+
+          const captioningAnnotations = wrapper.vm.annotationsByMotivation('captioning');
+
+          expect(captioningAnnotations[0].motivation).toBe('captioning');
+          expect(captioningAnnotations.length).toBe(1);
+        });
+      });
+
+      describe('when annotations is undefined', () => {
+        it('returns an empty array', async() => {
+          const wrapper = await factory();
+          await wrapper.setData({ annotations: undefined });
+
+          const taggingAnnotations = wrapper.vm.annotationsByMotivation('tagging');
+
+          expect(taggingAnnotations).toEqual([]);
+          expect(taggingAnnotations.length).toBe(0);
         });
       });
     });
@@ -969,6 +1013,19 @@ describe('pages/item/_.vue', () => {
         expect(matomoOptions.dimension2).toBe('Data Provider');
         expect(matomoOptions.dimension3).toBe('Provider');
         expect(matomoOptions.dimension4).toBe('http://rightsstatements.org/vocab/InC/1.0/');
+      });
+    });
+
+    describe('subtitlingAnnotations', () => {
+      it('returns both subtitling and captioning annotations', async() => {
+        const wrapper = factory();
+        await wrapper.setData({ annotations });
+
+        const subtitlingAnnotations = wrapper.vm.subtitlingAnnotations;
+
+        expect(subtitlingAnnotations.length).toBe(2);
+        expect(subtitlingAnnotations[0].motivation).toBe('subtitling');
+        expect(subtitlingAnnotations[1].motivation).toBe('captioning');
       });
     });
   });
