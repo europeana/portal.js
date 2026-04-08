@@ -23,9 +23,13 @@ function readService() {
   for (const prop of PROPERTIES) {
     service[prop.id] = readProperty(prop.id);
 
-    if (prop.required && !service[prop.id]) {
-      console.error(`${propertyEnvVarName(prop.id)} is required`);
-      process.exit(1);
+    if (!service[prop.id]) {
+      if (prop.required) {
+        console.error(`${propertyEnvVarName(prop.id)} is required`);
+        process.exit(1);
+      } else {
+        delete service[prop.id];
+      }
     }
 
     if (prop.boolean) {
