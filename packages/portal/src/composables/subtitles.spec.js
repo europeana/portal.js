@@ -2,12 +2,15 @@ import { ItemMediaPresentationSubtitleTrack } from './subtitles.js';
 
 describe('ItemMediaPresentationSubtitleTrack', () => {
   it('parses subtitling annotation body', () => {
-    const annoBody = {
-      language: 'en',
-      value: '1\n00:00:21,840 --> 00:00:24,910\nFirstly, this.\n\n2\n00:00:24,990 --> 00:00:28,500\nSecondly, that.\n'
+    const anno = {
+      body: {
+        language: 'en',
+        value: '1\n00:00:21,840 --> 00:00:24,910\nFirstly, this.\n\n2\n00:00:24,990 --> 00:00:28,500\nSecondly, that.\n'
+      },
+      motivation: 'subtitling'
     };
 
-    const track = new ItemMediaPresentationSubtitleTrack('subtitling', annoBody);
+    const track = new ItemMediaPresentationSubtitleTrack(anno);
 
     expect(track.kind).toBe('subtitles');
     expect(track.language).toBe('en');
@@ -22,12 +25,15 @@ describe('ItemMediaPresentationSubtitleTrack', () => {
 
   describe('when motivation is captioning', () => {
     it('sets kind to captions', () => {
-      const annoBody = {
-        language: 'en',
-        value: '1\n00:00:21,840 --> 00:00:24,910\nFirstly, this.\n\n2\n00:00:24,990 --> 00:00:28,500\nSecondly, that.\n'
+      const anno = {
+        body: {
+          language: 'en',
+          value: '1\n00:00:21,840 --> 00:00:24,910\nFirstly, this.\n\n2\n00:00:24,990 --> 00:00:28,500\nSecondly, that.\n'
+        },
+        motivation: 'captioning'
       };
 
-      const track = new ItemMediaPresentationSubtitleTrack('captioning', annoBody);
+      const track = new ItemMediaPresentationSubtitleTrack(anno);
 
       expect(track.kind).toBe('captions');
     });

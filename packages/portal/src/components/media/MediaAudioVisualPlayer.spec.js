@@ -128,13 +128,19 @@ describe('components/media/MediaAudioVisualPlayer', () => {
       });
       describe('when there are subtitles to display', () => {
         const subtitles = [
-          new ItemMediaPresentationSubtitleTrack('subtitling', {
-            language: 'en',
-            value: '1\n00:00:01,000 --> 00:00:02,000\n subtitle \n'
+          new ItemMediaPresentationSubtitleTrack({
+            body: {
+              language: 'en',
+              value: '1\n00:00:01,000 --> 00:00:02,000\n subtitle \n'
+            },
+            motivation: 'subtitling'
           }),
-          new ItemMediaPresentationSubtitleTrack('captioning', {
-            language: 'nl',
-            value: '1\n00:00:01,000 --> 00:00:02,000\n ondertitel \n'
+          new ItemMediaPresentationSubtitleTrack({
+            body: {
+              language: 'nl',
+              value: '1\n00:00:01,000 --> 00:00:02,000\n ondertitel \n'
+            },
+            motivation: 'captioning'
           })
         ];
 
