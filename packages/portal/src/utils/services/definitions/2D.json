@@ -23,6 +23,7 @@
   {
     "name": "institutNationalDeLAudiovisuel",
     "oembed": "https://oembed.europeana.eu/",
+    "responsive": false,
     "schemes": [
       "http://www.ina.fr/video/*",
       "http://www.ina.fr/*/video/*",

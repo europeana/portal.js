@@ -37,6 +37,7 @@
   {
     "name": "euscreen",
     "oembed": "https://oembed.euscreen.eu/services/oembed",
+    "responsive": true,
     "schemes": [
       "http://www.euscreen.eu/item.html*",
       "https://www.euscreen.eu/item.html*",
@@ -55,6 +56,7 @@
   {
     "name": "tv3",
     "oembed": "https://oembed.europeana.eu/",
+    "responsive": true,
     "schemes": [
       "http://www.ccma.cat/tv3/alacarta/programa/titol/video/*/",
       "https://mp4-down-high-int.ccma.cat/*"
@@ -64,6 +66,7 @@
   {
     "name": "vimeo",
     "oembed": "https://vimeo.com/api/oembed.json",
+    "responsive": true,
     "schemes": [
       "https://vimeo.com/*",
       "https://vimeo.com/album/*/video/*",
@@ -83,6 +86,7 @@
   {
     "name": "youTube",
     "oembed": "https://www.youtube.com/oembed",
+    "responsive": true,
     "schemes": [
       "http://www.youtube.com/embed/*",
       "https://youtube.com/watch*",

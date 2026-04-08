@@ -4,6 +4,7 @@ const PROPERTIES = [
   { id: 'name', required: true },
   { id: 'oembed' },
   { id: 'purpose', required: true },
+  { id: 'responsive', boolean: true },
   { id: 'schemes', required: true, split: true },
   { id: 'title', required: true }
 ];
@@ -16,13 +17,17 @@ function readService() {
 
     if (process.env[envVarName]) {
       service[prop.id] = process.env[envVarName];
+
+      if (prop.boolean) {
+        service[prop.id] = service[prop.id] === 'true';
+      }
+
+      if (prop.split) {
+        service[prop.id] = service[prop.id].split(',');
+      }
     } else if (prop.required) {
       console.error(`${envVarName} is required`);
       process.exit(1);
-    }
-
-    if (prop.split) {
-      service[prop.id] = service[prop.id].split(',');
     }
   }
 

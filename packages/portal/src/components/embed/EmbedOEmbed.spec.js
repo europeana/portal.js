@@ -71,7 +71,6 @@ describe('components/embed/EmbedOEmbed', () => {
       expect(wrapper.vm.html).toBe(response.html);
       expect(wrapper.vm.width).toBe(response.width);
       expect(wrapper.vm.height).toBe(response.height);
-      expect(wrapper.vm.providerName).toBe(response['provider_name']);
     });
 
     it('displays an error if response does not contain HTML', async() => {
@@ -94,34 +93,6 @@ describe('components/embed/EmbedOEmbed', () => {
 
         await wrapper.vm.watch.url.call(wrapper.vm);
         expect(wrapper.vm.$fetch.called).toBe(true);
-      });
-    });
-  });
-
-  describe('computed', () => {
-    describe('responsiveProvider', () => {
-      it('is `true` for YouTube', () => {
-        const wrapper = factory({ data: { 'providerName': 'YouTube' } });
-
-        expect(wrapper.vm.responsiveProvider).toBe(true);
-      });
-
-      it('is `true` for Vimeo', () => {
-        const wrapper = factory({ data: { 'providerName': 'Vimeo' } });
-
-        expect(wrapper.vm.responsiveProvider).toBe(true);
-      });
-
-      it('is `true` for Sketchfab', () => {
-        const wrapper = factory({ data: { 'providerName': 'Sketchfab' } });
-
-        expect(wrapper.vm.responsiveProvider).toBe(true);
-      });
-
-      it('is `false` for SoundCloud', () => {
-        const wrapper = factory({ data: { 'providerName': 'SoundCloud' } });
-
-        expect(wrapper.vm.responsiveProvider).toBe(false);
       });
     });
   });
