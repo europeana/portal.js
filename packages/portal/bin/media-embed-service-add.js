@@ -4,30 +4,42 @@ const PROPERTIES = [
   { id: 'name', required: true },
   { id: 'oembed' },
   { id: 'purpose', required: true },
-  { id: 'responsive', boolean: true },
+  { id: 'responsive', boolean: true, dependsOn: 'oembed' },
   { id: 'schemes', required: true, split: true },
   { id: 'title', required: true }
 ];
+
+function propertyEnvVarName(id) {
+  return `SERVICE_${id.toUpperCase()}`;
+}
+
+function readProperty(id) {
+  return process.env[propertyEnvVarName(id)];
+}
 
 function readService() {
   const service = {};
 
   for (const prop of PROPERTIES) {
-    const envVarName = `SERVICE_${prop.id.toUpperCase()}`;
+    service[prop.id] = readProperty(prop.id);
 
-    if (process.env[envVarName]) {
-      service[prop.id] = process.env[envVarName];
-
-      if (prop.boolean) {
-        service[prop.id] = service[prop.id] === 'true';
-      }
-
-      if (prop.split) {
-        service[prop.id] = service[prop.id].split(',');
-      }
-    } else if (prop.required) {
-      console.error(`${envVarName} is required`);
+    if (prop.required && !service[prop.id]) {
+      console.error(`${propertyEnvVarName(prop.id)} is required`);
       process.exit(1);
+    }
+
+    if (prop.boolean) {
+      service[prop.id] = service[prop.id] === 'true';
+    }
+
+    if (prop.split) {
+      service[prop.id] = service[prop.id].split(',');
+    }
+  }
+
+  for (const prop of PROPERTIES) {
+    if (prop.dependsOn && !service[prop.dependsOn]) {
+      delete service[prop.id];
     }
   }
 
