@@ -81,6 +81,10 @@
   content: '\e96a';
 }
 
+.icon-closedcaption:before {
+  content: '\e974';
+}
+
 .icon-collections::before {
   content: '\e91d';
 }
@@ -257,6 +261,10 @@
   content: '\e936';
 }
 
+.icon-play:before {
+  content: '\e975';
+}
+
 .icon-quote::before {
   content: '\e928';
 }
@@ -319,6 +327,10 @@
 
 .icon-stories::before {
   content: '\e951';
+}
+
+.icon-subtitles:before {
+  content: '\e976';
 }
 
 .icon-ic-tag::before {
@@ -387,6 +399,14 @@
 
 .icon-view-mosaic::before {
   content: '\e94a';
+}
+
+.icon-volume-off:before {
+  content: '\e978';
+}
+
+.icon-volume-on:before {
+  content: '\e977';
 }
 
 .icon-zoom-in:before {

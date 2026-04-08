@@ -156,5 +156,43 @@ describe('components/media/MediaAudioVisualPlayer', () => {
         });
       });
     });
+    describe('initTooltips', () => {
+      it('adds event listeners to handle hiding and showing tooltips', async() => {
+        const wrapper = factory();
+        // Setup component so things can be initialised
+        await wrapper.vm.fetch();
+
+        await wrapper.vm.initVideojs();
+        // Wait for next tick when player is set.
+        await wrapper.vm.$nextTick();
+
+        await wrapper.vm.initTooltips();
+
+        const controls = wrapper.vm.getControlsWithTooltips();
+        for (const control of controls) {
+          control.blur = sinon.spy();
+
+          control.dispatchEvent(new Event('mouseenter'));
+          expect(control.classList.contains('show-tooltip')).toBe(true);
+
+          control.dispatchEvent(new Event('mouseleave'));
+          expect(control.classList.contains('show-tooltip')).toBe(false);
+          expect(control.blur.called).toBe(true);
+        }
+      });
+    });
+    describe('onPlayerReady', () => {
+      it('initialises text tracks and tooltips', async() => {
+        const wrapper = factory();
+
+        wrapper.vm.initTextTracks = sinon.spy();
+        wrapper.vm.initTooltips = sinon.spy();
+
+        wrapper.vm.onPlayerReady();
+
+        expect(wrapper.vm.initTextTracks.called).toBe(true);
+        expect(wrapper.vm.initTooltips.called).toBe(true);
+      });
+    });
   });
 });
