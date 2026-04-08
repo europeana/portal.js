@@ -29,7 +29,7 @@
   const controlsWithTooltips = ['.vjs-mute-control',
                                 '.vjs-fullscreen-control',
                                 'button.vjs-subtitles-button',
-                                'button.vjs-subs-caps-button'];
+                                'button.vjs-captions-button'];
 
   export default {
     name: 'MediaAudioVisualPlayer',
@@ -85,7 +85,7 @@
               'muteToggle',
               'volumeControl',
               'subtitlesButton',
-              'subsCapsButton',
+              'captionsButton',
               'fullscreenToggle'
             ]
           },
@@ -454,7 +454,7 @@
       content: '\e976';
     }
 
-    .vjs-subs-caps-button .vjs-icon-placeholder::before {
+    .vjs-captions-button .vjs-icon-placeholder::before {
       @extend %icon-font;
       content: '\e974';
     }
@@ -494,7 +494,7 @@
     }
 
     .vjs-subtitles-button,
-    .vjs-subs-caps-button,
+    .vjs-captions-button,
     .vjs-fullscreen-control {
       .vjs-control-text {
         right: 0;
@@ -505,7 +505,7 @@
     .vjs-mute-control,
     .vjs-fullscreen-control,
     button.vjs-subtitles-button,
-    button.vjs-subs-caps-button {
+    button.vjs-captions-button {
       .vjs-control-text {
         position: absolute;
         top: -50%;
@@ -547,7 +547,7 @@
     }
 
     button.vjs-subtitles-button:not([aria-expanded='true']),
-    button.vjs-subs-caps-button:not([aria-expanded='true']) {
+    button.vjs-captions-button:not([aria-expanded='true']) {
       position: relative;
 
       &.show-tooltip,
