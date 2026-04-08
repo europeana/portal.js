@@ -85,13 +85,15 @@ describe('components/embed/EmbedOEmbed', () => {
 
       expect(alertMessage.attributes('error')).toContain('messages.externalContentError');
     });
-    describe('is re-triggerd by the url watcher', () => {
+
+    describe('is re-triggerd by the mediaUrl watcher', () => {
       it('triggers a $fetch call', async() => {
         const wrapper = factory({ propsData: { url, endpoint } });
 
         sinon.spy(wrapper.vm, '$fetch');
 
-        await wrapper.vm.watch.url.call(wrapper.vm);
+        await wrapper.setProps({ url: 'https://example.org/media/456' });
+
         expect(wrapper.vm.$fetch.called).toBe(true);
       });
     });
