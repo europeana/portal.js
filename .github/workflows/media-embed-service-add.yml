@@ -39,7 +39,7 @@ env:
   SERVICE_NAME: ${{ inputs.name }}
   SERVICE_OEMBED: ${{ inputs.oembed }}
   SERVICE_PURPOSE: ${{ inputs.purpose }}
-  SERVICE_RESPONSIVE: ${{ input.responsive }}
+  SERVICE_RESPONSIVE: ${{ inputs.responsive }}
   SERVICE_SCHEMES: ${{ inputs.schemes }}
   SERVICE_TITLE: ${{ inputs.title }}
 
