@@ -331,7 +331,7 @@
         return this.metadata.edmDataProvider?.def?.[0].prefLabel;
       },
       subtitlingAnnotations() {
-        return this.annotationsByMotivation('subtitling');
+        return this.annotationsByMotivation('subtitling').concat(this.annotationsByMotivation('captioning'));
       },
       taggingAnnotations() {
         return this.annotationsByMotivation('tagging');
@@ -631,7 +631,7 @@
         try {
           const annotations = await this.$apis.annotation.search({
             query: `target_record_id:"${this.identifier}"`,
-            qf: 'motivation:(highlighting OR linkForContributing OR tagging OR subtitling)',
+            qf: 'motivation:(highlighting OR linkForContributing OR tagging OR subtitling OR captioning)',
             profile: 'dereference'
           });
           this.parseDeBiasAnnotations(annotations, { fields: ALL_METADATA_FIELDS, lang: this.$i18n.locale });
@@ -641,7 +641,7 @@
             terms: this.deBiasTerms
           };
 
-          this.annotations = (annotations || []).filter((anno) => ['linkForContributing', 'subtitling', 'tagging'].includes(anno.motivation));
+          this.annotations = (annotations || []).filter((anno) => ['captioning', 'linkForContributing', 'subtitling', 'tagging'].includes(anno.motivation));
         } catch {
           // don't let an Annotation API error bring the whole page down
           this.annotations = [];

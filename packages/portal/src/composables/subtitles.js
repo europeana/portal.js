@@ -6,10 +6,14 @@ export class ItemMediaPresentationSubtitleTrack {
   language;
   cues = [];
 
-  constructor(annoBody) {
+  constructor(annoMotivation, annoBody) {
     this.label = annoBody.language?.toUpperCase();
     this.language = annoBody.language;
     this.cues = this.constructor.parseAnnoBodyValue(annoBody.value);
+
+    if (annoMotivation === 'captioning') {
+      this.kind = 'captions';
+    }
   }
 
   static parseAnnoBodyValue(annoBodyValue) {
@@ -59,7 +63,7 @@ export function useSubtitles(annotations, resource) {
   watchEffect(() => {
     subtitles.value = annotations?.value
       ?.filter((anno) => anno.target?.source === resource?.value?.id)
-      .map((anno) => new ItemMediaPresentationSubtitleTrack(anno.body));
+      .map((anno) => new ItemMediaPresentationSubtitleTrack(anno.motivation, anno.body));
   });
 
   return {

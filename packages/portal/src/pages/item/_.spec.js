@@ -349,7 +349,7 @@ describe('pages/item/_.vue', () => {
 
       expect(wrapper.vm.$apis.annotation.search.calledWith({
         query: 'target_record_id:"/123/abc"',
-        qf: 'motivation:(highlighting OR linkForContributing OR tagging OR subtitling)',
+        qf: 'motivation:(highlighting OR linkForContributing OR tagging OR subtitling OR captioning)',
         profile: 'dereference'
       })).toBe(true);
     });

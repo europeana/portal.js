@@ -7,7 +7,7 @@ describe('ItemMediaPresentationSubtitleTrack', () => {
       value: '1\n00:00:21,840 --> 00:00:24,910\nFirstly, this.\n\n2\n00:00:24,990 --> 00:00:28,500\nSecondly, that.\n'
     };
 
-    const track = new ItemMediaPresentationSubtitleTrack(annoBody);
+    const track = new ItemMediaPresentationSubtitleTrack('subtitling', annoBody);
 
     expect(track.kind).toBe('subtitles');
     expect(track.language).toBe('en');
@@ -18,5 +18,18 @@ describe('ItemMediaPresentationSubtitleTrack', () => {
     expect(track.cues[1].startTime).toBe(24.99);
     expect(track.cues[1].endTime).toBe(28.5);
     expect(track.cues[1].text).toBe('Secondly, that.');
+  });
+
+  describe('when motivation is captioning', () => {
+    it('sets kind to captions', () => {
+      const annoBody = {
+        language: 'en',
+        value: '1\n00:00:21,840 --> 00:00:24,910\nFirstly, this.\n\n2\n00:00:24,990 --> 00:00:28,500\nSecondly, that.\n'
+      };
+
+      const track = new ItemMediaPresentationSubtitleTrack('captioning', annoBody);
+
+      expect(track.kind).toBe('captions');
+    });
   });
 });
