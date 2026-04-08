@@ -97,6 +97,13 @@
     "title": "Slidebean"
   },
   {
+    "name": "testResponsivenessWithoutOembed",
+    "schemes": [
+      "https://example.org/*"
+    ],
+    "title": "Test responsiveness without oEmbed"
+  },
+  {
     "name": "tmaticTravel",
     "schemes": [
       "https://tmatic.travel/en/view/activity/*"
