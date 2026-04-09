@@ -142,7 +142,7 @@
         }
 
         for (const track of this.subtitles) {
-          const trackLabel = this.$t(`audioVisualPlayer.${track.kind}Option`, { language: this.$t(`facets.LANGUAGE.options.${track.label.toLowerCase()}`) });
+          const trackLabel = this.$t(`audioVisualPlayer.${track.kind}Option`, { language: this.$t(`facets.LANGUAGE.options.${track.language.toLowerCase()}`) });
           let textTrack;
           try {
             textTrack = this.player.addTextTrack(track.kind, trackLabel, track.language);

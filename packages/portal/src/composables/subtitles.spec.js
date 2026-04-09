@@ -11,7 +11,6 @@ describe('ItemMediaPresentationSubtitleTrack', () => {
 
     expect(track.kind).toBe('subtitles');
     expect(track.language).toBe('en');
-    expect(track.label).toBe('EN');
     expect(track.cues[0].startTime).toBe(21.84);
     expect(track.cues[0].endTime).toBe(24.91);
     expect(track.cues[0].text).toBe('Firstly, this.');

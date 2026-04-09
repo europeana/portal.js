@@ -2,12 +2,10 @@ import { readonly, ref, watchEffect } from 'vue';
 
 export class ItemMediaPresentationSubtitleTrack {
   kind = 'subtitles';
-  label;
   language;
   cues = [];
 
   constructor(annoBody) {
-    this.label = annoBody.language?.toUpperCase();
     this.language = annoBody.language;
     this.cues = this.constructor.parseAnnoBodyValue(annoBody.value);
   }
