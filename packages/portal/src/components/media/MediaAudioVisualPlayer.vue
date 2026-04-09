@@ -29,7 +29,8 @@
   const controlsWithTooltips = ['.vjs-mute-control',
                                 '.vjs-fullscreen-control',
                                 'button.vjs-subtitles-button',
-                                'button.vjs-captions-button'];
+                                'button.vjs-captions-button',
+                                'button.vjs-subs-caps-button'];
 
   export default {
     name: 'MediaAudioVisualPlayer',
@@ -86,12 +87,14 @@
               'volumeControl',
               'subtitlesButton',
               'captionsButton',
+              'subsCapsButton',
               'fullscreenToggle'
             ]
           },
           noUITitleAttributes: true, // do not add title attributes to controls
           poster: this.poster, // vjs-poster element; not set on the native video element to prevent duplication
-          textTrackSettings: false // disable captions settings menu
+          textTrackSettings: false, // disable captions settings menu
+          language: 'es' // TODO: remove this
         },
         player: null
       };
@@ -453,7 +456,8 @@
     }
 
     // --- Override icons with custom icons ---
-    .vjs-subtitles-button .vjs-icon-placeholder::before {
+    .vjs-subtitles-button .vjs-icon-placeholder::before,
+    .vjs-subs-caps-button .vjs-icon-placeholder::before {
       @extend %icon-font;
       content: '\e976';
     }
@@ -462,7 +466,6 @@
       @extend %icon-font;
       content: '\e974';
     }
-
     .vjs-fullscreen-control .vjs-icon-placeholder::before {
       @extend %icon-font;
       content: '\e95f';
@@ -490,6 +493,11 @@
       content: '\e975';
     }
 
+    .vjs-subs-caps-button + .vjs-menu .vjs-captions-menu-item .vjs-menu-item-text .vjs-icon-placeholder::before {
+      @extend %icon-font;
+      content: '\e974';
+    }
+
     // --- Tooltip styles ---
 
     // Prevent tooltips from overflowing viewport
@@ -499,6 +507,7 @@
 
     .vjs-subtitles-button,
     .vjs-captions-button,
+    .vjs-subs-caps-button,
     .vjs-fullscreen-control {
       .vjs-control-text {
         right: 0;
@@ -509,7 +518,8 @@
     .vjs-mute-control,
     .vjs-fullscreen-control,
     button.vjs-subtitles-button,
-    button.vjs-captions-button {
+    button.vjs-captions-button,
+    button.vjs-subs-caps-button {
       .vjs-control-text {
         position: absolute;
         top: -50%;
@@ -551,7 +561,8 @@
     }
 
     button.vjs-subtitles-button:not([aria-expanded='true']),
-    button.vjs-captions-button:not([aria-expanded='true']) {
+    button.vjs-captions-button:not([aria-expanded='true']),
+    button.vjs-subs-caps-button:not([aria-expanded='true']) {
       position: relative;
 
       &.show-tooltip,
