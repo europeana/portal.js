@@ -19,7 +19,7 @@
 
 <script>
   import axios from 'axios';
-  import videojs from 'video.js/dist/alt/video.core.min.js';
+  import videojs from 'video.js';
   // TODO: consider if this is needed when overriding styles
   import 'video.js/dist/video-js.min.css';
 
