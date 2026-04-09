@@ -401,50 +401,54 @@
     }
 
     .vjs-menu-button-popup {
-      // prevent menu showing on hover
-      &.vjs-hover .vjs-menu {
-        display: none;
-      }
+      .vjs-menu {
+        z-index: 3;
 
-      .vjs-menu .vjs-menu-content {
-        font-family: $font-family-sans-serif;
-        bottom: 2rem;
-        right: -1rem;
-        min-width: 10rem;
-        padding: 0.5rem 0;
-        margin: 0.125rem 0 0;
-        background-color: $white;
-        background-clip: padding-box;
-        border: 1px solid rgba(0, 0, 0, 15%);
-        border-radius: $border-radius-small;
-        color: $black;
+        .vjs-menu-content {
+          font-family: $font-family-sans-serif;
+          bottom: 2rem;
+          right: -1rem;
+          min-width: 10rem;
+          padding: 0.5rem 0;
+          margin: 0.125rem 0 0;
+          background-color: $white;
+          background-clip: padding-box;
+          border: 1px solid rgba(0, 0, 0, 15%);
+          border-radius: $border-radius-small;
+          color: $black;
 
-        li {
-          justify-content: flex-start;
-          padding: 0.25rem 1.5rem;
-          line-height: 1.5;
-          font-size: $font-size-small;
-          text-align: left;
-          text-transform: none;
+          li {
+            justify-content: flex-start;
+            padding: 0.25rem 1.5rem;
+            line-height: 1.5;
+            font-size: $font-size-small;
+            text-align: left;
+            text-transform: none;
 
-          &.vjs-menu-item {
-            &:hover,
-            &:focus-visible {
-              background-color: $lightgrey;
-            }
-
-            &.vjs-selected {
-              color: $white;
-              background-color: $blue;
-
+            &.vjs-menu-item {
               &:hover,
-              &:focus {
+              &:focus-visible {
+                background-color: $lightgrey;
+              }
+
+              &.vjs-selected {
                 color: $white;
                 background-color: $blue;
+
+                &:hover,
+                &:focus {
+                  color: $white;
+                  background-color: $blue;
+                }
               }
             }
           }
         }
+      }
+
+      // prevent menu showing on hover
+      &.vjs-hover .vjs-menu {
+        display: none;
       }
     }
 
