@@ -105,7 +105,8 @@
         this.mediaUrl = response.data.location;
         this.mediaFormat = response.data.format;
       } else {
-        this.mediaUrl = this.url;
+        // Use media-proxy when used for a europeana record
+        this.mediaUrl = this.itemId ? this.$apis.record.mediaProxyUrl(this.url, this.itemId) : this.url;
         this.mediaFormat = this.format;
       }
     },
