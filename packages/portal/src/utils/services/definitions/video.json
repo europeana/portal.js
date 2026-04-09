@@ -45,6 +45,16 @@
     "title": "EUscreen"
   },
   {
+    "name": "institutNationalDeLAudiovisuel",
+    "oembed": "https://oembed.europeana.eu/",
+    "schemes": [
+      "http://www.ina.fr/video/*",
+      "http://www.ina.fr/*/video/*",
+      "https://player.ina.fr/player/embed/*"
+    ],
+    "title": "Institut National de l'Audiovisuel"
+  },
+  {
     "name": "tibAvPortal",
     "schemes": [
       "http://av.tib.eu/player/*"
