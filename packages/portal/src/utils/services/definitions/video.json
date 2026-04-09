@@ -36,7 +36,6 @@
   },
   {
     "name": "euscreen",
-    "oembed": "https://oembed.euscreen.eu/services/oembed",
     "schemes": [
       "http://www.euscreen.eu/item.html*",
       "https://www.euscreen.eu/item.html*",
