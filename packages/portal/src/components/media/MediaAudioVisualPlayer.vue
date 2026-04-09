@@ -114,7 +114,7 @@
       mediaComponent() {
         if (this.mediaFormat?.startsWith('audio/')) {
           return 'audio';
-        } else if (this.mediaFormat?.startsWith('video/')) {
+        } else if (this.mediaFormat?.startsWith('video/') || this.mediaFormat === 'application/dash+xml') {
           return 'video';
         }
         return undefined;
