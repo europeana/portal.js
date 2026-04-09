@@ -72,6 +72,7 @@
                 class="media-viewer-content"
                 :poster="thumbnailForAVPoster"
                 :subtitles="subtitles"
+                :resource="resource"
               />
               <MediaEuropeanaMediaPlayer
                 v-else

@@ -13,6 +13,14 @@
         controls
         preload="none"
       />
+      <MediaCardImage
+        v-if="resource"
+        ref="poster"
+        :resource="resource"
+        :lazy="false"
+        :linkable="false"
+        thumbnail-size="large"
+      />
     </template>
   </div>
 </template>
@@ -25,6 +33,8 @@
 
   import { ItemMediaPresentationSubtitleTrack } from '@/composables/subtitles.js';
   import { useEuScreen } from '@/composables/euScreen.js';
+  import EuropeanaMediaResource from '@/utils/europeana/media/Resource.js';
+  import MediaCardImage from './MediaCardImage.vue';
 
   const controlsWithTooltips = ['.vjs-mute-control',
                                 '.vjs-fullscreen-control',
@@ -34,7 +44,15 @@
   export default {
     name: 'MediaAudioVisualPlayer',
 
+    components: {
+      MediaCardImage
+    },
+
     props: {
+      resource: {
+        type: EuropeanaMediaResource,
+        default: null
+      },
       format: {
         type: String,
         default: null
@@ -90,7 +108,6 @@
             ]
           },
           noUITitleAttributes: true, // do not add title attributes to controls
-          poster: this.poster, // vjs-poster element; not set on the native video element to prevent duplication
           textTrackSettings: false // disable captions settings menu
         },
         player: null
@@ -183,9 +200,18 @@
         }
       },
 
+      setPosterWithCardImage() {
+        const posterElement = this.player.el().querySelector('.vjs-poster');
+        if (posterElement) {
+          posterElement.classList.remove('vjs-hidden');
+          posterElement.appendChild(this.$refs.poster.$el);
+        }
+      },
+
       onPlayerReady() {
         this.initTextTracks();
         this.initTooltips();
+        this.setPosterWithCardImage();
       },
 
       async initVideojs() {
@@ -566,6 +592,10 @@
           z-index: -1;
         }
       }
+    }
+
+    .vjs-poster .default-thumbnail [class^='icon-'] {
+      color: $black;
     }
   }
 </style>
