@@ -151,10 +151,10 @@ export default {
     "Exit Fullscreen": "Exit Fullscreen",
     "Mute": "Mute",
     "Unmute": "Unmute",
-    "Subtitles": "Subtitles",
+    "Subtitles": "Subtitles / closed captions",
     "subtitles off": "Subtitles off",
-    "Captions": "Captions",
-    "captions off": "Captions off",
+    "Captions": "Subtitles / closed captions",
+    "captions off": "Subtitles off",
     "Volume Level": "Volume Level",
     "subtitlesOption": "{language} subtitles",
     "captionsOption": "{language} captions"
