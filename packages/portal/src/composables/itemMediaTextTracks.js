@@ -48,11 +48,11 @@ export class ItemMediaPresentationTextCue {
 
   static parseSRTTimeToSeconds(time) {
     const splitMilliseconds = time.split(',');
-    const milliseconds = new Number(splitMilliseconds[1]);
+    const milliseconds = Number(splitMilliseconds[1]);
     const splitHoursMinutesSeconds = splitMilliseconds[0].split(':');
-    const seconds = new Number(splitHoursMinutesSeconds[2]);
-    const minutes = new Number(splitHoursMinutesSeconds[1]);
-    const hours = new Number(splitHoursMinutesSeconds[0]);
+    const seconds = Number(splitHoursMinutesSeconds[2]);
+    const minutes = Number(splitHoursMinutesSeconds[1]);
+    const hours = Number(splitHoursMinutesSeconds[0]);
     return (hours * 60 * 60) + (minutes * 60) + seconds + (milliseconds / 1000);
   }
 }
