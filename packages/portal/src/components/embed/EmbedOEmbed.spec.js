@@ -23,7 +23,6 @@ const response = {
 const factory = ({ propsData = {}, data = {} } = {}) => shallowMountNuxt(EmbedOEmbed, {
   propsData: {
     url,
-    // endpoint,
     ...propsData
   },
   data: () => ({
