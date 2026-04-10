@@ -33,12 +33,6 @@
   export default {
     name: 'MediaAudioVisualPlayer',
 
-    inject: {
-      itemLanguage: {
-        default: null
-      }
-    },
-
     props: {
       format: {
         type: String,
@@ -46,11 +40,6 @@
       },
 
       itemId: {
-        type: String,
-        default: null
-      },
-
-      language: {
         type: String,
         default: null
       },
@@ -98,8 +87,7 @@
               'fullscreenToggle'
             ]
           },
-          // TODO: does this need to be normalised to handle e.g. "und", "eng"?
-          language: this.language || this.itemLanguage,
+          language: this.$i18n.locale,
           noUITitleAttributes: true, // do not add title attributes to controls
           poster: this.poster, // vjs-poster element; not set on the native video element to prevent duplication
           textTrackSettings: false // disable captions settings menu
