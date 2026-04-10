@@ -43,3 +43,12 @@ export const forbiddenUnlessOriginAllowed = (origins) => (origin, callback) => {
     callback(createHttpError(403, 'Origin not permitted'));
   }
 };
+
+export const forbiddenUnlessSameOrigin = (req, res, next) => {
+  if (req.headers['sec-fetch-site'] === 'same-origin') {
+    next();
+  } else {
+    res.sendStatus(403);
+    res.end();
+  }
+};
