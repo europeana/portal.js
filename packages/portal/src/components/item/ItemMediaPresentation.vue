@@ -231,7 +231,7 @@
         return;
       }
 
-      const textTrackAnnotations = inject('textTrackAnnotations');
+      const textTrackAnnotations = inject('textTrackAnnotations', []);
 
       const {
         activeAnnotation,
