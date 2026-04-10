@@ -18,6 +18,11 @@ const factory = ({ propsData } = {}) => mountNuxt(MediaAudioVisualPlayer, {
     ...propsData
   },
   mocks: {
+    $apis: {
+      record: {
+        mediaProxyUrl: (url, id) => `https://proxy.europeana.eu/media${id}/${url}`
+      }
+    },
     $t: (key) => key,
     $i18n: {
       locale: 'en'
@@ -80,13 +85,25 @@ describe('components/media/MediaAudioVisualPlayer', () => {
     });
 
     describe('for a NON euScreen Url', () => {
-      it('uses the mediaUrl and format from the props data', async() => {
-        const wrapper = factory();
+      describe('where there is an item identifier present', () => {
+        it('uses the proxied mediaUrl and format from the props data', async() => {
+          const wrapper = factory();
 
-        await wrapper.vm.fetch();
+          await wrapper.vm.fetch();
 
-        expect(wrapper.vm.mediaUrl).toBe('https://www.example.org/video.mpeg');
-        expect(wrapper.vm.mediaFormat).toBe('video/mpeg');
+          expect(wrapper.vm.mediaUrl).toBe('https://proxy.europeana.eu/media/123/abcdef/https://www.example.org/video.mpeg');
+          expect(wrapper.vm.mediaFormat).toBe('video/mpeg');
+        });
+      });
+      describe('where there is NO item identifier present', () => {
+        it('uses the mediaUrl and format from the props data', async() => {
+          const wrapper = factory({ propsData: { itemId: undefined } });
+
+          await wrapper.vm.fetch();
+
+          expect(wrapper.vm.mediaUrl).toBe('https://www.example.org/video.mpeg');
+          expect(wrapper.vm.mediaFormat).toBe('video/mpeg');
+        });
       });
     });
   });
