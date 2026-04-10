@@ -21,17 +21,6 @@
     "title": "Gallica"
   },
   {
-    "name": "institutNationalDeLAudiovisuel",
-    "oembed": "https://oembed.europeana.eu/",
-    "responsive": false,
-    "schemes": [
-      "http://www.ina.fr/video/*",
-      "http://www.ina.fr/*/video/*",
-      "https://player.ina.fr/player/embed/*"
-    ],
-    "title": "Institut National de l'Audiovisuel"
-  },
-  {
     "name": "nakala",
     "schemes": [
       "https://api.nakala.fr/data"
