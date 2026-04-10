@@ -142,6 +142,24 @@ export default {
     "show": "Show attribution",
     "title": "Title:"
   },
+  "audioVisualPlayer": {
+    "Play": "Play",
+    "Play Video": "Play video",
+    "Pause": "Pause",
+    "Replay": "Replay",
+    "Fullscreen": "Full screen",
+    "Exit Fullscreen": "Exit full screen",
+    "Mute": "Mute",
+    "Unmute": "Unmute",
+    "Subtitles": "Subtitles / closed captions",
+    "subtitles off": "Off",
+    "Captions": "Subtitles / closed captions",
+    "captions off": "Off",
+    "Volume Level": "Volume Level",
+    "subtitlesOption": "{language} subtitles",
+    "captionsOption": "{language} captions"
+
+  },
   "authored": {
     "by": "by",
     "publishedDate": "Published {date}"
