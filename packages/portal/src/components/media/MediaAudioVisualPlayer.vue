@@ -189,6 +189,18 @@
         this.initTooltips();
       },
 
+      checkSeekable() {
+        const seekable = this.$refs.avPlayer.seekable;
+
+        if ((seekable.length === 0) || ((seekable.start(0) === 0) && (seekable.end(0) === 0))) {
+          this.disableProgressControl();
+        }
+      },
+
+      disableProgressControl() {
+        this.player.controlBar.progressControl.disable();
+      },
+
       async initVideojs() {
         this.player?.dispose();
 
@@ -214,6 +226,7 @@
         });
 
         this.player.ready(this.onPlayerReady);
+        this.player.on('loadedmetadata', this.checkSeekable);
       }
     }
   };
