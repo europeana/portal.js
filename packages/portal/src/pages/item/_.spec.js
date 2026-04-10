@@ -758,65 +758,25 @@ describe('pages/item/_.vue', () => {
     });
 
     describe('annotationsByMotivation', () => {
-      describe('when asking for linkForContributing', () => {
-        it('has a linkForContributing motivation', async() => {
-          const wrapper = await factory();
-          await wrapper.setData({ annotations });
+      const itHandlesAnnotationMotivation = (motivation) => {
+        describe(`when asking for ${motivation}`, () => {
+          it(`has a ${motivation} motivation`, async() => {
+            const wrapper = await factory();
+            await wrapper.setData({ annotations });
 
-          const linkForContributing = wrapper.vm.annotationsByMotivation('linkForContributing');
+            const linkForContributing = wrapper.vm.annotationsByMotivation(motivation);
 
-          expect(linkForContributing[0].motivation).toBe('linkForContributing');
-          expect(linkForContributing.length).toBe(1);
+            expect(linkForContributing[0].motivation).toBe(motivation);
+            expect(linkForContributing.length).toBe(1);
+          });
         });
-      });
+      };
 
-      describe('when asking for tagging annotations', () => {
-        it('has a tagging motivation', async() => {
-          const wrapper = await factory();
-          await wrapper.setData({ annotations });
-
-          const taggingAnnotations = wrapper.vm.annotationsByMotivation('tagging');
-
-          expect(taggingAnnotations[0].motivation).toBe('tagging');
-          expect(taggingAnnotations.length).toBe(1);
-        });
-      });
-
-      describe('when asking for transcribing annotations', () => {
-        it('has a transcribing motivation', async() => {
-          const wrapper = await factory();
-          await wrapper.setData({ annotations });
-
-          const taggingAnnotations = wrapper.vm.annotationsByMotivation('transcribing');
-
-          expect(taggingAnnotations[0].motivation).toBe('transcribing');
-          expect(taggingAnnotations.length).toBe(1);
-        });
-      });
-
-      describe('when asking for subtitling annotations', () => {
-        it('has a subtitling motivation', async() => {
-          const wrapper = await factory();
-          await wrapper.setData({ annotations });
-
-          const textTrackAnnotations = wrapper.vm.annotationsByMotivation('subtitling');
-
-          expect(textTrackAnnotations[0].motivation).toBe('subtitling');
-          expect(textTrackAnnotations.length).toBe(1);
-        });
-      });
-
-      describe('when asking for captioning annotations', () => {
-        it('or a captioning motivation', async() => {
-          const wrapper = await factory();
-          await wrapper.setData({ annotations });
-
-          const captioningAnnotations = wrapper.vm.annotationsByMotivation('captioning');
-
-          expect(captioningAnnotations[0].motivation).toBe('captioning');
-          expect(captioningAnnotations.length).toBe(1);
-        });
-      });
+      itHandlesAnnotationMotivation('linkForContributing');
+      itHandlesAnnotationMotivation('tagging');
+      itHandlesAnnotationMotivation('transcribing');
+      itHandlesAnnotationMotivation('subtitling');
+      itHandlesAnnotationMotivation('captioning');
 
       describe('when annotations is undefined', () => {
         it('returns an empty array', async() => {
