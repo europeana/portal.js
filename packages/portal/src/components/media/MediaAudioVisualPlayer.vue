@@ -98,6 +98,7 @@
               'fullscreenToggle'
             ]
           },
+          // TODO: does this need to be normalised to handle e.g. "und", "eng"?
           language: this.language || this.itemLanguage,
           noUITitleAttributes: true, // do not add title attributes to controls
           poster: this.poster, // vjs-poster element; not set on the native video element to prevent duplication
