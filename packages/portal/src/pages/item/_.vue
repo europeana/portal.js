@@ -129,7 +129,7 @@
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import MetadataBox, { ALL_FIELDS as METADATA_FIELDS } from '@/components/metadata/MetadataBox';
   const ALL_METADATA_FIELDS = [
-    'dcTitle', 'dctermsAlternative', 'dcDescription', 'edmIsShownBy', 'edmObject'
+    'dcTitle', 'dctermsAlternative', 'dcDescription', 'edmIsShownBy', 'edmLanguage', 'edmObject'
   ].concat(METADATA_FIELDS);
 
   import useDeBias from '@/composables/deBias.js';
@@ -175,6 +175,7 @@
         // the shared state of those refs after SSR, but provide/inject does
         deBias: computed(() => this.deBias),
         itemIsDeleted: computed(() => this.isDeleted),
+        itemLanguage: computed(() => this.metadata.edmLanguage?.def?.[0]),
         metadataLanguage: this.metadataLanguage,
         textTrackAnnotations: computed(() => this.textTrackAnnotations)
       };
