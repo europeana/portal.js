@@ -19,20 +19,25 @@
 
 <script>
   import axios from 'axios';
-  import videojs from 'video.js/dist/alt/video.core.min.js';
+  import videojs from 'video.js';
   // TODO: consider if this is needed when overriding styles
   import 'video.js/dist/video-js.min.css';
 
-  import { ItemMediaPresentationSubtitleTrack } from '@/composables/subtitles.js';
+  import { ItemMediaPresentationTextTrack } from '@/composables/itemMediaTextTracks.js';
   import { useEuScreen } from '@/composables/euScreen.js';
 
   const controlsWithTooltips = ['.vjs-mute-control',
                                 '.vjs-fullscreen-control',
-                                'button.vjs-subtitles-button',
                                 'button.vjs-subs-caps-button'];
 
   export default {
     name: 'MediaAudioVisualPlayer',
+
+    inject: {
+      itemLanguage: {
+        default: null
+      }
+    },
 
     props: {
       format: {
@@ -45,15 +50,20 @@
         default: null
       },
 
+      language: {
+        type: String,
+        default: null
+      },
+
       poster: {
         type: String,
         default: null
       },
 
-      subtitles: {
+      textTracks: {
         type: Array,
         default: () => [],
-        validator: (prop) => Array.isArray(prop) && prop.every((item) => item instanceof ItemMediaPresentationSubtitleTrack)
+        validator: (prop) => Array.isArray(prop) && prop.every((item) => item instanceof ItemMediaPresentationTextTrack)
       },
 
       url: {
@@ -84,11 +94,12 @@
               'durationDisplay',
               'muteToggle',
               'volumeControl',
-              'subtitlesButton',
               'subsCapsButton',
               'fullscreenToggle'
             ]
           },
+          // TODO: does this need to be normalised to handle e.g. "und", "eng"?
+          language: this.language || this.itemLanguage,
           noUITitleAttributes: true, // do not add title attributes to controls
           poster: this.poster, // vjs-poster element; not set on the native video element to prevent duplication
           textTrackSettings: false // disable captions settings menu
@@ -115,7 +126,7 @@
       mediaComponent() {
         if (this.mediaFormat?.startsWith('audio/')) {
           return 'audio';
-        } else if (this.mediaFormat?.startsWith('video/')) {
+        } else if (this.mediaFormat?.startsWith('video/') || this.mediaFormat === 'application/dash+xml') {
           return 'video';
         }
         return undefined;
@@ -127,7 +138,7 @@
         process.client && this.initVideojs();
       },
 
-      subtitles() {
+      textTracks() {
         process.client && this.initTextTracks();
       }
     },
@@ -138,11 +149,11 @@
 
     methods: {
       initTextTracks() {
-        if (!this.player || (this.subtitles.length === 0)) {
+        if (!this.player || (this.textTracks.length === 0)) {
           return;
         }
 
-        for (const track of this.subtitles) {
+        for (const track of this.textTracks) {
           let textTrack;
           try {
             textTrack = this.player.addTextTrack(track.kind, track.label, track.language);
@@ -402,62 +413,61 @@
     }
 
     .vjs-menu-button-popup {
-      // prevent menu showing on hover
-      &.vjs-hover .vjs-menu {
-        display: none;
-      }
+      .vjs-menu {
+        z-index: 3;
 
-      .vjs-menu .vjs-menu-content {
-        font-family: $font-family-sans-serif;
-        bottom: 2rem;
-        right: -1rem;
-        min-width: 10rem;
-        padding: 0.5rem 0;
-        margin: 0.125rem 0 0;
-        background-color: $white;
-        background-clip: padding-box;
-        border: 1px solid rgba(0, 0, 0, 15%);
-        border-radius: $border-radius-small;
-        color: $black;
+        .vjs-menu-content {
+          font-family: $font-family-sans-serif;
+          bottom: 2rem;
+          right: -1rem;
+          min-width: 10rem;
+          padding: 0.5rem 0;
+          margin: 0.125rem 0 0;
+          background-color: $white;
+          background-clip: padding-box;
+          border: 1px solid rgba(0, 0, 0, 15%);
+          border-radius: $border-radius-small;
+          color: $black;
 
-        li {
-          justify-content: flex-start;
-          padding: 0.25rem 1.5rem;
-          line-height: 1.5;
-          font-size: $font-size-small;
-          text-align: left;
-          text-transform: none;
+          li {
+            justify-content: flex-start;
+            padding: 0.25rem 1.5rem;
+            line-height: 1.5;
+            font-size: $font-size-small;
+            text-align: left;
+            text-transform: none;
 
-          &.vjs-menu-item {
-            &:hover,
-            &:focus-visible {
-              background-color: $lightgrey;
-            }
-
-            &.vjs-selected {
-              color: $white;
-              background-color: $blue;
-
+            &.vjs-menu-item {
               &:hover,
-              &:focus {
+              &:focus-visible {
+                background-color: $lightgrey;
+              }
+
+              &.vjs-selected {
                 color: $white;
                 background-color: $blue;
+
+                &:hover,
+                &:focus {
+                  color: $white;
+                  background-color: $blue;
+                }
               }
             }
           }
         }
       }
+
+      // prevent menu showing on hover
+      &.vjs-hover .vjs-menu {
+        display: none;
+      }
     }
 
     // --- Override icons with custom icons ---
-    .vjs-subtitles-button .vjs-icon-placeholder::before {
-      @extend %icon-font;
-      content: '\e976';
-    }
-
     .vjs-subs-caps-button .vjs-icon-placeholder::before {
       @extend %icon-font;
-      content: '\e974';
+      content: '\e976';
     }
 
     .vjs-fullscreen-control .vjs-icon-placeholder::before {
@@ -487,6 +497,11 @@
       content: '\e975';
     }
 
+    .vjs-subs-caps-button + .vjs-menu .vjs-captions-menu-item .vjs-menu-item-text .vjs-icon-placeholder::before {
+      @extend %icon-font;
+      content: '\e974';
+    }
+
     // --- Tooltip styles ---
 
     // Prevent tooltips from overflowing viewport
@@ -494,7 +509,6 @@
       left: 0;
     }
 
-    .vjs-subtitles-button,
     .vjs-subs-caps-button,
     .vjs-fullscreen-control {
       .vjs-control-text {
@@ -505,7 +519,6 @@
     // use control text as tooltip content
     .vjs-mute-control,
     .vjs-fullscreen-control,
-    button.vjs-subtitles-button,
     button.vjs-subs-caps-button {
       .vjs-control-text {
         position: absolute;
@@ -547,7 +560,6 @@
       }
     }
 
-    button.vjs-subtitles-button:not([aria-expanded='true']),
     button.vjs-subs-caps-button:not([aria-expanded='true']) {
       position: relative;
 

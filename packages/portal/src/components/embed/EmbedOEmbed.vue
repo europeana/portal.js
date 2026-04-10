@@ -13,13 +13,10 @@
 </template>
 
 <script>
-  import axios from 'axios';
-
   import oEmbed from '@/utils/services/oembed.js';
+  import serviceForUrl from '@/utils/services/index.js';
   import AlertMessage from '../generic/AlertMessage';
   import EmbedHTML from './EmbedHTML';
-
-  const RESPONSIVE_PROVIDERS = ['CCMA', 'Ina.fr', 'Sketchfab', 'Vimeo', 'YouTube'];
 
   export default {
     name: 'EmbedOEmbed',
@@ -42,7 +39,7 @@
 
       // whether the url is already for the oEmbed service request itself,
       // otherwise is just the media url
-      // TODO: deprecate when it is always true, i.e. when oEmbed service is always
+      // TODO: deprecate if/when it is always true, i.e. when oEmbed service is always
       //       present in EDM
       service: {
         type: Boolean,
@@ -54,37 +51,53 @@
       return {
         html: null,
         width: null,
-        height: null,
-        providerName: null
+        height: null
       };
     },
 
     async fetch() {
-      let response;
-      if (this.service) {
-        response = await axios.get(this.url);
-      } else {
-        response = await oEmbed(this.url, this.endpoint);
-      }
+      const response = await oEmbed(this.mediaUrl, this.endpointUrl);
 
       if (response?.data?.html) {
         this.html = response.data.html;
         this.width = response.data.width;
         this.height = response.data.height;
-        this.providerName = response.data['provider_name'];
       } else {
         throw new Error(this.$t('messages.externalContentError'));
       }
     },
 
     computed: {
+      endpointUrl() {
+        if (this.endpoint || !this.service) {
+          return this.endpoint;
+        }
+
+        const serviceUrl = new URL(this.url);
+        serviceUrl.search = '';
+        return serviceUrl.toString();
+      },
+
+      mediaUrl() {
+        if (!this.service) {
+          return this.url;
+        }
+
+        const serviceUrl = new URL(this.url);
+        return serviceUrl.searchParams.get('url');
+      },
+
       responsiveProvider() {
-        return RESPONSIVE_PROVIDERS.includes(this.providerName);
+        return !!serviceForUrl(this.mediaUrl)?.responsive;
       }
     },
 
     watch: {
-      url() {
+      endpointUrl() {
+        this.$fetch();
+      },
+
+      mediaUrl() {
         this.$fetch();
       }
     }
