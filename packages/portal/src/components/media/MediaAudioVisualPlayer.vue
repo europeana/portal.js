@@ -33,12 +33,6 @@
   export default {
     name: 'MediaAudioVisualPlayer',
 
-    inject: {
-      itemLanguage: {
-        default: null
-      }
-    },
-
     props: {
       format: {
         type: String,
@@ -46,11 +40,6 @@
       },
 
       itemId: {
-        type: String,
-        default: null
-      },
-
-      language: {
         type: String,
         default: null
       },
@@ -98,8 +87,7 @@
               'fullscreenToggle'
             ]
           },
-          // TODO: does this need to be normalised to handle e.g. "und", "eng"?
-          language: this.language || this.itemLanguage,
+          language: this.$i18n.locale,
           noUITitleAttributes: true, // do not add title attributes to controls
           poster: this.poster, // vjs-poster element; not set on the native video element to prevent duplication
           textTrackSettings: false // disable captions settings menu
@@ -154,9 +142,10 @@
         }
 
         for (const track of this.textTracks) {
+          const trackLabel = this.$t(`audioVisualPlayer.${track.kind}Option`, { language: this.$t(`facets.LANGUAGE.options.${track.language.toLowerCase()}`) });
           let textTrack;
           try {
-            textTrack = this.player.addTextTrack(track.kind, track.label, track.language);
+            textTrack = this.player.addTextTrack(track.kind, trackLabel, track.language);
           } catch {
             // the next return will handle the error quietly
           }
