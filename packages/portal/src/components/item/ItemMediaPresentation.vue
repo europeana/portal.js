@@ -81,6 +81,11 @@
                 class="media-viewer-content"
               />
             </template>
+            <Media3DViewer
+              v-else-if="resource.edm.ebucoreHasMimeType === 'model/gltf-binary' || resource.edm.ebucoreHasMimeType === 'text/html'"
+              :url="resource.id || resource.edm.about"
+              :item-id="itemId"
+            />
             <EmbedGateway
               v-else-if="resource?.isOEmbed || resource?.edm?.isOEmbed"
               class="media-viewer-content"
@@ -183,6 +188,7 @@
       ItemMediaSidebarToggle: () => import('./ItemMediaSidebarToggle.vue'),
       ItemMediaThumbnails: () => import('./ItemMediaThumbnails.vue'),
       LoadingSpinner,
+      Media3DViewer: () => import('../media/Media3DViewer.vue'),
       MediaAudioVisualPlayer: () => import('../media/MediaAudioVisualPlayer.vue'),
       MediaEuropeanaMediaPlayer: () => import('../media/MediaEuropeanaMediaPlayer.vue'),
       MediaCardImage,
