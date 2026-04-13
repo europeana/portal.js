@@ -13,7 +13,7 @@ jobs:
           fetch-depth: 0
 
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v6
         with:
           node-version: 22
           cache: 'npm'
@@ -22,7 +22,7 @@ jobs:
         run: npm install
 
       - name: Pull from Lokalise
-        uses: lokalise/lokalise-pull-action@v3.14.0
+        uses: lokalise/lokalise-pull-action@v5.1.0
         with:
           api_token: ${{ secrets.LOKALISE_API_TOKEN }}
           project_id: ${{ secrets.LOKALISE_PROJECT_ID }}
