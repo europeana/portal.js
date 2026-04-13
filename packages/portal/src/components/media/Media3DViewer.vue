@@ -22,8 +22,10 @@
 
     methods: {
       initThreeJS() {
+        // Docs create a scene: https://threejs.org/manual/#en/creating-a-scene
         const scene = new THREE.Scene();
 
+        // Docs cameras: https://threejs.org/manual/#en/cameras
         const camera = new THREE.PerspectiveCamera(60, 1200 / 660, 0.1, 1000);
         camera.position.set(0, 10, 1);
         camera.lookAt(0, 0, 0);
@@ -32,11 +34,13 @@
         renderer.setSize(1200, 660);
         this.$refs.viewer.appendChild(renderer.domElement);
 
+        // Docs lights: https://threejs.org/manual/#en/lights
         const ambientLight = new THREE.AmbientLight('#FFFFFF', 1);
         scene.add(ambientLight);
 
         // TODO: More lights? DirectionalLight?
 
+        // Docs loading 3D models: https://threejs.org/manual/#en/loading-3d-models
         const loader = new GLTFLoader();
 
         loader.load(this.url, (gltf) => {
