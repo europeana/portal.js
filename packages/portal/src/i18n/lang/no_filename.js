@@ -1,7 +1,14 @@
 export default {
   "header": {
     "navigation": {
-      "europeanaClassroom": "Za učitelje"
+      "europeanaClassroom": "Til lærere"
+    }
+  }
+};
+export default {
+  "header": {
+    "navigation": {
+      "europeanaClassroom": "Opettajille"
     }
   }
 };

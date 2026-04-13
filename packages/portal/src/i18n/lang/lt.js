@@ -142,6 +142,23 @@ export default {
     "show": "Rodyti priskyrimą",
     "title": "Pavadinimas:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Subtitrai / uždarieji titrai",
+    "captions off": "Išjungta",
+    "captionsOption": "{language} subtitrai",
+    "Exit Fullscreen": "Išeiti iš viso ekrano režimo",
+    "Fullscreen": "Visas ekranas",
+    "Mute": "Nutildyti",
+    "Pause": "Pauzė",
+    "Play": "Leisti",
+    "Play Video": "Leisti vaizdo įrašą",
+    "Replay": "Pakartoti",
+    "Subtitles": "Subtitrai / uždarieji titrai",
+    "subtitles off": "Išjungta",
+    "subtitlesOption": "{language} subtitrai",
+    "Unmute": "Įjungti garsą",
+    "Volume Level": "Garsumo lygis"
+  },
   "authored": {
     "by": "autorius",
     "publishedDate": "Paskelbta {date}"

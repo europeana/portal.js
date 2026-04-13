@@ -142,6 +142,23 @@ export default {
     "show": "Uri l-attribuzzjoni",
     "title": "Titlu:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Sottotitoli / sottotitoli magħluqa",
+    "captions off": "Mitfi",
+    "captionsOption": "{language} sottotitli",
+    "Exit Fullscreen": "Oħroġ mill-iskrin sħiħ",
+    "Fullscreen": "Skrin sħiħ",
+    "Mute": "Muta",
+    "Pause": "Pawża",
+    "Play": "Ilgħab",
+    "Play Video": "Ilgħab il-vidjo",
+    "Replay": "Erġa' uri",
+    "Subtitles": "Sottotitoli / sottotitoli magħluqa",
+    "subtitles off": "Mitfi",
+    "subtitlesOption": "{language} sottotitli",
+    "Unmute": "Neħħi l-iskiet",
+    "Volume Level": "Livell tal-Volum"
+  },
   "authored": {
     "by": "minn",
     "publishedDate": "Ippubblikat {date}"
