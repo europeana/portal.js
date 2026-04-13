@@ -37,6 +37,7 @@ jobs:
           git_commit_message: "chore: update translations"
           custom_github_token: "${{ secrets.GIT_PAT_LOKALISE }}"
           post_process_command: node bin/post-process-lokalise-pull.js
+          async_mode: true
           additional_params: |
             --add-newline-eof=true
             --directory-prefix=packages/portal/src/i18n/lang
