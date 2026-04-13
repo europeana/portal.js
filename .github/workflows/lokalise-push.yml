@@ -33,6 +33,6 @@ jobs:
           use_tag_tracking: true
           rambo_mode: ${{ inputs.force }}
           additional_params: |
-            --cleanup-mode
-            --include-path=false
-            --distinguish-by-file=false
+            cleanup_mode: true
+            include_path: false
+            distinguish_by_file: false
