@@ -20,7 +20,7 @@ jobs:
           fetch-depth: 0
 
       - name: Push files to Lokalise
-        uses: lokalise/lokalise-push-action@v5.2.0
+        uses: lokalise/lokalise-push-action@v3.6.0
         with:
           api_token: ${{ secrets.LOKALISE_API_TOKEN_RW }}
           project_id: ${{ secrets.LOKALISE_PROJECT_ID }}
@@ -33,6 +33,6 @@ jobs:
           use_tag_tracking: true
           rambo_mode: ${{ inputs.force }}
           additional_params: |
-            cleanup_mode: true
-            include_path: false
-            distinguish_by_file: false
+            --cleanup-mode
+            --include-path=false
+            --distinguish-by-file=false
