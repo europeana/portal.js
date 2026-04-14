@@ -142,6 +142,23 @@ export default {
     "show": "Erakutsi atribuzioa",
     "title": "Izenburua:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Azpitituluak / itxitako azpitituluak",
+    "captions off": "Itzalita",
+    "captionsOption": "{language} azpititu",
+    "Exit Fullscreen": "Irten pantaila osotik",
+    "Fullscreen": "Pantaila osoa",
+    "Mute": "Mututu",
+    "Pause": "Pausatu",
+    "Play": "Erreproduzitu",
+    "Play Video": "Erreproduzitu bideoa",
+    "Replay": "Berriro erreproduzitu",
+    "Subtitles": "Azpitituluak / itxitako azpitituluak",
+    "subtitles off": "Itzalita",
+    "subtitlesOption": "{language} azpitituluak",
+    "Unmute": "Aktibatu soinua",
+    "Volume Level": "Bolumen maila"
+  },
   "authored": {
     "by": "arabera",
     "publishedDate": "Argitaratze data {date}"

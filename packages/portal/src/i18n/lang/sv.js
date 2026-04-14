@@ -142,6 +142,23 @@ export default {
     "show": "Visa attribution",
     "title": "Titel:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Undertexter / textning för hörselskadade",
+    "captions off": "Av",
+    "captionsOption": "{language} bildtexter",
+    "Exit Fullscreen": "Avsluta helskärm",
+    "Fullscreen": "Helskärm",
+    "Mute": "Ljud av",
+    "Pause": "Paus",
+    "Play": "Spela",
+    "Play Video": "Spela upp video",
+    "Replay": "Spela om",
+    "Subtitles": "Undertexter / textning för hörselskadade",
+    "subtitles off": "Av",
+    "subtitlesOption": "{language} undertexter",
+    "Unmute": "Slå på ljud",
+    "Volume Level": "Volymnivå"
+  },
   "authored": {
     "by": "av",
     "publishedDate": "Publicerad {date}"

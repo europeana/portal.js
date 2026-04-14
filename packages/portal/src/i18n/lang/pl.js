@@ -142,6 +142,23 @@ export default {
     "show": "Pokaż atrybucję",
     "title": "Tytuł:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Napisy / napisy dla niesłyszących",
+    "captions off": "Wył",
+    "captionsOption": "{language} napisy",
+    "Exit Fullscreen": "Wyjdź z pełnego ekranu",
+    "Fullscreen": "Pełny ekran",
+    "Mute": "Wycisz",
+    "Pause": "Pauza",
+    "Play": "Odtwórz",
+    "Play Video": "Odtwórz wideo",
+    "Replay": "Odtwórz ponownie",
+    "Subtitles": "Napisy / napisy dla niesłyszących",
+    "subtitles off": "Wył",
+    "subtitlesOption": "{language} napisy",
+    "Unmute": "Wyłącz wyciszenie",
+    "Volume Level": "Poziom głośności"
+  },
   "authored": {
     "by": "przez",
     "publishedDate": "Opublikowano w dniu {date}"

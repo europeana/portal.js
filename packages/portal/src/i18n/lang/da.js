@@ -142,6 +142,23 @@ export default {
     "show": "Vis tilskrivning",
     "title": "Titel:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Undertekster / skjulte undertekster",
+    "captions off": "Fra",
+    "captionsOption": "{language} billedtekster",
+    "Exit Fullscreen": "Afslut fuld skærm",
+    "Fullscreen": "Fuld skærm",
+    "Mute": "Slå lyd fra",
+    "Pause": "Pause",
+    "Play": "Afspil",
+    "Play Video": "Afspil video",
+    "Replay": "Afspil igen",
+    "Subtitles": "Undertekster / skjulte undertekster",
+    "subtitles off": "Fra",
+    "subtitlesOption": "{language} undertekster",
+    "Unmute": "Slå lyd til",
+    "Volume Level": "Lydstyrkeniveau"
+  },
   "authored": {
     "by": "ved",
     "publishedDate": "Offentliggjort {date}"
