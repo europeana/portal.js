@@ -142,6 +142,23 @@ export default {
     "show": "Mostrar atribución",
     "title": "Título:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Subtítulos / subtítulos opcionales",
+    "captions off": "Apagado",
+    "captionsOption": "{language} subtítulos",
+    "Exit Fullscreen": "Salir de pantalla completa",
+    "Fullscreen": "Pantalla completa",
+    "Mute": "Silenciar",
+    "Pause": "Pausa",
+    "Play": "Reproducir",
+    "Play Video": "Reproducir video",
+    "Replay": "Repetir",
+    "Subtitles": "Subtítulos / subtítulos opcionales",
+    "subtitles off": "Apagado",
+    "subtitlesOption": "{language} subtítulos",
+    "Unmute": "Activar sonido",
+    "Volume Level": "Nivel de volumen"
+  },
   "authored": {
     "by": "por",
     "publishedDate": "Publicado el {date}"

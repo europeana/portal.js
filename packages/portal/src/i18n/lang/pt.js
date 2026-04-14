@@ -142,6 +142,23 @@ export default {
     "show": "Mostrar atribuição",
     "title": "Título:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Legendas / legendas ocultas",
+    "captions off": "Desligado",
+    "captionsOption": "{language} legendas",
+    "Exit Fullscreen": "Sair do ecrã inteiro",
+    "Fullscreen": "Tela cheia",
+    "Mute": "Silenciar",
+    "Pause": "Pausa",
+    "Play": "Reproduzir",
+    "Play Video": "Reproduzir vídeo",
+    "Replay": "Repetição",
+    "Subtitles": "Legendas / legendas ocultas",
+    "subtitles off": "Desligado",
+    "subtitlesOption": "{language} legendas",
+    "Unmute": "Ativar som",
+    "Volume Level": "Nível de volume"
+  },
   "authored": {
     "by": "por",
     "publishedDate": "Publicado {date}"

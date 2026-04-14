@@ -142,6 +142,23 @@ export default {
     "show": "Mostra attribuzione",
     "title": "Titolo:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Sottotitoli / sottotitoli per non udenti",
+    "captions off": "Spento",
+    "captionsOption": "{language} didascalie",
+    "Exit Fullscreen": "Esci dalla modalità a schermo intero",
+    "Fullscreen": "Schermo intero",
+    "Mute": "Muto",
+    "Pause": "Pausa",
+    "Play": "Riproduci",
+    "Play Video": "Riproduci video",
+    "Replay": "Riproduzione",
+    "Subtitles": "Sottotitoli / sottotitoli per non udenti",
+    "subtitles off": "Spento",
+    "subtitlesOption": "{language} sottotitoli",
+    "Unmute": "Riattiva audio",
+    "Volume Level": "Livello del volume"
+  },
   "authored": {
     "by": "di",
     "publishedDate": "Pubblicato il giorno {date}"
