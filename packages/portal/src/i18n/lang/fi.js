@@ -142,6 +142,23 @@ export default {
     "show": "Näytä attribuutio",
     "title": "Nimi:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Tekstitykset / kuvitettu tekstitys",
+    "captions off": "Pois",
+    "captionsOption": "{language} kuvatekstit",
+    "Exit Fullscreen": "Poistu koko näytöstä",
+    "Fullscreen": "Koko näyttö",
+    "Mute": "Mykistä",
+    "Pause": "Tauko",
+    "Play": "Toista",
+    "Play Video": "Toista video",
+    "Replay": "Toista uudelleen",
+    "Subtitles": "Tekstitykset / kuvitettu tekstitys",
+    "subtitles off": "Pois",
+    "subtitlesOption": "{language} tekstitystä",
+    "Unmute": "Poista mykistys",
+    "Volume Level": "Äänenvoimakkuustaso"
+  },
   "authored": {
     "by": "by",
     "publishedDate": "Julkaistu {date}"

@@ -142,6 +142,23 @@ export default {
     "show": "Prikaži navedbo vira",
     "title": "Naslov:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Podnapisi / skriti podnapisi",
+    "captions off": "Izklopljeno",
+    "captionsOption": "{language} podnapisi",
+    "Exit Fullscreen": "Izhod iz celotnega zaslona",
+    "Fullscreen": "Celoten zaslon",
+    "Mute": "Utišaj",
+    "Pause": "Začasno ustavi",
+    "Play": "Predvajaj",
+    "Play Video": "Predvajaj video",
+    "Replay": "Predvajaj znova",
+    "Subtitles": "Podnapisi / skriti podnapisi",
+    "subtitles off": "Izklopljeno",
+    "subtitlesOption": "{language} podnapisi",
+    "Unmute": "Vklopi zvok",
+    "Volume Level": "Glasnost"
+  },
   "authored": {
     "by": "po",
     "publishedDate": "Objavljeno {date}"
