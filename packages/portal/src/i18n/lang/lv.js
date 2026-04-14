@@ -142,6 +142,23 @@ export default {
     "show": "Rādīt attiecinājumu",
     "title": "Nosaukums:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Subtitri / slēgtie titri",
+    "captions off": "Izslēgts",
+    "captionsOption": "{language} subtitri",
+    "Exit Fullscreen": "Iziet pilnekrāna režīmā",
+    "Fullscreen": "Pilnekrāna",
+    "Mute": "Izslēgt skaņu",
+    "Pause": "Pauze",
+    "Play": "Atskaņot",
+    "Play Video": "Atskaņot video",
+    "Replay": "Atkārtot",
+    "Subtitles": "Subtitri / slēgtie titri",
+    "subtitles off": "Izslēgts",
+    "subtitlesOption": "{language} subtitri",
+    "Unmute": "Ieslēgt skaņu",
+    "Volume Level": "Skaļuma līmenis"
+  },
   "authored": {
     "by": "autors",
     "publishedDate": "Publicēts {date}"

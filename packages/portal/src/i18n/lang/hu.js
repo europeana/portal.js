@@ -142,6 +142,23 @@ export default {
     "show": "Attribúció megjelenítése",
     "title": "Cím:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Feliratok / kódolt feliratok",
+    "captions off": "Kikapcsolva",
+    "captionsOption": "{language} feliratok",
+    "Exit Fullscreen": "Kilépés a teljes képernyős módból",
+    "Fullscreen": "Teljes képernyő",
+    "Mute": "Némítás",
+    "Pause": "Szünet",
+    "Play": "Lejátszás",
+    "Play Video": "Videó lejátszása",
+    "Replay": "Visszajátszás",
+    "Subtitles": "Feliratok / kódolt feliratok",
+    "subtitles off": "Kikapcsolva",
+    "subtitlesOption": "{language} feliratok",
+    "Unmute": "Némítás feloldása",
+    "Volume Level": "Hangerőszint"
+  },
   "authored": {
     "by": "Szerző:",
     "publishedDate": "Közzététel dátuma: {date}"
