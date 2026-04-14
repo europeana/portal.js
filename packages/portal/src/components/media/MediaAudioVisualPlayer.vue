@@ -18,6 +18,7 @@
         ref="poster"
         :resource="resource"
         :lazy="false"
+        :offset="offset"
         :linkable="false"
         thumbnail-size="large"
       />
@@ -65,6 +66,11 @@
 
       poster: {
         type: String,
+        default: null
+      },
+
+      offset: {
+        type: Number,
         default: null
       },
 

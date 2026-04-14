@@ -71,6 +71,7 @@
                 :item-id="itemId"
                 class="media-viewer-content"
                 :poster="thumbnailForAVPoster"
+                :offset="page - 1"
                 :subtitles="subtitles"
                 :resource="resource"
               />
