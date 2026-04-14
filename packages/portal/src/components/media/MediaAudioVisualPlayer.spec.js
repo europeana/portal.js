@@ -62,7 +62,7 @@ describe('components/media/MediaAudioVisualPlayer', () => {
   });
 
   describe('fetch', () => {
-    describe('for a euScreen Url', () => {
+    describe('for a EUScreen URL', () => {
       const url = 'https://www.euscreen.eu/item.html?id=EUS_1234';
       beforeEach(() => {
         nock('https://euscreen.embd.eu')
@@ -84,26 +84,14 @@ describe('components/media/MediaAudioVisualPlayer', () => {
       });
     });
 
-    describe('for a NON euScreen Url', () => {
-      describe('where there is an item identifier present', () => {
-        it('uses the proxied mediaUrl and format from the props data', async() => {
-          const wrapper = factory();
+    describe('for a non-EUScreen URL', () => {
+      it('uses the URL and format from the props data', async() => {
+        const wrapper = factory({ propsData: { itemId: undefined } });
 
-          await wrapper.vm.fetch();
+        await wrapper.vm.fetch();
 
-          expect(wrapper.vm.mediaUrl).toBe('https://proxy.europeana.eu/media/123/abcdef/https://www.example.org/video.mpeg');
-          expect(wrapper.vm.mediaFormat).toBe('video/mpeg');
-        });
-      });
-      describe('where there is NO item identifier present', () => {
-        it('uses the mediaUrl and format from the props data', async() => {
-          const wrapper = factory({ propsData: { itemId: undefined } });
-
-          await wrapper.vm.fetch();
-
-          expect(wrapper.vm.mediaUrl).toBe('https://www.example.org/video.mpeg');
-          expect(wrapper.vm.mediaFormat).toBe('video/mpeg');
-        });
+        expect(wrapper.vm.mediaUrl).toBe('https://www.example.org/video.mpeg');
+        expect(wrapper.vm.mediaFormat).toBe('video/mpeg');
       });
     });
   });
