@@ -71,7 +71,7 @@
       textTracks: {
         type: Array,
         default: () => [],
-	validator: (prop) => Array.isArray(prop) && prop.every((item) => item instanceof ItemMediaPresentationTextTrack)
+        validator: (prop) => Array.isArray(prop) && prop.every((item) => item instanceof ItemMediaPresentationTextTrack)
       },
 
       offset: {
