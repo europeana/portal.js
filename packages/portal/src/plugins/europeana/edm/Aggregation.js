@@ -95,6 +95,14 @@ export default class Aggregation extends Base {
         }
       }
 
+      for (const wr of this.webResources) {
+        if (wr.dctermsIsFormatOf?.def) {
+          for (const item of wr.dctermsIsFormatOf.def) {
+            uris.add(item);
+          }
+        }
+      }
+
       const wrs = [...uris].map((uri) => (this.webResources || []).find((wr) => wr.about === uri));
 
       // Sort by isNextInSequence property if present
