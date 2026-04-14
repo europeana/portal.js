@@ -142,6 +142,23 @@ export default {
     "show": "Arată atribuirea",
     "title": "Titlu:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Subtitrări / subtitrări închise",
+    "captions off": "Oprit",
+    "captionsOption": "{language} subtitrări",
+    "Exit Fullscreen": "Ieșiți din ecranul complet",
+    "Fullscreen": "Ecran complet",
+    "Mute": "Mut",
+    "Pause": "Pauză",
+    "Play": "Redă",
+    "Play Video": "Redare video",
+    "Replay": "Reluare",
+    "Subtitles": "Subtitrări / subtitrări închise",
+    "subtitles off": "Oprit",
+    "subtitlesOption": "{language} subtitrări",
+    "Unmute": "Pornește sunetul",
+    "Volume Level": "Nivelul volumului"
+  },
   "authored": {
     "by": "de",
     "publishedDate": "Publicat la {date}"
