@@ -3,7 +3,7 @@ import { mountNuxt } from '@test/utils.js';
 import sinon from 'sinon';
 import MediaAudioVisualPlayer from '@/components/media/MediaAudioVisualPlayer.vue';
 import nock from 'nock';
-import { ItemMediaPresentationSubtitleTrack } from '@/composables/subtitles.js';
+import { ItemMediaPresentationTextTrack } from '@/composables/itemMediaTextTracks.js';
 
 const localVue = createLocalVue();
 const factory = ({ propsData } = {}) => mountNuxt(MediaAudioVisualPlayer, {
@@ -13,11 +13,16 @@ const factory = ({ propsData } = {}) => mountNuxt(MediaAudioVisualPlayer, {
     format: 'video/mpeg',
     itemId: '/123/abcdef',
     poster: 'null',
-    subTitles: [],
+    textTracks: [],
     url: 'https://www.example.org/video.mpeg',
     ...propsData
   },
   mocks: {
+    $apis: {
+      record: {
+        mediaProxyUrl: (url, id) => `https://proxy.europeana.eu/media${id}/${url}`
+      }
+    },
     $t: (key) => key,
     $i18n: {
       locale: 'en'
@@ -80,13 +85,25 @@ describe('components/media/MediaAudioVisualPlayer', () => {
     });
 
     describe('for a NON euScreen Url', () => {
-      it('uses the mediaUrl and format from the props data', async() => {
-        const wrapper = factory();
+      describe('where there is an item identifier present', () => {
+        it('uses the proxied mediaUrl and format from the props data', async() => {
+          const wrapper = factory();
 
-        await wrapper.vm.fetch();
+          await wrapper.vm.fetch();
 
-        expect(wrapper.vm.mediaUrl).toBe('https://www.example.org/video.mpeg');
-        expect(wrapper.vm.mediaFormat).toBe('video/mpeg');
+          expect(wrapper.vm.mediaUrl).toBe('https://proxy.europeana.eu/media/123/abcdef/https://www.example.org/video.mpeg');
+          expect(wrapper.vm.mediaFormat).toBe('video/mpeg');
+        });
+      });
+      describe('where there is NO item identifier present', () => {
+        it('uses the mediaUrl and format from the props data', async() => {
+          const wrapper = factory({ propsData: { itemId: undefined } });
+
+          await wrapper.vm.fetch();
+
+          expect(wrapper.vm.mediaUrl).toBe('https://www.example.org/video.mpeg');
+          expect(wrapper.vm.mediaFormat).toBe('video/mpeg');
+        });
       });
     });
   });
@@ -127,19 +144,25 @@ describe('components/media/MediaAudioVisualPlayer', () => {
         });
       });
       describe('when there are subtitles to display', () => {
-        const subtitles = [
-          new ItemMediaPresentationSubtitleTrack({
-            language: 'en',
-            value: '1\n00:00:01,000 --> 00:00:02,000\n subtitle \n'
+        const textTracks = [
+          new ItemMediaPresentationTextTrack({
+            body: {
+              language: 'en',
+              value: '1\n00:00:01,000 --> 00:00:02,000\n subtitle \n'
+            },
+            motivation: 'subtitling'
           }),
-          new ItemMediaPresentationSubtitleTrack({
-            language: 'nl',
-            value: '1\n00:00:01,000 --> 00:00:02,000\n ondertitel \n'
+          new ItemMediaPresentationTextTrack({
+            body: {
+              language: 'nl',
+              value: '1\n00:00:01,000 --> 00:00:02,000\n ondertitel \n'
+            },
+            motivation: 'captioning'
           })
         ];
 
         it('adds a text track and cues for each subtitle', async() => {
-          const wrapper = factory({ propsData: { subtitles } });
+          const wrapper = factory({ propsData: { textTracks } });
 
           // init player first, so the tracks can be added to something
           await wrapper.vm.fetch();

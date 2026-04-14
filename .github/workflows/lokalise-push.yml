@@ -20,11 +20,10 @@ jobs:
           fetch-depth: 0
 
       - name: Push files to Lokalise
-        uses: lokalise/lokalise-push-action@v3.6.0
+        uses: lokalise/lokalise-push-action@v5.2.0
         with:
           api_token: ${{ secrets.LOKALISE_API_TOKEN_RW }}
           project_id: ${{ secrets.LOKALISE_PROJECT_ID }}
-          file_format: react_native
           file_ext: js
           translations_path: packages/portal/src/i18n/lang
           base_lang: en_GB
@@ -33,6 +32,6 @@ jobs:
           use_tag_tracking: true
           rambo_mode: ${{ inputs.force }}
           additional_params: |
-            --cleanup-mode
-            --include-path=false
-            --distinguish-by-file=false
+            cleanup_mode: true
+            distinguish_by_file: false
+            include_path: false

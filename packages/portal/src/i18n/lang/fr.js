@@ -142,6 +142,23 @@ export default {
     "show": "Afficher l'attribution",
     "title": "Titre :"
   },
+  "audioVisualPlayer": {
+    "Captions": "Sous-titres / sous-titrage codé",
+    "captions off": "Désactivé",
+    "captionsOption": "{language} légendes",
+    "Exit Fullscreen": "Quitter le plein écran",
+    "Fullscreen": "Plein écran",
+    "Mute": "Muet",
+    "Pause": "Pause",
+    "Play": "Jouer",
+    "Play Video": "Lire la vidéo",
+    "Replay": "Rejouer",
+    "Subtitles": "Sous-titres / sous-titrage codé",
+    "subtitles off": "Désactivé",
+    "subtitlesOption": "{language} sous-titres",
+    "Unmute": "Activer le son",
+    "Volume Level": "Niveau de volume"
+  },
   "authored": {
     "by": "par",
     "publishedDate": "Publié le {date}"

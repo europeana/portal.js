@@ -142,6 +142,23 @@ export default {
     "show": "Показване на атрибуция",
     "title": "Заглавие:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Субтитри / скрити надписи",
+    "captions off": "Изкл.",
+    "captionsOption": "{language} надписи",
+    "Exit Fullscreen": "Изход от цял екран",
+    "Fullscreen": "Цял екран",
+    "Mute": "Без звук",
+    "Pause": "Пауза",
+    "Play": "Пусни",
+    "Play Video": "Възпроизвеждане на видео",
+    "Replay": "Повторение",
+    "Subtitles": "Субтитри / скрити надписи",
+    "subtitles off": "Изкл.",
+    "subtitlesOption": "{language} субтитри",
+    "Unmute": "Включване на звука",
+    "Volume Level": "Ниво на звука"
+  },
   "authored": {
     "by": "от",
     "publishedDate": "Публикувано на {date}"

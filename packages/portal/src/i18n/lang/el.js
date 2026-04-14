@@ -142,6 +142,23 @@ export default {
     "show": "Εμφάνιση απόδοσης",
     "title": "Τίτλος:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Υπότιτλοι / κλειστές λεζάντες",
+    "captions off": "Απενεργοποίηση",
+    "captionsOption": "{language} λεζάντες",
+    "Exit Fullscreen": "Έξοδος από πλήρη οθόνη",
+    "Fullscreen": "Πλήρης οθόνη",
+    "Mute": "Σίγαση",
+    "Pause": "Παύση",
+    "Play": "Αναπαραγωγή",
+    "Play Video": "Αναπαραγωγή βίντεο",
+    "Replay": "Επανάληψη",
+    "Subtitles": "Υπότιτλοι / κλειστές λεζάντες",
+    "subtitles off": "Απενεργοποίηση",
+    "subtitlesOption": "{language} υπότιτλοι",
+    "Unmute": "Διακοπή σίγασης",
+    "Volume Level": "Επίπεδο έντασης ήχου"
+  },
   "authored": {
     "by": "με",
     "publishedDate": "Δημοσιεύτηκε στις {date}"

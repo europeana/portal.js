@@ -72,7 +72,7 @@
                 class="media-viewer-content"
                 :poster="thumbnailForAVPoster"
                 :offset="page - 1"
-                :subtitles="subtitles"
+                :text-tracks="textTracks"
                 :resource="resource"
               />
               <MediaEuropeanaMediaPlayer
@@ -163,7 +163,7 @@
   import LoadingSpinner from '../generic/LoadingSpinner.vue';
   import MediaCardImage from '../media/MediaCardImage.vue';
   import useItemMediaPresentation from '@/composables/itemMediaPresentation.js';
-  import { useSubtitles } from '@/composables/subtitles.js';
+  import { useItemMediaTextTracks } from '@/composables/itemMediaTextTracks.js';
   import { FIELDS as WEB_RESOURCE_METADATA_DISPLAY_FIELDS } from '@/components/media/MediaMetadataList.vue';
 
   export class ItemMediaPresentationError extends Error {
@@ -233,7 +233,7 @@
         return;
       }
 
-      const subtitlingAnnotations = inject('subtitlingAnnotations');
+      const textTrackAnnotations = inject('textTrackAnnotations', []);
 
       const {
         activeAnnotation,
@@ -249,8 +249,8 @@
       } = useItemMediaPresentation();
 
       const {
-        subtitles
-      } = useSubtitles(subtitlingAnnotations, resource);
+        textTracks
+      } = useItemMediaTextTracks(textTrackAnnotations, resource);
 
       return {
         activeAnnotation,
@@ -263,7 +263,7 @@
         resourceCount,
         setPage,
         setPresentationFromWebResources,
-        subtitles
+        textTracks
       };
     },
 

@@ -32,14 +32,13 @@
   // TODO: consider if this is needed when overriding styles
   import 'video.js/dist/video-js.min.css';
 
-  import { ItemMediaPresentationSubtitleTrack } from '@/composables/subtitles.js';
+  import { ItemMediaPresentationTextTrack } from '@/composables/itemMediaTextTracks.js';
   import { useEuScreen } from '@/composables/euScreen.js';
   import EuropeanaMediaResource from '@/utils/europeana/media/Resource.js';
   import MediaCardImage from './MediaCardImage.vue';
 
   const controlsWithTooltips = ['.vjs-mute-control',
                                 '.vjs-fullscreen-control',
-                                'button.vjs-subtitles-button',
                                 'button.vjs-subs-caps-button'];
 
   export default {
@@ -69,15 +68,15 @@
         default: null
       },
 
+      textTracks: {
+        type: Array,
+        default: () => [],
+	validator: (prop) => Array.isArray(prop) && prop.every((item) => item instanceof ItemMediaPresentationTextTrack)
+      },
+
       offset: {
         type: Number,
         default: null
-      },
-
-      subtitles: {
-        type: Array,
-        default: () => [],
-        validator: (prop) => Array.isArray(prop) && prop.every((item) => item instanceof ItemMediaPresentationSubtitleTrack)
       },
 
       url: {
@@ -108,11 +107,11 @@
               'durationDisplay',
               'muteToggle',
               'volumeControl',
-              'subtitlesButton',
               'subsCapsButton',
               'fullscreenToggle'
             ]
           },
+          language: this.$i18n.locale,
           noUITitleAttributes: true, // do not add title attributes to controls
           textTrackSettings: false // disable captions settings menu
         },
@@ -128,7 +127,8 @@
         this.mediaUrl = response.data.location;
         this.mediaFormat = response.data.format;
       } else {
-        this.mediaUrl = this.url;
+        // Use media-proxy when used for a europeana record
+        this.mediaUrl = this.itemId ? this.$apis.record.mediaProxyUrl(this.url, this.itemId) : this.url;
         this.mediaFormat = this.format;
       }
     },
@@ -149,7 +149,7 @@
         process.client && this.initVideojs();
       },
 
-      subtitles() {
+      textTracks() {
         process.client && this.initTextTracks();
       }
     },
@@ -160,14 +160,15 @@
 
     methods: {
       initTextTracks() {
-        if (!this.player || (this.subtitles.length === 0)) {
+        if (!this.player || (this.textTracks.length === 0)) {
           return;
         }
 
-        for (const track of this.subtitles) {
+        for (const track of this.textTracks) {
+          const trackLabel = this.$t(`audioVisualPlayer.${track.kind}Option`, { language: this.$t(`facets.LANGUAGE.options.${track.language.toLowerCase()}`) });
           let textTrack;
           try {
-            textTrack = this.player.addTextTrack(track.kind, track.label, track.language);
+            textTrack = this.player.addTextTrack(track.kind, trackLabel, track.language);
           } catch {
             // the next return will handle the error quietly
           }
@@ -433,62 +434,61 @@
     }
 
     .vjs-menu-button-popup {
-      // prevent menu showing on hover
-      &.vjs-hover .vjs-menu {
-        display: none;
-      }
+      .vjs-menu {
+        z-index: 3;
 
-      .vjs-menu .vjs-menu-content {
-        font-family: $font-family-sans-serif;
-        bottom: 2rem;
-        right: -1rem;
-        min-width: 10rem;
-        padding: 0.5rem 0;
-        margin: 0.125rem 0 0;
-        background-color: $white;
-        background-clip: padding-box;
-        border: 1px solid rgba(0, 0, 0, 15%);
-        border-radius: $border-radius-small;
-        color: $black;
+        .vjs-menu-content {
+          font-family: $font-family-sans-serif;
+          bottom: 2rem;
+          right: -1rem;
+          min-width: 10rem;
+          padding: 0.5rem 0;
+          margin: 0.125rem 0 0;
+          background-color: $white;
+          background-clip: padding-box;
+          border: 1px solid rgba(0, 0, 0, 15%);
+          border-radius: $border-radius-small;
+          color: $black;
 
-        li {
-          justify-content: flex-start;
-          padding: 0.25rem 1.5rem;
-          line-height: 1.5;
-          font-size: $font-size-small;
-          text-align: left;
-          text-transform: none;
+          li {
+            justify-content: flex-start;
+            padding: 0.25rem 1.5rem;
+            line-height: 1.5;
+            font-size: $font-size-small;
+            text-align: left;
+            text-transform: none;
 
-          &.vjs-menu-item {
-            &:hover,
-            &:focus-visible {
-              background-color: $lightgrey;
-            }
-
-            &.vjs-selected {
-              color: $white;
-              background-color: $blue;
-
+            &.vjs-menu-item {
               &:hover,
-              &:focus {
+              &:focus-visible {
+                background-color: $lightgrey;
+              }
+
+              &.vjs-selected {
                 color: $white;
                 background-color: $blue;
+
+                &:hover,
+                &:focus {
+                  color: $white;
+                  background-color: $blue;
+                }
               }
             }
           }
         }
       }
+
+      // prevent menu showing on hover
+      &.vjs-hover .vjs-menu {
+        display: none;
+      }
     }
 
     // --- Override icons with custom icons ---
-    .vjs-subtitles-button .vjs-icon-placeholder::before {
-      @extend %icon-font;
-      content: '\e976';
-    }
-
     .vjs-subs-caps-button .vjs-icon-placeholder::before {
       @extend %icon-font;
-      content: '\e974';
+      content: '\e976';
     }
 
     .vjs-fullscreen-control .vjs-icon-placeholder::before {
@@ -518,6 +518,11 @@
       content: '\e975';
     }
 
+    .vjs-subs-caps-button + .vjs-menu .vjs-captions-menu-item .vjs-menu-item-text .vjs-icon-placeholder::before {
+      @extend %icon-font;
+      content: '\e974';
+    }
+
     // --- Tooltip styles ---
 
     // Prevent tooltips from overflowing viewport
@@ -525,7 +530,6 @@
       left: 0;
     }
 
-    .vjs-subtitles-button,
     .vjs-subs-caps-button,
     .vjs-fullscreen-control {
       .vjs-control-text {
@@ -536,7 +540,6 @@
     // use control text as tooltip content
     .vjs-mute-control,
     .vjs-fullscreen-control,
-    button.vjs-subtitles-button,
     button.vjs-subs-caps-button {
       .vjs-control-text {
         position: absolute;
@@ -578,7 +581,6 @@
       }
     }
 
-    button.vjs-subtitles-button:not([aria-expanded='true']),
     button.vjs-subs-caps-button:not([aria-expanded='true']) {
       position: relative;
 
@@ -598,10 +600,6 @@
           z-index: -1;
         }
       }
-    }
-
-    .vjs-poster .default-thumbnail [class^='icon-'] {
-      color: $black;
     }
   }
 </style>
