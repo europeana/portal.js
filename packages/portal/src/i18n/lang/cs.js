@@ -142,6 +142,23 @@ export default {
     "show": "Zobrazit atribuci",
     "title": "Název:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Titulky / skryté titulky",
+    "captions off": "Vypnuto",
+    "captionsOption": "{language} titulky",
+    "Exit Fullscreen": "Ukončit celou obrazovku",
+    "Fullscreen": "Celá obrazovka",
+    "Mute": "Ztlumit",
+    "Pause": "Pauza",
+    "Play": "Přehrát",
+    "Play Video": "Přehrát video",
+    "Replay": "Přehrát znovu",
+    "Subtitles": "Titulky / skryté titulky",
+    "subtitles off": "Vypnuto",
+    "subtitlesOption": "{language} titulky",
+    "Unmute": "Zrušit ztlumení",
+    "Volume Level": "Úroveň hlasitosti"
+  },
   "authored": {
     "by": "podle",
     "publishedDate": "Publikováno {date}"
@@ -250,6 +267,9 @@ export default {
   "directions": {
     "left": "Doleva",
     "right": "Doprava"
+  },
+  "ds4ch": {
+    "homeLinkAlt": "Společný evropský datový prostor pro kulturní dědictví"
   },
   "edmIsShownAtLinkAlt": "Zobrazit na webu poskytovatele",
   "embedNotification": {
@@ -714,6 +734,25 @@ export default {
     },
     "RIGHTS": {
       "name": "Výrok o právech",
+      "options": {
+        "*/CNE/*": "Autorská práva nevyhodnocena",
+        "*/InC-EDU/*": "Chráněno autorskými právy – povolené použití pro vzdělávací účely",
+        "*/InC-OW-EU/*": "Chráněno autorskými právy - OW-EU",
+        "*/InC/*": "Chráněno autorskými právy",
+        "*/licenses/by-nc-nd/*": "CC BY-NC-ND",
+        "*/licenses/by-nc-sa/*": "CC BY-NC-SA",
+        "*/licenses/by-nc/*": "CC BY-NC",
+        "*/licenses/by-nd/*": "CC BY-ND",
+        "*/licenses/by-sa/*": "CC BY-SA",
+        "*/licenses/by/*": "CC BY",
+        "*/NoC-NC/*": "Chráněno autorskými právy – pouze nekomerční použití",
+        "*/NoC-OKLR/*": "Žádná autorská práva – jiná známá právní omezení",
+        "*/publicdomain/mark/*": "Značka volné domény",
+        "*/publicdomain/zero/*": "CC0",
+        "*/rights/out-of-copyright-non-commercial/*": "Mimo autorská práva – nekomerční opětovné použití",
+        "*/rights/rr-f/*": "Práva vyhrazena - Volný přístup",
+        "*/rights/unknown/*": "Neznámý stav autorských práv"
+      },
       "select": "Vyberte prohlášení o právech"
     },
     "sort": {
@@ -850,6 +889,7 @@ export default {
   "filterResults": "Filtrovat výsledky",
   "footer": {
     "customiseWebsiteLanguage": "Přizpůsobit jazyk stránky",
+    "disclaimerLine1": "Společný evropský datový prostor pro kulturní dědictví je iniciativou Evropské unie, financovanou z programu Digitální Evropa Evropské unie. Služby datového prostoru, včetně této webové stránky, provozuje konsorcium vedené nadací Europeana na základě smlouvy o poskytování služeb s Evropskou komisí, číslo smlouvy LC-01901432.",
     "findUsElsewhere": "Najděte nás jinde",
     "footer": "Zápatí",
     "imageDescription": "Financováno Evropskou unií",
@@ -1037,6 +1077,25 @@ export default {
     }
   },
   "landing": {
+    "apis": {
+      "footer": {
+        "name": "Zdroje",
+        "navigation": {
+          "apiDocumentation": "Dokumentace API",
+          "contactUs": "Kontaktujte nás",
+          "requestApiKey": "Požádat o API klíč"
+        }
+      },
+      "header": {
+        "homeLinkAlt": "Domovská stránka Europeana API",
+        "navigation": {
+          "apiDemo": "Ukázka API",
+          "europeanaApis": "Europeana API",
+          "faq": "FAQ",
+          "findInspiration": "Najděte inspiraci"
+        }
+      }
+    },
     "counts": {
       "apiRequests": "Průměrně měsíční požadavky API",
       "dataProviders": "Poskytovatelé dat",

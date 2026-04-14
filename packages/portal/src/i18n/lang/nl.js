@@ -142,6 +142,23 @@ export default {
     "show": "Toon toeschrijving",
     "title": "Titel:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Ondertiteling / gesloten ondertiteling",
+    "captions off": "Uit",
+    "captionsOption": "{language} bijschriften",
+    "Exit Fullscreen": "Volledig scherm afsluiten",
+    "Fullscreen": "Volledig scherm",
+    "Mute": "Dempen",
+    "Pause": "Pauze",
+    "Play": "Afspelen",
+    "Play Video": "Video afspelen",
+    "Replay": "Opnieuw afspelen",
+    "Subtitles": "Ondertiteling / gesloten ondertiteling",
+    "subtitles off": "Uit",
+    "subtitlesOption": "{language} ondertitels",
+    "Unmute": "Dempen opheffen",
+    "Volume Level": "Volumeniveau"
+  },
   "authored": {
     "by": "door",
     "publishedDate": "Gepubliceerd op {date}"
@@ -250,6 +267,9 @@ export default {
   "directions": {
     "left": "Links",
     "right": "Rechts"
+  },
+  "ds4ch": {
+    "homeLinkAlt": "De gemeenschappelijke Europese dataruimte voor cultureel erfgoed"
   },
   "edmIsShownAtLinkAlt": "Bekijken op de website van de provider",
   "embedNotification": {
@@ -714,6 +734,25 @@ export default {
     },
     "RIGHTS": {
       "name": "Rechtenstatus",
+      "options": {
+        "*/CNE/*": "AUTEURSRECHTELIJKE STATUS NIET GEËVALUEERD",
+        "*/InC-EDU/*": "AUTEURSRECHTELIJK BESCHERMD - EDUCATIEF GEBRUIK TOEGESTAAN",
+        "*/InC-OW-EU/*": "AUTEURSRECHTELIJK BESCHERMD - OW-EU",
+        "*/InC/*": "AUTEURSRECHTELIJK BESCHERMD",
+        "*/licenses/by-nc-nd/*": "CC BY-NC-ND",
+        "*/licenses/by-nc-sa/*": "CC BY-NC-SA",
+        "*/licenses/by-nc/*": "CC BY-NC",
+        "*/licenses/by-nd/*": "CC BY-ND",
+        "*/licenses/by-sa/*": "CC BY-SA",
+        "*/licenses/by/*": "CC BY",
+        "*/NoC-NC/*": "NIET AUTEURSRECHTELIJK BESCHERMD - UITSLUITEND NIET-COMMERCIEEL GEBRUIK TOEGESTAAN",
+        "*/NoC-OKLR/*": "NIET AUTEURSRECHTELIJK BESCHERMD - ANDERE JURIDISCHE BEPERKINGEN",
+        "*/publicdomain/mark/*": "Public Domain Mark",
+        "*/publicdomain/zero/*": "CC0",
+        "*/rights/out-of-copyright-non-commercial/*": "NIET AUTEURSRECHTELIJK BESCHERMD - UITSLUITEND NIET-COMMERCIEEL GEBRUIK TOEGESTAAN",
+        "*/rights/rr-f/*": "Rights Reserved - Free access",
+        "*/rights/unknown/*": "AUTEURSRECHTELIJKE BESCHERMING NIET BEPAALD"
+      },
       "select": "Selecteer rechtenverklaringen"
     },
     "sort": {
@@ -850,6 +889,7 @@ export default {
   "filterResults": "Resultaten filteren",
   "footer": {
     "customiseWebsiteLanguage": "Pas de taal van de website aan",
+    "disclaimerLine1": "De gemeenschappelijke Europese dataspace voor cultureel erfgoed is een initiatief van de Europese Unie, gefinancierd door het programma Digitaal Europa van de EU. De dataspace-diensten, waaronder deze website, worden beheerd door een consortium onder leiding van de Europeana Foundation op basis van een dienstverleningsovereenkomst met de Europese Commissie, contractnummer LC-01901432.",
     "findUsElsewhere": "Vind ons ergens anders",
     "footer": "Voettekst",
     "imageDescription": "Gefinancierd door de Europese Unie",
@@ -1037,6 +1077,25 @@ export default {
     }
   },
   "landing": {
+    "apis": {
+      "footer": {
+        "name": "Bronnen",
+        "navigation": {
+          "apiDocumentation": "API-documentatie",
+          "contactUs": "Neem contact met ons op",
+          "requestApiKey": "Vraag een API-sleutel aan"
+        }
+      },
+      "header": {
+        "homeLinkAlt": "Europeana API's home",
+        "navigation": {
+          "apiDemo": "API-demo",
+          "europeanaApis": "Europeana API's",
+          "faq": "FAQ",
+          "findInspiration": "Vind inspiratie"
+        }
+      }
+    },
     "counts": {
       "apiRequests": "Gemiddeld maandelijkse API-verzoeken",
       "dataProviders": "Dataleveranciers",

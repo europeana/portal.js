@@ -142,6 +142,23 @@ export default {
     "show": "Kuva atribuutika",
     "title": "Pealkiri:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Subtiitrid / pealelugemine kuulmispuudega vaatajatele",
+    "captions off": "Väljas",
+    "captionsOption": "{language} subtiitrid",
+    "Exit Fullscreen": "Välju täisekraanist",
+    "Fullscreen": "Täisekraan",
+    "Mute": "Vaigista",
+    "Pause": "Paus",
+    "Play": "Esita",
+    "Play Video": "Esita video",
+    "Replay": "Esita uuesti",
+    "Subtitles": "Subtiitrid / pealelugemine kuulmispuudega vaatajatele",
+    "subtitles off": "Väljas",
+    "subtitlesOption": "{language} subtiitrid",
+    "Unmute": "Eemalda vaigistus",
+    "Volume Level": "Helitugevuse tase"
+  },
   "authored": {
     "by": "poolt",
     "publishedDate": "Avaldatud {date}"
@@ -250,6 +267,9 @@ export default {
   "directions": {
     "left": "Vasak",
     "right": "Parem"
+  },
+  "ds4ch": {
+    "homeLinkAlt": "Ühine Euroopa andmeruum kultuuripärandi jaoks"
   },
   "edmIsShownAtLinkAlt": "Vaadake teenusepakkuja veebisaidil",
   "embedNotification": {
@@ -714,6 +734,25 @@ export default {
     },
     "RIGHTS": {
       "name": "Õiguste deklaratsioon",
+      "options": {
+        "*/CNE/*": "Autoriõigust ei hinnatud",
+        "*/InC-EDU/*": "Autoriõigusega - kasutamine hariduslikul eesmärgil lubatud",
+        "*/InC-OW-EU/*": "Autoriõigus – OW-EU",
+        "*/InC/*": "Autoriõigus",
+        "*/licenses/by-nc-nd/*": "CC BY-NC-ND",
+        "*/licenses/by-nc-sa/*": "CC BY-NC-SA",
+        "*/licenses/by-nc/*": "CC BY-NC",
+        "*/licenses/by-nd/*": "CC BY-ND",
+        "*/licenses/by-sa/*": "CC BY-SA",
+        "*/licenses/by/*": "CC BY",
+        "*/NoC-NC/*": "Autoriõigus puudub – ainult mitteäriliseks kasutamiseks",
+        "*/NoC-OKLR/*": "Autoriõigus puudub – muud teadaolevad juriidilised piirangud",
+        "*/publicdomain/mark/*": "Avaliku domeeni märk",
+        "*/publicdomain/zero/*": "CC0",
+        "*/rights/out-of-copyright-non-commercial/*": "Autoriõigusest väljas - mitteäriline taaskasutamine",
+        "*/rights/rr-f/*": "Õigused reserveeritud – tasuta juurdepääs",
+        "*/rights/unknown/*": "Autoriõiguse staatus teadmata"
+      },
       "select": "Valige õiguste avaldused"
     },
     "sort": {
@@ -850,6 +889,7 @@ export default {
   "filterResults": "Filtreeri tulemusi",
   "footer": {
     "customiseWebsiteLanguage": "Kohandage veebisaidi keelt",
+    "disclaimerLine1": "Ühine Euroopa kultuuripärandi andmeruum on Euroopa Liidu algatus, mida rahastatakse Euroopa Liidu programmi Digitaalne Euroopa kaudu. Andmeruumi teenuseid, sealhulgas seda veebisaiti, haldab konsortsium, mida juhib Europeana Fond Euroopa Komisjoni teenuslepingu alusel, lepingu number LC-01901432.",
     "findUsElsewhere": "Leidke meid mujalt",
     "footer": "Jalus",
     "imageDescription": "Rahastab Euroopa Liit",
@@ -1037,6 +1077,25 @@ export default {
     }
   },
   "landing": {
+    "apis": {
+      "footer": {
+        "name": "Ressursid",
+        "navigation": {
+          "apiDocumentation": "API dokumentatsioon",
+          "contactUs": "Võta meiega ühendust",
+          "requestApiKey": "Taotle API võtit"
+        }
+      },
+      "header": {
+        "homeLinkAlt": "Europeana API-de avaleht",
+        "navigation": {
+          "apiDemo": "API demo",
+          "europeanaApis": "Europeana API-d",
+          "faq": "FAQ",
+          "findInspiration": "Leia inspiratsiooni"
+        }
+      }
+    },
     "counts": {
       "apiRequests": "Igakuised API taotlused keskmiselt",
       "dataProviders": "Andmepakkujad",

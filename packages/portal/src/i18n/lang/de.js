@@ -142,6 +142,23 @@ export default {
     "show": "Namensnennung anzeigen",
     "title": "Titel:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Untertitel / geschlossene Untertitel",
+    "captions off": "Aus",
+    "captionsOption": "{language} bildunterschriften",
+    "Exit Fullscreen": "Vollbild beenden",
+    "Fullscreen": "Vollbild",
+    "Mute": "Stumm",
+    "Pause": "Pause",
+    "Play": "Spielen",
+    "Play Video": "Video abspielen",
+    "Replay": "Wiederholung",
+    "Subtitles": "Untertitel / geschlossene Untertitel",
+    "subtitles off": "Aus",
+    "subtitlesOption": "{language} Untertitel",
+    "Unmute": "Stummschaltung aufheben",
+    "Volume Level": "Lautstärkepegel"
+  },
   "authored": {
     "by": "von",
     "publishedDate": "Veröffentlicht am {date}"
@@ -250,6 +267,9 @@ export default {
   "directions": {
     "left": "Links",
     "right": "Rechts"
+  },
+  "ds4ch": {
+    "homeLinkAlt": "Der gemeinsame europäische Datenraum für das heimische Kulturerbe"
   },
   "edmIsShownAtLinkAlt": "Auf der Website des Anbieters ansehen",
   "embedNotification": {
@@ -714,6 +734,25 @@ export default {
     },
     "RIGHTS": {
       "name": "Rechte",
+      "options": {
+        "*/CNE/*": "Urheberrecht nicht bewertet",
+        "*/InC-EDU/*": "Urheberrechtlich geschützt – Verwendung zu Bildungszwecken gestattet",
+        "*/InC-OW-EU/*": "Im Urheberrecht - OW-EU",
+        "*/InC/*": "Im Urheberrecht",
+        "*/licenses/by-nc-nd/*": "CC BY-NC-ND",
+        "*/licenses/by-nc-sa/*": "CC BY-NC-SA",
+        "*/licenses/by-nc/*": "CC BY-NC",
+        "*/licenses/by-nd/*": "CC BY-ND",
+        "*/licenses/by-sa/*": "CC BY-SA",
+        "*/licenses/by/*": "CC BY",
+        "*/NoC-NC/*": "Kein Urheberrecht – nur nicht-kommerzielle Nutzung",
+        "*/NoC-OKLR/*": "Kein Urheberrecht – andere bekannte gesetzliche Beschränkungen",
+        "*/publicdomain/mark/*": "Gemeingut-Marke",
+        "*/publicdomain/zero/*": "CC0",
+        "*/rights/out-of-copyright-non-commercial/*": "Außerhalb des Urheberrechts - nicht kommerzielle Wiederverwendung",
+        "*/rights/rr-f/*": "Rechte vorbehalten – Freier Zugang",
+        "*/rights/unknown/*": "Unbekannter Urheberrechtsstatus"
+      },
       "select": "Rechtehinweise"
     },
     "sort": {
@@ -850,6 +889,7 @@ export default {
   "filterResults": "Filter Ergebnisse",
   "footer": {
     "customiseWebsiteLanguage": "Sprache der Website anpassen",
+    "disclaimerLine1": "Der gemeinsame europäische Datenraum für das kulturelle Erbe ist eine Initiative der Europäischen Union, die durch das Programm \"Digitales Europa\" der Europäischen Union finanziert wird. Die Dienste des Datenraums, einschließlich dieser Website, werden von einem Konsortium unter der Leitung der Europeana Foundation im Rahmen eines Dienstleistungsvertrags mit der Europäischen Kommission betrieben, Vertragsnummer LC-01901432.",
     "findUsElsewhere": "Finden Sie uns anderswo",
     "footer": "Fußzeile",
     "imageDescription": "Finanziert von der Europäischen Union",
@@ -1037,6 +1077,25 @@ export default {
     }
   },
   "landing": {
+    "apis": {
+      "footer": {
+        "name": "Ressourcen",
+        "navigation": {
+          "apiDocumentation": "API-Dokumentation",
+          "contactUs": "Kontakt",
+          "requestApiKey": "API-Schlüssel anfordern"
+        }
+      },
+      "header": {
+        "homeLinkAlt": "Europeana APIs Startseite",
+        "navigation": {
+          "apiDemo": "API-Demo",
+          "europeanaApis": "Europeana APIs",
+          "faq": "FAQ",
+          "findInspiration": "Inspiration finden"
+        }
+      }
+    },
     "counts": {
       "apiRequests": "Monatliche API-Anfragen, im Durchschnitt",
       "dataProviders": "Datenanbieter",

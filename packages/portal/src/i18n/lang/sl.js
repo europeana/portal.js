@@ -142,6 +142,23 @@ export default {
     "show": "Prikaži navedbo vira",
     "title": "Naslov:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Podnapisi / skriti podnapisi",
+    "captions off": "Izklopljeno",
+    "captionsOption": "{language} podnapisi",
+    "Exit Fullscreen": "Izhod iz celotnega zaslona",
+    "Fullscreen": "Celoten zaslon",
+    "Mute": "Utišaj",
+    "Pause": "Začasno ustavi",
+    "Play": "Predvajaj",
+    "Play Video": "Predvajaj video",
+    "Replay": "Predvajaj znova",
+    "Subtitles": "Podnapisi / skriti podnapisi",
+    "subtitles off": "Izklopljeno",
+    "subtitlesOption": "{language} podnapisi",
+    "Unmute": "Vklopi zvok",
+    "Volume Level": "Glasnost"
+  },
   "authored": {
     "by": "po",
     "publishedDate": "Objavljeno {date}"
@@ -250,6 +267,9 @@ export default {
   "directions": {
     "left": "Levo",
     "right": "Desno"
+  },
+  "ds4ch": {
+    "homeLinkAlt": "Domača stran skupnega evropskega podatkovnega prostora za kulturno dediščino"
   },
   "edmIsShownAtLinkAlt": "Ogled na spletni strani ponudnika",
   "embedNotification": {
@@ -714,6 +734,25 @@ export default {
     },
     "RIGHTS": {
       "name": "Pravice",
+      "options": {
+        "*/CNE/*": "Avtorske pravice niso ocenjene",
+        "*/InC-EDU/*": "V avtorskih pravicah – dovoljena izobraževalna uporaba",
+        "*/InC-OW-EU/*": "V avtorskih pravicah – OW-EU",
+        "*/InC/*": "V avtorskih pravicah",
+        "*/licenses/by-nc-nd/*": "CC BY-NC-ND",
+        "*/licenses/by-nc-sa/*": "CC BY-NC-SA",
+        "*/licenses/by-nc/*": "CC BY-NC",
+        "*/licenses/by-nd/*": "CC BY-ND",
+        "*/licenses/by-sa/*": "CC BY-SA",
+        "*/licenses/by/*": "CC BY",
+        "*/NoC-NC/*": "Brez avtorskih pravic - Samo za nekomercialno uporabo",
+        "*/NoC-OKLR/*": "Brez avtorskih pravic - Druge znane pravne omejitve",
+        "*/publicdomain/mark/*": "Oznaka javne domene",
+        "*/publicdomain/zero/*": "CC0",
+        "*/rights/out-of-copyright-non-commercial/*": "Brez avtorskih pravic – nekomercialna ponovna uporaba",
+        "*/rights/rr-f/*": "Pravice pridržane – Brezplačen dostop",
+        "*/rights/unknown/*": "Neznan status avtorskih pravic"
+      },
       "select": "Izberite izjave o pravicah"
     },
     "sort": {
@@ -850,6 +889,7 @@ export default {
   "filterResults": "Filtrirajte rezultate",
   "footer": {
     "customiseWebsiteLanguage": "Prilagoditev jezika spletnega mesta",
+    "disclaimerLine1": "Skupni evropski podatkovni prostor za kulturno dediščino je pobuda Evropske unije, ki jo financira program Evropske unije za digitalno Evropo. Storitve podatkovnega prostora, vključno s tem spletnim mestom, upravlja konzorcij, ki ga vodi fundacija Europeana v okviru pogodbe o storitvah z Evropsko komisijo, številka pogodbe LC-01901432.",
     "findUsElsewhere": "Najdite nas drugje",
     "footer": "Noga",
     "imageDescription": "Financira Evropska unija",
@@ -1037,6 +1077,25 @@ export default {
     }
   },
   "landing": {
+    "apis": {
+      "footer": {
+        "name": "Viri",
+        "navigation": {
+          "apiDocumentation": "Dokumentacija API",
+          "contactUs": "Kontaktirajte nas",
+          "requestApiKey": "Zahtevajte API ključ"
+        }
+      },
+      "header": {
+        "homeLinkAlt": "Domača stran Europeana API-jev",
+        "navigation": {
+          "apiDemo": "Predstavitev API-ja",
+          "europeanaApis": "API-ji Europeana",
+          "faq": "FAQ",
+          "findInspiration": "Poiščite navdih"
+        }
+      }
+    },
     "counts": {
       "apiRequests": "Povprečno število mesečnih zahtev API",
       "dataProviders": "Ponudniki podatkov",

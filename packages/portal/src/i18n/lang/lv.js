@@ -142,6 +142,23 @@ export default {
     "show": "Rādīt attiecinājumu",
     "title": "Nosaukums:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Subtitri / slēgtie titri",
+    "captions off": "Izslēgts",
+    "captionsOption": "{language} subtitri",
+    "Exit Fullscreen": "Iziet pilnekrāna režīmā",
+    "Fullscreen": "Pilnekrāna",
+    "Mute": "Izslēgt skaņu",
+    "Pause": "Pauze",
+    "Play": "Atskaņot",
+    "Play Video": "Atskaņot video",
+    "Replay": "Atkārtot",
+    "Subtitles": "Subtitri / slēgtie titri",
+    "subtitles off": "Izslēgts",
+    "subtitlesOption": "{language} subtitri",
+    "Unmute": "Ieslēgt skaņu",
+    "Volume Level": "Skaļuma līmenis"
+  },
   "authored": {
     "by": "autors",
     "publishedDate": "Publicēts {date}"
@@ -250,6 +267,9 @@ export default {
   "directions": {
     "left": "Kreisais",
     "right": "Labais"
+  },
+  "ds4ch": {
+    "homeLinkAlt": "Eiropas kopīgās kultūras mantojuma datu telpas mājaslapa"
   },
   "edmIsShownAtLinkAlt": "Skatīt pakalpojumu sniedzēja vietnē",
   "embedNotification": {
@@ -714,6 +734,25 @@ export default {
     },
     "RIGHTS": {
       "name": "Tiesību statuss",
+      "options": {
+        "*/CNE/*": "Autortiesības Nav novērtēts",
+        "*/InC-EDU/*": "Autortiesības - izglītojoša izmantošana atļauta",
+        "*/InC-OW-EU/*": "Autortiesībās - OW-EU",
+        "*/InC/*": "Autortiesībās",
+        "*/licenses/by-nc-nd/*": "CC BY-NC-ND",
+        "*/licenses/by-nc-sa/*": "CC BY-NC-SA",
+        "*/licenses/by-nc/*": "CC BY-NC",
+        "*/licenses/by-nd/*": "CC BY-ND",
+        "*/licenses/by-sa/*": "CC BY-SA",
+        "*/licenses/by/*": "CC BY",
+        "*/NoC-NC/*": "Nav autortiesību — tikai nekomerciālai lietošanai",
+        "*/NoC-OKLR/*": "Nav autortiesību — citi zināmi juridiski ierobežojumi",
+        "*/publicdomain/mark/*": "Publiskā domēna zīme",
+        "*/publicdomain/zero/*": "CC0",
+        "*/rights/out-of-copyright-non-commercial/*": "Ārpus autortiesībām - nekomerciāla atkalizmantošana",
+        "*/rights/rr-f/*": "Tiesības aizsargātas - Bezmaksas piekļuve",
+        "*/rights/unknown/*": "Nezināms autortiesību statuss"
+      },
       "select": "Atlasit tiesību paziņojumus"
     },
     "sort": {
@@ -850,6 +889,7 @@ export default {
   "filterResults": "Filtrēt rezultātus",
   "footer": {
     "customiseWebsiteLanguage": "Pielāgojiet vietnes valodu",
+    "disclaimerLine1": "Kopējā Eiropas kultūras mantojuma datu telpa ir Eiropas Savienības iniciatīva, ko finansē Eiropas Savienības programma \"Digitālā Eiropa\". Datu telpas pakalpojumus, tostarp šo tīmekļa vietni, pārvalda konsorcijs, ko vada Europeana fonds saskaņā ar pakalpojumu līgumu ar Eiropas Komisiju, līguma numurs LC-01901432.",
     "findUsElsewhere": "Atrodiet mūs citur",
     "footer": "Kājene",
     "imageDescription": "Finansē Eiropas Savienība",
@@ -1037,6 +1077,25 @@ export default {
     }
   },
   "landing": {
+    "apis": {
+      "footer": {
+        "name": "Resursi",
+        "navigation": {
+          "apiDocumentation": "API dokumentācija",
+          "contactUs": "Sazinieties ar mums",
+          "requestApiKey": "Pieprasīt API atslēgu"
+        }
+      },
+      "header": {
+        "homeLinkAlt": "Europeana API sākumlapa",
+        "navigation": {
+          "apiDemo": "API demonstrācija",
+          "europeanaApis": "Europeana API",
+          "faq": "FAQ",
+          "findInspiration": "Atrodi iedvesmu"
+        }
+      }
+    },
     "counts": {
       "apiRequests": "Vidēji ikmēneša API pieprasījumi",
       "dataProviders": "Datu sniedzēji",

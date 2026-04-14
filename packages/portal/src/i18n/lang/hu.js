@@ -142,6 +142,23 @@ export default {
     "show": "Attribúció megjelenítése",
     "title": "Cím:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Feliratok / kódolt feliratok",
+    "captions off": "Kikapcsolva",
+    "captionsOption": "{language} feliratok",
+    "Exit Fullscreen": "Kilépés a teljes képernyős módból",
+    "Fullscreen": "Teljes képernyő",
+    "Mute": "Némítás",
+    "Pause": "Szünet",
+    "Play": "Lejátszás",
+    "Play Video": "Videó lejátszása",
+    "Replay": "Visszajátszás",
+    "Subtitles": "Feliratok / kódolt feliratok",
+    "subtitles off": "Kikapcsolva",
+    "subtitlesOption": "{language} feliratok",
+    "Unmute": "Némítás feloldása",
+    "Volume Level": "Hangerőszint"
+  },
   "authored": {
     "by": "Szerző:",
     "publishedDate": "Közzététel dátuma: {date}"
@@ -250,6 +267,9 @@ export default {
   "directions": {
     "left": "Bal",
     "right": "Jobb"
+  },
+  "ds4ch": {
+    "homeLinkAlt": "A közös európai kulturális örökség adattér kezdőlapja"
   },
   "edmIsShownAtLinkAlt": "Megtekintés a szolgáltató weboldalán",
   "embedNotification": {
@@ -714,6 +734,25 @@ export default {
     },
     "RIGHTS": {
       "name": "Szerzői jogok",
+      "options": {
+        "*/CNE/*": "A szerzői jog nincs értékelve",
+        "*/InC-EDU/*": "Szerzői jogvédelem alatt - oktatási célú felhasználás megengedett",
+        "*/InC-OW-EU/*": "Szerzői jogvédelem alatt - OW-EU",
+        "*/InC/*": "Szerzői jogvédelem alatt",
+        "*/licenses/by-nc-nd/*": "CC BY-NC-ND",
+        "*/licenses/by-nc-sa/*": "CC BY-NC-SA",
+        "*/licenses/by-nc/*": "CC BY-NC",
+        "*/licenses/by-nd/*": "CC BY-ND",
+        "*/licenses/by-sa/*": "CC BY-SA",
+        "*/licenses/by/*": "CC BY",
+        "*/NoC-NC/*": "Nincs szerzői jog – csak nem kereskedelmi használatra",
+        "*/NoC-OKLR/*": "Nincs szerzői jog – egyéb ismert jogi korlátozások",
+        "*/publicdomain/mark/*": "Public Domain Mark",
+        "*/publicdomain/zero/*": "CC0",
+        "*/rights/out-of-copyright-non-commercial/*": "Szerzői jogon kívül - nem kereskedelmi újrafelhasználás",
+        "*/rights/rr-f/*": "Jogok fenntartva - Ingyenes hozzáférés",
+        "*/rights/unknown/*": "Ismeretlen szerzői jogi állapot"
+      },
       "select": "Szerzői jogok kiválasztása"
     },
     "sort": {
@@ -850,6 +889,7 @@ export default {
   "filterResults": "Találatok szűrése",
   "footer": {
     "customiseWebsiteLanguage": "A webhely nyelvének testreszabása",
+    "disclaimerLine1": "A közös európai kulturális örökségadat-tér az Európai Unió kezdeményezése, amelyet az EU Digitális Európa programja finanszíroz. Az adattér szolgáltatásait, beleértve ezt a weboldalt is, az Europeana Alapítvány által vezetett konzorcium működteti az Európai Bizottsággal kötött szolgáltatási szerződés alapján, szerződésszám: LC-01901432.",
     "findUsElsewhere": "Megtalálsz minket itt is:",
     "footer": "Lábléc",
     "imageDescription": "Az Európai Unió támogatásával",
@@ -1037,6 +1077,25 @@ export default {
     }
   },
   "landing": {
+    "apis": {
+      "footer": {
+        "name": "Erőforrások",
+        "navigation": {
+          "apiDocumentation": "API dokumentáció",
+          "contactUs": "Kapcsolat",
+          "requestApiKey": "API-kulcs igénylése"
+        }
+      },
+      "header": {
+        "homeLinkAlt": "Europeana API-k kezdőlapja",
+        "navigation": {
+          "apiDemo": "API demó",
+          "europeanaApis": "Europeana API-k",
+          "faq": "GYIK",
+          "findInspiration": "Meríts ihletet"
+        }
+      }
+    },
     "counts": {
       "apiRequests": "Átlagos havi API-kérés",
       "dataProviders": "Adatszolgáltató",

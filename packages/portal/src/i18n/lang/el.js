@@ -142,6 +142,23 @@ export default {
     "show": "Εμφάνιση απόδοσης",
     "title": "Τίτλος:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Υπότιτλοι / κλειστές λεζάντες",
+    "captions off": "Απενεργοποίηση",
+    "captionsOption": "{language} λεζάντες",
+    "Exit Fullscreen": "Έξοδος από πλήρη οθόνη",
+    "Fullscreen": "Πλήρης οθόνη",
+    "Mute": "Σίγαση",
+    "Pause": "Παύση",
+    "Play": "Αναπαραγωγή",
+    "Play Video": "Αναπαραγωγή βίντεο",
+    "Replay": "Επανάληψη",
+    "Subtitles": "Υπότιτλοι / κλειστές λεζάντες",
+    "subtitles off": "Απενεργοποίηση",
+    "subtitlesOption": "{language} υπότιτλοι",
+    "Unmute": "Διακοπή σίγασης",
+    "Volume Level": "Επίπεδο έντασης ήχου"
+  },
   "authored": {
     "by": "με",
     "publishedDate": "Δημοσιεύτηκε στις {date}"
@@ -250,6 +267,9 @@ export default {
   "directions": {
     "left": "Αριστερά",
     "right": "Δεξιά"
+  },
+  "ds4ch": {
+    "homeLinkAlt": "Η αρχική σελίδα του κοινού ευρωπαϊκού χώρου δεδομένων για την πολιτιστική κληρονομιά"
   },
   "edmIsShownAtLinkAlt": "Προβολή στον ιστότοπο του παρόχου",
   "embedNotification": {
@@ -714,6 +734,25 @@ export default {
     },
     "RIGHTS": {
       "name": "Δικαιώματα",
+      "options": {
+        "*/CNE/*": "Τα πνευματικά δικαιώματα δεν έχουν αξιολογηθεί",
+        "*/InC-EDU/*": "Ισχύουν πνευματικά δικαιώματα - Επιτρέπεται η εκπαιδευτική χρήση",
+        "*/InC-OW-EU/*": "Ισχύουν πνευματικά δικαιώματα - OW-EU",
+        "*/InC/*": "Ισχύουν πνευματικά δικαιώματα",
+        "*/licenses/by-nc-nd/*": "CC BY-NC-ND",
+        "*/licenses/by-nc-sa/*": "CC BY-NC-SA",
+        "*/licenses/by-nc/*": "CC BY-NC",
+        "*/licenses/by-nd/*": "CC BY-ND",
+        "*/licenses/by-sa/*": "CC BY-SA",
+        "*/licenses/by/*": "CC BY",
+        "*/NoC-NC/*": "Χωρίς πνευματικά δικαιώματα - Μόνο για μη εμπορική χρήση",
+        "*/NoC-OKLR/*": "Δεν υπάρχουν πνευματικά δικαιώματα - Άλλοι γνωστοί νομικοί περιορισμοί",
+        "*/publicdomain/mark/*": "Σήμανση δημόσιου τομέα",
+        "*/publicdomain/zero/*": "CC0",
+        "*/rights/out-of-copyright-non-commercial/*": "Εκτός πνευματικών δικαιωμάτων - μη εμπορική επαναχρησιμοποίηση",
+        "*/rights/rr-f/*": "Διατήρηση δικαιωμάτων - Ελεύθερη πρόσβαση",
+        "*/rights/unknown/*": "Άγνωστη κατάσταση πνευματικής ιδιοκτησίας"
+      },
       "select": "Επιλέξτε δηλώσεις πνευματικής ιδιοκτησίας"
     },
     "sort": {
@@ -850,6 +889,7 @@ export default {
   "filterResults": "Αποτελέσματα φίλτρου",
   "footer": {
     "customiseWebsiteLanguage": "Προσαρμόστε τη γλώσσα του ιστότοπου",
+    "disclaimerLine1": "Ο κοινός ευρωπαϊκός χώρος δεδομένων για την πολιτιστική κληρονομιά είναι μια πρωτοβουλία της Ευρωπαϊκής Ένωσης, η οποία χρηματοδοτείται από το πρόγραμμα «Ψηφιακή Ευρώπη» της Ευρωπαϊκής Ένωσης. Οι υπηρεσίες του χώρου δεδομένων, συμπεριλαμβανομένου αυτού του ιστότοπου, λειτουργούν από μια κοινοπραξία με επικεφαλής το Ίδρυμα Europeana, βάσει σύμβασης παροχής υπηρεσιών με την Ευρωπαϊκή Επιτροπή, αριθμός σύμβασης LC-01901432.",
     "findUsElsewhere": "Βρείτε μας αλλού",
     "footer": "Υποσέλιδο",
     "imageDescription": "Χρηματοδοτείται από την Ευρωπαϊκή Ένωση",
@@ -1037,6 +1077,25 @@ export default {
     }
   },
   "landing": {
+    "apis": {
+      "footer": {
+        "name": "Πόροι",
+        "navigation": {
+          "apiDocumentation": "Τεκμηρίωση API",
+          "contactUs": "Επικοινωνήστε μαζί μας",
+          "requestApiKey": "Αίτηση για κλειδί API"
+        }
+      },
+      "header": {
+        "homeLinkAlt": "Αρχική σελίδα APIs της Europeana",
+        "navigation": {
+          "apiDemo": "Επίδειξη API",
+          "europeanaApis": "APIs της Europeana",
+          "faq": "FAQ",
+          "findInspiration": "Βρείτε έμπνευση"
+        }
+      }
+    },
     "counts": {
       "apiRequests": "Μηνιαία αιτήματα API, κατά μέσο όρο",
       "dataProviders": "Πάροχοι δεδομένων",

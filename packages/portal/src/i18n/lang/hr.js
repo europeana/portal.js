@@ -142,6 +142,23 @@ export default {
     "show": "Prikaži atribuciju",
     "title": "Naslov:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Titlovi / skriveni titlovi",
+    "captions off": "Isključeno",
+    "captionsOption": "{language} titlovi",
+    "Exit Fullscreen": "Izađi iz punog zaslona",
+    "Fullscreen": "Cijeli zaslon",
+    "Mute": "Isključi zvuk",
+    "Pause": "Pauza",
+    "Play": "Reproduciraj",
+    "Play Video": "Reproduciraj video",
+    "Replay": "Ponovi",
+    "Subtitles": "Titlovi / skriveni titlovi",
+    "subtitles off": "Isključeno",
+    "subtitlesOption": "{language} titlovi",
+    "Unmute": "Uključi zvuk",
+    "Volume Level": "Razina glasnoće"
+  },
   "authored": {
     "by": "po",
     "publishedDate": "Objavljeno {date}"
@@ -250,6 +267,9 @@ export default {
   "directions": {
     "left": "Lijevo",
     "right": "Desno"
+  },
+  "ds4ch": {
+    "homeLinkAlt": "Zajednički europski prostor podataka za kulturnu baštinu"
   },
   "edmIsShownAtLinkAlt": "Prikaz na internetskoj stranici pružatelja",
   "embedNotification": {
@@ -714,6 +734,25 @@ export default {
     },
     "RIGHTS": {
       "name": "Uvjeti korištenja",
+      "options": {
+        "*/CNE/*": "Autorsko pravo ne vrednuje",
+        "*/InC-EDU/*": "U autorskim pravima - dozvoljeno za obrazovnu uporabu",
+        "*/InC-OW-EU/*": "U autorskim pravima - OW-EU",
+        "*/InC/*": "U autorskim pravima",
+        "*/licenses/by-nc-nd/*": "CC BY-NC-ND",
+        "*/licenses/by-nc-sa/*": "CC BY-NC-SA",
+        "*/licenses/by-nc/*": "CC BY-NC",
+        "*/licenses/by-nd/*": "CC BY-ND",
+        "*/licenses/by-sa/*": "CC BY-SA",
+        "*/licenses/by/*": "CC BY",
+        "*/NoC-NC/*": "Bez autorskih prava - samo nekomercijalna uporaba",
+        "*/NoC-OKLR/*": "Bez autorskih prava - ostala poznata zakonska ograničenja",
+        "*/publicdomain/mark/*": "Public Domain Mark",
+        "*/publicdomain/zero/*": "CC0",
+        "*/rights/out-of-copyright-non-commercial/*": "Bez autorskih prava - samo nekomercijalna uporaba",
+        "*/rights/rr-f/*": "Rights Reserved - Free access",
+        "*/rights/unknown/*": "Unknown copyright status"
+      },
       "select": "Odaberite izjave o pravima"
     },
     "sort": {
@@ -850,6 +889,7 @@ export default {
   "filterResults": "Filtrirajte rezultate",
   "footer": {
     "customiseWebsiteLanguage": "Prilagodite jezik internetske stranice",
+    "disclaimerLine1": "Zajednički europski podatkovni prostor za kulturnu baštinu inicijativa je Europske unije koja se financira iz programa Europske unije Digitalna Europa. Uslugama podatkovnog prostora, uključujući ovu internetsku stranicu, upravlja konzorcij pod vodstvom Zaklade Europeana na temelju ugovora o uslugama s Europskom komisijom, broj ugovora LC-01901432.",
     "findUsElsewhere": "Pronađite nas negdje drugdje",
     "footer": "Podnožje",
     "imageDescription": "Financira Europska unija",
@@ -1037,6 +1077,25 @@ export default {
     }
   },
   "landing": {
+    "apis": {
+      "footer": {
+        "name": "Resursi",
+        "navigation": {
+          "apiDocumentation": "API dokumentacija",
+          "contactUs": "Kontaktirajte nas",
+          "requestApiKey": "Zatražite API ključ"
+        }
+      },
+      "header": {
+        "homeLinkAlt": "Početna stranica Europeana API-ja",
+        "navigation": {
+          "apiDemo": "API demo",
+          "europeanaApis": "Europeana API-ji",
+          "faq": "FAQ",
+          "findInspiration": "Pronađite inspiraciju"
+        }
+      }
+    },
     "counts": {
       "apiRequests": "Mjesečni API zahtjevi, u prosjeku",
       "dataProviders": "Davatelji podataka",

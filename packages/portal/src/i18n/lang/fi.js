@@ -142,6 +142,23 @@ export default {
     "show": "Näytä attribuutio",
     "title": "Nimi:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Tekstitykset / kuvitettu tekstitys",
+    "captions off": "Pois",
+    "captionsOption": "{language} kuvatekstit",
+    "Exit Fullscreen": "Poistu koko näytöstä",
+    "Fullscreen": "Koko näyttö",
+    "Mute": "Mykistä",
+    "Pause": "Tauko",
+    "Play": "Toista",
+    "Play Video": "Toista video",
+    "Replay": "Toista uudelleen",
+    "Subtitles": "Tekstitykset / kuvitettu tekstitys",
+    "subtitles off": "Pois",
+    "subtitlesOption": "{language} tekstitystä",
+    "Unmute": "Poista mykistys",
+    "Volume Level": "Äänenvoimakkuustaso"
+  },
   "authored": {
     "by": "by",
     "publishedDate": "Julkaistu {date}"
@@ -250,6 +267,9 @@ export default {
   "directions": {
     "left": "Vasen",
     "right": "Oikea"
+  },
+  "ds4ch": {
+    "homeLinkAlt": "Yhteinen eurooppalainen tietoalue kulttuuriperinnölle"
   },
   "edmIsShownAtLinkAlt": "Näytä palveluntarjoajan verkkosivustolla",
   "embedNotification": {
@@ -714,6 +734,25 @@ export default {
     },
     "RIGHTS": {
       "name": "Käyttöoikeus",
+      "options": {
+        "*/CNE/*": "Tekijänoikeus Ei arvioitu",
+        "*/InC-EDU/*": "Tekijänoikeus - Opetuskäyttö sallittu",
+        "*/InC-OW-EU/*": "Tekijänoikeus - OW-EU",
+        "*/InC/*": "Tekijänoikeudet",
+        "*/licenses/by-nc-nd/*": "CC BY-NC-ND",
+        "*/licenses/by-nc-sa/*": "CC BY-NC-SA",
+        "*/licenses/by-nc/*": "CC BY-NC",
+        "*/licenses/by-nd/*": "CC BY-ND",
+        "*/licenses/by-sa/*": "CC BY-SA",
+        "*/licenses/by/*": "CC BY",
+        "*/NoC-NC/*": "Ei tekijänoikeuksia – vain ei-kaupalliseen käyttöön",
+        "*/NoC-OKLR/*": "Ei tekijänoikeuksia – muut tunnetut lailliset rajoitukset",
+        "*/publicdomain/mark/*": "Julkisen verkkotunnuksen merkki",
+        "*/publicdomain/zero/*": "CC0",
+        "*/rights/out-of-copyright-non-commercial/*": "Tekijänoikeuden ulkopuolella - ei-kaupallinen uudelleenkäyttö",
+        "*/rights/rr-f/*": "Oikeudet pidätetään - Vapaa pääsy",
+        "*/rights/unknown/*": "Tuntematon tekijänoikeustila"
+      },
       "select": "Valitse oikeuksia koskevat lausumat"
     },
     "sort": {
@@ -850,6 +889,7 @@ export default {
   "filterResults": "Suodata tulokset",
   "footer": {
     "customiseWebsiteLanguage": "Muokkaa verkkosivuston kieltä",
+    "disclaimerLine1": "Kulttuuriperinnön yhteinen eurooppalainen data-avaruus on Euroopan unionin aloite, jota rahoitetaan Euroopan unionin Digitaalinen Eurooppa -ohjelmasta. Data-avaruuspalveluja, mukaan lukien tämä verkkosivusto, ylläpitää Europeana-säätiön johtama konsortio Euroopan komission kanssa tehdyn palvelusopimuksen nojalla, sopimusnumero LC-01901432.",
     "findUsElsewhere": "Löydä meidät muualta",
     "footer": "Alatunniste",
     "imageDescription": "Euroopan unionin rahoittama",
@@ -1037,6 +1077,25 @@ export default {
     }
   },
   "landing": {
+    "apis": {
+      "footer": {
+        "name": "Resurssit",
+        "navigation": {
+          "apiDocumentation": "API-dokumentaatio",
+          "contactUs": "Ota yhteyttä",
+          "requestApiKey": "Pyydä API-avain"
+        }
+      },
+      "header": {
+        "homeLinkAlt": "Europeana APIen etusivu",
+        "navigation": {
+          "apiDemo": "API-demo",
+          "europeanaApis": "Europeana-rajapinnat",
+          "faq": "FAQ",
+          "findInspiration": "Etsi inspiraatiota"
+        }
+      }
+    },
     "counts": {
       "apiRequests": "Kuukausittaiset API-pyynnöt keskimäärin",
       "dataProviders": "Tietojen tarjoajat",

@@ -142,6 +142,23 @@ export default {
     "show": "Mostrar atribuição",
     "title": "Título:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Legendas / legendas ocultas",
+    "captions off": "Desligado",
+    "captionsOption": "{language} legendas",
+    "Exit Fullscreen": "Sair do ecrã inteiro",
+    "Fullscreen": "Tela cheia",
+    "Mute": "Silenciar",
+    "Pause": "Pausa",
+    "Play": "Reproduzir",
+    "Play Video": "Reproduzir vídeo",
+    "Replay": "Repetição",
+    "Subtitles": "Legendas / legendas ocultas",
+    "subtitles off": "Desligado",
+    "subtitlesOption": "{language} legendas",
+    "Unmute": "Ativar som",
+    "Volume Level": "Nível de volume"
+  },
   "authored": {
     "by": "por",
     "publishedDate": "Publicado {date}"
@@ -250,6 +267,9 @@ export default {
   "directions": {
     "left": "Esquerda",
     "right": "Direita"
+  },
+  "ds4ch": {
+    "homeLinkAlt": "A página inicial do espaço comum europeu de dados para o património cultural"
   },
   "edmIsShownAtLinkAlt": "Ver no site do fornecedor",
   "embedNotification": {
@@ -714,6 +734,25 @@ export default {
     },
     "RIGHTS": {
       "name": "Declaração de direitos",
+      "options": {
+        "*/CNE/*": "Direitos de Autor Não Avaliados",
+        "*/InC-EDU/*": "Em Direitos Autorais - Uso Educacional Permitido",
+        "*/InC-OW-EU/*": "Em Direitos Autorais - OW-EU",
+        "*/InC/*": "Em direitos autorais",
+        "*/licenses/by-nc-nd/*": "CC BY-NC-ND",
+        "*/licenses/by-nc-sa/*": "CC BY-NC-SA",
+        "*/licenses/by-nc/*": "CC BY-NC",
+        "*/licenses/by-nd/*": "CC BY-ND",
+        "*/licenses/by-sa/*": "CC BY-SA",
+        "*/licenses/by/*": "CC BY",
+        "*/NoC-NC/*": "Sem direitos autorais - Apenas para uso não comercial",
+        "*/NoC-OKLR/*": "Sem Direitos Autorais - Outras Restrições Legais Conhecidas",
+        "*/publicdomain/mark/*": "Marca de Domínio Público",
+        "*/publicdomain/zero/*": "CC0",
+        "*/rights/out-of-copyright-non-commercial/*": "Fora de direitos autorais - reutilização não comercial",
+        "*/rights/rr-f/*": "Direitos Reservados - Acesso Gratuito",
+        "*/rights/unknown/*": "Status de direitos autorais desconhecido"
+      },
       "select": "Selecionar declarações de direitos"
     },
     "sort": {
@@ -850,6 +889,7 @@ export default {
   "filterResults": "Filtrar resultados",
   "footer": {
     "customiseWebsiteLanguage": "Personalizar o idioma do site",
+    "disclaimerLine1": "O espaço comum europeu de dados para o património cultural é uma iniciativa da União Europeia, financiada pelo Programa Europa Digital da União Europeia. Os serviços do espaço de dados, incluindo este site, são operados por um consórcio liderado pela Fundação Europeana ao abrigo de um contrato de prestação de serviços com a Comissão Europeia, número de contrato LC-01901432.",
     "findUsElsewhere": "Encontre-nos em outro lugar",
     "footer": "Rodapé",
     "imageDescription": "Financiado pela União Europeia",
@@ -1037,6 +1077,25 @@ export default {
     }
   },
   "landing": {
+    "apis": {
+      "footer": {
+        "name": "Recursos",
+        "navigation": {
+          "apiDocumentation": "Documentação da API",
+          "contactUs": "Contacte-nos",
+          "requestApiKey": "Solicitar uma chave API"
+        }
+      },
+      "header": {
+        "homeLinkAlt": "Página inicial das APIs da Europeana",
+        "navigation": {
+          "apiDemo": "Demonstração da API",
+          "europeanaApis": "APIs Europeana",
+          "faq": "FAQ",
+          "findInspiration": "Encontre inspiração"
+        }
+      }
+    },
     "counts": {
       "apiRequests": "Pedidos de API mensais, em média",
       "dataProviders": "Fornecedores de Dados",

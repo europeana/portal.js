@@ -142,6 +142,23 @@ export default {
     "show": "Erakutsi atribuzioa",
     "title": "Izenburua:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Azpitituluak / itxitako azpitituluak",
+    "captions off": "Itzalita",
+    "captionsOption": "{language} azpititu",
+    "Exit Fullscreen": "Irten pantaila osotik",
+    "Fullscreen": "Pantaila osoa",
+    "Mute": "Mututu",
+    "Pause": "Pausatu",
+    "Play": "Erreproduzitu",
+    "Play Video": "Erreproduzitu bideoa",
+    "Replay": "Berriro erreproduzitu",
+    "Subtitles": "Azpitituluak / itxitako azpitituluak",
+    "subtitles off": "Itzalita",
+    "subtitlesOption": "{language} azpitituluak",
+    "Unmute": "Aktibatu soinua",
+    "Volume Level": "Bolumen maila"
+  },
   "authored": {
     "by": "arabera",
     "publishedDate": "Argitaratze data {date}"
@@ -250,6 +267,9 @@ export default {
   "directions": {
     "left": "Ezkerra",
     "right": "Eskuma"
+  },
+  "ds4ch": {
+    "homeLinkAlt": "Ondare kulturalaren egoitzarako Europako datu-espazio komuna"
   },
   "edmIsShownAtLinkAlt": "Ikusi hornitzailearen webgunean",
   "embedNotification": {
@@ -714,6 +734,25 @@ export default {
     },
     "RIGHTS": {
       "name": "Eskubideen adierazpena",
+      "options": {
+        "*/CNE/*": "Copyright ez da ebaluatu",
+        "*/InC-EDU/*": "Copyright-en - Hezkuntza erabilera baimenduta",
+        "*/InC-OW-EU/*": "Copyright-en - OW-EU",
+        "*/InC/*": "Copyright-en",
+        "*/licenses/by-nc-nd/*": "CC BY-NC-ND",
+        "*/licenses/by-nc-sa/*": "CC BY-NC-SA",
+        "*/licenses/by-nc/*": "CC BY-NC",
+        "*/licenses/by-nd/*": "CC BY-ND",
+        "*/licenses/by-sa/*": "CC BY-SA",
+        "*/licenses/by/*": "CC BY",
+        "*/NoC-NC/*": "Copyright-rik gabe - Erabilera ez komertziala soilik",
+        "*/NoC-OKLR/*": "Copyright ez - Ezagutzen diren beste legezko murriztapen batzuk",
+        "*/publicdomain/mark/*": "Domeinu Publikoaren Marka",
+        "*/publicdomain/zero/*": "CC0",
+        "*/rights/out-of-copyright-non-commercial/*": "Egile-eskubideetatik kanpo - komertziala ez den berrerabilpena",
+        "*/rights/rr-f/*": "Eskubideak gordeta - Doako sarbidea",
+        "*/rights/unknown/*": "Copyright-egoera ezezaguna"
+      },
       "select": "Hautatu eskubideen adierazpenak"
     },
     "sort": {
@@ -850,6 +889,7 @@ export default {
   "filterResults": "Iragazi emaitzak",
   "footer": {
     "customiseWebsiteLanguage": "Pertsonalizatu webgunearen hizkuntza",
+    "disclaimerLine1": "Europako kultura-ondarearen datu-espazio komun europarra Europar Batasunaren ekimena da, Europar Batasunaren Europa Digitala Programak finantzatua. Datu-espazioko zerbitzuak, webgune hau barne, Europeana Fundazioak gidatutako partzuergo batek kudeatzen ditu, Europako Batzordearekin egindako zerbitzu-kontratu baten bidez, kontratu zenbakia LC-01901432.",
     "findUsElsewhere": "Beste nonbait aurkitu gaitzazu",
     "footer": "Orri-oin",
     "imageDescription": "Europar Batasunak finantzatua",
@@ -1037,6 +1077,25 @@ export default {
     }
   },
   "landing": {
+    "apis": {
+      "footer": {
+        "name": "Baliabideak",
+        "navigation": {
+          "apiDocumentation": "API Dokumentazioa",
+          "contactUs": "Jarri gurekin harremanetan",
+          "requestApiKey": "API gako bat eskatu"
+        }
+      },
+      "header": {
+        "homeLinkAlt": "Europeana APIen hasiera",
+        "navigation": {
+          "apiDemo": "API demoa",
+          "europeanaApis": "Europeana APIak",
+          "faq": "FAQ",
+          "findInspiration": "Aurkitu inspirazioa"
+        }
+      }
+    },
     "counts": {
       "apiRequests": "Hileroko API eskaerak, batez beste",
       "dataProviders": "Datu-hornitzaileak",

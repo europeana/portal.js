@@ -142,6 +142,23 @@ export default {
     "show": "Uri l-attribuzzjoni",
     "title": "Titlu:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Sottotitoli / sottotitoli magħluqa",
+    "captions off": "Mitfi",
+    "captionsOption": "{language} sottotitli",
+    "Exit Fullscreen": "Oħroġ mill-iskrin sħiħ",
+    "Fullscreen": "Skrin sħiħ",
+    "Mute": "Muta",
+    "Pause": "Pawża",
+    "Play": "Ilgħab",
+    "Play Video": "Ilgħab il-vidjo",
+    "Replay": "Erġa' uri",
+    "Subtitles": "Sottotitoli / sottotitoli magħluqa",
+    "subtitles off": "Mitfi",
+    "subtitlesOption": "{language} sottotitli",
+    "Unmute": "Neħħi l-iskiet",
+    "Volume Level": "Livell tal-Volum"
+  },
   "authored": {
     "by": "minn",
     "publishedDate": "Ippubblikat {date}"
@@ -250,6 +267,9 @@ export default {
   "directions": {
     "left": "Xellug",
     "right": "Lemin"
+  },
+  "ds4ch": {
+    "homeLinkAlt": "L-ispazju komuni Ewropew tad-dejta għall-wirt kulturali - paġna prinċipali"
   },
   "edmIsShownAtLinkAlt": "Ara fuq il-websajt tal-fornitur",
   "embedNotification": {
@@ -714,6 +734,25 @@ export default {
     },
     "RIGHTS": {
       "name": "Dikjarazzjoni tad-drittijiet",
+      "options": {
+        "*/CNE/*": "Id-Drittijiet tal-Awtur Mhux Evalwati",
+        "*/InC-EDU/*": "Fid-Drittijiet tal-Awtur - Użu Edukattiv Permess",
+        "*/InC-OW-EU/*": "Fid-Drittijiet tal-Awtur - OW-EU",
+        "*/InC/*": "Fid-Drittijiet tal-Awtur",
+        "*/licenses/by-nc-nd/*": "CC BY-NC-ND",
+        "*/licenses/by-nc-sa/*": "CC BY-NC-SA",
+        "*/licenses/by-nc/*": "CC BY-NC",
+        "*/licenses/by-nd/*": "CC BY-ND",
+        "*/licenses/by-sa/*": "CC BY-SA",
+        "*/licenses/by/*": "CC BY",
+        "*/NoC-NC/*": "Ebda Copyright - Użu Mhux Kummerċjali Biss",
+        "*/NoC-OKLR/*": "Ebda Copyright - Restrizzjonijiet Legali Magħrufa Oħra",
+        "*/publicdomain/mark/*": "Marka tad-Dominju Pubbliku",
+        "*/publicdomain/zero/*": "CC0",
+        "*/rights/out-of-copyright-non-commercial/*": "Mingħajr id-drittijiet tal-awtur - użu mill-ġdid mhux kummerċjali",
+        "*/rights/rr-f/*": "Drittijiet Riservati - Aċċess liberu",
+        "*/rights/unknown/*": "Status tad-drittijiet tal-awtur mhux magħruf"
+      },
       "select": "Agħżel dikjarazzjonijiet tad-drittijiet"
     },
     "sort": {
@@ -850,6 +889,7 @@ export default {
   "filterResults": "Riżultati tal-filtru",
   "footer": {
     "customiseWebsiteLanguage": "Ippersonalizza l-lingwa tas-sit web",
+    "disclaimerLine1": "L-ispazju komuni Ewropew tad-dejta għall-wirt kulturali huwa inizjattiva tal-Unjoni Ewropea, iffinanzjata mill-Programm Diġitali tal-Ewropa tal-Unjoni Ewropea. Is-servizzi tal-ispazju tad-dejta, inkluż dan is-sit elettroniku, huma mħaddma minn konsorzju mmexxi mill-Fondazzjoni Europeana taħt kuntratt ta’ servizz mal-Kummissjoni Ewropea, numru tal-kuntratt LC-01901432.",
     "findUsElsewhere": "Sibna x'imkien ieħor",
     "footer": "Footer",
     "imageDescription": "Ffinanzjat mill-Unjoni Ewropea",
@@ -1037,6 +1077,25 @@ export default {
     }
   },
   "landing": {
+    "apis": {
+      "footer": {
+        "name": "Riżorsi",
+        "navigation": {
+          "apiDocumentation": "Dokumentazzjoni tal-API",
+          "contactUs": "Ikkuntattjana",
+          "requestApiKey": "Itlob ċavetta tal-API"
+        }
+      },
+      "header": {
+        "homeLinkAlt": "Home tal-APIs ta' Europeana",
+        "navigation": {
+          "apiDemo": "Demo tal-API",
+          "europeanaApis": "APIs tal-Europeana",
+          "faq": "FAQ",
+          "findInspiration": "Sib ispirazzjoni"
+        }
+      }
+    },
     "counts": {
       "apiRequests": "Talbiet API ta' kull xahar, bħala medja",
       "dataProviders": "Fornituri tad-Data",

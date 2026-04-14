@@ -142,6 +142,23 @@ export default {
     "show": "Taispeáin sannadh",
     "title": "Teideal:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Fotheidil / fotheidil dhúnta",
+    "captions off": "As",
+    "captionsOption": "{language} fotheideal",
+    "Exit Fullscreen": "Scoir scáileán iomlán",
+    "Fullscreen": "Scáileán iomlán",
+    "Mute": "Balbhaigh",
+    "Pause": "Sos",
+    "Play": "Seinn",
+    "Play Video": "Seinn físeán",
+    "Replay": "Athsheinm",
+    "Subtitles": "Fotheidil / fotheidil dhúnta",
+    "subtitles off": "As",
+    "subtitlesOption": "{language} fotheideal",
+    "Unmute": "Bain an balbhú",
+    "Volume Level": "Leibhéal Imleabhair"
+  },
   "authored": {
     "by": "le",
     "publishedDate": "Foilsithe {date}"
@@ -250,6 +267,9 @@ export default {
   "directions": {
     "left": "Ar chlé",
     "right": "Ar dheis"
+  },
+  "ds4ch": {
+    "homeLinkAlt": "Baile an spáis sonraí Eorpaigh choitinn do oidhreacht chultúrtha"
   },
   "edmIsShownAtLinkAlt": "Amharc air ag láithreán gréasáin an tsoláthraí",
   "embedNotification": {
@@ -714,6 +734,25 @@ export default {
     },
     "RIGHTS": {
       "name": "Ráiteas um chearta",
+      "options": {
+        "*/CNE/*": "Cóipcheart Gan Meastóireacht",
+        "*/InC-EDU/*": "I gCóipcheart - Ceadaithe Úsáid Oideachais",
+        "*/InC-OW-EU/*": "I gCóipcheart - OW-EU",
+        "*/InC/*": "I gCóipcheart",
+        "*/licenses/by-nc-nd/*": "CC BY-NC-ND",
+        "*/licenses/by-nc-sa/*": "CC BY-NC-SA",
+        "*/licenses/by-nc/*": "CC BY-NC",
+        "*/licenses/by-nd/*": "CC BY-ND",
+        "*/licenses/by-sa/*": "CC BY-SA",
+        "*/licenses/by/*": "CC BY",
+        "*/NoC-NC/*": "Gan Cóipcheart - Úsáid Neamhthráchtála Amháin",
+        "*/NoC-OKLR/*": "Gan Cóipcheart - Srianta Dlíthiúla Eile Aitheanta",
+        "*/publicdomain/mark/*": "Marc Fearainn Poiblí",
+        "*/publicdomain/zero/*": "CC0",
+        "*/rights/out-of-copyright-non-commercial/*": "As cóipcheart - athúsáid neamhthráchtála",
+        "*/rights/rr-f/*": "Cearta ar Cosaint - Rochtain saor in aisce",
+        "*/rights/unknown/*": "Stádas cóipchirt anaithnid"
+      },
       "select": "Roghnaigh ráitis maidir le cearta"
     },
     "sort": {
@@ -850,6 +889,7 @@ export default {
   "filterResults": "Scag torthaí",
   "footer": {
     "customiseWebsiteLanguage": "Saincheap teanga an láithreáin ghréasáin",
+    "disclaimerLine1": "Is tionscnamh de chuid an Aontais Eorpaigh é an spás sonraí Eorpach coiteann do oidhreacht chultúrtha, atá maoinithe ag Clár Dhigiteach na hEorpa de chuid an Aontais Eorpaigh. Tá na seirbhísí spáis sonraí, lena n-áirítear an suíomh gréasáin seo, á n-oibriú ag comhaontas faoi cheannaireacht Fhondúireacht Europeana faoi chonradh seirbhíse leis an gCoimisiún Eorpach, uimhir chonartha LC-01901432.",
     "findUsElsewhere": "Aimsigh muid áit eile",
     "footer": "Buntásc",
     "imageDescription": "Maoinithe ag an Aontas Eorpach",
@@ -1037,6 +1077,25 @@ export default {
     }
   },
   "landing": {
+    "apis": {
+      "footer": {
+        "name": "Acmhainní",
+        "navigation": {
+          "apiDocumentation": "Doiciméadú API",
+          "contactUs": "Déan teagmháil linn",
+          "requestApiKey": "Iarr eochair API"
+        }
+      },
+      "header": {
+        "homeLinkAlt": "Baile APIanna Europeana",
+        "navigation": {
+          "apiDemo": "Taispeántas API",
+          "europeanaApis": "APIanna Europeana",
+          "faq": "FAQ",
+          "findInspiration": "Faigh inspioráid"
+        }
+      }
+    },
     "counts": {
       "apiRequests": "Iarratais API míosúla, ar an meán",
       "dataProviders": "Soláthraithe Sonraí",

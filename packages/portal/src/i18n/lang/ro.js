@@ -142,6 +142,23 @@ export default {
     "show": "Arată atribuirea",
     "title": "Titlu:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Subtitrări / subtitrări închise",
+    "captions off": "Oprit",
+    "captionsOption": "{language} subtitrări",
+    "Exit Fullscreen": "Ieșiți din ecranul complet",
+    "Fullscreen": "Ecran complet",
+    "Mute": "Mut",
+    "Pause": "Pauză",
+    "Play": "Redă",
+    "Play Video": "Redare video",
+    "Replay": "Reluare",
+    "Subtitles": "Subtitrări / subtitrări închise",
+    "subtitles off": "Oprit",
+    "subtitlesOption": "{language} subtitrări",
+    "Unmute": "Pornește sunetul",
+    "Volume Level": "Nivelul volumului"
+  },
   "authored": {
     "by": "de",
     "publishedDate": "Publicat la {date}"
@@ -250,6 +267,9 @@ export default {
   "directions": {
     "left": "Stânga",
     "right": "Dreapta"
+  },
+  "ds4ch": {
+    "homeLinkAlt": "Pagina principală a spațiului european comun de date pentru patrimoniul cultural"
   },
   "edmIsShownAtLinkAlt": "Vizualizează pe site-ul furnizorului",
   "embedNotification": {
@@ -714,6 +734,25 @@ export default {
     },
     "RIGHTS": {
       "name": "Declarație de drepturi",
+      "options": {
+        "*/CNE/*": "Drepturi de autor Neevaluate",
+        "*/InC-EDU/*": "În drepturi de autor - Utilizarea educațională permisă",
+        "*/InC-OW-EU/*": "În dreptul de autor - OW-EU",
+        "*/InC/*": "În dreptul de autor",
+        "*/licenses/by-nc-nd/*": "CC BY-NC-ND",
+        "*/licenses/by-nc-sa/*": "CC BY-NC-SA",
+        "*/licenses/by-nc/*": "CC BY-NC",
+        "*/licenses/by-nd/*": "CC BY-ND",
+        "*/licenses/by-sa/*": "CC BY-SA",
+        "*/licenses/by/*": "CC BY",
+        "*/NoC-NC/*": "Fără drepturi de autor - Numai pentru utilizare necomercială",
+        "*/NoC-OKLR/*": "Fără drepturi de autor - Alte restricții legale cunoscute",
+        "*/publicdomain/mark/*": "Marca domeniului public",
+        "*/publicdomain/zero/*": "CC0",
+        "*/rights/out-of-copyright-non-commercial/*": "În afara dreptului de autor - reutilizare fără scop comercial",
+        "*/rights/rr-f/*": "Drepturi rezervate - Acces gratuit",
+        "*/rights/unknown/*": "Starea drepturilor de autor necunoscută"
+      },
       "select": "Selectați declarațiile de drepturi"
     },
     "sort": {
@@ -850,6 +889,7 @@ export default {
   "filterResults": "Filtrați rezultatele",
   "footer": {
     "customiseWebsiteLanguage": "Personalizați limba de pe pagina de internet",
+    "disclaimerLine1": "Spațiul european comun de date pentru patrimoniul cultural este o inițiativă a Uniunii Europene, finanțată de Programul Europa digitală al Uniunii Europene. Serviciile de spațiu de date, inclusiv acest site web, sunt operate de un consorțiu condus de Fundația Europeana în cadrul unui contract de servicii cu Comisia Europeană, numărul contractului LC-01901432.",
     "findUsElsewhere": "Ne puteți găsi și în altă parte",
     "footer": "Subsol",
     "imageDescription": "Finanțat de Uniunea Europeană",
@@ -1037,6 +1077,25 @@ export default {
     }
   },
   "landing": {
+    "apis": {
+      "footer": {
+        "name": "Resurse",
+        "navigation": {
+          "apiDocumentation": "Documentație API",
+          "contactUs": "Contactați-ne",
+          "requestApiKey": "Solicitați o cheie API"
+        }
+      },
+      "header": {
+        "homeLinkAlt": "Pagina principală a API-urilor Europeana",
+        "navigation": {
+          "apiDemo": "Demo API",
+          "europeanaApis": "API-uri Europeana",
+          "faq": "FAQ",
+          "findInspiration": "Găsește inspirație"
+        }
+      }
+    },
     "counts": {
       "apiRequests": "Solicitări API lunare, în medie",
       "dataProviders": "Furnizorii de date",

@@ -142,6 +142,23 @@ export default {
     "show": "Показване на атрибуция",
     "title": "Заглавие:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Субтитри / скрити надписи",
+    "captions off": "Изкл.",
+    "captionsOption": "{language} надписи",
+    "Exit Fullscreen": "Изход от цял екран",
+    "Fullscreen": "Цял екран",
+    "Mute": "Без звук",
+    "Pause": "Пауза",
+    "Play": "Пусни",
+    "Play Video": "Възпроизвеждане на видео",
+    "Replay": "Повторение",
+    "Subtitles": "Субтитри / скрити надписи",
+    "subtitles off": "Изкл.",
+    "subtitlesOption": "{language} субтитри",
+    "Unmute": "Включване на звука",
+    "Volume Level": "Ниво на звука"
+  },
   "authored": {
     "by": "от",
     "publishedDate": "Публикувано на {date}"
@@ -250,6 +267,9 @@ export default {
   "directions": {
     "left": "Ляво",
     "right": "Дясно"
+  },
+  "ds4ch": {
+    "homeLinkAlt": "Общо европейско пространство за данни за културното наследство"
   },
   "edmIsShownAtLinkAlt": "Преглед на уебсайта на доставчика",
   "embedNotification": {
@@ -714,6 +734,25 @@ export default {
     },
     "RIGHTS": {
       "name": "Права за ползване",
+      "options": {
+        "*/CNE/*": "Авторското право не е оценено",
+        "*/InC-EDU/*": "Защитено от авторско право – разрешено използване за образователни цели ",
+        "*/InC-OW-EU/*": "В авторско право - OW-EU",
+        "*/InC/*": "В авторско право",
+        "*/licenses/by-nc-nd/*": "CC BY-NC-ND",
+        "*/licenses/by-nc-sa/*": "CC BY-NC-SA",
+        "*/licenses/by-nc/*": "CC BY-NC",
+        "*/licenses/by-nd/*": "CC BY-ND",
+        "*/licenses/by-sa/*": "CC BY-SA",
+        "*/licenses/by/*": "CC BY",
+        "*/NoC-NC/*": "Без авторско право - само за нетърговска употреба",
+        "*/NoC-OKLR/*": "Без авторско право - други известни правни ограничения",
+        "*/publicdomain/mark/*": "Public Domain Mark",
+        "*/publicdomain/zero/*": "CC0",
+        "*/rights/out-of-copyright-non-commercial/*": "Извън авторските права - повторна употреба с нетърговска цел",
+        "*/rights/rr-f/*": "Права запазени - безплатен достъп",
+        "*/rights/unknown/*": "Неизвестен статус на авторски права"
+      },
       "select": "Изберете изявления за права"
     },
     "sort": {
@@ -850,6 +889,7 @@ export default {
   "filterResults": "Филтриране на резултати",
   "footer": {
     "customiseWebsiteLanguage": "Персонализиране на езика на уебсайта",
+    "disclaimerLine1": "Общото европейско пространство за данни за културното наследство е инициатива на Европейския съюз, финансирана от програмата \"Цифрова Европа\" на Европейския съюз. Услугите на пространството за данни, включително този уебсайт, се управляват от консорциум, ръководен от фондация \"Europeana\", съгласно договор за услуги с Европейската комисия, номер на договор LC-01901432.",
     "findUsElsewhere": "Намерете ни другаде",
     "footer": "Футер",
     "imageDescription": "Финансиран от Европейския съюз",
@@ -1037,6 +1077,25 @@ export default {
     }
   },
   "landing": {
+    "apis": {
+      "footer": {
+        "name": "Ресурси",
+        "navigation": {
+          "apiDocumentation": "Документация на API",
+          "contactUs": "Свържете се с нас",
+          "requestApiKey": "Заявете API ключ"
+        }
+      },
+      "header": {
+        "homeLinkAlt": "Начална страница на Europeana API",
+        "navigation": {
+          "apiDemo": "Демонстрация на API",
+          "europeanaApis": "API на Europeana",
+          "faq": "FAQ",
+          "findInspiration": "Намерете вдъхновение"
+        }
+      }
+    },
     "counts": {
       "apiRequests": "Средно месечни заявки за API",
       "dataProviders": "Доставчици на данни",

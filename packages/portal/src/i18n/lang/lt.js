@@ -142,6 +142,23 @@ export default {
     "show": "Rodyti priskyrimą",
     "title": "Pavadinimas:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Subtitrai / uždarieji titrai",
+    "captions off": "Išjungta",
+    "captionsOption": "{language} subtitrai",
+    "Exit Fullscreen": "Išeiti iš viso ekrano režimo",
+    "Fullscreen": "Visas ekranas",
+    "Mute": "Nutildyti",
+    "Pause": "Pauzė",
+    "Play": "Leisti",
+    "Play Video": "Leisti vaizdo įrašą",
+    "Replay": "Pakartoti",
+    "Subtitles": "Subtitrai / uždarieji titrai",
+    "subtitles off": "Išjungta",
+    "subtitlesOption": "{language} subtitrai",
+    "Unmute": "Įjungti garsą",
+    "Volume Level": "Garsumo lygis"
+  },
   "authored": {
     "by": "autorius",
     "publishedDate": "Paskelbta {date}"
@@ -250,6 +267,9 @@ export default {
   "directions": {
     "left": "Kairė",
     "right": "Dešinė"
+  },
+  "ds4ch": {
+    "homeLinkAlt": "Bendroji Europos kultūros paveldo duomenų erdvės pradžia"
   },
   "edmIsShownAtLinkAlt": "Peržiūrėti teikėjo svetainę",
   "embedNotification": {
@@ -714,6 +734,25 @@ export default {
     },
     "RIGHTS": {
       "name": "Teisių pareiškimas",
+      "options": {
+        "*/CNE/*": "Autorių teisės Neįvertinta",
+        "*/InC-EDU/*": "Autorių teisės saugomos - leidžiama naudoti švietimo tikslais",
+        "*/InC-OW-EU/*": "Autorių teisės – OW-EU",
+        "*/InC/*": "Autorių teisės",
+        "*/licenses/by-nc-nd/*": "CC BY-NC-ND",
+        "*/licenses/by-nc-sa/*": "CC BY-NC-SA",
+        "*/licenses/by-nc/*": "CC BY-NC",
+        "*/licenses/by-nd/*": "CC BY-ND",
+        "*/licenses/by-sa/*": "CC BY-SA",
+        "*/licenses/by/*": "CC BY",
+        "*/NoC-NC/*": "Nėra autorių teisių - Tik nekomerciniam naudojimui",
+        "*/NoC-OKLR/*": "Nėra autorių teisių – Kiti žinomi teisiniai apribojimai",
+        "*/publicdomain/mark/*": "Viešojo domeno ženklas",
+        "*/publicdomain/zero/*": "CC0",
+        "*/rights/out-of-copyright-non-commercial/*": "Ne autorių teisių apsauga - nekomercinis pakartotinis naudojimas",
+        "*/rights/rr-f/*": "Teisės saugomos – Nemokama prieiga",
+        "*/rights/unknown/*": "Nežinomas autorių teisių statusas"
+      },
       "select": "Pasirinkti teisių išrašus"
     },
     "sort": {
@@ -850,6 +889,7 @@ export default {
   "filterResults": "Filtruoti rezultatus",
   "footer": {
     "customiseWebsiteLanguage": "Pasirinkti tinklalapio kalbą",
+    "disclaimerLine1": "Europos bendra kultūros paveldo duomenų erdvė yra Europos Sąjungos iniciatyva, finansuojama pagal Europos Sąjungos Skaitmeninės Europos programą. Duomenų erdvės paslaugas, įskaitant šią interneto svetainę, teikia Europeana fondo vadovaujamas konsorciumas pagal paslaugų sutartį su Europos Komisija, sutarties numeris LC-01901432.",
     "findUsElsewhere": "Raskite mus kitur",
     "footer": "Poraštė",
     "imageDescription": "Finansuoja Europos Sąjunga",
@@ -1037,6 +1077,25 @@ export default {
     }
   },
   "landing": {
+    "apis": {
+      "footer": {
+        "name": "Ištekliai",
+        "navigation": {
+          "apiDocumentation": "API dokumentacija",
+          "contactUs": "Susisiekite su mumis",
+          "requestApiKey": "Prašyti API rakto"
+        }
+      },
+      "header": {
+        "homeLinkAlt": "Europeana API pagrindinis puslapis",
+        "navigation": {
+          "apiDemo": "API demonstracija",
+          "europeanaApis": "Europeana API",
+          "faq": "FAQ",
+          "findInspiration": "Raskite įkvėpimo"
+        }
+      }
+    },
     "counts": {
       "apiRequests": "Mėnesio API užklausos, vidutiniškai",
       "dataProviders": "Duomenų teikėjai",

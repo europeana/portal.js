@@ -142,6 +142,23 @@ export default {
     "show": "Vis tilskrivning",
     "title": "Titel:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Undertekster / skjulte undertekster",
+    "captions off": "Fra",
+    "captionsOption": "{language} billedtekster",
+    "Exit Fullscreen": "Afslut fuld skærm",
+    "Fullscreen": "Fuld skærm",
+    "Mute": "Slå lyd fra",
+    "Pause": "Pause",
+    "Play": "Afspil",
+    "Play Video": "Afspil video",
+    "Replay": "Afspil igen",
+    "Subtitles": "Undertekster / skjulte undertekster",
+    "subtitles off": "Fra",
+    "subtitlesOption": "{language} undertekster",
+    "Unmute": "Slå lyd til",
+    "Volume Level": "Lydstyrkeniveau"
+  },
   "authored": {
     "by": "ved",
     "publishedDate": "Offentliggjort {date}"
@@ -250,6 +267,9 @@ export default {
   "directions": {
     "left": "Venstre",
     "right": "Højre"
+  },
+  "ds4ch": {
+    "homeLinkAlt": "Fælles europæisk data space for kulturarv"
   },
   "edmIsShownAtLinkAlt": "Vis på udbyderens websted",
   "embedNotification": {
@@ -714,6 +734,25 @@ export default {
     },
     "RIGHTS": {
       "name": "Rettigheder",
+      "options": {
+        "*/CNE/*": "Copyright Ikke evalueret",
+        "*/InC-EDU/*": "I ophavsret - Uddannelsesmæssig brug tilladt",
+        "*/InC-OW-EU/*": "I ophavsret - OW-EU",
+        "*/InC/*": "I ophavsret",
+        "*/licenses/by-nc-nd/*": "CC BY-NC-ND",
+        "*/licenses/by-nc-sa/*": "CC BY-NC-SA",
+        "*/licenses/by-nc/*": "CC BY-NC",
+        "*/licenses/by-nd/*": "CC BY-ND",
+        "*/licenses/by-sa/*": "CC BY-SA",
+        "*/licenses/by/*": "CC BY",
+        "*/NoC-NC/*": "Ingen ophavsret - Kun ikke-kommerciel brug",
+        "*/NoC-OKLR/*": "Ingen ophavsret - Andre kendte juridiske begrænsninger",
+        "*/publicdomain/mark/*": "Public Domain Mark",
+        "*/publicdomain/zero/*": "CC0",
+        "*/rights/out-of-copyright-non-commercial/*": "Uden af copyright - ikke-kommercielt genbrug",
+        "*/rights/rr-f/*": "Rettigheder forbeholdt - Gratis adgang",
+        "*/rights/unknown/*": "Ukendt ophavsretsstatus"
+      },
       "select": "Vælg rettighedserklæringer"
     },
     "sort": {
@@ -850,6 +889,7 @@ export default {
   "filterResults": "Filtrer resultater",
   "footer": {
     "customiseWebsiteLanguage": "Tilpas hjemmesidens sprog",
+    "disclaimerLine1": "Det fælles europæiske datarum for kulturarv er et EU-initiativ, der finansieres af EU's program for et digitalt Europa. Tjenesterne i datarummet, herunder dette websted, drives af et konsortium ledet af Europeana Foundation i henhold til en servicekontrakt med Europa-Kommissionen, kontraktnummer LC-01901432.",
     "findUsElsewhere": "Find os et andet sted",
     "footer": "Sidefod",
     "imageDescription": "Finansieret af Den Europæiske Union",
@@ -1037,6 +1077,25 @@ export default {
     }
   },
   "landing": {
+    "apis": {
+      "footer": {
+        "name": "Ressourcer",
+        "navigation": {
+          "apiDocumentation": "API-dokumentation",
+          "contactUs": "Kontakt os",
+          "requestApiKey": "Anmod om en API-nøgle"
+        }
+      },
+      "header": {
+        "homeLinkAlt": "Europeana API'ers forside",
+        "navigation": {
+          "apiDemo": "API-demo",
+          "europeanaApis": "Europeana API'er",
+          "faq": "FAQ",
+          "findInspiration": "Find inspiration"
+        }
+      }
+    },
     "counts": {
       "apiRequests": "Månedlige API-anmodninger i gennemsnit",
       "dataProviders": "Dataudbydere",
