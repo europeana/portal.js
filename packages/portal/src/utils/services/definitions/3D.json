@@ -32,6 +32,15 @@
     "title": "Gotland Picture Stones"
   },
   {
+    "name": "heritageMalta",
+    "oembed": "https://3dviewer.digiarc.mt/oembed",
+    "responsive": true,
+    "schemes": [
+      "https://3dviewer.digiarc.mt/items/*"
+    ],
+    "title": "Heritage Malta"
+  },
+  {
     "name": "kompakkt",
     "schemes": [
       "https://kompakkt.de/viewer/*"
