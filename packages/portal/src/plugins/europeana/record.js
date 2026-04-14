@@ -54,13 +54,17 @@ export default class EuropeanaRecordApi extends EuropeanaApi {
   mediaProxyUrl(mediaUrl, europeanaId, params = {}) {
     if (!mediaUrl) {
       return undefined;
+    } else if (typeof mediaUrl === 'string') {
+      mediaUrl = new URL(mediaUrl);
     }
 
     params.recordApiUrl = this.baseURL;
 
     const proxyUrl = new URL(this.context?.$apis?.mediaProxy?.baseURL || EuropeanaMediaProxyApi.BASE_URL);
 
-    proxyUrl.pathname = `${proxyUrl.pathname}${europeanaId}/${md5(mediaUrl)}`;
+    const webResourceHash = md5(mediaUrl.toString());
+    const upstreamPath = mediaUrl.pathname.split('/').pop();
+    proxyUrl.pathname = `${proxyUrl.pathname}${europeanaId}/${webResourceHash}/${upstreamPath}`;
     if (proxyUrl.pathname.startsWith('//')) {
       proxyUrl.pathname = proxyUrl.pathname.slice(1);
     }
