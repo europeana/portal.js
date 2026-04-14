@@ -41,7 +41,8 @@ jobs:
           additional_params: |
             add_newline_eof: true
             directory_prefix: packages/portal/src/i18n/lang
-            exclude_tags: "Not ready"
+            exclude_tags:
+              - "Not ready"
             export_empty_as: skip
             export_sort: a_z
             filter_langs:
