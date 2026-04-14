@@ -142,6 +142,23 @@ export default {
     "show": "Namensnennung anzeigen",
     "title": "Titel:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Untertitel / geschlossene Untertitel",
+    "captions off": "Aus",
+    "captionsOption": "{language} bildunterschriften",
+    "Exit Fullscreen": "Vollbild beenden",
+    "Fullscreen": "Vollbild",
+    "Mute": "Stumm",
+    "Pause": "Pause",
+    "Play": "Spielen",
+    "Play Video": "Video abspielen",
+    "Replay": "Wiederholung",
+    "Subtitles": "Untertitel / geschlossene Untertitel",
+    "subtitles off": "Aus",
+    "subtitlesOption": "{language} Untertitel",
+    "Unmute": "Stummschaltung aufheben",
+    "Volume Level": "Lautstärkepegel"
+  },
   "authored": {
     "by": "von",
     "publishedDate": "Veröffentlicht am {date}"

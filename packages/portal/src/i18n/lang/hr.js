@@ -142,6 +142,23 @@ export default {
     "show": "Prikaži atribuciju",
     "title": "Naslov:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Titlovi / skriveni titlovi",
+    "captions off": "Isključeno",
+    "captionsOption": "{language} titlovi",
+    "Exit Fullscreen": "Izađi iz punog zaslona",
+    "Fullscreen": "Cijeli zaslon",
+    "Mute": "Isključi zvuk",
+    "Pause": "Pauza",
+    "Play": "Reproduciraj",
+    "Play Video": "Reproduciraj video",
+    "Replay": "Ponovi",
+    "Subtitles": "Titlovi / skriveni titlovi",
+    "subtitles off": "Isključeno",
+    "subtitlesOption": "{language} titlovi",
+    "Unmute": "Uključi zvuk",
+    "Volume Level": "Razina glasnoće"
+  },
   "authored": {
     "by": "po",
     "publishedDate": "Objavljeno {date}"
