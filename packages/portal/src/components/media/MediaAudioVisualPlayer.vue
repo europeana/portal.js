@@ -105,7 +105,9 @@
         this.mediaFormat = response.data.format;
       } else {
         // Use media-proxy when used for a europeana record
-        this.mediaUrl = this.itemId ? this.$apis.record.mediaProxyUrl(this.url, this.itemId) : this.url;
+        // NOTE: disabled due to interference with manifest-based media such as DASH videos
+        // this.mediaUrl = this.itemId ? this.$apis.record.mediaProxyUrl(this.url, this.itemId) : this.url;
+        this.mediaUrl = this.url;
         this.mediaFormat = this.format;
       }
     },
