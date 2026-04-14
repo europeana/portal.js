@@ -142,6 +142,23 @@ export default {
     "show": "Taispeáin sannadh",
     "title": "Teideal:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Fotheidil / fotheidil dhúnta",
+    "captions off": "As",
+    "captionsOption": "{language} fotheideal",
+    "Exit Fullscreen": "Scoir scáileán iomlán",
+    "Fullscreen": "Scáileán iomlán",
+    "Mute": "Balbhaigh",
+    "Pause": "Sos",
+    "Play": "Seinn",
+    "Play Video": "Seinn físeán",
+    "Replay": "Athsheinm",
+    "Subtitles": "Fotheidil / fotheidil dhúnta",
+    "subtitles off": "As",
+    "subtitlesOption": "{language} fotheideal",
+    "Unmute": "Bain an balbhú",
+    "Volume Level": "Leibhéal Imleabhair"
+  },
   "authored": {
     "by": "le",
     "publishedDate": "Foilsithe {date}"

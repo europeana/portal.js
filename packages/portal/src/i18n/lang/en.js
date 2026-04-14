@@ -143,22 +143,21 @@ export default {
     "title": "Title:"
   },
   "audioVisualPlayer": {
-    "Play": "Play",
-    "Play Video": "Play video",
-    "Pause": "Pause",
-    "Replay": "Replay",
-    "Fullscreen": "Full screen",
-    "Exit Fullscreen": "Exit full screen",
-    "Mute": "Mute",
-    "Unmute": "Unmute",
-    "Subtitles": "Subtitles / closed captions",
-    "subtitles off": "Off",
     "Captions": "Subtitles / closed captions",
     "captions off": "Off",
-    "Volume Level": "Volume Level",
+    "captionsOption": "{language} captions",
+    "Exit Fullscreen": "Exit full screen",
+    "Fullscreen": "Full screen",
+    "Mute": "Mute",
+    "Pause": "Pause",
+    "Play": "Play",
+    "Play Video": "Play video",
+    "Replay": "Replay",
+    "Subtitles": "Subtitles / closed captions",
+    "subtitles off": "Off",
     "subtitlesOption": "{language} subtitles",
-    "captionsOption": "{language} captions"
-
+    "Unmute": "Unmute",
+    "Volume Level": "Volume Level"
   },
   "authored": {
     "by": "by",
