@@ -205,16 +205,18 @@ describe('components/media/MediaAudioVisualPlayer', () => {
       });
     });
     describe('onPlayerReady', () => {
-      it('initialises text tracks and tooltips', async() => {
+      it('initialises text tracks, the poster and tooltips', async() => {
         const wrapper = factory();
 
         wrapper.vm.initTextTracks = sinon.spy();
         wrapper.vm.initTooltips = sinon.spy();
+        wrapper.vm.setPosterWithCardImage = sinon.spy();
 
         wrapper.vm.onPlayerReady();
 
         expect(wrapper.vm.initTextTracks.called).toBe(true);
         expect(wrapper.vm.initTooltips.called).toBe(true);
+        expect(wrapper.vm.setPosterWithCardImage.called).toBe(true);
       });
     });
   });
