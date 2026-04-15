@@ -1,6 +1,6 @@
 {
   "name": "@europeana/portal",
-  "version": "2.26.0",
+  "version": "2.29.1",
   "description": "Europeana Portal",
   "scripts": {
     "analyze": "nuxt build --analyze",
@@ -32,7 +32,7 @@
     "axios-retry": "^3.2.4",
     "bootstrap": "^4.6.0",
     "bootstrap-vue": "2.22.0",
-    "cookie-universal-nuxt": "^2.1.5",
+    "cookie": "^1.0.2",
     "core-js": "^3.19.1",
     "cors": "^2.8.5",
     "dateformat": "^4.6.3",
@@ -55,7 +55,7 @@
     "pg": "^8.11.3",
     "qs": "^6.10.1",
     "redis": "^4.6.8",
-    "swiper": "^11.1.9",
+    "swiper": "^12.1.2",
     "v-click-outside": "^3.2.0",
     "vue": "2.7.16",
     "vue-client-only": "^2.1.0",
@@ -67,7 +67,7 @@
   },
   "devDependencies": {
     "@babel/plugin-transform-logical-assignment-operators": "^7.25.9",
-    "@europeana/style": "^2.25.1",
+    "@europeana/style": "^2.27.0",
     "@vue-a11y/announcer": "^2.1.0",
     "css-loader": "^4.2.0",
     "jest-transform-graphql": "^2.1.0",
@@ -81,6 +81,7 @@
     "sinon": "^13.0.1",
     "style-resources-loader": "^1.4.1",
     "svg-url-loader": "^7.1.1",
+    "video.js": "^8.23.7",
     "vue-masonry": "^0.13.0",
     "vue-matomo": "^4.2.0",
     "vuedraggable": "^2.24.3"

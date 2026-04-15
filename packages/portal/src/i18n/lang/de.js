@@ -142,6 +142,23 @@ export default {
     "show": "Namensnennung anzeigen",
     "title": "Titel:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Untertitel / geschlossene Untertitel",
+    "captions off": "Aus",
+    "captionsOption": "{language} bildunterschriften",
+    "Exit Fullscreen": "Vollbild beenden",
+    "Fullscreen": "Vollbild",
+    "Mute": "Stumm",
+    "Pause": "Pause",
+    "Play": "Spielen",
+    "Play Video": "Video abspielen",
+    "Replay": "Wiederholung",
+    "Subtitles": "Untertitel / geschlossene Untertitel",
+    "subtitles off": "Aus",
+    "subtitlesOption": "{language} Untertitel",
+    "Unmute": "Stummschaltung aufheben",
+    "Volume Level": "Lautstärkepegel"
+  },
   "authored": {
     "by": "von",
     "publishedDate": "Veröffentlicht am {date}"
@@ -799,11 +816,52 @@ export default {
       "year": "Jahr"
     },
     "webResource": {
-      "about": "RDF Über",
-      "dcDescription": "Beschreibung",
-      "ebucoreHasMimeType": "Ebucore MIME-Typ",
-      "edmRights": "Rechtehinweise für diese Medienressource",
-      "rdfAbout": "RDF Über"
+      "about": "Über",
+      "dctermsConformsTo": "Entspricht",
+      "dcType": "Medientyp",
+      "ebucoreAudioChannelNumber": "Audiokanäle",
+      "ebucoreBitRate": "Bitrate (bps)",
+      "ebucoreDuration": "Dauer (ms)",
+      "ebucoreFileByteSize": "Dateigröße (Bytes)",
+      "ebucoreFrameRate": "Bildrate (fps)",
+      "ebucoreHasMimeType": "MIME-Typ",
+      "ebucoreHeight": "Höhe (px)",
+      "ebucoreOrientation": "Ausrichtung",
+      "ebucoreSampleRate": "Abtastrate (Hz)",
+      "ebucoreSampleSize": "Abtastgröße (Bit)",
+      "ebucoreWidth": "Breite (px)",
+      "edmCodecName": "Codec",
+      "edmComponentColor": "Komponentenfarbe",
+      "edmHasColorSpace": "Farbraum",
+      "edmIntendedUsage": "Verwendungszweck",
+      "edmPolygonCount": "Polygonanzahl",
+      "edmRights": "Rechteerklärung für dieses Medium",
+      "edmSpatialResolution": "Räumliche Auflösung (dpi)",
+      "edmVertexCount": "Anzahl der Vertices",
+      "schemaDigitalSourceType": "Beziehung zur realen Welt"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Kunst",
+      "creativity": "Kreativität",
+      "curation": "Kuratierung",
+      "design": "Design",
+      "documentation": "Dokumentation",
+      "education": "Bildung",
+      "exhibition": "Ausstellung",
+      "gaming": "Gaming",
+      "infotainment": "Infotainment",
+      "knowledge": "Wissen",
+      "maintenance": "Wartung",
+      "research": "Forschung",
+      "restoration": "Wiederherstellung",
+      "tourism": "Tourismus"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Rekonstruktion",
+      "digitalCapture": "Realitätserfassung",
+      "digitalCreation": "Digital geboren"
     }
   },
   "filterResults": "Filter Ergebnisse",
@@ -844,12 +902,12 @@ export default {
     "navigation": {
       "about": "Über (uns)",
       "collections": "Sammlungen",
-      "educators": "Für Lehrkräfte",
+      "educators": "Für Lehrende",
       "featureIdeas": "Funktionsideen",
       "help": "Hilfe",
       "home": "Startseite",
       "partners": "Werden Sie unser Partner",
-      "research": "Für Forscher",
+      "research": "Für Wissenschaft und Forschung",
       "shareYourCollections": "Teilen Sie Ihre Sammlungen",
       "stories": "Geschichten"
     },
@@ -1037,6 +1095,8 @@ export default {
       "hide": "Seitenleiste ausblenden",
       "IIIFManifest": "IIIF-Manifest",
       "links": "Links",
+      "metadata": "Medien-Metadaten",
+      "metadataInfo": "Informationen über die Medien, die Sie gerade ansehen.",
       "search": "Suche",
       "searchPlaceholder": "Begriffe eingeben",
       "show": "Seitenleiste anzeigen"

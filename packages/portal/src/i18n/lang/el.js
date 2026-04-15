@@ -142,6 +142,23 @@ export default {
     "show": "Εμφάνιση απόδοσης",
     "title": "Τίτλος:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Υπότιτλοι / κλειστές λεζάντες",
+    "captions off": "Απενεργοποίηση",
+    "captionsOption": "{language} λεζάντες",
+    "Exit Fullscreen": "Έξοδος από πλήρη οθόνη",
+    "Fullscreen": "Πλήρης οθόνη",
+    "Mute": "Σίγαση",
+    "Pause": "Παύση",
+    "Play": "Αναπαραγωγή",
+    "Play Video": "Αναπαραγωγή βίντεο",
+    "Replay": "Επανάληψη",
+    "Subtitles": "Υπότιτλοι / κλειστές λεζάντες",
+    "subtitles off": "Απενεργοποίηση",
+    "subtitlesOption": "{language} υπότιτλοι",
+    "Unmute": "Διακοπή σίγασης",
+    "Volume Level": "Επίπεδο έντασης ήχου"
+  },
   "authored": {
     "by": "με",
     "publishedDate": "Δημοσιεύτηκε στις {date}"
@@ -799,11 +816,52 @@ export default {
       "year": "Έτος"
     },
     "webResource": {
-      "about": "RDF σχετικά με",
-      "dcDescription": "Περιγραφή",
-      "ebucoreHasMimeType": "Τύπος Ebucore MIME",
-      "edmRights": "Δικαιώματα χρήσης για αυτό το πολυμέσο",
-      "rdfAbout": "RDF Σχετικά με"
+      "about": "Σχετικά",
+      "dctermsConformsTo": "Συμμορφώνεται με",
+      "dcType": "Τύπος μέσου",
+      "ebucoreAudioChannelNumber": "Κανάλια ήχου",
+      "ebucoreBitRate": "Ρυθμός μετάδοσης bit (bps)",
+      "ebucoreDuration": "Διάρκεια (ms)",
+      "ebucoreFileByteSize": "Μέγεθος αρχείου (bytes)",
+      "ebucoreFrameRate": "Ρυθμός καρέ (fps)",
+      "ebucoreHasMimeType": "Τύπος MIME",
+      "ebucoreHeight": "Ύψος (px)",
+      "ebucoreOrientation": "Προσανατολισμός",
+      "ebucoreSampleRate": "Ρυθμός δειγματοληψίας (Hz)",
+      "ebucoreSampleSize": "Μέγεθος δείγματος (bits)",
+      "ebucoreWidth": "Πλάτος (px)",
+      "edmCodecName": "Κωδικοποιητής",
+      "edmComponentColor": "Χρώμα εξαρτήματος",
+      "edmHasColorSpace": "Χρωματικός χώρος",
+      "edmIntendedUsage": "Προβλεπόμενη χρήση",
+      "edmPolygonCount": "Αριθμός πολυγώνων",
+      "edmRights": "Δήλωση δικαιωμάτων για αυτό το μέσο",
+      "edmSpatialResolution": "Χωρική ανάλυση (dpi)",
+      "edmVertexCount": "Αριθμός κορυφών",
+      "schemaDigitalSourceType": "Σχέση με τον πραγματικό κόσμο"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Τέχνη",
+      "creativity": "Δημιουργικότητα",
+      "curation": "Επιμέλεια",
+      "design": "Σχεδιασμός",
+      "documentation": "Τεκμηρίωση",
+      "education": "Εκπαίδευση",
+      "exhibition": "Έκθεση",
+      "gaming": "Γκέιμινγκ",
+      "infotainment": "Ψυχαγωγία και ενημέρωση",
+      "knowledge": "Γνώση",
+      "maintenance": "Συντήρηση",
+      "research": "Έρευνα",
+      "restoration": "Αποκατάσταση",
+      "tourism": "Τουρισμός"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Ανακατασκευή",
+      "digitalCapture": "Αποτύπωση πραγματικότητας",
+      "digitalCreation": "Εγγενώς ψηφιακό"
     }
   },
   "filterResults": "Αποτελέσματα φίλτρου",
@@ -849,7 +907,7 @@ export default {
       "help": "Βοήθεια",
       "home": "Αρχική",
       "partners": "Συνεργαστείτε μαζί μας",
-      "research": "Για ερευνητές",
+      "research": "Για τον ακαδημαϊκό χώρο και την έρευνα",
       "shareYourCollections": "Μοιραστείτε τις συλλογές σας",
       "stories": "Ιστορίες"
     },
@@ -1037,6 +1095,8 @@ export default {
       "hide": "Απόκρυψη πλαϊνής γραμμής",
       "IIIFManifest": "IIIF Μανιφέστο",
       "links": "Σύνδεσμοι",
+      "metadata": "Μεταδεδομένα πολυμέσων",
+      "metadataInfo": "Πληροφορίες για το μέσο που προβάλλετε αυτή τη στιγμή.",
       "search": "Αναζήτηση",
       "searchPlaceholder": "Εισάγετε όρους",
       "show": "Εμφάνιση πλαϊνής γραμμής"

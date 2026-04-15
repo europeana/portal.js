@@ -142,6 +142,23 @@ export default {
     "show": "Rodyti priskyrimą",
     "title": "Pavadinimas:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Subtitrai / uždarieji titrai",
+    "captions off": "Išjungta",
+    "captionsOption": "{language} subtitrai",
+    "Exit Fullscreen": "Išeiti iš viso ekrano režimo",
+    "Fullscreen": "Visas ekranas",
+    "Mute": "Nutildyti",
+    "Pause": "Pauzė",
+    "Play": "Leisti",
+    "Play Video": "Leisti vaizdo įrašą",
+    "Replay": "Pakartoti",
+    "Subtitles": "Subtitrai / uždarieji titrai",
+    "subtitles off": "Išjungta",
+    "subtitlesOption": "{language} subtitrai",
+    "Unmute": "Įjungti garsą",
+    "Volume Level": "Garsumo lygis"
+  },
   "authored": {
     "by": "autorius",
     "publishedDate": "Paskelbta {date}"
@@ -799,11 +816,52 @@ export default {
       "year": "Metai"
     },
     "webResource": {
-      "about": "RDF Apie",
-      "dcDescription": "Aprašymas",
-      "ebucoreHasMimeType": "„Ebucore“ MIME tipas",
-      "edmRights": "Šio medijos šaltinio Teisių pareikštys",
-      "rdfAbout": "RDF Apie"
+      "about": "Apie",
+      "dctermsConformsTo": "Atitinka",
+      "dcType": "Medijos tipas",
+      "ebucoreAudioChannelNumber": "Garso kanalai",
+      "ebucoreBitRate": "Bitų sparta (bps)",
+      "ebucoreDuration": "Trukmė (ms)",
+      "ebucoreFileByteSize": "Failo dydis (baitais)",
+      "ebucoreFrameRate": "Kadrų dažnis (fps)",
+      "ebucoreHasMimeType": "MIME tipas",
+      "ebucoreHeight": "Aukštis (px)",
+      "ebucoreOrientation": "Orientacija",
+      "ebucoreSampleRate": "Diskretizavimo dažnis (Hz)",
+      "ebucoreSampleSize": "Imties dydis (bitais)",
+      "ebucoreWidth": "Plotis (px)",
+      "edmCodecName": "Kodekas",
+      "edmComponentColor": "Komponento spalva",
+      "edmHasColorSpace": "Spalvų erdvė",
+      "edmIntendedUsage": "Numatytoji paskirtis",
+      "edmPolygonCount": "Poligonų skaičius",
+      "edmRights": "Šios medijos teisių pareiškimas",
+      "edmSpatialResolution": "Erdvinė raiška (dpi)",
+      "edmVertexCount": "Viršūnių skaičius",
+      "schemaDigitalSourceType": "Ryšys su realiuoju pasauliu"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Menas",
+      "creativity": "Kūrybiškumas",
+      "curation": "Kuravimas",
+      "design": "Dizainas",
+      "documentation": "Dokumentacija",
+      "education": "Švietimas",
+      "exhibition": "Paroda",
+      "gaming": "Žaidimai",
+      "infotainment": "Infotainment",
+      "knowledge": "Žinios",
+      "maintenance": "Priežiūra",
+      "research": "Tyrimai",
+      "restoration": "Atkūrimas",
+      "tourism": "Turizmas"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Rekonstrukcija",
+      "digitalCapture": "Realybės fiksavimas",
+      "digitalCreation": "Gimęs skaitmeniniu būdu"
     }
   },
   "filterResults": "Filtruoti rezultatus",
@@ -849,7 +907,7 @@ export default {
       "help": "Pagalba",
       "home": "Pradžia",
       "partners": "Bendradarbiaukite su mumis",
-      "research": "Tyrėjams",
+      "research": "Akademinei bendruomenei ir tyrimams",
       "shareYourCollections": "Pasidalykite savo kolekcijomis",
       "stories": "Istorijos"
     },
@@ -1037,6 +1095,8 @@ export default {
       "hide": "Slėpti šoninę juostą",
       "IIIFManifest": "IIIF manifestas",
       "links": "Nuorodos",
+      "metadata": "Medijos metaduomenys",
+      "metadataInfo": "Informacija apie šiuo metu peržiūrimą mediją.",
       "search": "Paieška",
       "searchPlaceholder": "Įveskite terminus",
       "show": "Rodyti šoninę juostą"

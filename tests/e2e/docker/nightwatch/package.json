@@ -4,13 +4,13 @@
   "description": "",
   "scripts": {
     "start": "cucumber-js --require ./config/cucumber.conf.js --format node_modules/cucumber-pretty",
-    "percy": "percy exec --config=./percy.js -- cucumber-js --require ./config/cucumber.conf.js --format node_modules/cucumber-pretty"
+    "percy": "percy exec --config=./percy.config.js -- cucumber-js --require ./config/cucumber.conf.js --format node_modules/cucumber-pretty"
   },
   "author": "",
   "license": "EUPL-1.2",
   "dependencies": {
-    "@percy/cli": "^1.0.0-beta.69",
-    "@percy/nightwatch": "^2.0.0",
+    "@percy/cli": "^1.31.9",
+    "@percy/nightwatch": "^2.2.0",
     "axios": "^0.28.0",
     "chai": "^4.3.4",
     "cucumber": "^6.0.0",

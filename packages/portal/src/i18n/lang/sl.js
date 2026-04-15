@@ -142,6 +142,23 @@ export default {
     "show": "Prikaži navedbo vira",
     "title": "Naslov:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Podnapisi / skriti podnapisi",
+    "captions off": "Izklopljeno",
+    "captionsOption": "{language} podnapisi",
+    "Exit Fullscreen": "Izhod iz celotnega zaslona",
+    "Fullscreen": "Celoten zaslon",
+    "Mute": "Utišaj",
+    "Pause": "Začasno ustavi",
+    "Play": "Predvajaj",
+    "Play Video": "Predvajaj video",
+    "Replay": "Predvajaj znova",
+    "Subtitles": "Podnapisi / skriti podnapisi",
+    "subtitles off": "Izklopljeno",
+    "subtitlesOption": "{language} podnapisi",
+    "Unmute": "Vklopi zvok",
+    "Volume Level": "Glasnost"
+  },
   "authored": {
     "by": "po",
     "publishedDate": "Objavljeno {date}"
@@ -799,11 +816,52 @@ export default {
       "year": "Leto"
     },
     "webResource": {
-      "about": "RDF o",
-      "dcDescription": "Opis",
-      "ebucoreHasMimeType": "Vrsta Ebucore MIME",
-      "edmRights": "Pravice za ta medijski vir",
-      "rdfAbout": "RDF o"
+      "about": "O",
+      "dctermsConformsTo": "Ustreza",
+      "dcType": "Vrsta medija",
+      "ebucoreAudioChannelNumber": "Zvočni kanali",
+      "ebucoreBitRate": "Bitna hitrost (bps)",
+      "ebucoreDuration": "Trajanje (ms)",
+      "ebucoreFileByteSize": "Velikost datoteke (bajti)",
+      "ebucoreFrameRate": "Hitrost sličic (fps)",
+      "ebucoreHasMimeType": "Vrsta MIME",
+      "ebucoreHeight": "Višina (px)",
+      "ebucoreOrientation": "Orientacija",
+      "ebucoreSampleRate": "Frekvenca vzorčenja (Hz)",
+      "ebucoreSampleSize": "Velikost vzorca (biti)",
+      "ebucoreWidth": "Širina (px)",
+      "edmCodecName": "Kodek",
+      "edmComponentColor": "Barva komponente",
+      "edmHasColorSpace": "Barvni prostor",
+      "edmIntendedUsage": "Predvidena uporaba",
+      "edmPolygonCount": "Število poligonov",
+      "edmRights": "Izjava o pravicah za ta medij",
+      "edmSpatialResolution": "Prostorska ločljivost (dpi)",
+      "edmVertexCount": "Število oglišč",
+      "schemaDigitalSourceType": "Odnos z resničnim svetom"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Umetnost",
+      "creativity": "Ustvarjalnost",
+      "curation": "Kuriranje",
+      "design": "Oblikovanje",
+      "documentation": "Dokumentacija",
+      "education": "Izobraževanje",
+      "exhibition": "Razstava",
+      "gaming": "Gaming",
+      "infotainment": "Infotainment",
+      "knowledge": "Znanje",
+      "maintenance": "Vzdrževanje",
+      "research": "Raziskave",
+      "restoration": "Obnovitev",
+      "tourism": "Turizem"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Rekonstrukcija",
+      "digitalCapture": "Zajem resničnosti",
+      "digitalCreation": "Digitalno rojeno"
     }
   },
   "filterResults": "Filtrirajte rezultate",
@@ -849,7 +907,7 @@ export default {
       "help": "Pomoč",
       "home": "Domov",
       "partners": "Postanite naš partner",
-      "research": "Za raziskovalce",
+      "research": "Za akademsko in raziskovalno sfero",
       "shareYourCollections": "Delite svoje zbirke",
       "stories": "Zgodbe"
     },
@@ -1037,6 +1095,8 @@ export default {
       "hide": "Skrij stransko vrstico",
       "IIIFManifest": "IIIF Manifest",
       "links": "Povezave",
+      "metadata": "Metapodatki medija",
+      "metadataInfo": "Informacije o mediju, ki si ga trenutno ogledujete.",
       "search": "Išči",
       "searchPlaceholder": "Vnesite pogoje",
       "show": "Pokaži stransko vrstico"

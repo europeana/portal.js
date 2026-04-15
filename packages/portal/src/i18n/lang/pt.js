@@ -142,6 +142,23 @@ export default {
     "show": "Mostrar atribuição",
     "title": "Título:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Legendas / legendas ocultas",
+    "captions off": "Desligado",
+    "captionsOption": "{language} legendas",
+    "Exit Fullscreen": "Sair do ecrã inteiro",
+    "Fullscreen": "Tela cheia",
+    "Mute": "Silenciar",
+    "Pause": "Pausa",
+    "Play": "Reproduzir",
+    "Play Video": "Reproduzir vídeo",
+    "Replay": "Repetição",
+    "Subtitles": "Legendas / legendas ocultas",
+    "subtitles off": "Desligado",
+    "subtitlesOption": "{language} legendas",
+    "Unmute": "Ativar som",
+    "Volume Level": "Nível de volume"
+  },
   "authored": {
     "by": "por",
     "publishedDate": "Publicado {date}"
@@ -799,11 +816,52 @@ export default {
       "year": "Ano"
     },
     "webResource": {
-      "about": "RDF Acerca",
-      "dcDescription": "Descrição",
-      "ebucoreHasMimeType": "Ebucore Tipo MIME",
-      "edmRights": "Declaração de direitos para este recurso de média",
-      "rdfAbout": "RDF Acerca"
+      "about": "Sobre",
+      "dctermsConformsTo": "Em conformidade com",
+      "dcType": "Tipo de média",
+      "ebucoreAudioChannelNumber": "Canais de áudio",
+      "ebucoreBitRate": "Taxa de bits (bps)",
+      "ebucoreDuration": "Duração (ms)",
+      "ebucoreFileByteSize": "Tamanho do ficheiro (bytes)",
+      "ebucoreFrameRate": "Taxa de quadros (fps)",
+      "ebucoreHasMimeType": "Tipo MIME",
+      "ebucoreHeight": "Altura (px)",
+      "ebucoreOrientation": "Orientação",
+      "ebucoreSampleRate": "Taxa de amostragem (Hz)",
+      "ebucoreSampleSize": "Tamanho da amostra (bits)",
+      "ebucoreWidth": "Largura (px)",
+      "edmCodecName": "Codec",
+      "edmComponentColor": "Cor do componente",
+      "edmHasColorSpace": "Espaço de cor",
+      "edmIntendedUsage": "Utilização prevista",
+      "edmPolygonCount": "Contagem de polígonos",
+      "edmRights": "Declaração de direitos para este meio de comunicação",
+      "edmSpatialResolution": "Resolução espacial (dpi)",
+      "edmVertexCount": "Contagem de vértices",
+      "schemaDigitalSourceType": "Relação com o mundo real"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Arte",
+      "creativity": "Criatividade",
+      "curation": "Curadoria",
+      "design": "Design",
+      "documentation": "Documentação",
+      "education": "Educação",
+      "exhibition": "Exposição",
+      "gaming": "Gaming",
+      "infotainment": "Infotenimento",
+      "knowledge": "Conhecimento",
+      "maintenance": "Manutenção",
+      "research": "Pesquisa",
+      "restoration": "Restauração",
+      "tourism": "Turismo"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Reconstrução",
+      "digitalCapture": "Captura de realidade",
+      "digitalCreation": "Nascido digital"
     }
   },
   "filterResults": "Filtrar resultados",
@@ -849,7 +907,7 @@ export default {
       "help": "Ajuda",
       "home": "Início",
       "partners": "Seja nosso parceiro",
-      "research": "Para investigadores",
+      "research": "Para o meio académico e a investigação",
       "shareYourCollections": "Partilhe as suas coleções",
       "stories": "Histórias"
     },
@@ -1037,6 +1095,8 @@ export default {
       "hide": "Ocultar barra lateral",
       "IIIFManifest": "Manifesto IIIF",
       "links": "Links",
+      "metadata": "Metadados de mídia",
+      "metadataInfo": "Informações sobre o conteúdo multimédia que está a visualizar neste momento.",
       "search": "Procurar",
       "searchPlaceholder": "Insira os termos",
       "show": "Mostrar barra lateral"

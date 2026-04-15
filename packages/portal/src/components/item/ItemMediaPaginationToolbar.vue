@@ -90,6 +90,7 @@
       z-index: 3;
       width: 13rem;
       transition: background-color $standard-transition;
+      border-bottom: 1px solid $lightbluemagenta;
 
       &.closed {
         background-color: transparent;

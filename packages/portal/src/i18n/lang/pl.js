@@ -142,6 +142,23 @@ export default {
     "show": "Pokaż atrybucję",
     "title": "Tytuł:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Napisy / napisy dla niesłyszących",
+    "captions off": "Wył",
+    "captionsOption": "{language} napisy",
+    "Exit Fullscreen": "Wyjdź z pełnego ekranu",
+    "Fullscreen": "Pełny ekran",
+    "Mute": "Wycisz",
+    "Pause": "Pauza",
+    "Play": "Odtwórz",
+    "Play Video": "Odtwórz wideo",
+    "Replay": "Odtwórz ponownie",
+    "Subtitles": "Napisy / napisy dla niesłyszących",
+    "subtitles off": "Wył",
+    "subtitlesOption": "{language} napisy",
+    "Unmute": "Wyłącz wyciszenie",
+    "Volume Level": "Poziom głośności"
+  },
   "authored": {
     "by": "przez",
     "publishedDate": "Opublikowano w dniu {date}"
@@ -799,11 +816,52 @@ export default {
       "year": "Rok"
     },
     "webResource": {
-      "about": "RDF Informacje",
-      "dcDescription": "Opis",
-      "ebucoreHasMimeType": "Typ MIME Ebucore",
-      "edmRights": "Oświadczenie prawne na ten zasób medialny",
-      "rdfAbout": "RDF Informacje"
+      "about": "O",
+      "dctermsConformsTo": "Zgodny z",
+      "dcType": "Typ mediów",
+      "ebucoreAudioChannelNumber": "Kanały audio",
+      "ebucoreBitRate": "Przepływność (bps)",
+      "ebucoreDuration": "Czas trwania (ms)",
+      "ebucoreFileByteSize": "Rozmiar pliku (bajty)",
+      "ebucoreFrameRate": "Liczba klatek na sekundę (fps)",
+      "ebucoreHasMimeType": "Typ MIME",
+      "ebucoreHeight": "Wysokość (px)",
+      "ebucoreOrientation": "Orientacja",
+      "ebucoreSampleRate": "Częstotliwość próbkowania (Hz)",
+      "ebucoreSampleSize": "Rozmiar próbki (bity)",
+      "ebucoreWidth": "Szerokość (px)",
+      "edmCodecName": "Kodek",
+      "edmComponentColor": "Kolor komponentu",
+      "edmHasColorSpace": "Przestrzeń kolorów",
+      "edmIntendedUsage": "Przeznaczenie",
+      "edmPolygonCount": "Liczba wielokątów",
+      "edmRights": "Oświadczenie o prawach dla tego medium",
+      "edmSpatialResolution": "Rozdzielczość przestrzenna (dpi)",
+      "edmVertexCount": "Liczba wierzchołków",
+      "schemaDigitalSourceType": "Relacja ze światem rzeczywistym"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Sztuka",
+      "creativity": "Kreatywność",
+      "curation": "Kuratorowanie",
+      "design": "Projekt",
+      "documentation": "Dokumentacja",
+      "education": "Edukacja",
+      "exhibition": "Wystawa",
+      "gaming": "Gaming",
+      "infotainment": "Infotainments",
+      "knowledge": "Wiedza",
+      "maintenance": "Konserwacja",
+      "research": "Badania",
+      "restoration": "Przywracanie",
+      "tourism": "Turystyka"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Rekonstrukcja",
+      "digitalCapture": "Przechwytywanie rzeczywistości",
+      "digitalCreation": "Urodzony cyfrowo"
     }
   },
   "filterResults": "Wyniki filtrowania",
@@ -849,7 +907,7 @@ export default {
       "help": "Pomoc",
       "home": "Strona główna",
       "partners": "Zostań naszym partnerem",
-      "research": "Dla badaczy",
+      "research": "Do celów akademickich i badawczych",
       "shareYourCollections": "Udostępnij swoje kolekcje",
       "stories": "Historie"
     },
@@ -1037,6 +1095,8 @@ export default {
       "hide": "Ukryj pasek boczny",
       "IIIFManifest": "IIIF Manifest",
       "links": "Linki",
+      "metadata": "Metadane multimediów",
+      "metadataInfo": "Informacje o aktualnie przeglądanych mediach.",
       "search": "Szukaj",
       "searchPlaceholder": "Wprowadź terminy",
       "show": "Pokaż pasek boczny"

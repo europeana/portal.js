@@ -30,11 +30,16 @@ on:
         required: false
         type: string
         description: URL of the oEmbed service for presenting media from this service
+      responsive:
+        required: false
+        type: boolean
+        description: For oEmbed services, whether the embedded HTML is responsive
 
 env:
   SERVICE_NAME: ${{ inputs.name }}
   SERVICE_OEMBED: ${{ inputs.oembed }}
   SERVICE_PURPOSE: ${{ inputs.purpose }}
+  SERVICE_RESPONSIVE: ${{ inputs.responsive }}
   SERVICE_SCHEMES: ${{ inputs.schemes }}
   SERVICE_TITLE: ${{ inputs.title }}
 
@@ -45,7 +50,7 @@ jobs:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: 22
           cache: 'npm'
       -
         name: Add media embed service

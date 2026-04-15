@@ -221,7 +221,7 @@
       this.translate = Boolean(
         this.$auth.loggedIn &&
           this.translateSearchForCurrentLocale &&
-          (!this.$features?.multilingualSearchButton || this.$route.query.translate || this.$cookies?.get('multilingualSearch'))
+          (!this.$features?.multilingualSearchButton || this.$route.query.translate || this.$cookies?.get('multilingualSearch') === 'true')
       );
 
       // Remove cleared rules

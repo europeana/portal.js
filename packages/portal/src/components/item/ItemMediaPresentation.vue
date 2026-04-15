@@ -61,13 +61,28 @@
                 @toggleFullscreen="toggleFullscreen"
               />
             </MediaImageViewer>
-            <MediaAudioVisualPlayer
+            <template
               v-else-if="resource?.edm?.isPlayableMedia"
-              :url="resource.id"
-              :format="resource.format"
-              :item-id="itemId"
-              class="media-viewer-content"
-            />
+            >
+              <MediaAudioVisualPlayer
+                v-if="$features.videojs"
+                :url="resource.id"
+                :format="resource.format"
+                :item-id="itemId"
+                class="media-viewer-content"
+                :poster="thumbnailForAVPoster"
+                :offset="page - 1"
+                :text-tracks="textTracks"
+                :resource="resource"
+              />
+              <MediaEuropeanaMediaPlayer
+                v-else
+                :url="resource.id"
+                :format="resource.format"
+                :item-id="itemId"
+                class="media-viewer-content"
+              />
+            </template>
             <EmbedGateway
               v-else-if="resource?.isOEmbed || resource?.edm?.isOEmbed"
               class="media-viewer-content"
@@ -82,7 +97,6 @@
             <template
               v-else-if="displayThumbnail"
             >
-              <!-- TODO: mv into own component, e.g. ItemMediaPreview? -->
               <MediaCardImage
                 :offset="page - 1"
                 data-qa="item media thumbnail"
@@ -144,9 +158,12 @@
 </template>
 
 <script>
+  import { inject } from 'vue';
+
   import LoadingSpinner from '../generic/LoadingSpinner.vue';
   import MediaCardImage from '../media/MediaCardImage.vue';
   import useItemMediaPresentation from '@/composables/itemMediaPresentation.js';
+  import { useItemMediaTextTracks } from '@/composables/itemMediaTextTracks.js';
   import { FIELDS as WEB_RESOURCE_METADATA_DISPLAY_FIELDS } from '@/components/media/MediaMetadataList.vue';
 
   export class ItemMediaPresentationError extends Error {
@@ -169,6 +186,7 @@
       ItemMediaThumbnails: () => import('./ItemMediaThumbnails.vue'),
       LoadingSpinner,
       MediaAudioVisualPlayer: () => import('../media/MediaAudioVisualPlayer.vue'),
+      MediaEuropeanaMediaPlayer: () => import('../media/MediaEuropeanaMediaPlayer.vue'),
       MediaCardImage,
       MediaImageViewer: () => import('../media/MediaImageViewer.vue'),
       MediaImageViewerControls: () => import('../media/MediaImageViewerControls.vue')
@@ -215,6 +233,8 @@
         return;
       }
 
+      const textTrackAnnotations = inject('textTrackAnnotations', []);
+
       const {
         activeAnnotation,
         clear: clearMediaPresentationState,
@@ -228,6 +248,10 @@
         setPresentationFromWebResources
       } = useItemMediaPresentation();
 
+      const {
+        textTracks
+      } = useItemMediaTextTracks(textTrackAnnotations, resource);
+
       return {
         activeAnnotation,
         clearMediaPresentationState,
@@ -238,7 +262,8 @@
         resource,
         resourceCount,
         setPage,
-        setPresentationFromWebResources
+        setPresentationFromWebResources,
+        textTracks
       };
     },
 
@@ -333,6 +358,10 @@
 
       addSidebarToggleMaxWidth() {
         return !this.viewableImageResource && this.sidebarHasContent;
+      },
+
+      thumbnailForAVPoster() {
+        return this.$apis.thumbnail.forWebResource(this.resource.edm).large;
       }
     },
 
@@ -460,6 +489,7 @@
   .media-viewer-inner-wrapper {
     @include media-viewer-height;
     background-color: $black;
+    border-bottom: 1px solid $lightbluemagenta;
 
     @media (max-width: ($bp-large - 1px)) {
       position: relative;

@@ -142,6 +142,23 @@ export default {
     "show": "Arată atribuirea",
     "title": "Titlu:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Subtitrări / subtitrări închise",
+    "captions off": "Oprit",
+    "captionsOption": "{language} subtitrări",
+    "Exit Fullscreen": "Ieșiți din ecranul complet",
+    "Fullscreen": "Ecran complet",
+    "Mute": "Mut",
+    "Pause": "Pauză",
+    "Play": "Redă",
+    "Play Video": "Redare video",
+    "Replay": "Reluare",
+    "Subtitles": "Subtitrări / subtitrări închise",
+    "subtitles off": "Oprit",
+    "subtitlesOption": "{language} subtitrări",
+    "Unmute": "Pornește sunetul",
+    "Volume Level": "Nivelul volumului"
+  },
   "authored": {
     "by": "de",
     "publishedDate": "Publicat la {date}"
@@ -799,11 +816,52 @@ export default {
       "year": "An"
     },
     "webResource": {
-      "about": "Despre RDF",
-      "dcDescription": "Descriere",
-      "ebucoreHasMimeType": "Tip Ebucore MIME",
-      "edmRights": "Mențiunea privind drepturile intelectuale pentru această resursă media",
-      "rdfAbout": "Despre RDF"
+      "about": "Despre",
+      "dctermsConformsTo": "Conform cu",
+      "dcType": "Tip de media",
+      "ebucoreAudioChannelNumber": "Canale audio",
+      "ebucoreBitRate": "Rată de biți (bps)",
+      "ebucoreDuration": "Durată (ms)",
+      "ebucoreFileByteSize": "Dimensiune fișier (octeți)",
+      "ebucoreFrameRate": "Rată de cadre (fps)",
+      "ebucoreHasMimeType": "Tip MIME",
+      "ebucoreHeight": "Înălțime (px)",
+      "ebucoreOrientation": "Orientare",
+      "ebucoreSampleRate": "Rată de eșantionare (Hz)",
+      "ebucoreSampleSize": "Dimensiunea eșantionului (biți)",
+      "ebucoreWidth": "Lățime (px)",
+      "edmCodecName": "Codec",
+      "edmComponentColor": "Culoarea componentei",
+      "edmHasColorSpace": "Spațiu de culoare",
+      "edmIntendedUsage": "Utilizare prevăzută",
+      "edmPolygonCount": "Număr de poligoane",
+      "edmRights": "Declarație de drepturi pentru acest media",
+      "edmSpatialResolution": "Rezoluție spațială (dpi)",
+      "edmVertexCount": "Număr de vârfuri",
+      "schemaDigitalSourceType": "Relația cu lumea reală"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Artă",
+      "creativity": "Creativitate",
+      "curation": "Curatoriere",
+      "design": "Design",
+      "documentation": "Documentare",
+      "education": "Educație",
+      "exhibition": "Expoziţie",
+      "gaming": "Gaming",
+      "infotainment": "Infotainment",
+      "knowledge": "Cunoștințe",
+      "maintenance": "Mentenanță",
+      "research": "Cercetare",
+      "restoration": "Restaurare",
+      "tourism": "Turism"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Reconstrucție",
+      "digitalCapture": "Captare a realității",
+      "digitalCreation": "Născut digital"
     }
   },
   "filterResults": "Filtrați rezultatele",
@@ -849,7 +907,7 @@ export default {
       "help": "Help",
       "home": "Acasă",
       "partners": "Parteneriat cu noi",
-      "research": "Pentru cercetători",
+      "research": "Pentru mediul academic și cercetare",
       "shareYourCollections": "Partajați colecțiile dvs.",
       "stories": "Narațiuni"
     },
@@ -1037,6 +1095,8 @@ export default {
       "hide": "Ascunde bara laterală",
       "IIIFManifest": "IIIF Manifest",
       "links": "Linkuri",
+      "metadata": "Metadate media",
+      "metadataInfo": "Informații despre conținutul media pe care îl vizualizați în prezent.",
       "search": "Căutare",
       "searchPlaceholder": "Introduceți termeni",
       "show": "Afișați bara laterală"

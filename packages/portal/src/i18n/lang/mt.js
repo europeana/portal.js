@@ -142,6 +142,23 @@ export default {
     "show": "Uri l-attribuzzjoni",
     "title": "Titlu:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Sottotitoli / sottotitoli magħluqa",
+    "captions off": "Mitfi",
+    "captionsOption": "{language} sottotitli",
+    "Exit Fullscreen": "Oħroġ mill-iskrin sħiħ",
+    "Fullscreen": "Skrin sħiħ",
+    "Mute": "Muta",
+    "Pause": "Pawża",
+    "Play": "Ilgħab",
+    "Play Video": "Ilgħab il-vidjo",
+    "Replay": "Erġa' uri",
+    "Subtitles": "Sottotitoli / sottotitoli magħluqa",
+    "subtitles off": "Mitfi",
+    "subtitlesOption": "{language} sottotitli",
+    "Unmute": "Neħħi l-iskiet",
+    "Volume Level": "Livell tal-Volum"
+  },
   "authored": {
     "by": "minn",
     "publishedDate": "Ippubblikat {date}"
@@ -799,11 +816,52 @@ export default {
       "year": "Sena"
     },
     "webResource": {
-      "about": "Dwar RDF",
-      "dcDescription": "Deskrizzjoni",
-      "ebucoreHasMimeType": "It-Tip Ebucore MIME",
-      "edmRights": "Dikjarazzjoni tad-drittijiet ta' din ir-riżorsa tal-midja",
-      "rdfAbout": "Dwar RDF"
+      "about": "Dwar",
+      "dctermsConformsTo": "Jikkonforma ma’",
+      "dcType": "Tip ta' midja",
+      "ebucoreAudioChannelNumber": "Kanali tal-awdjo",
+      "ebucoreBitRate": "Rata tal-bits (bps)",
+      "ebucoreDuration": "Tul (ms)",
+      "ebucoreFileByteSize": "Daqs tal-fajl (bytes)",
+      "ebucoreFrameRate": "Rata tal-frejms (fps)",
+      "ebucoreHasMimeType": "Tip ta' MIME",
+      "ebucoreHeight": "Għoli (px)",
+      "ebucoreOrientation": "Orjentazzjoni",
+      "ebucoreSampleRate": "Rata tal-kampjunar (Hz)",
+      "ebucoreSampleSize": "Daqs tal-kampjun (bits)",
+      "ebucoreWidth": "Wisa’ (px)",
+      "edmCodecName": "Kodek",
+      "edmComponentColor": "Kulur tal-komponent",
+      "edmHasColorSpace": "Spazju tal-kulur",
+      "edmIntendedUsage": "Użu maħsub",
+      "edmPolygonCount": "Għadd ta' poligoni",
+      "edmRights": "Dikjarazzjoni tad-drittijiet għal din il-midja",
+      "edmSpatialResolution": "Riżoluzzjoni spazjali (dpi)",
+      "edmVertexCount": "Għadd ta’ vertices",
+      "schemaDigitalSourceType": "Relazzjoni mad-dinja reali"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Arti",
+      "creativity": "Kreattività",
+      "curation": "Kjurazzjoni",
+      "design": "Disinn",
+      "documentation": "Dokumentazzjoni",
+      "education": "Edukazzjoni",
+      "exhibition": "Wirja",
+      "gaming": "Gaming",
+      "infotainment": "Infotainment",
+      "knowledge": "Għarfien",
+      "maintenance": "Manutenzjoni",
+      "research": "Riċerka",
+      "restoration": "Restawr",
+      "tourism": "Turizmu"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Rikostruzzjoni",
+      "digitalCapture": "Qbid tar-realtà",
+      "digitalCreation": "Mwieled diġitali"
     }
   },
   "filterResults": "Riżultati tal-filtru",
@@ -849,7 +907,7 @@ export default {
       "help": "Għajnuna",
       "home": "Paġna Ewlenija",
       "partners": "Issieħeb magħna",
-      "research": "Għall‑riċerkaturi",
+      "research": "Għall-akkademja u r-riċerka",
       "shareYourCollections": "Aqsam il-kollezzjonijiet tiegħek",
       "stories": "Stejjer"
     },
@@ -1037,6 +1095,8 @@ export default {
       "hide": "Aħbi l-istrixxa tal-ġenb",
       "IIIFManifest": "IIIF Manifest",
       "links": "Links",
+      "metadata": "Metadejta tal-midja",
+      "metadataInfo": "Informazzjoni dwar il-midja li qed tara bħalissa.",
       "search": "Fittex",
       "searchPlaceholder": "Daħħal it-termini",
       "show": "Uri l-istrixxa tal-ġenb"

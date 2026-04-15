@@ -142,6 +142,23 @@ export default {
     "show": "Prikaži atribuciju",
     "title": "Naslov:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Titlovi / skriveni titlovi",
+    "captions off": "Isključeno",
+    "captionsOption": "{language} titlovi",
+    "Exit Fullscreen": "Izađi iz punog zaslona",
+    "Fullscreen": "Cijeli zaslon",
+    "Mute": "Isključi zvuk",
+    "Pause": "Pauza",
+    "Play": "Reproduciraj",
+    "Play Video": "Reproduciraj video",
+    "Replay": "Ponovi",
+    "Subtitles": "Titlovi / skriveni titlovi",
+    "subtitles off": "Isključeno",
+    "subtitlesOption": "{language} titlovi",
+    "Unmute": "Uključi zvuk",
+    "Volume Level": "Razina glasnoće"
+  },
   "authored": {
     "by": "po",
     "publishedDate": "Objavljeno {date}"
@@ -799,11 +816,52 @@ export default {
       "year": "Godina"
     },
     "webResource": {
-      "about": "O RDF",
-      "dcDescription": "Opis",
-      "ebucoreHasMimeType": "Ebucore MIME tip",
-      "edmRights": "Uvjeti korištenja za ovaj medijski resurs",
-      "rdfAbout": "RDF O"
+      "about": "O",
+      "dctermsConformsTo": "Sukladno s",
+      "dcType": "Vrsta medija",
+      "ebucoreAudioChannelNumber": "Audio kanali",
+      "ebucoreBitRate": "Brzina prijenosa (bps)",
+      "ebucoreDuration": "Trajanje (ms)",
+      "ebucoreFileByteSize": "Veličina datoteke (bajtovi)",
+      "ebucoreFrameRate": "Broj sličica u sekundi (fps)",
+      "ebucoreHasMimeType": "MIME tip",
+      "ebucoreHeight": "Visina (px)",
+      "ebucoreOrientation": "Orijentacija",
+      "ebucoreSampleRate": "Frekvencija uzorkovanja (Hz)",
+      "ebucoreSampleSize": "Veličina uzorka (bitovi)",
+      "ebucoreWidth": "Širina (px)",
+      "edmCodecName": "Kodek",
+      "edmComponentColor": "Boja komponente",
+      "edmHasColorSpace": "Prostor boja",
+      "edmIntendedUsage": "Namjena",
+      "edmPolygonCount": "Broj poligona",
+      "edmRights": "Izjava o pravima za ovaj medij",
+      "edmSpatialResolution": "Prostorna razlučivost (dpi)",
+      "edmVertexCount": "Broj vrhova",
+      "schemaDigitalSourceType": "Odnos sa stvarnim svijetom"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Umjetnost",
+      "creativity": "Kreativnost",
+      "curation": "Kuracija",
+      "design": "Dizajn",
+      "documentation": "Dokumentacija",
+      "education": "Obrazovanje",
+      "exhibition": "Izložba",
+      "gaming": "Igranje",
+      "infotainment": "Infotainment",
+      "knowledge": "Znanje",
+      "maintenance": "Održavanje",
+      "research": "Istraživanje",
+      "restoration": "Restauracija",
+      "tourism": "Turizam"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Rekonstrukcija",
+      "digitalCapture": "Snimanje stvarnosti",
+      "digitalCreation": "Izvorno digitalno"
     }
   },
   "filterResults": "Filtrirajte rezultate",
@@ -849,7 +907,7 @@ export default {
       "help": "Pomoć",
       "home": "Početna",
       "partners": "Postanite naš partner",
-      "research": "Za istraživače",
+      "research": "Za akademsku zajednicu i istraživanje",
       "shareYourCollections": "Podijelite svoje zbirke",
       "stories": "Priče"
     },
@@ -1037,6 +1095,8 @@ export default {
       "hide": "Sakrij bočnu traku",
       "IIIFManifest": "IIIF Manifest",
       "links": "Linkovi",
+      "metadata": "Metapodaci medija",
+      "metadataInfo": "Informacije o mediju koji trenutno pregledavate.",
       "search": "Traži",
       "searchPlaceholder": "Unesite pojmove",
       "show": "Prikaži bočnu traku"

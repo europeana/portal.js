@@ -142,6 +142,23 @@ export default {
     "show": "Toon toeschrijving",
     "title": "Titel:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Ondertiteling / gesloten ondertiteling",
+    "captions off": "Uit",
+    "captionsOption": "{language} bijschriften",
+    "Exit Fullscreen": "Volledig scherm afsluiten",
+    "Fullscreen": "Volledig scherm",
+    "Mute": "Dempen",
+    "Pause": "Pauze",
+    "Play": "Afspelen",
+    "Play Video": "Video afspelen",
+    "Replay": "Opnieuw afspelen",
+    "Subtitles": "Ondertiteling / gesloten ondertiteling",
+    "subtitles off": "Uit",
+    "subtitlesOption": "{language} ondertitels",
+    "Unmute": "Dempen opheffen",
+    "Volume Level": "Volumeniveau"
+  },
   "authored": {
     "by": "door",
     "publishedDate": "Gepubliceerd op {date}"
@@ -799,11 +816,52 @@ export default {
       "year": "Jaar"
     },
     "webResource": {
-      "about": "RDF Over",
-      "dcDescription": "Omschrijving",
-      "ebucoreHasMimeType": "Ebucore MIME-type",
-      "edmRights": "Rechtenstatus voor deze mediabron",
-      "rdfAbout": "RDF Over"
+      "about": "Over",
+      "dctermsConformsTo": "Voldoet aan",
+      "dcType": "Soort media",
+      "ebucoreAudioChannelNumber": "Audiokanalen",
+      "ebucoreBitRate": "Bitrate (bps)",
+      "ebucoreDuration": "Duur (ms)",
+      "ebucoreFileByteSize": "Bestandsgrootte (bytes)",
+      "ebucoreFrameRate": "Framesnelheid (fps)",
+      "ebucoreHasMimeType": "MIME-type",
+      "ebucoreHeight": "Hoogte (px)",
+      "ebucoreOrientation": "Oriëntatie",
+      "ebucoreSampleRate": "Samplefrequentie (Hz)",
+      "ebucoreSampleSize": "Steekproefgrootte (bits)",
+      "ebucoreWidth": "Breedte (px)",
+      "edmCodecName": "Codec",
+      "edmComponentColor": "Component kleur",
+      "edmHasColorSpace": "Kleurruimte",
+      "edmIntendedUsage": "Beoogd gebruik",
+      "edmPolygonCount": "Aantal polygonen",
+      "edmRights": "Rechtenverklaring voor deze media",
+      "edmSpatialResolution": "Ruimtelijke resolutie (dpi)",
+      "edmVertexCount": "Aantal hoekpunten",
+      "schemaDigitalSourceType": "Relatie met de echte wereld"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Kunst",
+      "creativity": "Creativiteit",
+      "curation": "Curatie",
+      "design": "Ontwerp",
+      "documentation": "Documentatie",
+      "education": "Onderwijs",
+      "exhibition": "Tentoonstelling",
+      "gaming": "Gaming",
+      "infotainment": "Infotainment",
+      "knowledge": "Kennis",
+      "maintenance": "Onderhoud",
+      "research": "Onderzoek",
+      "restoration": "Restauratie",
+      "tourism": "Toerisme"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Reconstructie",
+      "digitalCapture": "Reality capture",
+      "digitalCreation": "Digitaal geboren"
     }
   },
   "filterResults": "Resultaten filteren",
@@ -849,7 +907,7 @@ export default {
       "help": "Help",
       "home": "Home",
       "partners": "Word onze partner",
-      "research": "Voor onderzoekers",
+      "research": "Voor de academische wereld en onderzoek",
       "shareYourCollections": "Deel uw collecties",
       "stories": "Verhalen"
     },
@@ -1037,6 +1095,8 @@ export default {
       "hide": "Verberg zijbalk",
       "IIIFManifest": "IIIF Manifest",
       "links": "Links",
+      "metadata": "Media-metadata",
+      "metadataInfo": "Informatie over de media die u nu bekijkt.",
       "search": "Zoeken",
       "searchPlaceholder": "Voer termen in",
       "show": "Zijbalk weergeven"

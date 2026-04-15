@@ -51,16 +51,34 @@ describe('components/metadata/MetadataField', () => {
       });
 
       describe('a labelled field with a labelling context', () => {
-        const props = {
-          name: 'edmRights',
-          fieldData: { def: 'http://rightsstatements.org/vocab/InC/1.0/' },
-          context: 'webResource'
-        };
-        it('outputs the context specific translated label', () => {
-          const wrapper = factory({ props });
+        describe('with the context in the field name', () => {
+          const props = {
+            name: 'webResourceEdmRights',
+            fieldData: { def: 'http://rightsstatements.org/vocab/InC/1.0/' },
+            context: 'webResource'
+          };
 
-          const fieldName = wrapper.find('[data-qa="metadata field"] [data-qa="label"]');
-          expect(fieldName.text()).toBe('fieldLabels.webResource.edmRights');
+          it('strips the context from the field name to translate the label', () => {
+            const wrapper = factory({ props });
+
+            const fieldName = wrapper.find('[data-qa="metadata field"] [data-qa="label"]');
+            expect(fieldName.text()).toBe('fieldLabels.webResource.edmRights');
+          });
+        });
+
+        describe('without the context in the field name', () => {
+          const props = {
+            name: 'dcTitle',
+            fieldData: { en: 'Title' },
+            context: 'webResource'
+          };
+
+          it('outputs the context specific translated label', () => {
+            const wrapper = factory({ props });
+
+            const fieldName = wrapper.find('[data-qa="metadata field"] [data-qa="label"]');
+            expect(fieldName.text()).toBe('fieldLabels.webResource.dcTitle');
+          });
         });
       });
 
@@ -130,6 +148,30 @@ describe('components/metadata/MetadataField', () => {
         expect(fieldValues.at(1).text()).toBe('…');
       });
 
+      describe('when the value might have a vocabulary lookup', () => {
+        const props = { name: 'edmIntendedUsage', fieldData: ['http://data.europeana.eu/vocabulary/usageArea/Research'] };
+
+        describe('and the value has a translation', () => {
+          it('renders the translation string', () => {
+            const wrapper = factory({ props, translationExists: true });
+
+            const fieldValues = wrapper.findAll('[data-qa="metadata field"] ul [data-qa="literal value"]');
+
+            expect(fieldValues.at(0).text()).toBe('fieldValues.edmIntendedUsage.research');
+          });
+        });
+
+        describe('but there is no existing translation', () => {
+          it('renders the value without lookup', () => {
+            const wrapper = factory({ props, translationExists: false });
+
+            const fieldValues = wrapper.findAll('[data-qa="metadata field"] ul [data-qa="literal value"]');
+
+            expect(fieldValues.at(0).text()).toBe(props.fieldData[0]);
+          });
+        });
+      });
+
       describe('URIs', () => {
         describe('with omitUrisIfOtherValues set to true', () => {
           it('omits them if there are other values in any language', () => {
@@ -150,7 +192,7 @@ describe('components/metadata/MetadataField', () => {
 
           it('only include them if there are no other values in any other language', () => {
             const props = { name: 'dcCreator', fieldData: { def: ['http://data.europeana.eu/agent/123'] }, omitUrisIfOtherValues: true };
-            const wrapper = factory({ props });
+            const wrapper = factory({ props, translationExists: false });
 
             const fieldValue = wrapper.find('[data-qa="metadata field"] ul [data-qa="literal value"]');
             expect(fieldValue.text()).toBe(props.fieldData.def[0]);

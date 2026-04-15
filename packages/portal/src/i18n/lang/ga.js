@@ -142,6 +142,23 @@ export default {
     "show": "Taispeáin sannadh",
     "title": "Teideal:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Fotheidil / fotheidil dhúnta",
+    "captions off": "As",
+    "captionsOption": "{language} fotheideal",
+    "Exit Fullscreen": "Scoir scáileán iomlán",
+    "Fullscreen": "Scáileán iomlán",
+    "Mute": "Balbhaigh",
+    "Pause": "Sos",
+    "Play": "Seinn",
+    "Play Video": "Seinn físeán",
+    "Replay": "Athsheinm",
+    "Subtitles": "Fotheidil / fotheidil dhúnta",
+    "subtitles off": "As",
+    "subtitlesOption": "{language} fotheideal",
+    "Unmute": "Bain an balbhú",
+    "Volume Level": "Leibhéal Imleabhair"
+  },
   "authored": {
     "by": "le",
     "publishedDate": "Foilsithe {date}"
@@ -799,11 +816,52 @@ export default {
       "year": "Bliain"
     },
     "webResource": {
-      "about": "Maidir le RDF",
-      "dcDescription": "Tuairisc",
-      "ebucoreHasMimeType": "Cineál MIME Ebucore",
-      "edmRights": "Ráiteas um Chearta ceadúnas don acmhainn meán seo",
-      "rdfAbout": "Maidir le RDF"
+      "about": "Maidir le",
+      "dctermsConformsTo": "Comhlíonann",
+      "dcType": "Cineál meáin",
+      "ebucoreAudioChannelNumber": "Cainéil fuaime",
+      "ebucoreBitRate": "Ráta giotán (bps)",
+      "ebucoreDuration": "Fad (ms)",
+      "ebucoreFileByteSize": "Méid comhaid (bearta)",
+      "ebucoreFrameRate": "Ráta frámaí (fps)",
+      "ebucoreHasMimeType": "Cineál MIME",
+      "ebucoreHeight": "Airde (px)",
+      "ebucoreOrientation": "Treoshuíomh",
+      "ebucoreSampleRate": "Ráta samplála (Hz)",
+      "ebucoreSampleSize": "Méid na samplaí (giotáin)",
+      "ebucoreWidth": "Leithead (px)",
+      "edmCodecName": "Códec",
+      "edmComponentColor": "Dath comhpháirte",
+      "edmHasColorSpace": "Spás datha",
+      "edmIntendedUsage": "Úsáid beartaithe",
+      "edmPolygonCount": "Líon na bpolagán",
+      "edmRights": "Ráiteas cearta don mheán seo",
+      "edmSpatialResolution": "Taifeach spásúil (dpi)",
+      "edmVertexCount": "Líon na rinn",
+      "schemaDigitalSourceType": "Gaol leis an bhfíorshaol"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Ealaín",
+      "creativity": "Cruthaitheacht",
+      "curation": "Coimeádadh",
+      "design": "Dearadh",
+      "documentation": "Doiciméadú",
+      "education": "Oideachas",
+      "exhibition": "Taispeántas",
+      "gaming": "Cluichíocht",
+      "infotainment": "Infotainment",
+      "knowledge": "Eolas",
+      "maintenance": "Cothabháil",
+      "research": "Taighde",
+      "restoration": "Athchóiriú",
+      "tourism": "Turasóireacht"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Athchóiriú",
+      "digitalCapture": "Gabháil réaltachta",
+      "digitalCreation": "Rugadh go digiteach"
     }
   },
   "filterResults": "Scag torthaí",
@@ -849,7 +907,7 @@ export default {
       "help": "Cabhair",
       "home": "Baile",
       "partners": "Bí i gcomhpháirt linn",
-      "research": "Do thaighdeoirí",
+      "research": "Do lucht acadúil agus taighde",
       "shareYourCollections": "Comhroinn do bhailiúcháin",
       "stories": "Scéalta"
     },
@@ -1037,6 +1095,8 @@ export default {
       "hide": "Folaigh bharra taoibh",
       "IIIFManifest": "Manifest IIIF",
       "links": "Naisc",
+      "metadata": "Meiteashonraí meáin",
+      "metadataInfo": "Faisnéis faoin meán atá á fhéachaint agat faoi láthair.",
       "search": "Cuardaigh",
       "searchPlaceholder": "Cuir isteach téarmaí",
       "show": "Taispeáin barra taoibh"

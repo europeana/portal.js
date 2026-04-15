@@ -142,6 +142,23 @@ export default {
     "show": "Attribúció megjelenítése",
     "title": "Cím:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Feliratok / kódolt feliratok",
+    "captions off": "Kikapcsolva",
+    "captionsOption": "{language} feliratok",
+    "Exit Fullscreen": "Kilépés a teljes képernyős módból",
+    "Fullscreen": "Teljes képernyő",
+    "Mute": "Némítás",
+    "Pause": "Szünet",
+    "Play": "Lejátszás",
+    "Play Video": "Videó lejátszása",
+    "Replay": "Visszajátszás",
+    "Subtitles": "Feliratok / kódolt feliratok",
+    "subtitles off": "Kikapcsolva",
+    "subtitlesOption": "{language} feliratok",
+    "Unmute": "Némítás feloldása",
+    "Volume Level": "Hangerőszint"
+  },
   "authored": {
     "by": "Szerző:",
     "publishedDate": "Közzététel dátuma: {date}"
@@ -799,11 +816,52 @@ export default {
       "year": "Év"
     },
     "webResource": {
-      "about": "RDF Névjegy",
-      "dcDescription": "Leírás",
-      "ebucoreHasMimeType": "Ebucore MIME típus",
-      "edmRights": "A médiaforrás szerzői jogai",
-      "rdfAbout": "RDF Névjegy"
+      "about": "Névjegy",
+      "dctermsConformsTo": "Megfelel",
+      "dcType": "Médiatípus",
+      "ebucoreAudioChannelNumber": "Hangcsatornák",
+      "ebucoreBitRate": "Bitráta (bps)",
+      "ebucoreDuration": "Időtartam (ms)",
+      "ebucoreFileByteSize": "Fájlméret (bájt)",
+      "ebucoreFrameRate": "Képkockasebesség (fps)",
+      "ebucoreHasMimeType": "MIME-típus",
+      "ebucoreHeight": "Magasság (px)",
+      "ebucoreOrientation": "Tájolás",
+      "ebucoreSampleRate": "Mintavételi frekvencia (Hz)",
+      "ebucoreSampleSize": "Minta mérete (bit)",
+      "ebucoreWidth": "Szélesség (px)",
+      "edmCodecName": "Kodek",
+      "edmComponentColor": "Komponens színe",
+      "edmHasColorSpace": "Színtér",
+      "edmIntendedUsage": "Tervezett felhasználás",
+      "edmPolygonCount": "Poligonok száma",
+      "edmRights": "Jognyilatkozat ehhez a médiához",
+      "edmSpatialResolution": "Térbeli felbontás (dpi)",
+      "edmVertexCount": "Csúcspontok száma",
+      "schemaDigitalSourceType": "Kapcsolat a való világgal"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Művészet",
+      "creativity": "Kreativitás",
+      "curation": "Kurátori munka",
+      "design": "Tervezés",
+      "documentation": "Dokumentáció",
+      "education": "Oktatás",
+      "exhibition": "Kiállítás",
+      "gaming": "Gaming",
+      "infotainment": "Infotainment",
+      "knowledge": "Tudás",
+      "maintenance": "Karbantartás",
+      "research": "Kutatás",
+      "restoration": "Helyreállítás",
+      "tourism": "Turizmus"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Rekonstrukció",
+      "digitalCapture": "Valóságrögzítés",
+      "digitalCreation": "Digitálisan született"
     }
   },
   "filterResults": "Találatok szűrése",
@@ -849,7 +907,7 @@ export default {
       "help": "Súgó",
       "home": "Kezdőlap",
       "partners": "Legyen a partnerünk",
-      "research": "Kutatóknak",
+      "research": "Akadémikusok és kutatók számára",
       "shareYourCollections": "Ossza meg gyűjteményeit",
       "stories": "Történetek"
     },
@@ -1037,6 +1095,8 @@ export default {
       "hide": "Oldalsáv elrejtése",
       "IIIFManifest": "IIIF Manifest",
       "links": "Linkek",
+      "metadata": "Média metaadatok",
+      "metadataInfo": "Információk a jelenleg megtekintett médiáról.",
       "search": "Keresés",
       "searchPlaceholder": "Kifejezések megadása",
       "show": "Oldalsáv megjelenítése"

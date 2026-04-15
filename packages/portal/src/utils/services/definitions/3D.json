@@ -1,5 +1,14 @@
 [
   {
+    "name": "aitGraz",
+    "oembed": "https://hosting1.ait.co.at/oembed",
+    "responsive": true,
+    "schemes": [
+      "https://hosting1.ait.co.at/u/kochg/incoming/*"
+    ],
+    "title": "AIT Graz"
+  },
+  {
     "name": "arctur3DViewer",
     "schemes": [
       "https://3dviewer.arctur.si/*"
@@ -17,6 +26,7 @@
   {
     "name": "eureka3D",
     "oembed": "https://eureka3d.vm.fedcloud.eu/oembed",
+    "responsive": true,
     "schemes": [
       "https://eureka3d.vm.fedcloud.eu/3d/*"
     ],
@@ -46,6 +56,7 @@
   {
     "name": "sketchfab",
     "oembed": "https://sketchfab.com/oembed",
+    "responsive": true,
     "schemes": [
       "https://sketchfab.com/3d-models/*",
       "https://sketchfab.com/models/*",
@@ -70,6 +81,7 @@
   {
     "name": "weave",
     "oembed": "https://weave-3dviewer.com/api/core/v1/oembed",
+    "responsive": true,
     "schemes": [
       "https://weave-3dviewer.com/asset/*"
     ],

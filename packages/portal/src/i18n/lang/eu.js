@@ -142,6 +142,23 @@ export default {
     "show": "Erakutsi atribuzioa",
     "title": "Izenburua:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Azpitituluak / itxitako azpitituluak",
+    "captions off": "Itzalita",
+    "captionsOption": "{language} azpititu",
+    "Exit Fullscreen": "Irten pantaila osotik",
+    "Fullscreen": "Pantaila osoa",
+    "Mute": "Mututu",
+    "Pause": "Pausatu",
+    "Play": "Erreproduzitu",
+    "Play Video": "Erreproduzitu bideoa",
+    "Replay": "Berriro erreproduzitu",
+    "Subtitles": "Azpitituluak / itxitako azpitituluak",
+    "subtitles off": "Itzalita",
+    "subtitlesOption": "{language} azpitituluak",
+    "Unmute": "Aktibatu soinua",
+    "Volume Level": "Bolumen maila"
+  },
   "authored": {
     "by": "arabera",
     "publishedDate": "Argitaratze data {date}"
@@ -799,11 +816,52 @@ export default {
       "year": "Urtea"
     },
     "webResource": {
-      "about": "RDF buruz",
-      "dcDescription": "Deskribapena",
-      "ebucoreHasMimeType": "Ebucore MIME mota",
-      "edmRights": "Baliabide honetarako baimenen egoera",
-      "rdfAbout": "RDF"
+      "about": "Buruz",
+      "dctermsConformsTo": "Bat dator honekin",
+      "dcType": "Euskarri mota",
+      "ebucoreAudioChannelNumber": "Audio kanalak",
+      "ebucoreBitRate": "Bit-tasa (bps)",
+      "ebucoreDuration": "Iraupena (ms)",
+      "ebucoreFileByteSize": "Fitxategi-tamaina (byteak)",
+      "ebucoreFrameRate": "Fotograma-tasa (fps)",
+      "ebucoreHasMimeType": "MIME mota",
+      "ebucoreHeight": "Altuera (px)",
+      "ebucoreOrientation": "Orientazioa",
+      "ebucoreSampleRate": "Lagin-maiztasuna (Hz)",
+      "ebucoreSampleSize": "Lagin-tamaina (bitak)",
+      "ebucoreWidth": "Zabalera (px)",
+      "edmCodecName": "Kodek",
+      "edmComponentColor": "Osagaiaren kolorea",
+      "edmHasColorSpace": "Kolore-espazioa",
+      "edmIntendedUsage": "Aurreikusitako erabilera",
+      "edmPolygonCount": "Poligono kopurua",
+      "edmRights": "Komunikabide honen eskubideen adierazpena",
+      "edmSpatialResolution": "Bereizmen espaziala (dpi)",
+      "edmVertexCount": "Erpin kopurua",
+      "schemaDigitalSourceType": "Mundu errealarekin duen harremana"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Artea",
+      "creativity": "Sormena",
+      "curation": "Kudeaketa",
+      "design": "Diseinua",
+      "documentation": "Dokumentazioa",
+      "education": "Hezkuntza",
+      "exhibition": "Erakusketa",
+      "gaming": "Jokoak",
+      "infotainment": "Infotainment",
+      "knowledge": "Ezagutza",
+      "maintenance": "Mantentzea",
+      "research": "Ikerketa",
+      "restoration": "Rekonstrukzioa",
+      "tourism": "Turismoa"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Berreraikuntza",
+      "digitalCapture": "Errealitatearen kaptura",
+      "digitalCreation": "Jatorriz digitala"
     }
   },
   "filterResults": "Iragazi emaitzak",
@@ -849,7 +907,7 @@ export default {
       "help": "Laguntza",
       "home": "Etxea",
       "partners": "Izan zaitez gure bazkide",
-      "research": "Ikertzaileentzat",
+      "research": "Akademia eta ikerketarako",
       "shareYourCollections": "Partekatu zure bildumak",
       "stories": "Istorioak"
     },
@@ -1037,6 +1095,8 @@ export default {
       "hide": "Ezkutatu alboko barra",
       "IIIFManifest": "IIIF Manifestua",
       "links": "Loturak",
+      "metadata": "Multimedia metadatuak",
+      "metadataInfo": "Une honetan ikusten ari zaren multimedia-edukiari buruzko informazioa.",
       "search": "Bilatu",
       "searchPlaceholder": "Sartu terminoak",
       "show": "Erakutsi alboko barra"

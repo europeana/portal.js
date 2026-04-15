@@ -142,6 +142,23 @@ export default {
     "show": "Показване на атрибуция",
     "title": "Заглавие:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Субтитри / скрити надписи",
+    "captions off": "Изкл.",
+    "captionsOption": "{language} надписи",
+    "Exit Fullscreen": "Изход от цял екран",
+    "Fullscreen": "Цял екран",
+    "Mute": "Без звук",
+    "Pause": "Пауза",
+    "Play": "Пусни",
+    "Play Video": "Възпроизвеждане на видео",
+    "Replay": "Повторение",
+    "Subtitles": "Субтитри / скрити надписи",
+    "subtitles off": "Изкл.",
+    "subtitlesOption": "{language} субтитри",
+    "Unmute": "Включване на звука",
+    "Volume Level": "Ниво на звука"
+  },
   "authored": {
     "by": "от",
     "publishedDate": "Публикувано на {date}"
@@ -799,11 +816,52 @@ export default {
       "year": "Година"
     },
     "webResource": {
-      "about": "Относно RDF",
-      "dcDescription": "Описание",
-      "ebucoreHasMimeType": "Тип Ebucore MIME",
-      "edmRights": "Лиценз за този медиен ресурс",
-      "rdfAbout": "Относно RDF"
+      "about": "Относно",
+      "dctermsConformsTo": "Съответства на",
+      "dcType": "Вид медия",
+      "ebucoreAudioChannelNumber": "Аудио канали",
+      "ebucoreBitRate": "Битрейт (bps)",
+      "ebucoreDuration": "Продължителност (ms)",
+      "ebucoreFileByteSize": "Размер на файла (байтове)",
+      "ebucoreFrameRate": "Честота на кадрите (fps)",
+      "ebucoreHasMimeType": "MIME тип",
+      "ebucoreHeight": "Височина (px)",
+      "ebucoreOrientation": "Ориентация",
+      "ebucoreSampleRate": "Честота на дискретизация (Hz)",
+      "ebucoreSampleSize": "Размер на извадката (битове)",
+      "ebucoreWidth": "Ширина (px)",
+      "edmCodecName": "Кодек",
+      "edmComponentColor": "Цвят на компонента",
+      "edmHasColorSpace": "Цветово пространство",
+      "edmIntendedUsage": "Предназначена употреба",
+      "edmPolygonCount": "Брой полигони",
+      "edmRights": "Декларация за права за тази медия",
+      "edmSpatialResolution": "Пространствена разделителна способност (dpi)",
+      "edmVertexCount": "Брой върхове",
+      "schemaDigitalSourceType": "Връзка с реалния свят"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Изкуство",
+      "creativity": "Креативност",
+      "curation": "Куриране",
+      "design": "Дизайн",
+      "documentation": "Документация",
+      "education": "Образование",
+      "exhibition": "Изложба",
+      "gaming": "Гейминг",
+      "infotainment": "Инфотейнмънт",
+      "knowledge": "Знание",
+      "maintenance": "Поддръжка",
+      "research": "Изследване",
+      "restoration": "Възстановяване",
+      "tourism": "Туризъм"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Реконструкция",
+      "digitalCapture": "Заснемане на реалността",
+      "digitalCreation": "Родено в цифров вид"
     }
   },
   "filterResults": "Филтриране на резултати",
@@ -849,7 +907,7 @@ export default {
       "help": "Помощ",
       "home": "Начало",
       "partners": "Партнирайте си с нас",
-      "research": "За изследователи",
+      "research": "За академични среди и изследвания",
       "shareYourCollections": "Споделете вашите колекции",
       "stories": "Истории"
     },
@@ -1037,6 +1095,8 @@ export default {
       "hide": "Скриване на страничната лента",
       "IIIFManifest": "IIIF Манифест",
       "links": "Връзки",
+      "metadata": "Метаданни на медията",
+      "metadataInfo": "Информация за медията, която в момента преглеждате.",
       "search": "Търсене",
       "searchPlaceholder": "Въведете термини",
       "show": "Показване на страничната лента"

@@ -142,6 +142,23 @@ export default {
     "show": "Show attribution",
     "title": "Title:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Subtitles / closed captions",
+    "captions off": "Off",
+    "captionsOption": "{language} captions",
+    "Exit Fullscreen": "Exit full screen",
+    "Fullscreen": "Full screen",
+    "Mute": "Mute",
+    "Pause": "Pause",
+    "Play": "Play",
+    "Play Video": "Play video",
+    "Replay": "Replay",
+    "Subtitles": "Subtitles / closed captions",
+    "subtitles off": "Off",
+    "subtitlesOption": "{language} subtitles",
+    "Unmute": "Unmute",
+    "Volume Level": "Volume Level"
+  },
   "authored": {
     "by": "by",
     "publishedDate": "Published {date}"
@@ -822,8 +839,8 @@ export default {
     },
     "webResource": {
       "about": "About",
-      "dcType": "Type of media",
       "dctermsConformsTo": "Conforms to",
+      "dcType": "Type of media",
       "ebucoreAudioChannelNumber": "Audio channels",
       "ebucoreBitRate": "Bitrate (bps)",
       "ebucoreDuration": "Duration (ms)",
@@ -843,7 +860,30 @@ export default {
       "edmRights": "Rights statement for this media",
       "edmSpatialResolution": "Spatial resolution (dpi)",
       "edmVertexCount": "Vertex count",
-      "schemaDigitalSourceType": "Digital source type"
+      "schemaDigitalSourceType": "Relation with the real world"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Art",
+      "creativity": "Creativity",
+      "curation": "Curation",
+      "design": "Design",
+      "documentation": "Documentation",
+      "education": "Education",
+      "exhibition": "Exhibition",
+      "gaming": "Gaming",
+      "infotainment": "Infotainment",
+      "knowledge": "Knowledge",
+      "maintenance": "Maintenance",
+      "research": "Research",
+      "restoration": "Restoration",
+      "tourism": "Tourism"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Reconstruction",
+      "digitalCapture": "Reality capture",
+      "digitalCreation": "Born digital"
     }
   },
   "filterResults": "Filter results",
@@ -890,7 +930,7 @@ export default {
       "help": "Help",
       "home": "Home",
       "partners": "Partner with us",
-      "research": "For researchers",
+      "research": "For academia and research",
       "shareYourCollections": "Share your collections",
       "stories": "Stories"
     },

@@ -142,6 +142,23 @@ export default {
     "show": "Visa attribution",
     "title": "Titel:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Undertexter / textning för hörselskadade",
+    "captions off": "Av",
+    "captionsOption": "{language} bildtexter",
+    "Exit Fullscreen": "Avsluta helskärm",
+    "Fullscreen": "Helskärm",
+    "Mute": "Ljud av",
+    "Pause": "Paus",
+    "Play": "Spela",
+    "Play Video": "Spela upp video",
+    "Replay": "Spela om",
+    "Subtitles": "Undertexter / textning för hörselskadade",
+    "subtitles off": "Av",
+    "subtitlesOption": "{language} undertexter",
+    "Unmute": "Slå på ljud",
+    "Volume Level": "Volymnivå"
+  },
   "authored": {
     "by": "av",
     "publishedDate": "Publicerad {date}"
@@ -799,11 +816,52 @@ export default {
       "year": "År"
     },
     "webResource": {
-      "about": "RDF Om",
-      "dcDescription": "Beskrivning",
-      "ebucoreHasMimeType": "Ebucore MIME-typ",
-      "edmRights": "Rättighetsmärkning för denna medieresurs",
-      "rdfAbout": "RDF Om"
+      "about": "Om",
+      "dctermsConformsTo": "Överensstämmer med",
+      "dcType": "Typ av media",
+      "ebucoreAudioChannelNumber": "Ljudkanaler",
+      "ebucoreBitRate": "Bithastighet (bps)",
+      "ebucoreDuration": "Varaktighet (ms)",
+      "ebucoreFileByteSize": "Filstorlek (byte)",
+      "ebucoreFrameRate": "Bildfrekvens (fps)",
+      "ebucoreHasMimeType": "MIME-typ",
+      "ebucoreHeight": "Höjd (px)",
+      "ebucoreOrientation": "Orientering",
+      "ebucoreSampleRate": "Samplingsfrekvens (Hz)",
+      "ebucoreSampleSize": "Samplingsstorlek (bitar)",
+      "ebucoreWidth": "Bredd (px)",
+      "edmCodecName": "Codec",
+      "edmComponentColor": "Komponentfärg",
+      "edmHasColorSpace": "Färgrymd",
+      "edmIntendedUsage": "Avsedd användning",
+      "edmPolygonCount": "Polygonantal",
+      "edmRights": "Rättighetsbeskrivning för denna media",
+      "edmSpatialResolution": "Spatial upplösning (dpi)",
+      "edmVertexCount": "Antal hörnpunkter",
+      "schemaDigitalSourceType": "Relation till den verkliga världen"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Konst",
+      "creativity": "Kreativitet",
+      "curation": "Kuratering",
+      "design": "Design",
+      "documentation": "Dokumentation",
+      "education": "Utbildning",
+      "exhibition": "Utställning",
+      "gaming": "Gaming",
+      "infotainment": "Infotainment",
+      "knowledge": "Kunskap",
+      "maintenance": "Underhåll",
+      "research": "Forskning",
+      "restoration": "Restaurering",
+      "tourism": "Turism"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Rekonstruktion",
+      "digitalCapture": "Verklighetsfångst",
+      "digitalCreation": "Född digital"
     }
   },
   "filterResults": "Filtrera resultat",
@@ -849,7 +907,7 @@ export default {
       "help": "Hjälp",
       "home": "Hem",
       "partners": "Samarbeta med oss",
-      "research": "För forskare",
+      "research": "För akademi och forskning",
       "shareYourCollections": "Dela dina samlingar",
       "stories": "Berättelser"
     },
@@ -1037,6 +1095,8 @@ export default {
       "hide": "Dölj sidofältet",
       "IIIFManifest": "IIIF Manifest",
       "links": "Länkar",
+      "metadata": "Mediametadata",
+      "metadataInfo": "Information om det media som visas just nu.",
       "search": "Sök",
       "searchPlaceholder": "Ange villkor",
       "show": "Visa sidofältet"

@@ -142,6 +142,23 @@ export default {
     "show": "Zobraziť atribút",
     "title": "Názov:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Titulky / skryté titulky",
+    "captions off": "Vypnuté",
+    "captionsOption": "{language} titulky",
+    "Exit Fullscreen": "Ukončiť celú obrazovku",
+    "Fullscreen": "Celá obrazovka",
+    "Mute": "Stlmiť",
+    "Pause": "Pozastaviť",
+    "Play": "Prehrať",
+    "Play Video": "Prehrať video",
+    "Replay": "Prehrať znova",
+    "Subtitles": "Titulky / skryté titulky",
+    "subtitles off": "Vypnuté",
+    "subtitlesOption": "{language} titulky",
+    "Unmute": "Zapnúť zvuk",
+    "Volume Level": "Úroveň hlasitosti"
+  },
   "authored": {
     "by": "od",
     "publishedDate": "Zverejnené {date}"
@@ -799,11 +816,52 @@ export default {
       "year": "Rok"
     },
     "webResource": {
-      "about": "RDF o",
-      "dcDescription": "Popis",
-      "ebucoreHasMimeType": "Typ Ebucore MIME",
-      "edmRights": "Právny stav na tento mediálny zdroj",
-      "rdfAbout": "RDF o"
+      "about": "O",
+      "dctermsConformsTo": "Zodpovedá",
+      "dcType": "Typ média",
+      "ebucoreAudioChannelNumber": "Zvukové kanály",
+      "ebucoreBitRate": "Dátový tok (bps)",
+      "ebucoreDuration": "Trvanie (ms)",
+      "ebucoreFileByteSize": "Veľkosť súboru (bajty)",
+      "ebucoreFrameRate": "Snímková frekvencia (fps)",
+      "ebucoreHasMimeType": "Typ MIME",
+      "ebucoreHeight": "Výška (px)",
+      "ebucoreOrientation": "Orientácia",
+      "ebucoreSampleRate": "Vzorkovacia frekvencia (Hz)",
+      "ebucoreSampleSize": "Veľkosť vzorky (bity)",
+      "ebucoreWidth": "Šírka (px)",
+      "edmCodecName": "Kodek",
+      "edmComponentColor": "Farba komponentu",
+      "edmHasColorSpace": "Farebný priestor",
+      "edmIntendedUsage": "Zamýšľané použitie",
+      "edmPolygonCount": "Počet polygónov",
+      "edmRights": "Vyhlásenie o právach pre toto médium",
+      "edmSpatialResolution": "Priestorové rozlíšenie (dpi)",
+      "edmVertexCount": "Počet vrcholov",
+      "schemaDigitalSourceType": "Vzťah k reálnemu svetu"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Umenie",
+      "creativity": "Kreativita",
+      "curation": "Kurátorstvo",
+      "design": "Dizajn",
+      "documentation": "Dokumentácia",
+      "education": "Vzdelávanie",
+      "exhibition": "Výstava",
+      "gaming": "Gaming",
+      "infotainment": "Infotainment",
+      "knowledge": "Vedomosti",
+      "maintenance": "Údržba",
+      "research": "Výskum",
+      "restoration": "Obnovenie",
+      "tourism": "Cestovný ruch"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Rekonštrukcia",
+      "digitalCapture": "Zachytávanie reality",
+      "digitalCreation": "Digitálne narodený"
     }
   },
   "filterResults": "Filtrovať výsledky",
@@ -849,7 +907,7 @@ export default {
       "help": "Pomoc",
       "home": "Domov",
       "partners": "Staňte sa naším partnerom",
-      "research": "Pre výskumníkov",
+      "research": "Pre akademickú obec a výskum",
       "shareYourCollections": "Zdieľajte svoje zbierky",
       "stories": "Príbehy"
     },
@@ -1037,6 +1095,8 @@ export default {
       "hide": "Skryť bočný panel",
       "IIIFManifest": "Manifest IIIF",
       "links": "Odkazy",
+      "metadata": "Metadáta médií",
+      "metadataInfo": "Informácie o práve prezeranom médiu.",
       "search": "Hľadať",
       "searchPlaceholder": "Zadajte podmienky",
       "show": "Zobraziť bočný panel"

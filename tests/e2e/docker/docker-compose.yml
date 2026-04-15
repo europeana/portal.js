@@ -1,4 +1,3 @@
-version: "3"
 services:
   nginx:
     image: europeana/portal.js-nginx:${NGINX_IMAGE_VERSION:-latest}
@@ -119,5 +118,6 @@ services:
     environment:
       - WEBDRIVER_EN_HOST=chrome-en
       - APP_URL=https://nginx
+      - NODE_TLS_REJECT_UNAUTHORIZED=0
 volumes:
   nginx-proxy-cache-apis: {}

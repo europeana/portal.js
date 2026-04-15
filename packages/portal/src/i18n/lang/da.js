@@ -142,6 +142,23 @@ export default {
     "show": "Vis tilskrivning",
     "title": "Titel:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Undertekster / skjulte undertekster",
+    "captions off": "Fra",
+    "captionsOption": "{language} billedtekster",
+    "Exit Fullscreen": "Afslut fuld skærm",
+    "Fullscreen": "Fuld skærm",
+    "Mute": "Slå lyd fra",
+    "Pause": "Pause",
+    "Play": "Afspil",
+    "Play Video": "Afspil video",
+    "Replay": "Afspil igen",
+    "Subtitles": "Undertekster / skjulte undertekster",
+    "subtitles off": "Fra",
+    "subtitlesOption": "{language} undertekster",
+    "Unmute": "Slå lyd til",
+    "Volume Level": "Lydstyrkeniveau"
+  },
   "authored": {
     "by": "ved",
     "publishedDate": "Offentliggjort {date}"
@@ -799,11 +816,52 @@ export default {
       "year": "År"
     },
     "webResource": {
-      "about": "RDF Om",
-      "dcDescription": "Beskrivelse",
-      "ebucoreHasMimeType": "Ebucore MIME-type",
-      "edmRights": "Rettigheder til denne medieressource",
-      "rdfAbout": "RDF Om"
+      "about": "Om",
+      "dctermsConformsTo": "Overholder",
+      "dcType": "Medietype",
+      "ebucoreAudioChannelNumber": "Lydkanaler",
+      "ebucoreBitRate": "Bithastighed (bps)",
+      "ebucoreDuration": "Varighed (ms)",
+      "ebucoreFileByteSize": "Filstørrelse (byte)",
+      "ebucoreFrameRate": "Billedhastighed (fps)",
+      "ebucoreHasMimeType": "MIME-type",
+      "ebucoreHeight": "Højde (px)",
+      "ebucoreOrientation": "Orientering",
+      "ebucoreSampleRate": "Samplingfrekvens (Hz)",
+      "ebucoreSampleSize": "Sample-størrelse (bits)",
+      "ebucoreWidth": "Bredde (px)",
+      "edmCodecName": "Codec",
+      "edmComponentColor": "Komponentfarve",
+      "edmHasColorSpace": "Farverum",
+      "edmIntendedUsage": "Tilsigtet anvendelse",
+      "edmPolygonCount": "Antal polygoner",
+      "edmRights": "Rettighedserklæring for dette medie",
+      "edmSpatialResolution": "Rumlig opløsning (dpi)",
+      "edmVertexCount": "Antal hjørner",
+      "schemaDigitalSourceType": "Forholdet til den virkelige verden"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Kunst",
+      "creativity": "Kreativitet",
+      "curation": "Kuratering",
+      "design": "Design",
+      "documentation": "Dokumentation",
+      "education": "Uddannelse",
+      "exhibition": "Udstilling",
+      "gaming": "Gaming",
+      "infotainment": "Infotainment",
+      "knowledge": "Viden",
+      "maintenance": "Vedligeholdelse",
+      "research": "Forskning",
+      "restoration": "Restaurering",
+      "tourism": "Turisme"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Rekonstruktion",
+      "digitalCapture": "Reality capture",
+      "digitalCreation": "Født digitalt"
     }
   },
   "filterResults": "Filtrer resultater",
@@ -849,7 +907,7 @@ export default {
       "help": "Hjælp",
       "home": "Hjem",
       "partners": "Bliv partner med os",
-      "research": "For forskere",
+      "research": "For akademi og forskning",
       "shareYourCollections": "Del dine samlinger",
       "stories": "Historier"
     },
@@ -1037,6 +1095,8 @@ export default {
       "hide": "Skjul sidebjælke",
       "IIIFManifest": "IIIF Manifest",
       "links": "Links",
+      "metadata": "Mediemetadata",
+      "metadataInfo": "Oplysninger om de medier, du ser i øjeblikket.",
       "search": "Søg",
       "searchPlaceholder": "Indtast vilkår",
       "show": "Vis sidebjælke"

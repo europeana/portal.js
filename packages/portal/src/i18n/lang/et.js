@@ -142,6 +142,23 @@ export default {
     "show": "Kuva atribuutika",
     "title": "Pealkiri:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Subtiitrid / pealelugemine kuulmispuudega vaatajatele",
+    "captions off": "Väljas",
+    "captionsOption": "{language} subtiitrid",
+    "Exit Fullscreen": "Välju täisekraanist",
+    "Fullscreen": "Täisekraan",
+    "Mute": "Vaigista",
+    "Pause": "Paus",
+    "Play": "Esita",
+    "Play Video": "Esita video",
+    "Replay": "Esita uuesti",
+    "Subtitles": "Subtiitrid / pealelugemine kuulmispuudega vaatajatele",
+    "subtitles off": "Väljas",
+    "subtitlesOption": "{language} subtiitrid",
+    "Unmute": "Eemalda vaigistus",
+    "Volume Level": "Helitugevuse tase"
+  },
   "authored": {
     "by": "poolt",
     "publishedDate": "Avaldatud {date}"
@@ -799,11 +816,52 @@ export default {
       "year": "Aasta"
     },
     "webResource": {
-      "about": "RDF kohta",
-      "dcDescription": "Kirjeldus",
-      "ebucoreHasMimeType": "Ebucore MIME tüüp",
-      "edmRights": "Selle meediaressursi õiguste avaldus",
-      "rdfAbout": "RDF kohta"
+      "about": "Kohta",
+      "dctermsConformsTo": "Vastab",
+      "dcType": "Meedia tüüp",
+      "ebucoreAudioChannelNumber": "Helikanalid",
+      "ebucoreBitRate": "Bitikiirus (bps)",
+      "ebucoreDuration": "Kestus (ms)",
+      "ebucoreFileByteSize": "Faili suurus (baidid)",
+      "ebucoreFrameRate": "Kaadrisagedus (fps)",
+      "ebucoreHasMimeType": "MIME tüüp",
+      "ebucoreHeight": "Kõrgus (px)",
+      "ebucoreOrientation": "Orientatsioon",
+      "ebucoreSampleRate": "Diskreetimissagedus (Hz)",
+      "ebucoreSampleSize": "Valimi suurus (bits)",
+      "ebucoreWidth": "Laius (px)",
+      "edmCodecName": "Koodek",
+      "edmComponentColor": "Komponendi värv",
+      "edmHasColorSpace": "Värviruum",
+      "edmIntendedUsage": "Kavandatud kasutus",
+      "edmPolygonCount": "Polügoonide arv",
+      "edmRights": "Selle meedia õiguste avaldus",
+      "edmSpatialResolution": "Ruumiline eraldusvõime (dpi)",
+      "edmVertexCount": "Tippude arv",
+      "schemaDigitalSourceType": "Seos reaalse maailmaga"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Kunst",
+      "creativity": "Loovus",
+      "curation": "Kureerimine",
+      "design": "Disain",
+      "documentation": "Dokumentatsioon",
+      "education": "Haridus",
+      "exhibition": "Näitus",
+      "gaming": "Mängimine",
+      "infotainment": "Infotainment",
+      "knowledge": "Teadmised",
+      "maintenance": "Hooldus",
+      "research": "Uuringud",
+      "restoration": "Taastamine",
+      "tourism": "Turism"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Rekonstruktsioon",
+      "digitalCapture": "Reaalsuse jäädvustamine",
+      "digitalCreation": "Algselt digivormingus loodud"
     }
   },
   "filterResults": "Filtreeri tulemusi",
@@ -849,7 +907,7 @@ export default {
       "help": "Abimaterjal",
       "home": "Avaleht",
       "partners": "Tee meiega koostööd",
-      "research": "Teadlastele",
+      "research": "Akadeemilisele ja teadustööle",
       "shareYourCollections": "Jaga oma kogusid",
       "stories": "Lood"
     },
@@ -1037,6 +1095,8 @@ export default {
       "hide": "Peida külgriba",
       "IIIFManifest": "IIIF Manifest",
       "links": "Lingid",
+      "metadata": "Meedia metaandmed",
+      "metadataInfo": "Teave praegu vaadatava meedia kohta.",
       "search": "Otsing",
       "searchPlaceholder": "Sisestage tingimused",
       "show": "Kuva külgriba"

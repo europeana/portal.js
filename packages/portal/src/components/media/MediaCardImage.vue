@@ -35,7 +35,7 @@
     >
       <MediaDefaultThumbnail
         v-if="showDefaultThumbnail"
-        :media-type="edmType"
+        :media-type="resource.edm.edmType || edmType"
         :offset="offset"
       />
       <component
@@ -61,6 +61,7 @@
   } from '@/plugins/europeana/thumbnail.js';
 
   export default {
+    // TODO: rename to ItemMediaPreview?
     name: 'MediaCardImage',
 
     components: {
