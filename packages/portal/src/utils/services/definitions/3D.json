@@ -55,6 +55,15 @@
     "title": "Myminifactory"
   },
   {
+    "name": "repox",
+    "oembed": "https://3d.repox.io/api/oembed",
+    "responsive": true,
+    "schemes": [
+      "https://storev2-api.repox.io/p/datastreams/*/files/*"
+    ],
+    "title": "Repox"
+  },
+  {
     "name": "sketchfab",
     "oembed": "https://sketchfab.com/oembed",
     "responsive": true,
