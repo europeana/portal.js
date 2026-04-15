@@ -616,5 +616,9 @@
         }
       }
     }
+
+    .disabled {
+      cursor: not-allowed;
+    }
   }
 </style>
