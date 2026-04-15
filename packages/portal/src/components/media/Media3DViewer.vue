@@ -12,14 +12,20 @@
 </template>
 
 <script>
-  import '@google/model-viewer';
-
   export default {
     props: {
       url: {
         type: String,
         required: true
       }
+    },
+
+    head() {
+      return {
+        script: [
+          { src: 'https://ajax.googleapis.com/ajax/libs/model-viewer/4.2.0/model-viewer.min.js', type: 'module' }
+        ],
+      };
     }
-  };
+  }
 </script>

@@ -84,7 +84,6 @@
             <Media3DViewer
               v-else-if="resource?.edm?.ebucoreHasMimeType === 'model/gltf-binary'"
               :url="resource.id || resource.edm?.about"
-              :item-id="itemId"
             />
             <EmbedGateway
               v-else-if="resource?.isOEmbed || resource?.edm?.isOEmbed"
