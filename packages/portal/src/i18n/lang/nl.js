@@ -142,6 +142,23 @@ export default {
     "show": "Toon toeschrijving",
     "title": "Titel:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Ondertiteling / gesloten ondertiteling",
+    "captions off": "Uit",
+    "captionsOption": "{language} bijschriften",
+    "Exit Fullscreen": "Volledig scherm afsluiten",
+    "Fullscreen": "Volledig scherm",
+    "Mute": "Dempen",
+    "Pause": "Pauze",
+    "Play": "Afspelen",
+    "Play Video": "Video afspelen",
+    "Replay": "Opnieuw afspelen",
+    "Subtitles": "Ondertiteling / gesloten ondertiteling",
+    "subtitles off": "Uit",
+    "subtitlesOption": "{language} ondertitels",
+    "Unmute": "Dempen opheffen",
+    "Volume Level": "Volumeniveau"
+  },
   "authored": {
     "by": "door",
     "publishedDate": "Gepubliceerd op {date}"

@@ -16,6 +16,15 @@
     "title": "Arctur 3Dviewer"
   },
   {
+    "name": "eKultura",
+    "oembed": "https://ekultura.hr/oembed",
+    "responsive": true,
+    "schemes": [
+      "https://ekultura.hr/items/*"
+    ],
+    "title": "eKultura"
+  },
+  {
     "name": "eureka3D",
     "oembed": "https://eureka3d.vm.fedcloud.eu/oembed",
     "responsive": true,
@@ -44,6 +53,15 @@
       "https://www.myminifactory.com/object/*"
     ],
     "title": "Myminifactory"
+  },
+  {
+    "name": "repox",
+    "oembed": "https://3d.repox.io/api/oembed",
+    "responsive": true,
+    "schemes": [
+      "https://storev2-api.repox.io/p/datastreams/*/files/*"
+    ],
+    "title": "Repox"
   },
   {
     "name": "sketchfab",

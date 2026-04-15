@@ -142,6 +142,23 @@ export default {
     "show": "Kuva atribuutika",
     "title": "Pealkiri:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Subtiitrid / pealelugemine kuulmispuudega vaatajatele",
+    "captions off": "Väljas",
+    "captionsOption": "{language} subtiitrid",
+    "Exit Fullscreen": "Välju täisekraanist",
+    "Fullscreen": "Täisekraan",
+    "Mute": "Vaigista",
+    "Pause": "Paus",
+    "Play": "Esita",
+    "Play Video": "Esita video",
+    "Replay": "Esita uuesti",
+    "Subtitles": "Subtiitrid / pealelugemine kuulmispuudega vaatajatele",
+    "subtitles off": "Väljas",
+    "subtitlesOption": "{language} subtiitrid",
+    "Unmute": "Eemalda vaigistus",
+    "Volume Level": "Helitugevuse tase"
+  },
   "authored": {
     "by": "poolt",
     "publishedDate": "Avaldatud {date}"

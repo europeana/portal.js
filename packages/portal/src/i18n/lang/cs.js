@@ -142,6 +142,23 @@ export default {
     "show": "Zobrazit atribuci",
     "title": "Název:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Titulky / skryté titulky",
+    "captions off": "Vypnuto",
+    "captionsOption": "{language} titulky",
+    "Exit Fullscreen": "Ukončit celou obrazovku",
+    "Fullscreen": "Celá obrazovka",
+    "Mute": "Ztlumit",
+    "Pause": "Pauza",
+    "Play": "Přehrát",
+    "Play Video": "Přehrát video",
+    "Replay": "Přehrát znovu",
+    "Subtitles": "Titulky / skryté titulky",
+    "subtitles off": "Vypnuto",
+    "subtitlesOption": "{language} titulky",
+    "Unmute": "Zrušit ztlumení",
+    "Volume Level": "Úroveň hlasitosti"
+  },
   "authored": {
     "by": "podle",
     "publishedDate": "Publikováno {date}"
