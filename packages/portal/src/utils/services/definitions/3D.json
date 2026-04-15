@@ -16,6 +16,15 @@
     "title": "Arctur 3Dviewer"
   },
   {
+    "name": "eKultura",
+    "oembed": "https://ekultura.hr/oembed",
+    "responsive": true,
+    "schemes": [
+      "https://ekultura.hr/items/*"
+    ],
+    "title": "eKultura"
+  },
+  {
     "name": "eureka3D",
     "oembed": "https://eureka3d.vm.fedcloud.eu/oembed",
     "responsive": true,
