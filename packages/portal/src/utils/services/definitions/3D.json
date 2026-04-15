@@ -18,6 +18,7 @@
   {
     "name": "eKultura",
     "oembed": "https://ekultura.hr/oembed",
+    "responsive": true,
     "schemes": [
       "https://ekultura.hr/items/*"
     ],
