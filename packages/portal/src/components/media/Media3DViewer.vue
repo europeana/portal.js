@@ -1,5 +1,8 @@
 <template>
-  <div ref="viewer"class="d-flex justify-content-center" />
+  <div
+    ref="viewer"
+    class="d-flex justify-content-center"
+  />
 </template>
 
 <script>
@@ -34,10 +37,10 @@
         this.$refs.viewer.appendChild(renderer.domElement);
 
         // Docs controls: https://threejs.org/docs/?q=orbit#OrbitControls
-        const controls = new OrbitControls(camera, renderer.domElement);
+        new OrbitControls(camera, renderer.domElement);
 
         // Docs lights: https://threejs.org/manual/#en/lights
-        const ambientLight = new THREE.AmbientLight("#FFFFFF", 3);
+        const ambientLight = new THREE.AmbientLight('#FFFFFF', 3);
         scene.add(ambientLight);
 
         // Docs loading 3D models: https://threejs.org/manual/#en/loading-3d-models
@@ -73,7 +76,7 @@
         // Rescale the model
         const maxAxis = Math.max(size.x, size.y, size.z);
         model.scale.setScalar(2 / maxAxis);
-      },
-    },
+      }
+    }
   };
 </script>
