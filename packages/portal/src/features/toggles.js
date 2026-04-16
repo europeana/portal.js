@@ -6,6 +6,7 @@ export default [
   { name: 'manageApiKeys' },
   { name: 'mockTrendingItems' },
   { name: 'modelViewer' },
+  { name: 'modelViewerReplacesOembed' },
   { name: 'multilingualSearchButton' },
   { name: 'rejectEntityRecommendations' },
   { name: 'showSetRecommendations' },

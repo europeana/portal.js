@@ -70,7 +70,7 @@
                 :format="resource.format"
                 :item-id="itemId"
                 class="media-viewer-content"
-                :poster="thumbnailForAVPoster"
+                :poster="thumbnailForPoster"
                 :text-tracks="textTracks"
               />
               <MediaEuropeanaMediaPlayer
@@ -84,6 +84,7 @@
             <Media3DViewer
               v-else-if="$features.modelViewer && resource?.edm?.isDisplayable3DModel"
               :url="resource.id || resource.edm?.about"
+              :poster="thumbnailForPoster"
             />
             <EmbedGateway
               v-else-if="resource?.isOEmbed || resource?.edm?.isOEmbed"
@@ -363,7 +364,7 @@
         return !this.viewableImageResource && this.sidebarHasContent;
       },
 
-      thumbnailForAVPoster() {
+      thumbnailForPoster() {
         return this.$apis.thumbnail.forWebResource(this.resource.edm).large;
       }
     },

@@ -431,6 +431,27 @@
         const item = new Item(edm);
         this.isDeleted = item.isDeleted;
 
+        let displayableWebResources = item.providerAggregation.displayableWebResources;
+        // hack to prefer the model-viewer to an oEmbed
+        // TODO: remove when data modelling regards relevant media types as displayable
+        if (this.$features.modelViewer && this.$features.modelViewerReplacesOembed) {
+          displayableWebResources = displayableWebResources.map((wr) => {
+            if (wr.isOEmbed) {
+              const gltfWebResource = (wr.dctermsIsFormatOf?.def || [])
+                .map((dctermsIsFormatOfUri) => item.providerAggregation.findWebResource(dctermsIsFormatOfUri))
+                .filter(Boolean)
+                .find((dctermsIsFormatOfWebResource) => dctermsIsFormatOfWebResource.isDisplayable3DModel);
+              if (gltfWebResource) {
+                // TODO: assign it a dctermsIsFormatOf value gathering the original oEmbed WR and any of its other
+                //       formats
+                return gltfWebResource;
+              }
+            }
+
+            return wr;
+          });
+        }
+
         // TODO: ideally, wouldn't store these as can be a large list if many WRs,
         //       but relied on by ItemHero to know whether to proxy download urls or not.
         //       could we deduce that from whether iiif is in use or not, and if
@@ -438,17 +459,17 @@
         //       - not iiif: proxy
         //       - iiif, europeana: proxy
         //       - iiif, institution: don't proxy
-        this.allMediaUris = item.providerAggregation.displayableWebResources.map((wr) => wr.about);
+        this.allMediaUris = displayableWebResources.map((wr) => wr.about);
         this.iiifPresentationManifest = item.iiifPresentationManifest;
         this.isShownAt = item.providerAggregation.edmIsShownAt;
 
         this.ogImage = this.$apis.thumbnail.forWebResource(
-          new WebResource(item.providerAggregation.displayableWebResources[0], this.identifier)
+          new WebResource(displayableWebResources[0], this.identifier)
         ).large;
 
         const preconnects = [
           this.iiifPresentationManifest,
-          item.providerAggregation.displayableWebResources?.[(this.$route.query.page || 1) - 1]?.about
+          displayableWebResources?.[(this.$route.query.page || 1) - 1]?.about
         ].filter(Boolean);
         for (const preconnect of preconnects) {
           try {
@@ -462,7 +483,7 @@
 
         this.metadata = this.extractMetadata(edm);
 
-        this.media = item.providerAggregation.displayableWebResources.map((wr) => {
+        this.media = displayableWebResources.map((wr) => {
           // don't keep WR-level rights statement if same as item-level
           if (wr.webResourceEdmRights?.def?.[0] === this.metadata.edmRights.def[0]) {
             delete wr.webResourceEdmRights;
