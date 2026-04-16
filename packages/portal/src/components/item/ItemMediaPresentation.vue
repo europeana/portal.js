@@ -71,7 +71,9 @@
                 :item-id="itemId"
                 class="media-viewer-content"
                 :poster="thumbnailForPoster"
+                :offset="page - 1"
                 :text-tracks="textTracks"
+                :resource="resource"
               />
               <MediaEuropeanaMediaPlayer
                 v-else

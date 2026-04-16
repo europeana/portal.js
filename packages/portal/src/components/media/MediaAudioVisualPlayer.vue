@@ -13,6 +13,15 @@
         controls
         preload="none"
       />
+      <MediaCardImage
+        v-if="resource"
+        ref="poster"
+        :resource="resource"
+        :lazy="false"
+        :offset="offset"
+        :linkable="false"
+        thumbnail-size="large"
+      />
     </template>
   </div>
 </template>
@@ -25,6 +34,8 @@
 
   import { ItemMediaPresentationTextTrack } from '@/composables/itemMediaTextTracks.js';
   import { useEuScreen } from '@/composables/euScreen.js';
+  import EuropeanaMediaResource from '@/utils/europeana/media/Resource.js';
+  import MediaCardImage from './MediaCardImage.vue';
 
   const controlsWithTooltips = ['.vjs-mute-control',
                                 '.vjs-fullscreen-control',
@@ -33,7 +44,15 @@
   export default {
     name: 'MediaAudioVisualPlayer',
 
+    components: {
+      MediaCardImage
+    },
+
     props: {
+      resource: {
+        type: EuropeanaMediaResource,
+        default: null
+      },
       format: {
         type: String,
         default: null
@@ -53,6 +72,11 @@
         type: Array,
         default: () => [],
         validator: (prop) => Array.isArray(prop) && prop.every((item) => item instanceof ItemMediaPresentationTextTrack)
+      },
+
+      offset: {
+        type: Number,
+        default: null
       },
 
       url: {
@@ -89,7 +113,6 @@
           },
           language: this.$i18n.locale,
           noUITitleAttributes: true, // do not add title attributes to controls
-          poster: this.poster, // vjs-poster element; not set on the native video element to prevent duplication
           textTrackSettings: false // disable captions settings menu
         },
         player: null
@@ -105,7 +128,9 @@
         this.mediaFormat = response.data.format;
       } else {
         // Use media-proxy when used for a europeana record
-        this.mediaUrl = this.itemId ? this.$apis.record.mediaProxyUrl(this.url, this.itemId) : this.url;
+        // NOTE: disabled due to interference with manifest-based media such as DASH videos
+        // this.mediaUrl = this.itemId ? this.$apis.record.mediaProxyUrl(this.url, this.itemId) : this.url;
+        this.mediaUrl = this.url;
         this.mediaFormat = this.format;
       }
     },
@@ -184,9 +209,18 @@
         }
       },
 
+      setPosterWithCardImage() {
+        const posterElement = this.player.el().querySelector('.vjs-poster');
+        if (posterElement) {
+          posterElement.classList.remove('vjs-hidden');
+          posterElement.appendChild(this.$refs.poster.$el);
+        }
+      },
+
       onPlayerReady() {
         this.initTextTracks();
         this.initTooltips();
+        this.setPosterWithCardImage();
       },
 
       async initVideojs() {
