@@ -5,6 +5,7 @@
     one is loaded
   -->
   <model-viewer
+    v-if="interacted"
     :key="`model-viewer-${url}`"
     alt=""
     :src="url"
@@ -21,11 +22,19 @@
       size="lg"
     />
   </model-viewer>
+  <div
+    v-else
+    class="text-white h-100 w-100 d-flex align-items-center justify-content-center"
+  >
+    <span
+      class="icon-play"
+      @click="() => interacted = true"
+    />
+  </div>
 </template>
 
 <script>
   // model-viewer docs: https://modelviewer.dev/docs/index.html
-  // TODO: only load model after initial user interaction
   import LoadingSpinner from '../generic/LoadingSpinner.vue';
 
   export default {
@@ -47,7 +56,8 @@
 
     data() {
       return {
-        loaded: false
+        loaded: false,
+        interacted: false
       };
     },
 
@@ -62,6 +72,7 @@
     watch: {
       url() {
         this.loaded = false;
+        this.interacted = false;
       }
     },
 
@@ -72,3 +83,12 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  @import '@europeana/style/scss/variables';
+
+  .icon-play {
+    cursor: pointer;
+    font-size: $font-size-xxl;
+  }
+</style>
