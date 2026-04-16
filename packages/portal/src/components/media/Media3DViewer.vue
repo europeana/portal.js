@@ -22,15 +22,16 @@
       size="lg"
     />
   </model-viewer>
-  <div
+  <b-button
     v-else
-    class="text-white h-100 w-100 d-flex align-items-center justify-content-center"
+    class="play-button w-100 h-100 d-flex align-items-center justify-content-center"
+    variant="light-flat"
   >
     <span
       class="icon-play"
       @click="() => interacted = true"
     />
-  </div>
+  </b-button>
 </template>
 
 <script>
@@ -87,8 +88,24 @@
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
 
-  .icon-play {
-    cursor: pointer;
-    font-size: $font-size-xxl;
+  .play-button {
+    background-color: transparent;
+    color: $white;
+
+    .icon-play {
+      cursor: pointer;
+      font-size: 4rem;
+      padding: 1rem;
+      line-height: 1;
+      border-radius: 50%;
+      border: 2px solid $white;
+      transition: all $standard-transition;
+    }
+
+    &:hover .icon-play {
+      background-color: $white;
+      color: $black;
+      transition: all $standard-transition;
+    }
   }
 </style>
