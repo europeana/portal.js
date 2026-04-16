@@ -95,12 +95,33 @@ export default class Aggregation extends Base {
         }
       }
 
-      const wrs = [...uris].map((uri) => (this.webResources || []).find((wr) => wr.about === uri));
+      const wrs = [...uris].map((uri) => this.findWebResourcePrefFormat(uri));
 
       // Sort by isNextInSequence property if present
       this.#displayableWebResources = sortByIsNextInSequence(wrs);
     }
 
     return this.#displayableWebResources;
+  }
+
+  findWebResourcePrefFormat(uri) {
+    const wr = this.findWebResource(uri);
+
+    // hack to prefer our own gltf file display to an oEmbed
+    // TODO: remove when data regards gltf as displayable
+    if (wr.isOEmbed && wr.dctermsIsFormatOf?.def) {
+      const gltfWebResourceUri = (wr.dctermsIsFormatOf?.def || []).find((dctermsIsFormatOfUri) => {
+        return this.findWebResource(dctermsIsFormatOfUri)?.ebucoreHasMimeType === 'model/gltf-binary';
+      });
+      if (gltfWebResourceUri) {
+        return this.findWebResource(gltfWebResourceUri);
+      }
+    }
+
+    return wr;
+  }
+
+  findWebResource(uri) {
+    return (this.webResources || []).find((wr) => wr.about === uri);
   }
 }
