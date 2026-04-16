@@ -603,5 +603,9 @@
         }
       }
     }
+
+    .vjs-poster .default-thumbnail [class^='icon-'] {
+      color: $black;
+    }
   }
 </style>
