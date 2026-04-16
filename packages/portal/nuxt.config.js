@@ -616,6 +616,14 @@ export default {
     ]
   },
 
+  vue: {
+    config: {
+      ignoredElements: [
+        'model-viewer'
+      ]
+    }
+  },
+
   /*
   ** Enable modern builds
   */
