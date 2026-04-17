@@ -210,6 +210,20 @@ describe('components/media/MediaAudioVisualPlayer', () => {
     });
 
     describe('player', () => {
+      describe('on error', () => {
+        it('emits error event', async() => {
+          const message = 'Media playback failed';
+          const wrapper = factory();
+          await wrapper.vm.fetch();
+          await wrapper.vm.initVideojs();
+          await wrapper.vm.$nextTick();
+          sinon.stub(wrapper.vm.player, 'error').returns({ message });
+
+          wrapper.vm.player.trigger('error');
+          expect(wrapper.emitted().error[0][0].message).toBe(message);
+        });
+      });
+
       describe('on loadedmetadata', () => {
         describe('when media is seekable', () => {
           const seekable = {
