@@ -628,6 +628,10 @@
       }
     }
 
+    .vjs-poster .default-thumbnail [class^='icon-'] {
+      color: $black;
+    }
+
     .disabled {
       cursor: not-allowed;
     }
