@@ -133,8 +133,8 @@
       if (this.euScreenEmbedUrl) {
         try {
           const response = await axios.get(this.euScreenEmbedUrl);
-          this.mediaUrl = response?.data?.location;
-          this.mediaFormat = response?.data?.format;
+          this.mediaUrl = response.data.location;
+          this.mediaFormat = response.data.format;
         } catch (e) {
           this.$emit('error', e);
         }
