@@ -64,23 +64,41 @@ describe('components/media/MediaAudioVisualPlayer', () => {
   describe('fetch', () => {
     describe('for a EUScreen URL', () => {
       const url = 'https://www.euscreen.eu/item.html?id=EUS_1234';
-      beforeEach(() => {
-        nock('https://euscreen.embd.eu')
-          .get('/EUS_1234')
-          .reply(200, {
-            location: 'mediaURL EUScreen',
-            format: 'mediaFormat EUScreen'
-          });
+      describe('when EuScreen is available', () => {
+        beforeEach(() => {
+          nock('https://euscreen.embd.eu')
+            .get('/EUS_1234')
+            .reply(200, {
+              location: 'mediaURL EUScreen',
+              format: 'mediaFormat EUScreen'
+            });
+        });
+
+        it('uses the mediaUrl and format from the EUscreen response', async() => {
+          const wrapper = await factory({ propsData: { url } });
+
+          await wrapper.vm.fetch();
+
+          expect(nock.isDone()).toBe(true);
+          expect(wrapper.vm.mediaUrl).toBe('mediaURL EUScreen');
+          expect(wrapper.vm.mediaFormat).toBe('mediaFormat EUScreen');
+        });
       });
 
-      it('uses the mediaUrl and format from the EUscreen response', async() => {
-        const wrapper = await factory({ propsData: { url } });
+      describe('when the request for the EuScreen embed fails', () => {
+        beforeEach(() => {
+          nock('https://euscreen.embd.eu')
+            .get('/EUS_1234')
+            .replyWithError({ message: 'Service not available' });
+        });
 
-        await wrapper.vm.fetch();
+        it('emits an error', async() => {
+          const wrapper = await factory({ propsData: { url } });
+          const emitSpy = sinon.spy(wrapper.vm, '$emit');
 
-        expect(nock.isDone()).toBe(true);
-        expect(wrapper.vm.mediaUrl).toBe('mediaURL EUScreen');
-        expect(wrapper.vm.mediaFormat).toBe('mediaFormat EUScreen');
+          await wrapper.vm.fetch();
+          expect(emitSpy.called).toBe(true);
+        });
       });
     });
 
