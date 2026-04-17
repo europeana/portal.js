@@ -192,6 +192,7 @@ describe('components/media/MediaAudioVisualPlayer', () => {
         }
       });
     });
+
     describe('onPlayerReady', () => {
       it('initialises text tracks, the poster and tooltips', async() => {
         const wrapper = factory();
@@ -205,6 +206,68 @@ describe('components/media/MediaAudioVisualPlayer', () => {
         expect(wrapper.vm.initTextTracks.called).toBe(true);
         expect(wrapper.vm.initTooltips.called).toBe(true);
         expect(wrapper.vm.setPosterWithCardImage.called).toBe(true);
+      });
+    });
+
+    describe('player', () => {
+      describe('on loadedmetadata', () => {
+        describe('when media is seekable', () => {
+          const seekable = {
+            length: 1,
+            start: sinon.stub().returns(0),
+            end: sinon.stub().returns(1)
+          };
+
+          it('does not disable the control bar progress control', async() => {
+            const wrapper = factory();
+            await wrapper.vm.fetch();
+            await wrapper.vm.initVideojs();
+            await wrapper.vm.$nextTick();
+            wrapper.vm.$refs.avPlayer = {
+              seekable
+            };
+
+            wrapper.vm.player.trigger('loadedmetadata');
+
+            expect(wrapper.vm.player.controlBar.progressControl.enabled()).toBe(true);
+          });
+        });
+
+        describe('when media is not seekable', () => {
+          const seekable = {
+            length: 1,
+            start: sinon.stub().returns(0),
+            end: sinon.stub().returns(0)
+          };
+
+          it('disables the control bar progress control', async() => {
+            const wrapper = factory();
+            await wrapper.vm.fetch();
+            await wrapper.vm.initVideojs();
+            await wrapper.vm.$nextTick();
+            wrapper.vm.$refs.avPlayer = {
+              seekable
+            };
+
+            wrapper.vm.player.trigger('loadedmetadata');
+
+            expect(wrapper.vm.player.controlBar.progressControl.enabled()).toBe(false);
+          });
+
+          it('emits warn event', async() => {
+            const wrapper = factory();
+            await wrapper.vm.fetch();
+            await wrapper.vm.initVideojs();
+            await wrapper.vm.$nextTick();
+            wrapper.vm.$refs.avPlayer = {
+              seekable
+            };
+
+            wrapper.vm.player.trigger('loadedmetadata');
+            expect(wrapper.emitted().warn[0][0].name).toBe('MediaAudioVideoPlayerError');
+            expect(wrapper.emitted().warn[0][0].message).toBe('A/V not seekable');
+          });
+        });
       });
     });
   });

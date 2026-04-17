@@ -37,11 +37,19 @@
   import EuropeanaMediaResource from '@/utils/europeana/media/Resource.js';
   import MediaCardImage from './MediaCardImage.vue';
 
+  export class MediaAudioVideoPlayerError extends Error {
+    constructor(message) {
+      super(message);
+      this.name = 'MediaAudioVideoPlayerError';
+    }
+  }
+
   const controlsWithTooltips = ['.vjs-mute-control',
                                 '.vjs-fullscreen-control',
                                 'button.vjs-subs-caps-button'];
 
   export default {
+    // TODO: rename to MediaAudioVideoPlayer
     name: 'MediaAudioVisualPlayer',
 
     components: {
@@ -53,6 +61,7 @@
         type: EuropeanaMediaResource,
         default: null
       },
+
       format: {
         type: String,
         default: null
@@ -223,6 +232,20 @@
         this.setPosterWithCardImage();
       },
 
+      checkSeekable() {
+        const seekable = this.$refs.avPlayer.seekable;
+
+        if ((seekable.length === 0) || ((seekable.start(0) === 0) && (seekable.end(0) === 0))) {
+          this.$emit('warn', new MediaAudioVideoPlayerError('A/V not seekable'));
+
+          this.disableProgressControl();
+        }
+      },
+
+      disableProgressControl() {
+        this.player.controlBar.progressControl.disable();
+      },
+
       async initVideojs() {
         this.player?.dispose();
 
@@ -248,6 +271,7 @@
         });
 
         this.player.ready(this.onPlayerReady);
+        this.player.on('loadedmetadata', this.checkSeekable);
       }
     }
   };
@@ -606,6 +630,10 @@
 
     .vjs-poster .default-thumbnail [class^='icon-'] {
       color: $black;
+    }
+
+    .disabled {
+      cursor: not-allowed;
     }
   }
 </style>

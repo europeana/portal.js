@@ -54,7 +54,7 @@
               :width="resource.width"
               :height="resource.height"
               :service="resource.service"
-              @error="handleImageError"
+              @error="handleMediaError"
             >
               <MediaImageViewerControls
                 :fullscreen="fullscreen"
@@ -74,6 +74,7 @@
                 :offset="page - 1"
                 :text-tracks="textTracks"
                 :resource="resource"
+                @warn="handleMediaWarn"
               />
               <MediaEuropeanaMediaPlayer
                 v-else
@@ -394,7 +395,11 @@
         });
       },
 
-      handleImageError(error) {
+      handleMediaWarn(error) {
+        this.$error(error);
+      },
+
+      handleMediaError(error) {
         this.mediaError = error;
         this.$error(error);
       },
