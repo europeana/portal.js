@@ -1,5 +1,6 @@
 <template>
   <div
+    v-show="ready"
     class="media-player-wrapper h-100 d-flex justify-content-center"
   >
     <template
@@ -28,13 +29,14 @@
 
 <script>
   import axios from 'axios';
-  import videojs from 'video.js';
+  // import videojs from 'video.js';
   // TODO: consider if this is needed when overriding styles
-  import 'video.js/dist/video-js.min.css';
+  // import 'video.js/dist/video-js.min.css';
 
   import { ItemMediaPresentationTextTrack } from '@/composables/itemMediaTextTracks.js';
   import { useEuScreen } from '@/composables/euScreen.js';
   import EuropeanaMediaResource from '@/utils/europeana/media/Resource.js';
+  import waitFor from '@/utils/waitFor.js';
   import MediaCardImage from './MediaCardImage.vue';
 
   export class MediaAudioVideoPlayerError extends Error {
@@ -125,7 +127,8 @@
           noUITitleAttributes: true, // do not add title attributes to controls
           textTrackSettings: false // disable captions settings menu
         },
-        player: null
+        player: null,
+        ready: false
       };
     },
 
@@ -145,6 +148,18 @@
       }
     },
 
+    head() {
+      return {
+        link: [
+          { rel: 'preload', as: 'style', href: 'https://cdn.jsdelivr.net/npm/video.js@8.23.7/dist/video-js.min.css' },
+          { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/video.js@8.23.7/dist/video-js.min.css' }
+        ],
+        script: [
+          { src: 'https://cdn.jsdelivr.net/npm/video.js@8.23.7/dist/video.min.js' }
+        ]
+      };
+    },
+
     computed: {
       mediaComponent() {
         if (this.mediaFormat?.startsWith('audio/')) {
@@ -157,9 +172,9 @@
     },
 
     watch: {
-      mediaComponent() {
-        process.client && this.initVideojs();
-      },
+      // mediaComponent() {
+      //   process.client && this.initVideojs();
+      // },
 
       textTracks() {
         process.client && this.initTextTracks();
@@ -168,6 +183,17 @@
 
     beforeDestroy() {
       this.player?.dispose();
+    },
+
+    mounted() {
+      waitFor(() => {
+        console.log('waiting for', window.videojs, this.mediaComponent)
+        return window.videojs && this.mediaComponent
+      }, { name: 'video.js' })
+        .then(() => {
+          console.log('done waiting')
+          this.initVideojs()
+        });
     },
 
     methods: {
@@ -223,11 +249,14 @@
         const posterElement = this.player.el().querySelector('.vjs-poster');
         if (posterElement) {
           posterElement.classList.remove('vjs-hidden');
+          console.log('this.$refs.poster', this.$refs.poster)
           posterElement.appendChild(this.$refs.poster.$el);
         }
       },
 
-      onPlayerReady() {
+      async onPlayerReady() {
+        await this.$nextTick();
+        this.ready = true;
         this.initTextTracks();
         this.initTooltips();
         this.setPosterWithCardImage();
@@ -252,16 +281,18 @@
       },
 
       async initVideojs() {
+        console.log('initVideojs')
         this.player?.dispose();
 
         // wait for the ref to be created and inserted into the DOM
-        await this.$nextTick();
+        // await this.$nextTick();
 
-        if (!this.$refs.avPlayer) {
-          return;
-        }
+        // if (!this.$refs.avPlayer) {
+        //   return;
+        // }
+// console.log('videojs', window.videojs)
 
-        this.player = videojs(this.$refs.avPlayer, {
+        this.player = window.videojs(this.$refs.avPlayer, {
           ...this.options,
           languages: {
             // Adds custom translations. Docs: https://legacy.videojs.org/guides/languages/#per-player-translations
