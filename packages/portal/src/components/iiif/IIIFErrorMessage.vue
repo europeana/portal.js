@@ -27,6 +27,7 @@
 
 <script>
   export default {
+    // TODO: rename to MediaErrorMessage
     name: 'IIIFErrorMessage',
 
     components: {
