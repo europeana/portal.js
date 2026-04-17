@@ -74,6 +74,7 @@
                 :offset="page - 1"
                 :text-tracks="textTracks"
                 :resource="resource"
+                @error="handleMediaError"
                 @warn="handleMediaWarn"
               />
               <MediaEuropeanaMediaPlayer

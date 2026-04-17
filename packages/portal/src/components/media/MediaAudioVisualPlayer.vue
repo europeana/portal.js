@@ -120,6 +120,7 @@
               'fullscreenToggle'
             ]
           },
+          errorDisplay: false,
           language: this.$i18n.locale,
           noUITitleAttributes: true, // do not add title attributes to controls
           textTrackSettings: false // disable captions settings menu
@@ -246,6 +247,10 @@
         this.player.controlBar.progressControl.disable();
       },
 
+      handlePlayerError() {
+        this.$emit('error', this.player.error());
+      },
+
       async initVideojs() {
         this.player?.dispose();
 
@@ -272,6 +277,7 @@
 
         this.player.ready(this.onPlayerReady);
         this.player.on('loadedmetadata', this.checkSeekable);
+        this.player.on('error', this.handlePlayerError);
       }
     }
   };
