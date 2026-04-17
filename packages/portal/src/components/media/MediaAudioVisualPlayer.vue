@@ -131,12 +131,13 @@
 
     async fetch() {
       if (this.euScreenEmbedUrl) {
-        const response = await axios.get(this.euScreenEmbedUrl)
-          .catch((e) => {
-            this.$emit('error', e);
-          });
-        this.mediaUrl = response?.data?.location;
-        this.mediaFormat = response?.data?.format;
+        try {
+          const response = await axios.get(this.euScreenEmbedUrl);
+          this.mediaUrl = response?.data?.location;
+          this.mediaFormat = response?.data?.format;
+        } catch (e) {
+          this.$emit('error', e);
+        }
       } else {
         // Use media-proxy when used for a europeana record
         // NOTE: disabled due to interference with manifest-based media such as DASH videos
