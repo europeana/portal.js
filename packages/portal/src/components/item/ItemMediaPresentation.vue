@@ -64,7 +64,7 @@
             <template
               v-else-if="resource?.edm?.isPlayableMedia"
             >
-              <MediaAudioVisualPlayer
+              <MediaAudioVideolPlayer
                 v-if="$features.videojs"
                 :url="resource.id"
                 :format="resource.format"
@@ -187,7 +187,7 @@
       ItemMediaSidebarToggle: () => import('./ItemMediaSidebarToggle.vue'),
       ItemMediaThumbnails: () => import('./ItemMediaThumbnails.vue'),
       LoadingSpinner,
-      MediaAudioVisualPlayer: () => import('../media/MediaAudioVisualPlayer.vue'),
+      MediaAudioVideoPlayer: () => import('../media/MediaAudioVideoPlayer.vue'),
       MediaEuropeanaMediaPlayer: () => import('../media/MediaEuropeanaMediaPlayer.vue'),
       MediaCardImage,
       MediaImageViewer: () => import('../media/MediaImageViewer.vue'),

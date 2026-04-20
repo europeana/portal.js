@@ -1,12 +1,12 @@
 import { createLocalVue } from '@vue/test-utils';
 import { mountNuxt } from '@test/utils.js';
 import sinon from 'sinon';
-import MediaAudioVisualPlayer from '@/components/media/MediaAudioVisualPlayer.vue';
+import MediaAudioVideoPlayer from '@/components/media/MediaAudioVideoPlayer.vue';
 import nock from 'nock';
 import { ItemMediaPresentationTextTrack } from '@/composables/itemMediaTextTracks.js';
 
 const localVue = createLocalVue();
-const factory = ({ propsData } = {}) => mountNuxt(MediaAudioVisualPlayer, {
+const factory = ({ propsData } = {}) => mountNuxt(MediaAudioVideoPlayer, {
   attachTo: document.body,
   localVue,
   propsData: {
@@ -30,7 +30,7 @@ const factory = ({ propsData } = {}) => mountNuxt(MediaAudioVisualPlayer, {
   }
 });
 
-describe('components/media/MediaAudioVisualPlayer', () => {
+describe('components/media/MediaAudioVideoPlayer', () => {
   beforeAll(() => {
     nock.disableNetConnect();
   });

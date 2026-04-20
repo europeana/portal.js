@@ -41,7 +41,7 @@ const factory = ({ data = {}, propsData = {}, mocks = {} } = {}) => shallowMount
     'ItemMediaSidebarToggle',
     'ItemMediaSidebar',
     'ItemMediaThumbnails',
-    'MediaAudioVisualPlayer',
+    'MediaAudioVideoPlayer',
     'MediaImageViewer',
     'MediaImageViewerControls'
   ]
