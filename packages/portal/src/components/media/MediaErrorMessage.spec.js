@@ -17,9 +17,4 @@ describe('components/media/MediaErrorMessage', () => {
 
     expect(i18n.attributes('path')).toEqual('errorMessage.mediaFailure.description');
   });
-
-  // TODO: add spec for when there is a provider URL available. Needs vue <i18n> support.
-  //   const wrapper = factory({ providerUrl: 'https://example.org/test' });
-  //   const providerLink =  wrapper.find('.provider-link');
-  //   expect(providerLink.exists()).toBe(true);
 });

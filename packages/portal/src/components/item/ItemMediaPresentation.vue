@@ -45,7 +45,6 @@
             </template>
             <MediaErrorMessage
               v-if="$fetchState.error || mediaError"
-              :provider-url="providerUrl"
             />
             <MediaImageViewer
               v-else-if="viewableImageResource && !displayThumbnail"

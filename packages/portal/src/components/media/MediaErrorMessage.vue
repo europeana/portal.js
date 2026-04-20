@@ -2,43 +2,14 @@
   <div class="media-error-message d-flex">
     <span class="icon-info" />
     <div>
-      <i18n
-        path="errorMessage.mediaFailure.description"
-        tag="p"
-        class="mb-0"
-      >
-        <template
-          v-if="providerUrl"
-          #linkToProvider
-        >
-          {{ $t('or') }}
-          <SmartLink
-            :destination="providerUrl"
-            class="text-decoration-none provider-link"
-            @click.native="$matomo && $matomo.trackEvent('Item_external link', 'Click Provider Link', providerUrl);"
-          >
-            {{ $t('provider.linkText') }}
-          </SmartLink>
-        </template>
-      </i18n>
+      {{ $t('errorMessage.mediaFailure.description') }}
     </div>
   </div>
 </template>
 
 <script>
   export default {
-    name: 'MediaErrorMessage',
-
-    components: {
-      SmartLink: () => import('@/components/generic/SmartLink')
-    },
-
-    props: {
-      providerUrl: {
-        type: String,
-        default: null
-      }
-    }
+    name: 'MediaErrorMessage'
   };
 </script>
 
@@ -61,11 +32,5 @@
     display: inline-block;
     transform: rotateX(180deg);
   }
-}
-
-.provider-link {
-  color: $white;
-  font-weight: 600;
-  text-transform: lowercase;
 }
 </style>
