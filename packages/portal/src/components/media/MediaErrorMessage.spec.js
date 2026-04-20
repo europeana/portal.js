@@ -1,20 +1,18 @@
 import { shallowMount } from '@vue/test-utils';
 import MediaErrorMessage from '@/components/media/MediaErrorMessage.vue';
 
-const factory = ({ propsData = {} } = {}) => shallowMount(MediaErrorMessage, {
-  propsData,
+const factory = () => shallowMount(MediaErrorMessage, {
   mocks: {
     $t: (key) => key
-  },
-  stubs: ['i18n']
+  }
 });
 
 describe('components/media/MediaErrorMessage', () => {
   it('shows a message about the media not being displayable', async() => {
     const wrapper = factory();
 
-    const i18n =  wrapper.find('i18n-stub');
+    const message =  wrapper.find('.media-error-message');
 
-    expect(i18n.attributes('path')).toEqual('errorMessage.mediaFailure.description');
+    expect(message.text()).toContain('errorMessage.mediaFailure.description');
   });
 });
