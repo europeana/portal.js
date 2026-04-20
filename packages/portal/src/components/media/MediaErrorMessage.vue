@@ -1,5 +1,5 @@
 <template>
-  <div class="iiif-error-message d-flex">
+  <div class="media-error-message d-flex">
     <span class="icon-info" />
     <div>
       <i18n
@@ -27,8 +27,7 @@
 
 <script>
   export default {
-    // TODO: rename to MediaErrorMessage
-    name: 'IIIFErrorMessage',
+    name: 'MediaErrorMessage',
 
     components: {
       SmartLink: () => import('@/components/generic/SmartLink')
@@ -46,7 +45,7 @@
 <style lang="scss" scoped>
 @import '@europeana/style/scss/variables';
 
-.iiif-error-message {
+.media-error-message {
   color: $white;
   max-width: $max-text-column-width;
   padding: 2.5rem 2rem 0;
