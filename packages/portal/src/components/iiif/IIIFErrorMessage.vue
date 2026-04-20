@@ -1,5 +1,5 @@
 <template>
-  <div class="media-error-message d-flex">
+  <div class="iiif-error-message d-flex">
     <span class="icon-info" />
     <div>
       <i18n
@@ -45,7 +45,7 @@
 <style lang="scss" scoped>
 @import '@europeana/style/scss/variables';
 
-.media-error-message {
+.iiif-error-message {
   color: $white;
   max-width: $max-text-column-width;
   padding: 2.5rem 2rem 0;

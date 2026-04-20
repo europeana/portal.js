@@ -336,7 +336,7 @@ export default {
       "description": "An unknown error occurred.",
       "title": "Unknown error"
     },
-    "IIIFManifestFailure": {
+    "mediaFailure": {
       "description": "Unfortunately, the item media as provided to Europeana can not be displayed at the moment. Please try to download the media or view the item on the providing institution's website."
     },
     "itemNotFound": {
