@@ -49,8 +49,7 @@
                                 'button.vjs-subs-caps-button'];
 
   export default {
-    // TODO: rename to MediaAudioVideoPlayer
-    name: 'MediaAudioVisualPlayer',
+    name: 'MediaAudioVideoPlayer',
 
     components: {
       MediaCardImage
