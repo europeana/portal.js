@@ -64,7 +64,7 @@
             <template
               v-else-if="resource?.edm?.isPlayableMedia"
             >
-              <MediaAudioVideolPlayer
+              <MediaAudioVideoPlayer
                 v-if="$features.videojs"
                 :url="resource.id"
                 :format="resource.format"
