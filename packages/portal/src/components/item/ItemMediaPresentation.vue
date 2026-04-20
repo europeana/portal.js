@@ -43,9 +43,8 @@
                 @toggleSidebar="toggleSidebar"
               />
             </template>
-            <IIIFErrorMessage
+            <MediaErrorMessage
               v-if="$fetchState.error || mediaError"
-              :provider-url="providerUrl"
             />
             <MediaImageViewer
               v-else-if="viewableImageResource && !displayThumbnail"
@@ -181,7 +180,7 @@
     components: {
       EmbedGateway: () => import('../embed/EmbedGateway.vue'),
       EmbedOEmbed: () => import('../embed/EmbedOEmbed.vue'),
-      IIIFErrorMessage: () => import('../iiif/IIIFErrorMessage.vue'),
+      MediaErrorMessage: () => import('../media/MediaErrorMessage.vue'),
       ItemMediaPaginationToolbar: () => import('./ItemMediaPaginationToolbar.vue'),
       ItemMediaSidebar: () => import('./ItemMediaSidebar.vue'),
       ItemMediaSidebarToggle: () => import('./ItemMediaSidebarToggle.vue'),
