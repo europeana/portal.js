@@ -333,13 +333,13 @@ export default {
       "description": "Der opstod en ukendt fejl.",
       "title": "Ukendt fejl"
     },
-    "IIIFManifestFailure": {
-      "description": "Desværre kan det medie genstand, der er leveret til Europeana, ikke vises i øjeblikket. Prøv venligst at downloade mediet genstand eller se emnet på den ejerinstiution hjemmeside."
-    },
     "itemNotFound": {
       "description": "Dette kan skyldes følgende årsager: denne vare findes ikke, eller; den blev offentliggjort, fordi den ikke opfyldte vores kvalitetskriterier, eller; den blev opdateret og genudgivet med en ny unik identifikator, i hvilket tilfælde prøv at finde varen igen.",
       "metaTitle": "Varen blev ikke fundet",
       "title": "Åh nej! {newline} Vi kunne ikke finde denne vare."
+    },
+    "mediaFailure": {
+      "description": "Desværre kan det medie genstand, der er leveret til Europeana, ikke vises i øjeblikket. Prøv venligst at downloade mediet genstand eller se emnet på den ejerinstiution hjemmeside."
     },
     "noFeatureIdeas": {
       "description": "Kom snart tilbage igen!",

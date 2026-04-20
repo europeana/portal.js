@@ -333,13 +333,13 @@ export default {
       "description": "Ismeretlen hiba történt.",
       "title": "Ismeretlen hiba"
     },
-    "IIIFManifestFailure": {
-      "description": "Sajnos a Europeana számára biztosított média tárgy jelenleg nem lehet megjeleníteni. Kérjük, próbálja meg letölteni a médiát, vagy tekintse meg az tárgy a szolgáltató intézmény weboldalán."
-    },
     "itemNotFound": {
       "description": "Ennek a következő okai lehetnek: az elem nem létezik; vagy eltávolítottuk, mert nem felelt meg a minőségi követelményeknek; vagy frissítettük és új egyedi azonosítóval tettük közzé, ebben az esetben próbáld meg újra megkeresni az oldalon.",
       "metaTitle": "Az elem nem található",
       "title": "Jaj, ne! {newline} Ez az elem nem található."
+    },
+    "mediaFailure": {
+      "description": "Sajnos a Europeana számára biztosított média tárgy jelenleg nem lehet megjeleníteni. Kérjük, próbálja meg letölteni a médiát, vagy tekintse meg az tárgy a szolgáltató intézmény weboldalán."
     },
     "noFeatureIdeas": {
       "description": "Nézz vissza hamarosan!",
