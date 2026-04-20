@@ -333,13 +333,13 @@ export default {
       "description": "Errore ezezagun bat gertatu da.",
       "title": "Errore ezezaguna"
     },
-    "IIIFManifestFailure": {
-      "description": "Zoritxarrez, momentuz ezin da bistaratu Europeana-ri emandako multimedia-elementua. Mesedez, saiatu komunikabidea deskargatzen edo erakunde hornitzailearen webgunean elementua ikusten."
-    },
     "itemNotFound": {
       "description": "Hau arrazoi hauengatik izan daiteke: elementu hau ez da existitzen, edo; gure kalitate irizpideekin bat ez zetorrelako kaleratu zen, edo; eguneratu eta berriro argitaratu zen identifikatzaile esklusibo berri batekin, eta kasu horretan, saiatu berriro elementua aurkitzen.",
       "metaTitle": "Ez da aurkitu elementua",
       "title": "Oh ez! {newline} Ezin izan dugu elementu hau aurkitu."
+    },
+    "mediaFailure": {
+      "description": "Zoritxarrez, momentuz ezin da bistaratu Europeana-ri emandako multimedia-elementua. Mesedez, saiatu komunikabidea deskargatzen edo erakunde hornitzailearen webgunean elementua ikusten."
     },
     "noFeatureIdeas": {
       "description": "Begiratu berriro laster!",

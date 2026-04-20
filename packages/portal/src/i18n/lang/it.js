@@ -333,13 +333,13 @@ export default {
       "description": "Si è verificato un errore sconosciuto.",
       "title": "Errore sconosciuto"
     },
-    "IIIFManifestFailure": {
-      "description": "Purtroppo, l'elemento multimediale fornito a Europeana non può essere visualizzato al momento. Si prega di provare a scaricare il media o visualizzare l'elemento sul sito web dell'istituzione fornitrice."
-    },
     "itemNotFound": {
       "description": "Ciò potrebbe essere dovuto ai seguenti motivi: questo elemento non esiste, o; è stato ritirato dalla pubblicazione perché non corrispondeva ai nostri criteri di qualità, oppure; è stato aggiornato e ripubblicato con un nuovo identificatore univoco, nel qual caso prova a ritrovare l'elemento.",
       "metaTitle": "Elemento non trovato",
       "title": "Oh no! {newline} Non siamo riusciti a trovare questo elemento."
+    },
+    "mediaFailure": {
+      "description": "Purtroppo, l'elemento multimediale fornito a Europeana non può essere visualizzato al momento. Si prega di provare a scaricare il media o visualizzare l'elemento sul sito web dell'istituzione fornitrice."
     },
     "noFeatureIdeas": {
       "description": "Tornate a trovarci presto!",
