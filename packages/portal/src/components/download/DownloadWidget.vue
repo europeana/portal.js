@@ -7,29 +7,37 @@
       v-if="isFormatOf"
       data-qa="download button"
       class="ml-2 d-inline-flex align-items-center download-button h-100 matomo_ignore"
+      menu-class="p-0"
       variant="primary"
     >
       <template #button-content>
         <span class="icon-ic-download d-inline-flex pr-1" />
         {{ $t('actions.download') }}
       </template>
-      <DownloadButton
+      <li
         v-for="wr of isFormatOf"
         :key="wr.about"
-        :url="wr.about"
-        :identifier="identifier"
-        data-qa="download button"
-        @download="$bvModal.show('download-success-modal')"
-        @downloadError="$bvModal.show('download-failed-modal')"
+        role="presentation"
+        class="p-1"
       >
-        {{ wr.ebucoreHasMimeType }} ({{ filesize(wr.ebucoreFileByteSize) }})
-      </DownloadButton>
+        <DownloadButton
+          :url="wr.about"
+          :identifier="identifier"
+          data-qa="download button"
+          class="m-0"
+          @download="$bvModal.show('download-success-modal')"
+          @downloadError="$bvModal.show('download-failed-modal')"
+        >
+          {{ wr.ebucoreHasMimeType }} ({{ filesize(wr.ebucoreFileByteSize) }})
+        </DownloadButton>
+      </li>
     </b-dropdown>
     <DownloadButton
       v-else
       :url="media.about"
       :identifier="identifier"
       data-qa="download button"
+      class="ml-2"
       @download="$bvModal.show('download-success-modal')"
       @downloadError="$bvModal.show('download-failed-modal')"
     />
