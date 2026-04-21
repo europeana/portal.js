@@ -165,7 +165,7 @@
     computed: {
       downloadEnabled() {
         return true;
-        // TODO: reinstate, but in DownloadWidget, per-resource
+        // TODO: reinstate, but in DownloadWidget/DownloadButton, per-resource
         // return this.rightsStatement && !this.rightsStatement.includes('/InC/') && !this.selectedMedia?.forEdmIsShownAt && !this.selectedMedia?.isOEmbed && !!this.downloadUrl;
       },
       downloadUrl() {

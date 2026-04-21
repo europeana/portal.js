@@ -28,7 +28,7 @@
           @download="$bvModal.show('download-success-modal')"
           @downloadError="$bvModal.show('download-failed-modal')"
         >
-          {{ wr.ebucoreHasMimeType }} ({{ filesize(wr.ebucoreFileByteSize) }})
+          {{ mediaTypeFileExtension(wr.ebucoreHasMimeType) }} ({{ filesize(wr.ebucoreFileByteSize) }})
         </DownloadButton>
       </li>
     </b-dropdown>
@@ -58,6 +58,7 @@
 
 <script>
   import { filesize } from 'filesize';
+  import { extension as mediaTypeFileExtension } from 'mime-types';
   import DownloadButton from './DownloadButton';
   import DownloadFailedModal from './DownloadFailedModal';
   import DownloadSuccessModal from './DownloadSuccessModal';
@@ -100,6 +101,7 @@
     },
     methods: {
       filesize,
+      mediaTypeFileExtension,
       rightsNameAndIcon
     }
   };
