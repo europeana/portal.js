@@ -15,6 +15,7 @@
       />
       <MediaCardImage
         v-if="resource"
+        v-show="showPoster"
         ref="poster"
         :resource="resource"
         :lazy="false"
@@ -124,7 +125,8 @@
           noUITitleAttributes: true, // do not add title attributes to controls
           textTrackSettings: false // disable captions settings menu
         },
-        player: null
+        player: null,
+        showPoster: false
       };
     },
 
@@ -223,8 +225,9 @@
       setPosterWithCardImage() {
         const posterElement = this.player.el().querySelector('.vjs-poster');
         if (posterElement) {
-          posterElement.classList.remove('vjs-hidden');
           posterElement.appendChild(this.$refs.poster.$el);
+          posterElement.classList.remove('vjs-hidden');
+          this.showPoster = true;
         }
       },
 
