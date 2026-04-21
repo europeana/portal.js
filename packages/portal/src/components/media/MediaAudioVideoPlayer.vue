@@ -15,8 +15,8 @@
       />
       <MediaCardImage
         v-if="resource"
-        v-show="showPoster"
         ref="poster"
+        class="poster-image"
         :resource="resource"
         :lazy="false"
         :offset="offset"
@@ -125,8 +125,7 @@
           noUITitleAttributes: true, // do not add title attributes to controls
           textTrackSettings: false // disable captions settings menu
         },
-        player: null,
-        showPoster: false
+        player: null
       };
     },
 
@@ -227,7 +226,6 @@
         if (posterElement) {
           posterElement.appendChild(this.$refs.poster.$el);
           posterElement.classList.remove('vjs-hidden');
-          this.showPoster = true;
         }
       },
 
@@ -290,6 +288,10 @@
 <style lang="scss">
   @import '@europeana/style/scss/variables';
   @import '@europeana/style/scss/icon-font';
+
+  .poster-image {
+    display: none;
+  }
 
   .media-player.video-js {
     font-family: $font-family-sans-serif;
@@ -638,8 +640,14 @@
       }
     }
 
-    .vjs-poster .default-thumbnail [class^='icon-'] {
-      color: $black;
+    .vjs-poster {
+      .poster-image {
+        display: block;
+      }
+
+      .default-thumbnail [class^='icon-'] {
+        color: $black;
+      }
     }
 
     .disabled {
