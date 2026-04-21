@@ -1,7 +1,7 @@
 <template>
   <b-button
     ref="downloadButton"
-    :href="url"
+    :href="downloadUrl"
     :disabled="validating"
     data-qa="download button"
     class="ml-2 d-inline-flex align-items-center download-button h-100 matomo_ignore"
@@ -9,8 +9,10 @@
     variant="primary"
     @click.native="handleClickDownloadButton"
   >
-    <span class="icon-ic-download d-inline-flex pr-1" />
-    {{ $t('actions.download') }}
+    <slot>
+      <span class="icon-ic-download d-inline-flex pr-1" />
+      {{ $t('actions.download') }}
+    </slot>
     <LoadingSpinner
       v-show="validating"
       tag="span"
@@ -58,12 +60,18 @@
       };
     },
     computed: {
+      downloadUrl() {
+        const url = this.url;
+        // FIXME: reinstate check, formerly in ItemHero
+        // return this.downloadViaProxy(url) ? this.$apis.record.mediaProxyUrl(url, this.identifier) : url;
+        return this.$apis.record.mediaProxyUrl(url, this.identifier);
+      },
       isDownloadValidationRequired() {
         return !this.urlValidated && !this.validationNetworkError;
       },
       target() {
         let target = null;
-        if (this.validationNetworkError || !this.url.startsWith(this.$apis.mediaProxy.baseURL)) {
+        if (this.validationNetworkError || !this.downloadUrl.startsWith(this.$apis.mediaProxy.baseURL)) {
           target = '_blank';
         }
         return target;
@@ -97,7 +105,7 @@
 
         try {
           // Validate the URL with a HEAD request
-          await axios({ method: 'head', url: this.url, timeout: 15000 });
+          await axios({ method: 'head', url: this.downloadUrl, timeout: 15000 });
           this.urlValidated = true;
         } catch (error) {
           // These will typically be CORS errors preventing validation. Skip
@@ -120,7 +128,7 @@
           name: 'DownloadValidationNetworkError',
           message: error.message,
           item: this.identifier,
-          url: this.url
+          url: this.downloadUrl
         });
       },
       captureDownloadError(error) {
@@ -129,7 +137,7 @@
           message: error.message,
           status: error.response?.status,
           item: this.identifier,
-          url: this.url
+          url: this.downloadUrl
         });
       },
       trackDownload() {
@@ -138,7 +146,7 @@
           if (this.$matomo) {
             this.$matomo.trackLink(this.canonicalUrl.withNeitherLocaleNorQuery, 'download');
             if (!this.clicked) {
-              this.$matomo.trackEvent('Item_download', 'Click download button', this.url);
+              this.$matomo.trackEvent('Item_download', 'Click download button', this.downloadUrl);
               this.clicked = true;
             }
           }

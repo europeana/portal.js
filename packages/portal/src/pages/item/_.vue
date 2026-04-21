@@ -468,6 +468,13 @@
             delete wr.webResourceEdmRights;
           }
 
+          // dereference isFormatOf links
+          if (wr.dctermsIsFormatOf?.def) {
+            wr.dctermsIsFormatOf.def = wr.dctermsIsFormatOf.def.map((isFormatOf) => {
+              return (item.providerAggregation.webResources || []).find((wr) => wr.about === isFormatOf);
+            });
+          }
+
           return wr;
         });
 

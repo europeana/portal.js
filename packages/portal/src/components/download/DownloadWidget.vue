@@ -3,8 +3,31 @@
     class="download-widget"
     data-qa="download widget"
   >
+    <b-dropdown
+      v-if="isFormatOf"
+      data-qa="download button"
+      class="ml-2 d-inline-flex align-items-center download-button h-100 matomo_ignore"
+      variant="primary"
+    >
+      <template #button-content>
+        <span class="icon-ic-download d-inline-flex pr-1" />
+        {{ $t('actions.download') }}
+      </template>
+      <DownloadButton
+        v-for="wr of isFormatOf"
+        :key="wr.about"
+        :url="wr.about"
+        :identifier="identifier"
+        data-qa="download button"
+        @download="$bvModal.show('download-success-modal')"
+        @downloadError="$bvModal.show('download-failed-modal')"
+      >
+        {{ wr.ebucoreHasMimeType }} ({{ filesize(wr.ebucoreFileByteSize) }})
+      </DownloadButton>
+    </b-dropdown>
     <DownloadButton
-      :url="url"
+      v-else
+      :url="media.about"
       :identifier="identifier"
       data-qa="download button"
       @download="$bvModal.show('download-success-modal')"
@@ -26,6 +49,7 @@
 </template>
 
 <script>
+  import { filesize } from 'filesize';
   import DownloadButton from './DownloadButton';
   import DownloadFailedModal from './DownloadFailedModal';
   import DownloadSuccessModal from './DownloadSuccessModal';
@@ -39,8 +63,9 @@
       DownloadSuccessModal
     },
     props: {
-      url: {
-        type: String,
+      media: {
+        // TODO: validate typeof WebResource?
+        type: Object,
         required: true
       },
       identifier: {
@@ -60,7 +85,13 @@
         default: null
       }
     },
+    computed: {
+      isFormatOf() {
+        return this.media.dctermsIsFormatOf?.def || null;
+      }
+    },
     methods: {
+      filesize,
       rightsNameAndIcon
     }
   };

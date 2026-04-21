@@ -50,8 +50,7 @@
               </client-only>
               <ShareButton />
               <DownloadWidget
-                v-if="downloadEnabled"
-                :url="downloadUrl"
+                :media="selectedMedia"
                 :provider-url="providerUrl"
                 :identifier="identifier"
                 :rights-statement="rightsStatement"
@@ -165,7 +164,9 @@
     },
     computed: {
       downloadEnabled() {
-        return this.rightsStatement && !this.rightsStatement.includes('/InC/') && !this.selectedMedia?.forEdmIsShownAt && !this.selectedMedia?.isOEmbed && !!this.downloadUrl;
+        return true;
+        // TODO: reinstate, but in DownloadWidget, per-resource
+        // return this.rightsStatement && !this.rightsStatement.includes('/InC/') && !this.selectedMedia?.forEdmIsShownAt && !this.selectedMedia?.isOEmbed && !!this.downloadUrl;
       },
       downloadUrl() {
         const url = this.selectedMedia?.about;

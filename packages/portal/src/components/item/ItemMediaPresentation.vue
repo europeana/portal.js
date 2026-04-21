@@ -405,6 +405,7 @@
       },
 
       selectResource() {
+        console.log('resource.edm', this.resource.edm)
         this.setCustomContext();
         this.thumbnailInteractedWith = false;
         this.$emit('select', this.resource?.edm);
