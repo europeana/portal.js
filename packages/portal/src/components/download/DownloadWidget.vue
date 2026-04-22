@@ -4,11 +4,9 @@
     class="download-widget"
     data-qa="download widget"
   >
-    <!-- TODO: display this always, even if only 1 such resource? -->
     <!-- TODO: move into DownloadDropdown component? -->
     <b-dropdown
-      v-if="downloadableMedia.length > 1"
-      data-qa="download button"
+      data-qa="download dropdown"
       class="ml-2 d-inline-flex align-items-center download-button h-100 matomo_ignore"
       menu-class="p-0"
       variant="primary"
@@ -31,19 +29,10 @@
           @download="handleDownload(wr.about)"
           @downloadError="$bvModal.show('download-failed-modal')"
         >
-          {{ downloadButtonText(wr) }})
+          {{ downloadButtonText(wr) }}
         </DownloadButton>
       </li>
     </b-dropdown>
-    <DownloadButton
-      v-else
-      :url="downloadableMedia[0].about"
-      :identifier="identifier"
-      data-qa="download button"
-      class="ml-2"
-      @download="handleDownload(downloadableMedia[0].about)"
-      @downloadError="$bvModal.show('download-failed-modal')"
-    />
     <DownloadSuccessModal
       :title="attributionFields.title"
       :creator="attributionFields.creator"
@@ -96,7 +85,7 @@
     },
     data() {
       return {
-        rightsStatement: this.media.edmRights.def[0]
+        rightsStatement: this.media.edmRights?.def?.[0]
       };
     },
     computed: {
@@ -115,7 +104,7 @@
         return text;
       },
       handleDownload(url) {
-        this.rightsStatement = this.downloadableMedia.find((wr) => wr.about === url).edmRights.def[0];
+        this.rightsStatement = this.downloadableMedia.find((wr) => wr.about === url).edmRights?.def?.[0];
         this.$bvModal.show('download-success-modal');
       }
     }
