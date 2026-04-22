@@ -674,5 +674,26 @@
     .disabled {
       cursor: not-allowed;
     }
+
+    .vjs-loading-spinner {
+      border-color: transparent;
+      border-width: 0.25rem;
+      width: 4rem;
+      height: 4rem;
+
+      &:before {
+        border-color: $white;
+        border-top-color: transparent;
+      }
+
+      &:after {
+        content: none;
+      }
+    }
+
+    &.vjs-seeking .vjs-loading-spinner:before,
+    &.vjs-waiting .vjs-loading-spinner:before {
+      animation: vjs-spinner-spin 0.75s linear infinite;
+    }
   }
 </style>
