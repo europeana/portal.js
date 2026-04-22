@@ -34,6 +34,15 @@
     "title": "EUreka3D"
   },
   {
+    "name": "eureka3DXR",
+    "oembed": "https://3dwebviewer.eureka3dxr.fedcloud.eu/3dmlab/oembed",
+    "responsive": true,
+    "schemes": [
+      "https://3dwebviewer.eureka3dxr.fedcloud.eu/3dmlab/*"
+    ],
+    "title": "EUreka3D XR"
+  },
+  {
     "name": "gotlandPictureStones",
     "schemes": [
       "https://gotlandicpicturestones.se/*"
