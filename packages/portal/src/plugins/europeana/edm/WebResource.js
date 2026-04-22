@@ -174,6 +174,22 @@ export default class WebResource extends Base {
       this.isPlayableMedia;
   }
 
+  get rightsStatement() {
+    return this.edmRights?.def?.[0];
+  }
+
+  get rightsStatementPermitsDownload() {
+    return this.rightsStatement && !this.rightsStatement.includes('/InC/');
+  }
+
+  get isDownloadable() {
+    return this.rightsStatementPermitsDownload &&
+      !!this.ebucoreHasMimeType &&
+      !!this.ebucoreFileByteSize &&
+      !this.forEdmIsShownAt &&
+      !this.isOEmbed;
+  }
+
   get isIIIFPresentationManifest() {
     return this.rdfType?.startsWith(IIIF_PRESENTATION_API_URL);
   }

@@ -1,10 +1,11 @@
 <template>
   <div
+    v-if="downloadableMedia.length > 0"
     class="download-widget"
     data-qa="download widget"
   >
     <b-dropdown
-      v-if="isFormatOf"
+      v-if="downloadableMedia.length > 1"
       data-qa="download button"
       class="ml-2 d-inline-flex align-items-center download-button h-100 matomo_ignore"
       menu-class="p-0"
@@ -15,7 +16,7 @@
         {{ $t('actions.download') }}
       </template>
       <li
-        v-for="wr of isFormatOf"
+        v-for="wr of downloadableMedia"
         :key="wr.about"
         role="presentation"
         class="p-1"
@@ -34,7 +35,7 @@
     </b-dropdown>
     <DownloadButton
       v-else
-      :url="media.about"
+      :url="downloadableMedia[0].about"
       :identifier="identifier"
       data-qa="download button"
       class="ml-2"
@@ -63,6 +64,7 @@
   import DownloadFailedModal from './DownloadFailedModal';
   import DownloadSuccessModal from './DownloadSuccessModal';
   import { rightsNameAndIcon } from '@/utils/europeana/rightsStatement';
+  import WebResource from '@/plugins/europeana/edm/WebResource';
 
   export default {
     name: 'DownloadWidget',
@@ -73,9 +75,9 @@
     },
     props: {
       media: {
-        // TODO: validate typeof WebResource?
         type: Object,
-        required: true
+        required: true,
+        validator: (prop) => prop instanceof WebResource
       },
       identifier: {
         type: String,
@@ -85,6 +87,7 @@
         type: String,
         required: true
       },
+      // TODO: does this need to be isFormatOf-aware?
       attributionFields: {
         type: Object,
         default: () => ({})
@@ -95,8 +98,10 @@
       }
     },
     computed: {
-      isFormatOf() {
-        return this.media.dctermsIsFormatOf?.def || null;
+      downloadableMedia() {
+        return [this.media]
+          .concat(this.media.dctermsIsFormatOf?.def || [])
+          .filter((wr) => wr.isDownloadable);
       }
     },
     methods: {

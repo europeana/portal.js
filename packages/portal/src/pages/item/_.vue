@@ -24,7 +24,6 @@
           :identifier="identifier"
           :media="webResources"
           :services="services"
-          :edm-rights="edmRights"
           :edm-type="type"
           :attribution-fields="attributionFields"
           :link-for-contributing-annotation="linkForContributingAnnotation"
@@ -256,7 +255,13 @@
         if (this.isDeleted) {
           return [new WebResource({ about: this.metadata.edmIsShownBy || this.metadata.edmObject }, this.identifier)];
         } else {
-          return this.media.map((item) => item instanceof WebResource ? item : new WebResource(item, this.identifier));
+          return this.media.map((item) => {
+            const wr = item instanceof WebResource ? item : new WebResource(item);
+            if (wr.dctermsIsFormatOf?.def) {
+              wr.dctermsIsFormatOf.def = wr.dctermsIsFormatOf.def.map((ifo) => ifo instanceof WebResource ? ifo : new WebResource(ifo));
+            }
+            return wr;
+          });
         }
       },
       pageMeta() {
@@ -462,21 +467,7 @@
 
         this.metadata = this.extractMetadata(edm);
 
-        this.media = item.providerAggregation.displayableWebResources.map((wr) => {
-          // don't keep WR-level rights statement if same as item-level
-          if (wr.webResourceEdmRights?.def?.[0] === this.metadata.edmRights.def[0]) {
-            delete wr.webResourceEdmRights;
-          }
-
-          // dereference isFormatOf links
-          if (wr.dctermsIsFormatOf?.def) {
-            wr.dctermsIsFormatOf.def = wr.dctermsIsFormatOf.def.map((isFormatOf) => {
-              return (item.providerAggregation.webResources || []).find((wr) => wr.about === isFormatOf);
-            });
-          }
-
-          return wr;
-        });
+        this.media = item.providerAggregation.displayableWebResources;
 
         this.services = item.services;
 

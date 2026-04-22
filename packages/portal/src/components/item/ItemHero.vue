@@ -121,10 +121,6 @@
         type: String,
         default: null
       },
-      edmRights: {
-        type: String,
-        default: ''
-      },
       media: {
         type: Array,
         default: () => [],
@@ -163,25 +159,11 @@
       };
     },
     computed: {
-      downloadEnabled() {
-        return true;
-        // TODO: reinstate, but in DownloadWidget/DownloadButton, per-resource
-        // return this.rightsStatement && !this.rightsStatement.includes('/InC/') && !this.selectedMedia?.forEdmIsShownAt && !this.selectedMedia?.isOEmbed && !!this.downloadUrl;
-      },
-      downloadUrl() {
-        const url = this.selectedMedia?.about;
-        return this.downloadViaProxy(url) ? this.$apis.record.mediaProxyUrl(url, this.identifier) : url;
-      },
       rightsStatementIsUrl() {
-        return /^https?:\/\//.test(this.rightsStatement);
+        return /^https?:\/\//.test(this.rightsStatement || '');
       },
       rightsStatement() {
-        if (this.selectedMedia?.webResourceEdmRights) {
-          return this.selectedMedia?.webResourceEdmRights.def[0];
-        } else if (this.edmRights !== '') {
-          return this.edmRights;
-        }
-        return '';
+        return this.selectedMedia.edmRights?.def?.[0];
       },
       showPins() {
         return this.userIsEntitiesEditor && this.userIsSetsEditor && this.entities.length > 0;
@@ -200,12 +182,6 @@
       this.selectMedia(this.media?.[0]);
     },
     methods: {
-      // Ensure we only proxy web resource media, preventing proxying of
-      // arbitrary other resources such as images linked from (non-Europeana-hosted)
-      // IIIF manifests.
-      downloadViaProxy(url) {
-        return this.allMediaUris.some(uri => uri === url);
-      },
       selectMedia(resource) {
         if (resource) {
           this.selectedMedia = new WebResource({

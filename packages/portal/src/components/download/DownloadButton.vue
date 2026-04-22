@@ -60,10 +60,16 @@
       };
     },
     computed: {
+      // Ensure we only proxy web resource media, preventing proxying of
+      // arbitrary other resources such as images linked from (non-Europeana-hosted)
+      // IIIF manifests.
+      // downloadViaProxy() {
+      //   return this.allMediaUris.some(uri => uri === url);
+      // },
       downloadUrl() {
         const url = this.url;
         // FIXME: reinstate check, formerly in ItemHero
-        // return this.downloadViaProxy(url) ? this.$apis.record.mediaProxyUrl(url, this.identifier) : url;
+        // return this.downloadViaProxy() ? this.$apis.record.mediaProxyUrl(url, this.identifier) : url;
         return this.$apis.record.mediaProxyUrl(url, this.identifier);
       },
       isDownloadValidationRequired() {

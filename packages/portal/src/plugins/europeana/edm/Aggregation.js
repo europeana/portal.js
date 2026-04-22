@@ -66,6 +66,16 @@ export default class Aggregation extends Base {
     const edmObjectWebResource = this.webResources?.find((wr) => wr.about === data.edmObject);
 
     for (const wr of (this.webResources || [])) {
+      wr.edmRights = wr.webResourceEdmRights?.def?.[0] ? wr.webResourceEdmRights : this.edmRights;
+      delete wr.webResourceEdmRights;
+
+      // dereference isFormatOf links
+      if (wr.dctermsIsFormatOf?.def) {
+        wr.dctermsIsFormatOf.def = wr.dctermsIsFormatOf.def.map((isFormatOf) => {
+          return (this.webResources || []).find((wr) => wr.about === isFormatOf);
+        });
+      }
+
       wr.forEdmIsShownAt = wr.about === data.edmIsShownAt;
       if ([data.edmIsShownBy, data.edmIsShownAt].includes(wr.about) && edmObjectWebResource) {
         // set the wr preview to a copy of edmObjectWebResource to prevent circular reference
