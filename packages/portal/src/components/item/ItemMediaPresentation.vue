@@ -43,9 +43,8 @@
                 @toggleSidebar="toggleSidebar"
               />
             </template>
-            <IIIFErrorMessage
+            <MediaErrorMessage
               v-if="$fetchState.error || mediaError"
-              :provider-url="providerUrl"
             />
             <MediaImageViewer
               v-else-if="viewableImageResource && !displayThumbnail"
@@ -54,7 +53,7 @@
               :width="resource.width"
               :height="resource.height"
               :service="resource.service"
-              @error="handleImageError"
+              @error="handleMediaError"
             >
               <MediaImageViewerControls
                 :fullscreen="fullscreen"
@@ -64,7 +63,7 @@
             <template
               v-else-if="resource?.edm?.isPlayableMedia"
             >
-              <MediaAudioVisualPlayer
+              <MediaAudioVideoPlayer
                 v-if="$features.videojs"
                 :url="resource.id"
                 :format="resource.format"
@@ -74,6 +73,8 @@
                 :offset="page - 1"
                 :text-tracks="textTracks"
                 :resource="resource"
+                @error="handleMediaError"
+                @warn="handleMediaWarn"
               />
               <MediaEuropeanaMediaPlayer
                 v-else
@@ -184,14 +185,14 @@
     components: {
       EmbedGateway: () => import('../embed/EmbedGateway.vue'),
       EmbedOEmbed: () => import('../embed/EmbedOEmbed.vue'),
-      IIIFErrorMessage: () => import('../iiif/IIIFErrorMessage.vue'),
+      MediaErrorMessage: () => import('../media/MediaErrorMessage.vue'),
       ItemMediaPaginationToolbar: () => import('./ItemMediaPaginationToolbar.vue'),
       ItemMediaSidebar: () => import('./ItemMediaSidebar.vue'),
       ItemMediaSidebarToggle: () => import('./ItemMediaSidebarToggle.vue'),
       ItemMediaThumbnails: () => import('./ItemMediaThumbnails.vue'),
       LoadingSpinner,
       Media3DViewer: () => import('../media/Media3DViewer.vue'),
-      MediaAudioVisualPlayer: () => import('../media/MediaAudioVisualPlayer.vue'),
+      MediaAudioVideoPlayer: () => import('../media/MediaAudioVideoPlayer.vue'),
       MediaEuropeanaMediaPlayer: () => import('../media/MediaEuropeanaMediaPlayer.vue'),
       MediaCardImage,
       MediaImageViewer: () => import('../media/MediaImageViewer.vue'),
@@ -400,7 +401,11 @@
         });
       },
 
-      handleImageError(error) {
+      handleMediaWarn(error) {
+        this.$error(error);
+      },
+
+      handleMediaError(error) {
         this.mediaError = error;
         this.$error(error);
       },

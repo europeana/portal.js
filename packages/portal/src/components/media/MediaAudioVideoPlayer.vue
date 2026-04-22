@@ -16,6 +16,7 @@
       <MediaCardImage
         v-if="resource"
         ref="poster"
+        class="poster-image"
         :resource="resource"
         :lazy="false"
         :offset="offset"
@@ -37,12 +38,19 @@
   import EuropeanaMediaResource from '@/utils/europeana/media/Resource.js';
   import MediaCardImage from './MediaCardImage.vue';
 
+  export class MediaAudioVideoPlayerError extends Error {
+    constructor(message) {
+      super(message);
+      this.name = 'MediaAudioVideoPlayerError';
+    }
+  }
+
   const controlsWithTooltips = ['.vjs-mute-control',
                                 '.vjs-fullscreen-control',
                                 'button.vjs-subs-caps-button'];
 
   export default {
-    name: 'MediaAudioVisualPlayer',
+    name: 'MediaAudioVideoPlayer',
 
     components: {
       MediaCardImage
@@ -53,6 +61,7 @@
         type: EuropeanaMediaResource,
         default: null
       },
+
       format: {
         type: String,
         default: null
@@ -111,6 +120,7 @@
               'fullscreenToggle'
             ]
           },
+          errorDisplay: false,
           language: this.$i18n.locale,
           noUITitleAttributes: true, // do not add title attributes to controls
           textTrackSettings: false // disable captions settings menu
@@ -121,11 +131,13 @@
 
     async fetch() {
       if (this.euScreenEmbedUrl) {
-        // TODO: Error handling on the embed response
-        const response = await axios.get(this.euScreenEmbedUrl);
-
-        this.mediaUrl = response.data.location;
-        this.mediaFormat = response.data.format;
+        try {
+          const response = await axios.get(this.euScreenEmbedUrl);
+          this.mediaUrl = response.data.location;
+          this.mediaFormat = response.data.format;
+        } catch (e) {
+          this.$emit('error', e);
+        }
       } else {
         // Use media-proxy when used for a europeana record
         // NOTE: disabled due to interference with manifest-based media such as DASH videos
@@ -212,8 +224,8 @@
       setPosterWithCardImage() {
         const posterElement = this.player.el().querySelector('.vjs-poster');
         if (posterElement) {
-          posterElement.classList.remove('vjs-hidden');
           posterElement.appendChild(this.$refs.poster.$el);
+          posterElement.classList.remove('vjs-hidden');
         }
       },
 
@@ -221,6 +233,24 @@
         this.initTextTracks();
         this.initTooltips();
         this.setPosterWithCardImage();
+      },
+
+      checkSeekable() {
+        const seekable = this.$refs.avPlayer.seekable;
+
+        if ((seekable.length === 0) || ((seekable.start(0) === 0) && (seekable.end(0) === 0))) {
+          this.$emit('warn', new MediaAudioVideoPlayerError('A/V not seekable'));
+
+          this.disableProgressControl();
+        }
+      },
+
+      disableProgressControl() {
+        this.player.controlBar.progressControl.disable();
+      },
+
+      handlePlayerError() {
+        this.$emit('error', this.player.error());
       },
 
       async initVideojs() {
@@ -248,6 +278,8 @@
         });
 
         this.player.ready(this.onPlayerReady);
+        this.player.on('loadedmetadata', this.checkSeekable);
+        this.player.on('error', this.handlePlayerError);
       }
     }
   };
@@ -256,6 +288,10 @@
 <style lang="scss">
   @import '@europeana/style/scss/variables';
   @import '@europeana/style/scss/icon-font';
+
+  .poster-image {
+    display: none;
+  }
 
   .media-player.video-js {
     font-family: $font-family-sans-serif;
@@ -602,6 +638,20 @@
           z-index: -1;
         }
       }
+    }
+
+    .vjs-poster {
+      .poster-image {
+        display: flex;
+      }
+
+      .default-thumbnail [class^='icon-'] {
+        color: $black;
+      }
+    }
+
+    .disabled {
+      cursor: not-allowed;
     }
   }
 </style>

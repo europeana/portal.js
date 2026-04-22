@@ -333,13 +333,13 @@ export default {
       "description": "Prišlo je do neznane napake.",
       "title": "Neznana napaka"
     },
-    "IIIFManifestFailure": {
-      "description": "Na žalost, enota medij, kot je bil zagotovljen Europeani, trenutno ni mogoče prikazati. Prosimo, poskusite prenesti medij ali si enota oglejte na spletni strani ponudnik podatkov."
-    },
     "itemNotFound": {
       "description": "Razlogi za to so lahko naslednji: ta enota ne obstaja ali je bil odstranjen iz objave, ker ni ustrezal našim merilom kakovosti, ali je bil posodobljen in ponovno objavljen z novim edinstvenim identifikatorjem, v tem primeru poskusite enota poiskati znova.",
       "metaTitle": "Enota ni bil najden",
       "title": "Oh ne! {newline} Tega enota nismo mogli najti."
+    },
+    "mediaFailure": {
+      "description": "Na žalost, enota medij, kot je bil zagotovljen Europeani, trenutno ni mogoče prikazati. Prosimo, poskusite prenesti medij ali si enota oglejte na spletni strani ponudnik podatkov."
     },
     "noFeatureIdeas": {
       "description": "Preverite spet kmalu!",
