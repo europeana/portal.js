@@ -66,8 +66,10 @@ export default class Aggregation extends Base {
     const edmObjectWebResource = this.webResources?.find((wr) => wr.about === data.edmObject);
 
     for (const wr of (this.webResources || [])) {
-      wr.edmRights = wr.webResourceEdmRights?.def?.[0] ? wr.webResourceEdmRights : this.edmRights;
-      delete wr.webResourceEdmRights;
+      // web resources inherit rights of aggregation if they don't have their own
+      if (!wr.edmRights?.def?.[0]) {
+        wr.edmRights = this.edmRights;
+      }
 
       // dereference isFormatOf links
       if (wr.dctermsIsFormatOf?.def) {
