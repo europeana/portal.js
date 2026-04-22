@@ -20,11 +20,11 @@
         class="mb-3 px-0"
       >
         <ItemHero
-          :all-media-uris="allMediaUris"
           :identifier="identifier"
           :media="webResources"
           :services="services"
           :edm-type="type"
+          :edm-rights="edmRights"
           :attribution-fields="attributionFields"
           :link-for-contributing-annotation="linkForContributingAnnotation"
           :entities="europeanaEntities"
@@ -173,6 +173,7 @@
         // in descendent components because the latter approach would not hydrate
         // the shared state of those refs after SSR, but provide/inject does
         deBias: computed(() => this.deBias),
+        isProxyable: this.isProxyable,
         itemIsDeleted: computed(() => this.isDeleted),
         itemLanguage: computed(() => this.metadata.edmLanguage?.def?.[0]),
         metadataLanguage: this.metadataLanguage,
@@ -212,7 +213,6 @@
     data() {
       return {
         MAX_VALUES_PER_METADATA_FIELD: 10,
-        allMediaUris: [],
         annotations: [],
         cardGridClass: null,
         dataProviderEntity: null,
@@ -228,6 +228,7 @@
         media: [],
         metadata: {},
         ogImage: null,
+        proxyableMedia: [],
         relatedCollections: [],
         services: [],
         type: null,
@@ -256,6 +257,7 @@
           return [new WebResource({ about: this.metadata.edmIsShownBy || this.metadata.edmObject }, this.identifier)];
         } else {
           return this.media.map((item) => {
+            // TODO: include item-level edm:rights?
             const wr = item instanceof WebResource ? item : new WebResource(item);
             if (wr.dctermsIsFormatOf?.def) {
               wr.dctermsIsFormatOf.def = wr.dctermsIsFormatOf.def.map((ifo) => ifo instanceof WebResource ? ifo : new WebResource(ifo));
@@ -391,6 +393,10 @@
     },
 
     methods: {
+      isProxyable(url) {
+        return this.proxyableMedia.includes(url);
+      },
+
       trackCustomDimensions() {
         waitFor(() => this.$matomo, this.$config.matomo.loadWait)
           .then(() => this.$matomo.trackPageView('item page custom dimensions', this.matomoOptions))
@@ -437,13 +443,13 @@
         this.isDeleted = item.isDeleted;
 
         // TODO: ideally, wouldn't store these as can be a large list if many WRs,
-        //       but relied on by ItemHero to know whether to proxy download urls or not.
+        //       but relied on by DownloadButton to know whether to proxy download urls or not.
         //       could we deduce that from whether iiif is in use or not, and if
         //       so, whether a europeana manifest?
         //       - not iiif: proxy
         //       - iiif, europeana: proxy
         //       - iiif, institution: don't proxy
-        this.allMediaUris = item.providerAggregation.displayableWebResources.map((wr) => wr.about);
+        this.proxyableMedia = item.providerAggregation.webResources.map((wr) => wr.about);
         this.iiifPresentationManifest = item.iiifPresentationManifest;
         this.isShownAt = item.providerAggregation.edmIsShownAt;
 

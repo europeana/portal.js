@@ -1,5 +1,4 @@
 <template>
-  <!-- TODO: move rendering of non-"hero" child components out of here and into slot(s) -->
   <div class="item-hero position-relative">
     <NotificationBanner
       v-if="itemIsDeleted"
@@ -107,12 +106,9 @@
 
     inject: ['itemIsDeleted'],
 
-    // TODO: much prop drilling happening here
+    // TODO: much prop drilling happening here; alleviate by
+    //       moving rendering of non-"hero" child components out of here and into slot(s)
     props: {
-      allMediaUris: {
-        type: Array,
-        default: () => []
-      },
       identifier: {
         type: String,
         required: true
@@ -120,6 +116,10 @@
       edmType: {
         type: String,
         default: null
+      },
+      edmRights: {
+        type: String,
+        default: ''
       },
       media: {
         type: Array,
@@ -185,6 +185,7 @@
       selectMedia(resource) {
         if (resource) {
           this.selectedMedia = new WebResource({
+            edmRights: { def: [this.edmRights] },
             // media prop may contain some metadata not available from iiif-derived
             // resource emitted from ItemMediaPresentation, e.g. rights statement
             ...this.media.find((wr) => wr.about === resource.about),

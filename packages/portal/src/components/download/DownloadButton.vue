@@ -32,7 +32,12 @@
     components: {
       LoadingSpinner
     },
-    inject: ['canonicalUrl'],
+    inject: {
+      canonicalUrl: {},
+      isProxyable: {
+        default: null
+      }
+    },
     props: {
       url: {
         type: String,
@@ -60,17 +65,11 @@
       };
     },
     computed: {
-      // Ensure we only proxy web resource media, preventing proxying of
-      // arbitrary other resources such as images linked from (non-Europeana-hosted)
-      // IIIF manifests.
-      // downloadViaProxy() {
-      //   return this.allMediaUris.some(uri => uri === url);
-      // },
+      proxied() {
+        return this.isProxyable?.(this.url) || false;
+      },
       downloadUrl() {
-        const url = this.url;
-        // FIXME: reinstate check, formerly in ItemHero
-        // return this.downloadViaProxy() ? this.$apis.record.mediaProxyUrl(url, this.identifier) : url;
-        return this.$apis.record.mediaProxyUrl(url, this.identifier);
+        return this.proxied ? this.$apis.record.mediaProxyUrl(this.url, this.identifier) : this.url;
       },
       isDownloadValidationRequired() {
         return !this.urlValidated && !this.validationNetworkError;
