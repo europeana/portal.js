@@ -4,6 +4,7 @@
     class="download-widget"
     data-qa="download widget"
   >
+    <!-- TODO: display this always, even if only 1 such resource? -->
     <b-dropdown
       v-if="downloadableMedia.length > 1"
       data-qa="download button"

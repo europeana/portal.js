@@ -1,4 +1,5 @@
 <template>
+  <!-- TODO: move rendering of non-"hero" child components out of here and into slot(s) -->
   <div class="item-hero position-relative">
     <NotificationBanner
       v-if="itemIsDeleted"
