@@ -52,8 +52,6 @@ const HTML_VIDEO_MEDIA_TYPES = [
 ];
 
 export default class WebResource extends Base {
-  #forEdmIsShownAt = false;
-
   // TODO: this is getting called multiple times for the same resource on
   //       the item page; optimise
   constructor(data) {
@@ -96,14 +94,6 @@ export default class WebResource extends Base {
 
   get codecName() {
     return this.edmCodecName;
-  }
-
-  get forEdmIsShownAt() {
-    return this.#forEdmIsShownAt;
-  }
-
-  set forEdmIsShownAt(value) {
-    this.#forEdmIsShownAt = value;
   }
 
   // TODO: 3D media types?
