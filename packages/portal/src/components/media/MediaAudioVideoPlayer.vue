@@ -478,7 +478,7 @@
         .vjs-menu-content {
           font-family: $font-family-sans-serif;
           bottom: 2rem;
-          right: -1rem;
+          right: 0rem;
           min-width: 10rem;
           padding: 0.5rem 0;
           margin: 0.125rem 0 0;
@@ -487,6 +487,9 @@
           border: 1px solid rgba(0, 0, 0, 15%);
           border-radius: $border-radius-small;
           color: $black;
+          width: max-content;
+          max-height: 50vh;
+          max-width: 90vw;
 
           li {
             justify-content: flex-start;
@@ -523,6 +526,18 @@
       }
     }
 
+    .vjs-captions-menu-item {
+      .vjs-menu-item-text .vjs-icon-placeholder {
+        line-height: 1;
+        margin-left: 0.25rem;
+        vertical-align: baseline;
+      }
+
+      .vjs-control-text {
+        display: none; // Hide for assistive technologies (a11y)
+      }
+    }
+
     // --- Override icons with custom icons ---
     .vjs-subs-caps-button .vjs-icon-placeholder::before {
       @extend %icon-font;
@@ -556,9 +571,15 @@
       content: '\e975';
     }
 
-    .vjs-subs-caps-button + .vjs-menu .vjs-captions-menu-item .vjs-menu-item-text .vjs-icon-placeholder::before {
-      @extend %icon-font;
-      content: '\e974';
+    .vjs-subs-caps-button + .vjs-menu .vjs-captions-menu-item .vjs-menu-item-text .vjs-icon-placeholder {
+      line-height: 1;
+      margin-left: 0.25rem;
+      vertical-align: baseline;
+
+      &:before {
+        @extend %icon-font;
+        content: '\e974';
+      }
     }
 
     // --- Tooltip styles ---
@@ -581,7 +602,7 @@
     button.vjs-subs-caps-button {
       .vjs-control-text {
         position: absolute;
-        top: -50%;
+        bottom: 75%;
         background: $black;
         color: $white;
         padding: 0.5rem;
