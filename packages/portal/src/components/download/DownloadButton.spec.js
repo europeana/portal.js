@@ -11,7 +11,7 @@ const canonicalUrl = 'https://www.europeana.eu/item/123/abc';
 
 const mediaProxyUrl = (url) => `${url}/proxied`;
 
-const factory = ({ propsData = {}, data = {}, mocks = {} } = {}) => {
+const factory = ({ propsData = {}, data = {}, mocks = {}, provide = {} } = {}) => {
   const wrapper = shallowMount(DownloadButton, {
     localVue,
     propsData,
@@ -32,7 +32,8 @@ const factory = ({ propsData = {}, data = {}, mocks = {} } = {}) => {
     provide: {
       canonicalUrl: {
         withNeitherLocaleNorQuery: canonicalUrl
-      }
+      },
+      ...provide
     }
   });
   wrapper.vm.$refs.downloadButton.$el = { click: sinon.spy() };
@@ -64,7 +65,7 @@ describe('components/download/DownloadButton', () => {
     identifier: '/123/abc'
   };
 
-  const nockHeadRequest = () => nock(urlOrigin).head(`${urlPath}/proxied`);
+  const nockRequest = () => nock(urlOrigin).head(`${urlPath}`);
 
   describe('template', () => {
     describe('download button', () => {
@@ -74,7 +75,20 @@ describe('components/download/DownloadButton', () => {
         const button = wrapper.find('[data-qa="download button"]');
 
         expect(button.exists()).toBe(true);
-        expect(button.attributes('href')).toBe(proxiedUrl);
+        expect(button.attributes('href')).toBe(url);
+      });
+
+      describe('when item is proxyable', () => {
+        const provide = { isProxyable: () => true };
+
+        it('exists, for proxied URL', () => {
+          const wrapper = factory({ propsData, provide });
+
+          const button = wrapper.find('[data-qa="download button"]');
+
+          expect(button.exists()).toBe(true);
+          expect(button.attributes('href')).toBe(proxiedUrl);
+        });
       });
 
       describe('while validating URL', () => {
@@ -208,7 +222,7 @@ describe('components/download/DownloadButton', () => {
           await wrapper.vm.handleClickDownloadButton(event);
 
           expect(wrapper.vm.$matomo.trackEvent.calledWith(
-            'Item_download', 'Click download button', proxiedUrl
+            'Item_download', 'Click download button', url
           )).toBe(true);
         });
 
@@ -222,7 +236,7 @@ describe('components/download/DownloadButton', () => {
 
         it('does not validate the URL', async() => {
           const wrapper = factory({ propsData, data });
-          nockHeadRequest().reply(200);
+          nockRequest().reply(200);
 
           await wrapper.vm.handleClickDownloadButton(event);
 
@@ -233,7 +247,7 @@ describe('components/download/DownloadButton', () => {
       describe('when validation is required', () => {
         it('prevents the event default', async() => {
           const wrapper = factory({ propsData });
-          nockHeadRequest().reply(200);
+          nockRequest().reply(200);
 
           await wrapper.vm.handleClickDownloadButton(event);
 
@@ -242,7 +256,7 @@ describe('components/download/DownloadButton', () => {
 
         it('validates the URL', async() => {
           const wrapper = factory({ propsData });
-          nockHeadRequest().reply(200);
+          nockRequest().reply(200);
 
           await wrapper.vm.handleClickDownloadButton(event);
 
@@ -250,7 +264,7 @@ describe('components/download/DownloadButton', () => {
         });
 
         describe('and the URL was validated', () => {
-          beforeEach(() => nockHeadRequest().reply(200));
+          beforeEach(() => nockRequest().reply(200));
 
           it('re-clicks the download button', async() => {
             const wrapper = factory({ propsData });
@@ -271,7 +285,7 @@ describe('components/download/DownloadButton', () => {
 
         describe('but the URL validation failed with a Network Error, e.g. CORS', () => {
           const message = 'Network Error';
-          beforeEach(() => nockHeadRequest().replyWithError({ message }));
+          beforeEach(() => nockRequest().replyWithError({ message }));
 
           it('re-clicks the download button', async() => {
             const wrapper = factory({ propsData });
@@ -306,13 +320,13 @@ describe('components/download/DownloadButton', () => {
               name: 'DownloadValidationNetworkError',
               message,
               item: propsData.identifier,
-              url: proxiedUrl
+              url
             })).toBe(true);
           });
         });
 
         describe('but the URL validation failed with a non-Network Error, e.g. 400 Bad Request', () => {
-          beforeEach(() => nockHeadRequest().reply(400));
+          beforeEach(() => nockRequest().reply(400));
 
           it('does not re-click the download button', async() => {
             const wrapper = factory({ propsData });
@@ -326,13 +340,14 @@ describe('components/download/DownloadButton', () => {
             const wrapper = factory({ propsData });
 
             await wrapper.vm.handleClickDownloadButton(event);
-
+            console.log('downloadUrl', wrapper.vm.downloadUrl, url);
+            console.log(wrapper.vm.$apm.captureError.getCalls()[0].args);
             expect(wrapper.vm.$apm.captureError.calledWith({
               name: 'DownloadError',
               message: 'Request failed with status code 400',
               status: 400,
               item: '/123/abc',
-              url: proxiedUrl
+              url
             })).toBe(true);
           });
 
@@ -355,7 +370,7 @@ describe('components/download/DownloadButton', () => {
           wrapper.vm.trackDownload();
 
           expect(wrapper.vm.$matomo.trackLink.calledWith(canonicalUrl, 'download')).toBe(true);
-          expect(wrapper.vm.$matomo.trackEvent.calledWith('Item_download', 'Click download button', proxiedUrl)).toBe(true);
+          expect(wrapper.vm.$matomo.trackEvent.calledWith('Item_download', 'Click download button', url)).toBe(true);
           expect(wrapper.vm.clicked).toBe(true);
         });
       });
@@ -368,7 +383,7 @@ describe('components/download/DownloadButton', () => {
           wrapper.vm.trackDownload();
 
           expect(wrapper.vm.$matomo.trackLink.calledWith(canonicalUrl, 'download')).toBe(true);
-          expect(wrapper.vm.$matomo.trackEvent.calledWith('Item_download', 'Click download button', proxiedUrl)).toBe(false);
+          expect(wrapper.vm.$matomo.trackEvent.calledWith('Item_download', 'Click download button', url)).toBe(false);
           expect(wrapper.vm.clicked).toBe(true);
         });
       });
