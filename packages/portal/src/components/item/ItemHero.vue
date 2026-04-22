@@ -53,7 +53,6 @@
                 :media="selectedMedia"
                 :provider-url="providerUrl"
                 :identifier="identifier"
-                :rights-statement="rightsStatement"
                 :attribution-fields="attributionFields"
               />
             </div>
