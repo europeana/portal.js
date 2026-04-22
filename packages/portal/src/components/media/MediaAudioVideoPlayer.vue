@@ -642,7 +642,7 @@
 
     .vjs-poster {
       .poster-image {
-        display: block;
+        display: flex;
       }
 
       .default-thumbnail [class^='icon-'] {
