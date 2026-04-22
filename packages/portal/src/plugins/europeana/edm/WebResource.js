@@ -57,6 +57,12 @@ export default class WebResource extends Base {
   constructor(data) {
     super(data);
 
+    // rename awkwardly named API field
+    if (this.webResourceEdmRights) {
+      this.edmRights = this.webResourceEdmRights;
+      delete this.webResourceEdmRights;
+    }
+
     // delete large unused fields
     delete this.htmlAttributionSnippet;
     delete this.textAttributionSnippet;
@@ -179,7 +185,7 @@ export default class WebResource extends Base {
   }
 
   get rightsStatementPermitsDownload() {
-    return this.rightsStatement && !this.rightsStatement.includes('/InC/');
+    return !!this.rightsStatement && !this.rightsStatement.includes('/InC/');
   }
 
   get isDownloadable() {
