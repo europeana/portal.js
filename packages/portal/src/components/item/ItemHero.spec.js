@@ -37,20 +37,6 @@ const factory = ({ propsData = {}, mocks = {}, provide = {} } = {}) => shallowMo
       },
       dispatch: storeDispatch
     },
-    $apis: {
-      record: {
-        mediaProxyUrl: (val) => `proxied - ${val}`
-      }
-    },
-    $config: {
-      europeana: {
-        proxy: {
-          media: {
-            url: 'https://proxy.europeana.eu'
-          }
-        }
-      }
-    },
     $nuxt: {
       context: {}
     },
@@ -62,38 +48,38 @@ const factory = ({ propsData = {}, mocks = {}, provide = {} } = {}) => shallowMo
 const media = [
   new WebResource({
     about: 'https://europeana1914-1918.s3.amazonaws.com/attachments/119112/10265.119112.original.jpg',
-    webResourceEdmRights: {
+    edmRights: {
       def: ['http://creativecommons.org/licenses/by-sa/3.0/']
     }
   }),
   new WebResource({
     about: 'https://europeana1914-1918.s3.amazonaws.com/attachments/119200/10265.119200.original.jpg',
-    webResourceEdmRights: {
+    edmRights: {
       def: ['http://rightsstatements.org/vocab/InC/1.0/']
     }
   }),
   new WebResource({
     about: 'https://europeana1914-1918.s3.amazonaws.com/attachments/119203/10265.119203.original.jpg',
-    webResourceEdmRights: {
+    edmRights: {
       def: ['Atribution-NonCommercial-NoDerivatives 4.0 Internacional']
     }
   }),
   new WebResource({
     about: 'https://europeana1914-1918.s3.amazonaws.com/attachments/119639/10265.119639.original.jpg',
-    webResourceEdmRights: {
+    edmRights: {
       def: ['http://creativecommons.org/licenses/by-sa/3.0/']
     }
   }),
   new WebResource({
     about: 'https://europeana1914-1918.s3.amazonaws.com/attachments/119640/10265.119640.original.jpg',
-    webResourceEdmRights: {
+    edmRights: {
       def: ['http://creativecommons.org/licenses/by-sa/3.0/']
     }
   }),
   new WebResource({
     about: 'https://europeana1914-1918.s3.amazonaws.com/',
     forEdmIsShownAt: true,
-    webResourceEdmRights: {
+    edmRights: {
       def: ['http://creativecommons.org/licenses/by-sa/3.0/']
     }
   })
@@ -113,68 +99,7 @@ describe('components/item/ItemHero', () => {
       it('updates the rights statement', () => {
         const wrapper = factory({ propsData: { media } });
         wrapper.vm.selectMedia(media[1]);
-        expect(wrapper.vm.selectedMedia.webResourceEdmRights.def[0]).toBe(media[1].webResourceEdmRights.def[0]);
-      });
-    });
-  });
-
-  describe('downloadEnabled', () => {
-    describe('when the rightsstatement is in copyright', () => {
-      it('is false', () => {
-        const wrapper = factory({ propsData: { media: [media[1]] } });
-        expect(wrapper.vm.downloadEnabled).toBe(false);
-      });
-    });
-    describe('when the selected media is the isShownAt, hence not downloadable', () => {
-      it('is false', () => {
-        const wrapper = factory({ propsData: { media: [media[5]] } });
-        expect(wrapper.vm.downloadEnabled).toBe(false);
-      });
-    });
-    describe('when the rightsstatement is not in copyright and the selected media is not the isShownAt', () => {
-      it('is true', () => {
-        const wrapper = factory({ propsData: { media: [media[0]] } });
-        expect(wrapper.vm.downloadEnabled).toBe(true);
-      });
-    });
-  });
-
-  describe('downloadUrl', () => {
-    const propsData = { allMediaUris: media.map((media) => media.about) };
-
-    describe('when the webresource is the isShownBy', () => {
-      it('uses the proxy', async() => {
-        const wrapper = factory({ propsData });
-
-        await wrapper.setData({ selectedMedia: media[0] });
-
-        expect(wrapper.vm.downloadUrl).toBe('proxied - https://europeana1914-1918.s3.amazonaws.com/attachments/119112/10265.119112.original.jpg');
-      });
-    });
-
-    describe('when the webresource is an unknown image, e.g. from IIIF', () => {
-      it('does not use the proxy', async() => {
-        const wrapper = factory({ propsData });
-
-        await wrapper.setData({ selectedMedia: { about: 'http://www.example.org/other.jpeg' } });
-
-        expect(wrapper.vm.downloadUrl).toBe('http://www.example.org/other.jpeg');
-      });
-    });
-  });
-
-  describe('downloadViaProxy', () => {
-    const propsData = { allMediaUris: ['http://www.example.org/canvas'], media: [media[0]] };
-    describe('when the url is in the list of allMediaUris', () => {
-      it('returns true', () => {
-        const wrapper = factory({ propsData });
-        expect(wrapper.vm.downloadViaProxy('http://www.example.org/canvas')).toBe(true);
-      });
-    });
-    describe('when the url is NOT in the list of allMediaUris', () => {
-      it('returns false', () => {
-        const wrapper = factory({ propsData });
-        expect(wrapper.vm.downloadViaProxy('http://www.example.org/another-resource')).toBe(false);
+        expect(wrapper.vm.selectedMedia.edmRights.def[0]).toBe(media[1].edmRights.def[0]);
       });
     });
   });

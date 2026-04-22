@@ -282,6 +282,61 @@ describe('plugins/europeana/edm/WebResource', () => {
       }
     });
 
+    describe('.isDownloadable', () => {
+      const tests = [
+        {
+          title: 'when there is no rights statement',
+          data: { edmRights: undefined },
+          expectation: false
+        },
+        {
+          title: 'when the rights statement is for in copyright',
+          data: { edmRights: { def: ['http://rightsstatements.org/vocab/InC/1.0/'] } },
+          expectation: false
+        },
+        {
+          title: 'when the selected media is the isShownAt',
+          data: { edmRights: { def: ['http://creativecommons.org/licenses/by-sa/3.0/'] }, forEdmIsShownAt: true },
+          expectation: false
+        },
+        {
+          title: 'when there is no ebucoreHasMimeType',
+          data: { ebucoreHasMimeType: undefined, edmRights: { def: ['http://creativecommons.org/licenses/by-sa/3.0/'] }, forEdmIsShownAt: false },
+          expectation: false
+        },
+        {
+          title: 'when there is no ebucoreFileByteSize',
+          data: { ebucoreFileByteSize: undefined, ebucoreHasMimeType: 'image/jpeg', edmRights: { def: ['http://creativecommons.org/licenses/by-sa/3.0/'] }, forEdmIsShownAt: false },
+          expectation: false
+        },
+        {
+          title: 'when for oEmbed',
+          data: { about: 'https://weave-3dviewer.com/asset/1', ebucoreFileByteSize: 1000, ebucoreHasMimeType: 'text/html', edmRights: { def: ['http://creativecommons.org/licenses/by-sa/3.0/'] }, forEdmIsShownAt: false },
+          expectation: false
+        },
+        {
+          title: 'otherwise',
+          data: {
+            about: 'https://example.org/image.jpeg',
+            ebucoreFileByteSize: 1000,
+            ebucoreHasMimeType: 'image/jpeg',
+            edmRights: { def: ['http://creativecommons.org/licenses/by-sa/3.0/'] },
+            forEdmIsShownAt: false
+          },
+          expectation: true
+        }
+      ];
+      for (const test of tests) {
+        describe(`${test.title}`, () => {
+          it(`is ${test.expectation}`, () => {
+            const wr = new WebResource(test.data);
+
+            expect(wr.isDownloadable).toBe(test.expectation);
+          });
+        });
+      }
+    });
+
     describe('.requiresDashJS', () => {
       it('is `true` if ebucoreHasMimeType is for Dash XML', () => {
         const wr = new WebResource({ ebucoreHasMimeType: 'application/dash+xml' });
