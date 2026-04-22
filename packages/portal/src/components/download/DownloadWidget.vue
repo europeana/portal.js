@@ -5,6 +5,7 @@
     data-qa="download widget"
   >
     <!-- TODO: display this always, even if only 1 such resource? -->
+    <!-- TODO: move into DownloadDropdown component? -->
     <b-dropdown
       v-if="downloadableMedia.length > 1"
       data-qa="download button"
@@ -30,7 +31,7 @@
           @download="handleDownload(wr.about)"
           @downloadError="$bvModal.show('download-failed-modal')"
         >
-          {{ mediaTypeFileExtension(wr.ebucoreHasMimeType) }} ({{ filesize(wr.ebucoreFileByteSize) }})
+          {{ downloadButtonText(wr) }})
         </DownloadButton>
       </li>
     </b-dropdown>
@@ -106,12 +107,17 @@
       }
     },
     methods: {
-      filesize,
+      downloadButtonText(wr) {
+        let text = mediaTypeFileExtension(wr.ebucoreHasMimeType);
+        if (wr.ebucoreFileByteSize) {
+          text = `${text} (${filesize(wr.ebucoreFileByteSize)})`;
+        }
+        return text;
+      },
       handleDownload(url) {
         this.rightsStatement = this.downloadableMedia.find((wr) => wr.about === url).edmRights.def[0];
         this.$bvModal.show('download-success-modal');
-      },
-      mediaTypeFileExtension
+      }
     }
   };
 </script>

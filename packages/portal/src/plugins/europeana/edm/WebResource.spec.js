@@ -305,20 +305,14 @@ describe('plugins/europeana/edm/WebResource', () => {
           expectation: false
         },
         {
-          title: 'when there is no ebucoreFileByteSize',
-          data: { ebucoreFileByteSize: undefined, ebucoreHasMimeType: 'image/jpeg', edmRights: { def: ['http://creativecommons.org/licenses/by-sa/3.0/'] }, forEdmIsShownAt: false },
-          expectation: false
-        },
-        {
           title: 'when for oEmbed',
-          data: { about: 'https://weave-3dviewer.com/asset/1', ebucoreFileByteSize: 1000, ebucoreHasMimeType: 'text/html', edmRights: { def: ['http://creativecommons.org/licenses/by-sa/3.0/'] }, forEdmIsShownAt: false },
+          data: { about: 'https://weave-3dviewer.com/asset/1', ebucoreHasMimeType: 'text/html', edmRights: { def: ['http://creativecommons.org/licenses/by-sa/3.0/'] }, forEdmIsShownAt: false },
           expectation: false
         },
         {
           title: 'otherwise',
           data: {
             about: 'https://example.org/image.jpeg',
-            ebucoreFileByteSize: 1000,
             ebucoreHasMimeType: 'image/jpeg',
             edmRights: { def: ['http://creativecommons.org/licenses/by-sa/3.0/'] },
             forEdmIsShownAt: false

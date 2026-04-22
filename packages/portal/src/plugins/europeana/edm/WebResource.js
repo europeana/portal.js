@@ -191,7 +191,6 @@ export default class WebResource extends Base {
   get isDownloadable() {
     return this.rightsStatementPermitsDownload &&
       !!this.ebucoreHasMimeType &&
-      !!this.ebucoreFileByteSize &&
       !this.forEdmIsShownAt &&
       !this.isOEmbed;
   }
