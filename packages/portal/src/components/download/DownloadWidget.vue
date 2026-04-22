@@ -26,7 +26,7 @@
           :identifier="identifier"
           data-qa="download button"
           class="m-0"
-          @download="$bvModal.show('download-success-modal')"
+          @download="handleDownload(wr.about)"
           @downloadError="$bvModal.show('download-failed-modal')"
         >
           {{ mediaTypeFileExtension(wr.ebucoreHasMimeType) }} ({{ filesize(wr.ebucoreFileByteSize) }})
@@ -39,7 +39,7 @@
       :identifier="identifier"
       data-qa="download button"
       class="ml-2"
-      @download="$bvModal.show('download-success-modal')"
+      @download="handleDownload(downloadableMedia[0].about)"
       @downloadError="$bvModal.show('download-failed-modal')"
     />
     <DownloadSuccessModal
@@ -48,7 +48,7 @@
       :year="attributionFields.year"
       :provider="attributionFields.provider"
       :country="attributionFields.country"
-      :rights="rightsNameAndIcon(rightsStatement).name"
+      :rights-statement="rightsStatement"
       :url="attributionFields.url"
     />
     <DownloadFailedModal
@@ -63,7 +63,6 @@
   import DownloadButton from './DownloadButton';
   import DownloadFailedModal from './DownloadFailedModal';
   import DownloadSuccessModal from './DownloadSuccessModal';
-  import { rightsNameAndIcon } from '@/utils/europeana/rightsStatement';
   import WebResource from '@/plugins/europeana/edm/WebResource';
 
   export default {
@@ -83,10 +82,6 @@
         type: String,
         required: true
       },
-      rightsStatement: {
-        type: String,
-        required: true
-      },
       // TODO: does this need to be isFormatOf-aware?
       attributionFields: {
         type: Object,
@@ -97,6 +92,11 @@
         default: null
       }
     },
+    data() {
+      return {
+        rightsStatement: this.media.edmRights.def[0]
+      };
+    },
     computed: {
       downloadableMedia() {
         return [this.media]
@@ -106,8 +106,11 @@
     },
     methods: {
       filesize,
-      mediaTypeFileExtension,
-      rightsNameAndIcon
+      handleDownload(url) {
+        this.rightsStatement = this.downloadableMedia.find((wr) => wr.about === url).edmRights.def[0];
+        this.$bvModal.show('download-success-modal');
+      },
+      mediaTypeFileExtension
     }
   };
 </script>
