@@ -11,6 +11,5 @@ export default [
   { name: 'storiesViewCounts' },
   { name: 'transcribathonCta' },
   { name: 'translatedItems' },
-  { name: 'videojs' },
-  { name: 'webResourceMetadata' }
+  { name: 'videojs' }
 ];
