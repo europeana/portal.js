@@ -6,6 +6,7 @@
   >
     <!-- TODO: move into DownloadDropdown component? -->
     <b-dropdown
+      v-if="downloadableMedia.length > 1"
       data-qa="download dropdown"
       class="ml-2 d-inline-flex align-items-center download-button h-100 matomo_ignore"
       menu-class="p-0"
@@ -33,6 +34,15 @@
         </DownloadButton>
       </li>
     </b-dropdown>
+    <DownloadButton
+      v-else
+      :url="downloadableMedia[0].about"
+      :identifier="identifier"
+      data-qa="download button"
+      class="ml-2"
+      @download="handleDownload(downloadableMedia[0].about)"
+      @downloadError="$bvModal.show('download-failed-modal')"
+    />
     <DownloadSuccessModal
       :title="attributionFields.title"
       :creator="attributionFields.creator"
