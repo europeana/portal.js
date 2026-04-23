@@ -16,6 +16,15 @@
     "title": "Arctur 3Dviewer"
   },
   {
+    "name": "artetra",
+    "oembed": "https://api.museum-artetra.com/oembed",
+    "responsive": true,
+    "schemes": [
+      "https://museum-artetra.com/embed/*"
+    ],
+    "title": "Artetra"
+  },
+  {
     "name": "eKultura",
     "oembed": "https://ekultura.hr/oembed",
     "responsive": true,
