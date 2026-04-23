@@ -26,7 +26,9 @@
 </template>
 
 <script>
+  import axios from 'axios';
   import camelCase from 'lodash/camelCase.js';
+
   import InfoCard from '@/components/generic/InfoCard';
 
   const EUROPEANA_NUMBERS = 'Europeana numbers';
@@ -112,7 +114,7 @@
         } else {
           const queryIds = `?id=${this.keys.join('&id=')}`;
 
-          return this.$axios.get(`/_api/cache${queryIds}`, { baseURL: window.location.origin })
+          return axios.get(`/_api/cache${queryIds}`, { baseURL: window.location.origin })
             .then((response) => response.data);
         }
       },

@@ -1,4 +1,5 @@
 import { createLocalVue } from '@vue/test-utils';
+import axios from 'axios';
 import { shallowMountNuxt } from '@test/utils.js';
 import sinon from 'sinon';
 import BootstrapVue from 'bootstrap-vue';
@@ -16,8 +17,6 @@ const RECENT_ITEMS = 'Recent items';
 const ITEM_COUNTS_MEDIA_TYPE = 'Item counts by media type';
 const LATEST_GALLERIES = 'Latest galleries';
 const TRENDING_ITEMS = 'Trending items';
-
-const $axiosGetStub = sinon.stub();
 
 const contentfulResponse = {
   data: {
@@ -55,7 +54,7 @@ const factory = (propsData = { sectionType: FEATURED_TOPICS })  => shallowMountN
     $i18n: { locale: 'en', t: (key) => key, n: (num) => `${num}`, localeProperties: { iso: 'en-GB' } },
     $route: { query: {} },
     $axios: {
-      get: $axiosGetStub
+      get: axios.get
     },
     $config: { app: { internalLinkDomain: 'https://europeana.eu' } },
     $t: (key) => key
@@ -156,25 +155,28 @@ const entries = {
 };
 
 describe('components/browse/BrowseAutomatedCardGroup', () => {
+  beforeEach(() => {
+    sinon.stub(axios, 'get');
+  });
+  afterEach(sinon.restore);
   afterEach(sinon.resetHistory);
-  afterAll(sinon.restore);
 
   describe('fetch()', () => {
     describe('when section is cached', () => {
       const propsData = { sectionType: FEATURED_TOPICS };
       beforeEach(() => {
-        $axiosGetStub.withArgs('/_api/cache/en/collections/topics/featured').resolves(
+        axios.get.withArgs('/_api/cache/en/collections/topics/featured').resolves(
           { data: { 'en/collections/topics/featured': entries.featuredTopics } }
         );
       });
       afterEach(() => {
-        $axiosGetStub.reset();
+        axios.get.reset();
       });
       describe('when rendering on the client', () => {
         it('gets the data from the cache API endpoint', async() => {
           const wrapper = factory(propsData);
           await wrapper.vm.fetch();
-          expect($axiosGetStub.calledWith('/_api/cache/en/collections/topics/featured')).toBe(true);
+          expect(axios.get.calledWith('/_api/cache/en/collections/topics/featured')).toBe(true);
           expect(wrapper.vm.entries).toEqual(entries.featuredTopics);
         });
       });

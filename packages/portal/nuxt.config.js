@@ -143,9 +143,6 @@ export default {
         }
       }
     },
-    axios: {
-      baseURL: process.env.PORTAL_BASE_URL
-    },
     axiosLogger: {
       clearParams: process.env.AXIOS_LOGGER_CLEAR_PARAMS?.split(',') || ['wskey'],
       httpMethods: process.env.AXIOS_LOGGER_HTTP_METHODS?.toUpperCase().split(',')
@@ -359,7 +356,6 @@ export default {
   ],
 
   buildModules: [
-    '@nuxtjs/axios',
     '@nuxtjs/auth'
   ],
 
