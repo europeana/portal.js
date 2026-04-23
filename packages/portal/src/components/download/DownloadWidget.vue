@@ -26,6 +26,7 @@
           data-qa="download button"
           variant="link"
           role="menuitem"
+          class="dropdown-item py-2 px-3"
           @download="handleDownload(wr.about)"
           @downloadError="$bvModal.show('download-failed-modal')"
         >
