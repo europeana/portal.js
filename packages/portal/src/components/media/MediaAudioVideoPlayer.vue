@@ -139,11 +139,12 @@
           this.$emit('error', e);
         }
       } else {
-        // Use media-proxy when used for a europeana record
-        // NOTE: disabled due to interference with manifest-based media such as DASH videos
-        // this.mediaUrl = this.itemId ? this.$apis.record.mediaProxyUrl(this.url, this.itemId) : this.url;
-        this.mediaUrl = this.url;
         this.mediaFormat = this.format;
+        this.mediaUrl = this.url;
+        // Use media-proxy when used for a europeana record, except for manifest-based media such as DASH videos
+        if (this.itemId && (this.mediaFormat !== 'application/dash+xml')) {
+          this.mediaUrl = this.$apis.record.mediaProxyUrl(this.url, this.itemId);
+        }
       }
     },
 
