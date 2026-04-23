@@ -26,10 +26,10 @@
     v-else
     class="play-button w-100 h-100 d-flex align-items-center justify-content-center"
     variant="light-flat"
+    @click="handleInteraction"
   >
     <span
       class="icon-play"
-      @click="() => interacted = true"
     />
   </b-button>
 </template>
@@ -80,6 +80,9 @@
     methods: {
       handleLoad() {
         this.loaded = true;
+      },
+      handleInteraction() {
+        this.interacted = true;
       }
     }
   };
