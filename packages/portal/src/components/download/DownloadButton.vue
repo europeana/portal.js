@@ -6,7 +6,8 @@
     data-qa="download button"
     class="d-inline-flex align-items-center download-button h-100 matomo_ignore"
     :target="target"
-    variant="primary"
+    :variant="variant"
+    :role="role"
     @click.native="handleClickDownloadButton"
   >
     <slot>
@@ -50,6 +51,14 @@
       disabled: {
         type: Boolean,
         default: false
+      },
+      variant: {
+        type: String,
+        default: 'primary'
+      },
+      role: {
+        type: String,
+        default: null
       }
     },
     setup() {

@@ -9,27 +9,27 @@
       v-if="downloadableMedia.length > 1"
       data-qa="download dropdown"
       class="ml-2 d-inline-flex align-items-center download-button h-100 matomo_ignore"
-      menu-class="p-0"
+      menu-class="p-0 overflow-hidden"
       variant="primary"
+      :text="$t('actions.download')"
+      toggle-class="d-flex align-items-center"
     >
-      <template #button-content>
-        <span class="icon-ic-download d-inline-flex pr-1" />
-        {{ $t('actions.download') }}
-      </template>
+      <!-- TODO: use b-dropdown-item component instead. Currently the keyboard nav with up and down keys is not working -->
       <li
         v-for="wr of downloadableMedia"
         :key="wr.about"
         role="presentation"
-        class="p-1"
       >
         <DownloadButton
           :url="wr.about"
           :identifier="identifier"
           data-qa="download button"
-          class="m-0"
+          variant="link"
+          role="menuitem"
           @download="handleDownload(wr.about)"
           @downloadError="$bvModal.show('download-failed-modal')"
         >
+          <span class="icon-ic-download d-inline-flex pr-1" />
           {{ downloadButtonText(wr) }}
         </DownloadButton>
       </li>
@@ -120,3 +120,35 @@
     }
   };
 </script>
+
+<style lang="scss">
+  @import '@europeana/style/scss/variables';
+
+  .dropdown-toggle:after {
+    margin-left: 0.25rem;
+  }
+
+  .show > .btn-primary.dropdown-toggle {
+    background-color: rgba($blue, 0.7);
+    border-color: transparent;
+  }
+
+  .dropdown .dropdown-item {
+    &:hover,
+    &:focus {
+      background-color: $lightblue-light;
+    }
+  }
+
+  .btn-link {
+    color: $black;
+    font-size: $font-size-extrasmall;
+    text-transform: uppercase;
+
+    &:hover,
+    &:focus {
+      text-decoration: none;
+      color: $black;
+    }
+  }
+</style>
