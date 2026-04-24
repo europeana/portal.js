@@ -77,6 +77,11 @@
             <span>{{ value }}</span>
           </SmartLink>
           <template
+            v-else-if="isTimeValue"
+          >
+            {{ formatDuration(value) }}
+          </template>
+          <template
             v-else-if="isNumberValue(value)"
           >
             {{ $i18n.n(value) }}
@@ -94,6 +99,7 @@
 
 <script>
   import camelCase from 'lodash/camelCase.js';
+  import { Duration } from 'luxon';
   import { langMapValueForLocale } from '@europeana/i18n';
   import ItemDebiasField from '../item/ItemDebiasField';
   import ItemEntityField from '../item/ItemEntityField';
@@ -244,12 +250,22 @@
 
       isColourValue() {
         return this.name === 'edmComponentColor';
+      },
+      isTimeValue() {
+        return this.name === 'ebucoreDuration';
       }
     },
 
     methods: {
       isNumberValue(value) {
         return typeof value === 'number';
+      },
+      formatDuration(value) {
+        let duration = Duration.fromMillis(value);
+        if (duration.shiftTo('days').days >= 1) {
+          duration = Duration.fromMillis(value/1000);
+        }
+        return duration.toFormat("hh:mm:ss").replaceAll(/00:/g, '');
       }
     }
   };
