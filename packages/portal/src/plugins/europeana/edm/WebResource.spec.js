@@ -2,6 +2,36 @@ import WebResource from '@/plugins/europeana/edm/WebResource';
 
 describe('plugins/europeana/edm/WebResource', () => {
   describe('WebResource', () => {
+    describe('constructor', () => {
+      it('deletes htmlAttributionSnippet', () => {
+        const edm = { htmlAttributionSnippet: 'html' };
+        const wr = new WebResource(edm);
+
+        expect(wr.htmlAttributionSnippet).toBeUndefined();
+      });
+
+      it('deletes textAttributionSnippet', () => {
+        const edm = { textAttributionSnippet: 'text' };
+        const wr = new WebResource(edm);
+
+        expect(wr.textAttributionSnippet).toBeUndefined();
+      });
+
+      it('converts ebucoreDuration to a Number', () => {
+        const edm = { ebucoreDuration: '165912' };
+        const wr = new WebResource(edm);
+
+        expect(wr.ebucoreDuration).toBe(165912);
+      });
+
+      it('divides ebucoreDuration > 24 hours by 1,000', () => {
+        const edm = { ebucoreDuration: '138411000' };
+        const wr = new WebResource(edm);
+
+        expect(wr.ebucoreDuration).toBe(138411);
+      });
+    });
+
     describe('.id', () => {
       it('is an alias for property `about`', () => {
         const edm = { about: '/123/abc' };

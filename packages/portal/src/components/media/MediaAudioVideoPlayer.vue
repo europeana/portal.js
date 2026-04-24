@@ -226,17 +226,9 @@
         if (![Infinity, NaN].includes(this.$refs.avPlayer.duration)) {
           return;
         }
-        // TODO: mv this to WebResource class?
+
         if (this.resource?.edm?.ebucoreDuration) {
-          let durationSeconds = Number(this.resource.edm.ebucoreDuration) / 1000;
-          // some WRs have duration metadata incorrectly in microseconds instead of
-          // the expected milliseconds. try to handle this by assuming that if the
-          // WR's duration appears to be more than 24 hours, then it is using the
-          // wrong unit
-          if ((durationSeconds / 3600) > 24) {
-            durationSeconds = durationSeconds / 1000;
-          }
-          this.player.duration(durationSeconds);
+          this.player.duration(this.resource.edm.ebucoreDuration / 1000);
         }
       },
 
@@ -257,7 +249,7 @@
       checkSeekable() {
         const seekable = this.$refs.avPlayer.seekable;
 
-        if ((seekable.length === 0) || ((seekable.start(0) === 0) && (seekable.end(0) === 0))) {
+        if ((seekable?.length === 0) || ((seekable?.start(0) === 0) && (seekable?.end(0) === 0))) {
           this.$emit('warn', new MediaAudioVideoPlayerError('A/V not seekable'));
 
           this.disableProgressControl();
