@@ -69,7 +69,7 @@
                 :format="resource.format"
                 :item-id="itemId"
                 class="media-viewer-content"
-                :poster="thumbnailForAVPoster"
+                :poster="thumbnailForPoster"
                 :offset="page - 1"
                 :text-tracks="textTracks"
                 :resource="resource"
@@ -84,6 +84,11 @@
                 class="media-viewer-content"
               />
             </template>
+            <Media3DViewer
+              v-else-if="$features.modelViewer && resource?.edm?.isDisplayable3DModel"
+              :url="resource.id || resource.edm?.about"
+              :poster="thumbnailForPoster"
+            />
             <EmbedGateway
               v-else-if="resource?.isOEmbed || resource?.edm?.isOEmbed"
               class="media-viewer-content"
@@ -186,6 +191,7 @@
       ItemMediaSidebarToggle: () => import('./ItemMediaSidebarToggle.vue'),
       ItemMediaThumbnails: () => import('./ItemMediaThumbnails.vue'),
       LoadingSpinner,
+      Media3DViewer: () => import('../media/Media3DViewer.vue'),
       MediaAudioVideoPlayer: () => import('../media/MediaAudioVideoPlayer.vue'),
       MediaEuropeanaMediaPlayer: () => import('../media/MediaEuropeanaMediaPlayer.vue'),
       MediaCardImage,
@@ -361,7 +367,7 @@
         return !this.viewableImageResource && this.sidebarHasContent;
       },
 
-      thumbnailForAVPoster() {
+      thumbnailForPoster() {
         return this.$apis.thumbnail.forWebResource(this.resource.edm).large;
       }
     },
