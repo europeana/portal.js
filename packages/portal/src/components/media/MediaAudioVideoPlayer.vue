@@ -226,8 +226,17 @@
         if (![Infinity, NaN].includes(this.$refs.avPlayer.duration)) {
           return;
         }
+        // TODO: mv this to WebResource class?
         if (this.resource?.edm?.ebucoreDuration) {
-          this.player.duration(Number(this.resource.edm.ebucoreDuration) / 1000 / 1000);
+          let durationSeconds = Number(this.resource.edm.ebucoreDuration) / 1000;
+          // some WRs have duration metadata incorrectly in microseconds instead of
+          // the expected milliseconds. try to handle this by assuming that if the
+          // WR's duration appears to be more than 24 hours, then it is using the
+          // wrong unit
+          if ((durationSeconds / 3600) > 24) {
+            durationSeconds = durationSeconds / 1000;
+          }
+          this.player.duration(durationSeconds);
         }
       },
 
