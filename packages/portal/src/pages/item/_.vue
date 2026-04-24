@@ -442,24 +442,43 @@
         const item = new Item(edm);
         this.isDeleted = item.isDeleted;
 
+        let displayableWebResources = item.providerAggregation.displayableWebResources;
+        // hack to prefer the model-viewer to an oEmbed
+        // TODO: remove when data modelling regards relevant media types as displayable
+        if (this.$features.modelViewer && this.$features.modelViewerReplacesOembed) {
+          displayableWebResources = displayableWebResources.map((wr) => {
+            if (wr.isOEmbed) {
+              const gltfWebResource = (wr.dctermsIsFormatOf?.def || [])
+                .find((dctermsIsFormatOfWebResource) => dctermsIsFormatOfWebResource.isDisplayable3DModel);
+              if (gltfWebResource) {
+                return gltfWebResource;
+              }
+            }
+
+            return wr;
+          });
+        }
+        this.media = displayableWebResources;
+
         // TODO: ideally, wouldn't store these as can be a large list if many WRs,
-        //       but relied on by DownloadButton to know whether to proxy download urls or not.
+        //       but relied on by descendent components to know whether to proxy media or not.
         //       could we deduce that from whether iiif is in use or not, and if
         //       so, whether a europeana manifest?
         //       - not iiif: proxy
         //       - iiif, europeana: proxy
         //       - iiif, institution: don't proxy
-        this.proxyableMedia = item.providerAggregation.webResources.map((wr) => wr.about);
+        this.proxyableMedia = item.providerAggregation.webResources.map((wr) => wr.about)
+          .filter((wr) => wr.ebucoreMimeType !== 'application/dash+xml');
         this.iiifPresentationManifest = item.iiifPresentationManifest;
         this.isShownAt = item.providerAggregation.edmIsShownAt;
 
         this.ogImage = this.$apis.thumbnail.forWebResource(
-          new WebResource(item.providerAggregation.displayableWebResources[0], this.identifier)
+          new WebResource(displayableWebResources[0], this.identifier)
         ).large;
 
         const preconnects = [
           this.iiifPresentationManifest,
-          item.providerAggregation.displayableWebResources?.[(this.$route.query.page || 1) - 1]?.about
+          displayableWebResources?.[(this.$route.query.page || 1) - 1]?.about
         ].filter(Boolean);
         for (const preconnect of preconnects) {
           try {
@@ -472,8 +491,6 @@
         this.entities = this.extractEntities(edm);
 
         this.metadata = this.extractMetadata(edm);
-
-        this.media = item.providerAggregation.displayableWebResources;
 
         this.services = item.services;
 

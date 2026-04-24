@@ -196,6 +196,33 @@ describe('plugins/europeana/edm/WebResource', () => {
       });
     });
 
+    describe('.isDisplayable3DModel', () => {
+      const displayable3DModelMedia = [
+        { ebucoreHasMimeType: 'model/gltf-binary' }
+      ];
+      const nonDisplayable3DModelMedia = [
+        { ebucoreHasMimeType: 'model/somethingelse' },
+        { ebucoreHasMimeType: 'text/plain' },
+        { ebucoreHasMimeType: 'image/jpeg' }
+      ];
+
+      for (const media of displayable3DModelMedia) {
+        it(`is true for ${JSON.stringify(media)}`, () => {
+          const wr = new WebResource(media);
+
+          expect(wr.isDisplayable3DModel).toBe(true);
+        });
+      }
+
+      for (const media of nonDisplayable3DModelMedia) {
+        it(`is false for ${JSON.stringify(media)}`, () => {
+          const wr = new WebResource(media);
+
+          expect(wr.isDisplayable3DModel).toBe(false);
+        });
+      }
+    });
+
     describe('.isPlayableMedia', () => {
       const playableMedia = [
         { ebucoreHasMimeType: 'video/mp4', edmCodecName: 'h264' },

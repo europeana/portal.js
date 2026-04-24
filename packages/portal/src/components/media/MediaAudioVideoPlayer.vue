@@ -56,6 +56,12 @@
       MediaCardImage
     },
 
+    inject: {
+      isProxyable: {
+        default: null
+      }
+    },
+
     props: {
       resource: {
         type: EuropeanaMediaResource,
@@ -139,11 +145,11 @@
           this.$emit('error', e);
         }
       } else {
-        // Use media-proxy when used for a europeana record
-        // NOTE: disabled due to interference with manifest-based media such as DASH videos
-        // this.mediaUrl = this.itemId ? this.$apis.record.mediaProxyUrl(this.url, this.itemId) : this.url;
-        this.mediaUrl = this.url;
         this.mediaFormat = this.format;
+        this.mediaUrl = this.url;
+        if (this.isProxyable?.(this.url)) {
+          this.mediaUrl = this.$apis.record.mediaProxyUrl(this.url, this.itemId);
+        }
       }
     },
 
@@ -221,6 +227,24 @@
         }
       },
 
+      initDuration() {
+        if (![Infinity, NaN].includes(this.$refs.avPlayer.duration)) {
+          return;
+        }
+        // TODO: mv this to WebResource class?
+        if (this.resource?.edm?.ebucoreDuration) {
+          let durationSeconds = Number(this.resource.edm.ebucoreDuration) / 1000;
+          // some WRs have duration metadata incorrectly in microseconds instead of
+          // the expected milliseconds. try to handle this by assuming that if the
+          // WR's duration appears to be more than 24 hours, then it is using the
+          // wrong unit
+          if ((durationSeconds / 3600) > 24) {
+            durationSeconds = durationSeconds / 1000;
+          }
+          this.player.duration(durationSeconds);
+        }
+      },
+
       setPosterWithCardImage() {
         const posterElement = this.player.el().querySelector('.vjs-poster');
         if (posterElement) {
@@ -278,6 +302,7 @@
         });
 
         this.player.ready(this.onPlayerReady);
+        this.player.on('loadedmetadata', this.initDuration);
         this.player.on('loadedmetadata', this.checkSeekable);
         this.player.on('error', this.handlePlayerError);
       }
@@ -478,7 +503,7 @@
         .vjs-menu-content {
           font-family: $font-family-sans-serif;
           bottom: 2rem;
-          right: -1rem;
+          right: 0rem;
           min-width: 10rem;
           padding: 0.5rem 0;
           margin: 0.125rem 0 0;
@@ -487,6 +512,9 @@
           border: 1px solid rgba(0, 0, 0, 15%);
           border-radius: $border-radius-small;
           color: $black;
+          width: max-content;
+          max-height: 50vh;
+          max-width: 90vw;
 
           li {
             justify-content: flex-start;
@@ -523,6 +551,18 @@
       }
     }
 
+    .vjs-captions-menu-item {
+      .vjs-menu-item-text .vjs-icon-placeholder {
+        line-height: 1;
+        margin-left: 0.25rem;
+        vertical-align: baseline;
+      }
+
+      .vjs-control-text {
+        display: none; // Hide for assistive technologies (a11y)
+      }
+    }
+
     // --- Override icons with custom icons ---
     .vjs-subs-caps-button .vjs-icon-placeholder::before {
       @extend %icon-font;
@@ -556,9 +596,15 @@
       content: '\e975';
     }
 
-    .vjs-subs-caps-button + .vjs-menu .vjs-captions-menu-item .vjs-menu-item-text .vjs-icon-placeholder::before {
-      @extend %icon-font;
-      content: '\e974';
+    .vjs-subs-caps-button + .vjs-menu .vjs-captions-menu-item .vjs-menu-item-text .vjs-icon-placeholder {
+      line-height: 1;
+      margin-left: 0.25rem;
+      vertical-align: baseline;
+
+      &:before {
+        @extend %icon-font;
+        content: '\e974';
+      }
     }
 
     // --- Tooltip styles ---
@@ -581,7 +627,7 @@
     button.vjs-subs-caps-button {
       .vjs-control-text {
         position: absolute;
-        top: -50%;
+        bottom: 75%;
         background: $black;
         color: $white;
         padding: 0.5rem;
@@ -642,7 +688,7 @@
 
     .vjs-poster {
       .poster-image {
-        display: block;
+        display: flex;
       }
 
       .default-thumbnail [class^='icon-'] {
@@ -652,6 +698,27 @@
 
     .disabled {
       cursor: not-allowed;
+    }
+
+    .vjs-loading-spinner {
+      border-color: transparent;
+      border-width: 0.25rem;
+      width: 4rem;
+      height: 4rem;
+
+      &:before {
+        border-color: $white;
+        border-top-color: transparent;
+      }
+
+      &:after {
+        content: none;
+      }
+    }
+
+    &.vjs-seeking .vjs-loading-spinner:before,
+    &.vjs-waiting .vjs-loading-spinner:before {
+      animation: vjs-spinner-spin 0.75s linear infinite;
     }
   }
 </style>

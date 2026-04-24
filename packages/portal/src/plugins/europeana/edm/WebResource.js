@@ -17,6 +17,8 @@ const MEDIA_TYPE_IMAGE_JPEG = `${MEDIA_TYPE_IMAGE}/jpeg`;
 const MEDIA_TYPE_IMAGE_PNG = `${MEDIA_TYPE_IMAGE}/png`;
 const MEDIA_TYPE_IMAGE_SVG_XML = `${MEDIA_TYPE_IMAGE}/svg+xml`;
 const MEDIA_TYPE_IMAGE_WEBP = `${MEDIA_TYPE_IMAGE}/webp`;
+const MEDIA_TYPE_MODEL = 'model';
+const MEDIA_TYPE_MODEL_GLTF_BINARY = `${MEDIA_TYPE_MODEL}/gltf-binary`;
 const MEDIA_TYPE_TEXT = 'text';
 const MEDIA_TYPE_VIDEO = 'video';
 const MEDIA_TYPE_VIDEO_OGG = `${MEDIA_TYPE_VIDEO}/ogg`;
@@ -158,6 +160,10 @@ export default class WebResource extends Base {
 
   get isPDF() {
     return this.mediaType === MEDIA_TYPE_APPLICATION_PDF;
+  }
+
+  get isDisplayable3DModel() {
+    return this.mediaType === MEDIA_TYPE_MODEL_GLTF_BINARY;
   }
 
   get isPlayableMedia() {
