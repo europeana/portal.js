@@ -265,7 +265,7 @@
         if (duration.shiftTo('days').days >= 1) {
           duration = Duration.fromMillis(value / 1000);
         }
-        return duration.toFormat('hh:mm:ss').replaceAll(/00:/g, '');
+        return duration.toFormat('hh:mm:ss').replace(/^00:00/, '0').replace(/^00:/, '').replace(/^0(?!:)/, '');
       }
     }
   };
