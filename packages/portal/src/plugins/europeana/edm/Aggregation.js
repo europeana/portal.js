@@ -95,12 +95,16 @@ export default class Aggregation extends Base {
         }
       }
 
-      const wrs = [...uris].map((uri) => (this.webResources || []).find((wr) => wr.about === uri));
+      const wrs = [...uris].map((uri) => this.findWebResource(uri));
 
       // Sort by isNextInSequence property if present
       this.#displayableWebResources = sortByIsNextInSequence(wrs);
     }
 
     return this.#displayableWebResources;
+  }
+
+  findWebResource(uri) {
+    return (this.webResources || []).find((wr) => wr.about === uri);
   }
 }

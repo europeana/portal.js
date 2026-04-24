@@ -222,6 +222,24 @@
         }
       },
 
+      initDuration() {
+        if (![Infinity, NaN].includes(this.$refs.avPlayer.duration)) {
+          return;
+        }
+        // TODO: mv this to WebResource class?
+        if (this.resource?.edm?.ebucoreDuration) {
+          let durationSeconds = Number(this.resource.edm.ebucoreDuration) / 1000;
+          // some WRs have duration metadata incorrectly in microseconds instead of
+          // the expected milliseconds. try to handle this by assuming that if the
+          // WR's duration appears to be more than 24 hours, then it is using the
+          // wrong unit
+          if ((durationSeconds / 3600) > 24) {
+            durationSeconds = durationSeconds / 1000;
+          }
+          this.player.duration(durationSeconds);
+        }
+      },
+
       setPosterWithCardImage() {
         const posterElement = this.player.el().querySelector('.vjs-poster');
         if (posterElement) {
@@ -279,6 +297,7 @@
         });
 
         this.player.ready(this.onPlayerReady);
+        this.player.on('loadedmetadata', this.initDuration);
         this.player.on('loadedmetadata', this.checkSeekable);
         this.player.on('error', this.handlePlayerError);
       }
