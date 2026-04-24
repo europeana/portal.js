@@ -343,8 +343,7 @@
       },
 
       hasWebResourceMetadataToDisplay() {
-        return this.$features.webResourceMetadata &&
-          WEB_RESOURCE_METADATA_DISPLAY_FIELDS.some((field) => !!this.resource?.edm?.[field]);
+        return WEB_RESOURCE_METADATA_DISPLAY_FIELDS.some((field) => !!this.resource?.edm?.[field]);
       },
 
       sidebarHasContent() {
