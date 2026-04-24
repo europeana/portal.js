@@ -222,6 +222,15 @@
         }
       },
 
+      initDuration() {
+        if (![Infinity, NaN].includes(this.$refs.avPlayer.duration)) {
+          return;
+        }
+        if (this.resource?.edm?.ebucoreDuration) {
+          this.player.duration(Number(this.resource.edm.ebucoreDuration) / 1000 / 1000);
+        }
+      },
+
       setPosterWithCardImage() {
         const posterElement = this.player.el().querySelector('.vjs-poster');
         if (posterElement) {
@@ -279,6 +288,7 @@
         });
 
         this.player.ready(this.onPlayerReady);
+        this.player.on('loadedmetadata', this.initDuration);
         this.player.on('loadedmetadata', this.checkSeekable);
         this.player.on('error', this.handlePlayerError);
       }
