@@ -263,9 +263,9 @@
       formatDuration(value) {
         let duration = Duration.fromMillis(value);
         if (duration.shiftTo('days').days >= 1) {
-          duration = Duration.fromMillis(value/1000);
+          duration = Duration.fromMillis(value / 1000);
         }
-        return duration.toFormat("hh:mm:ss").replaceAll(/00:/g, '');
+        return duration.toFormat('hh:mm:ss').replaceAll(/00:/g, '');
       }
     }
   };
