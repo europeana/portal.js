@@ -1,6 +1,7 @@
 <template>
   <div
     class="media-player-wrapper h-100 d-flex justify-content-center"
+    data-qa="media player"
   >
     <template
       v-if="mediaComponent"
