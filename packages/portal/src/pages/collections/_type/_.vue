@@ -12,7 +12,7 @@
       v-else
     >
       <SearchInterface
-        v-if="!$fetchState.pending"
+        v-if="!$fetchState.pending && !redirecting"
         :route="route"
         :show-content-tier-toggle="false"
         :show-pins="userIsEntitiesEditor && userIsSetsEditor"
@@ -115,11 +115,13 @@
     data() {
       return {
         proxy: null,
+        redirecting: false,
         relatedCollections: null
       };
     },
 
     async fetch() {
+      this.redirecting = false;
       if (!this.isRouteValid) {
         return this.$error(404, { scope: 'page' });
       }
@@ -150,7 +152,7 @@
         // TODO: don't do this on SSRs, it's too expensive. instead just update
         //       window.location when mounted, and set Content-Location response
         //       header, and canonical urls to include the prefLabel
-        redirectToPrefPath(
+        this.redirecting = redirectToPrefPath(
           this.entity.id,
           this.entity.prefLabel.en,
           { route: this.$route, redirect: this.$nuxt.context.redirect }
