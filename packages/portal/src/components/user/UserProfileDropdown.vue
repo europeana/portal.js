@@ -23,16 +23,18 @@
 
     data() {
       return {
-        links: [{
-          text: this.$t('account.accountManagement'),
-          href: this.$keycloak?.accountUrl()
-        }, this.$features.manageApiKeys && {
-          text: this.$t('account.manageApiKeys'),
-          to: this.localePath('/account/api-keys')
-        }, {
-          text: this.$t('account.linkLogout'),
-          to: '/account/logout'
-        }].filter(Boolean),
+        links: [
+          {
+            text: this.$t('account.accountManagement'),
+            href: this.$keycloak?.accountUrl()
+          }, {
+            text: this.$t('account.manageApiKeys'),
+            to: this.localePath('/account/api-keys')
+          }, {
+            text: this.$t('account.linkLogout'),
+            to: '/account/logout'
+          }
+        ],
         menuOpen: false
       };
     },
