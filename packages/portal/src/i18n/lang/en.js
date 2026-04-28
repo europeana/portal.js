@@ -1350,9 +1350,6 @@ export default {
     },
     "results": {
       "limitWarning": "Additional results are not shown as only the first 1000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search.",
-      "loginToSeeMore": "{login} to see more results",
-      "loginToSeeMultilingualResults": "Log in to search across the entire collection, and get results not limited to the language of your search term.",
-      "showingMultilingualResults": "Showing results across the entire collection and all languages.",
       "withinCollection": "{count} results within {type} {collection}",
       "withinCollectionWithQuery": "{count} results within {type} {collection} for {query}",
       "withoutQuery": "{count} results",
