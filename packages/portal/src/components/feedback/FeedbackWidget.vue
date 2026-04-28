@@ -47,7 +47,7 @@
 
     data() {
       return {
-        feedbackEnabled: this.$features?.jiraServiceDeskFeedbackForm && !!this.$config?.app?.baseUrl
+        feedbackEnabled: !!this.$config?.app?.baseUrl
       };
     }
   };
