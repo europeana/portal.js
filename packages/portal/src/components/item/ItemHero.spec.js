@@ -95,8 +95,6 @@ const media = [
   })
 ];
 
-const entities = [{ about: 'http://data.europeana.eu/agent/123', prefLabel: { 'en': ['CARARE'] } }];
-
 describe('components/item/ItemHero', () => {
   describe('selectMedia', () => {
     describe('when a new item is selected', () => {
