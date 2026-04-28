@@ -38,17 +38,15 @@
             <h2 class="d-inline-block">
               {{ $t('record.allMetaData') }}
             </h2>
-            <template v-if="showItemeMetadataTooltip">
-              <span
-                class="icon-info-outline ml-1"
-              />
-              <b-tooltip
-                :target="allMetadataTabLinkId"
-                placement="bottom"
-              >
-                {{ $t(`record.allMetaDataInfo`) }}
-              </b-tooltip>
-            </template>
+            <span
+              class="icon-info-outline ml-1"
+            />
+            <b-tooltip
+              :target="allMetadataTabLinkId"
+              placement="bottom"
+            >
+              {{ $t(`record.allMetaDataInfo`) }}
+            </b-tooltip>
           </template>
           <b-card-text
             text-tag="div"
@@ -126,8 +124,7 @@
       return {
         CORE_FIELDS,
         ALL_FIELDS,
-        showLocationMap: false,
-        showItemeMetadataTooltip: this.$features.webResourceMetadata
+        showLocationMap: false
       };
     },
 

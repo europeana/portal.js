@@ -130,7 +130,7 @@
         :loading="$fetchState.pending"
         :per-page="perPage"
         :total="set.total"
-        :show-pins="setIsEntityBestItems && userIsEntityEditor"
+        :show-pins="true"
         :user-editable-items="userCanEditSet"
         @endItemDrag="repositionItem"
       >

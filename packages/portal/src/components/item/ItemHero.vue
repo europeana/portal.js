@@ -37,14 +37,13 @@
           >
             <div class="ml-lg-auto d-flex justify-content-center flex-wrap flex-md-nowrap">
               <ItemTranscribeButton
-                v-if="showTranscribathonLink"
+                v-if="linkForContributingAnnotation"
                 :transcribe-url="linkForContributingAnnotation"
               />
               <client-only>
                 <UserButtons
                   :identifier="identifier"
-                  :show-pins="showPins"
-                  :entities="entities"
+                  :show-pins="true"
                   button-variant="secondary"
                 />
               </client-only>
@@ -61,13 +60,9 @@
       </b-row>
       <ShareSocialModal
         :media-url="selectedMedia?.about"
-        @show="fetchEmbedCode"
       >
-        <ShareSnippet
-          tag="code"
-          :text="embedCode"
-          :button-text="$t('record.actions.copyEmbedCode')"
-          :help-text="$t('record.clickToCopyEmbedCode')"
+        <ItemEmbedCodeSnippet
+          :identifier="identifier"
         />
       </ShareSocialModal>
     </b-container>
@@ -79,14 +74,10 @@
 
   import DownloadWidget from '../download/DownloadWidget';
   import RightsStatementButton from '../generic/RightsStatementButton';
-  import ShareSnippet from '@/components/share/ShareSnippet';
+  import ItemEmbedCodeSnippet from './ItemEmbedCodeSnippet';
   import ShareSocialModal from '../share/ShareSocialModal';
   import ShareButton from '../share/ShareButton';
   import WebResource from '@/plugins/europeana/edm/WebResource';
-  import { oEmbedForEndpoint } from '@/utils/services/oembed.js';
-  import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
-
-  const TRANSCRIBATHON_URL_ROOT = /^https?:\/\/europeana\.transcribathon\.eu\//;
 
   export default {
     name: 'ItemHero',
@@ -94,7 +85,7 @@
     components: {
       ClientOnly,
       DownloadWidget,
-      ShareSnippet,
+      ItemEmbedCodeSnippet,
       RightsStatementButton,
       ShareButton,
       ShareSocialModal,
@@ -134,11 +125,6 @@
         type: Object,
         default: () => ({})
       },
-      // Entities related to the item, used for pinning.
-      entities: {
-        type: Array,
-        default: () => []
-      },
       providerUrl: {
         type: String,
         default: null
@@ -164,18 +150,6 @@
       },
       rightsStatement() {
         return this.selectedMedia.edmRights?.def?.[0];
-      },
-      showPins() {
-        return this.userIsEntitiesEditor && this.userIsSetsEditor && this.entities.length > 0;
-      },
-      userIsEntitiesEditor() {
-        return this.$auth.userHasClientRole('entities', 'editor');
-      },
-      userIsSetsEditor() {
-        return this.$auth.userHasClientRole('usersets', 'editor');
-      },
-      showTranscribathonLink() {
-        return this.$features.transcribathonCta && this.linkForContributingAnnotation && TRANSCRIBATHON_URL_ROOT.test(this.linkForContributingAnnotation);
       }
     },
     created() {
@@ -191,18 +165,6 @@
             ...this.media.find((wr) => wr.about === resource.about),
             ...resource
           });
-        }
-      },
-      async fetchEmbedCode() {
-        if (this.embedCode) {
-          return;
-        }
-        // TODO: this should be read from Nuxt runtime config
-        const response = await oEmbedForEndpoint(process.env.EUROPEANA_OEMBED_PROVIDER_URL || 'https://oembed.europeana.eu',
-                                                 `${EUROPEANA_DATA_URL}/item${this.identifier}`);
-
-        if (response.data.html) {
-          this.embedCode = response.data.html;
         }
       }
     }

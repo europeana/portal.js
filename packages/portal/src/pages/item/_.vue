@@ -27,7 +27,6 @@
           :edm-rights="edmRights"
           :attribution-fields="attributionFields"
           :link-for-contributing-annotation="linkForContributingAnnotation"
-          :entities="europeanaEntities"
           :provider-url="isShownAt"
           :iiif-presentation-manifest="iiifPresentationManifest"
         />
@@ -72,7 +71,6 @@
               :location="locationData"
             />
             <ItemLanguageSelector
-              v-if="translatedItemsEnabled"
               :from-translation-error="fromTranslationError"
               :translation-language="translationLanguage"
             />
@@ -176,6 +174,9 @@
         isProxyable: this.isProxyable,
         itemIsDeleted: computed(() => this.isDeleted),
         itemLanguage: computed(() => this.metadata.edmLanguage?.def?.[0]),
+        itemPinning: computed(() => ({
+          entities: this.europeanaEntities
+        })),
         metadataLanguage: this.metadataLanguage,
         textTrackAnnotations: computed(() => this.textTrackAnnotations)
       };
@@ -350,9 +351,6 @@
       relatedEntityUris() {
         return this.europeanaEntityUris.filter((entityUri) => entityUri !== this.dataProviderEntityUri).slice(0, 5);
       },
-      translatedItemsEnabled() {
-        return this.$features.translatedItems;
-      },
       matomoOptions() {
         return {
           dimension1: langMapValueForLocale(this.metadata.edmCountry, 'en').values[0],
@@ -362,7 +360,7 @@
         };
       },
       translatingMetadata() {
-        return !!(this.$features?.translatedItems && this.$route.query.lang && this.$auth.loggedIn);
+        return !!(this.$route.query.lang && this.$auth.loggedIn);
       },
       translationLanguage() {
         return this.translatingMetadata ? this.$route.query.lang : null;

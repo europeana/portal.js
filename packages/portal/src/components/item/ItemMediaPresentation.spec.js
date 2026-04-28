@@ -16,13 +16,20 @@ const factory = ({ data = {}, propsData = {}, mocks = {} } = {}) => shallowMount
     return { ...data };
   },
   mocks: {
+    $apis: {
+      thumbnail: {
+        forWebResource: () => ({
+          large: '400px'
+        })
+      }
+    },
     $apm: {
       setCustomContext: sinon.spy()
     },
     $error(error) {
       throw error;
     },
-    $features: { webResourceMetadata: true },
+    $features: {},
     $route: { query: {} },
     $t: (key) => key,
     localePath: (path) => path,

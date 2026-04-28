@@ -27,7 +27,8 @@ const factory = ({ propsData } = {}) => mountNuxt(MediaAudioVideoPlayer, {
     $i18n: {
       locale: 'en'
     }
-  }
+  },
+  stubs: ['MediaCardImage']
 });
 
 describe('components/media/MediaAudioVideoPlayer', () => {
@@ -243,61 +244,125 @@ describe('components/media/MediaAudioVideoPlayer', () => {
       });
 
       describe('on loadedmetadata', () => {
-        describe('when media is seekable', () => {
-          const seekable = {
-            length: 1,
-            start: sinon.stub().returns(0),
-            end: sinon.stub().returns(1)
-          };
+        describe('duration initialisation', () => {
+          const ebucoreDuration = 138000;
+          const durationSeconds = 138;
 
-          it('does not disable the control bar progress control', async() => {
-            const wrapper = factory();
-            await wrapper.vm.fetch();
-            await wrapper.vm.initVideojs();
-            await wrapper.vm.$nextTick();
-            wrapper.vm.$refs.avPlayer = {
-              seekable
-            };
+          describe('when media element duration is NaN', () => {
+            const mediaElementDuration = NaN;
 
-            wrapper.vm.player.trigger('loadedmetadata');
+            it('sets duration from the resource ebucore:duration property', async() => {
+              const wrapper = factory({ propsData: { resource: { edm: { ebucoreDuration } } } });
+              await wrapper.vm.fetch();
+              await wrapper.vm.initVideojs();
+              await wrapper.vm.$nextTick();
+              sinon.stub(wrapper.vm.player, 'duration');
+              wrapper.vm.$refs.avPlayer = {
+                duration: mediaElementDuration
+              };
 
-            expect(wrapper.vm.player.controlBar.progressControl.enabled()).toBe(true);
+              wrapper.vm.player.trigger('loadedmetadata');
+
+              expect(wrapper.vm.player.duration.calledWith(durationSeconds)).toBe(true);
+            });
+          });
+
+          describe('when media element duration is Infinity', () => {
+            const mediaElementDuration = Infinity;
+
+            it('sets duration from the resource ebucore:duration property', async() => {
+              const wrapper = factory({ propsData: { resource: { edm: { ebucoreDuration } } } });
+              await wrapper.vm.fetch();
+              await wrapper.vm.initVideojs();
+              await wrapper.vm.$nextTick();
+              sinon.stub(wrapper.vm.player, 'duration');
+              wrapper.vm.$refs.avPlayer = {
+                duration: mediaElementDuration
+              };
+
+              wrapper.vm.player.trigger('loadedmetadata');
+
+              expect(wrapper.vm.player.duration.calledWith(durationSeconds)).toBe(true);
+            });
+          });
+
+          describe('when media element duration is a Number', () => {
+            const mediaElementDuration = ebucoreDuration - 1;
+
+            it('does not set duration from the resource ebucore:duration property', async() => {
+              const wrapper = factory({ propsData: { resource: { edm: { ebucoreDuration } } } });
+              await wrapper.vm.fetch();
+              await wrapper.vm.initVideojs();
+              await wrapper.vm.$nextTick();
+              sinon.stub(wrapper.vm.player, 'duration');
+              wrapper.vm.$refs.avPlayer = {
+                duration: mediaElementDuration
+              };
+
+              wrapper.vm.player.trigger('loadedmetadata');
+
+              expect(wrapper.vm.player.duration.calledWith(durationSeconds)).toBe(false);
+            });
           });
         });
 
-        describe('when media is not seekable', () => {
-          const seekable = {
-            length: 1,
-            start: sinon.stub().returns(0),
-            end: sinon.stub().returns(0)
-          };
-
-          it('disables the control bar progress control', async() => {
-            const wrapper = factory();
-            await wrapper.vm.fetch();
-            await wrapper.vm.initVideojs();
-            await wrapper.vm.$nextTick();
-            wrapper.vm.$refs.avPlayer = {
-              seekable
+        describe('seekable status handling', () => {
+          describe('when media is seekable', () => {
+            const seekable = {
+              length: 1,
+              start: sinon.stub().returns(0),
+              end: sinon.stub().returns(1)
             };
 
-            wrapper.vm.player.trigger('loadedmetadata');
+            it('does not disable the control bar progress control', async() => {
+              const wrapper = factory();
+              await wrapper.vm.fetch();
+              await wrapper.vm.initVideojs();
+              await wrapper.vm.$nextTick();
+              wrapper.vm.$refs.avPlayer = {
+                seekable
+              };
 
-            expect(wrapper.vm.player.controlBar.progressControl.enabled()).toBe(false);
+              wrapper.vm.player.trigger('loadedmetadata');
+
+              expect(wrapper.vm.player.controlBar.progressControl.enabled()).toBe(true);
+            });
           });
 
-          it('emits warn event', async() => {
-            const wrapper = factory();
-            await wrapper.vm.fetch();
-            await wrapper.vm.initVideojs();
-            await wrapper.vm.$nextTick();
-            wrapper.vm.$refs.avPlayer = {
-              seekable
+          describe('when media is not seekable', () => {
+            const seekable = {
+              length: 1,
+              start: sinon.stub().returns(0),
+              end: sinon.stub().returns(0)
             };
 
-            wrapper.vm.player.trigger('loadedmetadata');
-            expect(wrapper.emitted().warn[0][0].name).toBe('MediaAudioVideoPlayerError');
-            expect(wrapper.emitted().warn[0][0].message).toBe('A/V not seekable');
+            it('disables the control bar progress control', async() => {
+              const wrapper = factory();
+              await wrapper.vm.fetch();
+              await wrapper.vm.initVideojs();
+              await wrapper.vm.$nextTick();
+              wrapper.vm.$refs.avPlayer = {
+                seekable
+              };
+
+              wrapper.vm.player.trigger('loadedmetadata');
+
+              expect(wrapper.vm.player.controlBar.progressControl.enabled()).toBe(false);
+            });
+
+            it('emits warn event', async() => {
+              const wrapper = factory();
+              await wrapper.vm.fetch();
+              await wrapper.vm.initVideojs();
+              await wrapper.vm.$nextTick();
+              wrapper.vm.$refs.avPlayer = {
+                seekable
+              };
+
+              wrapper.vm.player.trigger('loadedmetadata');
+              expect(wrapper.emitted().warn[0][0].name).toBe('MediaAudioVideoPlayerError');
+              expect(wrapper.emitted().warn[0][0].message).toBe('A/V not seekable');
+            });
           });
         });
       });
