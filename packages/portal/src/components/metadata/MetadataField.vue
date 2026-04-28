@@ -99,7 +99,6 @@
 
 <script>
   import camelCase from 'lodash/camelCase.js';
-  import { Duration } from 'luxon';
   import { langMapValueForLocale } from '@europeana/i18n';
   import ItemDebiasField from '../item/ItemDebiasField';
   import ItemEntityField from '../item/ItemEntityField';
