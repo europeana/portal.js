@@ -355,7 +355,7 @@ describe('components/metadata/MetadataField', () => {
     });
   });
 
-  describe('when there is a Time value (ebucoreDuration)', () => {
+  describe('when there is a duration value (ebucoreDuration)', () => {
     describe('rendering and formatting the number', () => {
       describe('when there is single minute value', () => {
         const props = {
