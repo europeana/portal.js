@@ -7,7 +7,6 @@ export default [
   { name: 'mockTrendingItems' },
   { name: 'modelViewer' },
   { name: 'modelViewerReplacesOembed' },
-  { name: 'multilingualSearchButton' },
   { name: 'rejectEntityRecommendations' },
   { name: 'showSetRecommendations' },
   { name: 'storiesViewCounts' },
