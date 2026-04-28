@@ -68,8 +68,7 @@
 
     computed: {
       showButton() {
-        return this.$features.transcribathonCta &&
-          TRANSCRIBATHON_URL_ROOT.test(this.transcribeUrl);
+        return TRANSCRIBATHON_URL_ROOT.test(this.transcribeUrl);
       }
     }
   };
