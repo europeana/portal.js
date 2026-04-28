@@ -64,7 +64,6 @@
               v-else-if="resource?.edm?.isPlayableMedia"
             >
               <MediaAudioVideoPlayer
-                v-if="$features.videojs"
                 :url="resource.id"
                 :format="resource.format"
                 :item-id="itemId"
@@ -75,13 +74,6 @@
                 :resource="resource"
                 @error="handleMediaError"
                 @warn="handleMediaWarn"
-              />
-              <MediaEuropeanaMediaPlayer
-                v-else
-                :url="resource.id"
-                :format="resource.format"
-                :item-id="itemId"
-                class="media-viewer-content"
               />
             </template>
             <Media3DViewer
@@ -193,7 +185,6 @@
       LoadingSpinner,
       Media3DViewer: () => import('../media/Media3DViewer.vue'),
       MediaAudioVideoPlayer: () => import('../media/MediaAudioVideoPlayer.vue'),
-      MediaEuropeanaMediaPlayer: () => import('../media/MediaEuropeanaMediaPlayer.vue'),
       MediaCardImage,
       MediaImageViewer: () => import('../media/MediaImageViewer.vue'),
       MediaImageViewerControls: () => import('../media/MediaImageViewerControls.vue')
@@ -343,8 +334,7 @@
       },
 
       hasWebResourceMetadataToDisplay() {
-        return this.$features.webResourceMetadata &&
-          WEB_RESOURCE_METADATA_DISPLAY_FIELDS.some((field) => !!this.resource?.edm?.[field]);
+        return WEB_RESOURCE_METADATA_DISPLAY_FIELDS.some((field) => !!this.resource?.edm?.[field]);
       },
 
       sidebarHasContent() {

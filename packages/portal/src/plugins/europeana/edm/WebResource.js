@@ -62,6 +62,19 @@ export default class WebResource extends Base {
     // delete large unused fields
     delete this.htmlAttributionSnippet;
     delete this.textAttributionSnippet;
+
+    if (this.ebucoreDuration) {
+      // ebucoreDuration is stored as a string
+      this.ebucoreDuration = Number(this.ebucoreDuration);
+      // some WRs have duration metadata incorrectly in microseconds instead of
+      // the expected milliseconds. try to handle this by assuming that if the
+      // WR's duration appears to be more than 24 hours, then it is using the
+      // wrong unit
+
+      if ((this.ebucoreDuration / 1000 / 3600) > 24) {
+        this.ebucoreDuration = this.ebucoreDuration / 1000;
+      }
+    }
   }
 
   get id() {

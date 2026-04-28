@@ -12,7 +12,5 @@ export default [
   { name: 'showSetRecommendations' },
   { name: 'storiesViewCounts' },
   { name: 'transcribathonCta' },
-  { name: 'translatedItems' },
-  { name: 'videojs' },
-  { name: 'webResourceMetadata' }
+  { name: 'translatedItems' }
 ];
