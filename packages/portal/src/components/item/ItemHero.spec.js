@@ -24,7 +24,6 @@ const factory = ({ propsData = {}, mocks = {}, provide = {} } = {}) => shallowMo
   mocks: {
     $t: (key) => key,
     $i18n: { locale: 'en' },
-    $features: { itemEmbedCode: false, transcribathonCta: true },
     $store: {
       getters: {
         'entity/isPinned': storeIsPinnedGetter,

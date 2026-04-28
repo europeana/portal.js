@@ -9,6 +9,5 @@ export default [
   { name: 'modelViewerReplacesOembed' },
   { name: 'rejectEntityRecommendations' },
   { name: 'showSetRecommendations' },
-  { name: 'storiesViewCounts' },
-  { name: 'transcribathonCta' }
+  { name: 'storiesViewCounts' }
 ];
