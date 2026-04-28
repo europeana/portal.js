@@ -354,4 +354,64 @@ describe('components/metadata/MetadataField', () => {
       expect(wrapper.find('colourswatch-stub').exists()).toBe(true);
     });
   });
+
+  describe('when there is a Time value (ebucoreDuration)', () => {
+    describe('rendering and formatting the number', () => {
+      describe('when there is single minute value', () => {
+        const props = {
+          name: 'ebucoreDuration',
+          fieldData: ['150000']
+        };
+
+        it('removes leading zeros', () => {
+          const wrapper = factory({ props });
+          const fieldValue = wrapper.find('[data-qa="metadata field"] ul [data-qa="literal value"]');
+
+          expect(fieldValue.text()).toEqual('2:30');
+        });
+      });
+
+      describe('when there is a decimal minute value', () => {
+        const props = {
+          name: 'ebucoreDuration',
+          fieldData: ['850000']
+        };
+
+        it('removes leading zeros from the hours', () => {
+          const wrapper = factory({ props });
+          const fieldValue = wrapper.find('[data-qa="metadata field"] ul [data-qa="literal value"]');
+
+          expect(fieldValue.text()).toEqual('14:10');
+        });
+      });
+
+      describe('when there is a single second value', () => {
+        const props = {
+          name: 'ebucoreDuration',
+          fieldData: ['5432']
+        };
+
+        it('removes leading zeros removes leading zeros up to the minute value', () => {
+          const wrapper = factory({ props });
+          const fieldValue = wrapper.find('[data-qa="metadata field"] ul [data-qa="literal value"]');
+
+          expect(fieldValue.text()).toEqual('0:05');
+        });
+      });
+
+      describe('when there is a multiple hour long value', () => {
+        const props = {
+          name: 'ebucoreDuration',
+          fieldData: ['55555000']
+        };
+
+        it('displays the whole value', () => {
+          const wrapper = factory({ props });
+          const fieldValue = wrapper.find('[data-qa="metadata field"] ul [data-qa="literal value"]');
+
+          expect(fieldValue.text()).toEqual('15:25:55');
+        });
+      });
+    });
+  });
 });

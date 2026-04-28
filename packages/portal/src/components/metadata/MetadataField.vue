@@ -77,6 +77,11 @@
             <span>{{ value }}</span>
           </SmartLink>
           <template
+            v-else-if="isTimeValue"
+          >
+            {{ formatDuration(value) }}
+          </template>
+          <template
             v-else-if="isNumberValue(value)"
           >
             {{ $i18n.n(value) }}
@@ -244,12 +249,28 @@
 
       isColourValue() {
         return this.name === 'edmComponentColor';
+      },
+      isTimeValue() {
+        return this.name === 'ebucoreDuration';
       }
     },
 
     methods: {
       isNumberValue(value) {
         return typeof value === 'number';
+      },
+      formatDuration(value) {
+        // format to (h)h:(m)m:ss first
+        const totalSeconds = value / 1000;
+        const hours = Math.floor(totalSeconds / 3600);
+        const remainingSeconds = totalSeconds % 3600;
+        const minutes = Math.floor(remainingSeconds / 60);
+        // Floor the seconds, removing extra miliseconds.
+        const seconds = `${Math.floor(remainingSeconds % 60)}`.padStart(2, '0');
+
+        // Removes leding zeros in the hours (same format as in the video.js player)
+        return `${hours}:${minutes}:${seconds}`
+          .replace(/^0:/, '');
       }
     }
   };
