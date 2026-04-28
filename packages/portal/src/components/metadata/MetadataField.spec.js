@@ -356,8 +356,36 @@ describe('components/metadata/MetadataField', () => {
   });
 
   describe('when there is a duration value (ebucoreDuration)', () => {
-    describe('rendering and formatting the number', () => {
-      describe('when there is single minute value', () => {
+    describe('rendering and formatting the number as hh:mm:ss', () => {
+      describe('when there is a single digit second value', () => {
+        const props = {
+          name: 'ebucoreDuration',
+          fieldData: ['5432']
+        };
+
+        it('removes leading zeros up to the minute value', () => {
+          const wrapper = factory({ props });
+          const fieldValue = wrapper.find('[data-qa="metadata field"] ul [data-qa="literal value"]');
+
+          expect(fieldValue.text()).toEqual('0:05');
+        });
+      });
+
+      describe('when there is a double digit second value', () => {
+        const props = {
+          name: 'ebucoreDuration',
+          fieldData: ['20864']
+        };
+
+        it('removes leading zeros up to the minute value', () => {
+          const wrapper = factory({ props });
+          const fieldValue = wrapper.find('[data-qa="metadata field"] ul [data-qa="literal value"]');
+
+          expect(fieldValue.text()).toEqual('0:20');
+        });
+      });
+
+      describe('when there is single digit minute value', () => {
         const props = {
           name: 'ebucoreDuration',
           fieldData: ['150000']
@@ -371,7 +399,7 @@ describe('components/metadata/MetadataField', () => {
         });
       });
 
-      describe('when there is a decimal minute value', () => {
+      describe('when there are double digit minute values', () => {
         const props = {
           name: 'ebucoreDuration',
           fieldData: ['850000']
@@ -385,31 +413,31 @@ describe('components/metadata/MetadataField', () => {
         });
       });
 
-      describe('when there is a single second value', () => {
+      describe('when there is a single digit hour value', () => {
         const props = {
           name: 'ebucoreDuration',
-          fieldData: ['5432']
+          fieldData: ['18355000']
         };
 
-        it('removes leading zeros removes leading zeros up to the minute value', () => {
+        it('displays the whole value without leading zeros', () => {
           const wrapper = factory({ props });
           const fieldValue = wrapper.find('[data-qa="metadata field"] ul [data-qa="literal value"]');
 
-          expect(fieldValue.text()).toEqual('0:05');
+          expect(fieldValue.text()).toEqual('5:05:55');
         });
       });
 
-      describe('when there is a multiple hour long value', () => {
+      describe('when there are double digit hour values', () => {
         const props = {
           name: 'ebucoreDuration',
-          fieldData: ['55555000']
+          fieldData: ['54355000']
         };
 
         it('displays the whole value', () => {
           const wrapper = factory({ props });
           const fieldValue = wrapper.find('[data-qa="metadata field"] ul [data-qa="literal value"]');
 
-          expect(fieldValue.text()).toEqual('15:25:55');
+          expect(fieldValue.text()).toEqual('15:05:55');
         });
       });
     });

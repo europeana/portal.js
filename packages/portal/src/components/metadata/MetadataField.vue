@@ -264,13 +264,14 @@
         const totalSeconds = value / 1000;
         const hours = Math.floor(totalSeconds / 3600);
         const remainingSeconds = totalSeconds % 3600;
-        const minutes = Math.floor(remainingSeconds / 60);
+        const minutes = `${Math.floor(remainingSeconds / 60)}`.padStart(2, '0');
         // Floor the seconds, removing extra miliseconds.
         const seconds = `${Math.floor(remainingSeconds % 60)}`.padStart(2, '0');
 
-        // Removes leding zeros in the hours (same format as in the video.js player)
+        // Removes leding zeros down to a single digit (same format as video.js player)
         return `${hours}:${minutes}:${seconds}`
-          .replace(/^0:/, '');
+          .replace(/^0:/, '') // when there are 0 hours remove the whole hour section
+          .replace(/^0/, ''); // when there are single digit minutes remove the 0 padding
       }
     }
   };
