@@ -175,24 +175,6 @@ describe('components/item/ItemHero', () => {
     });
   });
 
-  describe('showTranscribathonLink', () => {
-    describe('when the linkForContributingAnnotation goes to a transcribathon URL', () => {
-      it('is true', async() => {
-        const wrapper = factory({ propsData: { linkForContributingAnnotation: 'https://europeana.transcribathon.eu/documents/story/?story=123', media, entities } });
-
-        expect(wrapper.vm.showTranscribathonLink).toBe(true);
-      });
-    });
-
-    describe('when the linkForContributingAnnotation goes to a NON transcribathon URL', () => {
-      it('is true', async() => {
-        const wrapper = factory({ propsData: { linkForContributingAnnotation: 'https://example.org/123', media, entities } });
-
-        expect(wrapper.vm.showTranscribathonLink).toBe(false);
-      });
-    });
-  });
-
   describe('fetchEmbedCode', () => {
     const OEMBED_BASE_URL = 'https://oembed.europeana.eu';
     const identifier = '/123/abc';
