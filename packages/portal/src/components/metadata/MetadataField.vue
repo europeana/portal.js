@@ -77,7 +77,7 @@
             <span>{{ value }}</span>
           </SmartLink>
           <template
-            v-else-if="isTimeValue"
+            v-else-if="isDurationValue"
           >
             {{ formatDuration(value) }}
           </template>
@@ -250,7 +250,7 @@
       isColourValue() {
         return this.name === 'edmComponentColor';
       },
-      isTimeValue() {
+      isDurationValue() {
         return this.name === 'ebucoreDuration';
       }
     },
