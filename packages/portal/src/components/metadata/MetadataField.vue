@@ -261,12 +261,17 @@
         return typeof value === 'number';
       },
       formatDuration(value) {
-        // Removes leding zeros up to the last minute (same format as in the video.js player)
-        return Duration.fromMillis(value)
-          .toFormat('hh:mm:ss')
-          .replace(/^00:00/, '0')
-          .replace(/^00:/, '')
-          .replace(/^0(?!:)/, '');
+        // format to (h)h:(m)m:ss first
+        const totalSeconds = value / 1000;
+        const hours = Math.floor(totalSeconds / 3600);
+        const remainingSeconds = totalSeconds % 3600;
+        const minutes = Math.floor(remainingSeconds / 60);
+        // Floor the seconds, removing extra miliseconds.
+        const seconds = `${Math.floor(remainingSeconds % 60)}`.padStart(2, '0');
+
+        // Removes leding zeros in the hours (same format as in the video.js player)
+        return `${hours}:${minutes}:${seconds}`
+          .replace(/^0:/, '');
       }
     }
   };

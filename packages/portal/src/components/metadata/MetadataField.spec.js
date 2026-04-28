@@ -388,7 +388,7 @@ describe('components/metadata/MetadataField', () => {
       describe('when there is a single second value', () => {
         const props = {
           name: 'ebucoreDuration',
-          fieldData: ['5000']
+          fieldData: ['5432']
         };
 
         it('removes leading zeros removes leading zeros up to the minute value', () => {
