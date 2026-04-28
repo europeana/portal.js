@@ -14,7 +14,7 @@
       :text="$t('actions.download')"
       toggle-class="d-flex align-items-center"
     >
-      <!-- TODO: use b-dropdown-item component instead. Currently the keyboard nav with up and down keys is not working -->
+      <!-- Mimic b-dropdown-item to be able to use DownloadButton as menu items -->
       <li
         v-for="wr of downloadableMedia"
         :key="wr.about"
@@ -122,7 +122,7 @@
   };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
 
   .dropdown-toggle:after {
@@ -134,10 +134,16 @@
     border-color: transparent;
   }
 
-  .dropdown .dropdown-item {
-    &:hover,
-    &:focus {
-      background-color: $lightblue-light;
+  .dropdown {
+    ::v-deep .dropdown-menu {
+      box-shadow: $boxshadow-large;
+    }
+
+    .dropdown-item {
+      &:hover,
+      &:focus {
+        background-color: $lightblue-light;
+      }
     }
   }
 
