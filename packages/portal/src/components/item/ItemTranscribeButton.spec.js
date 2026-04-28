@@ -6,33 +6,70 @@ import sinon from 'sinon';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = () => shallowMount(ItemTranscribeButton, {
+const factory = ({ mocks, propsData } = {}) => shallowMount(ItemTranscribeButton, {
   localVue,
   propsData: {
-    transcribeUrl: 'https://example.com'
+    ...propsData
   },
   mocks: {
-    $t: (key) => key
+    $features: {},
+    $t: (key) => key,
+    ...mocks
   }
 });
 
 describe('components/item/ItemTranscribeButton', () => {
-  it('renders the component', () => {
-    const wrapper = factory();
+  describe('when the transcribathonCta feature is disabled', () => {
+    const $features = { transcribathonCta: false };
 
-    const transcribeButton = wrapper.find('[data-qa="transcribe button"]');
+    it('does not render the component', () => {
+      const wrapper = factory({
+        mocks: { $features },
+        propsData: { transcribeUrl: 'https://europeana.transcribathon.eu/documents/story/?story=123' }
+      });
 
-    expect(transcribeButton.exists()).toBe(true);
+      const transcribeButton = wrapper.find('[data-qa="transcribe button"]');
+
+      expect(transcribeButton.exists()).toBe(false);
+    });
   });
 
-  it('opens a modal when clicked', async() => {
-    const wrapper = factory();
+  describe('when the transcribathonCta feature is enabled', () => {
+    const $features = { transcribathonCta: true };
 
-    const bvModalShow = sinon.spy(wrapper.vm.$bvModal, 'show');
+    describe('and the transcribe URL is for Transcribathon', () => {
+      const transcribeUrl = 'https://europeana.transcribathon.eu/documents/story/?story=123';
 
-    const transcribeButton = wrapper.find('[data-qa="transcribe button"]');
-    await transcribeButton.trigger('click');
+      it('renders the component', () => {
+        const wrapper = factory({ mocks: { $features }, propsData: { transcribeUrl } });
 
-    expect(bvModalShow.calledWith('contribute-transcribe-modal')).toBe(true);
+        const transcribeButton = wrapper.find('[data-qa="transcribe button"]');
+
+        expect(transcribeButton.isVisible()).toBe(true);
+      });
+
+      it('opens a modal when clicked', async() => {
+        const wrapper = factory({ mocks: { $features }, propsData: { transcribeUrl } });
+
+        const bvModalShow = sinon.spy(wrapper.vm.$bvModal, 'show');
+
+        const transcribeButton = wrapper.find('[data-qa="transcribe button"]');
+        await transcribeButton.trigger('click');
+
+        expect(bvModalShow.calledWith('contribute-transcribe-modal')).toBe(true);
+      });
+    });
+
+    describe('but the transcribe URL is not for Transcribathon', () => {
+      const transcribeUrl = 'https://example.org/123';
+
+      it('does not render the component', () => {
+        const wrapper = factory({ mocks: { $features }, propsData: { transcribeUrl } });
+
+        const transcribeButton = wrapper.find('[data-qa="transcribe button"]');
+
+        expect(transcribeButton.exists()).toBe(false);
+      });
+    });
   });
 });
