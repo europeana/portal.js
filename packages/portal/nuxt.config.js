@@ -170,7 +170,10 @@ export default {
       }
     },
     europeana: {
-      apis: europeanaApisRuntimeConfig({ scope: 'public' })
+      apis: europeanaApisRuntimeConfig({ scope: 'public' }),
+      oembed: {
+        providerUrl: process.env.EUROPEANA_OEMBED_PROVIDER_URL || 'https://oembed.europeana.eu'
+      }
     },
     features: features(),
     hotjar: {
