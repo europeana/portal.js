@@ -37,7 +37,7 @@
           >
             <div class="ml-lg-auto d-flex justify-content-center flex-wrap flex-md-nowrap">
               <ItemTranscribeButton
-                v-if="showTranscribathonLink"
+                v-if="linkForContributingAnnotation"
                 :transcribe-url="linkForContributingAnnotation"
               />
               <client-only>
@@ -87,8 +87,6 @@
   import WebResource from '@/plugins/europeana/edm/WebResource';
   import { oEmbedForEndpoint } from '@/utils/services/oembed.js';
   import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
-
-  const TRANSCRIBATHON_URL_ROOT = /^https?:\/\/europeana\.transcribathon\.eu\//;
 
   export default {
     name: 'ItemHero',
@@ -190,9 +188,6 @@
       },
       userIsSetsEditor() {
         return this.$auth.userHasClientRole('usersets', 'editor');
-      },
-      showTranscribathonLink() {
-        return this.$features.transcribathonCta && this.linkForContributingAnnotation && TRANSCRIBATHON_URL_ROOT.test(this.linkForContributingAnnotation);
       }
     },
     created() {

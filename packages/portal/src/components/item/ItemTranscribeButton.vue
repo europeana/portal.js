@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="showButton">
     <b-button
       class="transcribe-button icon-transcribe-outlined button-icon-only"
       data-qa="transcribe button"
@@ -45,6 +45,8 @@
 </template>
 
 <script>
+  const TRANSCRIBATHON_URL_ROOT = /^https?:\/\/europeana\.transcribathon\.eu\//;
+
   export default {
     name: 'ItemTranscribeButton',
 
@@ -62,6 +64,13 @@
       return {
         modalId: 'contribute-transcribe-modal'
       };
+    },
+
+    computed: {
+      showButton() {
+        return this.$features.transcribathonCta &&
+          TRANSCRIBATHON_URL_ROOT.test(this.transcribeUrl);
+      }
     }
   };
 </script>
