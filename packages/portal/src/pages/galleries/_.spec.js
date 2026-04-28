@@ -13,7 +13,6 @@ const setApiRepositionItemStub = sinon.stub().resolves({});
 const setApiGetStub = sinon.stub().resolves({});
 const setApiGetItemsStub = sinon.stub().resolves([]);
 const clearSelectedItemsSpy = sinon.spy();
-const storeDispatch = sinon.stub().resolves({});
 const storeCommit = sinon.spy();
 
 const $i18n = {
