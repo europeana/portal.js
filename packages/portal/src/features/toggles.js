@@ -11,6 +11,5 @@ export default [
   { name: 'rejectEntityRecommendations' },
   { name: 'showSetRecommendations' },
   { name: 'storiesViewCounts' },
-  { name: 'transcribathonCta' },
-  { name: 'translatedItems' }
+  { name: 'transcribathonCta' }
 ];
