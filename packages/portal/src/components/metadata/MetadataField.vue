@@ -261,11 +261,12 @@
         return typeof value === 'number';
       },
       formatDuration(value) {
-        let duration = Duration.fromMillis(value);
-        if (duration.shiftTo('days').days >= 1) {
-          duration = Duration.fromMillis(value / 1000);
-        }
-        return duration.toFormat('hh:mm:ss').replace(/^00:00/, '0').replace(/^00:/, '').replace(/^0(?!:)/, '');
+        // Removes leding zeros up to the last minute (same format as in the video.js player)
+        return Duration.fromMillis(value)
+          .toFormat('hh:mm:ss')
+          .replace(/^00:00/, '0')
+          .replace(/^00:/, '')
+          .replace(/^0(?!:)/, '');
       }
     }
   };
