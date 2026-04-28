@@ -28,7 +28,6 @@
           :edm-type="type"
           :attribution-fields="attributionFields"
           :link-for-contributing-annotation="linkForContributingAnnotation"
-          :entities="europeanaEntities"
           :provider-url="isShownAt"
           :iiif-presentation-manifest="iiifPresentationManifest"
         />
@@ -176,6 +175,9 @@
         deBias: computed(() => this.deBias),
         itemIsDeleted: computed(() => this.isDeleted),
         itemLanguage: computed(() => this.metadata.edmLanguage?.def?.[0]),
+        itemPinning: computed(() => ({
+          entities: this.europeanaEntities
+        })),
         metadataLanguage: this.metadataLanguage,
         textTrackAnnotations: computed(() => this.textTrackAnnotations)
       };
