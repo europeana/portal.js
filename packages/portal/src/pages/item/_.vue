@@ -72,7 +72,6 @@
               :location="locationData"
             />
             <ItemLanguageSelector
-              v-if="translatedItemsEnabled"
               :from-translation-error="fromTranslationError"
               :translation-language="translationLanguage"
             />
@@ -345,9 +344,6 @@
       relatedEntityUris() {
         return this.europeanaEntityUris.filter((entityUri) => entityUri !== this.dataProviderEntityUri).slice(0, 5);
       },
-      translatedItemsEnabled() {
-        return this.$features.translatedItems;
-      },
       matomoOptions() {
         return {
           dimension1: langMapValueForLocale(this.metadata.edmCountry, 'en').values[0],
@@ -357,7 +353,7 @@
         };
       },
       translatingMetadata() {
-        return !!(this.$features?.translatedItems && this.$route.query.lang && this.$auth.loggedIn);
+        return !!(this.$route.query.lang && this.$auth.loggedIn);
       },
       translationLanguage() {
         return this.translatingMetadata ? this.$route.query.lang : null;
