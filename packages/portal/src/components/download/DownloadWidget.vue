@@ -14,11 +14,12 @@
       :text="$t('actions.download')"
       toggle-class="d-flex align-items-center"
     >
-      <!-- Mimic b-dropdown-item to be able to use DownloadButton as menu items -->
-      <li
+      <!-- Use b-dropdown-text as other b-dropdown sub components add a or button element which cannot have DownloadButton child (nested interactive element) -->
+      <b-dropdown-text
         v-for="wr of downloadableMedia"
         :key="wr.about"
-        role="presentation"
+        tag="span"
+        text-class="p-0"
       >
         <DownloadButton
           :url="wr.about"
@@ -33,7 +34,7 @@
           <span class="icon-ic-download d-inline-flex pr-1" />
           {{ downloadButtonText(wr) }}
         </DownloadButton>
-      </li>
+      </b-dropdown-text>
     </b-dropdown>
     <DownloadButton
       v-else
