@@ -26,10 +26,6 @@ const factory = ({ propsData = {}, mocks = {}, provide = {} } = {}) => shallowMo
     $t: (key) => key,
     $i18n: { locale: 'en' },
     $features: { itemEmbedCode: false, transcribathonCta: true },
-    $auth: {
-      loggedIn: true,
-      userHasClientRole: sinon.stub().returns(false)
-    },
     $store: {
       getters: {
         'entity/isPinned': storeIsPinnedGetter,
@@ -193,46 +189,6 @@ describe('components/item/ItemHero', () => {
         const wrapper = factory({ propsData: { linkForContributingAnnotation: 'https://example.org/123', media, entities } });
 
         expect(wrapper.vm.showTranscribathonLink).toBe(false);
-      });
-    });
-  });
-
-  describe('showPins', () => {
-    describe('when the user is an editor', () => {
-      const userHasClientRole = sinon.stub().returns(false)
-        .withArgs('entities', 'editor').returns(true)
-        .withArgs('usersets', 'editor').returns(true);
-      const mocks = {
-        $auth: {
-          loggedIn: true,
-          userHasClientRole
-        }
-      };
-
-      it('is `true`', () => {
-        const wrapper = factory({ propsData: { media, entities }, mocks });
-
-        const showPins = wrapper.vm.showPins;
-
-        expect(showPins).toBe(true);
-      });
-
-      it('is `false` if no entities', () => {
-        const wrapper = factory({ propsData: { media, entities: [] }, mocks });
-
-        const showPins = wrapper.vm.showPins;
-
-        expect(showPins).toBe(false);
-      });
-    });
-
-    describe('when the user is NOT an editor', () => {
-      it('is `false`', () => {
-        const wrapper = factory({ propsData: { media, entities } });
-
-        const showPins = wrapper.vm.showPins;
-
-        expect(showPins).toBe(false);
       });
     });
   });
