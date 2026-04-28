@@ -3,6 +3,5 @@ export default [
   { name: 'jiraServiceDeskFeedbackForm' },
   { name: 'mockTrendingItems' },
   { name: 'modelViewer' },
-  { name: 'modelViewerReplacesOembed' },
-  { name: 'storiesViewCounts' }
+  { name: 'modelViewerReplacesOembed' }
 ];
