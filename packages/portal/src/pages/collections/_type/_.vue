@@ -15,7 +15,7 @@
         v-if="!$fetchState.pending && !redirecting"
         :route="route"
         :show-content-tier-toggle="false"
-        :show-pins="userIsEntitiesEditor && userIsSetsEditor"
+        :show-pins="true"
         :default-params="searchOverrides"
       >
         <template
@@ -232,9 +232,6 @@
       },
       userIsEntitiesEditor() {
         return this.$auth.userHasClientRole('entities', 'editor');
-      },
-      userIsSetsEditor() {
-        return this.$auth.userHasClientRole('usersets', 'editor');
       },
       route() {
         return {

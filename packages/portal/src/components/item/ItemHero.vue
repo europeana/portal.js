@@ -43,8 +43,7 @@
               <client-only>
                 <UserButtons
                   :identifier="identifier"
-                  :show-pins="showPins"
-                  :entities="entities"
+                  :show-pins="true"
                   button-variant="secondary"
                 />
               </client-only>
@@ -131,11 +130,6 @@
         type: Object,
         default: () => ({})
       },
-      // Entities related to the item, used for pinning.
-      entities: {
-        type: Array,
-        default: () => []
-      },
       providerUrl: {
         type: String,
         default: null
@@ -173,15 +167,6 @@
           return this.edmRights;
         }
         return '';
-      },
-      showPins() {
-        return this.userIsEntitiesEditor && this.userIsSetsEditor && this.entities.length > 0;
-      },
-      userIsEntitiesEditor() {
-        return this.$auth.userHasClientRole('entities', 'editor');
-      },
-      userIsSetsEditor() {
-        return this.$auth.userHasClientRole('usersets', 'editor');
       }
     },
     created() {

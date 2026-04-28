@@ -1,5 +1,8 @@
 <template>
-  <div class="pin-button-wrapper">
+  <div
+    v-if="isPinnable && userMayPin"
+    class="pin-button-wrapper"
+  >
     <b-button
       class="pin-button text-uppercase"
       :class="{ 'button-icon-only': !buttonText }"
@@ -61,6 +64,14 @@
       entityBestItemsSetMixin
     ],
 
+    inject: {
+      itemPinning: {
+        default() {
+          return {};
+        }
+      }
+    },
+
     props: {
       /**
        * Identifier of the item
@@ -68,13 +79,6 @@
       identifier: {
         type: String,
         required: true
-      },
-      /**
-       * Entities related to the item, used on item page.
-       */
-      entities: {
-        type: Array,
-        default: () => []
       },
       /**
        * Button variant to use for styling the buttons
@@ -100,8 +104,23 @@
     },
 
     computed: {
+      entities() {
+        return this.itemPinning.entities || [];
+      },
       entityUris() {
         return this.entities.map((entity) => entity.about);
+      },
+      isPinnable() {
+        return (this.entities.length > 0) || this.entityId || this.setId;
+      },
+      userMayPin() {
+        return this.userIsEntitiesEditor && this.userIsSetsEditor;
+      },
+      userIsEntitiesEditor() {
+        return this.$auth.userHasClientRole('entities', 'editor');
+      },
+      userIsSetsEditor() {
+        return this.$auth.userHasClientRole('usersets', 'editor');
       },
       pinned() {
         return this.$store.getters['entity/isPinned'](this.identifier);
