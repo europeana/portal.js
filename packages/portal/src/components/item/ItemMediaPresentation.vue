@@ -190,8 +190,6 @@
       MediaImageViewerControls: () => import('../media/MediaImageViewerControls.vue')
     },
 
-    inject: ['itemIsDeleted'],
-
     props: {
       uri: {
         type: String,
@@ -211,6 +209,11 @@
       itemId: {
         type: String,
         default: null
+      },
+
+      itemIsDeleted: {
+        type: Boolean,
+        default: false
       },
 
       edmType: {

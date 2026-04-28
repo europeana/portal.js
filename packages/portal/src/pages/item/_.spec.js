@@ -133,8 +133,8 @@ const fixtures = {
     }
   ],
   auth: {
-    loggedIn: { $auth: { loggedIn: true } },
-    notLoggedIn: { $auth: { loggedIn: false } }
+    loggedIn: { $auth: { loggedIn: true, userHasClientRole: sinon.stub().returns(false) } },
+    notLoggedIn: { $auth: { loggedIn: false, userHasClientRole: sinon.stub().returns(false) } }
   },
   route: {
     standard: {
@@ -214,7 +214,10 @@ const factory = ({ data = {}, mocks = {} } = {}) => shallowMountNuxt(page, {
       app: {},
       matomo: {}
     },
-    $features: { translatedItems: true },
+    $features: {
+      transcribathonCta: true,
+      translatedItems: true
+    },
     $t: (key) => key,
     $i18n: {
       locale: 'en'
@@ -227,6 +230,7 @@ const factory = ({ data = {}, mocks = {} } = {}) => shallowMountNuxt(page, {
         find: entityFindStub
       },
       record: {
+        mediaProxyUrl: (val) => `proxied - ${val}`,
         get: sinon.stub().resolves(apiResponse()),
         search: sinon.spy()
       },
@@ -256,7 +260,11 @@ const factory = ({ data = {}, mocks = {} } = {}) => shallowMountNuxt(page, {
     'ErrorMessage',
     'i18n',
     'ItemLanguageSelector',
-    'ItemSummaryInfo'
+    'ItemMediaPresentation',
+    'ItemSummaryInfo',
+    'ItemTranscribeButton',
+    'NotificationBanner',
+    'UserButtons'
   ]
 });
 
@@ -801,6 +809,26 @@ describe('pages/item/_.vue', () => {
   });
 
   describe('methods', () => {
+    describe('selectMedia', () => {
+      it('updates the selectedMedia with all available data', () => {
+        const media = [
+          {
+            about: 'https://example.org/image.jpeg',
+            ebucoreHasMimeType: 'image/jpeg'
+          },
+          {
+            about: 'https://example.org/image.png',
+            ebucoreHasMimeType: 'image/png'
+          }
+        ];
+        const wrapper = factory({ data: { media } });
+
+        wrapper.vm.selectMedia(media[1]);
+
+        expect(wrapper.vm.selectedMedia.ebucoreHasMimeType).toBe(media[1].ebucoreHasMimeType);
+      });
+    });
+
     describe('trackCustomDimensions', () => {
       it('tracks page view if Matomo plugin installed', async() => {
         const wrapper = factory();
@@ -981,6 +1009,68 @@ describe('pages/item/_.vue', () => {
   });
 
   describe('computed', () => {
+    describe('showPins', () => {
+      describe('when the user is an editor', () => {
+        const userHasClientRole = sinon.stub().returns(false)
+          .withArgs('entities', 'editor').returns(true)
+          .withArgs('usersets', 'editor').returns(true);
+        const mocks = {
+          $auth: {
+            loggedIn: true,
+            userHasClientRole
+          }
+        };
+  
+        describe('and there are Europeana entities', () => {
+          const data = {
+            entities: [
+              { about: 'http://data.europeana.eu/concept/123' }
+            ]
+          };
+
+          it('is `true`', () => {
+            const wrapper = factory({ data, mocks });
+
+            const showPins = wrapper.find('userbuttons-stub').attributes('show-pins');
+
+            expect(showPins).toBe('true');
+          });
+        });
+
+        describe('but there are no Europeana entities', () => {
+          const data = {
+            entities: []
+          };
+
+          it('is `false` if no entities', () => {
+            const wrapper = factory({ data, mocks });
+    
+            const showPins = wrapper.find('userbuttons-stub').attributes('show-pins');
+    
+            expect(showPins).toBe('false');
+          });
+        });
+      });
+  
+      describe('when the user is NOT an editor', () => {
+        const userHasClientRole = sinon.stub().returns(false);
+        const mocks = {
+          $auth: {
+            loggedIn: true,
+            userHasClientRole
+          }
+        };
+
+        it('is `false`', () => {
+          const wrapper = factory({ mocks });
+  
+          const showPins = wrapper.find('userbuttons-stub').attributes('show-pins');
+  
+          expect(showPins).toBe('false');
+        });
+      });
+    });
+
     describe('pageMeta', () => {
       it('uses the title in current language', async() => {
         const wrapper = factory();

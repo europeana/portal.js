@@ -2,62 +2,11 @@ import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 
 import WebResource from '@/plugins/europeana/edm/WebResource.js';
-import ItemHero from '@/components/item/ItemHero.vue';
 import sinon from 'sinon';
 import nock from 'nock';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
-
-const storeDispatch = sinon.spy();
-const storeIsPinnedGetter = sinon.stub();
-
-const factory = ({ propsData = {}, mocks = {}, provide = {} } = {}) => shallowMount(ItemHero, {
-  localVue,
-  propsData: {
-    identifier: '/001/abc',
-    ...propsData
-  },
-  provide: {
-    itemIsDeleted: false,
-    ...provide
-  },
-  mocks: {
-    $t: (key) => key,
-    $i18n: { locale: 'en' },
-    $features: { itemEmbedCode: false, transcribathonCta: true },
-    $auth: {
-      loggedIn: true,
-      userHasClientRole: sinon.stub().returns(false)
-    },
-    $store: {
-      getters: {
-        'entity/isPinned': storeIsPinnedGetter,
-        'entity/id': 'id123'
-      },
-      dispatch: storeDispatch
-    },
-    $apis: {
-      record: {
-        mediaProxyUrl: (val) => `proxied - ${val}`
-      }
-    },
-    $config: {
-      europeana: {
-        proxy: {
-          media: {
-            url: 'https://proxy.europeana.eu'
-          }
-        }
-      }
-    },
-    $nuxt: {
-      context: {}
-    },
-    ...mocks
-  },
-  stubs: ['ItemMediaPresentation', 'NotificationBanner', 'UserButtons']
-});
 
 const media = [
   new WebResource({
@@ -102,22 +51,6 @@ const media = [
 const entities = [{ about: 'http://data.europeana.eu/agent/123', prefLabel: { 'en': ['CARARE'] } }];
 
 describe('components/item/ItemHero', () => {
-  describe('selectMedia', () => {
-    describe('when a new item is selected', () => {
-      it('updates the identifier', () => {
-        const wrapper = factory({ propsData: { media } });
-        wrapper.vm.selectMedia(media[1]);
-        expect(wrapper.vm.selectedMedia.about).toBe(media[1].about);
-      });
-
-      it('updates the rights statement', () => {
-        const wrapper = factory({ propsData: { media } });
-        wrapper.vm.selectMedia(media[1]);
-        expect(wrapper.vm.selectedMedia.webResourceEdmRights.def[0]).toBe(media[1].webResourceEdmRights.def[0]);
-      });
-    });
-  });
-
   describe('downloadEnabled', () => {
     describe('when the rightsstatement is in copyright', () => {
       it('is false', () => {
@@ -179,63 +112,7 @@ describe('components/item/ItemHero', () => {
     });
   });
 
-  describe('showTranscribathonLink', () => {
-    describe('when the linkForContributingAnnotation goes to a transcribathon URL', () => {
-      it('is true', async() => {
-        const wrapper = factory({ propsData: { linkForContributingAnnotation: 'https://europeana.transcribathon.eu/documents/story/?story=123', media, entities } });
-
-        expect(wrapper.vm.showTranscribathonLink).toBe(true);
-      });
-    });
-
-    describe('when the linkForContributingAnnotation goes to a NON transcribathon URL', () => {
-      it('is true', async() => {
-        const wrapper = factory({ propsData: { linkForContributingAnnotation: 'https://example.org/123', media, entities } });
-
-        expect(wrapper.vm.showTranscribathonLink).toBe(false);
-      });
-    });
-  });
-
-  describe('showPins', () => {
-    describe('when the user is an editor', () => {
-      const userHasClientRole = sinon.stub().returns(false)
-        .withArgs('entities', 'editor').returns(true)
-        .withArgs('usersets', 'editor').returns(true);
-      const mocks = {
-        $auth: {
-          loggedIn: true,
-          userHasClientRole
-        }
-      };
-
-      it('is `true`', () => {
-        const wrapper = factory({ propsData: { media, entities }, mocks });
-
-        const showPins = wrapper.vm.showPins;
-
-        expect(showPins).toBe(true);
-      });
-
-      it('is `false` if no entities', () => {
-        const wrapper = factory({ propsData: { media, entities: [] }, mocks });
-
-        const showPins = wrapper.vm.showPins;
-
-        expect(showPins).toBe(false);
-      });
-    });
-
-    describe('when the user is NOT an editor', () => {
-      it('is `false`', () => {
-        const wrapper = factory({ propsData: { media, entities } });
-
-        const showPins = wrapper.vm.showPins;
-
-        expect(showPins).toBe(false);
-      });
-    });
-  });
+  
 
   describe('fetchEmbedCode', () => {
     const OEMBED_BASE_URL = 'https://oembed.europeana.eu';
