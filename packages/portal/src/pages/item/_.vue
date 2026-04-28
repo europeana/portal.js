@@ -20,12 +20,11 @@
         class="mb-3 px-0"
       >
         <ItemHero
-          :all-media-uris="allMediaUris"
           :identifier="identifier"
           :media="webResources"
           :services="services"
-          :edm-rights="edmRights"
           :edm-type="type"
+          :edm-rights="edmRights"
           :attribution-fields="attributionFields"
           :link-for-contributing-annotation="linkForContributingAnnotation"
           :entities="europeanaEntities"
@@ -174,6 +173,7 @@
         // in descendent components because the latter approach would not hydrate
         // the shared state of those refs after SSR, but provide/inject does
         deBias: computed(() => this.deBias),
+        isProxyable: this.isProxyable,
         itemIsDeleted: computed(() => this.isDeleted),
         itemLanguage: computed(() => this.metadata.edmLanguage?.def?.[0]),
         metadataLanguage: this.metadataLanguage,
@@ -213,7 +213,6 @@
     data() {
       return {
         MAX_VALUES_PER_METADATA_FIELD: 10,
-        allMediaUris: [],
         annotations: [],
         cardGridClass: null,
         dataProviderEntity: null,
@@ -229,6 +228,7 @@
         media: [],
         metadata: {},
         ogImage: null,
+        proxyableMedia: [],
         relatedCollections: [],
         services: [],
         type: null,
@@ -256,7 +256,14 @@
         if (this.isDeleted) {
           return [new WebResource({ about: this.metadata.edmIsShownBy || this.metadata.edmObject }, this.identifier)];
         } else {
-          return this.media.map((item) => item instanceof WebResource ? item : new WebResource(item, this.identifier));
+          return this.media.map((item) => {
+            // TODO: include item-level edm:rights?
+            const wr = item instanceof WebResource ? item : new WebResource(item);
+            if (wr.dctermsIsFormatOf?.def) {
+              wr.dctermsIsFormatOf.def = wr.dctermsIsFormatOf.def.map((ifo) => ifo instanceof WebResource ? ifo : new WebResource(ifo));
+            }
+            return wr;
+          });
         }
       },
       pageMeta() {
@@ -386,6 +393,10 @@
     },
 
     methods: {
+      isProxyable(url) {
+        return this.proxyableMedia.includes(url);
+      },
+
       trackCustomDimensions() {
         waitFor(() => this.$matomo, this.$config.matomo.loadWait)
           .then(() => this.$matomo.trackPageView('item page custom dimensions', this.matomoOptions))
@@ -438,12 +449,8 @@
           displayableWebResources = displayableWebResources.map((wr) => {
             if (wr.isOEmbed) {
               const gltfWebResource = (wr.dctermsIsFormatOf?.def || [])
-                .map((dctermsIsFormatOfUri) => item.providerAggregation.findWebResource(dctermsIsFormatOfUri))
-                .filter(Boolean)
                 .find((dctermsIsFormatOfWebResource) => dctermsIsFormatOfWebResource.isDisplayable3DModel);
               if (gltfWebResource) {
-                // TODO: assign it a dctermsIsFormatOf value gathering the original oEmbed WR and any of its other
-                //       formats
                 return gltfWebResource;
               }
             }
@@ -451,15 +458,17 @@
             return wr;
           });
         }
+        this.media = displayableWebResources;
 
         // TODO: ideally, wouldn't store these as can be a large list if many WRs,
-        //       but relied on by ItemHero to know whether to proxy download urls or not.
+        //       but relied on by descendent components to know whether to proxy media or not.
         //       could we deduce that from whether iiif is in use or not, and if
         //       so, whether a europeana manifest?
         //       - not iiif: proxy
         //       - iiif, europeana: proxy
         //       - iiif, institution: don't proxy
-        this.allMediaUris = displayableWebResources.map((wr) => wr.about);
+        this.proxyableMedia = item.providerAggregation.webResources.map((wr) => wr.about)
+          .filter((wr) => wr.ebucoreMimeType !== 'application/dash+xml');
         this.iiifPresentationManifest = item.iiifPresentationManifest;
         this.isShownAt = item.providerAggregation.edmIsShownAt;
 
@@ -482,15 +491,6 @@
         this.entities = this.extractEntities(edm);
 
         this.metadata = this.extractMetadata(edm);
-
-        this.media = displayableWebResources.map((wr) => {
-          // don't keep WR-level rights statement if same as item-level
-          if (wr.webResourceEdmRights?.def?.[0] === this.metadata.edmRights.def[0]) {
-            delete wr.webResourceEdmRights;
-          }
-
-          return wr;
-        });
 
         this.services = item.services;
 

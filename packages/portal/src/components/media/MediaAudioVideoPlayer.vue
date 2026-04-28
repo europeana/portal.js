@@ -57,6 +57,12 @@
       MediaCardImage
     },
 
+    inject: {
+      isProxyable: {
+        default: null
+      }
+    },
+
     props: {
       resource: {
         type: EuropeanaMediaResource,
@@ -142,8 +148,7 @@
       } else {
         this.mediaFormat = this.format;
         this.mediaUrl = this.url;
-        // Use media-proxy when used for a europeana record, except for manifest-based media such as DASH videos
-        if (this.itemId && (this.mediaFormat !== 'application/dash+xml')) {
+        if (this.isProxyable?.(this.url)) {
           this.mediaUrl = this.$apis.record.mediaProxyUrl(this.url, this.itemId);
         }
       }

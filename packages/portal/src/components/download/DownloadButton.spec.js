@@ -9,13 +9,20 @@ localVue.use(BootstrapVue);
 
 const canonicalUrl = 'https://www.europeana.eu/item/123/abc';
 
-const factory = ({ propsData = {}, data = {}, mocks = {} } = {}) => {
+const mediaProxyUrl = (url) => `${url}/proxied`;
+
+const factory = ({ propsData = {}, data = {}, mocks = {}, provide = {} } = {}) => {
   const wrapper = shallowMount(DownloadButton, {
     localVue,
     propsData,
     data: () => ({ ...data }),
     mocks: {
-      $apis: { mediaProxy: { baseURL: 'https://proxy.europeana.eu' } },
+      $apis: {
+        mediaProxy: { baseURL: 'https://proxy.europeana.eu' },
+        record: {
+          mediaProxyUrl
+        }
+      },
       $apm: { captureError: sinon.spy() },
       $features: {},
       $matomo: { trackEvent: sinon.spy(), trackLink: sinon.spy() },
@@ -25,7 +32,8 @@ const factory = ({ propsData = {}, data = {}, mocks = {} } = {}) => {
     provide: {
       canonicalUrl: {
         withNeitherLocaleNorQuery: canonicalUrl
-      }
+      },
+      ...provide
     }
   });
   wrapper.vm.$refs.downloadButton.$el = { click: sinon.spy() };
@@ -44,16 +52,20 @@ describe('components/download/DownloadButton', () => {
 
   afterAll(() => {
     nock.enableNetConnect();
+    sinon.resetBehavior();
   });
 
   const urlOrigin = 'https://example.org';
   const urlPath = '/image.jpeg';
+  const url = `${urlOrigin}${urlPath}`;
+  const proxiedUrl = mediaProxyUrl(url);
+
   const propsData = {
-    url: `${urlOrigin}${urlPath}`,
+    url,
     identifier: '/123/abc'
   };
 
-  const nockRequest = () => nock(urlOrigin).head(urlPath);
+  const nockRequest = () => nock(urlOrigin).head(`${urlPath}`);
 
   describe('template', () => {
     describe('download button', () => {
@@ -63,7 +75,20 @@ describe('components/download/DownloadButton', () => {
         const button = wrapper.find('[data-qa="download button"]');
 
         expect(button.exists()).toBe(true);
-        expect(button.attributes('href')).toBe(propsData.url);
+        expect(button.attributes('href')).toBe(url);
+      });
+
+      describe('when item is proxyable', () => {
+        const provide = { isProxyable: () => true };
+
+        it('exists, for proxied URL', () => {
+          const wrapper = factory({ propsData, provide });
+
+          const button = wrapper.find('[data-qa="download button"]');
+
+          expect(button.exists()).toBe(true);
+          expect(button.attributes('href')).toBe(proxiedUrl);
+        });
       });
 
       describe('while validating URL', () => {
@@ -197,7 +222,7 @@ describe('components/download/DownloadButton', () => {
           await wrapper.vm.handleClickDownloadButton(event);
 
           expect(wrapper.vm.$matomo.trackEvent.calledWith(
-            'Item_download', 'Click download button', propsData.url
+            'Item_download', 'Click download button', url
           )).toBe(true);
         });
 
@@ -295,7 +320,7 @@ describe('components/download/DownloadButton', () => {
               name: 'DownloadValidationNetworkError',
               message,
               item: propsData.identifier,
-              url: propsData.url
+              url
             })).toBe(true);
           });
         });
@@ -315,13 +340,14 @@ describe('components/download/DownloadButton', () => {
             const wrapper = factory({ propsData });
 
             await wrapper.vm.handleClickDownloadButton(event);
-
+            console.log('downloadUrl', wrapper.vm.downloadUrl, url);
+            console.log(wrapper.vm.$apm.captureError.getCalls()[0].args);
             expect(wrapper.vm.$apm.captureError.calledWith({
               name: 'DownloadError',
               message: 'Request failed with status code 400',
               status: 400,
               item: '/123/abc',
-              url: 'https://example.org/image.jpeg'
+              url
             })).toBe(true);
           });
 
@@ -344,7 +370,7 @@ describe('components/download/DownloadButton', () => {
           wrapper.vm.trackDownload();
 
           expect(wrapper.vm.$matomo.trackLink.calledWith(canonicalUrl, 'download')).toBe(true);
-          expect(wrapper.vm.$matomo.trackEvent.calledWith('Item_download', 'Click download button', wrapper.vm.url)).toBe(true);
+          expect(wrapper.vm.$matomo.trackEvent.calledWith('Item_download', 'Click download button', url)).toBe(true);
           expect(wrapper.vm.clicked).toBe(true);
         });
       });
@@ -357,7 +383,7 @@ describe('components/download/DownloadButton', () => {
           wrapper.vm.trackDownload();
 
           expect(wrapper.vm.$matomo.trackLink.calledWith(canonicalUrl, 'download')).toBe(true);
-          expect(wrapper.vm.$matomo.trackEvent.calledWith('Item_download', 'Click download button', wrapper.vm.url)).toBe(false);
+          expect(wrapper.vm.$matomo.trackEvent.calledWith('Item_download', 'Click download button', url)).toBe(false);
           expect(wrapper.vm.clicked).toBe(true);
         });
       });

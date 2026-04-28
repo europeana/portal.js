@@ -8,7 +8,7 @@
     v-if="interacted"
     :key="`model-viewer-${url}`"
     alt=""
-    :src="url"
+    :src="mediaUrl"
     :poster="poster"
     shadow-intensity="1"
     camera-controls
@@ -43,12 +43,24 @@
       LoadingSpinner
     },
 
+    inject: {
+      isProxyable: {
+        default: null
+      }
+    },
+
     props: {
+      itemId: {
+        type: String,
+        default: null
+      },
+
       poster: {
         type: String,
         default: null
       },
 
+      // TODO: this should be using the media proxy
       url: {
         type: String,
         required: true
@@ -68,6 +80,12 @@
           { src: 'https://cdn.jsdelivr.net/npm/@google/model-viewer@4.2.0/dist/model-viewer.min.js', type: 'module' }
         ]
       };
+    },
+
+    computed: {
+      mediaUrl() {
+        return this.isProxyable?.(this.url) ? this.$apis.record.mediaProxyUrl(this.url, this.itemId) : this.url;
+      }
     },
 
     watch: {

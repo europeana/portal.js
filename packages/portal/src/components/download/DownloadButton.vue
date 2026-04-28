@@ -1,16 +1,19 @@
 <template>
   <b-button
     ref="downloadButton"
-    :href="url"
+    :href="downloadUrl"
     :disabled="validating"
     data-qa="download button"
-    class="ml-2 d-inline-flex align-items-center download-button h-100 matomo_ignore"
+    class="d-inline-flex align-items-center download-button h-100 matomo_ignore"
     :target="target"
-    variant="primary"
+    :variant="variant"
+    :role="role"
     @click.native="handleClickDownloadButton"
   >
-    <span class="icon-ic-download d-inline-flex pr-1" />
-    {{ $t('actions.download') }}
+    <slot>
+      <span class="icon-ic-download d-inline-flex pr-1" />
+      {{ $t('actions.download') }}
+    </slot>
     <LoadingSpinner
       v-show="validating"
       tag="span"
@@ -30,7 +33,12 @@
     components: {
       LoadingSpinner
     },
-    inject: ['canonicalUrl'],
+    inject: {
+      canonicalUrl: {},
+      isProxyable: {
+        default: null
+      }
+    },
     props: {
       url: {
         type: String,
@@ -43,6 +51,14 @@
       disabled: {
         type: Boolean,
         default: false
+      },
+      variant: {
+        type: String,
+        default: 'primary'
+      },
+      role: {
+        type: String,
+        default: null
       }
     },
     setup() {
@@ -58,12 +74,18 @@
       };
     },
     computed: {
+      proxied() {
+        return this.isProxyable?.(this.url) || false;
+      },
+      downloadUrl() {
+        return this.proxied ? this.$apis.record.mediaProxyUrl(this.url, this.identifier) : this.url;
+      },
       isDownloadValidationRequired() {
         return !this.urlValidated && !this.validationNetworkError;
       },
       target() {
         let target = null;
-        if (this.validationNetworkError || !this.url.startsWith(this.$apis.mediaProxy.baseURL)) {
+        if (this.validationNetworkError || !this.downloadUrl.startsWith(this.$apis.mediaProxy.baseURL)) {
           target = '_blank';
         }
         return target;
@@ -97,7 +119,7 @@
 
         try {
           // Validate the URL with a HEAD request
-          await axios({ method: 'head', url: this.url, timeout: 15000 });
+          await axios({ method: 'head', url: this.downloadUrl, timeout: 15000 });
           this.urlValidated = true;
         } catch (error) {
           // These will typically be CORS errors preventing validation. Skip
@@ -120,7 +142,7 @@
           name: 'DownloadValidationNetworkError',
           message: error.message,
           item: this.identifier,
-          url: this.url
+          url: this.downloadUrl
         });
       },
       captureDownloadError(error) {
@@ -129,7 +151,7 @@
           message: error.message,
           status: error.response?.status,
           item: this.identifier,
-          url: this.url
+          url: this.downloadUrl
         });
       },
       trackDownload() {
@@ -138,7 +160,7 @@
           if (this.$matomo) {
             this.$matomo.trackLink(this.canonicalUrl.withNeitherLocaleNorQuery, 'download');
             if (!this.clicked) {
-              this.$matomo.trackEvent('Item_download', 'Click download button', this.url);
+              this.$matomo.trackEvent('Item_download', 'Click download button', this.downloadUrl);
               this.clicked = true;
             }
           }

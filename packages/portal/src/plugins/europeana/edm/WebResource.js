@@ -59,6 +59,12 @@ export default class WebResource extends Base {
   constructor(data) {
     super(data);
 
+    // rename awkwardly named API field
+    if (this.webResourceEdmRights) {
+      this.edmRights = this.webResourceEdmRights;
+      delete this.webResourceEdmRights;
+    }
+
     // delete large unused fields
     delete this.htmlAttributionSnippet;
     delete this.textAttributionSnippet;
@@ -191,6 +197,21 @@ export default class WebResource extends Base {
       this.isHTMLVideo ||
       this.isHTMLAudio ||
       this.isPlayableMedia;
+  }
+
+  get rightsStatement() {
+    return this.edmRights?.def?.[0];
+  }
+
+  get rightsStatementPermitsDownload() {
+    return !!this.rightsStatement && !this.rightsStatement.includes('/InC/');
+  }
+
+  get isDownloadable() {
+    return this.rightsStatementPermitsDownload &&
+      !!this.ebucoreHasMimeType &&
+      !this.forEdmIsShownAt &&
+      !this.isOEmbed;
   }
 
   get isIIIFPresentationManifest() {

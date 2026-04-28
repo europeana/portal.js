@@ -50,11 +50,9 @@
               </client-only>
               <ShareButton />
               <DownloadWidget
-                v-if="downloadEnabled"
-                :url="downloadUrl"
+                :media="selectedMedia"
                 :provider-url="providerUrl"
                 :identifier="identifier"
-                :rights-statement="rightsStatement"
                 :attribution-fields="attributionFields"
               />
             </div>
@@ -106,12 +104,9 @@
 
     inject: ['itemIsDeleted'],
 
-    // TODO: much prop drilling happening here
+    // TODO: much prop drilling happening here; alleviate by
+    //       moving rendering of non-"hero" child components out of here and into slot(s)
     props: {
-      allMediaUris: {
-        type: Array,
-        default: () => []
-      },
       identifier: {
         type: String,
         required: true
@@ -162,23 +157,11 @@
       };
     },
     computed: {
-      downloadEnabled() {
-        return this.rightsStatement && !this.rightsStatement.includes('/InC/') && !this.selectedMedia?.forEdmIsShownAt && !this.selectedMedia?.isOEmbed && !!this.downloadUrl;
-      },
-      downloadUrl() {
-        const url = this.selectedMedia?.about;
-        return this.downloadViaProxy(url) ? this.$apis.record.mediaProxyUrl(url, this.identifier) : url;
-      },
       rightsStatementIsUrl() {
-        return /^https?:\/\//.test(this.rightsStatement);
+        return /^https?:\/\//.test(this.rightsStatement || '');
       },
       rightsStatement() {
-        if (this.selectedMedia?.webResourceEdmRights) {
-          return this.selectedMedia?.webResourceEdmRights.def[0];
-        } else if (this.edmRights !== '') {
-          return this.edmRights;
-        }
-        return '';
+        return this.selectedMedia.edmRights?.def?.[0];
       },
       showPins() {
         return this.userIsEntitiesEditor && this.userIsSetsEditor && this.entities.length > 0;
@@ -194,15 +177,10 @@
       this.selectMedia(this.media?.[0]);
     },
     methods: {
-      // Ensure we only proxy web resource media, preventing proxying of
-      // arbitrary other resources such as images linked from (non-Europeana-hosted)
-      // IIIF manifests.
-      downloadViaProxy(url) {
-        return this.allMediaUris.some(uri => uri === url);
-      },
       selectMedia(resource) {
         if (resource) {
           this.selectedMedia = new WebResource({
+            edmRights: { def: [this.edmRights] },
             // media prop may contain some metadata not available from iiif-derived
             // resource emitted from ItemMediaPresentation, e.g. rights statement
             ...this.media.find((wr) => wr.about === resource.about),

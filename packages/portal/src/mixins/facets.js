@@ -72,6 +72,7 @@ export default {
         return this.tNull(key) || fieldLabel;
       };
 
+      // TODO: use extension from mime-types instead?
       const mediaTypeLabel = () => {
         const translated = genericLabel();
         if (translated !== fieldValue) {
