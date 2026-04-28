@@ -10,6 +10,5 @@ export default [
   { name: 'multilingualSearchButton' },
   { name: 'rejectEntityRecommendations' },
   { name: 'showSetRecommendations' },
-  { name: 'storiesViewCounts' },
-  { name: 'transcribathonCta' }
+  { name: 'storiesViewCounts' }
 ];
