@@ -7,6 +7,5 @@ export default [
   { name: 'modelViewer' },
   { name: 'modelViewerReplacesOembed' },
   { name: 'rejectEntityRecommendations' },
-  { name: 'showSetRecommendations' },
-  { name: 'storiesViewCounts' }
+  { name: 'showSetRecommendations' }
 ];
