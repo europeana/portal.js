@@ -62,7 +62,7 @@
 
 <script>
   import { filesize } from 'filesize';
-  import { extension as mediaTypeFileExtension } from 'mime-types';
+  import { mediaTypeLabel } from '@/utils/media/mediaTypeLabel.js';
   import DownloadButton from './DownloadButton';
   import DownloadFailedModal from './DownloadFailedModal';
   import DownloadSuccessModal from './DownloadSuccessModal';
@@ -109,7 +109,7 @@
     },
     methods: {
       downloadButtonText(wr) {
-        let text = mediaTypeFileExtension(wr.ebucoreHasMimeType);
+        let text = mediaTypeLabel(wr.ebucoreHasMimeType);
         if (wr.ebucoreFileByteSize) {
           text = `${text} (${filesize(wr.ebucoreFileByteSize)})`;
         }
