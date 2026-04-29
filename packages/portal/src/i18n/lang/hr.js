@@ -821,7 +821,7 @@ export default {
       "dcType": "Vrsta medija",
       "ebucoreAudioChannelNumber": "Audio kanali",
       "ebucoreBitRate": "Brzina prijenosa (bps)",
-      "ebucoreDuration": "Trajanje (ms)",
+      "ebucoreDuration": "Trajanje",
       "ebucoreFileByteSize": "Veličina datoteke (bajtovi)",
       "ebucoreFrameRate": "Broj sličica u sekundi (fps)",
       "ebucoreHasMimeType": "MIME tip",

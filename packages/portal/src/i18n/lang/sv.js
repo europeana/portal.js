@@ -821,7 +821,7 @@ export default {
       "dcType": "Typ av media",
       "ebucoreAudioChannelNumber": "Ljudkanaler",
       "ebucoreBitRate": "Bithastighet (bps)",
-      "ebucoreDuration": "Varaktighet (ms)",
+      "ebucoreDuration": "Varaktighet",
       "ebucoreFileByteSize": "Filstorlek (byte)",
       "ebucoreFrameRate": "Bildfrekvens (fps)",
       "ebucoreHasMimeType": "MIME-typ",

@@ -821,7 +821,7 @@ export default {
       "dcType": "Cineál meáin",
       "ebucoreAudioChannelNumber": "Cainéil fuaime",
       "ebucoreBitRate": "Ráta giotán (bps)",
-      "ebucoreDuration": "Fad (ms)",
+      "ebucoreDuration": "Fad",
       "ebucoreFileByteSize": "Méid comhaid (bearta)",
       "ebucoreFrameRate": "Ráta frámaí (fps)",
       "ebucoreHasMimeType": "Cineál MIME",

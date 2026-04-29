@@ -821,7 +821,7 @@ export default {
       "dcType": "Tipo de medio",
       "ebucoreAudioChannelNumber": "Canales de audio",
       "ebucoreBitRate": "Tasa de bits (bps)",
-      "ebucoreDuration": "Duración (ms)",
+      "ebucoreDuration": "Duración",
       "ebucoreFileByteSize": "Tamaño del archivo (bytes)",
       "ebucoreFrameRate": "Velocidad de fotogramas (fps)",
       "ebucoreHasMimeType": "Tipo MIME",

@@ -821,7 +821,7 @@ export default {
       "dcType": "Tip ta' midja",
       "ebucoreAudioChannelNumber": "Kanali tal-awdjo",
       "ebucoreBitRate": "Rata tal-bits (bps)",
-      "ebucoreDuration": "Tul (ms)",
+      "ebucoreDuration": "Kemm iddum",
       "ebucoreFileByteSize": "Daqs tal-fajl (bytes)",
       "ebucoreFrameRate": "Rata tal-frejms (fps)",
       "ebucoreHasMimeType": "Tip ta' MIME",
