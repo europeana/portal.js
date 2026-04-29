@@ -821,7 +821,7 @@ export default {
       "dcType": "Вид медия",
       "ebucoreAudioChannelNumber": "Аудио канали",
       "ebucoreBitRate": "Битрейт (bps)",
-      "ebucoreDuration": "Продължителност (ms)",
+      "ebucoreDuration": "Продължителност",
       "ebucoreFileByteSize": "Размер на файла (байтове)",
       "ebucoreFrameRate": "Честота на кадрите (fps)",
       "ebucoreHasMimeType": "MIME тип",

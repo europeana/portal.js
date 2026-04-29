@@ -821,7 +821,7 @@ export default {
       "dcType": "Mediatyyppi",
       "ebucoreAudioChannelNumber": "Äänikanavat",
       "ebucoreBitRate": "Bittinopeus (bps)",
-      "ebucoreDuration": "Kesto (ms)",
+      "ebucoreDuration": "Kesto",
       "ebucoreFileByteSize": "Tiedostokoko (tavua)",
       "ebucoreFrameRate": "Kuvataajuus (fps)",
       "ebucoreHasMimeType": "MIME-tyyppi",

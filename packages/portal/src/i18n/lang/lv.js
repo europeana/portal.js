@@ -821,7 +821,7 @@ export default {
       "dcType": "Mediju veids",
       "ebucoreAudioChannelNumber": "Audio kanāli",
       "ebucoreBitRate": "Bitu pārraides ātrums (bps)",
-      "ebucoreDuration": "Ilgums (ms)",
+      "ebucoreDuration": "Ilgums",
       "ebucoreFileByteSize": "Faila izmērs (baiti)",
       "ebucoreFrameRate": "Kadru nomaiņas ātrums (fps)",
       "ebucoreHasMimeType": "MIME tips",

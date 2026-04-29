@@ -821,7 +821,7 @@ export default {
       "dcType": "Typ média",
       "ebucoreAudioChannelNumber": "Zvukové kanály",
       "ebucoreBitRate": "Datový tok (bps)",
-      "ebucoreDuration": "Trvání (ms)",
+      "ebucoreDuration": "Doba trvání",
       "ebucoreFileByteSize": "Velikost souboru (bajty)",
       "ebucoreFrameRate": "Snímková frekvence (fps)",
       "ebucoreHasMimeType": "Typ MIME",

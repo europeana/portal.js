@@ -821,7 +821,7 @@ export default {
       "dcType": "Euskarri mota",
       "ebucoreAudioChannelNumber": "Audio kanalak",
       "ebucoreBitRate": "Bit-tasa (bps)",
-      "ebucoreDuration": "Iraupena (ms)",
+      "ebucoreDuration": "Iraupena",
       "ebucoreFileByteSize": "Fitxategi-tamaina (byteak)",
       "ebucoreFrameRate": "Fotograma-tasa (fps)",
       "ebucoreHasMimeType": "MIME mota",

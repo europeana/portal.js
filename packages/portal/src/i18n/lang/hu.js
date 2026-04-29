@@ -821,7 +821,7 @@ export default {
       "dcType": "Médiatípus",
       "ebucoreAudioChannelNumber": "Hangcsatornák",
       "ebucoreBitRate": "Bitráta (bps)",
-      "ebucoreDuration": "Időtartam (ms)",
+      "ebucoreDuration": "Időtartam",
       "ebucoreFileByteSize": "Fájlméret (bájt)",
       "ebucoreFrameRate": "Képkockasebesség (fps)",
       "ebucoreHasMimeType": "MIME-típus",

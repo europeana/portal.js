@@ -821,7 +821,7 @@ export default {
       "dcType": "Τύπος μέσου",
       "ebucoreAudioChannelNumber": "Κανάλια ήχου",
       "ebucoreBitRate": "Ρυθμός μετάδοσης bit (bps)",
-      "ebucoreDuration": "Διάρκεια (ms)",
+      "ebucoreDuration": "Διάρκεια",
       "ebucoreFileByteSize": "Μέγεθος αρχείου (bytes)",
       "ebucoreFrameRate": "Ρυθμός καρέ (fps)",
       "ebucoreHasMimeType": "Τύπος MIME",

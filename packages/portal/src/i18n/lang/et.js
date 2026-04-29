@@ -821,7 +821,7 @@ export default {
       "dcType": "Meedia tüüp",
       "ebucoreAudioChannelNumber": "Helikanalid",
       "ebucoreBitRate": "Bitikiirus (bps)",
-      "ebucoreDuration": "Kestus (ms)",
+      "ebucoreDuration": "Kestus",
       "ebucoreFileByteSize": "Faili suurus (baidid)",
       "ebucoreFrameRate": "Kaadrisagedus (fps)",
       "ebucoreHasMimeType": "MIME tüüp",
