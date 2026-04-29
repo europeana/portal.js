@@ -9,10 +9,11 @@
       v-if="downloadableMedia.length > 1"
       data-qa="download dropdown"
       class="ml-2 d-inline-flex align-items-center download-button h-100 matomo_ignore"
+      boundary="window"
       menu-class="p-0 overflow-hidden"
-      variant="primary"
       :text="$t('actions.download')"
       toggle-class="d-flex align-items-center"
+      variant="primary"
     >
       <!-- Use b-dropdown-text as other b-dropdown sub components add a or button element which cannot have DownloadButton child (nested interactive element) -->
       <b-dropdown-text
@@ -126,7 +127,7 @@
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
 
-  .dropdown-toggle:after {
+  ::v-deep .dropdown-toggle:after {
     margin-left: 0.25rem;
   }
 
