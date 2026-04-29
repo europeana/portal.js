@@ -79,6 +79,7 @@
             <Media3DViewer
               v-else-if="$features.modelViewer && resource?.edm?.isDisplayable3DModel"
               :url="resource.id || resource.edm?.about"
+              :item-id="itemId"
               :poster="thumbnailForPoster"
             />
             <EmbedGateway
