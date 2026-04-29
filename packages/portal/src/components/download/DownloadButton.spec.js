@@ -340,8 +340,7 @@ describe('components/download/DownloadButton', () => {
             const wrapper = factory({ propsData });
 
             await wrapper.vm.handleClickDownloadButton(event);
-            console.log('downloadUrl', wrapper.vm.downloadUrl, url);
-            console.log(wrapper.vm.$apm.captureError.getCalls()[0].args);
+
             expect(wrapper.vm.$apm.captureError.calledWith({
               name: 'DownloadError',
               message: 'Request failed with status code 400',
