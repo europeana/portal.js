@@ -133,24 +133,13 @@
         :show-pins="true"
         :user-editable-items="userCanEditSet"
         @endItemDrag="repositionItem"
-      >
-        <template #footer>
-          <client-only>
-            <SetRecommendations
-              v-if="displayRecommendations"
-              :identifier="`/${setId}`"
-              :type="set.type"
-            />
-          </client-only>
-        </template>
-      </ItemPreviewInterface>
+      />
     </div>
   </div>
 </template>
 
 <script>
   import { langMapValueForLocale } from '@europeana/i18n';
-  import ClientOnly from 'vue-client-only';
   import { computed } from 'vue';
   import ItemPreviewInterface from '@/components/item/ItemPreviewInterface';
   import ShareButton from '@/components/share/ShareButton.vue';
@@ -165,14 +154,12 @@
   export default {
     name: 'GalleryPage',
     components: {
-      ClientOnly,
       ErrorMessage: () => import('@/components/error/ErrorMessage'),
       ItemPreviewInterface,
       LoadingSpinner: () => import('@/components/generic/LoadingSpinner'),
       SetFormModal: () => import('@/components/set/SetFormModal'),
       SetPublicationRequestWidget: () => import('@/components/set/SetPublicationRequestWidget'),
       SetPublishButton: () => import('@/components/set/SetPublishButton'),
-      SetRecommendations: () => import('@/components/set/SetRecommendations'),
       ShareButton,
       ShareSocialModal
 
@@ -189,7 +176,6 @@
       };
     },
     beforeRouteLeave(_to, _from, next) {
-      this.$store.commit('set/setActiveRecommendations', []);
       this.$store.commit('entity/setPinned', []);
       this.$store.commit('entity/setBestItemsSetId', null);
       this.clearSelectedItems();
@@ -264,9 +250,6 @@
       userIsPublisher() {
         return this.$auth.userHasClientRole('usersets', 'publisher');
       },
-      userCanHandleRecommendations() {
-        return this.userIsOwner || (this.setIsEntityBestItems && this.userIsEntityEditor);
-      },
       userCanEditSet() {
         return this.userIsOwner || (this.userIsPublisher && this.set.visibility === 'published');
       },
@@ -280,19 +263,6 @@
       },
       setIsEntityBestItems() {
         return this.set.type === 'EntityBestItemsSet';
-      },
-      displayRecommendations() {
-        return this.enableRecommendations && this.$auth.loggedIn && this.userCanHandleRecommendations;
-      },
-      enableRecommendations() {
-        if (!this.$features.showSetRecommendations) {
-          return false;
-        }
-        if (this.setIsEntityBestItems) {
-          return this.$features.acceptEntityRecommendations ||
-            this.$features.rejectEntityRecommendations;
-        }
-        return true;
       },
       displayTitle() {
         return langMapValueForLocale(this.set.title, this.$i18n.locale);
@@ -341,10 +311,6 @@
           ...responses[0],
           items: responses[1]
         };
-
-        if ((this.$store.state.set.selectedItems || []).length > 0) {
-          this.$store.dispatch('set/refreshSelected');
-        }
       },
       validateRoute() {
         if (!/^\d+(-.+)?$/.test(this.$route.params.pathMatch)) {
