@@ -166,14 +166,14 @@ export default {
   "automatedCardGroup": {
     "gallery": "Latest galleries",
     "item": "Recent items",
-    "organisation": "Organisations",
+    "organisation": "Providing institutions",
     "place": "Places",
     "theme": "Themes",
     "time": "Centuries",
     "topic": "Topics"
   },
   "cardLabels": {
-    "organisation": "Organisation",
+    "organisation": "Institution",
     "person": "Person",
     "place": "Place",
     "theme": "Theme",
@@ -1204,8 +1204,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Explore the institutions which share digital cultural heritage items on Europeana.eu.",
-        "title": "Institutions"
+        "description": "Explore the providing institutions which share digital cultural heritage items on Europeana.eu.",
+        "title": "Providing institutions"
       },
       "persons": {
         "title": "Persons"
