@@ -1,5 +1,6 @@
 import themes from '@/utils/europeana/themes';
 import { unescapeLuceneSpecials } from '@/plugins/europeana/utils';
+import { mediaTypeLabel } from '@/utils/media/mediaTypeLabel.js';
 
 const translateWithFallbackOrNull = (scope, key, callback) => {
   let translation = null;
@@ -72,18 +73,16 @@ export default {
         return this.tNull(key) || fieldLabel;
       };
 
-      const mediaTypeLabel = () => {
+      const mimeTypeLabel = () => {
         const translated = genericLabel();
         if (translated !== fieldValue) {
           return translated;
         }
 
-        const subtype = fieldValue.split('/')[1];
-
-        return subtype.replace(/^x-/, '').toUpperCase();
+        return mediaTypeLabel(fieldValue);
       };
 
-      return (facetName === MIME_TYPE) ? mediaTypeLabel() : genericLabel();
+      return (facetName === MIME_TYPE) ? mimeTypeLabel() : genericLabel();
     }
   }
 };

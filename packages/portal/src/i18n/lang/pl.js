@@ -166,14 +166,14 @@ export default {
   "automatedCardGroup": {
     "gallery": "Najnowsze galerie",
     "item": "Ostatnie obiekty cyfrowe",
-    "organisation": "Organizacje",
+    "organisation": "Dostawcy danych",
     "place": "Miejsca",
     "theme": "Motywy",
     "time": "Wieki",
     "topic": "Tematy"
   },
   "cardLabels": {
-    "organisation": "Organizacja",
+    "organisation": "Instytucja",
     "person": "Osoba",
     "place": "Miejsce",
     "theme": "Temat",
@@ -333,13 +333,13 @@ export default {
       "description": "Wystąpił nieznany błąd.",
       "title": "Nieznany błąd"
     },
-    "IIIFManifestFailure": {
-      "description": "Niestety, obiekt cyfrowy multimedialny dostarczony do Europeana nie może być wyświetlony w tej chwili. Proszę spróbować pobrać media lub obejrzeć obiekt cyfrowy na stronie internetowej dostawca danych."
-    },
     "itemNotFound": {
       "description": "Może to być spowodowane następującymi przyczynami: ten element nie istnieje lub; został wycofany z publikacji, ponieważ nie spełniał naszych kryteriów jakości lub; został zaktualizowany i ponownie opublikowany z nowym unikalnym identyfikatorem, w takim przypadku spróbuj ponownie znaleźć przedmiot.",
       "metaTitle": "Nie znaleziono przedmiotu",
       "title": "O nie! {newline} Nie mogliśmy znaleźć tego przedmiotu."
+    },
+    "mediaFailure": {
+      "description": "Niestety, obiekt cyfrowy multimedialny dostarczony do Europeana nie może być wyświetlony w tej chwili. Proszę spróbować pobrać media lub obejrzeć obiekt cyfrowy na stronie internetowej dostawca danych."
     },
     "noFeatureIdeas": {
       "description": "Sprawdź ponownie wkrótce!",
@@ -821,7 +821,7 @@ export default {
       "dcType": "Typ mediów",
       "ebucoreAudioChannelNumber": "Kanały audio",
       "ebucoreBitRate": "Przepływność (bps)",
-      "ebucoreDuration": "Czas trwania (ms)",
+      "ebucoreDuration": "Czas trwania",
       "ebucoreFileByteSize": "Rozmiar pliku (bajty)",
       "ebucoreFrameRate": "Liczba klatek na sekundę (fps)",
       "ebucoreHasMimeType": "Typ MIME",
@@ -1158,8 +1158,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Poznaj instytucje udostępniające cyfrowe obiekty dziedzictwa kulturowego na Europeana.eu.",
-        "title": "Instytucje"
+        "description": "Poznaj instytucje dostarczające, które udostępniają cyfrowe obiekty dziedzictwa kulturowego na Europeana.eu.",
+        "title": "Dostawcy danych"
       },
       "persons": {
         "title": "Osoby"

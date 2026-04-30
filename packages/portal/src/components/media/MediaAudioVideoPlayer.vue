@@ -1,6 +1,7 @@
 <template>
   <div
     class="media-player-wrapper h-100 d-flex justify-content-center"
+    data-qa="media player"
   >
     <template
       v-if="mediaComponent"
@@ -16,6 +17,7 @@
       <MediaCardImage
         v-if="resource"
         ref="poster"
+        class="poster-image"
         :resource="resource"
         :lazy="false"
         :offset="offset"
@@ -53,6 +55,12 @@
 
     components: {
       MediaCardImage
+    },
+
+    inject: {
+      isProxyable: {
+        default: null
+      }
     },
 
     props: {
@@ -138,11 +146,11 @@
           this.$emit('error', e);
         }
       } else {
-        // Use media-proxy when used for a europeana record
-        // NOTE: disabled due to interference with manifest-based media such as DASH videos
-        // this.mediaUrl = this.itemId ? this.$apis.record.mediaProxyUrl(this.url, this.itemId) : this.url;
-        this.mediaUrl = this.url;
         this.mediaFormat = this.format;
+        this.mediaUrl = this.url;
+        if (this.isProxyable?.(this.url)) {
+          this.mediaUrl = this.$apis.record.mediaProxyUrl(this.url, this.itemId);
+        }
       }
     },
 
@@ -220,11 +228,21 @@
         }
       },
 
+      initDuration() {
+        if (![Infinity, NaN].includes(this.$refs.avPlayer.duration)) {
+          return;
+        }
+
+        if (this.resource?.edm?.ebucoreDuration) {
+          this.player.duration(this.resource.edm.ebucoreDuration / 1000);
+        }
+      },
+
       setPosterWithCardImage() {
         const posterElement = this.player.el().querySelector('.vjs-poster');
         if (posterElement) {
-          posterElement.classList.remove('vjs-hidden');
           posterElement.appendChild(this.$refs.poster.$el);
+          posterElement.classList.remove('vjs-hidden');
         }
       },
 
@@ -237,7 +255,7 @@
       checkSeekable() {
         const seekable = this.$refs.avPlayer.seekable;
 
-        if ((seekable.length === 0) || ((seekable.start(0) === 0) && (seekable.end(0) === 0))) {
+        if ((seekable?.length === 0) || ((seekable?.start(0) === 0) && (seekable?.end(0) === 0))) {
           this.$emit('warn', new MediaAudioVideoPlayerError('A/V not seekable'));
 
           this.disableProgressControl();
@@ -277,6 +295,7 @@
         });
 
         this.player.ready(this.onPlayerReady);
+        this.player.on('loadedmetadata', this.initDuration);
         this.player.on('loadedmetadata', this.checkSeekable);
         this.player.on('error', this.handlePlayerError);
       }
@@ -287,6 +306,10 @@
 <style lang="scss">
   @import '@europeana/style/scss/variables';
   @import '@europeana/style/scss/icon-font';
+
+  .poster-image {
+    display: none;
+  }
 
   .media-player.video-js {
     font-family: $font-family-sans-serif;
@@ -473,7 +496,7 @@
         .vjs-menu-content {
           font-family: $font-family-sans-serif;
           bottom: 2rem;
-          right: -1rem;
+          right: 0rem;
           min-width: 10rem;
           padding: 0.5rem 0;
           margin: 0.125rem 0 0;
@@ -482,6 +505,9 @@
           border: 1px solid rgba(0, 0, 0, 15%);
           border-radius: $border-radius-small;
           color: $black;
+          width: max-content;
+          max-height: 50vh;
+          max-width: 90vw;
 
           li {
             justify-content: flex-start;
@@ -518,6 +544,18 @@
       }
     }
 
+    .vjs-captions-menu-item {
+      .vjs-menu-item-text .vjs-icon-placeholder {
+        line-height: 1;
+        margin-left: 0.25rem;
+        vertical-align: baseline;
+      }
+
+      .vjs-control-text {
+        display: none; // Hide for assistive technologies (a11y)
+      }
+    }
+
     // --- Override icons with custom icons ---
     .vjs-subs-caps-button .vjs-icon-placeholder::before {
       @extend %icon-font;
@@ -551,9 +589,15 @@
       content: '\e975';
     }
 
-    .vjs-subs-caps-button + .vjs-menu .vjs-captions-menu-item .vjs-menu-item-text .vjs-icon-placeholder::before {
-      @extend %icon-font;
-      content: '\e974';
+    .vjs-subs-caps-button + .vjs-menu .vjs-captions-menu-item .vjs-menu-item-text .vjs-icon-placeholder {
+      line-height: 1;
+      margin-left: 0.25rem;
+      vertical-align: baseline;
+
+      &:before {
+        @extend %icon-font;
+        content: '\e974';
+      }
     }
 
     // --- Tooltip styles ---
@@ -576,7 +620,7 @@
     button.vjs-subs-caps-button {
       .vjs-control-text {
         position: absolute;
-        top: -50%;
+        bottom: 75%;
         background: $black;
         color: $white;
         padding: 0.5rem;
@@ -635,12 +679,39 @@
       }
     }
 
-    .vjs-poster .default-thumbnail [class^='icon-'] {
-      color: $black;
+    .vjs-poster {
+      .poster-image {
+        display: flex;
+      }
+
+      .default-thumbnail [class^='icon-'] {
+        color: $black;
+      }
     }
 
     .disabled {
       cursor: not-allowed;
+    }
+
+    .vjs-loading-spinner {
+      border-color: transparent;
+      border-width: 0.25rem;
+      width: 4rem;
+      height: 4rem;
+
+      &:before {
+        border-color: $white;
+        border-top-color: transparent;
+      }
+
+      &:after {
+        content: none;
+      }
+    }
+
+    &.vjs-seeking .vjs-loading-spinner:before,
+    &.vjs-waiting .vjs-loading-spinner:before {
+      animation: vjs-spinner-spin 0.75s linear infinite;
     }
   }
 </style>

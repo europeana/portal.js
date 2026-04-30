@@ -43,9 +43,8 @@
                 @toggleSidebar="toggleSidebar"
               />
             </template>
-            <IIIFErrorMessage
+            <MediaErrorMessage
               v-if="$fetchState.error || mediaError"
-              :provider-url="providerUrl"
             />
             <MediaImageViewer
               v-else-if="viewableImageResource && !displayThumbnail"
@@ -65,26 +64,24 @@
               v-else-if="resource?.edm?.isPlayableMedia"
             >
               <MediaAudioVideoPlayer
-                v-if="$features.videojs"
                 :url="resource.id"
                 :format="resource.format"
                 :item-id="itemId"
                 class="media-viewer-content"
-                :poster="thumbnailForAVPoster"
+                :poster="thumbnailForPoster"
                 :offset="page - 1"
                 :text-tracks="textTracks"
                 :resource="resource"
                 @error="handleMediaError"
                 @warn="handleMediaWarn"
               />
-              <MediaEuropeanaMediaPlayer
-                v-else
-                :url="resource.id"
-                :format="resource.format"
-                :item-id="itemId"
-                class="media-viewer-content"
-              />
             </template>
+            <Media3DViewer
+              v-else-if="$features.modelViewer && resource?.edm?.isDisplayable3DModel"
+              :url="resource.id || resource.edm?.about"
+              :item-id="itemId"
+              :poster="thumbnailForPoster"
+            />
             <EmbedGateway
               v-else-if="resource?.isOEmbed || resource?.edm?.isOEmbed"
               class="media-viewer-content"
@@ -181,14 +178,14 @@
     components: {
       EmbedGateway: () => import('../embed/EmbedGateway.vue'),
       EmbedOEmbed: () => import('../embed/EmbedOEmbed.vue'),
-      IIIFErrorMessage: () => import('../iiif/IIIFErrorMessage.vue'),
+      MediaErrorMessage: () => import('../media/MediaErrorMessage.vue'),
       ItemMediaPaginationToolbar: () => import('./ItemMediaPaginationToolbar.vue'),
       ItemMediaSidebar: () => import('./ItemMediaSidebar.vue'),
       ItemMediaSidebarToggle: () => import('./ItemMediaSidebarToggle.vue'),
       ItemMediaThumbnails: () => import('./ItemMediaThumbnails.vue'),
       LoadingSpinner,
+      Media3DViewer: () => import('../media/Media3DViewer.vue'),
       MediaAudioVideoPlayer: () => import('../media/MediaAudioVideoPlayer.vue'),
-      MediaEuropeanaMediaPlayer: () => import('../media/MediaEuropeanaMediaPlayer.vue'),
       MediaCardImage,
       MediaImageViewer: () => import('../media/MediaImageViewer.vue'),
       MediaImageViewerControls: () => import('../media/MediaImageViewerControls.vue')
@@ -338,8 +335,7 @@
       },
 
       hasWebResourceMetadataToDisplay() {
-        return this.$features.webResourceMetadata &&
-          WEB_RESOURCE_METADATA_DISPLAY_FIELDS.some((field) => !!this.resource?.edm?.[field]);
+        return WEB_RESOURCE_METADATA_DISPLAY_FIELDS.some((field) => !!this.resource?.edm?.[field]);
       },
 
       sidebarHasContent() {
@@ -362,7 +358,7 @@
         return !this.viewableImageResource && this.sidebarHasContent;
       },
 
-      thumbnailForAVPoster() {
+      thumbnailForPoster() {
         return this.$apis.thumbnail.forWebResource(this.resource.edm).large;
       }
     },

@@ -166,14 +166,14 @@ export default {
   "automatedCardGroup": {
     "gallery": "Najnovšie galérie",
     "item": "Nedávne objekty",
-    "organisation": "Organizácie",
+    "organisation": "Správcovské inštitúcie",
     "place": "Miesta",
     "theme": "Kategórie",
     "time": "Storočia",
     "topic": "Témy"
   },
   "cardLabels": {
-    "organisation": "Organizácia",
+    "organisation": "Inštitúcia",
     "person": "Osoba",
     "place": "Miesto",
     "theme": "Téma",
@@ -333,13 +333,13 @@ export default {
       "description": "Vyskytla sa neznáma chyba.",
       "title": "Neznáma chyba"
     },
-    "IIIFManifestFailure": {
-      "description": "Bohužiaľ, objekt médií, ako bola poskytnutá Europeana, momentálne nie je možné zobraziť. Skúste stiahnuť médium alebo si objekt prezrite na webovej stránke správcovská inštitúcia."
-    },
     "itemNotFound": {
       "description": "Môže to byť z nasledujúcich dôvodov: táto objekt neexistuje alebo; bolo zrušené, pretože nezodpovedalo našim kritériám kvality, alebo; bola aktualizovaná a znovu publikovaná s novým jedinečným identifikátorom, v takom prípade skúste objekt znova nájsť.",
       "metaTitle": "Objekt sa nenašla",
       "title": "Ó nie! {newline} Túto objekt sa nám nepodarilo nájsť."
+    },
+    "mediaFailure": {
+      "description": "Bohužiaľ, objekt médií, ako bola poskytnutá Europeana, momentálne nie je možné zobraziť. Skúste stiahnuť médium alebo si objekt prezrite na webovej stránke správcovská inštitúcia."
     },
     "noFeatureIdeas": {
       "description": "Vráťte sa sem čoskoro!",
@@ -821,7 +821,7 @@ export default {
       "dcType": "Typ média",
       "ebucoreAudioChannelNumber": "Zvukové kanály",
       "ebucoreBitRate": "Dátový tok (bps)",
-      "ebucoreDuration": "Trvanie (ms)",
+      "ebucoreDuration": "Trvanie",
       "ebucoreFileByteSize": "Veľkosť súboru (bajty)",
       "ebucoreFrameRate": "Snímková frekvencia (fps)",
       "ebucoreHasMimeType": "Typ MIME",
@@ -1159,7 +1159,7 @@ export default {
     "collections": {
       "organisations": {
         "description": "Preskúmajte inštitúcie, ktoré zdieľajú objekty digitálneho kultúrneho dedičstva na Europeana.eu.",
-        "title": "Inštitúcie"
+        "title": "Správcovské inštitúcie"
       },
       "persons": {
         "title": "Osoby"

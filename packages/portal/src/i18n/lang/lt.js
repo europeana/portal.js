@@ -166,14 +166,14 @@ export default {
   "automatedCardGroup": {
     "gallery": "Naujausios parodos",
     "item": "Naujausi skaitmeniniai objektai",
-    "organisation": "Organizacijos",
+    "organisation": "Teikėjai",
     "place": "Vietos",
     "theme": "Temos",
     "time": "Šimtmečiai",
     "topic": "Potemė"
   },
   "cardLabels": {
-    "organisation": "Organizacija",
+    "organisation": "Institucija",
     "person": "Asmuo",
     "place": "Vieta",
     "theme": "Tema",
@@ -333,13 +333,13 @@ export default {
       "description": "Įvyko nežinoma klaida.",
       "title": "Nežinoma klaida"
     },
-    "IIIFManifestFailure": {
-      "description": "Deja, šiuo metu negalima rodyti pateiktos Europai medijos. Prašome bandyti atsisiųsti mediją arba peržiūrėti skaitmeninis objektas teikiančios teikėjas svetainėje."
-    },
     "itemNotFound": {
       "description": "Taip gali nutikti dėl šių priežasčių: šio skaitmeninis objektas nėra arba; jis buvo panaikintas, nes neatitiko mūsų kokybės kriterijų, arba; jis buvo atnaujintas ir paskelbtas iš naujo su nauju unikaliu identifikatoriumi. Tokiu atveju pabandykite rasti skaitmeninis objektas dar kartą.",
       "metaTitle": "Skaitmeninis objektas nerasta",
       "title": "O ne! {newline} Mums nepavyko rasti šio skaitmeninis objektas."
+    },
+    "mediaFailure": {
+      "description": "Deja, šiuo metu negalima rodyti pateiktos Europai medijos. Prašome bandyti atsisiųsti mediją arba peržiūrėti skaitmeninis objektas teikiančios teikėjas svetainėje."
     },
     "noFeatureIdeas": {
       "description": "Netrukus vėl patikrinkite!",
@@ -821,7 +821,7 @@ export default {
       "dcType": "Medijos tipas",
       "ebucoreAudioChannelNumber": "Garso kanalai",
       "ebucoreBitRate": "Bitų sparta (bps)",
-      "ebucoreDuration": "Trukmė (ms)",
+      "ebucoreDuration": "Trukmė",
       "ebucoreFileByteSize": "Failo dydis (baitais)",
       "ebucoreFrameRate": "Kadrų dažnis (fps)",
       "ebucoreHasMimeType": "MIME tipas",
@@ -1158,8 +1158,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Tyrinėkite institucijas, kurios dalijasi skaitmeniniais kultūros paveldo objektais Europeana.eu.",
-        "title": "Institucijos"
+        "description": "Tyrinėkite teikiančias institucijas, kurios dalijasi skaitmeniniais kultūros paveldo objektais Europeana.eu.",
+        "title": "Teikėjai"
       },
       "persons": {
         "title": "Asmenys"

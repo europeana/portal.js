@@ -17,6 +17,8 @@ const MEDIA_TYPE_IMAGE_JPEG = `${MEDIA_TYPE_IMAGE}/jpeg`;
 const MEDIA_TYPE_IMAGE_PNG = `${MEDIA_TYPE_IMAGE}/png`;
 const MEDIA_TYPE_IMAGE_SVG_XML = `${MEDIA_TYPE_IMAGE}/svg+xml`;
 const MEDIA_TYPE_IMAGE_WEBP = `${MEDIA_TYPE_IMAGE}/webp`;
+const MEDIA_TYPE_MODEL = 'model';
+const MEDIA_TYPE_MODEL_GLTF_BINARY = `${MEDIA_TYPE_MODEL}/gltf-binary`;
 const MEDIA_TYPE_TEXT = 'text';
 const MEDIA_TYPE_VIDEO = 'video';
 const MEDIA_TYPE_VIDEO_OGG = `${MEDIA_TYPE_VIDEO}/ogg`;
@@ -57,9 +59,28 @@ export default class WebResource extends Base {
   constructor(data) {
     super(data);
 
+    // rename awkwardly named API field
+    if (this.webResourceEdmRights) {
+      this.edmRights = this.webResourceEdmRights;
+      delete this.webResourceEdmRights;
+    }
+
     // delete large unused fields
     delete this.htmlAttributionSnippet;
     delete this.textAttributionSnippet;
+
+    if (this.ebucoreDuration) {
+      // ebucoreDuration is stored as a string
+      this.ebucoreDuration = Number(this.ebucoreDuration);
+      // some WRs have duration metadata incorrectly in microseconds instead of
+      // the expected milliseconds. try to handle this by assuming that if the
+      // WR's duration appears to be more than 24 hours, then it is using the
+      // wrong unit
+
+      if ((this.ebucoreDuration / 1000 / 3600) > 24) {
+        this.ebucoreDuration = this.ebucoreDuration / 1000;
+      }
+    }
   }
 
   get id() {
@@ -154,6 +175,10 @@ export default class WebResource extends Base {
     return this.mediaType === MEDIA_TYPE_APPLICATION_PDF;
   }
 
+  get isDisplayable3DModel() {
+    return this.mediaType === MEDIA_TYPE_MODEL_GLTF_BINARY;
+  }
+
   get isPlayableMedia() {
     return (
       this.isHTMLAudio || this.isHTMLVideo ||
@@ -172,6 +197,21 @@ export default class WebResource extends Base {
       this.isHTMLVideo ||
       this.isHTMLAudio ||
       this.isPlayableMedia;
+  }
+
+  get rightsStatement() {
+    return this.edmRights?.def?.[0];
+  }
+
+  get rightsStatementPermitsDownload() {
+    return !!this.rightsStatement && !this.rightsStatement.includes('/InC/');
+  }
+
+  get isDownloadable() {
+    return this.rightsStatementPermitsDownload &&
+      !!this.ebucoreHasMimeType &&
+      !this.forEdmIsShownAt &&
+      !this.isOEmbed;
   }
 
   get isIIIFPresentationManifest() {

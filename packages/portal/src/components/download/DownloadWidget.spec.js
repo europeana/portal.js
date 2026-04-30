@@ -1,6 +1,7 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import DownloadWidget from '@/components/download/DownloadWidget.vue';
+import WebResource from '@/plugins/europeana/edm/WebResource';
 import sinon from 'sinon';
 
 const localVue = createLocalVue();
@@ -11,7 +12,9 @@ const factory = ({ propsData = {}, data = {}, mocks = {} } = {}) => {
     localVue,
     propsData,
     data: () => ({ ...data }),
-    mocks
+    mocks: {
+      ...mocks
+    }
   });
   sinon.spy(wrapper.vm.$bvModal, 'show');
   return wrapper;
@@ -23,7 +26,15 @@ describe('components/download/DownloadWidget', () => {
   });
 
   const propsData = {
-    url: 'https://example.org/image.jpeg',
+    media: new WebResource(
+      {
+        about: 'https://example.org/image.jpeg',
+        ebucoreFileByteSize: 1000,
+        ebucoreHasMimeType: 'image/jpeg',
+        edmRights: { def: ['http://creativecommons.org/licenses/by-sa/3.0/'] },
+        forEdmIsShownAt: false
+      }
+    ),
     identifier: '/123/abc',
     rightsStatement: 'http://creativecommons.org/licenses/by-nc/4.0/'
   };

@@ -6,7 +6,7 @@
   >
     <template v-if="variant === 'icons'">
       <span
-        v-for="icon in rightsNameAndIcon(rightsStatementUrl).iconClass"
+        v-for="icon in nameAndIcon.iconClass"
         :key="icon"
         :class="icon"
         class="license"
@@ -17,7 +17,7 @@
       class="icon-license"
     />
     <span class="license-label-text">
-      {{ rightsNameAndIcon(rightsStatementUrl).name }}
+      {{ nameAndIcon.name }}
     </span>
   </span>
 </template>
@@ -41,8 +41,10 @@
       }
     },
 
-    methods: {
-      rightsNameAndIcon
+    computed: {
+      nameAndIcon() {
+        return rightsNameAndIcon(this.rightsStatementUrl);
+      }
     }
   };
 </script>

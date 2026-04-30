@@ -601,6 +601,60 @@ describe('pages/item/_.vue', () => {
           expect(wrapper.vm.headLinkPreconnect.includes('https://iiif.example.org')).toBe(true);
         });
       });
+
+      describe('when model viewer and model viewer replaces oembed feature toggles are on', () => {
+        describe('and there is a displayable oembed web resource', () => {
+          it('replaces the oembed as displayable with the isFormatOf web resource', async() => {
+            const wrapper = factory({ mocks: { $features: {
+              modelViewer: true,
+              modelViewerReplacesOembed: true
+            } } });
+
+            const modelId = '3Dmodel';
+            const response = apiResponse();
+            response.object.aggregations[0].hasView = ['https://sketchfab.com/models/3D-oembed'],
+            response.object.aggregations[0].webResources.push({
+              about: 'https://sketchfab.com/models/3D-oembed',
+              dctermsIsFormatOf: { def: [modelId] }
+            },
+            {
+              about: modelId,
+              ebucoreHasMimeType: 'model/gltf-binary'
+            });
+            wrapper.vm.$apis.record.get.resolves(response);
+
+            await wrapper.vm.fetch();
+
+            expect(wrapper.vm.media.length).toEqual(2);
+            expect(wrapper.vm.media[1].about).toEqual(modelId);
+          });
+          describe('when there is no isFormatOf', () => {
+            it('does not replace the oembed web resource', async() => {
+              const wrapper = factory({ mocks: { $features: {
+                modelViewer: true,
+                modelViewerReplacesOembed: true
+              } } });
+
+              const oembedId = 'https://sketchfab.com/models/3D-oembed';
+              const response = apiResponse();
+              response.object.aggregations[0].hasView = ['https://sketchfab.com/models/3D-oembed'],
+              response.object.aggregations[0].webResources.push({
+                about: oembedId
+              },
+              {
+                about: '3Dmodel',
+                ebucoreHasMimeType: 'model/gltf-binary'
+              });
+              wrapper.vm.$apis.record.get.resolves(response);
+
+              await wrapper.vm.fetch();
+
+              expect(wrapper.vm.media.length).toEqual(2);
+              expect(wrapper.vm.media[1].about).toEqual(oembedId);
+            });
+          });
+        });
+      });
     });
 
     describe('on errors', () => {
