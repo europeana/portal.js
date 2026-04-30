@@ -54,7 +54,7 @@
     "oembed": "https://ecorpus-research.huma-num.fr/services/oembed",
     "responsive": true,
     "schemes": [
-      "http://ecorpus-research.huma-num.fr/ui/scenes/*"
+      "https://ecorpus-research.huma-num.fr/ui/scenes/*"
     ],
     "title": "Huma-Num"
   },
