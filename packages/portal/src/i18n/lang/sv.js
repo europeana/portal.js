@@ -166,14 +166,14 @@ export default {
   "automatedCardGroup": {
     "gallery": "Senaste gallerier",
     "item": "Senaste objekt",
-    "organisation": "Organisationer",
+    "organisation": "Tillhandahållande institutioner",
     "place": "Platser",
     "theme": "Teman",
     "time": "Århundraden",
     "topic": "Ämnen"
   },
   "cardLabels": {
-    "organisation": "Organisation",
+    "organisation": "Institution",
     "person": "Person",
     "place": "Plats",
     "theme": "Tema",
@@ -1158,8 +1158,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Utforska de institutioner som delar digitala kulturarvsobjekt på Europeana.eu.",
-        "title": "institutioner"
+        "description": "Utforska de tillhandahållande institutioner som delar digitala kulturarvsobjekt på Europeana.eu.",
+        "title": "Tillhandahållande institutioner"
       },
       "persons": {
         "title": "Personer"

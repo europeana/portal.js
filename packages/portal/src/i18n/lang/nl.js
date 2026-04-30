@@ -166,14 +166,14 @@ export default {
   "automatedCardGroup": {
     "gallery": "Nieuwste galerijen",
     "item": "Recente objecten",
-    "organisation": "Organisaties",
+    "organisation": "Deelnemende erfgoedorganisaties",
     "place": "Plaatsen",
     "theme": "Thema's",
     "time": "Eeuwen",
     "topic": "Onderwerpen"
   },
   "cardLabels": {
-    "organisation": "Organisatie",
+    "organisation": "Instelling",
     "person": "Persoon",
     "place": "Plaats",
     "theme": "Thema",
@@ -1158,8 +1158,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Ontdek de instellingen die digitale culturele erfgoed objecten delen op Europeana.eu.",
-        "title": "Instellingen"
+        "description": "Ontdek de deelnemende erfgoedorganisaties die digitale culturele erfgoed objecten delen op Europeana.eu.",
+        "title": "Deelnemende erfgoedorganisaties"
       },
       "persons": {
         "title": "Personen"

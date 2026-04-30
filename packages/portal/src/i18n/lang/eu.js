@@ -166,14 +166,14 @@ export default {
   "automatedCardGroup": {
     "gallery": "Azken galeriak",
     "item": "Azken elementuak",
-    "organisation": "Erakundeak",
+    "organisation": "Erakunde hornitzailea",
     "place": "Lekuak",
     "theme": "Gaiak",
     "time": "Mendeak",
     "topic": "Gaiak"
   },
   "cardLabels": {
-    "organisation": "Antolaketa",
+    "organisation": "Erakundea:",
     "person": "Pertsona",
     "place": "Lekua",
     "theme": "Gaia",
@@ -1158,8 +1158,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Arakatu kultur ondare digitalaren elementuak partekatzen dituzten erakundeak Europeana.eu.",
-        "title": "Erakundeak"
+        "description": "Arakatu Europeana.eu-n ondare kultural digitalaren elementuak partekatzen dituzten erakunde hornitzaileak.",
+        "title": "Erakunde hornitzailea"
       },
       "persons": {
         "title": "Pertsonak"

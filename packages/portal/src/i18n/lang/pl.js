@@ -166,14 +166,14 @@ export default {
   "automatedCardGroup": {
     "gallery": "Najnowsze galerie",
     "item": "Ostatnie obiekty cyfrowe",
-    "organisation": "Organizacje",
+    "organisation": "Dostawcy danych",
     "place": "Miejsca",
     "theme": "Motywy",
     "time": "Wieki",
     "topic": "Tematy"
   },
   "cardLabels": {
-    "organisation": "Organizacja",
+    "organisation": "Instytucja",
     "person": "Osoba",
     "place": "Miejsce",
     "theme": "Temat",
@@ -1158,8 +1158,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Poznaj instytucje udostępniające cyfrowe obiekty dziedzictwa kulturowego na Europeana.eu.",
-        "title": "Instytucje"
+        "description": "Poznaj instytucje dostarczające, które udostępniają cyfrowe obiekty dziedzictwa kulturowego na Europeana.eu.",
+        "title": "Dostawcy danych"
       },
       "persons": {
         "title": "Osoby"

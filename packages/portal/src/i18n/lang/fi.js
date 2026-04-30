@@ -166,14 +166,14 @@ export default {
   "automatedCardGroup": {
     "gallery": "Uusimmat galleriat",
     "item": "Viimeaikaiset aineistot",
-    "organisation": "Organisaatiot",
+    "organisation": "Aineiston tarjoajat",
     "place": "Paikat",
     "theme": "Teemat",
     "time": "Vuosisadat",
     "topic": "Aiheet"
   },
   "cardLabels": {
-    "organisation": "Organisaatio",
+    "organisation": "Instituutio",
     "person": "Henkilö",
     "place": "Paikka",
     "theme": "Teema",
@@ -1158,8 +1158,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Tutustu laitoksiin, jotka jakavat digitaalisia kulttuuriperintöaineistoja Europeana.eu:ssa.",
-        "title": "Toimielimet"
+        "description": "Tutustu tarjoaviin organisaatioihin, jotka jakavat digitaalisia kulttuuriperintöaineistoja Europeana.eu-palvelussa.",
+        "title": "Aineiston tarjoajat"
       },
       "persons": {
         "title": "Henkilöt"

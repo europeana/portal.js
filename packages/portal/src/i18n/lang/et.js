@@ -166,14 +166,14 @@ export default {
   "automatedCardGroup": {
     "gallery": "Viimased galeriid",
     "item": "Hiljutised üksused",
-    "organisation": "Organisatsioonid",
+    "organisation": "Pakkuja institutsioon",
     "place": "Kohad",
     "theme": "Teemad",
     "time": "Sajandeid",
     "topic": "Teemad"
   },
   "cardLabels": {
-    "organisation": "Organisatsioon",
+    "organisation": "Institutsioon",
     "person": "Isik",
     "place": "Koht",
     "theme": "Teema",
@@ -1158,8 +1158,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Uurige asutusi, mis jagavad digitaalse kultuuripärandi objekte Europeana.eu-s.",
-        "title": "Institutsioonid"
+        "description": "Avasta asutusi, mis jagavad portaalis Europeana.eu digitaalseid kultuuripärandi üksusi.",
+        "title": "Pakkuja institutsioon"
       },
       "persons": {
         "title": "Isikud"

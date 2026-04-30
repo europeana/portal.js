@@ -166,14 +166,14 @@ export default {
   "automatedCardGroup": {
     "gallery": "Legújabb galériák",
     "item": "Legutóbbi elemek",
-    "organisation": "Szervezetek",
+    "organisation": "Szolgáltató intézmény",
     "place": "Helyek",
     "theme": "Témakörök",
     "time": "Évszázadok",
     "topic": "Témák"
   },
   "cardLabels": {
-    "organisation": "Szervezet",
+    "organisation": "Intézmény",
     "person": "Személy",
     "place": "Hely",
     "theme": "Témakör",
@@ -1158,8 +1158,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Fedezd fel az intézményeket, amelyek digitális kulturális örökségi elemeket osztanak meg a Europeana.eu-n.",
-        "title": "Intézmények"
+        "description": "Fedezze fel a szolgáltató intézményeket, amelyek digitális kulturális örökségi elemeket tesznek közzé az Europeana.eu oldalon.",
+        "title": "Szolgáltató intézmény"
       },
       "persons": {
         "title": "Személyek"

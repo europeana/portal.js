@@ -166,14 +166,14 @@ export default {
   "automatedCardGroup": {
     "gallery": "Ultimele galerii",
     "item": "Resurse culturale recente",
-    "organisation": "Organizații",
+    "organisation": "Instituții furnizoare",
     "place": "Locuri",
     "theme": "Teme",
     "time": "Secole",
     "topic": "Subiecte"
   },
   "cardLabels": {
-    "organisation": "Organizare",
+    "organisation": "Instituție",
     "person": "Persoană",
     "place": "Loc",
     "theme": "Temă",
@@ -1158,8 +1158,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Explorați instituțiile care partajează resurse culturale din patrimoniul cultural digital pe Europeana.eu.",
-        "title": "Instituții"
+        "description": "Explorați instituțiile furnizoare care partajează resurse din patrimoniul cultural digital pe Europeana.eu.",
+        "title": "Instituții furnizoare"
       },
       "persons": {
         "title": "Persoane"

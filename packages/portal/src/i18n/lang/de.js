@@ -166,14 +166,14 @@ export default {
   "automatedCardGroup": {
     "gallery": "Neueste Galerien",
     "item": "Aktuelle Objekte",
-    "organisation": "Organisationen",
+    "organisation": "Datenpartner",
     "place": "Orte",
     "theme": "Themenbereiche",
     "time": "Jahrhunderte",
     "topic": "Themen"
   },
   "cardLabels": {
-    "organisation": "Organisation",
+    "organisation": "Institution",
     "person": "Person",
     "place": "Ort",
     "theme": "Thema",
@@ -1158,8 +1158,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Erkunden Sie die Institutionen, die digitale Kulturerbe-Objekte auf Europeana.eu teilen.",
-        "title": "Institutionen"
+        "description": "Entdecken Sie die bereitstellenden Institutionen, die digitale Kulturerbe-Objekte auf Europeana.eu teilen.",
+        "title": "Datenpartner"
       },
       "persons": {
         "title": "Personen"

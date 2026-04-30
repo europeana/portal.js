@@ -166,14 +166,14 @@ export default {
   "automatedCardGroup": {
     "gallery": "Seneste gallerier",
     "item": "Seneste genstande",
-    "organisation": "Organisationer",
+    "organisation": "Ejerinstitutioner",
     "place": "Steder",
     "theme": "Temaer",
     "time": "Århundreder",
     "topic": "Emner"
   },
   "cardLabels": {
-    "organisation": "Organisation",
+    "organisation": "Institution",
     "person": "Person",
     "place": "Sted",
     "theme": "Tema",
@@ -1158,8 +1158,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Udforsk de institutioner, der deler digitale kulturarvsgenstande på Europeana.eu.",
-        "title": "Institutioner"
+        "description": "Udforsk de ejerinstitutioner, der deler digitale kulturarvsgenstande på Europeana.eu.",
+        "title": "Ejerinstitutioner"
       },
       "persons": {
         "title": "Personer"
