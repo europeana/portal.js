@@ -142,6 +142,23 @@ export default {
     "show": "Mostrar atribuição",
     "title": "Título:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Legendas / legendas ocultas",
+    "captions off": "Desligado",
+    "captionsOption": "{language} legendas",
+    "Exit Fullscreen": "Sair do ecrã inteiro",
+    "Fullscreen": "Tela cheia",
+    "Mute": "Silenciar",
+    "Pause": "Pausa",
+    "Play": "Reproduzir",
+    "Play Video": "Reproduzir vídeo",
+    "Replay": "Repetição",
+    "Subtitles": "Legendas / legendas ocultas",
+    "subtitles off": "Desligado",
+    "subtitlesOption": "{language} legendas",
+    "Unmute": "Ativar som",
+    "Volume Level": "Nível de volume"
+  },
   "authored": {
     "by": "por",
     "publishedDate": "Publicado {date}"
@@ -149,14 +166,14 @@ export default {
   "automatedCardGroup": {
     "gallery": "Últimas galerias",
     "item": "Itens recentes",
-    "organisation": "Organizações",
+    "organisation": "Instituições fornecedoras",
     "place": "Lugares",
     "theme": "Temas",
     "time": "Séculos",
     "topic": "Tópicos"
   },
   "cardLabels": {
-    "organisation": "Organização",
+    "organisation": "Instituição",
     "person": "Pessoa",
     "place": "Lugar",
     "theme": "Tema",
@@ -316,13 +333,13 @@ export default {
       "description": "Ocorreu um erro desconhecido.",
       "title": "Erro desconhecido"
     },
-    "IIIFManifestFailure": {
-      "description": "Infelizmente, o item de mídia fornecido à Europeana não pode ser exibido no momento. Por favor, tente baixar a mídia ou visualizar o item no site da instituição fornecedora."
-    },
     "itemNotFound": {
       "description": "Isso pode ser devido aos seguintes motivos: este item não existe, ou; foi despublicado porque não atendeu aos nossos critérios de qualidade, ou; ele foi atualizado e republicado com um novo identificador exclusivo, nesse caso, tente encontrar o item novamente.",
       "metaTitle": "Item não encontrado",
       "title": "Oh não! {newline} Não foi possível encontrar este item."
+    },
+    "mediaFailure": {
+      "description": "Infelizmente, o item de mídia fornecido à Europeana não pode ser exibido no momento. Por favor, tente baixar a mídia ou visualizar o item no site da instituição fornecedora."
     },
     "noFeatureIdeas": {
       "description": "Volte em breve!",
@@ -804,7 +821,7 @@ export default {
       "dcType": "Tipo de média",
       "ebucoreAudioChannelNumber": "Canais de áudio",
       "ebucoreBitRate": "Taxa de bits (bps)",
-      "ebucoreDuration": "Duração (ms)",
+      "ebucoreDuration": "Duração",
       "ebucoreFileByteSize": "Tamanho do ficheiro (bytes)",
       "ebucoreFrameRate": "Taxa de quadros (fps)",
       "ebucoreHasMimeType": "Tipo MIME",
@@ -1141,8 +1158,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Explore as instituições que partilham itens do património cultural digital em Europeana.eu.",
-        "title": "Instituições"
+        "description": "Explore as instituições fornecedoras que partilham itens do património cultural digital em Europeana.eu.",
+        "title": "Instituições fornecedoras"
       },
       "persons": {
         "title": "Pessoas"

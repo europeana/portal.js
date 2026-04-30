@@ -174,10 +174,9 @@
             links: [
               { url: '/about-us', text: this.$t('footer.navigation.about') },
               { url: '#api-requests', text: this.$t('footer.navigation.seeApiRequests'), dataQa: 'API requests link' },
-              // TODO: Remove condition and stop filtering null values when ENABLE_MANAGE_API_KEYS is permanently enabaled.
-              (this.$features.manageApiKeys ? { url: '/account/api-keys', text: this.$t('footer.navigation.registerApiKey'), dataQa: 'API key registration link' } : null),
+              { url: '/account/api-keys', text: this.$t('footer.navigation.registerApiKey'), dataQa: 'API key registration link' },
               { url: 'https://zfrmz.eu/q6ulfDs1ONYQ0tEz0vpS', text: this.$t('footer.navigation.subscribe') }
-            ].filter(Boolean)
+            ]
           };
         }
       }

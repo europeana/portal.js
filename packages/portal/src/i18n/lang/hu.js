@@ -142,6 +142,23 @@ export default {
     "show": "Attribúció megjelenítése",
     "title": "Cím:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Feliratok / kódolt feliratok",
+    "captions off": "Kikapcsolva",
+    "captionsOption": "{language} feliratok",
+    "Exit Fullscreen": "Kilépés a teljes képernyős módból",
+    "Fullscreen": "Teljes képernyő",
+    "Mute": "Némítás",
+    "Pause": "Szünet",
+    "Play": "Lejátszás",
+    "Play Video": "Videó lejátszása",
+    "Replay": "Visszajátszás",
+    "Subtitles": "Feliratok / kódolt feliratok",
+    "subtitles off": "Kikapcsolva",
+    "subtitlesOption": "{language} feliratok",
+    "Unmute": "Némítás feloldása",
+    "Volume Level": "Hangerőszint"
+  },
   "authored": {
     "by": "Szerző:",
     "publishedDate": "Közzététel dátuma: {date}"
@@ -149,14 +166,14 @@ export default {
   "automatedCardGroup": {
     "gallery": "Legújabb galériák",
     "item": "Legutóbbi elemek",
-    "organisation": "Szervezetek",
+    "organisation": "Szolgáltató intézmény",
     "place": "Helyek",
     "theme": "Témakörök",
     "time": "Évszázadok",
     "topic": "Témák"
   },
   "cardLabels": {
-    "organisation": "Szervezet",
+    "organisation": "Intézmény",
     "person": "Személy",
     "place": "Hely",
     "theme": "Témakör",
@@ -316,13 +333,13 @@ export default {
       "description": "Ismeretlen hiba történt.",
       "title": "Ismeretlen hiba"
     },
-    "IIIFManifestFailure": {
-      "description": "Sajnos a Europeana számára biztosított média tárgy jelenleg nem lehet megjeleníteni. Kérjük, próbálja meg letölteni a médiát, vagy tekintse meg az tárgy a szolgáltató intézmény weboldalán."
-    },
     "itemNotFound": {
       "description": "Ennek a következő okai lehetnek: az elem nem létezik; vagy eltávolítottuk, mert nem felelt meg a minőségi követelményeknek; vagy frissítettük és új egyedi azonosítóval tettük közzé, ebben az esetben próbáld meg újra megkeresni az oldalon.",
       "metaTitle": "Az elem nem található",
       "title": "Jaj, ne! {newline} Ez az elem nem található."
+    },
+    "mediaFailure": {
+      "description": "Sajnos a Europeana számára biztosított média tárgy jelenleg nem lehet megjeleníteni. Kérjük, próbálja meg letölteni a médiát, vagy tekintse meg az tárgy a szolgáltató intézmény weboldalán."
     },
     "noFeatureIdeas": {
       "description": "Nézz vissza hamarosan!",
@@ -804,7 +821,7 @@ export default {
       "dcType": "Médiatípus",
       "ebucoreAudioChannelNumber": "Hangcsatornák",
       "ebucoreBitRate": "Bitráta (bps)",
-      "ebucoreDuration": "Időtartam (ms)",
+      "ebucoreDuration": "Időtartam",
       "ebucoreFileByteSize": "Fájlméret (bájt)",
       "ebucoreFrameRate": "Képkockasebesség (fps)",
       "ebucoreHasMimeType": "MIME-típus",
@@ -1141,8 +1158,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Fedezd fel az intézményeket, amelyek digitális kulturális örökségi elemeket osztanak meg a Europeana.eu-n.",
-        "title": "Intézmények"
+        "description": "Fedezze fel a szolgáltató intézményeket, amelyek digitális kulturális örökségi elemeket tesznek közzé az Europeana.eu oldalon.",
+        "title": "Szolgáltató intézmény"
       },
       "persons": {
         "title": "Személyek"

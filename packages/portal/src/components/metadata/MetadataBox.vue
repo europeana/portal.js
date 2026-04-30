@@ -29,25 +29,24 @@
           </b-card-text>
         </b-tab>
         <b-tab
-          button-id="all-metadata-tab-link"
+          :button-id="allMetadataTabLinkId"
           :title-link-attributes="{'data-qa': 'all metadata tab'}"
           title-link-class="d-flex"
+          @mouseleave.native="hideTooltips"
         >
           <template #title>
             <h2 class="d-inline-block">
               {{ $t('record.allMetaData') }}
             </h2>
-            <template v-if="showItemeMetadataTooltip">
-              <span
-                class="icon-info-outline ml-1"
-              />
-              <b-tooltip
-                target="all-metadata-tab-link"
-                placement="bottom"
-              >
-                {{ $t(`record.allMetaDataInfo`) }}
-              </b-tooltip>
-            </template>
+            <span
+              class="icon-info-outline ml-1"
+            />
+            <b-tooltip
+              :target="allMetadataTabLinkId"
+              placement="bottom"
+            >
+              {{ $t(`record.allMetaDataInfo`) }}
+            </b-tooltip>
           </template>
           <b-card-text
             text-tag="div"
@@ -91,6 +90,7 @@
 <script>
   import { BTab, BTabs } from 'bootstrap-vue';
   import MetadataField from './MetadataField';
+  import useHideTooltips from '@/composables/hideTooltips.js';
 
   export default {
     name: 'MetadataBox',
@@ -113,12 +113,18 @@
       }
     },
 
+    setup() {
+      const allMetadataTabLinkId = 'all-metadata-tab-link';
+      const { hideTooltips } = useHideTooltips(allMetadataTabLinkId);
+
+      return { hideTooltips, allMetadataTabLinkId };
+    },
+
     data() {
       return {
         CORE_FIELDS,
         ALL_FIELDS,
-        showLocationMap: false,
-        showItemeMetadataTooltip: this.$features.webResourceMetadata
+        showLocationMap: false
       };
     },
 

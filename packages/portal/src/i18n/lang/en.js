@@ -143,22 +143,21 @@ export default {
     "title": "Title:"
   },
   "audioVisualPlayer": {
-    "Play": "Play",
-    "Play Video": "Play video",
-    "Pause": "Pause",
-    "Replay": "Replay",
-    "Fullscreen": "Full screen",
-    "Exit Fullscreen": "Exit full screen",
-    "Mute": "Mute",
-    "Unmute": "Unmute",
-    "Subtitles": "Subtitles / closed captions",
-    "subtitles off": "Off",
     "Captions": "Subtitles / closed captions",
     "captions off": "Off",
-    "Volume Level": "Volume Level",
+    "captionsOption": "{language} captions",
+    "Exit Fullscreen": "Exit full screen",
+    "Fullscreen": "Full screen",
+    "Mute": "Mute",
+    "Pause": "Pause",
+    "Play": "Play",
+    "Play Video": "Play video",
+    "Replay": "Replay",
+    "Subtitles": "Subtitles / closed captions",
+    "subtitles off": "Off",
     "subtitlesOption": "{language} subtitles",
-    "captionsOption": "{language} captions"
-
+    "Unmute": "Unmute",
+    "Volume Level": "Volume Level"
   },
   "authored": {
     "by": "by",
@@ -167,14 +166,14 @@ export default {
   "automatedCardGroup": {
     "gallery": "Latest galleries",
     "item": "Recent items",
-    "organisation": "Organisations",
+    "organisation": "Providing institutions",
     "place": "Places",
     "theme": "Themes",
     "time": "Centuries",
     "topic": "Topics"
   },
   "cardLabels": {
-    "organisation": "Organisation",
+    "organisation": "Institution",
     "person": "Person",
     "place": "Place",
     "theme": "Theme",
@@ -337,13 +336,13 @@ export default {
       "description": "An unknown error occurred.",
       "title": "Unknown error"
     },
-    "IIIFManifestFailure": {
-      "description": "Unfortunately, the item media as provided to Europeana can not be displayed at the moment. Please try to download the media or view the item on the providing institution's website."
-    },
     "itemNotFound": {
       "description": "This could be due to the following reasons: this item doesn't exist, or; it was depublished because it did not match our quality criteria, or; it was updated and republished with a new unique identifier, in which case, try to find the item again.",
       "metaTitle": "Item not found",
       "title": "Oh no! {newline} We were not able to find this item."
+    },
+    "mediaFailure": {
+      "description": "Unfortunately, the item media as provided to Europeana can not be displayed at the moment. Please try to download the media or view the item on the providing institution's website."
     },
     "noFeatureIdeas": {
       "description": "Check back again soon!",
@@ -844,7 +843,7 @@ export default {
       "dcType": "Type of media",
       "ebucoreAudioChannelNumber": "Audio channels",
       "ebucoreBitRate": "Bitrate (bps)",
-      "ebucoreDuration": "Duration (ms)",
+      "ebucoreDuration": "Duration",
       "ebucoreFileByteSize": "File size (bytes)",
       "ebucoreFrameRate": "Frame rate (fps)",
       "ebucoreHasMimeType": "MIME Type",
@@ -1205,8 +1204,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Explore the institutions which share digital cultural heritage items on Europeana.eu.",
-        "title": "Institutions"
+        "description": "Explore the providing institutions which share digital cultural heritage items on Europeana.eu.",
+        "title": "Providing institutions"
       },
       "persons": {
         "title": "Persons"
@@ -1351,9 +1350,6 @@ export default {
     },
     "results": {
       "limitWarning": "Additional results are not shown as only the first 1000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search.",
-      "loginToSeeMore": "{login} to see more results",
-      "loginToSeeMultilingualResults": "Log in to search across the entire collection, and get results not limited to the language of your search term.",
-      "showingMultilingualResults": "Showing results across the entire collection and all languages.",
       "withinCollection": "{count} results within {type} {collection}",
       "withinCollectionWithQuery": "{count} results within {type} {collection} for {query}",
       "withoutQuery": "{count} results",

@@ -9,7 +9,6 @@ localVue.use(BootstrapVue);
 const factory = () => mount(UserProfileDropdown, {
   localVue,
   mocks: {
-    $features: { manageApiKeys: true },
     $keycloak: {
       accountUrl: () => {}
     },

@@ -142,6 +142,23 @@ export default {
     "show": "Arată atribuirea",
     "title": "Titlu:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Subtitrări / subtitrări închise",
+    "captions off": "Oprit",
+    "captionsOption": "{language} subtitrări",
+    "Exit Fullscreen": "Ieșiți din ecranul complet",
+    "Fullscreen": "Ecran complet",
+    "Mute": "Mut",
+    "Pause": "Pauză",
+    "Play": "Redă",
+    "Play Video": "Redare video",
+    "Replay": "Reluare",
+    "Subtitles": "Subtitrări / subtitrări închise",
+    "subtitles off": "Oprit",
+    "subtitlesOption": "{language} subtitrări",
+    "Unmute": "Pornește sunetul",
+    "Volume Level": "Nivelul volumului"
+  },
   "authored": {
     "by": "de",
     "publishedDate": "Publicat la {date}"
@@ -149,14 +166,14 @@ export default {
   "automatedCardGroup": {
     "gallery": "Ultimele galerii",
     "item": "Resurse culturale recente",
-    "organisation": "Organizații",
+    "organisation": "Instituții furnizoare",
     "place": "Locuri",
     "theme": "Teme",
     "time": "Secole",
     "topic": "Subiecte"
   },
   "cardLabels": {
-    "organisation": "Organizare",
+    "organisation": "Instituție",
     "person": "Persoană",
     "place": "Loc",
     "theme": "Temă",
@@ -316,13 +333,13 @@ export default {
       "description": "A apărut o eroare necunoscută.",
       "title": "Eroare necunoscută"
     },
-    "IIIFManifestFailure": {
-      "description": "Din păcate, resursă culturală media furnizat Europeana nu poate fi afișat în acest moment. Încercați să descărcați media sau să vizualizați resursă culturală pe site-ul instituției furnizoare."
-    },
     "itemNotFound": {
       "description": "Acest lucru se poate datora următoarelor motive: acest resursă culturală nu există sau; a fost anulat pentru că nu corespundea criteriilor noastre de calitate, sau; a fost actualizat și republicat cu un nou identificator unic, caz în care, încercați să găsiți resursă culturală din nou.",
       "metaTitle": "Resursă culturală nu a fost găsit",
       "title": "Oh nu! {newline} Nu am putut găsi acest resursă culturală."
+    },
+    "mediaFailure": {
+      "description": "Din păcate, resursă culturală media furnizat Europeana nu poate fi afișat în acest moment. Încercați să descărcați media sau să vizualizați resursă culturală pe site-ul instituției furnizoare."
     },
     "noFeatureIdeas": {
       "description": "Reveniți în curând!",
@@ -804,7 +821,7 @@ export default {
       "dcType": "Tip de media",
       "ebucoreAudioChannelNumber": "Canale audio",
       "ebucoreBitRate": "Rată de biți (bps)",
-      "ebucoreDuration": "Durată (ms)",
+      "ebucoreDuration": "Durată",
       "ebucoreFileByteSize": "Dimensiune fișier (octeți)",
       "ebucoreFrameRate": "Rată de cadre (fps)",
       "ebucoreHasMimeType": "Tip MIME",
@@ -1141,8 +1158,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Explorați instituțiile care partajează resurse culturale din patrimoniul cultural digital pe Europeana.eu.",
-        "title": "Instituții"
+        "description": "Explorați instituțiile furnizoare care partajează resurse din patrimoniul cultural digital pe Europeana.eu.",
+        "title": "Instituții furnizoare"
       },
       "persons": {
         "title": "Persoane"

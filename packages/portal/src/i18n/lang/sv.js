@@ -142,6 +142,23 @@ export default {
     "show": "Visa attribution",
     "title": "Titel:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Undertexter / textning för hörselskadade",
+    "captions off": "Av",
+    "captionsOption": "{language} bildtexter",
+    "Exit Fullscreen": "Avsluta helskärm",
+    "Fullscreen": "Helskärm",
+    "Mute": "Ljud av",
+    "Pause": "Paus",
+    "Play": "Spela",
+    "Play Video": "Spela upp video",
+    "Replay": "Spela om",
+    "Subtitles": "Undertexter / textning för hörselskadade",
+    "subtitles off": "Av",
+    "subtitlesOption": "{language} undertexter",
+    "Unmute": "Slå på ljud",
+    "Volume Level": "Volymnivå"
+  },
   "authored": {
     "by": "av",
     "publishedDate": "Publicerad {date}"
@@ -149,14 +166,14 @@ export default {
   "automatedCardGroup": {
     "gallery": "Senaste gallerier",
     "item": "Senaste objekt",
-    "organisation": "Organisationer",
+    "organisation": "Tillhandahållande institutioner",
     "place": "Platser",
     "theme": "Teman",
     "time": "Århundraden",
     "topic": "Ämnen"
   },
   "cardLabels": {
-    "organisation": "Organisation",
+    "organisation": "Institution",
     "person": "Person",
     "place": "Plats",
     "theme": "Tema",
@@ -316,13 +333,13 @@ export default {
       "description": "Ett okänt fel uppstod.",
       "title": "Okänt fel"
     },
-    "IIIFManifestFailure": {
-      "description": "Tyvärr kan inte det medieobjekt som tillhandahållits till Europeana visas för tillfället. Försök att ladda ner mediaobjektet eller visa objektet på den tillhandahållande institutionens webbplats."
-    },
     "itemNotFound": {
       "description": "Detta kan bero på följande orsaker: det här objektet finns inte, eller; den reduplicerades eftersom den inte matchade våra kvalitetskriterier, eller; den uppdaterades och publicerades på nytt med en ny unik identifierare. Försök i så fall att hitta objektet igen.",
       "metaTitle": "Objektet hittades inte",
       "title": "Åh nej! {newline} Vi kunde inte hitta det här objektet."
+    },
+    "mediaFailure": {
+      "description": "Tyvärr kan inte det medieobjekt som tillhandahållits till Europeana visas för tillfället. Försök att ladda ner mediaobjektet eller visa objektet på den tillhandahållande institutionens webbplats."
     },
     "noFeatureIdeas": {
       "description": "Kom tillbaka snart igen!",
@@ -804,7 +821,7 @@ export default {
       "dcType": "Typ av media",
       "ebucoreAudioChannelNumber": "Ljudkanaler",
       "ebucoreBitRate": "Bithastighet (bps)",
-      "ebucoreDuration": "Varaktighet (ms)",
+      "ebucoreDuration": "Varaktighet",
       "ebucoreFileByteSize": "Filstorlek (byte)",
       "ebucoreFrameRate": "Bildfrekvens (fps)",
       "ebucoreHasMimeType": "MIME-typ",
@@ -1141,8 +1158,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Utforska de institutioner som delar digitala kulturarvsobjekt på Europeana.eu.",
-        "title": "institutioner"
+        "description": "Utforska de tillhandahållande institutioner som delar digitala kulturarvsobjekt på Europeana.eu.",
+        "title": "Tillhandahållande institutioner"
       },
       "persons": {
         "title": "Personer"
