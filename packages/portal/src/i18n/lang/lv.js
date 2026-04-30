@@ -166,14 +166,14 @@ export default {
   "automatedCardGroup": {
     "gallery": "Jaunākās galerijas",
     "item": "Pēdējie digitālie objekti",
-    "organisation": "Organizācijas",
+    "organisation": "Piegādājošās iestādes",
     "place": "Vietas",
     "theme": "Tēmas",
     "time": "Gadsimtiem",
     "topic": "Tematikas"
   },
   "cardLabels": {
-    "organisation": "Organizācija",
+    "organisation": "Iestāde",
     "person": "Persona",
     "place": "Vieta",
     "theme": "Tēma",
@@ -1158,8 +1158,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Izpētiet iestādes, kas dalās ar digitālajiem kultūras mantojuma objekti Europeana.eu.",
-        "title": "Lestādes"
+        "description": "Izpētiet sniedzēja institūcijas, kas kopīgo kultūras mantojuma digitālie objekti vietnē Europeana.eu.",
+        "title": "Piegādājošās iestādes"
       },
       "persons": {
         "title": "Personas"

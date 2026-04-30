@@ -166,14 +166,14 @@ export default {
   "automatedCardGroup": {
     "gallery": "Nejnovější galerie",
     "item": "Poslední položky",
-    "organisation": "Organizace",
+    "organisation": "Poskytující instituce",
     "place": "Místa",
     "theme": "Témata",
     "time": "Století",
     "topic": "Tématy"
   },
   "cardLabels": {
-    "organisation": "Organizace",
+    "organisation": "Instituce",
     "person": "Osoba",
     "place": "Místo",
     "theme": "Téma",
@@ -1158,8 +1158,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Prozkoumejte instituce, které sdílejí položky digitálního kulturního dědictví na Europeana.eu.",
-        "title": "Instituce"
+        "description": "Prozkoumejte poskytovatelské instituce, které sdílejí položky digitálního kulturního dědictví na Europeana.eu.",
+        "title": "Poskytující instituce"
       },
       "persons": {
         "title": "Osoby"

@@ -166,14 +166,14 @@ export default {
   "automatedCardGroup": {
     "gallery": "Последни галерии",
     "item": "Скорошни обекта",
-    "organisation": "Организации",
+    "organisation": "Доставчици на данни",
     "place": "Места",
     "theme": "Теми",
     "time": "Векове",
     "topic": "Рубрика"
   },
   "cardLabels": {
-    "organisation": "Организация",
+    "organisation": "Институция",
     "person": "човек",
     "place": "място",
     "theme": "Тема",
@@ -1158,8 +1158,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Разгледайте институциите, които споделят обекта на цифровото културно наследство на Europeana.eu.",
-        "title": "институции"
+        "description": "Разгледайте институциите доставчици, които споделят обекти на дигиталното културно наследство в Europeana.eu.",
+        "title": "Доставчици на данни"
       },
       "persons": {
         "title": "Лица"

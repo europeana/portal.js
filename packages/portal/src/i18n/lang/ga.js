@@ -166,14 +166,14 @@ export default {
   "automatedCardGroup": {
     "gallery": "Gailearaithe is déanaí",
     "item": "Míreanna le déanaí",
-    "organisation": "Eagraíochtaí",
+    "organisation": "Institiúidí soláthartha",
     "place": "Áiteanna",
     "theme": "Téamaí",
     "time": "Céadta",
     "topic": "Ábhair"
   },
   "cardLabels": {
-    "organisation": "Eagraíocht",
+    "organisation": "Institiúid",
     "person": "Duine",
     "place": "Áit",
     "theme": "Téama",
@@ -1158,8 +1158,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Déan iniúchadh ar na hinstitiúidí a roinneann míreanna digiteacha oidhreachta cultúrtha ar Europeana.eu.",
-        "title": "Institiúidí"
+        "description": "Déan iniúchadh ar naInstitiúidí soláthartha a roinneann míreanna digiteacha oidhreachta cultúrtha ar Europeana.eu.",
+        "title": "Institiúidí soláthartha"
       },
       "persons": {
         "title": "Daoine"

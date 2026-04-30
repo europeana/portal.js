@@ -166,14 +166,14 @@ export default {
   "automatedCardGroup": {
     "gallery": "Najnovije galerije",
     "item": "Nedavne predmeti",
-    "organisation": "Organizacije",
+    "organisation": "Institucije",
     "place": "Mjesta",
     "theme": "Teme",
     "time": "Stoljeća",
     "topic": "Sadržaj"
   },
   "cardLabels": {
-    "organisation": "Organizacija",
+    "organisation": "Institucija",
     "person": "Osoba",
     "place": "Mjesto",
     "theme": "Tema",
@@ -1158,7 +1158,7 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Istražite institucije koje dijele predmete digitalne kulturne baštine na Europeana.eu.",
+        "description": "Istražite institucije pružatelje usluga koje dijele digitalne predmete kulturne baštine na Europeana.eu.",
         "title": "Institucije"
       },
       "persons": {
