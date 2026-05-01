@@ -121,6 +121,29 @@
             <MediaMetadataList
               :web-resource="webResource"
             />
+            <template
+              v-if="$features.isFormatOfMediaMetadata"
+            >
+              <div
+                v-for="wr, index in downloadableMedia"
+                :key="wr.about"
+              >
+                <b-button
+                  v-b-toggle="`collapse-${index}`"
+                  variant="link"
+                >
+                  {{ downloadButtonText(wr) }}
+                </b-button>
+                <b-collapse
+                  :id="`collapse-${index}`"
+                  class="mt-2"
+                >
+                  <MediaMetadataList
+                    :web-resource="wr"
+                  />
+                </b-collapse>
+              </div>
+            </template>
           </b-tab>
         </template>
         <template
@@ -167,10 +190,12 @@
 
 <script>
   import { BTab, BTabs } from 'bootstrap-vue';
+  import { filesize } from 'filesize';
 
   import useActiveTab from '@/composables/activeTab.js';
   import useHideTooltips from '@/composables/hideTooltips.js';
   import MediaMetadataList from '../media/MediaMetadataList.vue';
+  import { mediaTypeLabel } from '@/utils/media/mediaTypeLabel.js';
 
   export default {
     name: 'ItemMediaSidebar',
@@ -261,6 +286,14 @@
       };
     },
 
+    computed: {
+      downloadableMedia() {
+        return []
+          .concat(this.webResource.dctermsIsFormatOf?.def || [])
+          .filter((wr) => wr.isDownloadable);
+      }
+    },
+
     watch: {
       show(val) {
         if (val) {
@@ -279,6 +312,14 @@
     },
 
     methods: {
+      downloadButtonText(wr) {
+        let text = mediaTypeLabel(wr.ebucoreHasMimeType);
+        if (wr.ebucoreFileByteSize) {
+          text = `${text} (${filesize(wr.ebucoreFileByteSize)})`;
+        }
+        return text;
+      },
+    
       handleAnnotationsFetched(annotationsLength) {
         this.annotationsCount = annotationsLength;
       },
