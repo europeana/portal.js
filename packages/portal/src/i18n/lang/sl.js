@@ -166,14 +166,14 @@ export default {
   "automatedCardGroup": {
     "gallery": "Najnovejše galerije",
     "item": "Nedavni enote",
-    "organisation": "Organizacije",
+    "organisation": "Ponudniki podatkov",
     "place": "Mesta",
     "theme": "Teme",
     "time": "Stoletja",
     "topic": "Teme"
   },
   "cardLabels": {
-    "organisation": "Organizacija",
+    "organisation": "Institucija",
     "person": "Oseba",
     "place": "Mesto",
     "theme": "Tema",
@@ -1158,8 +1158,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Raziščite ustanove, ki delijo enote digitalne kulturne dediščine na Europeana.eu.",
-        "title": "Institucije"
+        "description": "Raziščite ustanove ponudnice, ki delijo enote digitalne kulturne dediščine na Europeana.eu.",
+        "title": "Ponudniki podatkov"
       },
       "persons": {
         "title": "Osebe"

@@ -166,14 +166,14 @@ export default {
   "automatedCardGroup": {
     "gallery": "Τελευταίες γκαλερί",
     "item": "Πρόσφατα τεκμήριο",
-    "organisation": "Οργανισμοί",
+    "organisation": "Φορείς προέλευσης",
     "place": "Μέρη",
     "theme": "Κατηγορίες",
     "time": "Αιώνες",
     "topic": "Θέματα"
   },
   "cardLabels": {
-    "organisation": "Οργάνωση",
+    "organisation": "Ίδρυμα",
     "person": "Πρόσωπο",
     "place": "Θέση",
     "theme": "Θέμα",
@@ -1158,8 +1158,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Εξερευνήστε τους θεσμούς που μοιράζονται ψηφιακά τεκμήρια πολιτιστικής κληρονομιάς στο Europeana.eu.",
-        "title": "Ιδρύματα"
+        "description": "Ανακαλύψτε τους παρόχους οργανισμούς που μοιράζονται ψηφιακά πολιτιστικά τεκμήρια στο Europeana.eu.",
+        "title": "Φορείς προέλευσης"
       },
       "persons": {
         "title": "Άτομα"

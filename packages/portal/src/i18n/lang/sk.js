@@ -166,14 +166,14 @@ export default {
   "automatedCardGroup": {
     "gallery": "Najnovšie galérie",
     "item": "Nedávne objekty",
-    "organisation": "Organizácie",
+    "organisation": "Správcovské inštitúcie",
     "place": "Miesta",
     "theme": "Kategórie",
     "time": "Storočia",
     "topic": "Témy"
   },
   "cardLabels": {
-    "organisation": "Organizácia",
+    "organisation": "Inštitúcia",
     "person": "Osoba",
     "place": "Miesto",
     "theme": "Téma",
@@ -1159,7 +1159,7 @@ export default {
     "collections": {
       "organisations": {
         "description": "Preskúmajte inštitúcie, ktoré zdieľajú objekty digitálneho kultúrneho dedičstva na Europeana.eu.",
-        "title": "Inštitúcie"
+        "title": "Správcovské inštitúcie"
       },
       "persons": {
         "title": "Osoby"

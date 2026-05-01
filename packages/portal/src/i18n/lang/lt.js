@@ -166,14 +166,14 @@ export default {
   "automatedCardGroup": {
     "gallery": "Naujausios parodos",
     "item": "Naujausi skaitmeniniai objektai",
-    "organisation": "Organizacijos",
+    "organisation": "Teikėjai",
     "place": "Vietos",
     "theme": "Temos",
     "time": "Šimtmečiai",
     "topic": "Potemė"
   },
   "cardLabels": {
-    "organisation": "Organizacija",
+    "organisation": "Institucija",
     "person": "Asmuo",
     "place": "Vieta",
     "theme": "Tema",
@@ -1158,8 +1158,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Tyrinėkite institucijas, kurios dalijasi skaitmeniniais kultūros paveldo objektais Europeana.eu.",
-        "title": "Institucijos"
+        "description": "Tyrinėkite teikiančias institucijas, kurios dalijasi skaitmeniniais kultūros paveldo objektais Europeana.eu.",
+        "title": "Teikėjai"
       },
       "persons": {
         "title": "Asmenys"

@@ -166,14 +166,14 @@ export default {
   "automatedCardGroup": {
     "gallery": "L-aħħar galleriji",
     "item": "Oġġetti reċenti",
-    "organisation": "Organizzazzjonijiet",
+    "organisation": "Istituzzjonijiet fornitriċi",
     "place": "Postijiet",
     "theme": "Temi",
     "time": "Sekli",
     "topic": "Suġġetti"
   },
   "cardLabels": {
-    "organisation": "Organizzazzjoni",
+    "organisation": "Istituzzjoni",
     "person": "Persuna",
     "place": "Post",
     "theme": "Tema",
@@ -1158,8 +1158,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Esplora l-istituzzjonijiet li jaqsmu l-oġġetti ta' wirt kulturali diġitali fuq Europeana.eu.",
-        "title": "Istituzzjonijiet"
+        "description": "Esplora l-istituzzjonijiet fornituri li jaqsmu oġġetti ta' wirt kulturali diġitali fuq Europeana.eu.",
+        "title": "Istituzzjonijiet fornitriċi"
       },
       "persons": {
         "title": "Persuni"
