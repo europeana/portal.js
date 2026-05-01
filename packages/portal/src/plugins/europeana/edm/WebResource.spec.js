@@ -42,6 +42,18 @@ describe('plugins/europeana/edm/WebResource', () => {
     });
 
     describe('.edmType', () => {
+      it('is the value of edmType from data if supplied', () => {
+        const wr = new WebResource({ ebucoreHasMimeType: 'application/octet-stream', edmType: 'VIDEO' });
+
+        expect(wr.edmType).toBe('VIDEO');
+      });
+
+      it('is 3D if ebucoreHasMimeType starts with model/', () => {
+        const wr = new WebResource({ ebucoreHasMimeType: 'model/gltf-binary' });
+
+        expect(wr.edmType).toBe('3D');
+      });
+
       it('is IMAGE if ebucoreHasMimeType starts with image/', () => {
         const wr = new WebResource({ ebucoreHasMimeType: 'image/jpeg' });
 
