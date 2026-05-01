@@ -127,10 +127,12 @@
               <div
                 v-for="wr, index in downloadableMedia"
                 :key="wr.about"
+                class="collapsable-section"
               >
                 <b-button
                   v-b-toggle="`collapse-${index}`"
                   variant="link"
+                  class="dropdown-toggle p-3"
                 >
                   {{ mediaDownloadLabel(wr) }}
                 </b-button>
@@ -374,6 +376,35 @@
         overflow-wrap: anywhere;
         color: $blue;
         font-size: $font-size-small;
+      }
+    }
+
+    .collapsable-section {
+      ::v-deep .media-viewer-metadata-list {
+        border-top: 0px;
+        li {
+          &:first-child .metadata-row {
+            padding-top: 0px !important;
+          }
+        }
+      }
+    }
+
+    .dropdown-toggle {
+      text-decoration: none;
+      width: 100%;
+      text-align: left;
+      border-bottom: 1px solid $lightbluemagenta;
+
+      &::after {
+        font-size: .5rem;
+      }
+
+      &.not-collapsed {
+        &::after {
+          transform: rotateX(180deg);
+        }
+        border-bottom: 0px;
       }
     }
 
