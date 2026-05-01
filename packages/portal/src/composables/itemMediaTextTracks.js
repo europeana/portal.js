@@ -1,26 +1,28 @@
 import { readonly, ref, watchEffect } from 'vue';
 
-export class ItemMediaPresentationSubtitleTrack {
+export class ItemMediaPresentationTextTrack {
   kind = 'subtitles';
-  label;
   language;
   cues = [];
 
-  constructor(annoBody) {
-    this.label = annoBody.language?.toUpperCase();
-    this.language = annoBody.language;
-    this.cues = this.constructor.parseAnnoBodyValue(annoBody.value);
+  constructor(anno) {
+    this.language = anno.body.language;
+    this.cues = this.constructor.parseAnnoBodyValue(anno.body.value);
+
+    if (anno.motivation === 'captioning') {
+      this.kind = 'captions';
+    }
   }
 
   static parseAnnoBodyValue(annoBodyValue) {
     return annoBodyValue
       .trim()
       .split(/[\r\n]{2,}/)
-      .map((seq) => ItemMediaPresentationSubtitleCue.parseSRTSequence(seq));
+      .map((seq) => ItemMediaPresentationTextCue.parseSRTSequence(seq));
   }
 }
 
-export class ItemMediaPresentationSubtitleCue {
+export class ItemMediaPresentationTextCue {
   startTime;
   endTime;
   text;
@@ -39,30 +41,30 @@ export class ItemMediaPresentationSubtitleCue {
     const endTime = this.parseSRTTimeToSeconds(timespan[1]);
     const text = parts[2];
 
-    return new ItemMediaPresentationSubtitleCue(startTime, endTime, text);
+    return new ItemMediaPresentationTextCue(startTime, endTime, text);
   }
 
   static parseSRTTimeToSeconds(time) {
     const splitMilliseconds = time.split(',');
-    const milliseconds = new Number(splitMilliseconds[1]);
+    const milliseconds = Number(splitMilliseconds[1]);
     const splitHoursMinutesSeconds = splitMilliseconds[0].split(':');
-    const seconds = new Number(splitHoursMinutesSeconds[2]);
-    const minutes = new Number(splitHoursMinutesSeconds[1]);
-    const hours = new Number(splitHoursMinutesSeconds[0]);
+    const seconds = Number(splitHoursMinutesSeconds[2]);
+    const minutes = Number(splitHoursMinutesSeconds[1]);
+    const hours = Number(splitHoursMinutesSeconds[0]);
     return (hours * 60 * 60) + (minutes * 60) + seconds + (milliseconds / 1000);
   }
 }
 
-export function useSubtitles(annotations, resource) {
-  const subtitles = ref([]);
+export function useItemMediaTextTracks(annotations, resource) {
+  const textTracks = ref([]);
 
   watchEffect(() => {
-    subtitles.value = annotations?.value
+    textTracks.value = annotations?.value
       ?.filter((anno) => anno.target?.source === resource?.value?.id)
-      .map((anno) => new ItemMediaPresentationSubtitleTrack(anno.body));
+      .map((anno) => new ItemMediaPresentationTextTrack(anno));
   });
 
   return {
-    subtitles: readonly(subtitles)
+    textTracks: readonly(textTracks)
   };
 }

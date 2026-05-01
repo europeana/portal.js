@@ -50,7 +50,8 @@
     }
   }
 
-  &:hover {
+  &:hover,
+  &:focus {
     background: $innovationblue-dark;
     box-shadow: $boxshadow;
   }

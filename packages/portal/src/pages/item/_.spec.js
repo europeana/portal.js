@@ -156,6 +156,39 @@ const fixtures = {
   }
 };
 
+const annotations = [
+  {
+    motivation: 'linkForContributing',
+    body: 'https://transcribation.europeana.eu'
+  },
+  {
+    motivation: 'transcribing',
+    body: {
+      type: 'FullTextResource',
+      value: 'This is the full transcription!',
+      language: 'en'
+    }
+  },
+  {
+    motivation: 'tagging',
+    body: {
+      type: 'Concept',
+      prefLabel: {
+        en: 'tag',
+        fr: 'tag FR'
+      }
+    }
+  },
+  {
+    motivation: 'subtitling',
+    body: {}
+  },
+  {
+    motivation: 'captioning',
+    body: {}
+  }
+];
+
 const entityFindStub = sinon.stub();
 const logEventSpy = sinon.spy();
 const redirectSpy = sinon.spy();
@@ -349,7 +382,7 @@ describe('pages/item/_.vue', () => {
 
       expect(wrapper.vm.$apis.annotation.search.calledWith({
         query: 'target_record_id:"/123/abc"',
-        qf: 'motivation:(highlighting OR linkForContributing OR tagging OR subtitling)',
+        qf: 'motivation:(highlighting OR linkForContributing OR tagging OR subtitling OR captioning)',
         profile: 'dereference'
       })).toBe(true);
     });
@@ -568,6 +601,60 @@ describe('pages/item/_.vue', () => {
           expect(wrapper.vm.headLinkPreconnect.includes('https://iiif.example.org')).toBe(true);
         });
       });
+
+      describe('when model viewer and model viewer replaces oembed feature toggles are on', () => {
+        describe('and there is a displayable oembed web resource', () => {
+          it('replaces the oembed as displayable with the isFormatOf web resource', async() => {
+            const wrapper = factory({ mocks: { $features: {
+              modelViewer: true,
+              modelViewerReplacesOembed: true
+            } } });
+
+            const modelId = '3Dmodel';
+            const response = apiResponse();
+            response.object.aggregations[0].hasView = ['https://sketchfab.com/models/3D-oembed'],
+            response.object.aggregations[0].webResources.push({
+              about: 'https://sketchfab.com/models/3D-oembed',
+              dctermsIsFormatOf: { def: [modelId] }
+            },
+            {
+              about: modelId,
+              ebucoreHasMimeType: 'model/gltf-binary'
+            });
+            wrapper.vm.$apis.record.get.resolves(response);
+
+            await wrapper.vm.fetch();
+
+            expect(wrapper.vm.media.length).toEqual(2);
+            expect(wrapper.vm.media[1].about).toEqual(modelId);
+          });
+          describe('when there is no isFormatOf', () => {
+            it('does not replace the oembed web resource', async() => {
+              const wrapper = factory({ mocks: { $features: {
+                modelViewer: true,
+                modelViewerReplacesOembed: true
+              } } });
+
+              const oembedId = 'https://sketchfab.com/models/3D-oembed';
+              const response = apiResponse();
+              response.object.aggregations[0].hasView = ['https://sketchfab.com/models/3D-oembed'],
+              response.object.aggregations[0].webResources.push({
+                about: oembedId
+              },
+              {
+                about: '3Dmodel',
+                ebucoreHasMimeType: 'model/gltf-binary'
+              });
+              wrapper.vm.$apis.record.get.resolves(response);
+
+              await wrapper.vm.fetch();
+
+              expect(wrapper.vm.media.length).toEqual(2);
+              expect(wrapper.vm.media[1].about).toEqual(oembedId);
+            });
+          });
+        });
+      });
     });
 
     describe('on errors', () => {
@@ -725,64 +812,35 @@ describe('pages/item/_.vue', () => {
     });
 
     describe('annotationsByMotivation', () => {
-      const annotations = [
-        {
-          motivation: 'linkForContributing',
-          body: 'https://transcribation.europeana.eu'
-        },
-        {
-          motivation: 'transcribing',
-          body: {
-            type: 'FullTextResource',
-            value: 'This is the full transcription!',
-            language: 'en'
-          }
-        },
-        {
-          motivation: 'tagging',
-          body: {
-            type: 'Concept',
-            prefLabel: {
-              en: 'tag',
-              fr: 'tag FR'
-            }
-          }
-        }
-      ];
+      const itHandlesAnnotationMotivation = (motivation) => {
+        describe(`when asking for ${motivation}`, () => {
+          it(`has a ${motivation} motivation`, async() => {
+            const wrapper = await factory();
+            await wrapper.setData({ annotations });
 
-      describe('when asking for linkForContributing', () => {
-        it('has a linkForContributing motivation', async() => {
-          const wrapper = await factory();
-          await wrapper.setData({ annotations });
+            const linkForContributing = wrapper.vm.annotationsByMotivation(motivation);
 
-          const linkForContributing = wrapper.vm.annotationsByMotivation('linkForContributing');
-
-          expect(linkForContributing[0].motivation).toBe('linkForContributing');
-          expect(linkForContributing.length).toBe(1);
+            expect(linkForContributing[0].motivation).toBe(motivation);
+            expect(linkForContributing.length).toBe(1);
+          });
         });
-      });
+      };
 
-      describe('when asking for tagging annotations', () => {
-        it('has a tagging motivation', async() => {
+      itHandlesAnnotationMotivation('linkForContributing');
+      itHandlesAnnotationMotivation('tagging');
+      itHandlesAnnotationMotivation('transcribing');
+      itHandlesAnnotationMotivation('subtitling');
+      itHandlesAnnotationMotivation('captioning');
+
+      describe('when annotations is undefined', () => {
+        it('returns an empty array', async() => {
           const wrapper = await factory();
-          await wrapper.setData({ annotations });
+          await wrapper.setData({ annotations: undefined });
 
           const taggingAnnotations = wrapper.vm.annotationsByMotivation('tagging');
 
-          expect(taggingAnnotations[0].motivation).toBe('tagging');
-          expect(taggingAnnotations.length).toBe(1);
-        });
-      });
-
-      describe('when asking for transcribing annotations', () => {
-        it('has a transcribing motivation', async() => {
-          const wrapper = await factory();
-          await wrapper.setData({ annotations });
-
-          const taggingAnnotations = wrapper.vm.annotationsByMotivation('transcribing');
-
-          expect(taggingAnnotations[0].motivation).toBe('transcribing');
-          expect(taggingAnnotations.length).toBe(1);
+          expect(taggingAnnotations).toEqual([]);
+          expect(taggingAnnotations.length).toBe(0);
         });
       });
     });
@@ -969,6 +1027,19 @@ describe('pages/item/_.vue', () => {
         expect(matomoOptions.dimension2).toBe('Data Provider');
         expect(matomoOptions.dimension3).toBe('Provider');
         expect(matomoOptions.dimension4).toBe('http://rightsstatements.org/vocab/InC/1.0/');
+      });
+    });
+
+    describe('textTrackAnnotations', () => {
+      it('returns both subtitling and captioning annotations', async() => {
+        const wrapper = factory();
+        await wrapper.setData({ annotations });
+
+        const textTrackAnnotations = wrapper.vm.textTrackAnnotations;
+
+        expect(textTrackAnnotations.length).toBe(2);
+        expect(textTrackAnnotations[0].motivation).toBe('subtitling');
+        expect(textTrackAnnotations[1].motivation).toBe('captioning');
       });
     });
   });

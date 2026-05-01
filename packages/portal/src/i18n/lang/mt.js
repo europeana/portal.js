@@ -142,6 +142,23 @@ export default {
     "show": "Uri l-attribuzzjoni",
     "title": "Titlu:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Sottotitoli / sottotitoli magħluqa",
+    "captions off": "Mitfi",
+    "captionsOption": "{language} sottotitli",
+    "Exit Fullscreen": "Oħroġ mill-iskrin sħiħ",
+    "Fullscreen": "Skrin sħiħ",
+    "Mute": "Muta",
+    "Pause": "Pawża",
+    "Play": "Ilgħab",
+    "Play Video": "Ilgħab il-vidjo",
+    "Replay": "Erġa' uri",
+    "Subtitles": "Sottotitoli / sottotitoli magħluqa",
+    "subtitles off": "Mitfi",
+    "subtitlesOption": "{language} sottotitli",
+    "Unmute": "Neħħi l-iskiet",
+    "Volume Level": "Livell tal-Volum"
+  },
   "authored": {
     "by": "minn",
     "publishedDate": "Ippubblikat {date}"
@@ -149,14 +166,14 @@ export default {
   "automatedCardGroup": {
     "gallery": "L-aħħar galleriji",
     "item": "Oġġetti reċenti",
-    "organisation": "Organizzazzjonijiet",
+    "organisation": "Istituzzjonijiet fornitriċi",
     "place": "Postijiet",
     "theme": "Temi",
     "time": "Sekli",
     "topic": "Suġġetti"
   },
   "cardLabels": {
-    "organisation": "Organizzazzjoni",
+    "organisation": "Istituzzjoni",
     "person": "Persuna",
     "place": "Post",
     "theme": "Tema",
@@ -316,13 +333,13 @@ export default {
       "description": "Sar żball mhux magħruf.",
       "title": "Żball mhux magħruf"
     },
-    "IIIFManifestFailure": {
-      "description": "Sfortunatament, il-midja tal-oġġett kif ipprovdata lil Europeana ma tistax tiġi murija bħalissa. Jekk jogħġbok, ipprova tniżżel il-midja jew ara l-oġġett fuq is-sit tal-istituzzjoni fornitriċi li pprovdat."
-    },
     "itemNotFound": {
       "description": "Dan jista' jkun minħabba r-raġunijiet li ġejjin: dan l-oġġett ma jeżistix, jew; tneħħiet il-pubblikazzjoni għax ma kinitx taqbel mal-kriterji ta’ kwalità tagħna, jew; ġie aġġornat u ppubblikat mill-ġdid b'identifikatur uniku ġdid, f'liema każ, ipprova erġa' sib l-oġġett.",
       "metaTitle": "Oġġett mhux misjub",
       "title": "Oh le! {newline} Ma stajniex insibu dan l-oġġett."
+    },
+    "mediaFailure": {
+      "description": "Sfortunatament, il-midja tal-oġġett kif ipprovdata lil Europeana ma tistax tiġi murija bħalissa. Jekk jogħġbok, ipprova tniżżel il-midja jew ara l-oġġett fuq is-sit tal-istituzzjoni fornitriċi li pprovdat."
     },
     "noFeatureIdeas": {
       "description": "Iċċekkja lura dalwaqt!",
@@ -804,7 +821,7 @@ export default {
       "dcType": "Tip ta' midja",
       "ebucoreAudioChannelNumber": "Kanali tal-awdjo",
       "ebucoreBitRate": "Rata tal-bits (bps)",
-      "ebucoreDuration": "Tul (ms)",
+      "ebucoreDuration": "Kemm iddum",
       "ebucoreFileByteSize": "Daqs tal-fajl (bytes)",
       "ebucoreFrameRate": "Rata tal-frejms (fps)",
       "ebucoreHasMimeType": "Tip ta' MIME",
@@ -1141,8 +1158,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Esplora l-istituzzjonijiet li jaqsmu l-oġġetti ta' wirt kulturali diġitali fuq Europeana.eu.",
-        "title": "Istituzzjonijiet"
+        "description": "Esplora l-istituzzjonijiet fornituri li jaqsmu oġġetti ta' wirt kulturali diġitali fuq Europeana.eu.",
+        "title": "Istituzzjonijiet fornitriċi"
       },
       "persons": {
         "title": "Persuni"

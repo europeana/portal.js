@@ -37,24 +37,21 @@
           >
             <div class="ml-lg-auto d-flex justify-content-center flex-wrap flex-md-nowrap">
               <ItemTranscribeButton
-                v-if="showTranscribathonLink"
+                v-if="linkForContributingAnnotation"
                 :transcribe-url="linkForContributingAnnotation"
               />
               <client-only>
                 <UserButtons
                   :identifier="identifier"
-                  :show-pins="showPins"
-                  :entities="entities"
+                  :show-pins="true"
                   button-variant="secondary"
                 />
               </client-only>
               <ShareButton />
               <DownloadWidget
-                v-if="downloadEnabled"
-                :url="downloadUrl"
+                :media="selectedMedia"
                 :provider-url="providerUrl"
                 :identifier="identifier"
-                :rights-statement="rightsStatement"
                 :attribution-fields="attributionFields"
               />
             </div>
@@ -63,13 +60,9 @@
       </b-row>
       <ShareSocialModal
         :media-url="selectedMedia?.about"
-        @show="fetchEmbedCode"
       >
-        <ShareSnippet
-          tag="code"
-          :text="embedCode"
-          :button-text="$t('record.actions.copyEmbedCode')"
-          :help-text="$t('record.clickToCopyEmbedCode')"
+        <ItemEmbedCodeSnippet
+          :identifier="identifier"
         />
       </ShareSocialModal>
     </b-container>
@@ -81,14 +74,10 @@
 
   import DownloadWidget from '../download/DownloadWidget';
   import RightsStatementButton from '../generic/RightsStatementButton';
-  import ShareSnippet from '@/components/share/ShareSnippet';
+  import ItemEmbedCodeSnippet from './ItemEmbedCodeSnippet';
   import ShareSocialModal from '../share/ShareSocialModal';
   import ShareButton from '../share/ShareButton';
   import WebResource from '@/plugins/europeana/edm/WebResource';
-  import { oEmbedForEndpoint } from '@/utils/services/oembed.js';
-  import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
-
-  const TRANSCRIBATHON_URL_ROOT = /^https?:\/\/europeana\.transcribathon\.eu\//;
 
   export default {
     name: 'ItemHero',
@@ -96,7 +85,7 @@
     components: {
       ClientOnly,
       DownloadWidget,
-      ShareSnippet,
+      ItemEmbedCodeSnippet,
       RightsStatementButton,
       ShareButton,
       ShareSocialModal,
@@ -108,12 +97,9 @@
 
     inject: ['itemIsDeleted'],
 
-    // TODO: much prop drilling happening here
+    // TODO: much prop drilling happening here; alleviate by
+    //       moving rendering of non-"hero" child components out of here and into slot(s)
     props: {
-      allMediaUris: {
-        type: Array,
-        default: () => []
-      },
       identifier: {
         type: String,
         required: true
@@ -139,11 +125,6 @@
         type: Object,
         default: () => ({})
       },
-      // Entities related to the item, used for pinning.
-      entities: {
-        type: Array,
-        default: () => []
-      },
       providerUrl: {
         type: String,
         default: null
@@ -164,67 +145,26 @@
       };
     },
     computed: {
-      downloadEnabled() {
-        return this.rightsStatement && !this.rightsStatement.includes('/InC/') && !this.selectedMedia?.forEdmIsShownAt && !this.selectedMedia?.isOEmbed && !!this.downloadUrl;
-      },
-      downloadUrl() {
-        const url = this.selectedMedia?.about;
-        return this.downloadViaProxy(url) ? this.$apis.record.mediaProxyUrl(url, this.identifier) : url;
-      },
       rightsStatementIsUrl() {
-        return /^https?:\/\//.test(this.rightsStatement);
+        return /^https?:\/\//.test(this.rightsStatement || '');
       },
       rightsStatement() {
-        if (this.selectedMedia?.webResourceEdmRights) {
-          return this.selectedMedia?.webResourceEdmRights.def[0];
-        } else if (this.edmRights !== '') {
-          return this.edmRights;
-        }
-        return '';
-      },
-      showPins() {
-        return this.userIsEntitiesEditor && this.userIsSetsEditor && this.entities.length > 0;
-      },
-      userIsEntitiesEditor() {
-        return this.$auth.userHasClientRole('entities', 'editor');
-      },
-      userIsSetsEditor() {
-        return this.$auth.userHasClientRole('usersets', 'editor');
-      },
-      showTranscribathonLink() {
-        return this.$features.transcribathonCta && this.linkForContributingAnnotation && TRANSCRIBATHON_URL_ROOT.test(this.linkForContributingAnnotation);
+        return this.selectedMedia.edmRights?.def?.[0];
       }
     },
     created() {
       this.selectMedia(this.media?.[0]);
     },
     methods: {
-      // Ensure we only proxy web resource media, preventing proxying of
-      // arbitrary other resources such as images linked from (non-Europeana-hosted)
-      // IIIF manifests.
-      downloadViaProxy(url) {
-        return this.allMediaUris.some(uri => uri === url);
-      },
       selectMedia(resource) {
         if (resource) {
           this.selectedMedia = new WebResource({
+            edmRights: { def: [this.edmRights] },
             // media prop may contain some metadata not available from iiif-derived
             // resource emitted from ItemMediaPresentation, e.g. rights statement
             ...this.media.find((wr) => wr.about === resource.about),
             ...resource
           });
-        }
-      },
-      async fetchEmbedCode() {
-        if (this.embedCode) {
-          return;
-        }
-        // TODO: this should be read from Nuxt runtime config
-        const response = await oEmbedForEndpoint(process.env.EUROPEANA_OEMBED_PROVIDER_URL || 'https://oembed.europeana.eu',
-                                                 `${EUROPEANA_DATA_URL}/item${this.identifier}`);
-
-        if (response.data.html) {
-          this.embedCode = response.data.html;
         }
       }
     }

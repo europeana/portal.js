@@ -12,7 +12,8 @@ const factory = (propsData = {}) => shallowMount(ItemMediaSidebar, {
     $t: (key) => key,
     $tc: (key, count) => `${key} ${count}`
   },
-  stubs: ['b-link', 'b-tooltip', 'MediaAnnotationList', 'MediaAnnotationSearch']
+  directives: { 'b-tooltip': () => {} },
+  stubs: ['b-link', 'b-button', 'b-tooltip', 'MediaAnnotationList', 'MediaAnnotationSearch']
 });
 
 describe('components/item/ItemMediaSidebar', () => {
