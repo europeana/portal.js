@@ -397,7 +397,7 @@
       border-bottom: 1px solid $lightbluemagenta;
 
       &::after {
-        font-size: .5rem;
+        font-size: 0.5rem;
       }
 
       &.not-collapsed {
