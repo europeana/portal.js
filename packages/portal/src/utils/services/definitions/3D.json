@@ -59,6 +59,15 @@
     "title": "Heritage Malta"
   },
   {
+    "name": "humaNum",
+    "oembed": "https://ecorpus-research.huma-num.fr/services/oembed",
+    "responsive": true,
+    "schemes": [
+      "https://ecorpus-research.huma-num.fr/ui/scenes/*"
+    ],
+    "title": "Huma-Num"
+  },
+  {
     "name": "kompakkt",
     "schemes": [
       "https://kompakkt.de/viewer/*"
