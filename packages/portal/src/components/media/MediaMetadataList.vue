@@ -20,42 +20,46 @@
         </li>
       </template>
     </ul>
-    <div
-      v-for="wr, index in downloadableMedia"
-      :key="wr.about"
+    <template
+      v-if="$features.isFormatOfMediaMetadata"
     >
-      <b-button
-        v-b-toggle="`collapse-${index}`"
-        variant="link"
+      <div
+        v-for="wr, index in downloadableMedia"
+        :key="wr.about"
       >
-        {{ downloadButtonText(wr) }}
-      </b-button>
-      <b-collapse
-        :id="`collapse-${index}`"
-        class="mt-2"
-      >
-        <ul
-          class="media-viewer-metadata-list list-group"
+        <b-button
+          v-b-toggle="`collapse-${index}`"
+          variant="link"
         >
-          <template
-            v-for="field in FIELDS"
+          {{ downloadButtonText(wr) }}
+        </b-button>
+        <b-collapse
+          :id="`collapse-${index}`"
+          class="mt-2"
+        >
+          <ul
+            class="media-viewer-metadata-list list-group"
           >
-            <li
-              v-if="wr[field]"
-              :key="field"
+            <template
+              v-for="field in FIELDS"
             >
-              <MetadataField
-                class="p-3"
-                :name="field"
-                :field-data="wr[field]"
-                :label-id="`${field}-label`"
-                context="wr"
-              />
-            </li>
-          </template>
-        </ul>
-      </b-collapse>
-    </div>
+              <li
+                v-if="wr[field]"
+                :key="field"
+              >
+                <MetadataField
+                  class="p-3"
+                  :name="field"
+                  :field-data="wr[field]"
+                  :label-id="`${field}-label`"
+                  context="wr"
+                />
+              </li>
+            </template>
+          </ul>
+        </b-collapse>
+      </div>
+    </template>
   </div>
 </template>
 
