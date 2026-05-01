@@ -52,7 +52,7 @@
                   :name="field"
                   :field-data="wr[field]"
                   :label-id="`${field}-label`"
-                  context="wr"
+                  context="webResource"
                 />
               </li>
             </template>
