@@ -8,6 +8,7 @@ const factory = (propsData = {}) => shallowMount(ItemMediaSidebar, {
   attachTo: document.body,
   propsData,
   mocks: {
+    $features: {},
     $n: (num) => num,
     $t: (key) => key,
     $tc: (key, count) => `${key} ${count}`

@@ -33,7 +33,7 @@
           @downloadError="$bvModal.show('download-failed-modal')"
         >
           <span class="icon-ic-download d-inline-flex pr-1" />
-          {{ downloadButtonText(wr) }}
+          {{ mediaDownloadLabel(wr) }}
         </DownloadButton>
       </b-dropdown-text>
     </b-dropdown>
@@ -62,8 +62,7 @@
 </template>
 
 <script>
-  import { filesize } from 'filesize';
-  import { mediaTypeLabel } from '@/utils/media/mediaTypeLabel.js';
+  import { mediaDownloadLabel } from '@/utils/media/mediaDownloadLabel.js';
   import DownloadButton from './DownloadButton';
   import DownloadFailedModal from './DownloadFailedModal';
   import DownloadSuccessModal from './DownloadSuccessModal';
@@ -109,13 +108,7 @@
       }
     },
     methods: {
-      downloadButtonText(wr) {
-        let text = mediaTypeLabel(wr.ebucoreHasMimeType);
-        if (wr.ebucoreFileByteSize) {
-          text = `${text} (${filesize(wr.ebucoreFileByteSize)})`;
-        }
-        return text;
-      },
+      mediaDownloadLabel,
       handleDownload(url) {
         this.rightsStatement = this.downloadableMedia.find((wr) => wr.about === url).edmRights?.def?.[0];
         this.$bvModal.show('download-success-modal');

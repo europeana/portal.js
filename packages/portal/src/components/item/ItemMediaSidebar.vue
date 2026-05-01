@@ -132,7 +132,7 @@
                   v-b-toggle="`collapse-${index}`"
                   variant="link"
                 >
-                  {{ downloadButtonText(wr) }}
+                  {{ mediaDownloadLabel(wr) }}
                 </b-button>
                 <b-collapse
                   :id="`collapse-${index}`"
@@ -190,12 +190,11 @@
 
 <script>
   import { BTab, BTabs } from 'bootstrap-vue';
-  import { filesize } from 'filesize';
 
   import useActiveTab from '@/composables/activeTab.js';
   import useHideTooltips from '@/composables/hideTooltips.js';
   import MediaMetadataList from '../media/MediaMetadataList.vue';
-  import { mediaTypeLabel } from '@/utils/media/mediaTypeLabel.js';
+  import { mediaDownloadLabel } from '@/utils/media/mediaDownloadLabel.js';
 
   export default {
     name: 'ItemMediaSidebar',
@@ -312,14 +311,8 @@
     },
 
     methods: {
-      downloadButtonText(wr) {
-        let text = mediaTypeLabel(wr.ebucoreHasMimeType);
-        if (wr.ebucoreFileByteSize) {
-          text = `${text} (${filesize(wr.ebucoreFileByteSize)})`;
-        }
-        return text;
-      },
-    
+      mediaDownloadLabel,
+
       handleAnnotationsFetched(annotationsLength) {
         this.annotationsCount = annotationsLength;
       },
