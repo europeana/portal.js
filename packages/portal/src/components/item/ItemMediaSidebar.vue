@@ -132,7 +132,7 @@
                 <b-button
                   v-b-toggle="`collapse-${index}`"
                   variant="link"
-                  class="dropdown-toggle p-3"
+                  class="dropdown-toggle"
                 >
                   {{ mediaDownloadLabel(wr) }}
                 </b-button>
@@ -381,30 +381,40 @@
 
     .collapsable-section {
       ::v-deep .media-viewer-metadata-list {
-        border-top: 0px;
+        border-top: none;
+
         li {
           &:first-child .metadata-row {
-            padding-top: 0px !important;
+            padding-top: 0 !important;
           }
         }
       }
     }
 
     .dropdown-toggle {
+      font-size: $font-size-small;
+      padding: 0.75rem 1.5rem;
       text-decoration: none;
       width: 100%;
       text-align: left;
-      border-bottom: 1px solid $lightbluemagenta;
+      border-radius: 0;
+      border: none;
+      border-bottom: 1px solid transparent;
+
+      &:focus {
+        box-shadow: none;
+      }
 
       &::after {
         font-size: 0.5rem;
       }
 
-      &.not-collapsed {
-        &::after {
-          transform: rotateX(180deg);
-        }
-        border-bottom: 0px;
+      &.collapsed {
+        border-bottom: 1px solid $lightbluemagenta;
+      }
+
+      &.not-collapsed:after {
+        transform: rotateX(180deg);
       }
     }
 
