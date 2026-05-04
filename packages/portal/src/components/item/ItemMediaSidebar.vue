@@ -121,31 +121,10 @@
             <MediaMetadataList
               :web-resource="webResource"
             />
-            <template
-              v-if="$features.isFormatOfMediaMetadata"
-            >
-              <div
-                v-for="wr, index in downloadableMedia"
-                :key="wr.about"
-                class="collapsable-section"
-              >
-                <b-button
-                  v-b-toggle="`collapse-${index}`"
-                  variant="link"
-                  class="dropdown-toggle"
-                >
-                  {{ mediaDownloadLabel(wr) }}
-                </b-button>
-                <b-collapse
-                  :id="`collapse-${index}`"
-                  class="mt-2"
-                >
-                  <MediaMetadataList
-                    :web-resource="wr"
-                  />
-                </b-collapse>
-              </div>
-            </template>
+            <MediaMetadataCollapseList
+              v-if="$features.isFormatOfMediaMetadata && downloadableMedia.length"
+              :web-resources="downloadableMedia"
+            />
           </b-tab>
         </template>
         <template
@@ -196,7 +175,6 @@
   import useActiveTab from '@/composables/activeTab.js';
   import useHideTooltips from '@/composables/hideTooltips.js';
   import MediaMetadataList from '../media/MediaMetadataList.vue';
-  import { mediaDownloadLabel } from '@/utils/media/mediaDownloadLabel.js';
 
   export default {
     name: 'ItemMediaSidebar',
@@ -206,7 +184,8 @@
       BTabs,
       MediaAnnotationList: () => import('../media/MediaAnnotationList.vue'),
       MediaAnnotationSearch: () => import('../media/MediaAnnotationSearch.vue'),
-      MediaMetadataList
+      MediaMetadataList,
+      MediaMetadataCollapseList: () => import('../media/MediaMetadataCollapseList.vue')
     },
 
     provide() {
@@ -313,8 +292,6 @@
     },
 
     methods: {
-      mediaDownloadLabel,
-
       handleAnnotationsFetched(annotationsLength) {
         this.annotationsCount = annotationsLength;
       },
@@ -376,45 +353,6 @@
         overflow-wrap: anywhere;
         color: $blue;
         font-size: $font-size-small;
-      }
-    }
-
-    .collapsable-section {
-      ::v-deep .media-viewer-metadata-list {
-        border-top: none;
-
-        li {
-          &:first-child .metadata-row {
-            padding-top: 0 !important;
-          }
-        }
-      }
-    }
-
-    .dropdown-toggle {
-      font-size: $font-size-small;
-      padding: 0.75rem 1.5rem;
-      text-decoration: none;
-      width: 100%;
-      text-align: left;
-      border-radius: 0;
-      border: none;
-      border-bottom: 1px solid transparent;
-
-      &:focus {
-        box-shadow: none;
-      }
-
-      &::after {
-        font-size: 0.5rem;
-      }
-
-      &.collapsed {
-        border-bottom: 1px solid $lightbluemagenta;
-      }
-
-      &.not-collapsed:after {
-        transform: rotateX(180deg);
       }
     }
 
