@@ -53,9 +53,6 @@ const factory = (propsData = { sectionType: FEATURED_TOPICS })  => shallowMountN
     localePath: () => 'mocked path',
     $i18n: { locale: 'en', t: (key) => key, n: (num) => `${num}`, localeProperties: { iso: 'en-GB' } },
     $route: { query: {} },
-    $axios: {
-      get: axios.get
-    },
     $config: { app: { internalLinkDomain: 'https://europeana.eu' } },
     $t: (key) => key
   }

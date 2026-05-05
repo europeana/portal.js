@@ -13,9 +13,6 @@ const factory = (propsData = { type: 'organisations' }) => mountNuxt(EntityTable
   localVue,
   propsData,
   mocks: {
-    $axios: {
-      get: axios.get
-    },
     $n: (num) => num,
     $t: (key) => key,
     $i18n: { locale: 'en' },

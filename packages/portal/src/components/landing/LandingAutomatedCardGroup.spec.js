@@ -13,9 +13,6 @@ const factory = (propsData) => shallowMountNuxt(LandingAutomatedCardGroup, {
   localVue,
   propsData,
   mocks: {
-    $axios: {
-      get: axios.get
-    },
     $config: { redis: {} },
     $i18n: { n: (num) => `${num}` },
     $t: key => key
