@@ -124,7 +124,15 @@
       pageMetaMixin
     ],
 
-    middleware: 'auth',
+    middleware: [
+      // TODO: mv somewhere reusable...
+      ({ $keycloak }) => {
+        console.log('account/index middleware');
+        if (!$keycloak.loggedIn) {
+          throw new Error(403)
+        }
+      }
+    ],
 
     setup() {
       const tabHashes = [
@@ -159,8 +167,8 @@
         };
       },
       userIsEditor() {
-        return this.$auth.userHasClientRole('entities', 'editor') &&
-          this.$auth.userHasClientRole('usersets', 'editor');
+        return this.$keycloak.userHasClientRole('entities', 'editor') &&
+          this.$keycloak.userHasClientRole('usersets', 'editor');
       }
     }
   };

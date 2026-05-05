@@ -68,7 +68,7 @@
         return this.mainNavigation.concat(this.sidebarNav ? this.sidebarNavigation : []).concat(this.authLinks);
       },
       isAuthenticated() {
-        return this.$store.state.auth.loggedIn;
+        return this.$keycloak?.loggedIn;
       },
       isAccountPage() {
         return this.$route.name.startsWith('account');

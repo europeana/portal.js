@@ -137,13 +137,13 @@
     },
 
     mounted() {
-      if (this.$auth.$storage.getUniversal('portalLoggingIn') && this.$auth.loggedIn) {
+      if (this.$keycloak.storage.client.get('portalLoggingIn') && this.$keycloak.loggedIn) {
         this.makeToast(this.$t('account.notifications.loggedIn'));
-        this.$auth.$storage.removeUniversal('portalLoggingIn');
+        this.$keycloak.storage.client.remove('portalLoggingIn');
       }
-      if (this.$auth.$storage.getUniversal('portalLoggingOut') && !this.$auth.loggedIn) {
+      if (this.$keycloak.storage.client.get('portalLoggingOut') && !this.$keycloak.loggedIn) {
         this.makeToast(this.$t('account.notifications.loggedOut'));
-        this.$auth.$storage.removeUniversal('portalLoggingOut');
+        this.$keycloak.storage.client.remove('portalLoggingOut');
       }
     }
   };

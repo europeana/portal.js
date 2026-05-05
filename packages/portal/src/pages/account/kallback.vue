@@ -4,12 +4,12 @@
 
 <script>
   export default {
-    name: 'AccountLoginPage',
-
+    name: 'AccountKallbackPage',
     layout: 'minimal',
-
     mounted() {
-      this.$keycloak.login({ replace: true });
+      console.log('kallback');
+      this.$keycloak.callback();
     }
+
   };
 </script>

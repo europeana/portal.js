@@ -34,6 +34,7 @@ export default class RuntimeConfigurableOauth2Scheme extends Oauth2Scheme {
     }
 
     super($auth, configOptions);
+    // console.log('new RuntimeConfigurableOauth2Scheme', this.name)
   }
 
   // duplicates login function of Oauth2Scheme, changing:

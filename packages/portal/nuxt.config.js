@@ -190,14 +190,14 @@ export default {
       }
     },
     oauth: {
-      origin: process.env.OAUTH_ORIGIN,
-      realm: process.env.OAUTH_REALM,
-      client: process.env.OAUTH_CLIENT,
-      scope: process.env.OAUTH_SCOPE,
-      responseType: process.env.OAUTH_RESPONSE_TYPE,
-      accessType: process.env.OAUTH_ACCESS_TYPE,
-      grantType: process.env.OAUTH_GRANT_TYPE,
-      tokenType: process.env.OAUTH_TOKEN_TYPE
+      origin: process.env.OAUTH_ORIGIN || 'https://auth.europeana.eu',
+      realm: process.env.OAUTH_REALM || 'europeana',
+      clientId: process.env.OAUTH_CLIENT,
+      scope: (process.env.OAUTH_SCOPE || 'openid,profile,email,usersets').split(','),
+      responseType: process.env.OAUTH_RESPONSE_TYPE || 'code',
+      accessType: process.env.OAUTH_ACCESS_TYPE || 'online',
+      grantType: process.env.OAUTH_GRANT_TYPE || 'authorization_code',
+      // tokenType: process.env.OAUTH_TOKEN_TYPE || 'Bearer'
     }
   },
 
@@ -426,6 +426,7 @@ export default {
     },
     defaultStrategy: 'keycloak',
     plugins: [
+      '~/plugins/auth.client',
       '~/plugins/europeana-apis',
       '~/plugins/liked-items.client'
     ]

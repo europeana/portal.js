@@ -142,7 +142,7 @@
     },
     computed: {
       userId() {
-        return this.$auth.user?.sub;
+        return this.$keycloak.user?.sub;
       },
       userField() {
         return this.type === 'EntityBestItemsSet' ? 'contributor' : 'creator';
