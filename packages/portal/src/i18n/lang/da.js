@@ -142,6 +142,23 @@ export default {
     "show": "Vis tilskrivning",
     "title": "Titel:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Undertekster / skjulte undertekster",
+    "captions off": "Fra",
+    "captionsOption": "{language} billedtekster",
+    "Exit Fullscreen": "Afslut fuld skærm",
+    "Fullscreen": "Fuld skærm",
+    "Mute": "Slå lyd fra",
+    "Pause": "Pause",
+    "Play": "Afspil",
+    "Play Video": "Afspil video",
+    "Replay": "Afspil igen",
+    "Subtitles": "Undertekster / skjulte undertekster",
+    "subtitles off": "Fra",
+    "subtitlesOption": "{language} undertekster",
+    "Unmute": "Slå lyd til",
+    "Volume Level": "Lydstyrkeniveau"
+  },
   "authored": {
     "by": "ved",
     "publishedDate": "Offentliggjort {date}"
@@ -149,14 +166,14 @@ export default {
   "automatedCardGroup": {
     "gallery": "Seneste gallerier",
     "item": "Seneste genstande",
-    "organisation": "Organisationer",
+    "organisation": "Ejerinstitutioner",
     "place": "Steder",
     "theme": "Temaer",
     "time": "Århundreder",
     "topic": "Emner"
   },
   "cardLabels": {
-    "organisation": "Organisation",
+    "organisation": "Institution",
     "person": "Person",
     "place": "Sted",
     "theme": "Tema",
@@ -316,13 +333,13 @@ export default {
       "description": "Der opstod en ukendt fejl.",
       "title": "Ukendt fejl"
     },
-    "IIIFManifestFailure": {
-      "description": "Desværre kan det medie genstand, der er leveret til Europeana, ikke vises i øjeblikket. Prøv venligst at downloade mediet genstand eller se emnet på den ejerinstiution hjemmeside."
-    },
     "itemNotFound": {
       "description": "Dette kan skyldes følgende årsager: denne vare findes ikke, eller; den blev offentliggjort, fordi den ikke opfyldte vores kvalitetskriterier, eller; den blev opdateret og genudgivet med en ny unik identifikator, i hvilket tilfælde prøv at finde varen igen.",
       "metaTitle": "Varen blev ikke fundet",
       "title": "Åh nej! {newline} Vi kunne ikke finde denne vare."
+    },
+    "mediaFailure": {
+      "description": "Desværre kan det medie genstand, der er leveret til Europeana, ikke vises i øjeblikket. Prøv venligst at downloade mediet genstand eller se emnet på den ejerinstiution hjemmeside."
     },
     "noFeatureIdeas": {
       "description": "Kom snart tilbage igen!",
@@ -804,7 +821,7 @@ export default {
       "dcType": "Medietype",
       "ebucoreAudioChannelNumber": "Lydkanaler",
       "ebucoreBitRate": "Bithastighed (bps)",
-      "ebucoreDuration": "Varighed (ms)",
+      "ebucoreDuration": "Varighed",
       "ebucoreFileByteSize": "Filstørrelse (byte)",
       "ebucoreFrameRate": "Billedhastighed (fps)",
       "ebucoreHasMimeType": "MIME-type",
@@ -821,7 +838,30 @@ export default {
       "edmRights": "Rettighedserklæring for dette medie",
       "edmSpatialResolution": "Rumlig opløsning (dpi)",
       "edmVertexCount": "Antal hjørner",
-      "schemaDigitalSourceType": "Digital kildetype"
+      "schemaDigitalSourceType": "Forholdet til den virkelige verden"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Kunst",
+      "creativity": "Kreativitet",
+      "curation": "Kuratering",
+      "design": "Design",
+      "documentation": "Dokumentation",
+      "education": "Uddannelse",
+      "exhibition": "Udstilling",
+      "gaming": "Gaming",
+      "infotainment": "Infotainment",
+      "knowledge": "Viden",
+      "maintenance": "Vedligeholdelse",
+      "research": "Forskning",
+      "restoration": "Restaurering",
+      "tourism": "Turisme"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Rekonstruktion",
+      "digitalCapture": "Reality capture",
+      "digitalCreation": "Født digitalt"
     }
   },
   "filterResults": "Filtrer resultater",
@@ -867,7 +907,7 @@ export default {
       "help": "Hjælp",
       "home": "Hjem",
       "partners": "Bliv partner med os",
-      "research": "For forskere",
+      "research": "For akademi og forskning",
       "shareYourCollections": "Del dine samlinger",
       "stories": "Historier"
     },
@@ -1118,8 +1158,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Udforsk de institutioner, der deler digitale kulturarvsgenstande på Europeana.eu.",
-        "title": "Institutioner"
+        "description": "Udforsk de ejerinstitutioner, der deler digitale kulturarvsgenstande på Europeana.eu.",
+        "title": "Ejerinstitutioner"
       },
       "persons": {
         "title": "Personer"

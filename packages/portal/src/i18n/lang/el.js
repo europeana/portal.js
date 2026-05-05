@@ -142,6 +142,23 @@ export default {
     "show": "Εμφάνιση απόδοσης",
     "title": "Τίτλος:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Υπότιτλοι / κλειστές λεζάντες",
+    "captions off": "Απενεργοποίηση",
+    "captionsOption": "{language} λεζάντες",
+    "Exit Fullscreen": "Έξοδος από πλήρη οθόνη",
+    "Fullscreen": "Πλήρης οθόνη",
+    "Mute": "Σίγαση",
+    "Pause": "Παύση",
+    "Play": "Αναπαραγωγή",
+    "Play Video": "Αναπαραγωγή βίντεο",
+    "Replay": "Επανάληψη",
+    "Subtitles": "Υπότιτλοι / κλειστές λεζάντες",
+    "subtitles off": "Απενεργοποίηση",
+    "subtitlesOption": "{language} υπότιτλοι",
+    "Unmute": "Διακοπή σίγασης",
+    "Volume Level": "Επίπεδο έντασης ήχου"
+  },
   "authored": {
     "by": "με",
     "publishedDate": "Δημοσιεύτηκε στις {date}"
@@ -149,14 +166,14 @@ export default {
   "automatedCardGroup": {
     "gallery": "Τελευταίες γκαλερί",
     "item": "Πρόσφατα τεκμήριο",
-    "organisation": "Οργανισμοί",
+    "organisation": "Φορείς προέλευσης",
     "place": "Μέρη",
     "theme": "Κατηγορίες",
     "time": "Αιώνες",
     "topic": "Θέματα"
   },
   "cardLabels": {
-    "organisation": "Οργάνωση",
+    "organisation": "Ίδρυμα",
     "person": "Πρόσωπο",
     "place": "Θέση",
     "theme": "Θέμα",
@@ -316,13 +333,13 @@ export default {
       "description": "Συνέβη ένα άγνωστο σφάλμα.",
       "title": "Αγνωστο σφάλμα"
     },
-    "IIIFManifestFailure": {
-      "description": "Δυστυχώς, τα μέσα που παρέχονται στην Europeana δεν μπορούν να εμφανιστούν αυτήν τη στιγμή. Παρακαλώ δοκιμάστε να κατεβάσετε το τεκμήριο ή να προβάλετε το στοιχείο στον ιστότοπο του φορέα προέλευσης."
-    },
     "itemNotFound": {
       "description": "Αυτό μπορεί να οφείλεται στους ακόλουθους λόγους: το τεκμήριο δεν υπάρχει ή καταργήθηκε επειδή δεν πληρούσε τα ποιοτικά μας κριτήρια, ή ενημερώθηκε και αναδημοσιεύτηκε με ένα νέο μοναδικό αναγνωριστικό, οπότε προσπαθήστε να βρείτε ξανά το τεκμήριο.",
       "metaTitle": "Τεκμήριο δεν βρέθηκε",
       "title": "Ωχ, όχι! {newline} Δεν μπορέσαμε να βρούμε αυτό το τεκμήριο."
+    },
+    "mediaFailure": {
+      "description": "Δυστυχώς, τα μέσα που παρέχονται στην Europeana δεν μπορούν να εμφανιστούν αυτήν τη στιγμή. Παρακαλώ δοκιμάστε να κατεβάσετε το τεκμήριο ή να προβάλετε το στοιχείο στον ιστότοπο του φορέα προέλευσης."
     },
     "noFeatureIdeas": {
       "description": "Ελέγξτε ξανά σύντομα!",
@@ -804,7 +821,7 @@ export default {
       "dcType": "Τύπος μέσου",
       "ebucoreAudioChannelNumber": "Κανάλια ήχου",
       "ebucoreBitRate": "Ρυθμός μετάδοσης bit (bps)",
-      "ebucoreDuration": "Διάρκεια (ms)",
+      "ebucoreDuration": "Διάρκεια",
       "ebucoreFileByteSize": "Μέγεθος αρχείου (bytes)",
       "ebucoreFrameRate": "Ρυθμός καρέ (fps)",
       "ebucoreHasMimeType": "Τύπος MIME",
@@ -821,7 +838,30 @@ export default {
       "edmRights": "Δήλωση δικαιωμάτων για αυτό το μέσο",
       "edmSpatialResolution": "Χωρική ανάλυση (dpi)",
       "edmVertexCount": "Αριθμός κορυφών",
-      "schemaDigitalSourceType": "Τύπος ψηφιακής πηγής"
+      "schemaDigitalSourceType": "Σχέση με τον πραγματικό κόσμο"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Τέχνη",
+      "creativity": "Δημιουργικότητα",
+      "curation": "Επιμέλεια",
+      "design": "Σχεδιασμός",
+      "documentation": "Τεκμηρίωση",
+      "education": "Εκπαίδευση",
+      "exhibition": "Έκθεση",
+      "gaming": "Γκέιμινγκ",
+      "infotainment": "Ψυχαγωγία και ενημέρωση",
+      "knowledge": "Γνώση",
+      "maintenance": "Συντήρηση",
+      "research": "Έρευνα",
+      "restoration": "Αποκατάσταση",
+      "tourism": "Τουρισμός"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Ανακατασκευή",
+      "digitalCapture": "Αποτύπωση πραγματικότητας",
+      "digitalCreation": "Εγγενώς ψηφιακό"
     }
   },
   "filterResults": "Αποτελέσματα φίλτρου",
@@ -867,7 +907,7 @@ export default {
       "help": "Βοήθεια",
       "home": "Αρχική",
       "partners": "Συνεργαστείτε μαζί μας",
-      "research": "Για ερευνητές",
+      "research": "Για τον ακαδημαϊκό χώρο και την έρευνα",
       "shareYourCollections": "Μοιραστείτε τις συλλογές σας",
       "stories": "Ιστορίες"
     },
@@ -1118,8 +1158,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Εξερευνήστε τους θεσμούς που μοιράζονται ψηφιακά τεκμήρια πολιτιστικής κληρονομιάς στο Europeana.eu.",
-        "title": "Ιδρύματα"
+        "description": "Ανακαλύψτε τους παρόχους οργανισμούς που μοιράζονται ψηφιακά πολιτιστικά τεκμήρια στο Europeana.eu.",
+        "title": "Φορείς προέλευσης"
       },
       "persons": {
         "title": "Άτομα"

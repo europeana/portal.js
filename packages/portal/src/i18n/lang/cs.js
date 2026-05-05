@@ -142,6 +142,23 @@ export default {
     "show": "Zobrazit atribuci",
     "title": "Název:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Titulky / skryté titulky",
+    "captions off": "Vypnuto",
+    "captionsOption": "{language} titulky",
+    "Exit Fullscreen": "Ukončit celou obrazovku",
+    "Fullscreen": "Celá obrazovka",
+    "Mute": "Ztlumit",
+    "Pause": "Pauza",
+    "Play": "Přehrát",
+    "Play Video": "Přehrát video",
+    "Replay": "Přehrát znovu",
+    "Subtitles": "Titulky / skryté titulky",
+    "subtitles off": "Vypnuto",
+    "subtitlesOption": "{language} titulky",
+    "Unmute": "Zrušit ztlumení",
+    "Volume Level": "Úroveň hlasitosti"
+  },
   "authored": {
     "by": "podle",
     "publishedDate": "Publikováno {date}"
@@ -149,14 +166,14 @@ export default {
   "automatedCardGroup": {
     "gallery": "Nejnovější galerie",
     "item": "Poslední položky",
-    "organisation": "Organizace",
+    "organisation": "Poskytující instituce",
     "place": "Místa",
     "theme": "Témata",
     "time": "Století",
     "topic": "Tématy"
   },
   "cardLabels": {
-    "organisation": "Organizace",
+    "organisation": "Instituce",
     "person": "Osoba",
     "place": "Místo",
     "theme": "Téma",
@@ -316,13 +333,13 @@ export default {
       "description": "Došlo k neznámé chybě.",
       "title": "Neznámá chyba"
     },
-    "IIIFManifestFailure": {
-      "description": "Bohužel, položku médií, jak byla poskytnuta Europeana, nelze v tuto chvíli zobrazit. Zkuste prosím stáhnout média nebo si položku prohlédnout na webových stránkách poskytující instituce."
-    },
     "itemNotFound": {
       "description": "Může to být z následujících důvodů: tato položka neexistuje nebo; bylo zrušeno, protože neodpovídalo našim kritériím kvality, nebo; byla aktualizována a znovu publikována s novým jedinečným identifikátorem, v takovém případě zkuste položku znovu najít.",
       "metaTitle": "Položka nenalezena",
       "title": "Ach ne! {newline} Tuto položku se nám nepodařilo najít."
+    },
+    "mediaFailure": {
+      "description": "Bohužel, položku médií, jak byla poskytnuta Europeana, nelze v tuto chvíli zobrazit. Zkuste prosím stáhnout média nebo si položku prohlédnout na webových stránkách poskytující instituce."
     },
     "noFeatureIdeas": {
       "description": "Brzy se znovu podívejte!",
@@ -804,7 +821,7 @@ export default {
       "dcType": "Typ média",
       "ebucoreAudioChannelNumber": "Zvukové kanály",
       "ebucoreBitRate": "Datový tok (bps)",
-      "ebucoreDuration": "Trvání (ms)",
+      "ebucoreDuration": "Doba trvání",
       "ebucoreFileByteSize": "Velikost souboru (bajty)",
       "ebucoreFrameRate": "Snímková frekvence (fps)",
       "ebucoreHasMimeType": "Typ MIME",
@@ -821,7 +838,30 @@ export default {
       "edmRights": "Prohlášení o právech k tomuto médiu",
       "edmSpatialResolution": "Prostorové rozlišení (dpi)",
       "edmVertexCount": "Počet vrcholů",
-      "schemaDigitalSourceType": "Typ digitálního zdroje"
+      "schemaDigitalSourceType": "Vztah k reálnému světu"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Umění",
+      "creativity": "Kreativita",
+      "curation": "Kurátorství",
+      "design": "Design",
+      "documentation": "Dokumentace",
+      "education": "Vzdělání",
+      "exhibition": "Výstava",
+      "gaming": "Hraní",
+      "infotainment": "Infotainment",
+      "knowledge": "Znalosti",
+      "maintenance": "Údržba",
+      "research": "Výzkum",
+      "restoration": "Restaurování",
+      "tourism": "Cestovní ruch"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Rekonstrukce",
+      "digitalCapture": "Zachycení reality",
+      "digitalCreation": "Nativně digitální"
     }
   },
   "filterResults": "Filtrovat výsledky",
@@ -867,7 +907,7 @@ export default {
       "help": "Pomoc",
       "home": "Domů",
       "partners": "Staňte se naším partnerem",
-      "research": "Pro výzkumníky",
+      "research": "Pro akademickou sféru a výzkum",
       "shareYourCollections": "Sdílejte své sbírky",
       "stories": "Příběhy"
     },
@@ -1118,8 +1158,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Prozkoumejte instituce, které sdílejí položky digitálního kulturního dědictví na Europeana.eu.",
-        "title": "Instituce"
+        "description": "Prozkoumejte poskytovatelské instituce, které sdílejí položky digitálního kulturního dědictví na Europeana.eu.",
+        "title": "Poskytující instituce"
       },
       "persons": {
         "title": "Osoby"

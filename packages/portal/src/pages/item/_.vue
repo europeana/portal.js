@@ -20,15 +20,13 @@
         class="mb-3 px-0"
       >
         <ItemHero
-          :all-media-uris="allMediaUris"
           :identifier="identifier"
           :media="webResources"
           :services="services"
-          :edm-rights="edmRights"
           :edm-type="type"
+          :edm-rights="edmRights"
           :attribution-fields="attributionFields"
           :link-for-contributing-annotation="linkForContributingAnnotation"
-          :entities="europeanaEntities"
           :provider-url="isShownAt"
           :iiif-presentation-manifest="iiifPresentationManifest"
         />
@@ -73,7 +71,6 @@
               :location="locationData"
             />
             <ItemLanguageSelector
-              v-if="translatedItemsEnabled"
               :from-translation-error="fromTranslationError"
               :translation-language="translationLanguage"
             />
@@ -129,7 +126,7 @@
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import MetadataBox, { ALL_FIELDS as METADATA_FIELDS } from '@/components/metadata/MetadataBox';
   const ALL_METADATA_FIELDS = [
-    'dcTitle', 'dctermsAlternative', 'dcDescription', 'edmIsShownBy', 'edmObject'
+    'dcTitle', 'dctermsAlternative', 'dcDescription', 'edmIsShownBy', 'edmLanguage', 'edmObject'
   ].concat(METADATA_FIELDS);
 
   import useDeBias from '@/composables/deBias.js';
@@ -174,8 +171,14 @@
         // in descendent components because the latter approach would not hydrate
         // the shared state of those refs after SSR, but provide/inject does
         deBias: computed(() => this.deBias),
+        isProxyable: this.isProxyable,
         itemIsDeleted: computed(() => this.isDeleted),
-        metadataLanguage: this.metadataLanguage
+        itemLanguage: computed(() => this.metadata.edmLanguage?.def?.[0]),
+        itemPinning: computed(() => ({
+          entities: this.europeanaEntities
+        })),
+        metadataLanguage: this.metadataLanguage,
+        textTrackAnnotations: computed(() => this.textTrackAnnotations)
       };
     },
 
@@ -211,7 +214,6 @@
     data() {
       return {
         MAX_VALUES_PER_METADATA_FIELD: 10,
-        allMediaUris: [],
         annotations: [],
         cardGridClass: null,
         dataProviderEntity: null,
@@ -227,6 +229,7 @@
         media: [],
         metadata: {},
         ogImage: null,
+        proxyableMedia: [],
         relatedCollections: [],
         services: [],
         type: null,
@@ -254,7 +257,14 @@
         if (this.isDeleted) {
           return [new WebResource({ about: this.metadata.edmIsShownBy || this.metadata.edmObject }, this.identifier)];
         } else {
-          return this.media.map((item) => item instanceof WebResource ? item : new WebResource(item, this.identifier));
+          return this.media.map((item) => {
+            // TODO: include item-level edm:rights?
+            const wr = item instanceof WebResource ? item : new WebResource(item);
+            if (wr.dctermsIsFormatOf?.def) {
+              wr.dctermsIsFormatOf.def = wr.dctermsIsFormatOf.def.map((ifo) => ifo instanceof WebResource ? ifo : new WebResource(ifo));
+            }
+            return wr;
+          });
         }
       },
       pageMeta() {
@@ -329,6 +339,9 @@
       dataProviderEntityLabel() {
         return this.metadata.edmDataProvider?.def?.[0].prefLabel;
       },
+      textTrackAnnotations() {
+        return this.annotationsByMotivation('subtitling').concat(this.annotationsByMotivation('captioning'));
+      },
       taggingAnnotations() {
         return this.annotationsByMotivation('tagging');
       },
@@ -337,9 +350,6 @@
       },
       relatedEntityUris() {
         return this.europeanaEntityUris.filter((entityUri) => entityUri !== this.dataProviderEntityUri).slice(0, 5);
-      },
-      translatedItemsEnabled() {
-        return this.$features.translatedItems;
       },
       matomoOptions() {
         return {
@@ -350,7 +360,7 @@
         };
       },
       translatingMetadata() {
-        return !!(this.$features?.translatedItems && this.$route.query.lang && this.$auth.loggedIn);
+        return !!(this.$route.query.lang && this.$auth.loggedIn);
       },
       translationLanguage() {
         return this.translatingMetadata ? this.$route.query.lang : null;
@@ -381,6 +391,10 @@
     },
 
     methods: {
+      isProxyable(url) {
+        return this.proxyableMedia.includes(url);
+      },
+
       trackCustomDimensions() {
         waitFor(() => this.$matomo, this.$config.matomo.loadWait)
           .then(() => this.$matomo.trackPageView('item page custom dimensions', this.matomoOptions))
@@ -426,24 +440,43 @@
         const item = new Item(edm);
         this.isDeleted = item.isDeleted;
 
+        let displayableWebResources = item.providerAggregation.displayableWebResources;
+        // hack to prefer the model-viewer to an oEmbed
+        // TODO: remove when data modelling regards relevant media types as displayable
+        if (this.$features.modelViewer && this.$features.modelViewerReplacesOembed) {
+          displayableWebResources = displayableWebResources.map((wr) => {
+            if (wr.isOEmbed) {
+              const gltfWebResource = (wr.dctermsIsFormatOf?.def || [])
+                .find((dctermsIsFormatOfWebResource) => dctermsIsFormatOfWebResource.isDisplayable3DModel);
+              if (gltfWebResource) {
+                return gltfWebResource;
+              }
+            }
+
+            return wr;
+          });
+        }
+        this.media = displayableWebResources;
+
         // TODO: ideally, wouldn't store these as can be a large list if many WRs,
-        //       but relied on by ItemHero to know whether to proxy download urls or not.
+        //       but relied on by descendent components to know whether to proxy media or not.
         //       could we deduce that from whether iiif is in use or not, and if
         //       so, whether a europeana manifest?
         //       - not iiif: proxy
         //       - iiif, europeana: proxy
         //       - iiif, institution: don't proxy
-        this.allMediaUris = item.providerAggregation.displayableWebResources.map((wr) => wr.about);
+        this.proxyableMedia = item.providerAggregation.webResources.map((wr) => wr.about)
+          .filter((wr) => wr.ebucoreMimeType !== 'application/dash+xml');
         this.iiifPresentationManifest = item.iiifPresentationManifest;
         this.isShownAt = item.providerAggregation.edmIsShownAt;
 
         this.ogImage = this.$apis.thumbnail.forWebResource(
-          new WebResource(item.providerAggregation.displayableWebResources[0], this.identifier)
+          new WebResource(displayableWebResources[0], this.identifier)
         ).large;
 
         const preconnects = [
           this.iiifPresentationManifest,
-          item.providerAggregation.displayableWebResources?.[(this.$route.query.page || 1) - 1]?.about
+          displayableWebResources?.[(this.$route.query.page || 1) - 1]?.about
         ].filter(Boolean);
         for (const preconnect of preconnects) {
           try {
@@ -456,15 +489,6 @@
         this.entities = this.extractEntities(edm);
 
         this.metadata = this.extractMetadata(edm);
-
-        this.media = item.providerAggregation.displayableWebResources.map((wr) => {
-          // don't keep WR-level rights statement if same as item-level
-          if (wr.webResourceEdmRights?.def?.[0] === this.metadata.edmRights.def[0]) {
-            delete wr.webResourceEdmRights;
-          }
-
-          return wr;
-        });
 
         this.services = item.services;
 
@@ -627,7 +651,7 @@
         try {
           const annotations = await this.$apis.annotation.search({
             query: `target_record_id:"${this.identifier}"`,
-            qf: 'motivation:(highlighting OR linkForContributing OR tagging)',
+            qf: 'motivation:(highlighting OR linkForContributing OR tagging OR subtitling OR captioning)',
             profile: 'dereference'
           });
           this.parseDeBiasAnnotations(annotations, { fields: ALL_METADATA_FIELDS, lang: this.$i18n.locale });
@@ -637,7 +661,7 @@
             terms: this.deBiasTerms
           };
 
-          this.annotations = (annotations || []).filter((anno) => ['linkForContributing', 'tagging'].includes(anno.motivation));
+          this.annotations = (annotations || []).filter((anno) => ['captioning', 'linkForContributing', 'subtitling', 'tagging'].includes(anno.motivation));
         } catch {
           // don't let an Annotation API error bring the whole page down
           this.annotations = [];

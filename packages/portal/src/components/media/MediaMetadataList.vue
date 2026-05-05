@@ -11,7 +11,6 @@
           :key="field"
         >
           <MetadataField
-            class="p-3"
             :name="field"
             :field-data="webResource[field]"
             :label-id="`${field}-label`"
@@ -93,5 +92,9 @@
 
   .media-viewer-metadata-list {
     border-top: 1px solid $lightbluemagenta;
+  }
+
+  ::v-deep .metadata-row {
+    padding: 0.75rem 1.5rem;
   }
 </style>

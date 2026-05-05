@@ -7,6 +7,7 @@ const MEDIA_TYPE_APPLICATION_DASH_XML = `${MEDIA_TYPE_APPLICATION}/dash+xml`;
 const MEDIA_TYPE_APPLICATION_PDF = `${MEDIA_TYPE_APPLICATION}/pdf`;
 const MEDIA_TYPE_AUDIO = 'audio';
 const MEDIA_TYPE_AUDIO_FLAC = `${MEDIA_TYPE_AUDIO}/x-flac`;
+const MEDIA_TYPE_AUDIO_MP4 = `${MEDIA_TYPE_AUDIO}/mp4`;
 const MEDIA_TYPE_AUDIO_MPEG = `${MEDIA_TYPE_AUDIO}/mpeg`;
 const MEDIA_TYPE_AUDIO_OGG = `${MEDIA_TYPE_AUDIO}/ogg`;
 const MEDIA_TYPE_IMAGE = 'image';
@@ -16,20 +17,29 @@ const MEDIA_TYPE_IMAGE_JPEG = `${MEDIA_TYPE_IMAGE}/jpeg`;
 const MEDIA_TYPE_IMAGE_PNG = `${MEDIA_TYPE_IMAGE}/png`;
 const MEDIA_TYPE_IMAGE_SVG_XML = `${MEDIA_TYPE_IMAGE}/svg+xml`;
 const MEDIA_TYPE_IMAGE_WEBP = `${MEDIA_TYPE_IMAGE}/webp`;
+const MEDIA_TYPE_MODEL = 'model';
+const MEDIA_TYPE_MODEL_GLTF_BINARY = `${MEDIA_TYPE_MODEL}/gltf-binary`;
 const MEDIA_TYPE_TEXT = 'text';
 const MEDIA_TYPE_VIDEO = 'video';
 const MEDIA_TYPE_VIDEO_OGG = `${MEDIA_TYPE_VIDEO}/ogg`;
 const MEDIA_TYPE_VIDEO_MP4 = `${MEDIA_TYPE_VIDEO}/mp4`;
+const MEDIA_TYPE_VIDEO_M4V = `${MEDIA_TYPE_VIDEO}/x-m4v`;
 const MEDIA_TYPE_VIDEO_WEBM = `${MEDIA_TYPE_VIDEO}/webm`;
 
 const MEDIA_CODEC_H264 = 'h264';
 
+const EDM_TYPE_3D = '3D';
 const EDM_TYPE_IMAGE = 'IMAGE';
 const EDM_TYPE_SOUND = 'SOUND';
 const EDM_TYPE_VIDEO = 'VIDEO';
 const EDM_TYPE_TEXT = 'TEXT';
 
-const HTML_AUDIO_MEDIA_TYPES = [MEDIA_TYPE_AUDIO_FLAC, MEDIA_TYPE_AUDIO_OGG, MEDIA_TYPE_AUDIO_MPEG];
+const HTML_AUDIO_MEDIA_TYPES = [
+  MEDIA_TYPE_AUDIO_FLAC,
+  MEDIA_TYPE_AUDIO_OGG,
+  MEDIA_TYPE_AUDIO_MP4,
+  MEDIA_TYPE_AUDIO_MPEG
+];
 const HTML_IMAGE_MEDIA_TYPES = [
   MEDIA_TYPE_IMAGE_BMP,
   MEDIA_TYPE_IMAGE_GIF,
@@ -38,7 +48,11 @@ const HTML_IMAGE_MEDIA_TYPES = [
   MEDIA_TYPE_IMAGE_SVG_XML,
   MEDIA_TYPE_IMAGE_WEBP
 ];
-const HTML_VIDEO_MEDIA_TYPES = [MEDIA_TYPE_VIDEO_OGG, MEDIA_TYPE_VIDEO_WEBM];
+const HTML_VIDEO_MEDIA_TYPES = [
+  MEDIA_TYPE_VIDEO_OGG,
+  MEDIA_TYPE_VIDEO_M4V,
+  MEDIA_TYPE_VIDEO_WEBM
+];
 
 export default class WebResource extends Base {
   // TODO: this is getting called multiple times for the same resource on
@@ -46,9 +60,28 @@ export default class WebResource extends Base {
   constructor(data) {
     super(data);
 
+    // rename awkwardly named API field
+    if (this.webResourceEdmRights) {
+      this.edmRights = this.webResourceEdmRights;
+      delete this.webResourceEdmRights;
+    }
+
     // delete large unused fields
     delete this.htmlAttributionSnippet;
     delete this.textAttributionSnippet;
+
+    if (this.ebucoreDuration) {
+      // ebucoreDuration is stored as a string
+      this.ebucoreDuration = Number(this.ebucoreDuration);
+      // some WRs have duration metadata incorrectly in microseconds instead of
+      // the expected milliseconds. try to handle this by assuming that if the
+      // WR's duration appears to be more than 24 hours, then it is using the
+      // wrong unit
+
+      if ((this.ebucoreDuration / 1000 / 3600) > 24) {
+        this.ebucoreDuration = this.ebucoreDuration / 1000;
+      }
+    }
   }
 
   get id() {
@@ -71,6 +104,10 @@ export default class WebResource extends Base {
     return this.mediaType?.startsWith(`${MEDIA_TYPE_TEXT}/`) || this.isPDF;
   }
 
+  get has3DMediaType() {
+    return this.mediaType?.startsWith(`${MEDIA_TYPE_MODEL}/`);
+  }
+
   get mediaType() {
     return this.ebucoreHasMimeType;
   }
@@ -79,9 +116,10 @@ export default class WebResource extends Base {
     return this.edmCodecName;
   }
 
-  // TODO: 3D media types?
   get edmType() {
-    if (this.hasImageMediaType) {
+    if (this['_edmType']) {
+      return this['_edmType'];
+    } else if (this.hasImageMediaType) {
       return EDM_TYPE_IMAGE;
     } else if (this.hasSoundMediaType) {
       return EDM_TYPE_SOUND;
@@ -89,9 +127,15 @@ export default class WebResource extends Base {
       return EDM_TYPE_VIDEO;
     } else if (this.hasTextMediaType) {
       return EDM_TYPE_TEXT;
+    } else if (this.has3DMediaType) {
+      return EDM_TYPE_3D;
     } else {
       return undefined;
     }
+  }
+
+  set edmType(value) {
+    this['_edmType'] = value;
   }
 
   get imageMegaPixels() {
@@ -143,6 +187,10 @@ export default class WebResource extends Base {
     return this.mediaType === MEDIA_TYPE_APPLICATION_PDF;
   }
 
+  get isDisplayable3DModel() {
+    return this.mediaType === MEDIA_TYPE_MODEL_GLTF_BINARY;
+  }
+
   get isPlayableMedia() {
     return (
       this.isHTMLAudio || this.isHTMLVideo ||
@@ -161,6 +209,21 @@ export default class WebResource extends Base {
       this.isHTMLVideo ||
       this.isHTMLAudio ||
       this.isPlayableMedia;
+  }
+
+  get rightsStatement() {
+    return this.edmRights?.def?.[0];
+  }
+
+  get rightsStatementPermitsDownload() {
+    return !!this.rightsStatement && !this.rightsStatement.includes('/InC/');
+  }
+
+  get isDownloadable() {
+    return this.rightsStatementPermitsDownload &&
+      !!this.ebucoreHasMimeType &&
+      !this.forEdmIsShownAt &&
+      !this.isOEmbed;
   }
 
   get isIIIFPresentationManifest() {

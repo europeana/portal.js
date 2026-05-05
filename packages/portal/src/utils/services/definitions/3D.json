@@ -1,5 +1,14 @@
 [
   {
+    "name": "aitGraz",
+    "oembed": "https://hosting1.ait.co.at/oembed",
+    "responsive": true,
+    "schemes": [
+      "https://hosting1.ait.co.at/u/kochg/incoming/*"
+    ],
+    "title": "AIT Graz"
+  },
+  {
     "name": "arctur3DViewer",
     "schemes": [
       "https://3dviewer.arctur.si/*"
@@ -7,15 +16,27 @@
     "title": "Arctur 3Dviewer"
   },
   {
-    "name": "theCyprusInstitute",
+    "name": "artetra",
+    "oembed": "https://api.museum-artetra.com/oembed",
+    "responsive": true,
     "schemes": [
-      "https://apacwebstorage.hpcf.cyi.ac.cy/threedimensionalmodels/3D/*"
+      "https://museum-artetra.com/embed/*"
     ],
-    "title": "The Cyprus Institute"
+    "title": "Artetra"
+  },
+  {
+    "name": "eKultura",
+    "oembed": "https://ekultura.hr/oembed",
+    "responsive": true,
+    "schemes": [
+      "https://ekultura.hr/items/*"
+    ],
+    "title": "eKultura"
   },
   {
     "name": "eureka3D",
     "oembed": "https://eureka3d.vm.fedcloud.eu/oembed",
+    "responsive": true,
     "schemes": [
       "https://eureka3d.vm.fedcloud.eu/3d/*"
     ],
@@ -27,6 +48,24 @@
       "https://gotlandicpicturestones.se/*"
     ],
     "title": "Gotland Picture Stones"
+  },
+  {
+    "name": "heritageMalta",
+    "oembed": "https://3dviewer.digiarc.mt/oembed",
+    "responsive": true,
+    "schemes": [
+      "https://3dviewer.digiarc.mt/items/*"
+    ],
+    "title": "Heritage Malta"
+  },
+  {
+    "name": "humaNum",
+    "oembed": "https://ecorpus-research.huma-num.fr/services/oembed",
+    "responsive": true,
+    "schemes": [
+      "https://ecorpus-research.huma-num.fr/ui/scenes/*"
+    ],
+    "title": "Huma-Num"
   },
   {
     "name": "kompakkt",
@@ -43,8 +82,18 @@
     "title": "Myminifactory"
   },
   {
+    "name": "repox",
+    "oembed": "https://3d.repox.io/api/oembed",
+    "responsive": true,
+    "schemes": [
+      "https://storev2-api.repox.io/p/datastreams/*/files/*"
+    ],
+    "title": "Repox"
+  },
+  {
     "name": "sketchfab",
     "oembed": "https://sketchfab.com/oembed",
+    "responsive": true,
     "schemes": [
       "https://sketchfab.com/3d-models/*",
       "https://sketchfab.com/models/*",
@@ -60,8 +109,16 @@
     "title": "Spatial"
   },
   {
+    "name": "theCyprusInstitute",
+    "schemes": [
+      "https://apacwebstorage.hpcf.cyi.ac.cy/threedimensionalmodels/3D/*"
+    ],
+    "title": "The Cyprus Institute"
+  },
+  {
     "name": "weave",
     "oembed": "https://weave-3dviewer.com/api/core/v1/oembed",
+    "responsive": true,
     "schemes": [
       "https://weave-3dviewer.com/asset/*"
     ],

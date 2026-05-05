@@ -142,6 +142,23 @@ export default {
     "show": "Prikaži navedbo vira",
     "title": "Naslov:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Podnapisi / skriti podnapisi",
+    "captions off": "Izklopljeno",
+    "captionsOption": "{language} podnapisi",
+    "Exit Fullscreen": "Izhod iz celotnega zaslona",
+    "Fullscreen": "Celoten zaslon",
+    "Mute": "Utišaj",
+    "Pause": "Začasno ustavi",
+    "Play": "Predvajaj",
+    "Play Video": "Predvajaj video",
+    "Replay": "Predvajaj znova",
+    "Subtitles": "Podnapisi / skriti podnapisi",
+    "subtitles off": "Izklopljeno",
+    "subtitlesOption": "{language} podnapisi",
+    "Unmute": "Vklopi zvok",
+    "Volume Level": "Glasnost"
+  },
   "authored": {
     "by": "po",
     "publishedDate": "Objavljeno {date}"
@@ -149,14 +166,14 @@ export default {
   "automatedCardGroup": {
     "gallery": "Najnovejše galerije",
     "item": "Nedavni enote",
-    "organisation": "Organizacije",
+    "organisation": "Ponudniki podatkov",
     "place": "Mesta",
     "theme": "Teme",
     "time": "Stoletja",
     "topic": "Teme"
   },
   "cardLabels": {
-    "organisation": "Organizacija",
+    "organisation": "Institucija",
     "person": "Oseba",
     "place": "Mesto",
     "theme": "Tema",
@@ -316,13 +333,13 @@ export default {
       "description": "Prišlo je do neznane napake.",
       "title": "Neznana napaka"
     },
-    "IIIFManifestFailure": {
-      "description": "Na žalost, enota medij, kot je bil zagotovljen Europeani, trenutno ni mogoče prikazati. Prosimo, poskusite prenesti medij ali si enota oglejte na spletni strani ponudnik podatkov."
-    },
     "itemNotFound": {
       "description": "Razlogi za to so lahko naslednji: ta enota ne obstaja ali je bil odstranjen iz objave, ker ni ustrezal našim merilom kakovosti, ali je bil posodobljen in ponovno objavljen z novim edinstvenim identifikatorjem, v tem primeru poskusite enota poiskati znova.",
       "metaTitle": "Enota ni bil najden",
       "title": "Oh ne! {newline} Tega enota nismo mogli najti."
+    },
+    "mediaFailure": {
+      "description": "Na žalost, enota medij, kot je bil zagotovljen Europeani, trenutno ni mogoče prikazati. Prosimo, poskusite prenesti medij ali si enota oglejte na spletni strani ponudnik podatkov."
     },
     "noFeatureIdeas": {
       "description": "Preverite spet kmalu!",
@@ -804,7 +821,7 @@ export default {
       "dcType": "Vrsta medija",
       "ebucoreAudioChannelNumber": "Zvočni kanali",
       "ebucoreBitRate": "Bitna hitrost (bps)",
-      "ebucoreDuration": "Trajanje (ms)",
+      "ebucoreDuration": "Trajanje",
       "ebucoreFileByteSize": "Velikost datoteke (bajti)",
       "ebucoreFrameRate": "Hitrost sličic (fps)",
       "ebucoreHasMimeType": "Vrsta MIME",
@@ -821,7 +838,30 @@ export default {
       "edmRights": "Izjava o pravicah za ta medij",
       "edmSpatialResolution": "Prostorska ločljivost (dpi)",
       "edmVertexCount": "Število oglišč",
-      "schemaDigitalSourceType": "Vrsta digitalnega vira"
+      "schemaDigitalSourceType": "Odnos z resničnim svetom"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Umetnost",
+      "creativity": "Ustvarjalnost",
+      "curation": "Kuriranje",
+      "design": "Oblikovanje",
+      "documentation": "Dokumentacija",
+      "education": "Izobraževanje",
+      "exhibition": "Razstava",
+      "gaming": "Gaming",
+      "infotainment": "Infotainment",
+      "knowledge": "Znanje",
+      "maintenance": "Vzdrževanje",
+      "research": "Raziskave",
+      "restoration": "Obnovitev",
+      "tourism": "Turizem"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Rekonstrukcija",
+      "digitalCapture": "Zajem resničnosti",
+      "digitalCreation": "Digitalno rojeno"
     }
   },
   "filterResults": "Filtrirajte rezultate",
@@ -867,7 +907,7 @@ export default {
       "help": "Pomoč",
       "home": "Domov",
       "partners": "Postanite naš partner",
-      "research": "Za raziskovalce",
+      "research": "Za akademsko in raziskovalno sfero",
       "shareYourCollections": "Delite svoje zbirke",
       "stories": "Zgodbe"
     },
@@ -1118,8 +1158,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Raziščite ustanove, ki delijo enote digitalne kulturne dediščine na Europeana.eu.",
-        "title": "Institucije"
+        "description": "Raziščite ustanove ponudnice, ki delijo enote digitalne kulturne dediščine na Europeana.eu.",
+        "title": "Ponudniki podatkov"
       },
       "persons": {
         "title": "Osebe"

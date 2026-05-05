@@ -142,6 +142,23 @@ export default {
     "show": "Näytä attribuutio",
     "title": "Nimi:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Tekstitykset / kuvitettu tekstitys",
+    "captions off": "Pois",
+    "captionsOption": "{language} kuvatekstit",
+    "Exit Fullscreen": "Poistu koko näytöstä",
+    "Fullscreen": "Koko näyttö",
+    "Mute": "Mykistä",
+    "Pause": "Tauko",
+    "Play": "Toista",
+    "Play Video": "Toista video",
+    "Replay": "Toista uudelleen",
+    "Subtitles": "Tekstitykset / kuvitettu tekstitys",
+    "subtitles off": "Pois",
+    "subtitlesOption": "{language} tekstitystä",
+    "Unmute": "Poista mykistys",
+    "Volume Level": "Äänenvoimakkuustaso"
+  },
   "authored": {
     "by": "by",
     "publishedDate": "Julkaistu {date}"
@@ -149,14 +166,14 @@ export default {
   "automatedCardGroup": {
     "gallery": "Uusimmat galleriat",
     "item": "Viimeaikaiset aineistot",
-    "organisation": "Organisaatiot",
+    "organisation": "Aineiston tarjoajat",
     "place": "Paikat",
     "theme": "Teemat",
     "time": "Vuosisadat",
     "topic": "Aiheet"
   },
   "cardLabels": {
-    "organisation": "Organisaatio",
+    "organisation": "Instituutio",
     "person": "Henkilö",
     "place": "Paikka",
     "theme": "Teema",
@@ -316,13 +333,13 @@ export default {
       "description": "Tapahtui tuntematon virhe.",
       "title": "Tuntematon virhe"
     },
-    "IIIFManifestFailure": {
-      "description": "Valitettavasti Europeanaan toimitettua media aineisto ei voida näyttää tällä hetkellä. Yritä ladata media tai katso aineisto tarjoavan laitoksen verkkosivustolla."
-    },
     "itemNotFound": {
       "description": "Tämä voi johtua seuraavista syistä: tätä aineisto ei ole olemassa tai; se poistettiin, koska se ei vastannut laatukriteereitämme tai; se päivitettiin ja julkaistiin uudelleen uudella yksilöivällä tunnisteella. Yritä siinä tapauksessa löytää aineisto uudelleen.",
       "metaTitle": "Aineisto ei löydy",
       "title": "Voi ei! {newline} Emme löytäneet tätä aineisto."
+    },
+    "mediaFailure": {
+      "description": "Valitettavasti Europeanaan toimitettua media aineisto ei voida näyttää tällä hetkellä. Yritä ladata media tai katso aineisto tarjoavan laitoksen verkkosivustolla."
     },
     "noFeatureIdeas": {
       "description": "Tarkista pian uudelleen!",
@@ -804,7 +821,7 @@ export default {
       "dcType": "Mediatyyppi",
       "ebucoreAudioChannelNumber": "Äänikanavat",
       "ebucoreBitRate": "Bittinopeus (bps)",
-      "ebucoreDuration": "Kesto (ms)",
+      "ebucoreDuration": "Kesto",
       "ebucoreFileByteSize": "Tiedostokoko (tavua)",
       "ebucoreFrameRate": "Kuvataajuus (fps)",
       "ebucoreHasMimeType": "MIME-tyyppi",
@@ -821,7 +838,30 @@ export default {
       "edmRights": "Tämän median oikeudet",
       "edmSpatialResolution": "Spatiaalinen erottelutarkkuus (dpi)",
       "edmVertexCount": "Vertex-määrä",
-      "schemaDigitalSourceType": "Digitaalinen lähdetyyppi"
+      "schemaDigitalSourceType": "Suhde todelliseen maailmaan"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Taide",
+      "creativity": "Luovuus",
+      "curation": "Kuratointi",
+      "design": "Muotoilu",
+      "documentation": "Dokumentaatio",
+      "education": "Koulutus",
+      "exhibition": "Näyttely",
+      "gaming": "Pelaaminen",
+      "infotainment": "Infotainment",
+      "knowledge": "Tieto",
+      "maintenance": "Huolto",
+      "research": "Tutkimus",
+      "restoration": "Restaurointi",
+      "tourism": "Matkailu"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Rekonstruktio",
+      "digitalCapture": "Todellisuuden tallennus",
+      "digitalCreation": "Syntynyt digitaalisena"
     }
   },
   "filterResults": "Suodata tulokset",
@@ -862,12 +902,12 @@ export default {
     "navigation": {
       "about": "Tietoa meistä",
       "collections": "Kokoelmat",
-      "educators": "Opettajille",
+      "educators": "Kasvattajille",
       "featureIdeas": "Ominaisuus Ideoita",
       "help": "Apua",
       "home": "Etusivu",
       "partners": "Ryhdy kumppaniksemme",
-      "research": "Tutkijoille",
+      "research": "Akateemiseen käyttöön ja tutkimukseen",
       "shareYourCollections": "Jaa kokoelmasi",
       "stories": "Tarinat"
     },
@@ -1118,8 +1158,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Tutustu laitoksiin, jotka jakavat digitaalisia kulttuuriperintöaineistoja Europeana.eu:ssa.",
-        "title": "Toimielimet"
+        "description": "Tutustu tarjoaviin organisaatioihin, jotka jakavat digitaalisia kulttuuriperintöaineistoja Europeana.eu-palvelussa.",
+        "title": "Aineiston tarjoajat"
       },
       "persons": {
         "title": "Henkilöt"

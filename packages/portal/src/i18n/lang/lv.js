@@ -142,6 +142,23 @@ export default {
     "show": "Rādīt attiecinājumu",
     "title": "Nosaukums:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Subtitri / slēgtie titri",
+    "captions off": "Izslēgts",
+    "captionsOption": "{language} subtitri",
+    "Exit Fullscreen": "Iziet pilnekrāna režīmā",
+    "Fullscreen": "Pilnekrāna",
+    "Mute": "Izslēgt skaņu",
+    "Pause": "Pauze",
+    "Play": "Atskaņot",
+    "Play Video": "Atskaņot video",
+    "Replay": "Atkārtot",
+    "Subtitles": "Subtitri / slēgtie titri",
+    "subtitles off": "Izslēgts",
+    "subtitlesOption": "{language} subtitri",
+    "Unmute": "Ieslēgt skaņu",
+    "Volume Level": "Skaļuma līmenis"
+  },
   "authored": {
     "by": "autors",
     "publishedDate": "Publicēts {date}"
@@ -149,14 +166,14 @@ export default {
   "automatedCardGroup": {
     "gallery": "Jaunākās galerijas",
     "item": "Pēdējie digitālie objekti",
-    "organisation": "Organizācijas",
+    "organisation": "Piegādājošās iestādes",
     "place": "Vietas",
     "theme": "Tēmas",
     "time": "Gadsimtiem",
     "topic": "Tematikas"
   },
   "cardLabels": {
-    "organisation": "Organizācija",
+    "organisation": "Iestāde",
     "person": "Persona",
     "place": "Vieta",
     "theme": "Tēma",
@@ -316,13 +333,13 @@ export default {
       "description": "Radās nezināma kļūda.",
       "title": "Nezināma kļūda"
     },
-    "IIIFManifestFailure": {
-      "description": "Diemžēl šobrīd nevar attēlot objekts mediju, kā tas ir nodrošināts Europeanai. Lūdzu, mēģiniet lejupielādēt mediju vai apskatiet digitālais objekts uz nodrošinošās iestādes piegādājošā iestāde vietnes."
-    },
     "itemNotFound": {
       "description": "Tam var būt šādi iemesli: šis digitālais objekts neeksistē vai; tas tika atcelts, jo tas neatbilda mūsu kvalitātes kritērijiem vai; tas tika atjaunināts un atkārtoti publicēts ar jaunu unikālu identifikatoru. Šādā gadījumā mēģiniet atrast digitālais objekts vēlreiz.",
       "metaTitle": "Digitālais objekts nav atrasts",
       "title": "Ak nē! {newline} Mēs nevarējām atrast šo digitālais objekts."
+    },
+    "mediaFailure": {
+      "description": "Diemžēl šobrīd nevar attēlot objekts mediju, kā tas ir nodrošināts Europeanai. Lūdzu, mēģiniet lejupielādēt mediju vai apskatiet digitālais objekts uz nodrošinošās iestādes piegādājošā iestāde vietnes."
     },
     "noFeatureIdeas": {
       "description": "Drīzumā pārbaudiet vēlreiz!",
@@ -804,7 +821,7 @@ export default {
       "dcType": "Mediju veids",
       "ebucoreAudioChannelNumber": "Audio kanāli",
       "ebucoreBitRate": "Bitu pārraides ātrums (bps)",
-      "ebucoreDuration": "Ilgums (ms)",
+      "ebucoreDuration": "Ilgums",
       "ebucoreFileByteSize": "Faila izmērs (baiti)",
       "ebucoreFrameRate": "Kadru nomaiņas ātrums (fps)",
       "ebucoreHasMimeType": "MIME tips",
@@ -821,7 +838,30 @@ export default {
       "edmRights": "Šī multivides satura tiesību paziņojums",
       "edmSpatialResolution": "Telpiskā izšķirtspēja (dpi)",
       "edmVertexCount": "Virsotņu skaits",
-      "schemaDigitalSourceType": "Digitālā avota tips"
+      "schemaDigitalSourceType": "Saikne ar reālo pasauli"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Māksla",
+      "creativity": "Radošums",
+      "curation": "Kurācija",
+      "design": "Dizains",
+      "documentation": "Dokumentācija",
+      "education": "Izglītība",
+      "exhibition": "Izstāde",
+      "gaming": "Spēles",
+      "infotainment": "Infotainment",
+      "knowledge": "Zināšanas",
+      "maintenance": "Apkope",
+      "research": "Pētījumi",
+      "restoration": "Restaurācija",
+      "tourism": "Tūrisms"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Rekonstrukcija",
+      "digitalCapture": "Realitātes uztveršana",
+      "digitalCreation": "Digitāli dzimis"
     }
   },
   "filterResults": "Filtrēt rezultātus",
@@ -867,7 +907,7 @@ export default {
       "help": "Palīdzība",
       "home": "Sākumlapa",
       "partners": "Sadarbojieties ar mums",
-      "research": "Pētniekiem",
+      "research": "Akadēmijai un pētniecībai",
       "shareYourCollections": "Kopīgojiet savas kolekcijas",
       "stories": "Stāsti"
     },
@@ -1118,8 +1158,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Izpētiet iestādes, kas dalās ar digitālajiem kultūras mantojuma objekti Europeana.eu.",
-        "title": "Lestādes"
+        "description": "Izpētiet sniedzēja institūcijas, kas kopīgo kultūras mantojuma digitālie objekti vietnē Europeana.eu.",
+        "title": "Piegādājošās iestādes"
       },
       "persons": {
         "title": "Personas"

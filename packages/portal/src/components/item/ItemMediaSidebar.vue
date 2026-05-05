@@ -121,6 +121,10 @@
             <MediaMetadataList
               :web-resource="webResource"
             />
+            <MediaMetadataCollapseList
+              v-if="$features.isFormatOfMediaMetadata && downloadableMedia.length"
+              :web-resources="downloadableMedia"
+            />
           </b-tab>
         </template>
         <template
@@ -180,7 +184,8 @@
       BTabs,
       MediaAnnotationList: () => import('../media/MediaAnnotationList.vue'),
       MediaAnnotationSearch: () => import('../media/MediaAnnotationSearch.vue'),
-      MediaMetadataList
+      MediaMetadataList,
+      MediaMetadataCollapseList: () => import('../media/MediaMetadataCollapseList.vue')
     },
 
     provide() {
@@ -259,6 +264,14 @@
         sidebarId: 'item-media-sidebar',
         annotationsCount: null
       };
+    },
+
+    computed: {
+      downloadableMedia() {
+        return []
+          .concat(this.webResource.dctermsIsFormatOf?.def || [])
+          .filter((wr) => wr.isDownloadable);
+      }
     },
 
     watch: {

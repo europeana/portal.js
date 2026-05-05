@@ -142,6 +142,23 @@ export default {
     "show": "Namensnennung anzeigen",
     "title": "Titel:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Untertitel / geschlossene Untertitel",
+    "captions off": "Aus",
+    "captionsOption": "{language} bildunterschriften",
+    "Exit Fullscreen": "Vollbild beenden",
+    "Fullscreen": "Vollbild",
+    "Mute": "Stumm",
+    "Pause": "Pause",
+    "Play": "Spielen",
+    "Play Video": "Video abspielen",
+    "Replay": "Wiederholung",
+    "Subtitles": "Untertitel / geschlossene Untertitel",
+    "subtitles off": "Aus",
+    "subtitlesOption": "{language} Untertitel",
+    "Unmute": "Stummschaltung aufheben",
+    "Volume Level": "Lautstärkepegel"
+  },
   "authored": {
     "by": "von",
     "publishedDate": "Veröffentlicht am {date}"
@@ -149,14 +166,14 @@ export default {
   "automatedCardGroup": {
     "gallery": "Neueste Galerien",
     "item": "Aktuelle Objekte",
-    "organisation": "Organisationen",
+    "organisation": "Datenpartner",
     "place": "Orte",
     "theme": "Themenbereiche",
     "time": "Jahrhunderte",
     "topic": "Themen"
   },
   "cardLabels": {
-    "organisation": "Organisation",
+    "organisation": "Institution",
     "person": "Person",
     "place": "Ort",
     "theme": "Thema",
@@ -316,13 +333,13 @@ export default {
       "description": "Ein unbekannter Fehler ist aufgetreten.",
       "title": "Unbekannter Fehler"
     },
-    "IIIFManifestFailure": {
-      "description": "Leider können die Objektmedien, wie sie Europeana zur Verfügung gestellt wurden, derzeit nicht angezeigt werden. Bitte versuchen Sie, die Medien herunterzuladen oder sich das Objekt auf der Website des Datenpartners anzusehen."
-    },
     "itemNotFound": {
       "description": "Dies kann folgende Gründe haben: Dieses Objekt existiert nicht oder; es wurde depubliziert, weil es nicht unseren Qualitätskriterien entsprach, oder; Es wurde aktualisiert und mit einer neuen eindeutigen Kennung erneut veröffentlicht. Versuchen Sie in diesem Fall, das Objekt erneut zu finden.",
       "metaTitle": "Objekt nicht gefunden",
       "title": "Oh nein! {newline} Wir konnten dies Objekt nicht finden."
+    },
+    "mediaFailure": {
+      "description": "Leider können die Objektmedien, wie sie Europeana zur Verfügung gestellt wurden, derzeit nicht angezeigt werden. Bitte versuchen Sie, die Medien herunterzuladen oder sich das Objekt auf der Website des Datenpartners anzusehen."
     },
     "noFeatureIdeas": {
       "description": "Schauen Sie bald wieder vorbei!",
@@ -804,7 +821,7 @@ export default {
       "dcType": "Medientyp",
       "ebucoreAudioChannelNumber": "Audiokanäle",
       "ebucoreBitRate": "Bitrate (bps)",
-      "ebucoreDuration": "Dauer (ms)",
+      "ebucoreDuration": "Dauer",
       "ebucoreFileByteSize": "Dateigröße (Bytes)",
       "ebucoreFrameRate": "Bildrate (fps)",
       "ebucoreHasMimeType": "MIME-Typ",
@@ -821,7 +838,30 @@ export default {
       "edmRights": "Rechteerklärung für dieses Medium",
       "edmSpatialResolution": "Räumliche Auflösung (dpi)",
       "edmVertexCount": "Anzahl der Vertices",
-      "schemaDigitalSourceType": "Digitaler Quellentyp"
+      "schemaDigitalSourceType": "Beziehung zur realen Welt"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Kunst",
+      "creativity": "Kreativität",
+      "curation": "Kuratierung",
+      "design": "Design",
+      "documentation": "Dokumentation",
+      "education": "Bildung",
+      "exhibition": "Ausstellung",
+      "gaming": "Gaming",
+      "infotainment": "Infotainment",
+      "knowledge": "Wissen",
+      "maintenance": "Wartung",
+      "research": "Forschung",
+      "restoration": "Wiederherstellung",
+      "tourism": "Tourismus"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Rekonstruktion",
+      "digitalCapture": "Realitätserfassung",
+      "digitalCreation": "Digital geboren"
     }
   },
   "filterResults": "Filter Ergebnisse",
@@ -862,12 +902,12 @@ export default {
     "navigation": {
       "about": "Über (uns)",
       "collections": "Sammlungen",
-      "educators": "Für Lehrkräfte",
+      "educators": "Für Lehrende",
       "featureIdeas": "Funktionsideen",
       "help": "Hilfe",
       "home": "Startseite",
       "partners": "Werden Sie unser Partner",
-      "research": "Für Forscher",
+      "research": "Für Wissenschaft und Forschung",
       "shareYourCollections": "Teilen Sie Ihre Sammlungen",
       "stories": "Geschichten"
     },
@@ -1118,8 +1158,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Erkunden Sie die Institutionen, die digitale Kulturerbe-Objekte auf Europeana.eu teilen.",
-        "title": "Institutionen"
+        "description": "Entdecken Sie die bereitstellenden Institutionen, die digitale Kulturerbe-Objekte auf Europeana.eu teilen.",
+        "title": "Datenpartner"
       },
       "persons": {
         "title": "Personen"

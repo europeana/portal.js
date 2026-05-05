@@ -77,6 +77,11 @@
             <span>{{ value }}</span>
           </SmartLink>
           <template
+            v-else-if="isDurationValue"
+          >
+            {{ formatDuration(value) }}
+          </template>
+          <template
             v-else-if="isNumberValue(value)"
           >
             {{ $i18n.n(value) }}
@@ -185,6 +190,17 @@
         if (this.limitDisplayValues && (display.values.length > this.limit)) {
           display.values = display.values.slice(0, this.limit).concat('…');
         }
+
+        display.values = display.values.map((value) => {
+          if (value.startsWith?.('http://') || value.startsWith?.('https://')) {
+            const termId = camelCase(value.split('/').pop());
+            if (this.$te(`fieldValues.${this.name}.${termId}`)) {
+              return this.$t(`fieldValues.${this.name}.${termId}`);
+            }
+          }
+          return value;
+        });
+
         return display;
       },
 
@@ -233,13 +249,29 @@
 
       isColourValue() {
         return this.name === 'edmComponentColor';
+      },
+      isDurationValue() {
+        return this.name === 'ebucoreDuration';
       }
-
     },
 
     methods: {
       isNumberValue(value) {
         return typeof value === 'number';
+      },
+      formatDuration(value) {
+        // format to (h)h:(m)m:ss first
+        const totalSeconds = value / 1000;
+        const hours = Math.floor(totalSeconds / 3600);
+        const remainingSeconds = totalSeconds % 3600;
+        const minutes = `${Math.floor(remainingSeconds / 60)}`.padStart(2, '0');
+        // Floor the seconds, removing extra miliseconds.
+        const seconds = `${Math.floor(remainingSeconds % 60)}`.padStart(2, '0');
+
+        // Removes leding zeros down to a single digit (same format as video.js player)
+        return `${hours}:${minutes}:${seconds}`
+          .replace(/^0:/, '') // when there are 0 hours remove the whole hour section
+          .replace(/^0/, ''); // when there are single digit minutes remove the 0 padding
       }
     }
   };

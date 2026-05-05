@@ -142,6 +142,23 @@ export default {
     "show": "Mostrar atribución",
     "title": "Título:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Subtítulos / subtítulos opcionales",
+    "captions off": "Apagado",
+    "captionsOption": "{language} subtítulos",
+    "Exit Fullscreen": "Salir de pantalla completa",
+    "Fullscreen": "Pantalla completa",
+    "Mute": "Silenciar",
+    "Pause": "Pausa",
+    "Play": "Reproducir",
+    "Play Video": "Reproducir video",
+    "Replay": "Repetir",
+    "Subtitles": "Subtítulos / subtítulos opcionales",
+    "subtitles off": "Apagado",
+    "subtitlesOption": "{language} subtítulos",
+    "Unmute": "Activar sonido",
+    "Volume Level": "Nivel de volumen"
+  },
   "authored": {
     "by": "por",
     "publishedDate": "Publicado el {date}"
@@ -149,14 +166,14 @@ export default {
   "automatedCardGroup": {
     "gallery": "Últimas galerías",
     "item": "Ítems recientes",
-    "organisation": "Organizaciones",
+    "organisation": "Proveedores de datos",
     "place": "Lugares",
     "theme": "Materias",
     "time": "Siglos",
     "topic": "Temática"
   },
   "cardLabels": {
-    "organisation": "Organización",
+    "organisation": "Institución",
     "person": "Persona",
     "place": "Lugar",
     "theme": "Tema",
@@ -316,13 +333,13 @@ export default {
       "description": "Un error desconocido ocurrió.",
       "title": "Error desconocido"
     },
-    "IIIFManifestFailure": {
-      "description": "Lamentablemente, el item multimedia proporcionado a Europeana no se puede mostrar en este momento. Por favor, intenta descargar el multimedia o ver el item en el sitio web del proveedor de datos."
-    },
     "itemNotFound": {
       "description": "Esto podría deberse a las siguientes razones: este Ítem no existe, o; fue des publicado porque no coincidía con nuestros criterios de calidad, o; se actualizó y se volvió a publicar con un nuevo identificador único, en cuyo caso, intente encontrar el Ítem nuevamente.",
       "metaTitle": "Item no encontrado",
       "title": "¡Oh, no! {newline} No pudimos encontrar este Ítem."
+    },
+    "mediaFailure": {
+      "description": "Lamentablemente, el item multimedia proporcionado a Europeana no se puede mostrar en este momento. Por favor, intenta descargar el multimedia o ver el item en el sitio web del proveedor de datos."
     },
     "noFeatureIdeas": {
       "description": "¡Vuelva pronto!",
@@ -804,7 +821,7 @@ export default {
       "dcType": "Tipo de medio",
       "ebucoreAudioChannelNumber": "Canales de audio",
       "ebucoreBitRate": "Tasa de bits (bps)",
-      "ebucoreDuration": "Duración (ms)",
+      "ebucoreDuration": "Duración",
       "ebucoreFileByteSize": "Tamaño del archivo (bytes)",
       "ebucoreFrameRate": "Velocidad de fotogramas (fps)",
       "ebucoreHasMimeType": "Tipo MIME",
@@ -821,7 +838,30 @@ export default {
       "edmRights": "Declaración de derechos para este medio",
       "edmSpatialResolution": "Resolución espacial (dpi)",
       "edmVertexCount": "Número de vértices",
-      "schemaDigitalSourceType": "Tipo de fuente digital"
+      "schemaDigitalSourceType": "Relación con el mundo real"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Arte",
+      "creativity": "Creatividad",
+      "curation": "Curación",
+      "design": "Diseño",
+      "documentation": "Documentación",
+      "education": "Educación",
+      "exhibition": "Exposición",
+      "gaming": "Gaming",
+      "infotainment": "Infoentretenimiento",
+      "knowledge": "Conocimiento",
+      "maintenance": "Mantenimiento",
+      "research": "Investigación",
+      "restoration": "Restauración",
+      "tourism": "Turismo"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Reconstrucción",
+      "digitalCapture": "Captura de la realidad",
+      "digitalCreation": "Nativo digital"
     }
   },
   "filterResults": "Filtrar resultados",
@@ -867,7 +907,7 @@ export default {
       "help": "Ayuda",
       "home": "Inicio",
       "partners": "Asóciese con nosotros",
-      "research": "Para investigadores",
+      "research": "Para el ámbito académico y la investigación",
       "shareYourCollections": "Comparte tus colecciones",
       "stories": "Historias"
     },
@@ -1118,8 +1158,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Explora las instituciones que comparten elementos del patrimonio cultural digital en Europeana.eu.",
-        "title": "Instituciones"
+        "description": "Explore las instituciones proveedoras que comparten elementos del patrimonio cultural digital en Europeana.eu.",
+        "title": "Proveedores de datos"
       },
       "persons": {
         "title": "Personas"

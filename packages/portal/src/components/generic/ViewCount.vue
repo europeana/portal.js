@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="$features.storiesViewCounts && viewCount > 0"
+    v-if="viewCount > 0"
     id="view-count"
     data-qa="view count"
     class="view-count d-inline-flex align-items-center pl-2"
@@ -36,10 +36,6 @@
     },
 
     async fetch() {
-      if (!this.$features.storiesViewCounts) {
-        return;
-      }
-
       const url = this.url || this.canonicalUrl.withOnlyQuery;
 
       const viewsResponse = await axios({

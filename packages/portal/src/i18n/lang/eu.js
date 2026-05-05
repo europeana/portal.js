@@ -142,6 +142,23 @@ export default {
     "show": "Erakutsi atribuzioa",
     "title": "Izenburua:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Azpitituluak / itxitako azpitituluak",
+    "captions off": "Itzalita",
+    "captionsOption": "{language} azpititu",
+    "Exit Fullscreen": "Irten pantaila osotik",
+    "Fullscreen": "Pantaila osoa",
+    "Mute": "Mututu",
+    "Pause": "Pausatu",
+    "Play": "Erreproduzitu",
+    "Play Video": "Erreproduzitu bideoa",
+    "Replay": "Berriro erreproduzitu",
+    "Subtitles": "Azpitituluak / itxitako azpitituluak",
+    "subtitles off": "Itzalita",
+    "subtitlesOption": "{language} azpitituluak",
+    "Unmute": "Aktibatu soinua",
+    "Volume Level": "Bolumen maila"
+  },
   "authored": {
     "by": "arabera",
     "publishedDate": "Argitaratze data {date}"
@@ -149,14 +166,14 @@ export default {
   "automatedCardGroup": {
     "gallery": "Azken galeriak",
     "item": "Azken elementuak",
-    "organisation": "Erakundeak",
+    "organisation": "Erakunde hornitzailea",
     "place": "Lekuak",
     "theme": "Gaiak",
     "time": "Mendeak",
     "topic": "Gaiak"
   },
   "cardLabels": {
-    "organisation": "Antolaketa",
+    "organisation": "Erakundea:",
     "person": "Pertsona",
     "place": "Lekua",
     "theme": "Gaia",
@@ -316,13 +333,13 @@ export default {
       "description": "Errore ezezagun bat gertatu da.",
       "title": "Errore ezezaguna"
     },
-    "IIIFManifestFailure": {
-      "description": "Zoritxarrez, momentuz ezin da bistaratu Europeana-ri emandako multimedia-elementua. Mesedez, saiatu komunikabidea deskargatzen edo erakunde hornitzailearen webgunean elementua ikusten."
-    },
     "itemNotFound": {
       "description": "Hau arrazoi hauengatik izan daiteke: elementu hau ez da existitzen, edo; gure kalitate irizpideekin bat ez zetorrelako kaleratu zen, edo; eguneratu eta berriro argitaratu zen identifikatzaile esklusibo berri batekin, eta kasu horretan, saiatu berriro elementua aurkitzen.",
       "metaTitle": "Ez da aurkitu elementua",
       "title": "Oh ez! {newline} Ezin izan dugu elementu hau aurkitu."
+    },
+    "mediaFailure": {
+      "description": "Zoritxarrez, momentuz ezin da bistaratu Europeana-ri emandako multimedia-elementua. Mesedez, saiatu komunikabidea deskargatzen edo erakunde hornitzailearen webgunean elementua ikusten."
     },
     "noFeatureIdeas": {
       "description": "Begiratu berriro laster!",
@@ -804,7 +821,7 @@ export default {
       "dcType": "Euskarri mota",
       "ebucoreAudioChannelNumber": "Audio kanalak",
       "ebucoreBitRate": "Bit-tasa (bps)",
-      "ebucoreDuration": "Iraupena (ms)",
+      "ebucoreDuration": "Iraupena",
       "ebucoreFileByteSize": "Fitxategi-tamaina (byteak)",
       "ebucoreFrameRate": "Fotograma-tasa (fps)",
       "ebucoreHasMimeType": "MIME mota",
@@ -821,7 +838,30 @@ export default {
       "edmRights": "Komunikabide honen eskubideen adierazpena",
       "edmSpatialResolution": "Bereizmen espaziala (dpi)",
       "edmVertexCount": "Erpin kopurua",
-      "schemaDigitalSourceType": "Iturri digital mota"
+      "schemaDigitalSourceType": "Mundu errealarekin duen harremana"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Artea",
+      "creativity": "Sormena",
+      "curation": "Kudeaketa",
+      "design": "Diseinua",
+      "documentation": "Dokumentazioa",
+      "education": "Hezkuntza",
+      "exhibition": "Erakusketa",
+      "gaming": "Jokoak",
+      "infotainment": "Infotainment",
+      "knowledge": "Ezagutza",
+      "maintenance": "Mantentzea",
+      "research": "Ikerketa",
+      "restoration": "Rekonstrukzioa",
+      "tourism": "Turismoa"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Berreraikuntza",
+      "digitalCapture": "Errealitatearen kaptura",
+      "digitalCreation": "Jatorriz digitala"
     }
   },
   "filterResults": "Iragazi emaitzak",
@@ -867,7 +907,7 @@ export default {
       "help": "Laguntza",
       "home": "Etxea",
       "partners": "Izan zaitez gure bazkide",
-      "research": "Ikertzaileentzat",
+      "research": "Akademia eta ikerketarako",
       "shareYourCollections": "Partekatu zure bildumak",
       "stories": "Istorioak"
     },
@@ -1118,8 +1158,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Arakatu kultur ondare digitalaren elementuak partekatzen dituzten erakundeak Europeana.eu.",
-        "title": "Erakundeak"
+        "description": "Arakatu Europeana.eu-n ondare kultural digitalaren elementuak partekatzen dituzten erakunde hornitzaileak.",
+        "title": "Erakunde hornitzailea"
       },
       "persons": {
         "title": "Pertsonak"

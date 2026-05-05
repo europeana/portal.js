@@ -16,30 +16,39 @@ const factory = ({ data = {}, propsData = {}, mocks = {} } = {}) => shallowMount
     return { ...data };
   },
   mocks: {
+    $apis: {
+      thumbnail: {
+        forWebResource: () => ({
+          large: '400px'
+        })
+      }
+    },
     $apm: {
       setCustomContext: sinon.spy()
     },
     $error(error) {
       throw error;
     },
-    $features: { webResourceMetadata: true },
+    $features: {},
     $route: { query: {} },
     $t: (key) => key,
+    localePath: (path) => path,
     ...mocks
   },
   provide: {
-    itemIsDeleted: false
+    itemIsDeleted: false,
+    subtitlingAnnotations: []
   },
   stubs: [
     'client-only',
     'EmbedGateway',
     'EmbedOEmbed',
-    'IIIFErrorMessage',
+    'MediaErrorMessage',
     'ItemMediaPaginationToolbar',
     'ItemMediaSidebarToggle',
     'ItemMediaSidebar',
     'ItemMediaThumbnails',
-    'MediaAudioVisualPlayer',
+    'MediaAudioVideoPlayer',
     'MediaImageViewer',
     'MediaImageViewerControls'
   ]
@@ -305,7 +314,7 @@ describe('components/item/ItemMediaPresentation', () => {
           await wrapper.vm.fetch();
           await wrapper.vm.$nextTick();
 
-          const errorMessage = wrapper.find('iiiferrormessage-stub');
+          const errorMessage = wrapper.find('mediaerrormessage-stub');
 
           expect(errorMessage.isVisible()).toBe(true);
         });
@@ -333,7 +342,7 @@ describe('components/item/ItemMediaPresentation', () => {
           imageViewer.vm.$emit('error', imageError);
           await wrapper.vm.$nextTick();
 
-          const errorMessage = wrapper.find('iiiferrormessage-stub');
+          const errorMessage = wrapper.find('mediaerrormessage-stub');
 
           expect(errorMessage.isVisible()).toBe(true);
         });

@@ -44,94 +44,52 @@ describe('components/debug/DebugApiRequests', () => {
     describe('when logged in', () => {
       const $auth = { loggedIn: true };
 
-      describe('and manage API keys feature is enabled', () => {
-        const $features = { manageApiKeys: true };
+      it('fetches user API keys from auth service', async() => {
+        const $apis = {
+          auth: {
+            getUserClients: sinon.stub().resolves([])
+          }
+        };
+        const wrapper = factory({ mocks: { $apis, $auth } });
 
-        it('fetches user API keys from auth service', async() => {
-          const $apis = {
-            auth: {
-              getUserClients: sinon.stub().resolves([])
-            }
-          };
-          const wrapper = factory({ mocks: { $apis, $auth, $features } });
+        await wrapper.vm.fetch();
 
-          await wrapper.vm.fetch();
-
-          expect($apis.auth.getUserClients.calledWith()).toBe(true);
-        });
-
-        it('stores active personal API key', async() => {
-          const keys = [
-            { 'client_id': 'enabled-project-key', type: 'ProjectKey' },
-            { 'client_id': 'disabled-personal-key', state: 'disabled', type: 'PersonalKey' },
-            { 'client_id': 'enabled-personal-key', type: 'PersonalKey' }
-          ];
-          const $apis = {
-            auth: {
-              getUserClients: sinon.stub().resolves(keys)
-            }
-          };
-          const wrapper = factory({ mocks: { $apis, $auth, $features } });
-
-          await wrapper.vm.fetch();
-
-          expect(wrapper.vm.userApiKey).toEqual({ 'client_id': 'enabled-personal-key', type: 'PersonalKey' });
-        });
+        expect($apis.auth.getUserClients.calledWith()).toBe(true);
       });
 
-      describe('and manage API keys feature is disabled', () => {
-        const $features = { manageApiKeys: false };
+      it('stores active personal API key', async() => {
+        const keys = [
+          { 'client_id': 'enabled-project-key', type: 'ProjectKey' },
+          { 'client_id': 'disabled-personal-key', state: 'disabled', type: 'PersonalKey' },
+          { 'client_id': 'enabled-personal-key', type: 'PersonalKey' }
+        ];
+        const $apis = {
+          auth: {
+            getUserClients: sinon.stub().resolves(keys)
+          }
+        };
+        const wrapper = factory({ mocks: { $apis, $auth } });
 
-        it('does not fetch user API keys from auth service', async() => {
-          const $apis = {
-            auth: {
-              getUserClients: sinon.stub().resolves([])
-            }
-          };
-          const wrapper = factory({ mocks: { $apis, $auth, $features } });
+        await wrapper.vm.fetch();
 
-          await wrapper.vm.fetch();
-
-          expect($apis.auth.getUserClients.called).toBe(false);
-        });
+        expect(wrapper.vm.userApiKey).toEqual({ 'client_id': 'enabled-personal-key', type: 'PersonalKey' });
       });
     });
 
     describe('when not logged in', () => {
       const $auth = { loggedIn: false };
 
-      describe('and manage API keys feature is enabled', () => {
-        const $features = { manageApiKeys: true };
+      it('fetches user API keys from auth service', async() => {
+        const $apis = {
+          auth: {
+            getUserClients: sinon.stub().resolves([])
+          }
+        };
+        const wrapper = factory({ mocks: { $apis, $auth } });
 
-        it('fetches user API keys from auth service', async() => {
-          const $apis = {
-            auth: {
-              getUserClients: sinon.stub().resolves([])
-            }
-          };
-          const wrapper = factory({ mocks: { $apis, $auth, $features } });
+        await wrapper.vm.fetch();
 
-          await wrapper.vm.fetch();
-
-          expect($apis.auth.getUserClients.calledWith()).toBe(false);
-        });
-      });
-
-      describe('and manage API keys feature is disabled', () => {
-        const $features = { manageApiKeys: false };
-
-        it('does not fetch user API keys from auth service', async() => {
-          const $apis = {
-            auth: {
-              getUserClients: sinon.stub().resolves([])
-            }
-          };
-          const wrapper = factory({ mocks: { $apis, $auth, $features } });
-
-          await wrapper.vm.fetch();
-
-          expect($apis.auth.getUserClients.called).toBe(false);
-        });
+        expect($apis.auth.getUserClients.calledWith()).toBe(false);
       });
     });
   });

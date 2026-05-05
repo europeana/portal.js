@@ -142,6 +142,23 @@ export default {
     "show": "Показване на атрибуция",
     "title": "Заглавие:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Субтитри / скрити надписи",
+    "captions off": "Изкл.",
+    "captionsOption": "{language} надписи",
+    "Exit Fullscreen": "Изход от цял екран",
+    "Fullscreen": "Цял екран",
+    "Mute": "Без звук",
+    "Pause": "Пауза",
+    "Play": "Пусни",
+    "Play Video": "Възпроизвеждане на видео",
+    "Replay": "Повторение",
+    "Subtitles": "Субтитри / скрити надписи",
+    "subtitles off": "Изкл.",
+    "subtitlesOption": "{language} субтитри",
+    "Unmute": "Включване на звука",
+    "Volume Level": "Ниво на звука"
+  },
   "authored": {
     "by": "от",
     "publishedDate": "Публикувано на {date}"
@@ -149,14 +166,14 @@ export default {
   "automatedCardGroup": {
     "gallery": "Последни галерии",
     "item": "Скорошни обекта",
-    "organisation": "Организации",
+    "organisation": "Доставчици на данни",
     "place": "Места",
     "theme": "Теми",
     "time": "Векове",
     "topic": "Рубрика"
   },
   "cardLabels": {
-    "organisation": "Организация",
+    "organisation": "Институция",
     "person": "човек",
     "place": "място",
     "theme": "Тема",
@@ -316,13 +333,13 @@ export default {
       "description": "Възникна неизвестна грешка.",
       "title": "Неизвестна грешка"
     },
-    "IIIFManifestFailure": {
-      "description": "За съжаление, предоставеният медиен обект за Europeana в момента не може да бъде показан. Моля, опитайте да изтеглите медията или разгледайте обекта на уебсайта на доставчика на данни."
-    },
     "itemNotFound": {
       "description": "Това може да се дължи на следните причини: този обект не съществува или; беше отменено публикуването му, защото не отговаряше на нашите критерии за качество, или; той беше актуализиран и публикуван отново с нов уникален идентификатор, в който случай опитайте да намерите обект отново.",
       "metaTitle": "Артикулът не е намерен",
       "title": "О, не! {newline} Не успяхме да намерим този обект."
+    },
+    "mediaFailure": {
+      "description": "За съжаление, предоставеният медиен обект за Europeana в момента не може да бъде показан. Моля, опитайте да изтеглите медията или разгледайте обекта на уебсайта на доставчика на данни."
     },
     "noFeatureIdeas": {
       "description": "Проверете отново скоро!",
@@ -804,7 +821,7 @@ export default {
       "dcType": "Вид медия",
       "ebucoreAudioChannelNumber": "Аудио канали",
       "ebucoreBitRate": "Битрейт (bps)",
-      "ebucoreDuration": "Продължителност (ms)",
+      "ebucoreDuration": "Продължителност",
       "ebucoreFileByteSize": "Размер на файла (байтове)",
       "ebucoreFrameRate": "Честота на кадрите (fps)",
       "ebucoreHasMimeType": "MIME тип",
@@ -821,7 +838,30 @@ export default {
       "edmRights": "Декларация за права за тази медия",
       "edmSpatialResolution": "Пространствена разделителна способност (dpi)",
       "edmVertexCount": "Брой върхове",
-      "schemaDigitalSourceType": "Тип цифров източник"
+      "schemaDigitalSourceType": "Връзка с реалния свят"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Изкуство",
+      "creativity": "Креативност",
+      "curation": "Куриране",
+      "design": "Дизайн",
+      "documentation": "Документация",
+      "education": "Образование",
+      "exhibition": "Изложба",
+      "gaming": "Гейминг",
+      "infotainment": "Инфотейнмънт",
+      "knowledge": "Знание",
+      "maintenance": "Поддръжка",
+      "research": "Изследване",
+      "restoration": "Възстановяване",
+      "tourism": "Туризъм"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Реконструкция",
+      "digitalCapture": "Заснемане на реалността",
+      "digitalCreation": "Родено в цифров вид"
     }
   },
   "filterResults": "Филтриране на резултати",
@@ -867,7 +907,7 @@ export default {
       "help": "Помощ",
       "home": "Начало",
       "partners": "Партнирайте си с нас",
-      "research": "За изследователи",
+      "research": "За академични среди и изследвания",
       "shareYourCollections": "Споделете вашите колекции",
       "stories": "Истории"
     },
@@ -1118,8 +1158,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Разгледайте институциите, които споделят обекта на цифровото културно наследство на Europeana.eu.",
-        "title": "институции"
+        "description": "Разгледайте институциите доставчици, които споделят обекти на дигиталното културно наследство в Europeana.eu.",
+        "title": "Доставчици на данни"
       },
       "persons": {
         "title": "Лица"

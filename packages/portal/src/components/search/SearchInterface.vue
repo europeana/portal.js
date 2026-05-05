@@ -57,7 +57,7 @@
             </template>
             <template #search-options>
               <SearchMultilingualButton
-                v-if="multilingualSearchButtonEnabled"
+                v-if="translateSearchForCurrentLocale"
                 v-model="translate"
                 @input="handleMultilingualButtonInput"
               />
@@ -221,7 +221,7 @@
       this.translate = Boolean(
         this.$auth.loggedIn &&
           this.translateSearchForCurrentLocale &&
-          (!this.$features?.multilingualSearchButton || this.$route.query.translate || this.$cookies?.get('multilingualSearch'))
+          (this.$route.query.translate || this.$cookies?.get('multilingualSearch') === 'true')
       );
 
       // Remove cleared rules
@@ -333,9 +333,6 @@
       },
       translateSearchForCurrentLocale() {
         return this.$config?.app?.search?.translateLocales?.includes(this.$i18n.locale);
-      },
-      multilingualSearchButtonEnabled() {
-        return this.$features?.multilingualSearchButton && this.translateSearchForCurrentLocale;
       }
     },
 

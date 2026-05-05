@@ -148,6 +148,30 @@ describe('components/metadata/MetadataField', () => {
         expect(fieldValues.at(1).text()).toBe('…');
       });
 
+      describe('when the value might have a vocabulary lookup', () => {
+        const props = { name: 'edmIntendedUsage', fieldData: ['http://data.europeana.eu/vocabulary/usageArea/Research'] };
+
+        describe('and the value has a translation', () => {
+          it('renders the translation string', () => {
+            const wrapper = factory({ props, translationExists: true });
+
+            const fieldValues = wrapper.findAll('[data-qa="metadata field"] ul [data-qa="literal value"]');
+
+            expect(fieldValues.at(0).text()).toBe('fieldValues.edmIntendedUsage.research');
+          });
+        });
+
+        describe('but there is no existing translation', () => {
+          it('renders the value without lookup', () => {
+            const wrapper = factory({ props, translationExists: false });
+
+            const fieldValues = wrapper.findAll('[data-qa="metadata field"] ul [data-qa="literal value"]');
+
+            expect(fieldValues.at(0).text()).toBe(props.fieldData[0]);
+          });
+        });
+      });
+
       describe('URIs', () => {
         describe('with omitUrisIfOtherValues set to true', () => {
           it('omits them if there are other values in any language', () => {
@@ -168,7 +192,7 @@ describe('components/metadata/MetadataField', () => {
 
           it('only include them if there are no other values in any other language', () => {
             const props = { name: 'dcCreator', fieldData: { def: ['http://data.europeana.eu/agent/123'] }, omitUrisIfOtherValues: true };
-            const wrapper = factory({ props });
+            const wrapper = factory({ props, translationExists: false });
 
             const fieldValue = wrapper.find('[data-qa="metadata field"] ul [data-qa="literal value"]');
             expect(fieldValue.text()).toBe(props.fieldData.def[0]);
@@ -328,6 +352,94 @@ describe('components/metadata/MetadataField', () => {
       const wrapper = factory({ props });
 
       expect(wrapper.find('colourswatch-stub').exists()).toBe(true);
+    });
+  });
+
+  describe('when there is a duration value (ebucoreDuration)', () => {
+    describe('rendering and formatting the number as hh:mm:ss', () => {
+      describe('when there is a single digit second value', () => {
+        const props = {
+          name: 'ebucoreDuration',
+          fieldData: ['5432']
+        };
+
+        it('removes leading zeros up to the minute value', () => {
+          const wrapper = factory({ props });
+          const fieldValue = wrapper.find('[data-qa="metadata field"] ul [data-qa="literal value"]');
+
+          expect(fieldValue.text()).toEqual('0:05');
+        });
+      });
+
+      describe('when there is a double digit second value', () => {
+        const props = {
+          name: 'ebucoreDuration',
+          fieldData: ['20864']
+        };
+
+        it('removes leading zeros up to the minute value', () => {
+          const wrapper = factory({ props });
+          const fieldValue = wrapper.find('[data-qa="metadata field"] ul [data-qa="literal value"]');
+
+          expect(fieldValue.text()).toEqual('0:20');
+        });
+      });
+
+      describe('when there is single digit minute value', () => {
+        const props = {
+          name: 'ebucoreDuration',
+          fieldData: ['150000']
+        };
+
+        it('removes leading zeros', () => {
+          const wrapper = factory({ props });
+          const fieldValue = wrapper.find('[data-qa="metadata field"] ul [data-qa="literal value"]');
+
+          expect(fieldValue.text()).toEqual('2:30');
+        });
+      });
+
+      describe('when there are double digit minute values', () => {
+        const props = {
+          name: 'ebucoreDuration',
+          fieldData: ['850000']
+        };
+
+        it('removes leading zeros from the hours', () => {
+          const wrapper = factory({ props });
+          const fieldValue = wrapper.find('[data-qa="metadata field"] ul [data-qa="literal value"]');
+
+          expect(fieldValue.text()).toEqual('14:10');
+        });
+      });
+
+      describe('when there is a single digit hour value', () => {
+        const props = {
+          name: 'ebucoreDuration',
+          fieldData: ['18355000']
+        };
+
+        it('displays the whole value without leading zeros', () => {
+          const wrapper = factory({ props });
+          const fieldValue = wrapper.find('[data-qa="metadata field"] ul [data-qa="literal value"]');
+
+          expect(fieldValue.text()).toEqual('5:05:55');
+        });
+      });
+
+      describe('when there are double digit hour values', () => {
+        const props = {
+          name: 'ebucoreDuration',
+          fieldData: ['54355000']
+        };
+
+        it('displays the whole value', () => {
+          const wrapper = factory({ props });
+          const fieldValue = wrapper.find('[data-qa="metadata field"] ul [data-qa="literal value"]');
+
+          expect(fieldValue.text()).toEqual('15:05:55');
+        });
+      });
     });
   });
 });

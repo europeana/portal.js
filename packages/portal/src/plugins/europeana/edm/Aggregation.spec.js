@@ -156,6 +156,34 @@ describe('plugins/europeana/edm/Aggregation', () => {
         expect(iiifPresentationManifestWebResources.length).toBe(1);
         expect(iiifPresentationManifestWebResources[0].rdfType).toBe('http://iiif.io/api/presentation/3#Manifest');
       });
+      it('does not fail when webResources is undefined', () => {
+        const edm = {};
+
+        const iiifPresentationManifestWebResources = new Aggregation(edm).iiifPresentationManifestWebResources;
+
+        expect(iiifPresentationManifestWebResources.length).toBe(0);
+      });
+    });
+
+    describe('findWebResources', () => {
+      it('finds a web resource by uri', () => {
+        const about = 'https://example.org/other';
+        const edm = {
+          webResources: [
+            { about }
+          ]
+        };
+
+        const foundWebResource = new Aggregation(edm).findWebResource(about);
+
+        expect(foundWebResource.about).toEqual(about);
+      });
+      it('does not fail when webResources is undefined', () => {
+        const edm = {};
+
+        const foundWebResource = new Aggregation(edm).findWebResource('https://example.org/other');
+        expect(foundWebResource).toBe(undefined);
+      });
     });
   });
 });

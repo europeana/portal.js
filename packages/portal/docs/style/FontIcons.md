@@ -115,6 +115,11 @@ Example:
           <td><span class="icon icon-click" /></td>
         </tr>
         <tr>
+          <td>Closedcaption</td>
+          <td><code>icon-closedcaption</code></td>
+          <td><span class="icon icon-closedcaption" /></td>
+        </tr>
+        <tr>
           <td>Collections</td>
           <td><code>icon-collections</code></td>
           <td><span class="icon icon-collections" /></td>
@@ -335,6 +340,11 @@ Example:
           <td><span class="icon icon-pin-outlined" /></td>
         </tr>
         <tr>
+          <td>Play</td>
+          <td><code>icon-play</code></td>
+          <td><span class="icon icon-play" /></td>
+        </tr>
+        <tr>
           <td>Quote</td>
           <td><code>icon-quote</code></td>
           <td><span class="icon icon-quote" /></td>
@@ -420,6 +430,11 @@ Example:
           <td><span class="icon icon-stories" /></td>
         </tr>
         <tr>
+          <td>Subtitles</td>
+          <td><code>icon-subtitles</code></td>
+          <td><span class="icon icon-subtitles" /></td>
+        </tr>
+        <tr>
           <td>Tag</td>
           <td><code>icon-ic-tag</code></td>
           <td><span class="icon icon-ic-tag" /></td>
@@ -503,6 +518,16 @@ Example:
           <td>View mosaic</td>
           <td><code>icon-view-mosaic</code></td>
           <td><span class="icon icon-view-mosaic" /></td>
+        </tr>
+        <tr>
+          <td>Volume off</td>
+          <td><code>icon-volume-off</code></td>
+          <td><span class="icon icon-volume-off" /></td>
+        </tr>
+        <tr>
+          <td>Volume on</td>
+          <td><code>icon-volume-on</code></td>
+          <td><span class="icon icon-volume-on" /></td>
         </tr>
         <tr>
           <td>Zoom in</td>

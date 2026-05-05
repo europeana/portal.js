@@ -142,6 +142,23 @@ export default {
     "show": "Toon toeschrijving",
     "title": "Titel:"
   },
+  "audioVisualPlayer": {
+    "Captions": "Ondertiteling / gesloten ondertiteling",
+    "captions off": "Uit",
+    "captionsOption": "{language} bijschriften",
+    "Exit Fullscreen": "Volledig scherm afsluiten",
+    "Fullscreen": "Volledig scherm",
+    "Mute": "Dempen",
+    "Pause": "Pauze",
+    "Play": "Afspelen",
+    "Play Video": "Video afspelen",
+    "Replay": "Opnieuw afspelen",
+    "Subtitles": "Ondertiteling / gesloten ondertiteling",
+    "subtitles off": "Uit",
+    "subtitlesOption": "{language} ondertitels",
+    "Unmute": "Dempen opheffen",
+    "Volume Level": "Volumeniveau"
+  },
   "authored": {
     "by": "door",
     "publishedDate": "Gepubliceerd op {date}"
@@ -149,14 +166,14 @@ export default {
   "automatedCardGroup": {
     "gallery": "Nieuwste galerijen",
     "item": "Recente objecten",
-    "organisation": "Organisaties",
+    "organisation": "Deelnemende erfgoedorganisaties",
     "place": "Plaatsen",
     "theme": "Thema's",
     "time": "Eeuwen",
     "topic": "Onderwerpen"
   },
   "cardLabels": {
-    "organisation": "Organisatie",
+    "organisation": "Instelling",
     "person": "Persoon",
     "place": "Plaats",
     "theme": "Thema",
@@ -316,13 +333,13 @@ export default {
       "description": "Er is een onbekende fout opgetreden.",
       "title": "Onbekende fout"
     },
-    "IIIFManifestFailure": {
-      "description": "Helaas kan het object media zoals aangeleverd aan Europeana nu niet worden weergegeven. Probeer het te downloaden of bekijk het object op de website van de deelnemende erfgoedorganisatie."
-    },
     "itemNotFound": {
       "description": "Dit kan de volgende redenen hebben: dit item bestaat niet, of; het werd ongepubliceerd, omdat het niet voldeed aan onze kwaliteitscriteria, of; het is bijgewerkt en opnieuw gepubliceerd met een nieuwe unieke identificatie. Probeer in dat geval het item opnieuw te vinden.",
       "metaTitle": "Item niet gevonden",
       "title": "Oh nee! {newline} We hebben dit item niet kunnen vinden."
+    },
+    "mediaFailure": {
+      "description": "Helaas kan het object media zoals aangeleverd aan Europeana nu niet worden weergegeven. Probeer het te downloaden of bekijk het object op de website van de deelnemende erfgoedorganisatie."
     },
     "noFeatureIdeas": {
       "description": "Kom snel weer terug!",
@@ -804,7 +821,7 @@ export default {
       "dcType": "Soort media",
       "ebucoreAudioChannelNumber": "Audiokanalen",
       "ebucoreBitRate": "Bitrate (bps)",
-      "ebucoreDuration": "Duur (ms)",
+      "ebucoreDuration": "Duur",
       "ebucoreFileByteSize": "Bestandsgrootte (bytes)",
       "ebucoreFrameRate": "Framesnelheid (fps)",
       "ebucoreHasMimeType": "MIME-type",
@@ -821,7 +838,30 @@ export default {
       "edmRights": "Rechtenverklaring voor deze media",
       "edmSpatialResolution": "Ruimtelijke resolutie (dpi)",
       "edmVertexCount": "Aantal hoekpunten",
-      "schemaDigitalSourceType": "Digitaal brontype"
+      "schemaDigitalSourceType": "Relatie met de echte wereld"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Kunst",
+      "creativity": "Creativiteit",
+      "curation": "Curatie",
+      "design": "Ontwerp",
+      "documentation": "Documentatie",
+      "education": "Onderwijs",
+      "exhibition": "Tentoonstelling",
+      "gaming": "Gaming",
+      "infotainment": "Infotainment",
+      "knowledge": "Kennis",
+      "maintenance": "Onderhoud",
+      "research": "Onderzoek",
+      "restoration": "Restauratie",
+      "tourism": "Toerisme"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Reconstructie",
+      "digitalCapture": "Reality capture",
+      "digitalCreation": "Digitaal geboren"
     }
   },
   "filterResults": "Resultaten filteren",
@@ -867,7 +907,7 @@ export default {
       "help": "Help",
       "home": "Home",
       "partners": "Word onze partner",
-      "research": "Voor onderzoekers",
+      "research": "Voor de academische wereld en onderzoek",
       "shareYourCollections": "Deel uw collecties",
       "stories": "Verhalen"
     },
@@ -1118,8 +1158,8 @@ export default {
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Ontdek de instellingen die digitale culturele erfgoed objecten delen op Europeana.eu.",
-        "title": "Instellingen"
+        "description": "Ontdek de deelnemende erfgoedorganisaties die digitale culturele erfgoed objecten delen op Europeana.eu.",
+        "title": "Deelnemende erfgoedorganisaties"
       },
       "persons": {
         "title": "Personen"
