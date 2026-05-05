@@ -96,14 +96,17 @@ export default class EuropeanaApi {
   }
 
   get axiosInstanceOptions() {
-    const params = {};
+    const headers = {};
     if (this.constructor.AUTHENTICATING) {
-      params.wskey = this.key;
+      headers['x-api-key'] = this.key;
+    }
+    if (process.server) {
+      headers['user-agent'] = 'Europeana.eu (https://www.europeana.eu)';
     }
 
     return {
       baseURL: this.baseURL,
-      params,
+      headers,
       paramsSerializer(params) {
         return qs.stringify(params, { arrayFormat: 'repeat' });
       },

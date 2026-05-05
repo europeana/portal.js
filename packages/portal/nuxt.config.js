@@ -170,6 +170,7 @@ export default {
       }
     },
     europeana: {
+      // TODO: remove API keys
       apis: europeanaApisRuntimeConfig({ scope: 'public' }),
       oembed: {
         providerUrl: process.env.EUROPEANA_OEMBED_PROVIDER_URL || 'https://oembed.europeana.eu'
