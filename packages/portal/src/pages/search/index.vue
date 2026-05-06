@@ -50,6 +50,7 @@
 </template>
 
 <script>
+  import { computed } from 'vue';
   import ClientOnly from 'vue-client-only';
   import SearchInterface from '@/components/search/SearchInterface';
   import pageMetaMixin from '@/mixins/pageMeta';
@@ -66,6 +67,13 @@
     },
 
     mixins: [pageMetaMixin],
+
+    provide() {
+      return {
+        relatedCollections: computed(() => this.relatedCollections),
+        relatedGalleries: computed(() => this.relatedGalleries)
+      };
+    },
 
     async beforeRouteLeave(to, from, next) {
       // Leaving the search page closes the search bar. Reevaluate when autosuggestions go straight to entity pages.

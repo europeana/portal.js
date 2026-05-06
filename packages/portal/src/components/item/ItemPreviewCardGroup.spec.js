@@ -13,7 +13,7 @@ const storeDispatch = sinon.spy();
 const storeIsPinnedGetter = sinon.stub();
 const redrawMasonry = sinon.spy();
 
-const factory = ({ propsData, mocks } = {}) => shallowMountNuxt(ItemPreviewCardGroup, {
+const factory = ({ propsData, mocks, provide } = {}) => shallowMountNuxt(ItemPreviewCardGroup, {
   localVue,
   propsData,
   mocks: {
@@ -42,7 +42,8 @@ const factory = ({ propsData, mocks } = {}) => shallowMountNuxt(ItemPreviewCardG
       }
     },
     ...mocks
-  }
+  },
+  provide
 });
 
 const results = [
@@ -173,6 +174,40 @@ describe('components/item/ItemPreviewCardGroup', () => {
         const routeQuery = wrapper.vm.routeQuery;
 
         expect(routeQuery).toEqual({ fulltext: 'theater "den haag"' });
+      });
+    });
+
+    describe('relatedCollectionsHasResults', () => {
+      describe('when there are related collections found', () => {
+        it('returns true', () => {
+          const wrapper = factory({ provide: { 'relatedCollections': [{}] } });
+
+          expect(wrapper.vm.relatedCollectionsHasResults).toEqual(true);
+        });
+      });
+      describe('when there are NO related collections found', () => {
+        it('returns false', () => {
+          const wrapper = factory({ provide: { 'relatedCollections': null } });
+
+          expect(wrapper.vm.relatedCollectionsHasResults).toEqual(false);
+        });
+      });
+    });
+
+    describe('relatedGalleriesHasResults', () => {
+      describe('when there are related galleries found', () => {
+        it('returns true', () => {
+          const wrapper = factory({ provide: { 'relatedGalleries': [{}] } });
+
+          expect(wrapper.vm.relatedGalleriesHasResults).toEqual(true);
+        });
+      });
+      describe('when there are NO related galleries found', () => {
+        it('returns false', () => {
+          const wrapper = factory({ provide: { 'relatedGalleries': null } });
+
+          expect(wrapper.vm.relatedGalleriesHasResults).toEqual(false);
+        });
       });
     });
   });
