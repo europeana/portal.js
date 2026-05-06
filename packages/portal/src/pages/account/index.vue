@@ -129,7 +129,7 @@
       ({ $keycloak }) => {
         console.log('account/index middleware');
         if (!$keycloak.loggedIn) {
-          throw new Error(403)
+          throw new Error(403);
         }
       }
     ],

@@ -129,20 +129,6 @@ export default {
       },
       siteName: APP_SITE_NAME
     },
-    auth: {
-      strategies: {
-        keycloak: {
-          client_id: process.env.OAUTH_CLIENT,
-          origin: process.env.OAUTH_ORIGIN || 'https://auth.europeana.eu',
-          scope: (process.env.OAUTH_SCOPE || 'openid,profile,email,usersets').split(','),
-          realm: process.env.OAUTH_REALM || 'europeana',
-          response_type: process.env.OAUTH_RESPONSE_TYPE || 'code',
-          access_type: process.env.OAUTH_ACCESS_TYPE || 'online',
-          grant_type: process.env.OAUTH_GRANT_TYPE || 'authorization_code',
-          token_type: process.env.OAUTH_TOKEN_TYPE || 'Bearer'
-        }
-      }
-    },
     axios: {
       baseURL: process.env.PORTAL_BASE_URL
     },
@@ -180,6 +166,17 @@ export default {
       id: process.env.HOTJAR_ID,
       sv: process.env.HOTJAR_SNIPPET_VERSION
     },
+    keycloak: {
+      origin: process.env.KEYCLOAK_ORIGIN || 'https://auth.europeana.eu',
+      realm: process.env.KEYCLOAK_REALM || 'europeana',
+      clientId: process.env.KEYCLOAK_CLIENT,
+      // TODO: are all these scopes needed (by default)?
+      scope: (process.env.KEYCLOAK_SCOPE || 'openid,profile,email,usersets').split(','),
+      responseType: process.env.KEYCLOAK_RESPONSE_TYPE || 'code',
+      accessType: process.env.KEYCLOAK_ACCESS_TYPE || 'online',
+      grantType: process.env.KEYCLOAK_GRANT_TYPE || 'authorization_code'
+      // tokenType: process.env.KEYCLOAK_TOKEN_TYPE || 'Bearer'
+    },
     matomo: {
       host: process.env.MATOMO_HOST,
       siteId: process.env.MATOMO_SITE_ID,
@@ -188,16 +185,6 @@ export default {
         name: 'Matomo',
         retries: process.env.MATOMO_LOAD_WAIT_RETRIES
       }
-    },
-    oauth: {
-      origin: process.env.OAUTH_ORIGIN || 'https://auth.europeana.eu',
-      realm: process.env.OAUTH_REALM || 'europeana',
-      clientId: process.env.OAUTH_CLIENT,
-      scope: (process.env.OAUTH_SCOPE || 'openid,profile,email,usersets').split(','),
-      responseType: process.env.OAUTH_RESPONSE_TYPE || 'code',
-      accessType: process.env.OAUTH_ACCESS_TYPE || 'online',
-      grantType: process.env.OAUTH_GRANT_TYPE || 'authorization_code',
-      // tokenType: process.env.OAUTH_TOKEN_TYPE || 'Bearer'
     }
   },
 
@@ -349,7 +336,6 @@ export default {
     '~/plugins/vue-matomo.client',
     '~/plugins/i18n-cookie.client',
     '~/plugins/error',
-    '~/plugins/keycloak',
     '~/plugins/axios-logger',
     '~/plugins/axios-cache-interceptor.client',
     '~/plugins/axios.server',
@@ -358,12 +344,14 @@ export default {
     '~/plugins/vue-masonry.client',
     '~/plugins/features',
     '~/plugins/jsdom-domparser.server',
-    '~/plugins/vue-contentful-graphql'
+    '~/plugins/vue-contentful-graphql',
+    '~/plugins/keycloak',
+    '~/plugins/europeana-apis',
+    '~/plugins/liked-items.client'
   ],
 
   buildModules: [
-    '@nuxtjs/axios',
-    '@nuxtjs/auth'
+    '@nuxtjs/axios'
   ],
 
   /*
@@ -401,36 +389,6 @@ export default {
       }
     }]
   ],
-
-  auth: {
-    // Redirect routes: 'callback' option for keycloak redirects,
-    // 'login' option for unauthorised redirection
-    // 'home' option for redirection after login
-    //  no redirect on logout
-    redirect: {
-      login: '/account/login',
-      logout: false,
-      callback: '/account/callback',
-      home: '/account'
-    },
-    fullPathRedirect: true,
-    strategies: {
-      local: false,
-      // Include oauth2 so that ~/plugins/authScheme can extend it
-      _oauth2: {
-        _scheme: 'oauth2'
-      },
-      keycloak: {
-        _scheme: '~/auth/schemes/authScheme'
-      }
-    },
-    defaultStrategy: 'keycloak',
-    plugins: [
-      '~/plugins/auth.client',
-      '~/plugins/europeana-apis',
-      '~/plugins/liked-items.client'
-    ]
-  },
 
   axios: {
     proxyHeadersIgnore: [

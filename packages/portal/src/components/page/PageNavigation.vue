@@ -39,12 +39,18 @@
 
     computed: {
       authLinks() {
-        return this.isAuthenticated ? [
-          { url: '/account', text: this.$t('account.title'), dataQa: 'account link' },
-          this.sidebarNav && { url: '/account/logout', to: '/account/logout', text: this.$t('account.linkLogout'), dataQa: 'log out link' }
-        ] : [
-          { url: '/account/login', to: { name: 'account-login', query: { redirect: this.$route.fullPath } }, text: this.$t('account.linkLoginJoin'), dataQa: 'log in link' }
-        ];
+        const loginLogoutQuery = { redirect: this.$route.fullPath };
+
+        if (this.isAuthenticated) {
+          return [
+            { url: '/account', text: this.$t('account.title'), dataQa: 'account link' },
+            this.sidebarNav && { url: '/account/logout', to: { name: 'account-logout', query: loginLogoutQuery }, text: this.$t('account.linkLogout'), dataQa: 'log out link' }
+          ];
+        } else {
+          return [
+            { url: '/account/login', to: { name: 'account-login', query: loginLogoutQuery }, text: this.$t('account.linkLoginJoin'), dataQa: 'log in link' }
+          ];
+        }
       },
       mainNavigation() {
         return [
@@ -116,7 +122,8 @@
       },
       storageEvent(event) {
         if (event.key === 'logout-event') {
-          this.$auth.logout();
+          // TODO: check this still works
+          this.$keycloak.logout();
         }
       }
     }

@@ -101,7 +101,7 @@
 
     methods: {
       headersForAuthorization() {
-        if (this.$auth.loggedIn) {
+        if (this.$keycloak.loggedIn) {
           return {
             authorization: this.$auth.getToken(this.$auth.strategy?.name)
           };
@@ -110,7 +110,7 @@
         }
       },
       async voteOnFeature(featureId) {
-        if (this.$auth.loggedIn) {
+        if (this.$keycloak.loggedIn) {
           const method = this.hasVotedOnFeature(featureId) ? 'delete' : 'put';
 
           await this.axiosInstance({

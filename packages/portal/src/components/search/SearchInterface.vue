@@ -219,7 +219,7 @@
       process.client && this.scrollToSelector('#header');
 
       this.translate = Boolean(
-        this.$auth.loggedIn &&
+        this.$keycloak.loggedIn &&
           this.translateSearchForCurrentLocale &&
           (this.$route.query.translate || this.$cookies?.get('multilingualSearch') === 'true')
       );
@@ -462,7 +462,7 @@
           }
         });
 
-        if (value && !this.$auth.loggedIn) {
+        if (value && !this.$keycloak.loggedIn) {
           this.$keycloak.login({ redirect });
         } else {
           this.$router.push(redirect);

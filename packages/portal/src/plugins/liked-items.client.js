@@ -1,12 +1,12 @@
 import { nextTick, readonly, ref } from 'vue';
 import uniq from 'lodash/uniq';
 
-export default async({ $apis, $auth }, inject) => {
+export default async({ $apis, $keycloak }, inject) => {
   let likedItemsSetId = null;
 
-  if ($auth?.loggedIn && $auth?.user?.sub) {
+  if ($keycloak?.loggedIn && $keycloak?.user?.sub) {
     try {
-      likedItemsSetId = await $apis.set.getLikes($auth.user.sub);
+      likedItemsSetId = await $apis.set.getLikes($keycloak.user.sub);
     } catch (e) {
       // Don't cause everything to break if the Set API is down...
     }

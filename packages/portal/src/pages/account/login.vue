@@ -9,6 +9,7 @@
     layout: 'minimal',
 
     mounted() {
+      localStorage.setItem('portalLoggingIn', true);
       this.$keycloak.login({ replace: true });
     }
   };

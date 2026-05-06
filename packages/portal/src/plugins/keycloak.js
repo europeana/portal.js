@@ -1,8 +1,9 @@
-// TODO: shouldn't this be client-only?
+// TODO: should this be client-only?
 
 import qs from 'qs';
-import nanoid from 'nanoid';
+import { nanoid } from 'nanoid';
 
+// TODO: or is this largely compatible with any OIDC provider?
 const PLUGIN_NAME = 'keycloak';
 
 // @see https://github.com/nuxt-community/auth-module/blob/v4.9.1/lib/schemes/oauth2.js#L157-L201
@@ -107,11 +108,10 @@ const keycloakUnauthorizedResponseErrorHandler = ({ $auth, $axios, redirect, rou
 };
 
 export const createKeycloakPlugin = (ctx) => {
-  const config = ctx.$config.oauth;
-  const router = ctx.app.router;
+  const config = ctx.$config.keycloak;
+  // const router = ctx.app.router;
   // console.log('oauth config', config)
   const scope = config.scope.join(' ');
-  const callbackUri = `${ctx.$config.app.baseUrl}/account/kallback`;
   const url = `${config.origin}/auth/realms/${config.realm}/protocol/openid-connect`;
   const endpoints = {
     auth: `${url}/auth`,
@@ -120,20 +120,26 @@ export const createKeycloakPlugin = (ctx) => {
     userinfo: `${url}/userinfo`
   };
 
+  const appUrl = (path) => `${ctx.$config.app.baseUrl}${path}`;
+  const callbackPaths = {
+    login: '/account/logincb',
+    logout: '/account/logoutcb'
+  };
+
   let user = null;
 
   const storageKey = (key) => `${PLUGIN_NAME}.${key}`;
   const storage = {
     // TODO: client-side only?
-    client: {
+    local: {
       get: (key) => localStorage.getItem(storageKey(key)),
       set: (key, value) => localStorage.setItem(storageKey(key), value),
       remove: (key) => localStorage.removeItem(storageKey(key))
     },
-    shared: {
+    cookies: {
       get: (key) => ctx.$cookies.get(storageKey(key)),
-      set: (key, value) => ctx.$cookies.set(storageKey(key), value)
-      // remove
+      set: (key, value) => ctx.$cookies.set(storageKey(key), value),
+      remove: (key) => ctx.$cookies.remove(storageKey(key))
     }
   };
 
@@ -166,47 +172,10 @@ export const createKeycloakPlugin = (ctx) => {
     return keycloakAccountUrl.toString();
   };
 
-  const login = ({ params, nonce, redirect, replace, state } = {}) => {
-    // TODO: is this redundant now?
-    storage.client.set('redirect', redirect || redirectPath());
-    storage.client.set('portalLoggingIn', true);
-    // ctx.$auth.loginWith('keycloak', { params: { 'ui_locales': ctx.i18n.locale }, replace });
+  const goToKeycloakEndpoint = (endpoint, { params = {}, replace = false } = {}) => {
+    const url = new URL(endpoints[endpoint]);
+    url.search = new URLSearchParams(params);
 
-    const redirectUri = new URL(callbackUri)
-    redirectUri.search = new URLSearchParams({
-      redirect: redirect || redirectPath()
-    })
-
-    const opts = {
-      protocol: 'oauth2',
-      'response_type': config.responseType,
-      'access_type': config.accessType,
-      'client_id': config.clientId,
-      'redirect_uri': redirectUri.toString(),
-      scope,
-      // Note: The primary reason for using the state parameter is to mitigate CSRF attacks.
-      // https://auth0.com/docs/protocols/oauth2/oauth-state
-      state: state || nanoid(),
-      ...params
-    };
-
-    // Set Nonce Value if response_type contains id_token to mitigate Replay Attacks
-    // More Info: https://openid.net/specs/openid-connect-core-1_0.html#NonceNotes
-    // More Info: https://tools.ietf.org/html/draft-ietf-oauth-v2-threatmodel-06#section-4.6.2
-    if (opts.response_type.includes('id_token')) {
-      // nanoid auto-generates an URL Friendly, unique Cryptographic string
-      // Recommended by Auth0 on https://auth0.com/docs/api-auth/tutorials/nonce
-      opts.nonce = nonce || nanoid();
-    }
-
-    storage.client.set('state', opts.state);
-    storage.client.set('redirect_uri', opts.redirect_uri);
-
-    // TODO: use URL class
-    const url = new URL(endpoints.auth);
-    url.search = new URLSearchParams(opts);
-
-    console.log('off to keycloak!', url);
     if (replace) {
       window.location.replace(url);
     } else {
@@ -214,20 +183,48 @@ export const createKeycloakPlugin = (ctx) => {
     }
   };
 
-  const callback = async() => {
+  const redirectUri = (action, { redirect } = {}) => {
+    const url = new URL(appUrl(callbackPaths[action]));
+    url.search = new URLSearchParams({
+      redirect: redirect || redirectPath()
+    });
+    return url.toString();
+  };
+
+  const login = ({ redirect, replace = false } = {}) => {
+    const params = {
+      protocol: 'oauth2',
+      'response_type': config.responseType,
+      'access_type': config.accessType,
+      'client_id': config.clientId,
+      'redirect_uri': redirectUri('login', { redirect }),
+      scope,
+      state: nanoid(),
+      'ui_locales': ctx.i18n.locale
+    };
+
+    storage.local.set('state', params.state);
+    storage.local.set('redirect_uri', params.redirect_uri);
+
+    goToKeycloakEndpoint('auth', { params, replace });
+  };
+
+  const loginCallback = async() => {
     // console.log('keycloak callback route', ctx.route.query)
 
-    const routeQueryState = ctx.route.query.state;
-    const storedState = storage.client.get('state');
+    console.log('loginCallback ctx.route.query', ctx.route.query);
 
-    storage.client.remove('state');
+    const routeQueryState = ctx.route.query.state;
+    const storedState = storage.local.get('state');
+
+    storage.local.remove('state');
 
     if (!routeQueryState || !storedState || (routeQueryState !== storedState)) {
       // TODO: use http-errors
       throw new Error('Unauthorised');
     }
 
-    console.log('authorised!')
+    console.log('authorised!');
 
     const tokenRequestConfig = {
       url: endpoints.token,
@@ -237,20 +234,43 @@ export const createKeycloakPlugin = (ctx) => {
         'response_type': config.responseType,
         'client_id': config.clientId,
         'grant_type': config.grantType,
-        'redirect_uri': storage.client.get('redirect_uri')
+        'redirect_uri': storage.local.get('redirect_uri')
       }),
       headers: { 'content-type': 'application/x-www-form-urlencoded' }
-    }
-    storage.client.remove('redirect_uri');
+    };
+    storage.local.remove('redirect_uri');
     const tokenResponse = await ctx.$axios.request(tokenRequestConfig);
-    // console.log('tokenResponse', tokenResponse)
+    console.log('tokenResponse', tokenResponse);
 
-    storage.shared.set('accessToken', tokenResponse.data.access_token)
-    storage.shared.set('refreshToken', tokenResponse.data.refresh_token)
+    // TODO: id token validation
 
-    router.replace(ctx.route.query.redirect || '/');
+    storage.cookies.set('accessToken', tokenResponse.data.access_token);
+    storage.cookies.set('refreshToken', tokenResponse.data.refresh_token);
+
+    console.log('redirect to', ctx.route.query.redirect || '/');
+    ctx.redirect(ctx.route.query.redirect || '/');
   };
 
+  const logout = ({ replace = false } = {}) => {
+    const params = {
+      'redirect_uri': redirectUri('logout'),
+      'ui_locales': ctx.i18n.locale
+    };
+
+    goToKeycloakEndpoint('logout', { params, replace });
+  };
+
+  const logoutCallback = () => {
+    console.log('logoutCallback ctx.route.query', ctx.route.query);
+
+    storage.cookies.remove('accessToken');
+    storage.cookies.remove('refreshToken');
+
+    console.log('redirect to', ctx.route.query.redirect || '/');
+    ctx.redirect(ctx.route.query.redirect || '/');
+  };
+
+  // FIXME: how was this getting called previously?
   const error = (err) => {
     if (err.response?.status === 401) {
       return keycloakUnauthorizedResponseErrorHandler(ctx, err);
@@ -259,19 +279,15 @@ export const createKeycloakPlugin = (ctx) => {
     }
   };
 
-  // const getTokens = async(code) => {
-
-  // };
-
   // TODO: avoid this being made on both server- and client-
-  //       side, by having the user data served and hydrated
+  //       side; by having the user data served and hydrated?
   const getUserInfo = async() => {
     try {
       const response = await ctx.$axios.request({
         url: endpoints.userinfo,
         method: 'get',
         headers: {
-          authorization: `Bearer ${storage.shared.get('accessToken')}`
+          authorization: `Bearer ${storage.cookies.get('accessToken')}`
         },
         params: {
           'client_id': config.clientId
@@ -290,10 +306,9 @@ export const createKeycloakPlugin = (ctx) => {
   // TODO: assess which of these should be returned
   return {
     get accessToken() {
-      return storage.shared.get('accessToken')
+      return storage.cookies.get('accessToken');
     },
     accountUrl,
-    callback,
     config,
     endpoints,
     error,
@@ -302,9 +317,12 @@ export const createKeycloakPlugin = (ctx) => {
       return !!user;
     },
     login,
+    loginCallback,
+    logout,
+    logoutCallback,
     redirectPath,
     get refreshToken() {
-      return storage.shared.get('refreshToken')
+      return storage.cookies.get('refreshToken');
     },
     get storage() {
       return storage;
