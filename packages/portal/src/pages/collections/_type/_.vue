@@ -70,6 +70,7 @@
 </template>
 
 <script>
+  import { computed } from 'vue';
   import pick from 'lodash/pick';
   import ClientOnly from 'vue-client-only';
 
@@ -100,6 +101,12 @@
       entityBestItemsSetMixin,
       pageMetaMixin
     ],
+
+    provide() {
+      return {
+        relatedCollections: computed(() => this.relatedCollections)
+      };
+    },
 
     beforeRouteLeave(to, from, next) {
       if (to.matched[0].path !== `/${this.$i18n.locale}/search`) {
