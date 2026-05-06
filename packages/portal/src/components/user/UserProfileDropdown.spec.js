@@ -10,7 +10,7 @@ const factory = () => mount(UserProfileDropdown, {
   localVue,
   mocks: {
     $keycloak: {
-      accountUrl: () => {}
+      accountUrl: null
     },
     localePath: (path) => path,
     $t: (key) => key

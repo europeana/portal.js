@@ -3,12 +3,9 @@ import UserHeader from '@/components/user/UserHeader';
 
 const localVue = createLocalVue();
 
-const accountUrl = 'https://keycloak.example.org/account';
-
 const factory = ({ mocks = {} } = {}) => shallowMount(UserHeader, {
   localVue,
   mocks: {
-    $keycloak: { accountUrl: () => accountUrl },
     $store: { state: { auth: { user: {} } } },
     $t: (key) => key,
     ...mocks

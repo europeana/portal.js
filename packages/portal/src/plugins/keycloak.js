@@ -1,34 +1,9 @@
 // TODO: should this be client-only?
 
-import qs from 'qs';
 import { nanoid } from 'nanoid';
 
 // TODO: or is this largely compatible with any OIDC provider?
 const PLUGIN_NAME = 'keycloak';
-
-// @see https://github.com/nuxt-community/auth-module/blob/v4.9.1/lib/schemes/oauth2.js#L157-L201
-const refreshAccessToken = async({ $auth, $axios, redirect, route }, requestConfig) => {
-  let refreshAccessTokenResponse;
-  try {
-    refreshAccessTokenResponse = await $auth.request(refreshAccessTokenRequestOptions($auth));
-  } catch {
-    // Refresh token is no longer valid; clear tokens and try again
-    $auth.logout();
-    delete requestConfig.headers['Authorization'];
-    delete requestConfig.headers['authorization'];
-    return $axios.request(requestConfig);
-  }
-
-  if (!updateAccessToken($auth, requestConfig, refreshAccessTokenResponse)) {
-    // No new access token; redirect to login URL
-    return redirect($auth.options.redirect.login, { redirect: route.path });
-  }
-
-  updateRefreshToken($auth, refreshAccessTokenResponse);
-
-  // Retry request with new access token
-  return $axios.request(requestConfig);
-};
 
 const updateRefreshToken = ($auth, refreshAccessTokenResponse) => {
   const options = $auth.strategy.options;
@@ -48,65 +23,8 @@ const updateRefreshToken = ($auth, refreshAccessTokenResponse) => {
   return newRefreshToken;
 };
 
-const updateAccessToken = ($auth, requestConfig, refreshAccessTokenResponse) => {
-  const options = $auth.strategy.options;
-
-  let newAccessToken = refreshAccessTokenResponse[options.token_key];
-  if (!newAccessToken) {
-    return false;
-  }
-
-  if (options.token_type) {
-    newAccessToken = `${options.token_type} ${newAccessToken}`;
-  }
-
-  // Store token
-  $auth.setToken($auth.strategy.name, newAccessToken);
-
-  // Set axios token
-  $auth.strategy._setToken(newAccessToken); // eslint-disable-line no-underscore-dangle
-
-  delete requestConfig.headers['Authorization'];
-  delete requestConfig.headers['authorization'];
-  // TODO: use axios instead of $axios, and set new Authorization header here
-  //       from newAccessToken?
-
-  return newAccessToken;
-};
-
-const refreshAccessTokenRequestOptions = ($auth) => {
-  const refreshToken = $auth.getRefreshToken($auth.strategy.name);
-  const options = $auth.strategy.options;
-  // Nuxt Auth stores token type e.g. "Bearer " with token, but refresh_token
-  // grant does not need it; remove it before sending to OIDC.
-  const refreshTokenWithoutType = refreshToken.replace(new RegExp(`^${options.token_type} `), '');
-
-  return {
-    method: 'post',
-    url: options.access_token_endpoint,
-    headers: {
-      'content-type': 'application/x-www-form-urlencoded'
-    },
-    data: new URLSearchParams({
-      'client_id': options.client_id,
-      'refresh_token': refreshTokenWithoutType,
-      'grant_type': 'refresh_token'
-    }).toString()
-  };
-};
-
-const keycloakUnauthorizedResponseErrorHandler = ({ $auth, $axios, redirect, route }, error) => {
-  if ($auth.getRefreshToken($auth.strategy.name)) {
-    // User has previously logged in, and we have a refresh token, e.g.
-    // access token has expired
-    return refreshAccessToken({ $auth, $axios, redirect, route }, error.config);
-  } else {
-    // User has not already logged in, or we have no refresh token:
-    // redirect to OIDC login URL
-    return redirect($auth.options.redirect.login, { redirect: route.path });
-  }
-};
-
+// TODO: consider whether everything belongs inside here, esp considering it gets called
+//       once on every SSR
 export const createKeycloakPlugin = (ctx) => {
   const config = ctx.$config.keycloak;
   // const router = ctx.app.router;
@@ -143,6 +61,81 @@ export const createKeycloakPlugin = (ctx) => {
     }
   };
 
+  const getRefreshToken = () => {
+    return storage.cookies.get('refreshToken');
+  };
+
+  const refreshAccessTokenRequestOptions = () => {
+    return {
+      method: 'post',
+      url: endpoints.token,
+      data: new URLSearchParams({
+        'client_id': config.clientId,
+        'refresh_token': getRefreshToken(),
+        'grant_type': 'refresh_token'
+      }),
+      headers: {
+        'content-type': 'application/x-www-form-urlencoded'
+      }
+    };
+  };
+
+  const updateAccessToken = (requestConfig, refreshAccessTokenResponse) => {
+    const newAccessToken = refreshAccessTokenResponse.access_token;
+    if (!newAccessToken) {
+      return false;
+    }
+
+    storage.cookies.set('accessToken', newAccessToken);
+
+    // Set axios token
+    // FIXME
+    // $auth.strategy._setToken(newAccessToken); // eslint-disable-line no-underscore-dangle
+
+    delete requestConfig.headers['Authorization'];
+    delete requestConfig.headers['authorization'];
+    // TODO: use axios instead of $axios, and set new Authorization header here
+    //       from newAccessToken?
+
+    return newAccessToken;
+  };
+
+  const refreshAccessToken = async(requestConfig) => {
+    let refreshAccessTokenResponse;
+    try {
+      refreshAccessTokenResponse = await ctx.$axios.request(refreshAccessTokenRequestOptions());
+    } catch {
+      // Refresh token is no longer valid; clear tokens and try again
+      storage.cookies.remove('accessToken');
+      storage.cookies.remove('refreshToken');
+      delete requestConfig.headers['Authorization'];
+      delete requestConfig.headers['authorization'];
+      return ctx.$axios.request(requestConfig);
+    }
+
+    if (!updateAccessToken(requestConfig, refreshAccessTokenResponse)) {
+      // No new access token; redirect to login URL
+      return ctx.redirect($auth.options.redirect.login, { redirect: ctx.route.path });
+    }
+
+    updateRefreshToken($auth, refreshAccessTokenResponse);
+
+    // Retry request with new access token
+    return ctx.$axios.request(requestConfig);
+  };
+
+  const keycloakUnauthorizedResponseErrorHandler = ({ $auth, route }, error) => {
+    if (getRefreshToken()) {
+      // User has previously logged in, and we have a refresh token, e.g.
+      // access token has expired
+      return refreshAccessToken(error.config);
+    } else {
+      // User has not already logged in, or we have no refresh token:
+      // redirect to OIDC login URL
+      return ctx.redirect($auth.options.redirect.login, { redirect: route.path });
+    }
+  };
+
   const redirectPath = () => {
     let redirect = '/account';
 
@@ -163,10 +156,10 @@ export const createKeycloakPlugin = (ctx) => {
 
   const accountUrl = () => {
     const keycloakAccountUrl = new URL(
-      `/auth/realms/${ctx.$auth.strategy.options.realm}/account`, ctx.$auth.strategy.options.origin
+      `/auth/realms/${config.realm}/account`, config.origin
     );
     keycloakAccountUrl.search = new URLSearchParams({
-      referrer: ctx.$auth.strategy.options.client_id,
+      referrer: config.clientId,
       'referrer_uri': ctx.$config.app.baseUrl
     }).toString();
     return keycloakAccountUrl.toString();
@@ -229,7 +222,7 @@ export const createKeycloakPlugin = (ctx) => {
     const tokenRequestConfig = {
       url: endpoints.token,
       method: 'post',
-      data: qs.stringify({
+      data: new URLSearchParams({
         'code': ctx.route.query.code,
         'response_type': config.responseType,
         'client_id': config.clientId,
@@ -243,9 +236,13 @@ export const createKeycloakPlugin = (ctx) => {
     console.log('tokenResponse', tokenResponse);
 
     // TODO: id token validation
+    //       https://openid.net/specs/openid-connect-core-1_0.html#IDTokenValidation
 
+    // TODO: consider & test expiration of these
     storage.cookies.set('accessToken', tokenResponse.data.access_token);
     storage.cookies.set('refreshToken', tokenResponse.data.refresh_token);
+
+    await getUserInfo();
 
     console.log('redirect to', ctx.route.query.redirect || '/');
     ctx.redirect(ctx.route.query.redirect || '/');
@@ -308,12 +305,15 @@ export const createKeycloakPlugin = (ctx) => {
     get accessToken() {
       return storage.cookies.get('accessToken');
     },
-    accountUrl,
+    get accountUrl() {
+      return accountUrl();
+    },
     config,
     endpoints,
     error,
     getUserInfo,
     get loggedIn() {
+      console.log('get loggedIn', !!user)
       return !!user;
     },
     login,
@@ -335,6 +335,7 @@ export const createKeycloakPlugin = (ctx) => {
 };
 
 export default async(ctx, inject) => {
+  console.log('register plugin')
   const plugin = createKeycloakPlugin(ctx);
 
   if (plugin.accessToken && !plugin.user) {
