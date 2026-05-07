@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { nanoid } from 'nanoid';
 
 // TODO: or is this largely compatible with any OIDC provider?
@@ -64,7 +65,7 @@ export const createKeycloakPlugin = (ctx) => {
   };
 
   const request = (config) => {
-    return ctx.$axios.request(config);
+    return axios.request(config);
   };
 
   const refreshAccessToken = async() => {
