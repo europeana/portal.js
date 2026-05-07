@@ -14,15 +14,15 @@ const factory = ({ propsData = { identifiers }, $auth = {} } = {}) => shallowMou
   attachTo: document.body,
   propsData,
   mocks: {
-    $auth,
+    $auth: {
+      login: sinon.spy(),
+      ...$auth
+    },
     $error: (error) => {
       console.error(error);
       throw error;
     },
     $features: {},
-    $auth: {
-      login: sinon.spy()
-    },
     $likedItems: {
       liked: { value: [] },
       like: sinon.spy(),

@@ -44,14 +44,16 @@ const factory = ({ mocks = {}, propsData = {}, data = {} } = {}) => shallowMount
         baseURL: 'https://api.europeana.eu/fulltext'
       }
     },
-    $auth: {},
-    $auth: { login: sinon.spy() },
     $i18n: {
       locale: 'en',
       n: (num) => num
     },
     $config: mocks.$config,
     ...mocks,
+    $auth: {
+      login: sinon.spy(),
+      ...mocks.$auth
+    },
     $store: {
       commit: sinon.spy(),
       getters: {

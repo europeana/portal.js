@@ -17,9 +17,9 @@ const factory = ({ $auth = {}, data = {}, propsData = { identifiers: identifier 
     return { ...data };
   },
   mocks: {
-    $auth,
     $auth: {
-      login: sinon.spy()
+      login: sinon.spy(),
+      ...$auth
     },
     $matomo: {
       trackEvent: sinon.spy()

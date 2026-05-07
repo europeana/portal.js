@@ -11,11 +11,11 @@ const factory = ({ mocks = {} } = {}) => shallowMount(ItemSelectButton, {
   attachTo: document.body,
   directives: { 'b-tooltip': () => {} },
   mocks: {
-    $auth: { loggedIn: false },
-    $features: { itemMultiSelect: true },
     $auth: {
-      login: sinon.spy()
+      login: sinon.spy(),
+      loggedIn: false
     },
+    $features: { itemMultiSelect: true },
     $t: (key) => key,
     ...mocks
   },

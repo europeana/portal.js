@@ -10,7 +10,10 @@ const factory = ({ propsData = {}, mocks = {} } = {}) => shallowMount(ItemLangua
   localVue,
   propsData,
   mocks: {
-    $auth: { loggedIn: mocks.loggedIn || false },
+    $auth: {
+      loggedIn: mocks.loggedIn || false,
+      login: sinon.spy()
+    },
     localePath: () => {},
     $i18n: {
       locale: 'en',
@@ -19,9 +22,6 @@ const factory = ({ propsData = {}, mocks = {} } = {}) => shallowMount(ItemLangua
         { code: 'de', name: 'Deutsch', iso: 'de-DE' },
         { code: 'nl', name: 'Nederlands', iso: 'nl-NL' }
       ]
-    },
-    $auth: {
-      login: sinon.spy()
     },
     $t: (key) => {
       if (key === 'multilingual.differentLanguage') {

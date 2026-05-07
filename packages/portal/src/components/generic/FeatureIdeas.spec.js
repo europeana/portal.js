@@ -25,13 +25,12 @@ const factory = ({ propsData = {}, mocks = {} } = {}) => {
     localVue,
     propsData,
     mocks: {
-      $auth: {
-        loggedIn: false
-      },
       $config: config,
       $error: sinon.spy(),
       $auth: {
-        login: sinon.spy()
+        loggedIn: false,
+        login: sinon.spy(),
+        requestWithAuth: sinon.spy()
       },
       $nuxt: { context: {} },
       $t: (key) => key,
@@ -94,21 +93,6 @@ describe('components/generic/FeatureIdeas', () => {
   });
 
   describe('methods', () => {
-    describe('headersForAuthorization', () => {
-      describe('when the user is logged in', () => {
-        it('returns the authorisation token', async() => {
-          const wrapper = factory({ mocks: { $auth: { loggedIn: true, getToken: () => 'authToken' } } });
-          expect(wrapper.vm.headersForAuthorization()).toEqual({ authorization: 'authToken' });
-        });
-      });
-      describe('when the user is NOT logged in', () => {
-        it('returns an empty object', async() => {
-          const wrapper = factory();
-          expect(wrapper.vm.headersForAuthorization()).toEqual({});
-        });
-      });
-    });
-
     describe('voteOnFeature', () => {
       describe('when the user is logged in', () => {
         describe('when the user has not yet voted', () => {
