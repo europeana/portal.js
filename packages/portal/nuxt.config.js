@@ -129,9 +129,6 @@ export default {
       },
       siteName: APP_SITE_NAME
     },
-    axios: {
-      baseURL: process.env.PORTAL_BASE_URL
-    },
     axiosLogger: {
       clearParams: process.env.AXIOS_LOGGER_CLEAR_PARAMS?.split(',') || ['wskey'],
       httpMethods: process.env.AXIOS_LOGGER_HTTP_METHODS?.toUpperCase().split(',')
@@ -350,10 +347,6 @@ export default {
     '~/plugins/liked-items.client'
   ],
 
-  buildModules: [
-    '@nuxtjs/axios'
-  ],
-
   /*
   ** Nuxt.js modules
   */
@@ -390,23 +383,24 @@ export default {
     }]
   ],
 
-  axios: {
-    proxyHeadersIgnore: [
-      // module defaults
-      'accept',
-      'host',
-      'x-forwarded-host',
-      'x-forwarded-port',
-      'x-forwarded-proto',
-      'cf-ray',
-      'cf-connecting-ip',
-      'content-length',
-      'content-md5',
-      'content-type',
-      // don't send cookie header to APIs
-      'cookie'
-    ]
-  },
+  // TODO: does this need to be re-implemented w/o @nuxtjs/axios?
+  // axios: {
+  //   proxyHeadersIgnore: [
+  //     // module defaults
+  //     'accept',
+  //     'host',
+  //     'x-forwarded-host',
+  //     'x-forwarded-port',
+  //     'x-forwarded-proto',
+  //     'cf-ray',
+  //     'cf-connecting-ip',
+  //     'content-length',
+  //     'content-md5',
+  //     'content-type',
+  //     // don't send cookie header to APIs
+  //     'cookie'
+  //   ]
+  // },
 
   router: {
     middleware: [
