@@ -1,34 +1,12 @@
-// TODO: should this be client-only?
-
 import { nanoid } from 'nanoid';
 
 // TODO: or is this largely compatible with any OIDC provider?
 const PLUGIN_NAME = 'keycloak';
 
-const updateRefreshToken = ($auth, refreshAccessTokenResponse) => {
-  const options = $auth.strategy.options;
-
-  let newRefreshToken = refreshAccessTokenResponse[options.refresh_token_key];
-  if (!newRefreshToken) {
-    return false;
-  }
-
-  if (options.token_type) {
-    newRefreshToken = `${options.token_type} ${newRefreshToken}`;
-  }
-
-  // Store refresh token
-  $auth.setRefreshToken($auth.strategy.name, newRefreshToken);
-
-  return newRefreshToken;
-};
-
 // TODO: consider whether everything belongs inside here, esp considering it gets called
 //       once on every SSR
 export const createKeycloakPlugin = (ctx) => {
   const config = ctx.$config.keycloak;
-  // const router = ctx.app.router;
-  // console.log('oauth config', config)
   const scope = config.scope.join(' ');
   const url = `${config.origin}/auth/realms/${config.realm}/protocol/openid-connect`;
   const endpoints = {
@@ -61,12 +39,36 @@ export const createKeycloakPlugin = (ctx) => {
     }
   };
 
+  const getAccessToken = () => {
+    return storage.cookies.get('accessToken');
+  };
+
+  const setAccessToken = (value) => {
+    return storage.cookies.set('accessToken', value);
+  };
+
+  const removeAccessToken = () => {
+    return storage.cookies.remove('accessToken');
+  };
+
   const getRefreshToken = () => {
     return storage.cookies.get('refreshToken');
   };
 
-  const refreshAccessTokenRequestOptions = () => {
-    return {
+  const setRefreshToken = (value)  => {
+    return storage.cookies.set('refreshToken', value);
+  };
+
+  const removeRefreshToken = () => {
+    return storage.cookies.remove('refreshToken');
+  };
+
+  const request = (config) => {
+    return ctx.$axios.request(config);
+  };
+
+  const refreshAccessToken = async() => {
+    const refreshAccessTokenResponse = await request({
       method: 'post',
       url: endpoints.token,
       data: new URLSearchParams({
@@ -77,62 +79,36 @@ export const createKeycloakPlugin = (ctx) => {
       headers: {
         'content-type': 'application/x-www-form-urlencoded'
       }
-    };
+    });
+    console.log('refreshAccessTokenResponse', refreshAccessTokenResponse);
+
+    setAccessToken(refreshAccessTokenResponse.access_token);
+    setRefreshToken(refreshAccessTokenResponse.refresh_token);
   };
 
-  const updateAccessToken = (requestConfig, refreshAccessTokenResponse) => {
-    const newAccessToken = refreshAccessTokenResponse.access_token;
-    if (!newAccessToken) {
-      return false;
-    }
+  const keycloakUnauthorizedResponseErrorHandler = (error) => {
+    removeAccessToken();
+    const requestConfig = error.config;
 
-    storage.cookies.set('accessToken', newAccessToken);
-
-    // Set axios token
-    // FIXME
-    // $auth.strategy._setToken(newAccessToken); // eslint-disable-line no-underscore-dangle
-
-    delete requestConfig.headers['Authorization'];
     delete requestConfig.headers['authorization'];
-    // TODO: use axios instead of $axios, and set new Authorization header here
-    //       from newAccessToken?
 
-    return newAccessToken;
-  };
-
-  const refreshAccessToken = async(requestConfig) => {
-    let refreshAccessTokenResponse;
-    try {
-      refreshAccessTokenResponse = await ctx.$axios.request(refreshAccessTokenRequestOptions());
-    } catch {
-      // Refresh token is no longer valid; clear tokens and try again
-      storage.cookies.remove('accessToken');
-      storage.cookies.remove('refreshToken');
-      delete requestConfig.headers['Authorization'];
-      delete requestConfig.headers['authorization'];
-      return ctx.$axios.request(requestConfig);
-    }
-
-    if (!updateAccessToken(requestConfig, refreshAccessTokenResponse)) {
-      // No new access token; redirect to login URL
-      return ctx.redirect($auth.options.redirect.login, { redirect: ctx.route.path });
-    }
-
-    updateRefreshToken($auth, refreshAccessTokenResponse);
-
-    // Retry request with new access token
-    return ctx.$axios.request(requestConfig);
-  };
-
-  const keycloakUnauthorizedResponseErrorHandler = ({ $auth, route }, error) => {
     if (getRefreshToken()) {
       // User has previously logged in, and we have a refresh token, e.g.
-      // access token has expired
-      return refreshAccessToken(error.config);
+      // access token has expired: get a new access token
+      try {
+        refreshAccessToken();
+        requestConfig.headers['authorization'] = `Bearer ${getAccessToken()}`;
+        return request(requestConfig);
+      } catch {
+        // Refresh token is no longer valid; clear it and try again
+        // in case request does not need authorization anyway
+        removeRefreshToken();
+        return request(requestConfig);
+      }
     } else {
       // User has not already logged in, or we have no refresh token:
       // redirect to OIDC login URL
-      return ctx.redirect($auth.options.redirect.login, { redirect: route.path });
+      return login();
     }
   };
 
@@ -232,15 +208,15 @@ export const createKeycloakPlugin = (ctx) => {
       headers: { 'content-type': 'application/x-www-form-urlencoded' }
     };
     storage.local.remove('redirect_uri');
-    const tokenResponse = await ctx.$axios.request(tokenRequestConfig);
+    const tokenResponse = await request(tokenRequestConfig);
     console.log('tokenResponse', tokenResponse);
 
     // TODO: id token validation
     //       https://openid.net/specs/openid-connect-core-1_0.html#IDTokenValidation
 
     // TODO: consider & test expiration of these
-    storage.cookies.set('accessToken', tokenResponse.data.access_token);
-    storage.cookies.set('refreshToken', tokenResponse.data.refresh_token);
+    setAccessToken(tokenResponse.data.access_token);
+    setRefreshToken(tokenResponse.data.refresh_token);
 
     await getUserInfo();
 
@@ -270,21 +246,19 @@ export const createKeycloakPlugin = (ctx) => {
   // FIXME: how was this getting called previously?
   const error = (err) => {
     if (err.response?.status === 401) {
-      return keycloakUnauthorizedResponseErrorHandler(ctx, err);
+      return keycloakUnauthorizedResponseErrorHandler(err);
     } else {
       return Promise.reject(err);
     }
   };
 
-  // TODO: avoid this being made on both server- and client-
-  //       side; by having the user data served and hydrated?
   const getUserInfo = async() => {
     try {
-      const response = await ctx.$axios.request({
+      const response = await request({
         url: endpoints.userinfo,
         method: 'get',
         headers: {
-          authorization: `Bearer ${storage.cookies.get('accessToken')}`
+          authorization: `Bearer ${getAccessToken()}`
         },
         params: {
           'client_id': config.clientId
@@ -303,7 +277,7 @@ export const createKeycloakPlugin = (ctx) => {
   // TODO: assess which of these should be returned
   return {
     get accessToken() {
-      return storage.cookies.get('accessToken');
+      return getAccessToken();
     },
     get accountUrl() {
       return accountUrl();
@@ -313,7 +287,7 @@ export const createKeycloakPlugin = (ctx) => {
     error,
     getUserInfo,
     get loggedIn() {
-      console.log('get loggedIn', !!user)
+      console.log('get loggedIn', !!user);
       return !!user;
     },
     login,
@@ -322,7 +296,7 @@ export const createKeycloakPlugin = (ctx) => {
     logoutCallback,
     redirectPath,
     get refreshToken() {
-      return storage.cookies.get('refreshToken');
+      return getRefreshToken();
     },
     get storage() {
       return storage;
@@ -335,14 +309,17 @@ export const createKeycloakPlugin = (ctx) => {
 };
 
 export default async(ctx, inject) => {
-  console.log('register plugin')
+  console.log('register plugin');
   const plugin = createKeycloakPlugin(ctx);
 
   if (plugin.accessToken && !plugin.user) {
     // get userinfo
+    // TODO: avoid this being made on both server- and client-
+    //       side; by having the user data served and hydrated?
+    //       would having this be a composable instead of a plugin
+    //       help w/ that?
     await plugin.getUserInfo();
   }
 
-  // console.log('keycloak plugin')
   inject(PLUGIN_NAME, plugin);
 };
