@@ -1,4 +1,5 @@
 export default [
+  { name: 'aggregatorsTab' },
   { name: 'eventLogging' },
   { name: 'isFormatOfMediaMetadata' },
   { name: 'mockTrendingItems' },
