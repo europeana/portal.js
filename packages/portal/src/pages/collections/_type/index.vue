@@ -16,9 +16,13 @@
         button-variant="secondary"
         class="half-col"
       />
-      <client-only>
+      <template v-if="$features.aggregatorsTab && type === 'organisations'">
+        <EntityOrganisationsTabs />
+        <EntityOrganisationsPageContent />
+      </template>
+      <client-only v-else>
         <EntityTable
-          :type="$route.params.type"
+          :type="type"
           data-qa="collections table"
           class="mt-3 mt-md-4"
         />
@@ -36,27 +40,32 @@
     name: 'CollectionsIndexPage',
 
     components: {
-      ErrorMessage: () => import('@/components/error/ErrorMessage'),
       ContentHeader,
       ClientOnly,
-      EntityTable: () => import('@/components/entity/EntityTable')
+      EntityOrganisationsPageContent: () => import('@/components/entity/EntityOrganisationsPageContent'),
+      EntityOrganisationsTabs: () => import('@/components/entity/EntityOrganisationsTabs'),
+      EntityTable: () => import('@/components/entity/EntityTable'),
+      ErrorMessage: () => import('@/components/error/ErrorMessage')
     },
 
     mixins: [pageMetaMixin],
 
     fetch() {
-      if (!['organisations', 'topics', 'times'].includes(this.$route.params.type)) {
+      if (!['organisations', 'topics', 'times'].includes(this.type)) {
         this.$error(404, { scope: 'page' });
       }
     },
 
     computed: {
+      type() {
+        return this.$route.params.type;
+      },
       description() {
-        return this.$route.params.type === 'organisations' ? this.$t('pages.collections.organisations.description') : null;
+        return this.type === 'organisations' ? this.$t('pages.collections.organisations.description') : null;
       },
       pageMeta() {
         return {
-          title: this.$t(`pages.collections.${this.$route.params.type}.title`),
+          title: this.$t(`pages.collections.${this.type}.title`),
           description: this.description
         };
       }
