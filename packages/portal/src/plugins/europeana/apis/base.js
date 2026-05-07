@@ -70,7 +70,7 @@ export default class EuropeanaApi {
       axiosInstance.interceptors.response.use(
         (response) => response,
         (error) => {
-          this.context.$keycloak?.error?.(error);
+          this.context.$keycloak?.handleRequestError?.(error);
           return Promise.reject(error);
         }
 
@@ -109,7 +109,7 @@ export default class EuropeanaApi {
       params.wskey = this.key;
     }
     if (this.constructor.AUTHORISING && this.context?.$keycloak?.loggedIn) {
-      headers.authorization = this.context.$keycloak.accessToken;
+      headers.authorization = `Bearer ${this.context.$keycloak.accessToken}`;
     }
 
     return {

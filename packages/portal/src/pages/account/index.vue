@@ -124,15 +124,7 @@
       pageMetaMixin
     ],
 
-    middleware: [
-      // TODO: mv somewhere reusable...
-      ({ $keycloak }) => {
-        console.log('account/index middleware');
-        if (!$keycloak.loggedIn) {
-          throw new Error(403);
-        }
-      }
-    ],
+    middleware: ['auth'],
 
     setup() {
       const tabHashes = [

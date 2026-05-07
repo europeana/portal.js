@@ -6,10 +6,7 @@
   export default {
     name: 'AccountLogoutPage',
 
-    layout: 'minimal',
-
     mounted() {
-      localStorage.setItem('portalLoggingOut', true);
       this.$keycloak.logout({ replace: true });
 
       // TODO: is any of the below still relevant?

@@ -19,11 +19,13 @@ export const createKeycloakPlugin = (ctx) => {
 
   const appUrl = (path) => `${ctx.$config.app.baseUrl}${path}`;
   const callbackPaths = {
-    login: '/account/logincb',
-    logout: '/account/logoutcb'
+    login: '/auth/logincb',
+    logout: '/auth/logoutcb'
   };
 
   let user = null;
+
+  const userIsLoggedIn = () => !!user;
 
   const storageKey = (key) => `${PLUGIN_NAME}.${key}`;
   const storage = {
@@ -49,6 +51,7 @@ export const createKeycloakPlugin = (ctx) => {
   };
 
   const removeAccessToken = () => {
+    console.log('removeAccessToken');
     return storage.cookies.remove('accessToken');
   };
 
@@ -61,22 +64,41 @@ export const createKeycloakPlugin = (ctx) => {
   };
 
   const removeRefreshToken = () => {
+    console.log('removeRefreshToken');
     return storage.cookies.remove('refreshToken');
   };
 
   const request = (config) => {
+    console.log('request', config.url);
     return axios.request(config);
   };
 
+  const requestWithAuth = config => {
+    const axiosInstance = axios.create();
+    axiosInstance.interceptors.response.use(
+      (response) => response,
+      (error) => handleRequestError(error)
+    );
+    return axiosInstance.request({
+      headers: {
+        authorization: `Bearer ${getAccessToken()}`,
+        ...config.headers
+      },
+      ...config
+    });
+  };
+
   const refreshAccessToken = async() => {
+    console.log('refreshAccessToken');
+    const data = new FormData();
+    data.set('client_id', config.clientId);
+    data.set('refresh_token', getRefreshToken());
+    data.set('grant_type', 'refresh_token');
+    data.set('scope', scope);
     const refreshAccessTokenResponse = await request({
       method: 'post',
       url: endpoints.token,
-      data: new URLSearchParams({
-        'client_id': config.clientId,
-        'refresh_token': getRefreshToken(),
-        'grant_type': 'refresh_token'
-      }),
+      data: data.toString(),
       headers: {
         'content-type': 'application/x-www-form-urlencoded'
       }
@@ -87,28 +109,31 @@ export const createKeycloakPlugin = (ctx) => {
     setRefreshToken(refreshAccessTokenResponse.refresh_token);
   };
 
-  const keycloakUnauthorizedResponseErrorHandler = (error) => {
+  const handleUnauthorizedError = async(error) => {
+    console.log('handleUnauthorizedError', error.config.url);
     removeAccessToken();
     const requestConfig = error.config;
-
-    delete requestConfig.headers['authorization'];
 
     if (getRefreshToken()) {
       // User has previously logged in, and we have a refresh token, e.g.
       // access token has expired: get a new access token
       try {
-        refreshAccessToken();
-        requestConfig.headers['authorization'] = `Bearer ${getAccessToken()}`;
-        return request(requestConfig);
-      } catch {
+        await refreshAccessToken();
+        return requestWithAuth(requestConfig);
+      } catch (err) {
+        console.log('token refresh errored', err);
         // Refresh token is no longer valid; clear it and try again
         // in case request does not need authorization anyway
+        delete requestConfig.headers['authorization'];
         removeRefreshToken();
+        user = null;
         return request(requestConfig);
       }
     } else {
       // User has not already logged in, or we have no refresh token:
       // redirect to OIDC login URL
+      // TODO: is this the appropriate action here? or should we throw the error again?
+      //       for callers to trigger login if they deem appropriate
       return login();
     }
   };
@@ -116,13 +141,14 @@ export const createKeycloakPlugin = (ctx) => {
   const redirectPath = () => {
     let redirect = '/account';
 
+    // TODO: reassess the logic
     if (ctx.route) {
       if (ctx.route.query?.redirect) {
         redirect = ctx.route.query.redirect;
-      } else if (ctx.route.path?.endsWith('/account/login')) {
+      } else if (ctx.route.path?.endsWith('/auth/login')) {
         redirect = `/account${ctx.route.hash || ''}`;
       } else if (ctx.route.fullPath) {
-        if (ctx.route.fullPath !== '/account/kallback') {
+        if (ctx.route.fullPath !== '/auth/logincb') {
           redirect = ctx.route.fullPath;
         }
       }
@@ -162,6 +188,8 @@ export const createKeycloakPlugin = (ctx) => {
   };
 
   const login = ({ redirect, replace = false } = {}) => {
+    console.log('login');
+
     const params = {
       protocol: 'oauth2',
       'response_type': config.responseType,
@@ -184,6 +212,10 @@ export const createKeycloakPlugin = (ctx) => {
 
     console.log('loginCallback ctx.route.query', ctx.route.query);
 
+    if (userIsLoggedIn()) {
+      ctx.app.router.replace(ctx.route.query.redirect || '/');
+    }
+
     const routeQueryState = ctx.route.query.state;
     const storedState = storage.local.get('state');
 
@@ -191,6 +223,7 @@ export const createKeycloakPlugin = (ctx) => {
 
     if (!routeQueryState || !storedState || (routeQueryState !== storedState)) {
       // TODO: use http-errors
+      // TODO: handle this in the logincb.vue page
       throw new Error('Unauthorised');
     }
 
@@ -222,7 +255,7 @@ export const createKeycloakPlugin = (ctx) => {
     await getUserInfo();
 
     console.log('redirect to', ctx.route.query.redirect || '/');
-    ctx.redirect(ctx.route.query.redirect || '/');
+    ctx.app.router.replace(ctx.route.query.redirect || '/');
   };
 
   const logout = ({ replace = false } = {}) => {
@@ -237,30 +270,29 @@ export const createKeycloakPlugin = (ctx) => {
   const logoutCallback = () => {
     console.log('logoutCallback ctx.route.query', ctx.route.query);
 
-    storage.cookies.remove('accessToken');
-    storage.cookies.remove('refreshToken');
+    removeAccessToken();
+    removeRefreshToken();
+    user = null;
 
     console.log('redirect to', ctx.route.query.redirect || '/');
-    ctx.redirect(ctx.route.query.redirect || '/');
+    ctx.app.router.replace(ctx.route.query.redirect || '/');
   };
 
-  // FIXME: how was this getting called previously?
-  const error = (err) => {
+  const handleRequestError = async(err) => {
+    console.log('handleRequestError', err.response?.status, err.config?.url);
     if (err.response?.status === 401) {
-      return keycloakUnauthorizedResponseErrorHandler(err);
+      await handleUnauthorizedError(err);
     } else {
-      return Promise.reject(err);
+      Promise.reject(err);
     }
   };
 
   const getUserInfo = async() => {
+    console.log('getUserInfo');
     try {
-      const response = await request({
+      const response = await requestWithAuth({
         url: endpoints.userinfo,
         method: 'get',
-        headers: {
-          authorization: `Bearer ${getAccessToken()}`
-        },
         params: {
           'client_id': config.clientId
         }
@@ -268,6 +300,18 @@ export const createKeycloakPlugin = (ctx) => {
       user = response.data;
     } catch (e) {
       console.error(e);
+    }
+  };
+
+  const initUserInfo = async() => {
+    console.log('initUserInfo', ctx.route.path);
+    if (getAccessToken() && !user && (ctx.route.path !== callbackPaths.logout)) {
+      // get userinfo
+      // TODO: avoid this being made on both server- and client-
+      //       side; by having the user data served and hydrated?
+      //       would having this be a composable instead of a plugin
+      //       help w/ that?
+      await getUserInfo();
     }
   };
 
@@ -285,11 +329,11 @@ export const createKeycloakPlugin = (ctx) => {
     },
     config,
     endpoints,
-    error,
+    handleRequestError,
     getUserInfo,
+    initUserInfo,
     get loggedIn() {
-      console.log('get loggedIn', !!user);
-      return !!user;
+      return userIsLoggedIn();
     },
     login,
     loginCallback,
@@ -299,6 +343,8 @@ export const createKeycloakPlugin = (ctx) => {
     get refreshToken() {
       return getRefreshToken();
     },
+    request,
+    requestWithAuth,
     get storage() {
       return storage;
     },
@@ -310,17 +356,10 @@ export const createKeycloakPlugin = (ctx) => {
 };
 
 export default async(ctx, inject) => {
-  console.log('register plugin');
   const plugin = createKeycloakPlugin(ctx);
+  console.log('keycloak plugin registration', plugin.accessToken, plugin.user, ctx.route);
 
-  if (plugin.accessToken && !plugin.user) {
-    // get userinfo
-    // TODO: avoid this being made on both server- and client-
-    //       side; by having the user data served and hydrated?
-    //       would having this be a composable instead of a plugin
-    //       help w/ that?
-    await plugin.getUserInfo();
-  }
+  await plugin.initUserInfo();
 
   inject(PLUGIN_NAME, plugin);
 };

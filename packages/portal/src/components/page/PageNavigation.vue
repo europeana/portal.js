@@ -38,17 +38,30 @@
     },
 
     computed: {
+      // TODO: refactor so that each page can register its own logout redirect path
+      //       (if needed), e.g. via a composable fn
+      logoutRedirect() {
+        if (this.$route.name.startsWith('account')) {
+          return this.localePath('/');
+        } else if (this.$route.name.startsWith('item')) {
+          if (this.$route.query.lang && !this.$keycloak.loggedIn) {
+            // rm lang from query, otherwise preserve fullPath
+            const query = new URLSearchParams(this.$route.query);
+            query.delete('lang');
+            return `${this.route.path}?${query.toString()}`;
+          }
+        }
+        return this.$route.fullPath;
+      },
       authLinks() {
-        const loginLogoutQuery = { redirect: this.$route.fullPath };
-
         if (this.isAuthenticated) {
           return [
             { url: '/account', text: this.$t('account.title'), dataQa: 'account link' },
-            this.sidebarNav && { url: '/account/logout', to: { name: 'account-logout', query: loginLogoutQuery }, text: this.$t('account.linkLogout'), dataQa: 'log out link' }
+            this.sidebarNav && { url: '/auth/logout', to: { name: 'auth-logout', query: { redirect: this.logoutRedirect } }, text: this.$t('account.linkLogout'), dataQa: 'log out link' }
           ];
         } else {
           return [
-            { url: '/account/login', to: { name: 'account-login', query: loginLogoutQuery }, text: this.$t('account.linkLoginJoin'), dataQa: 'log in link' }
+            { url: '/auth/login', to: { name: 'auth-login', query: { redirect: this.$route.fullPath } }, text: this.$t('account.linkLoginJoin'), dataQa: 'log in link' }
           ];
         }
       },

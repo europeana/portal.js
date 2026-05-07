@@ -184,19 +184,10 @@
 
     middleware: [
       // When entering a translated item page, but not logged-in,
-      // redirect to Keycloak to login, unless user just logged out in which case,
-      // redirect to page without translation.
+      // redirect to Keycloak to login.
       ({ $keycloak, redirect, route }) => {
         if (route.query.lang && !$keycloak.loggedIn) {
-          // FIXME: restore this functionality, but perhaps refactored. could the page
-          //        declare a different logout redirect url for use in the logout link?
-          // if ($auth.$storage.getUniversal('portalLoggingOut')) {
-          //   // just logged out: redirect to page w/o lang param
-          //   return redirectToAltRoute({ query: { lang: undefined } }, { redirect, route, status: 303 });
-          // } else {
-          // not yet logged-in: redirect to login
           return redirect(303, { name: 'account-login', query: { redirect: route.fullPath } });
-          // }
         }
       }
     ],

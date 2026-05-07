@@ -16,7 +16,7 @@
 
     data() {
       return {
-        loggedInUser: this.$store?.state?.auth?.user
+        loggedInUser: this.$keycloak.user
       };
     },
 
