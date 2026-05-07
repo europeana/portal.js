@@ -7,7 +7,7 @@
     name: 'AccountLoginPage',
 
     mounted() {
-      this.$keycloak.login({ replace: true });
+      this.$auth.login({ replace: true });
     }
   };
 </script>

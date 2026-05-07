@@ -159,8 +159,8 @@
         };
       },
       userIsEditor() {
-        return this.$keycloak.userHasClientRole('entities', 'editor') &&
-          this.$keycloak.userHasClientRole('usersets', 'editor');
+        return this.$auth.userHasClientRole('entities', 'editor') &&
+          this.$auth.userHasClientRole('usersets', 'editor');
       }
     }
   };

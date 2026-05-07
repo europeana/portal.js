@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-// TODO: check these still work
+// TODO: check these still work with the new auth module
+// TODO: rename this to something not keycloak-specific?
 export default {
   config: {},
 

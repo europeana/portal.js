@@ -240,15 +240,15 @@
         return this.set.creator && typeof this.set.creator === 'string' ? this.set.creator : this.set.creator.id;
       },
       userIsOwner() {
-        return this.$keycloak.loggedIn && this.$keycloak.user &&
-          this.setCreatorId?.endsWith(`/${this.$keycloak.user.sub}`);
+        return this.$auth.loggedIn && this.$auth.user &&
+          this.setCreatorId?.endsWith(`/${this.$auth.user.sub}`);
       },
       userIsEntityEditor() {
-        return this.$keycloak.userHasClientRole('entities', 'editor') &&
-          this.$keycloak.userHasClientRole('usersets', 'editor');
+        return this.$auth.userHasClientRole('entities', 'editor') &&
+          this.$auth.userHasClientRole('usersets', 'editor');
       },
       userIsPublisher() {
-        return this.$keycloak.userHasClientRole('usersets', 'publisher');
+        return this.$auth.userHasClientRole('usersets', 'publisher');
       },
       userCanEditSet() {
         return this.userIsOwner || (this.userIsPublisher && this.set.visibility === 'published');

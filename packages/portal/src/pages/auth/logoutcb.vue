@@ -16,9 +16,9 @@
 
     async mounted() {
       // NOTE: in mounted so that it clears the cookies from the browser
-      await this.$keycloak.logoutCallback();
+      await this.$auth.logoutCallback();
 
-      if (!this.$keycloak.loggedIn) {
+      if (!this.$auth.loggedIn) {
         this.makeToast(this.$t('account.notifications.loggedOut'));
       }
     }

@@ -26,7 +26,7 @@
       {{ tooltipTitle }}
     </b-tooltip>
     <template
-      v-if="$keycloak.loggedIn"
+      v-if="$auth.loggedIn"
     >
       <SetAddItemModal
         v-if="showAddItemModal"
@@ -139,14 +139,14 @@
         }
       },
       addToSet() {
-        if (this.$keycloak.loggedIn) {
+        if (this.$auth.loggedIn) {
           this.showTooltip = false; // Fix for touch devices that keep the tooltip open, overlaying the modal
           this.showAddItemModal = true;
           for (const id of [].concat(this.identifiers)) {
             this.$matomo?.trackEvent('Item_add', 'Click add item button', id);
           }
         } else {
-          this.$keycloak.login();
+          this.$auth.login();
         }
       },
       handleModalInput(value) {

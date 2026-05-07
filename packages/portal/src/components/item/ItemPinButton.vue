@@ -117,10 +117,10 @@
         return this.userIsEntitiesEditor && this.userIsSetsEditor;
       },
       userIsEntitiesEditor() {
-        return this.$keycloak.userHasClientRole('entities', 'editor');
+        return this.$auth.userHasClientRole('entities', 'editor');
       },
       userIsSetsEditor() {
-        return this.$keycloak.userHasClientRole('usersets', 'editor');
+        return this.$auth.userHasClientRole('usersets', 'editor');
       },
       pinned() {
         return this.$store.getters['entity/isPinned'](this.identifier);

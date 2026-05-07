@@ -66,7 +66,7 @@
       tooltipText() {
         if (this.value) {
           return this.$t('search.multilingual.turnOffMultilingualSearch');
-        } else if (this.$keycloak.loggedIn) {
+        } else if (this.$auth.loggedIn) {
           return this.$t('search.multilingual.turnOnMultilingualSearch');
         } else {
           return this.$t('search.multilingual.loginToUseMultilingualSearch');
@@ -83,7 +83,7 @@
         this.$matomo?.trackEvent('Multilingual search', `${this.value ? 'Disabled' : 'Enabled'} multilingual search`, `${this.$i18n.locales.find((locale) => locale.code === this.$i18n.locale)?.name} multilingual search toggle`);
       },
       toggle() {
-        if (this.$keycloak.loggedIn) {
+        if (this.$auth.loggedIn) {
           this.trackEvent();
           this.$emit('input', !this.value);
           this.showTooltip = false;

@@ -30,7 +30,7 @@ const factory = ({ propsData = {}, mocks = {} } = {}) => {
       },
       $config: config,
       $error: sinon.spy(),
-      $keycloak: {
+      $auth: {
         login: sinon.spy()
       },
       $nuxt: { context: {} },
@@ -157,7 +157,7 @@ describe('components/generic/FeatureIdeas', () => {
 
           await wrapper.vm.voteOnFeature('feature-1');
 
-          expect(wrapper.vm.$keycloak.login.calledOnce).toBe(true);
+          expect(wrapper.vm.$auth.login.calledOnce).toBe(true);
         });
       });
     });

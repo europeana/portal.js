@@ -16,9 +16,9 @@
 
     async mounted() {
       // NOTE: in mounted because it relies on localStorage for OIDC state validation
-      await this.$keycloak.loginCallback();
+      await this.$auth.loginCallback();
 
-      if (this.$keycloak.loggedIn) {
+      if (this.$auth.loggedIn) {
         this.makeToast(this.$t('account.notifications.loggedIn'));
       }
     }

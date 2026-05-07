@@ -72,11 +72,11 @@
       },
       toggle() {
         this.showTooltip = false;
-        if (this.$keycloak.loggedIn) {
+        if (this.$auth.loggedIn) {
           this.selected = !this.selected;
           this.$emit('select', this.selected);
         } else {
-          this.$keycloak.login();
+          this.$auth.login();
         }
       }
     }

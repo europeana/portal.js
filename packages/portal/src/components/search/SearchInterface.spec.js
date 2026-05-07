@@ -45,7 +45,7 @@ const factory = ({ mocks = {}, propsData = {}, data = {} } = {}) => shallowMount
       }
     },
     $auth: {},
-    $keycloak: { login: sinon.spy() },
+    $auth: { login: sinon.spy() },
     $i18n: {
       locale: 'en',
       n: (num) => num
@@ -519,7 +519,7 @@ describe('components/search/SearchInterface', () => {
 
         wrapper.vm.handleMultilingualButtonInput(true);
 
-        expect(wrapper.vm.$keycloak.login.called).toBe(true);
+        expect(wrapper.vm.$auth.login.called).toBe(true);
       });
     });
 

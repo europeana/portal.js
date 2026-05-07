@@ -7,7 +7,7 @@
     name: 'AccountLogoutPage',
 
     mounted() {
-      this.$keycloak.logout({ replace: true });
+      this.$auth.logout({ replace: true });
 
       // TODO: is any of the below still relevant?
       // localStorage.setItem('logout-event', `logout-${Math.random()}`);

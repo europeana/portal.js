@@ -129,6 +129,17 @@ export default {
       },
       siteName: APP_SITE_NAME
     },
+    auth: {
+      origin: process.env.AUTH_ORIGIN || 'https://auth.europeana.eu',
+      realm: process.env.AUTH_REALM || 'europeana',
+      clientId: process.env.AUTH_CLIENT,
+      // TODO: are all these scopes needed (by default)?
+      scope: (process.env.AUTH_SCOPE || 'openid,profile,email,usersets').split(','),
+      responseType: process.env.AUTH_RESPONSE_TYPE || 'code',
+      accessType: process.env.AUTH_ACCESS_TYPE || 'online',
+      grantType: process.env.AUTH_GRANT_TYPE || 'authorization_code'
+      // tokenType: process.env.AUTH_TOKEN_TYPE || 'Bearer'
+    },
     axiosLogger: {
       clearParams: process.env.AXIOS_LOGGER_CLEAR_PARAMS?.split(',') || ['wskey'],
       httpMethods: process.env.AXIOS_LOGGER_HTTP_METHODS?.toUpperCase().split(',')
@@ -162,17 +173,6 @@ export default {
     hotjar: {
       id: process.env.HOTJAR_ID,
       sv: process.env.HOTJAR_SNIPPET_VERSION
-    },
-    keycloak: {
-      origin: process.env.KEYCLOAK_ORIGIN || 'https://auth.europeana.eu',
-      realm: process.env.KEYCLOAK_REALM || 'europeana',
-      clientId: process.env.KEYCLOAK_CLIENT,
-      // TODO: are all these scopes needed (by default)?
-      scope: (process.env.KEYCLOAK_SCOPE || 'openid,profile,email,usersets').split(','),
-      responseType: process.env.KEYCLOAK_RESPONSE_TYPE || 'code',
-      accessType: process.env.KEYCLOAK_ACCESS_TYPE || 'online',
-      grantType: process.env.KEYCLOAK_GRANT_TYPE || 'authorization_code'
-      // tokenType: process.env.KEYCLOAK_TOKEN_TYPE || 'Bearer'
     },
     matomo: {
       host: process.env.MATOMO_HOST,
@@ -342,7 +342,7 @@ export default {
     '~/plugins/features',
     '~/plugins/jsdom-domparser.server',
     '~/plugins/vue-contentful-graphql',
-    '~/plugins/keycloak',
+    '~/plugins/auth',
     '~/plugins/europeana-apis',
     '~/plugins/liked-items.client'
   ],

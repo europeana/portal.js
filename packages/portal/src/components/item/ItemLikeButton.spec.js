@@ -20,7 +20,7 @@ const factory = ({ propsData = { identifiers }, $auth = {} } = {}) => shallowMou
       throw error;
     },
     $features: {},
-    $keycloak: {
+    $auth: {
       login: sinon.spy()
     },
     $likedItems: {
@@ -84,7 +84,7 @@ describe('components/item/ItemLikeButton', () => {
           const likeButton = wrapper.find('b-button-stub[data-qa="like button"]');
           likeButton.trigger('click');
 
-          expect(wrapper.vm.$keycloak.login.called).toBe(true);
+          expect(wrapper.vm.$auth.login.called).toBe(true);
         });
       });
     });

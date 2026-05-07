@@ -26,7 +26,7 @@
         links: [
           {
             text: this.$t('account.accountManagement'),
-            href: this.$keycloak?.accountUrl
+            href: this.$auth?.accountUrl
           }, {
             text: this.$t('account.manageApiKeys'),
             to: this.localePath('/account/api-keys')

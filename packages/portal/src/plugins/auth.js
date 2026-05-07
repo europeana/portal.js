@@ -1,13 +1,12 @@
 import axios from 'axios';
 import { nanoid } from 'nanoid';
 
-// TODO: or is this largely compatible with any OIDC provider?
-const PLUGIN_NAME = 'keycloak';
+const PLUGIN_NAME = 'auth';
 
 // TODO: consider whether everything belongs inside here, esp considering it gets called
 //       once on every SSR
-export const createKeycloakPlugin = (ctx) => {
-  const config = ctx.$config.keycloak;
+export const createAuthPlugin = (ctx) => {
+  const config = ctx.$config.auth;
   const scope = config.scope.join(' ');
   const url = `${config.origin}/auth/realms/${config.realm}/protocol/openid-connect`;
   const endpoints = {
@@ -51,7 +50,6 @@ export const createKeycloakPlugin = (ctx) => {
   };
 
   const removeAccessToken = () => {
-    console.log('removeAccessToken');
     return storage.cookies.remove('accessToken');
   };
 
@@ -64,12 +62,10 @@ export const createKeycloakPlugin = (ctx) => {
   };
 
   const removeRefreshToken = () => {
-    console.log('removeRefreshToken');
     return storage.cookies.remove('refreshToken');
   };
 
   const request = (config) => {
-    console.log('request', config.url);
     return axios.request(config);
   };
 
@@ -89,7 +85,6 @@ export const createKeycloakPlugin = (ctx) => {
   };
 
   const refreshAccessToken = async() => {
-    console.log('refreshAccessToken');
     const data = new FormData();
     data.set('client_id', config.clientId);
     data.set('refresh_token', getRefreshToken());
@@ -103,14 +98,12 @@ export const createKeycloakPlugin = (ctx) => {
         'content-type': 'application/x-www-form-urlencoded'
       }
     });
-    console.log('refreshAccessTokenResponse', refreshAccessTokenResponse);
 
     setAccessToken(refreshAccessTokenResponse.access_token);
     setRefreshToken(refreshAccessTokenResponse.refresh_token);
   };
 
   const handleUnauthorizedError = async(error) => {
-    console.log('handleUnauthorizedError', error.config.url);
     removeAccessToken();
     const requestConfig = error.config;
 
@@ -121,7 +114,6 @@ export const createKeycloakPlugin = (ctx) => {
         await refreshAccessToken();
         return requestWithAuth(requestConfig);
       } catch (err) {
-        console.log('token refresh errored', err);
         // Refresh token is no longer valid; clear it and try again
         // in case request does not need authorization anyway
         delete requestConfig.headers['authorization'];
@@ -158,17 +150,17 @@ export const createKeycloakPlugin = (ctx) => {
   };
 
   const accountUrl = () => {
-    const keycloakAccountUrl = new URL(
+    const authAccountUrl = new URL(
       `/auth/realms/${config.realm}/account`, config.origin
     );
-    keycloakAccountUrl.search = new URLSearchParams({
+    authAccountUrl.search = new URLSearchParams({
       referrer: config.clientId,
       'referrer_uri': ctx.$config.app.baseUrl
     }).toString();
-    return keycloakAccountUrl.toString();
+    return authAccountUrl.toString();
   };
 
-  const goToKeycloakEndpoint = (endpoint, { params = {}, replace = false } = {}) => {
+  const goToAuthEndpoint = (endpoint, { params = {}, replace = false } = {}) => {
     const url = new URL(endpoints[endpoint]);
     url.search = new URLSearchParams(params);
 
@@ -188,8 +180,6 @@ export const createKeycloakPlugin = (ctx) => {
   };
 
   const login = ({ redirect, replace = false } = {}) => {
-    console.log('login');
-
     const params = {
       protocol: 'oauth2',
       'response_type': config.responseType,
@@ -204,14 +194,10 @@ export const createKeycloakPlugin = (ctx) => {
     storage.local.set('state', params.state);
     storage.local.set('redirect_uri', params.redirect_uri);
 
-    goToKeycloakEndpoint('auth', { params, replace });
+    goToAuthEndpoint('auth', { params, replace });
   };
 
   const loginCallback = async() => {
-    // console.log('keycloak callback route', ctx.route.query)
-
-    console.log('loginCallback ctx.route.query', ctx.route.query);
-
     if (userIsLoggedIn()) {
       ctx.app.router.replace(ctx.route.query.redirect || '/');
     }
@@ -227,8 +213,6 @@ export const createKeycloakPlugin = (ctx) => {
       throw new Error('Unauthorised');
     }
 
-    console.log('authorised!');
-
     const tokenRequestConfig = {
       url: endpoints.token,
       method: 'post',
@@ -243,7 +227,6 @@ export const createKeycloakPlugin = (ctx) => {
     };
     storage.local.remove('redirect_uri');
     const tokenResponse = await request(tokenRequestConfig);
-    console.log('tokenResponse', tokenResponse);
 
     // TODO: id token validation
     //       https://openid.net/specs/openid-connect-core-1_0.html#IDTokenValidation
@@ -254,7 +237,6 @@ export const createKeycloakPlugin = (ctx) => {
 
     await getUserInfo();
 
-    console.log('redirect to', ctx.route.query.redirect || '/');
     ctx.app.router.replace(ctx.route.query.redirect || '/');
   };
 
@@ -264,22 +246,18 @@ export const createKeycloakPlugin = (ctx) => {
       'ui_locales': ctx.i18n.locale
     };
 
-    goToKeycloakEndpoint('logout', { params, replace });
+    goToAuthEndpoint('logout', { params, replace });
   };
 
   const logoutCallback = () => {
-    console.log('logoutCallback ctx.route.query', ctx.route.query);
-
     removeAccessToken();
     removeRefreshToken();
     user = null;
 
-    console.log('redirect to', ctx.route.query.redirect || '/');
     ctx.app.router.replace(ctx.route.query.redirect || '/');
   };
 
   const handleRequestError = async(err) => {
-    console.log('handleRequestError', err.response?.status, err.config?.url);
     if (err.response?.status === 401) {
       await handleUnauthorizedError(err);
     } else {
@@ -288,23 +266,17 @@ export const createKeycloakPlugin = (ctx) => {
   };
 
   const getUserInfo = async() => {
-    console.log('getUserInfo');
-    try {
-      const response = await requestWithAuth({
-        url: endpoints.userinfo,
-        method: 'get',
-        params: {
-          'client_id': config.clientId
-        }
-      });
-      user = response.data;
-    } catch (e) {
-      console.error(e);
-    }
+    const response = await requestWithAuth({
+      url: endpoints.userinfo,
+      method: 'get',
+      params: {
+        'client_id': config.clientId
+      }
+    });
+    user = response.data;
   };
 
   const initUserInfo = async() => {
-    console.log('initUserInfo', ctx.route.path);
     if (getAccessToken() && !user && (ctx.route.path !== callbackPaths.logout)) {
       // get userinfo
       // TODO: avoid this being made on both server- and client-
@@ -356,8 +328,7 @@ export const createKeycloakPlugin = (ctx) => {
 };
 
 export default async(ctx, inject) => {
-  const plugin = createKeycloakPlugin(ctx);
-  console.log('keycloak plugin registration', plugin.accessToken, plugin.user, ctx.route);
+  const plugin = createAuthPlugin(ctx);
 
   await plugin.initUserInfo();
 

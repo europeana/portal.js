@@ -67,7 +67,7 @@
       };
     },
 
-    // TODO: check this is still working with $keycloak.requestWithAuth
+    // TODO: check this is still working with $auth.requestWithAuth
     async fetch() {
       if (this.features.length < 1) {
         const error = new Error('No feature ideas');
@@ -77,7 +77,7 @@
       }
 
       const params = { candidate: this.features.map((feature) => feature.identifier).join(',') };
-      const votesResponse = await this.$keycloak.requestWithAuth({
+      const votesResponse = await this.$auth.requestWithAuth({
         baseURL: this.$config.app.baseUrl,
         url: '/_api/votes',
         method: 'get',
@@ -92,10 +92,10 @@
 
     methods: {
       async voteOnFeature(featureId) {
-        if (this.$keycloak.loggedIn) {
+        if (this.$auth.loggedIn) {
           const method = this.hasVotedOnFeature(featureId) ? 'delete' : 'put';
 
-          await this.$keycloak.requestWithAuth({
+          await this.$auth.requestWithAuth({
             baseURL: this.$config.app.baseUrl,
             url: `/_api/votes/${featureId}`,
             method
@@ -103,7 +103,7 @@
 
           this.$fetch();
         } else {
-          this.$keycloak.login();
+          this.$auth.login();
         }
       },
       voteCountOnFeature(featureId) {

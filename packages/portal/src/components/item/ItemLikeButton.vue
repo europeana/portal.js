@@ -123,7 +123,7 @@
 
     methods: {
       async toggleLiked() {
-        if (this.$keycloak.loggedIn) {
+        if (this.$auth.loggedIn) {
           try {
             await (this.pressed ? this.handleUnlike() : this.handleLike());
           } catch (e) {
@@ -132,7 +132,7 @@
             this.$error(e, { scope: 'gallery' });
           }
         } else {
-          this.$keycloak.login();
+          this.$auth.login();
         }
         this.hideTooltips();
       },

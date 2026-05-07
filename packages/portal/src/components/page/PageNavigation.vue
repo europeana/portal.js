@@ -44,7 +44,7 @@
         if (this.$route.name.startsWith('account')) {
           return this.localePath('/');
         } else if (this.$route.name.startsWith('item')) {
-          if (this.$route.query.lang && !this.$keycloak.loggedIn) {
+          if (this.$route.query.lang && !this.$auth.loggedIn) {
             // rm lang from query, otherwise preserve fullPath
             const query = new URLSearchParams(this.$route.query);
             query.delete('lang');
@@ -87,7 +87,7 @@
         return this.mainNavigation.concat(this.sidebarNav ? this.sidebarNavigation : []).concat(this.authLinks);
       },
       isAuthenticated() {
-        return this.$keycloak?.loggedIn;
+        return this.$auth?.loggedIn;
       },
       isAccountPage() {
         return this.$route.name.startsWith('account');
@@ -136,7 +136,7 @@
       storageEvent(event) {
         if (event.key === 'logout-event') {
           // TODO: check this still works
-          this.$keycloak.logout();
+          this.$auth.logout();
         }
       }
     }

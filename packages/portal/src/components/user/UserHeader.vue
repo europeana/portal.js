@@ -21,7 +21,7 @@
 
     data() {
       return {
-        loggedInUser: this.$keycloak.user
+        loggedInUser: this.$auth.user
       };
     }
   };

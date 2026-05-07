@@ -14,7 +14,7 @@ app.use(logging);
 
 const runtimeConfig = nuxtRuntimeConfig();
 pg.config = runtimeConfig.postgres;
-keycloak.config = runtimeConfig.keycloak;
+keycloak.config = runtimeConfig.auth;
 
 app.use((req, res, next) => {
   if (apm.isStarted())  {

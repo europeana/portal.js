@@ -231,7 +231,7 @@
           ['topic', 'organisation'].includes(this.collectionType);
       },
       userIsEntitiesEditor() {
-        return this.$keycloak.userHasClientRole('entities', 'editor');
+        return this.$auth.userHasClientRole('entities', 'editor');
       },
       route() {
         return {

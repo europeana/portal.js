@@ -1,6 +1,6 @@
-export default ({ $keycloak, redirect, route }) => {
+export default ({ $auth, redirect, route }) => {
   console.log('auth middleware');
-  if (!$keycloak.loggedIn) {
+  if (!$auth.loggedIn) {
     redirect({ name: 'account-login', query: { redirect: route.fullPath } });
   }
 };

@@ -143,7 +143,7 @@
     },
 
     async fetch() {
-      if (!this.$keycloak.loggedIn) {
+      if (!this.$auth.loggedIn) {
         return;
       }
       const userApiKeys = await this.$apis.auth.getUserClients();

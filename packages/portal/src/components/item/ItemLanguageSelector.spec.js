@@ -20,7 +20,7 @@ const factory = ({ propsData = {}, mocks = {} } = {}) => shallowMount(ItemLangua
         { code: 'nl', name: 'Nederlands', iso: 'nl-NL' }
       ]
     },
-    $keycloak: {
+    $auth: {
       login: sinon.spy()
     },
     $t: (key) => {
