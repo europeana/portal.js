@@ -152,8 +152,8 @@
     ],
 
     inject: {
-      relatedCollections: { default: [] },
-      relatedGalleries: { default: [] }
+      relatedCollectionsHasResults: { default: false },
+      relatedGalleriesHasResults: { default: false }
     },
 
     props: {
@@ -240,14 +240,6 @@
 
       useDraggable() {
         return process.client && this.userEditableItems;
-      },
-
-      relatedCollectionsHasResults() {
-        return !!this.relatedCollections?.length;
-      },
-
-      relatedGalleriesHasResults() {
-        return !!this.relatedGalleries?.length;
       }
     },
 

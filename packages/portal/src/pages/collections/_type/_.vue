@@ -104,7 +104,7 @@
 
     provide() {
       return {
-        relatedCollections: computed(() => this.relatedCollections)
+        relatedCollectionsHasResults: computed(() => !!this.relatedCollections?.length)
       };
     },
 

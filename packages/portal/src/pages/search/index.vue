@@ -70,8 +70,8 @@
 
     provide() {
       return {
-        relatedCollections: computed(() => this.relatedCollections),
-        relatedGalleries: computed(() => this.relatedGalleries)
+        relatedCollectionsHasResults: computed(() => !!this.relatedCollections?.length),
+        relatedGalleriesHasResults: computed(() => !!this.relatedGalleries?.length)
       };
     },
 
