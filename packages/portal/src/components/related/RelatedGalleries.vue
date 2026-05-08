@@ -129,6 +129,7 @@
     @media (min-width: $bp-medium) {
       flex: 0 1 33%;
       margin: 0 0.75rem 0.75rem 0;
+      min-width: $min-card-width;
 
       @at-root .xxl-page & {
         @media (min-width: $bp-4k) {

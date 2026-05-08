@@ -22,24 +22,28 @@
         <template
           v-for="card in cards"
         >
+          <!-- only show when there are results; do not rely on v-if as slot is needed for results to be fetched -->
           <div
-            v-if="card === relatedGalleries"
+            v-if="card === relatedGalleriesSlotName"
+            v-show="relatedGalleriesHasResults"
             :key="card"
             v-masonry-tile
             class="masonry-tile related-results"
           >
             <slot
-              :name="relatedGalleries"
+              :name="relatedGalleriesSlotName"
             />
           </div>
+          <!-- only show when there are results; do not rely on v-if as slot is needed for results to be fetched -->
           <div
-            v-else-if="card === relatedCollections"
+            v-else-if="card === relatedCollectionsSlotName"
+            v-show="relatedCollectionsHasResults"
             :key="card"
             v-masonry-tile
             class="masonry-tile related-results"
           >
             <slot
-              :name="relatedCollections"
+              :name="relatedCollectionsSlotName"
             />
           </div>
           <ItemPreviewCard
@@ -88,21 +92,23 @@
           v-for="card in cards"
         >
           <div
-            v-if="card === relatedGalleries"
+            v-if="card === relatedGalleriesSlotName"
+            v-show="relatedGalleriesHasResults"
             :key="card"
             class="related-results"
           >
             <slot
-              :name="relatedGalleries"
+              :name="relatedGalleriesSlotName"
             />
           </div>
           <div
-            v-else-if="card === relatedCollections"
+            v-else-if="card === relatedCollectionsSlotName"
+            v-show="relatedCollectionsHasResults"
             :key="card"
             class="related-results"
           >
             <slot
-              :name="relatedCollections"
+              :name="relatedCollectionsSlotName"
             />
           </div>
           <ItemPreviewCard
@@ -144,6 +150,11 @@
     mixins: [
       advancedSearchMixin
     ],
+
+    inject: {
+      relatedCollectionsHasResults: { default: false },
+      relatedGalleriesHasResults: { default: false }
+    },
 
     props: {
       items: {
@@ -191,8 +202,8 @@
     data() {
       return {
         cards: [],
-        relatedGalleries: 'related-galleries',
-        relatedCollections: 'related-collections',
+        relatedGalleriesSlotName: 'related-galleries',
+        relatedCollectionsSlotName: 'related-collections',
         showRelatedCollections: false,
         showRelatedGalleries: false
       };
@@ -248,8 +259,8 @@
     },
 
     created() {
-      this.showRelatedCollections = this.$slots[this.relatedCollections];
-      this.showRelatedGalleries = this.$slots[this.relatedCollections];
+      this.showRelatedCollections = this.$slots[this.relatedCollectionsSlotName];
+      this.showRelatedGalleries = this.$slots[this.relatedGalleriesSlotName];
       this.initCards();
     },
 
@@ -263,10 +274,10 @@
         const cards = [...this.items];
 
         if (this.showRelatedGalleries) {
-          cards.splice(3, 0, this.relatedGalleries);
+          cards.splice(3, 0, this.relatedGalleriesSlotName);
         }
         if (this.showRelatedCollections) {
-          cards.splice(8, 0, this.relatedCollections);
+          cards.splice(8, 0, this.relatedCollectionsSlotName);
         }
 
         this.cards = cards;
