@@ -8,21 +8,33 @@
     <b-container
       v-else
     >
-      <!-- Replace media URL when available or a default placeholder is implemented -->
-      <ContentHeader
-        :title="pageMeta.title"
-        :description="pageMeta.description"
-        :media-url="'/'"
-        button-variant="secondary"
-        class="half-col"
-      />
-      <client-only>
-        <EntityTable
-          :type="$route.params.type"
-          data-qa="collections table"
-          class="mt-3 mt-md-4"
+      <template
+        v-if="['persons', 'places'].includes($route.params.type)"
+      >
+        <ContentHeader
+          :title="pageMeta.title"
         />
-      </client-only>
+        <EntityTypeBrowse
+          :type="$route.params.type"
+        />
+      </template>
+      <template v-else>
+        <!-- TODO: replace media URL when available or a default placeholder is implemented -->
+        <ContentHeader
+          :title="pageMeta.title"
+          :description="pageMeta.description"
+          :media-url="'/'"
+          button-variant="secondary"
+          class="half-col"
+        />
+        <client-only>
+          <EntityTable
+            :type="$route.params.type"
+            data-qa="collections table"
+            class="mt-3 mt-md-4"
+          />
+        </client-only>
+      </template>
     </b-container>
   </div>
 </template>
@@ -32,6 +44,14 @@
   import ContentHeader from '@/components/content/ContentHeader';
   import pageMetaMixin from '@/mixins/pageMeta';
 
+  const VALID_TYPE_PARAMS = [
+    'organisations',
+    'persons',
+    'places',
+    'topics',
+    'times'
+  ];
+
   export default {
     name: 'CollectionsIndexPage',
 
@@ -39,32 +59,42 @@
       ErrorMessage: () => import('@/components/error/ErrorMessage'),
       ContentHeader,
       ClientOnly,
-      EntityTable: () => import('@/components/entity/EntityTable')
+      EntityTable: () => import('@/components/entity/EntityTable'),
+      EntityTypeBrowse: () => import('@/components/entity/EntityTypeBrowse')
     },
 
     mixins: [pageMetaMixin],
 
+    data() {
+      const pageMetaTitle = this.$t(`pages.collections.${this.$route.params.type}.title`);
+      const pageMetaDescription = this.$te(`pages.collections.${this.$route.params.type}.description`) ?
+        this.$t(`pages.collections.${this.$route.params.type}.description`) :
+        null;
+
+      return {
+        pageMetaDescription,
+        pageMetaTitle
+      };
+    },
+
     fetch() {
-      if (!['organisations', 'topics', 'times'].includes(this.$route.params.type)) {
+      if (!VALID_TYPE_PARAMS.includes(this.$route.params.type)) {
         this.$error(404, { scope: 'page' });
       }
     },
 
     computed: {
-      description() {
-        return this.$route.params.type === 'organisations' ? this.$t('pages.collections.organisations.description') : null;
-      },
       pageMeta() {
         return {
-          title: this.$t(`pages.collections.${this.$route.params.type}.title`),
-          description: this.description
+          title: this.pageMetaTitle,
+          description: this.pageMetaDescription
         };
       }
     },
+
     watch: {
       '$route': '$fetch'
-    },
-    watchQuery: ['page']
+    }
   };
   </script>
 
