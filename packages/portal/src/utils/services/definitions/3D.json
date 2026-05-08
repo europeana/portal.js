@@ -26,7 +26,7 @@
   },
   {
     "name": "ecomic",
-    "oembed": "https://viewer3d-europeana.dpaastools.it:3000/api/oembed",
+    "oembed": "https://viewer3d-europeana.dpaastools.it/api/oembed",
     "responsive": true,
     "schemes": [
       "https://ecomic.cultura.gov.it/3d-viewer/*"
