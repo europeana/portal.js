@@ -1,12 +1,10 @@
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '@test/utils.js';
-// import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
 
 import EntityTypeBrowse from './EntityTypeBrowse.vue';
 
 const localVue = createLocalVue();
-// localVue.use(BootstrapVue);
 
 const factory = ({ propsData = {} } = {}) => shallowMountNuxt(EntityTypeBrowse, {
   localVue,
@@ -36,9 +34,6 @@ const factory = ({ propsData = {} } = {}) => shallowMountNuxt(EntityTypeBrowse, 
   mocks: {
     $t: key => key,
     $route: { query: {} },
-    // $auth: {
-    //   loggedIn: false
-    // },
     $apis: {
       entity: {
         search: sinon.stub().resolves({})
