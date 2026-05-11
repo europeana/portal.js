@@ -9,14 +9,18 @@
       v-else
     >
       <template
-        v-if="['persons', 'places'].includes($route.params.type)"
+        v-if="['persons', 'places'].includes(type)"
       >
         <ContentHeader
           :title="pageMeta.title"
         />
         <EntityTypeBrowse
-          :type="$route.params.type"
+          :type="type"
         />
+      </template>
+      <template v-else-if="$features.aggregatorsTab && type === 'organisations'">
+        <EntityOrganisationsTabs />
+        <EntityOrganisationsPageContent />
       </template>
       <template v-else>
         <!-- TODO: replace media URL when available or a default placeholder is implemented -->
@@ -29,7 +33,7 @@
         />
         <client-only>
           <EntityTable
-            :type="$route.params.type"
+            :type="type"
             data-qa="collections table"
             class="mt-3 mt-md-4"
           />
@@ -56,29 +60,33 @@
     name: 'CollectionsIndexPage',
 
     components: {
-      ErrorMessage: () => import('@/components/error/ErrorMessage'),
       ContentHeader,
       ClientOnly,
+      EntityOrganisationsPageContent: () => import('@/components/entity/EntityOrganisationsPageContent'),
+      EntityOrganisationsTabs: () => import('@/components/entity/EntityOrganisationsTabs'),
       EntityTable: () => import('@/components/entity/EntityTable'),
-      EntityTypeBrowse: () => import('@/components/entity/EntityTypeBrowse')
+      EntityTypeBrowse: () => import('@/components/entity/EntityTypeBrowse'),
+      ErrorMessage: () => import('@/components/error/ErrorMessage')
     },
 
     mixins: [pageMetaMixin],
 
     data() {
-      const pageMetaTitle = this.$t(`pages.collections.${this.$route.params.type}.title`);
-      const pageMetaDescription = this.$te(`pages.collections.${this.$route.params.type}.description`) ?
-        this.$t(`pages.collections.${this.$route.params.type}.description`) :
+      const type = this.$route.params.type;
+      const pageMetaTitle = this.$t(`pages.collections.${type}.title`);
+      const pageMetaDescription = this.$te(`pages.collections.${type}.description`) ?
+        this.$t(`pages.collections.${type}.description`) :
         null;
 
       return {
         pageMetaDescription,
-        pageMetaTitle
+        pageMetaTitle,
+        type
       };
     },
 
     fetch() {
-      if (!VALID_TYPE_PARAMS.includes(this.$route.params.type)) {
+      if (!VALID_TYPE_PARAMS.includes(this.type)) {
         this.$error(404, { scope: 'page' });
       }
     },
