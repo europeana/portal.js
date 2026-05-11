@@ -1201,7 +1201,7 @@ export default {
   },
   "organisations": {
     "aggregators": {
-      "description": "Aggregators work with providing institutions to gather and publish their digital cultural heritage items on Euorpeana.eu.",
+      "description": "Aggregators work with providing institutions to gather and publish their digital cultural heritage items on Europeana.eu.",
       "title": "Aggregators"
     },
     "providingInstitutions": {
