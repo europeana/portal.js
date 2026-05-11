@@ -39,6 +39,7 @@
     </b-dropdown>
     <DownloadButton
       v-else
+      v-b-tooltip.bottom="mediaDownloadLabel(downloadableMedia[0])"
       :url="downloadableMedia[0].about"
       :identifier="identifier"
       data-qa="download button"
