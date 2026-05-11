@@ -94,7 +94,9 @@
 
     watch: {
       '$route': '$fetch'
-    }
+    },
+
+    watchQuery: ['page']
   };
   </script>
 

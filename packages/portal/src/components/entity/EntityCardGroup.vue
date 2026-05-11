@@ -19,7 +19,7 @@
         :id="collection.id"
         :key="collection.id"
         :title="collectionTitle(collection)"
-        :url="entityRouterLink(collection.id)"
+        :url="collectionLinkGen(collection)"
         :image-url="$apis.entity.imageUrl(collection)"
         :variant="cardVariant"
       />
@@ -74,18 +74,34 @@
     },
 
     async fetch() {
-      let entities = [];
       if (this.entities?.length) {
-        entities = this.entities;
+        this.setCollectionsFromEntities(this.entities);
       } else if (this.entityUris?.length) {
-        entities = await this.$apis.entity.find(this.entityUris);
+        const entities = await this.$apis.entity.find(this.entityUris);
+        this.setCollectionsFromEntities(entities);
+        this.$emit('fetched');
       }
-      this.collections = entities?.map((entity) => pick(entity, ['id', 'prefLabel', 'isShownBy', 'logo'])) || [];
-      this.$emit('fetched');
+    },
+
+    watch: {
+      entities: {
+        deep: true,
+        handler() {
+          this.setCollectionsFromEntities(this.entities);
+        }
+      }
     },
 
     methods: {
-      collectionTitle
+      collectionTitle,
+
+      setCollectionsFromEntities(entities) {
+        this.collections = entities?.map((entity) => this.pickEntity(entity)) || [];
+      },
+
+      pickEntity(entity) {
+        return pick(entity, ['id', 'prefLabel', 'isShownBy', 'logo']);
+      }
     }
   };
 </script>

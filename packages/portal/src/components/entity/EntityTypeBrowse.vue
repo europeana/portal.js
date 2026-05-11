@@ -91,7 +91,6 @@
     watch: {
       async '$route.query.page'() {
         await this.$fetch();
-        // FIXME: scroll to is not working after pagination
         this.scrollToSelector('#header');
       }
     }
