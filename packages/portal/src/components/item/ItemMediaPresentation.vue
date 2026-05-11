@@ -335,7 +335,8 @@
       },
 
       hasWebResourceMetadataToDisplay() {
-        return WEB_RESOURCE_METADATA_DISPLAY_FIELDS.some((field) => !!this.resource?.edm?.[field]);
+        const wrs = [this.resource?.edm].concat(this.resource?.edm?.dctermsIsFormatOf?.def).filter(Boolean);
+        return WEB_RESOURCE_METADATA_DISPLAY_FIELDS.some((field) => wrs.some((wr) => wr[field] !== undefined));
       },
 
       sidebarHasContent() {
