@@ -7,6 +7,8 @@ const CACHE_KEY_PREFIX = '@europeana:portal.js';
 const runtimeConfig = defu(nuxtConfig.privateRuntimeConfig, nuxtConfig.publicRuntimeConfig);
 
 const cacherNames = [
+  'collections:internationalAggregators',
+  'collections:nationalAggregators',
   'collections:organisations',
   'collections:organisations:count',
   'collections:organisations:featured',
