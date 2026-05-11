@@ -9,13 +9,13 @@
       v-else
     >
       <template
-        v-if="['persons', 'places'].includes($route.params.type)"
+        v-if="['persons', 'places'].includes(type)"
       >
         <ContentHeader
           :title="pageMeta.title"
         />
         <EntityTypeBrowse
-          :type="$route.params.type"
+          :type="type"
         />
       </template>
       <template v-else-if="$features.aggregatorsTab && type === 'organisations'">
@@ -33,7 +33,7 @@
         />
         <client-only>
           <EntityTable
-            :type="$route.params.type"
+            :type="type"
             data-qa="collections table"
             class="mt-3 mt-md-4"
           />
@@ -72,14 +72,16 @@
     mixins: [pageMetaMixin],
 
     data() {
-      const pageMetaTitle = this.$t(`pages.collections.${this.$route.params.type}.title`);
-      const pageMetaDescription = this.$te(`pages.collections.${this.$route.params.type}.description`) ?
-        this.$t(`pages.collections.${this.$route.params.type}.description`) :
+      const type = this.$route.params.type;
+      const pageMetaTitle = this.$t(`pages.collections.${type}.title`);
+      const pageMetaDescription = this.$te(`pages.collections.${type}.description`) ?
+        this.$t(`pages.collections.${type}.description`) :
         null;
 
       return {
         pageMetaDescription,
-        pageMetaTitle
+        pageMetaTitle,
+        type
       };
     },
 
@@ -90,9 +92,6 @@
     },
 
     computed: {
-      type() {
-        return this.$route.params.type;
-      },
       pageMeta() {
         return {
           title: this.pageMetaTitle,
