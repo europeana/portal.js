@@ -118,6 +118,15 @@
     "title": "Spatial"
   },
   {
+    "name": "stMaurus",
+    "oembed": "https://stmaurus.eu/maur/oembed.php",
+    "responsive": true,
+    "schemes": [
+      "https://stmaurus.eu/maur/item/*"
+    ],
+    "title": "St Maurus"
+  },
+  {
     "name": "theCyprusInstitute",
     "schemes": [
       "https://apacwebstorage.hpcf.cyi.ac.cy/threedimensionalmodels/3D/*"
