@@ -85,4 +85,6 @@ jobs:
             replace_breaks: false
           
       - name: Debug
-        run: git status
+        run: |
+          git status
+          ls -l packages/portal/src/i18n/lang/packages/
