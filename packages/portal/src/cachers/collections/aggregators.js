@@ -1,7 +1,7 @@
 import baseData from './index.js';
 import { createEuropeanaApiClient } from '../utils.js';
 
-const PICK = ['id', 'slug', 'recordCount', 'prefLabel', 'countryPrefLabel', 'heritageDomain', 'logo'];
+const PICK = ['id', 'slug', 'recordCount', 'prefLabel', 'geographicScope', 'countryPrefLabel', 'heritageDomain', 'logo'];
 const LOCALISE = 'countryPrefLabel';
 
 let axiosClientEntity;
@@ -28,6 +28,7 @@ const data = async(config = {}) => {
         organisation.countryPrefLabel = organisation.country.prefLabel;
       }
 
+      organisation.geographicScope = fullEntityResponse?.geographicScope;
       organisation.recordCount = organisation.isAggregatedBy.recordCount;
 
       return organisation;

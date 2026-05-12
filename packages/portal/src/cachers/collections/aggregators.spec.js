@@ -79,8 +79,8 @@ describe('@/cachers/collections/aggregators', () => {
     });
   });
 
-  it('picks slug, recordCount, prefLabel, heritageDomain, logo', () => {
-    expect(cacher.PICK).toEqual(['id', 'slug', 'recordCount', 'prefLabel', 'countryPrefLabel', 'heritageDomain', 'logo']);
+  it('picks slug, recordCount, prefLabel, geographicScope, heritageDomain, logo', () => {
+    expect(cacher.PICK).toEqual(['id', 'slug', 'recordCount', 'prefLabel', 'geographicScope', 'countryPrefLabel', 'heritageDomain', 'logo']);
   });
 
   it('localises countryPrefLabel', () => {
