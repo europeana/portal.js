@@ -10,8 +10,8 @@
     :role="role"
     @click.native="handleClickDownloadButton"
   >
+    <span class="icon-ic-download d-inline-flex pr-1" />
     <slot>
-      <span class="icon-ic-download d-inline-flex pr-1" />
       {{ $t('actions.download') }}
     </slot>
     <LoadingSpinner
@@ -172,7 +172,7 @@
 
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
-  .icon-ic-download::before {
+  .btn-primary .icon-ic-download::before {
     font-size: 1.125rem;
     line-height: 1;
   }
