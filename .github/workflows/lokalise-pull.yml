@@ -87,4 +87,5 @@ jobs:
       - name: Debug
         run: |
           git status
-          ls -l packages/portal/src/i18n/lang/
+          ls -l packages/portal/src/i18n/lang/packages/portal/src/i18n/lang/
+
