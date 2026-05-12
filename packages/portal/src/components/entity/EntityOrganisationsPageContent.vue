@@ -7,7 +7,6 @@
     >
       <p>{{ description }}</p>
     </b-col>
-    <!-- TODO: handle different aggregator types (national / international) and add aggregator types headings and descriptions -->
     <client-only v-if="tab === 'organisations'">
       <EntityTable
         type="organisations"
@@ -19,6 +18,14 @@
       v-else
       :key="index"
     >
+      <b-col
+        cols="12"
+        lg="6"
+        class="p-0 mb-5 "
+      >
+        <h2>{{ $t(`organisations.${aggregator}.title`) }}</h2>
+        <p>{{ $t(`organisations.${aggregator}.description`) }}</p>
+      </b-col>
       <client-only>
         <EntityTable
 
@@ -86,5 +93,10 @@
   .col-12 {
     color: $darkgrey;
     margin-top: 2rem;
+  }
+
+  h2 {
+    @extend %title-3;
+    color: $black;
   }
 </style>

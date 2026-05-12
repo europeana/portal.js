@@ -1204,6 +1204,14 @@ export default {
       "description": "Aggregators work with providing institutions to gather and publish their digital cultural heritage items on Europeana.eu.",
       "title": "Aggregators"
     },
+    "internationalAggregators": {
+      "description": "Domain and thematic aggregators define their scope by cultural sector (such as museum, archive or library) or by topic and theme (such as fashion). They work with contributors based in different European countries.",
+      "title": "Domain and thematic aggregators"
+    },
+    "regionalAggregators": {
+      "description": "National and regional aggregators define their scope by specific country or region. They work with contributors situated within that country or region.",
+      "title": "National and regional aggregators"
+    },
     "providingInstitutions": {
       "description": "A list of museums, libraries, archives and galleries which share their digital cultural heritage items on Europeana.eu.",
       "title": "Providing institutions"
