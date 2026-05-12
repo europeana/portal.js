@@ -166,14 +166,14 @@ export default {
   "automatedCardGroup": {
     "gallery": "Últimas galerías",
     "item": "Ítems recientes",
-    "organisation": "Organizaciones",
+    "organisation": "Proveedores de datos",
     "place": "Lugares",
     "theme": "Materias",
     "time": "Siglos",
     "topic": "Temática"
   },
   "cardLabels": {
-    "organisation": "Organización",
+    "organisation": "Institución",
     "person": "Persona",
     "place": "Lugar",
     "theme": "Tema",
@@ -333,13 +333,13 @@ export default {
       "description": "Un error desconocido ocurrió.",
       "title": "Error desconocido"
     },
-    "IIIFManifestFailure": {
-      "description": "Lamentablemente, el item multimedia proporcionado a Europeana no se puede mostrar en este momento. Por favor, intenta descargar el multimedia o ver el item en el sitio web del proveedor de datos."
-    },
     "itemNotFound": {
       "description": "Esto podría deberse a las siguientes razones: este Ítem no existe, o; fue des publicado porque no coincidía con nuestros criterios de calidad, o; se actualizó y se volvió a publicar con un nuevo identificador único, en cuyo caso, intente encontrar el Ítem nuevamente.",
       "metaTitle": "Item no encontrado",
       "title": "¡Oh, no! {newline} No pudimos encontrar este Ítem."
+    },
+    "mediaFailure": {
+      "description": "Lamentablemente, el item multimedia proporcionado a Europeana no se puede mostrar en este momento. Por favor, intenta descargar el multimedia o ver el item en el sitio web del proveedor de datos."
     },
     "noFeatureIdeas": {
       "description": "¡Vuelva pronto!",
@@ -821,7 +821,7 @@ export default {
       "dcType": "Tipo de medio",
       "ebucoreAudioChannelNumber": "Canales de audio",
       "ebucoreBitRate": "Tasa de bits (bps)",
-      "ebucoreDuration": "Duración (ms)",
+      "ebucoreDuration": "Duración",
       "ebucoreFileByteSize": "Tamaño del archivo (bytes)",
       "ebucoreFrameRate": "Velocidad de fotogramas (fps)",
       "ebucoreHasMimeType": "Tipo MIME",
@@ -1153,13 +1153,23 @@ export default {
     "englishName": "Nombre en inglés",
     "nameAcronym": "acrónimo del nombre"
   },
+  "organisations": {
+    "aggregators": {
+      "description": "Los agregadores trabajan con las instituciones proveedoras para recopilar y publicar sus elementos del patrimonio cultural digital en Europeana.eu.",
+      "title": "Agregadores"
+    },
+    "providingInstitutions": {
+      "description": "Una lista de museos, bibliotecas, archivos y galerías que comparten sus ítems de patrimonio cultural digital en Europeana.eu.",
+      "title": "Proveedores de datos"
+    }
+  },
   "pageHasLoaded": "ha cargado",
   "pageNumber": "Número de página",
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Explora las instituciones que comparten elementos del patrimonio cultural digital en Europeana.eu.",
-        "title": "Instituciones"
+        "description": "Explore las instituciones proveedoras que comparten elementos del patrimonio cultural digital en Europeana.eu.",
+        "title": "Proveedores de datos"
       },
       "persons": {
         "title": "Personas"

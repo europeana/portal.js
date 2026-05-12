@@ -166,14 +166,14 @@ export default {
   "automatedCardGroup": {
     "gallery": "Nieuwste galerijen",
     "item": "Recente objecten",
-    "organisation": "Organisaties",
+    "organisation": "Deelnemende erfgoedorganisaties",
     "place": "Plaatsen",
     "theme": "Thema's",
     "time": "Eeuwen",
     "topic": "Onderwerpen"
   },
   "cardLabels": {
-    "organisation": "Organisatie",
+    "organisation": "Instelling",
     "person": "Persoon",
     "place": "Plaats",
     "theme": "Thema",
@@ -333,13 +333,13 @@ export default {
       "description": "Er is een onbekende fout opgetreden.",
       "title": "Onbekende fout"
     },
-    "IIIFManifestFailure": {
-      "description": "Helaas kan het object media zoals aangeleverd aan Europeana nu niet worden weergegeven. Probeer het te downloaden of bekijk het object op de website van de deelnemende erfgoedorganisatie."
-    },
     "itemNotFound": {
       "description": "Dit kan de volgende redenen hebben: dit item bestaat niet, of; het werd ongepubliceerd, omdat het niet voldeed aan onze kwaliteitscriteria, of; het is bijgewerkt en opnieuw gepubliceerd met een nieuwe unieke identificatie. Probeer in dat geval het item opnieuw te vinden.",
       "metaTitle": "Item niet gevonden",
       "title": "Oh nee! {newline} We hebben dit item niet kunnen vinden."
+    },
+    "mediaFailure": {
+      "description": "Helaas kan het object media zoals aangeleverd aan Europeana nu niet worden weergegeven. Probeer het te downloaden of bekijk het object op de website van de deelnemende erfgoedorganisatie."
     },
     "noFeatureIdeas": {
       "description": "Kom snel weer terug!",
@@ -821,7 +821,7 @@ export default {
       "dcType": "Soort media",
       "ebucoreAudioChannelNumber": "Audiokanalen",
       "ebucoreBitRate": "Bitrate (bps)",
-      "ebucoreDuration": "Duur (ms)",
+      "ebucoreDuration": "Duur",
       "ebucoreFileByteSize": "Bestandsgrootte (bytes)",
       "ebucoreFrameRate": "Framesnelheid (fps)",
       "ebucoreHasMimeType": "MIME-type",
@@ -1153,13 +1153,23 @@ export default {
     "englishName": "Engelse naam",
     "nameAcronym": "Naam acroniem"
   },
+  "organisations": {
+    "aggregators": {
+      "description": "Aggregatoren werken samen met aanbiedende instellingen om hun digitale culturele erfgoed te verzamelen en te publiceren op Europeana.eu.",
+      "title": "Aggregators"
+    },
+    "providingInstitutions": {
+      "description": "Een lijst van musea, bibliotheken, archieven en galerijen die hun digitale culturele erfgoedcollecties delen op Europeana.eu.",
+      "title": "Aanbiedende instellingen"
+    }
+  },
   "pageHasLoaded": "heeft geladen",
   "pageNumber": "Paginanummer",
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Ontdek de instellingen die digitale culturele erfgoed objecten delen op Europeana.eu.",
-        "title": "Instellingen"
+        "description": "Ontdek de deelnemende erfgoedorganisaties die digitale culturele erfgoed objecten delen op Europeana.eu.",
+        "title": "Deelnemende erfgoedorganisaties"
       },
       "persons": {
         "title": "Personen"

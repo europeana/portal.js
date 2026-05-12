@@ -170,7 +170,10 @@ export default {
       }
     },
     europeana: {
-      apis: europeanaApisRuntimeConfig({ scope: 'public' })
+      apis: europeanaApisRuntimeConfig({ scope: 'public' }),
+      oembed: {
+        providerUrl: process.env.EUROPEANA_OEMBED_PROVIDER_URL || 'https://oembed.europeana.eu'
+      }
     },
     features: features(),
     hotjar: {
@@ -474,21 +477,6 @@ export default {
       'cache-control/auth'
     ],
     extendRoutes(routes) {
-      const nuxtCollectionsPersonsOrPlacesRouteIndex = routes.findIndex(route => route.name === 'collections-persons-or-places');
-      routes.splice(nuxtCollectionsPersonsOrPlacesRouteIndex, 1);
-
-      routes.push({
-        name: 'collections-persons',
-        path: '/collections/persons',
-        component: 'src/pages/collections/persons-or-places.vue'
-      });
-
-      routes.push({
-        name: 'collections-places',
-        path: '/collections/places',
-        component: 'src/pages/collections/persons-or-places.vue'
-      });
-
       routes.push({
         name: 'slug',
         path: '/*',
@@ -614,6 +602,14 @@ export default {
       'swiper',
       'vue-router-query'
     ]
+  },
+
+  vue: {
+    config: {
+      ignoredElements: [
+        'model-viewer'
+      ]
+    }
   },
 
   /*

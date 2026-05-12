@@ -166,14 +166,14 @@ export default {
   "automatedCardGroup": {
     "gallery": "Azken galeriak",
     "item": "Azken elementuak",
-    "organisation": "Erakundeak",
+    "organisation": "Erakunde hornitzailea",
     "place": "Lekuak",
     "theme": "Gaiak",
     "time": "Mendeak",
     "topic": "Gaiak"
   },
   "cardLabels": {
-    "organisation": "Antolaketa",
+    "organisation": "Erakundea:",
     "person": "Pertsona",
     "place": "Lekua",
     "theme": "Gaia",
@@ -333,13 +333,13 @@ export default {
       "description": "Errore ezezagun bat gertatu da.",
       "title": "Errore ezezaguna"
     },
-    "IIIFManifestFailure": {
-      "description": "Zoritxarrez, momentuz ezin da bistaratu Europeana-ri emandako multimedia-elementua. Mesedez, saiatu komunikabidea deskargatzen edo erakunde hornitzailearen webgunean elementua ikusten."
-    },
     "itemNotFound": {
       "description": "Hau arrazoi hauengatik izan daiteke: elementu hau ez da existitzen, edo; gure kalitate irizpideekin bat ez zetorrelako kaleratu zen, edo; eguneratu eta berriro argitaratu zen identifikatzaile esklusibo berri batekin, eta kasu horretan, saiatu berriro elementua aurkitzen.",
       "metaTitle": "Ez da aurkitu elementua",
       "title": "Oh ez! {newline} Ezin izan dugu elementu hau aurkitu."
+    },
+    "mediaFailure": {
+      "description": "Zoritxarrez, momentuz ezin da bistaratu Europeana-ri emandako multimedia-elementua. Mesedez, saiatu komunikabidea deskargatzen edo erakunde hornitzailearen webgunean elementua ikusten."
     },
     "noFeatureIdeas": {
       "description": "Begiratu berriro laster!",
@@ -821,7 +821,7 @@ export default {
       "dcType": "Euskarri mota",
       "ebucoreAudioChannelNumber": "Audio kanalak",
       "ebucoreBitRate": "Bit-tasa (bps)",
-      "ebucoreDuration": "Iraupena (ms)",
+      "ebucoreDuration": "Iraupena",
       "ebucoreFileByteSize": "Fitxategi-tamaina (byteak)",
       "ebucoreFrameRate": "Fotograma-tasa (fps)",
       "ebucoreHasMimeType": "MIME mota",
@@ -1153,13 +1153,23 @@ export default {
     "englishName": "Ingelesezko izena",
     "nameAcronym": "Izenaren akronimoa"
   },
+  "organisations": {
+    "aggregators": {
+      "description": "Aggregatoreek erakunde emaileekin lan egiten dute euren kultur ondare digitaleko elementuak Europeana.eu-n biltzeko eta argitaratzeko.",
+      "title": "Agregatzaileak"
+    },
+    "providingInstitutions": {
+      "description": "Europeana.eu-n beren ondare kultural digitaleko elementuak partekatzen dituzten museo, liburutegi, artxibo eta galeria zerrenda.",
+      "title": "Erakunde hornitzailea"
+    }
+  },
   "pageHasLoaded": "kargatu du",
   "pageNumber": "Orrialde zenbakia",
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Arakatu kultur ondare digitalaren elementuak partekatzen dituzten erakundeak Europeana.eu.",
-        "title": "Erakundeak"
+        "description": "Arakatu Europeana.eu-n ondare kultural digitalaren elementuak partekatzen dituzten erakunde hornitzaileak.",
+        "title": "Erakunde hornitzailea"
       },
       "persons": {
         "title": "Pertsonak"

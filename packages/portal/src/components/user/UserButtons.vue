@@ -7,7 +7,6 @@
       v-if="showPins"
       data-qa="item pin button"
       :identifier="identifier"
-      :entities="entities"
       :button-variant="buttonVariant"
       :button-text="buttonText"
     />
@@ -73,11 +72,6 @@
       identifier: {
         type: String,
         required: true
-      },
-      // Entities related to the item, used on item page.
-      entities: {
-        type: Array,
-        default: () => []
       },
       /**
        * If `true`, pin button will be rendered

@@ -16,6 +16,24 @@
     "title": "Arctur 3Dviewer"
   },
   {
+    "name": "artetra",
+    "oembed": "https://api.museum-artetra.com/oembed",
+    "responsive": true,
+    "schemes": [
+      "https://museum-artetra.com/embed/*"
+    ],
+    "title": "Artetra"
+  },
+  {
+    "name": "ecomic",
+    "oembed": "https://viewer3d-europeana.dpaastools.it/api/oembed",
+    "responsive": true,
+    "schemes": [
+      "https://ecomic.cultura.gov.it/3d-viewer/*"
+    ],
+    "title": "EcoMiC"
+  },
+  {
     "name": "eKultura",
     "oembed": "https://ekultura.hr/oembed",
     "responsive": true,
@@ -48,6 +66,24 @@
       "https://gotlandicpicturestones.se/*"
     ],
     "title": "Gotland Picture Stones"
+  },
+  {
+    "name": "heritageMalta",
+    "oembed": "https://3dviewer.digiarc.mt/oembed",
+    "responsive": true,
+    "schemes": [
+      "https://3dviewer.digiarc.mt/items/*"
+    ],
+    "title": "Heritage Malta"
+  },
+  {
+    "name": "humaNum",
+    "oembed": "https://ecorpus-research.huma-num.fr/services/oembed",
+    "responsive": true,
+    "schemes": [
+      "https://ecorpus-research.huma-num.fr/ui/scenes/*"
+    ],
+    "title": "Huma-Num"
   },
   {
     "name": "kompakkt",

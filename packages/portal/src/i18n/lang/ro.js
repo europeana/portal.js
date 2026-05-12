@@ -166,14 +166,14 @@ export default {
   "automatedCardGroup": {
     "gallery": "Ultimele galerii",
     "item": "Resurse culturale recente",
-    "organisation": "Organizații",
+    "organisation": "Instituții furnizoare",
     "place": "Locuri",
     "theme": "Teme",
     "time": "Secole",
     "topic": "Subiecte"
   },
   "cardLabels": {
-    "organisation": "Organizare",
+    "organisation": "Instituție",
     "person": "Persoană",
     "place": "Loc",
     "theme": "Temă",
@@ -333,13 +333,13 @@ export default {
       "description": "A apărut o eroare necunoscută.",
       "title": "Eroare necunoscută"
     },
-    "IIIFManifestFailure": {
-      "description": "Din păcate, resursă culturală media furnizat Europeana nu poate fi afișat în acest moment. Încercați să descărcați media sau să vizualizați resursă culturală pe site-ul instituției furnizoare."
-    },
     "itemNotFound": {
       "description": "Acest lucru se poate datora următoarelor motive: acest resursă culturală nu există sau; a fost anulat pentru că nu corespundea criteriilor noastre de calitate, sau; a fost actualizat și republicat cu un nou identificator unic, caz în care, încercați să găsiți resursă culturală din nou.",
       "metaTitle": "Resursă culturală nu a fost găsit",
       "title": "Oh nu! {newline} Nu am putut găsi acest resursă culturală."
+    },
+    "mediaFailure": {
+      "description": "Din păcate, resursă culturală media furnizat Europeana nu poate fi afișat în acest moment. Încercați să descărcați media sau să vizualizați resursă culturală pe site-ul instituției furnizoare."
     },
     "noFeatureIdeas": {
       "description": "Reveniți în curând!",
@@ -821,7 +821,7 @@ export default {
       "dcType": "Tip de media",
       "ebucoreAudioChannelNumber": "Canale audio",
       "ebucoreBitRate": "Rată de biți (bps)",
-      "ebucoreDuration": "Durată (ms)",
+      "ebucoreDuration": "Durată",
       "ebucoreFileByteSize": "Dimensiune fișier (octeți)",
       "ebucoreFrameRate": "Rată de cadre (fps)",
       "ebucoreHasMimeType": "Tip MIME",
@@ -1153,13 +1153,23 @@ export default {
     "englishName": "Nume englezesc",
     "nameAcronym": "Acronim de nume"
   },
+  "organisations": {
+    "aggregators": {
+      "description": "Agregatorii colaborează cu instituțiile furnizoare pentru a colecta și publica obiectele lor de patrimoniu cultural digital pe Europeana.eu.",
+      "title": "Agregatori"
+    },
+    "providingInstitutions": {
+      "description": "O listă de muzee, biblioteci, arhive și galerii care își partajează resurse culturale digitale pe Europeana.eu.",
+      "title": "Instituții furnizoare"
+    }
+  },
   "pageHasLoaded": "a încărcat",
   "pageNumber": "Numărul paginii",
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Explorați instituțiile care partajează resurse culturale din patrimoniul cultural digital pe Europeana.eu.",
-        "title": "Instituții"
+        "description": "Explorați instituțiile furnizoare care partajează resurse din patrimoniul cultural digital pe Europeana.eu.",
+        "title": "Instituții furnizoare"
       },
       "persons": {
         "title": "Persoane"

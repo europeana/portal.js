@@ -166,14 +166,14 @@ export default {
   "automatedCardGroup": {
     "gallery": "Najnovejše galerije",
     "item": "Nedavni enote",
-    "organisation": "Organizacije",
+    "organisation": "Ponudniki podatkov",
     "place": "Mesta",
     "theme": "Teme",
     "time": "Stoletja",
     "topic": "Teme"
   },
   "cardLabels": {
-    "organisation": "Organizacija",
+    "organisation": "Institucija",
     "person": "Oseba",
     "place": "Mesto",
     "theme": "Tema",
@@ -333,13 +333,13 @@ export default {
       "description": "Prišlo je do neznane napake.",
       "title": "Neznana napaka"
     },
-    "IIIFManifestFailure": {
-      "description": "Na žalost, enota medij, kot je bil zagotovljen Europeani, trenutno ni mogoče prikazati. Prosimo, poskusite prenesti medij ali si enota oglejte na spletni strani ponudnik podatkov."
-    },
     "itemNotFound": {
       "description": "Razlogi za to so lahko naslednji: ta enota ne obstaja ali je bil odstranjen iz objave, ker ni ustrezal našim merilom kakovosti, ali je bil posodobljen in ponovno objavljen z novim edinstvenim identifikatorjem, v tem primeru poskusite enota poiskati znova.",
       "metaTitle": "Enota ni bil najden",
       "title": "Oh ne! {newline} Tega enota nismo mogli najti."
+    },
+    "mediaFailure": {
+      "description": "Na žalost, enota medij, kot je bil zagotovljen Europeani, trenutno ni mogoče prikazati. Prosimo, poskusite prenesti medij ali si enota oglejte na spletni strani ponudnik podatkov."
     },
     "noFeatureIdeas": {
       "description": "Preverite spet kmalu!",
@@ -821,7 +821,7 @@ export default {
       "dcType": "Vrsta medija",
       "ebucoreAudioChannelNumber": "Zvočni kanali",
       "ebucoreBitRate": "Bitna hitrost (bps)",
-      "ebucoreDuration": "Trajanje (ms)",
+      "ebucoreDuration": "Trajanje",
       "ebucoreFileByteSize": "Velikost datoteke (bajti)",
       "ebucoreFrameRate": "Hitrost sličic (fps)",
       "ebucoreHasMimeType": "Vrsta MIME",
@@ -1153,13 +1153,23 @@ export default {
     "englishName": "Angleško ime",
     "nameAcronym": "Kratica imena"
   },
+  "organisations": {
+    "aggregators": {
+      "description": "Agregatorji sodelujejo z institucijami, ki zagotavljajo podatke, da zberejo in objavijo njihove digitalne enote kulturne dediščine na Europeana.eu.",
+      "title": "Agregatorji"
+    },
+    "providingInstitutions": {
+      "description": "Seznam muzejev, knjižnic, arhivov in galerij, ki delijo svoje digitalne kulturne enote na Europeana.eu.",
+      "title": "Zagotavljanje institucij"
+    }
+  },
   "pageHasLoaded": "je naložena",
   "pageNumber": "Številka strani",
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Raziščite ustanove, ki delijo enote digitalne kulturne dediščine na Europeana.eu.",
-        "title": "Institucije"
+        "description": "Raziščite ustanove ponudnice, ki delijo enote digitalne kulturne dediščine na Europeana.eu.",
+        "title": "Ponudniki podatkov"
       },
       "persons": {
         "title": "Osebe"

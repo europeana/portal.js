@@ -166,14 +166,14 @@ export default {
   "automatedCardGroup": {
     "gallery": "Najnovije galerije",
     "item": "Nedavne predmeti",
-    "organisation": "Organizacije",
+    "organisation": "Institucije",
     "place": "Mjesta",
     "theme": "Teme",
     "time": "Stoljeća",
     "topic": "Sadržaj"
   },
   "cardLabels": {
-    "organisation": "Organizacija",
+    "organisation": "Institucija",
     "person": "Osoba",
     "place": "Mjesto",
     "theme": "Tema",
@@ -333,13 +333,13 @@ export default {
       "description": "Dogodila se nepoznata pogreška.",
       "title": "Nepoznata pogreška"
     },
-    "IIIFManifestFailure": {
-      "description": "Nažalost, mediji predmet koji su dostavljeni Europeani trenutačno se ne mogu prikazati. Molimo pokušajte preuzeti medij ili pogledati predmet na web-mjestu institucije koja pruža podatke."
-    },
     "itemNotFound": {
       "description": "To može biti zbog sljedećih razloga: ova stavka ne postoji ili; povučeno je iz objave jer nije odgovaralo našim kriterijima kvalitete ili; ažuriran je i ponovno objavljen s novim jedinstvenim identifikatorom, u kojem slučaju ponovno pokušajte pronaći stavku.",
       "metaTitle": "Stavka nije pronađena",
       "title": "O ne! {newline} Nismo uspjeli pronaći ovu stavku."
+    },
+    "mediaFailure": {
+      "description": "Nažalost, mediji predmet koji su dostavljeni Europeani trenutačno se ne mogu prikazati. Molimo pokušajte preuzeti medij ili pogledati predmet na web-mjestu institucije koja pruža podatke."
     },
     "noFeatureIdeas": {
       "description": "Provjerite uskoro!",
@@ -821,7 +821,7 @@ export default {
       "dcType": "Vrsta medija",
       "ebucoreAudioChannelNumber": "Audio kanali",
       "ebucoreBitRate": "Brzina prijenosa (bps)",
-      "ebucoreDuration": "Trajanje (ms)",
+      "ebucoreDuration": "Trajanje",
       "ebucoreFileByteSize": "Veličina datoteke (bajtovi)",
       "ebucoreFrameRate": "Broj sličica u sekundi (fps)",
       "ebucoreHasMimeType": "MIME tip",
@@ -1153,12 +1153,22 @@ export default {
     "englishName": "Engleski naziv",
     "nameAcronym": "Akronim naziva"
   },
+  "organisations": {
+    "aggregators": {
+      "description": "Agregatori surađuju s institucijama koje osiguravaju podatke kako bi prikupili i objavili njihove digitalne kulturne predmeti na Europeana.eu.",
+      "title": "Agregatori"
+    },
+    "providingInstitutions": {
+      "description": "Popis muzeja, knjižnica, arhiva i galerija koji dijele svoje digitalne kulturne predmeti na Europeana.eu.",
+      "title": "Pružateljske institucije"
+    }
+  },
   "pageHasLoaded": "se učitao",
   "pageNumber": "Broj stranice",
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Istražite institucije koje dijele predmete digitalne kulturne baštine na Europeana.eu.",
+        "description": "Istražite institucije pružatelje usluga koje dijele digitalne predmete kulturne baštine na Europeana.eu.",
         "title": "Institucije"
       },
       "persons": {

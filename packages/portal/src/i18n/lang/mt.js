@@ -166,14 +166,14 @@ export default {
   "automatedCardGroup": {
     "gallery": "L-aħħar galleriji",
     "item": "Oġġetti reċenti",
-    "organisation": "Organizzazzjonijiet",
+    "organisation": "Istituzzjonijiet fornitriċi",
     "place": "Postijiet",
     "theme": "Temi",
     "time": "Sekli",
     "topic": "Suġġetti"
   },
   "cardLabels": {
-    "organisation": "Organizzazzjoni",
+    "organisation": "Istituzzjoni",
     "person": "Persuna",
     "place": "Post",
     "theme": "Tema",
@@ -333,13 +333,13 @@ export default {
       "description": "Sar żball mhux magħruf.",
       "title": "Żball mhux magħruf"
     },
-    "IIIFManifestFailure": {
-      "description": "Sfortunatament, il-midja tal-oġġett kif ipprovdata lil Europeana ma tistax tiġi murija bħalissa. Jekk jogħġbok, ipprova tniżżel il-midja jew ara l-oġġett fuq is-sit tal-istituzzjoni fornitriċi li pprovdat."
-    },
     "itemNotFound": {
       "description": "Dan jista' jkun minħabba r-raġunijiet li ġejjin: dan l-oġġett ma jeżistix, jew; tneħħiet il-pubblikazzjoni għax ma kinitx taqbel mal-kriterji ta’ kwalità tagħna, jew; ġie aġġornat u ppubblikat mill-ġdid b'identifikatur uniku ġdid, f'liema każ, ipprova erġa' sib l-oġġett.",
       "metaTitle": "Oġġett mhux misjub",
       "title": "Oh le! {newline} Ma stajniex insibu dan l-oġġett."
+    },
+    "mediaFailure": {
+      "description": "Sfortunatament, il-midja tal-oġġett kif ipprovdata lil Europeana ma tistax tiġi murija bħalissa. Jekk jogħġbok, ipprova tniżżel il-midja jew ara l-oġġett fuq is-sit tal-istituzzjoni fornitriċi li pprovdat."
     },
     "noFeatureIdeas": {
       "description": "Iċċekkja lura dalwaqt!",
@@ -821,7 +821,7 @@ export default {
       "dcType": "Tip ta' midja",
       "ebucoreAudioChannelNumber": "Kanali tal-awdjo",
       "ebucoreBitRate": "Rata tal-bits (bps)",
-      "ebucoreDuration": "Tul (ms)",
+      "ebucoreDuration": "Kemm iddum",
       "ebucoreFileByteSize": "Daqs tal-fajl (bytes)",
       "ebucoreFrameRate": "Rata tal-frejms (fps)",
       "ebucoreHasMimeType": "Tip ta' MIME",
@@ -1153,13 +1153,23 @@ export default {
     "englishName": "Isem l-Ingliż",
     "nameAcronym": "Isem akronimu"
   },
+  "organisations": {
+    "aggregators": {
+      "description": "L-aggregaturi jaħdmu mal-istituzzjonijiet fornitriċi biex jiġbru u jippubblikaw l-oġġetti tal-wirt kulturali diġitali tagħhom fuq Europeana.eu.",
+      "title": "Aggregaturi"
+    },
+    "providingInstitutions": {
+      "description": "Lista ta’ mużewijiet, libreriji, arkivji u galleriji li jaqsmu l-oġġetti tal-wirt kulturali diġitali tagħhom fuq Europeana.eu.",
+      "title": "Istituzzjonijiet li jipprovdu"
+    }
+  },
   "pageHasLoaded": "ġie illowdjat",
   "pageNumber": "Numru tal-paġna",
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Esplora l-istituzzjonijiet li jaqsmu l-oġġetti ta' wirt kulturali diġitali fuq Europeana.eu.",
-        "title": "Istituzzjonijiet"
+        "description": "Esplora l-istituzzjonijiet fornituri li jaqsmu oġġetti ta' wirt kulturali diġitali fuq Europeana.eu.",
+        "title": "Istituzzjonijiet fornitriċi"
       },
       "persons": {
         "title": "Persuni"

@@ -13,7 +13,6 @@ const setApiRepositionItemStub = sinon.stub().resolves({});
 const setApiGetStub = sinon.stub().resolves({});
 const setApiGetItemsStub = sinon.stub().resolves([]);
 const clearSelectedItemsSpy = sinon.spy();
-const storeDispatch = sinon.stub().resolves({});
 const storeCommit = sinon.spy();
 
 const $i18n = {
@@ -60,7 +59,6 @@ const factory = (options = {}) => {
       };
     },
     mocks: {
-      $features: options.features || {},
       $t: key => key,
       $tc: key => key,
       $i18n,
@@ -77,12 +75,7 @@ const factory = (options = {}) => {
         query: {}
       },
       $store: {
-        commit: storeCommit,
-        dispatch: storeDispatch,
-        getters: {},
-        state: {
-          set: {}
-        }
+        commit: storeCommit
       },
       $apis: {
         set: {
@@ -234,21 +227,6 @@ describe('GalleryPage (Set)', () => {
         expect(storeCommit.calledWith('entity/setBestItemsSetId', testSetEntityBestItems.id)).toBe(true);
         expect(storeCommit.calledWith('entity/setPinned', sinon.match.array)).toBe(true);
       });
-
-      describe('when accept entity recommendations is enabled', () => {
-        it('renders the recommendations', () => {
-          const wrapper = factory({
-            set: testSetEntityBestItems,
-            user: { loggedIn: true },
-            userHasClientRoleStub,
-            features: { acceptEntityRecommendations: true, showSetRecommendations: true }
-          });
-
-          const recommendations = wrapper.find('setrecommendations-stub');
-
-          expect(recommendations.exists()).toBe(true);
-        });
-      });
     });
   });
 
@@ -284,7 +262,6 @@ describe('GalleryPage (Set)', () => {
 
       await wrapper.vm.$options.beforeRouteLeave.call(wrapper.vm, to, null, next);
 
-      expect(storeCommit.calledWith('set/setActiveRecommendations', [])).toBe(true);
       expect(clearSelectedItemsSpy.calledWith()).toBe(true);
       expect(next.called).toBe(true);
     });

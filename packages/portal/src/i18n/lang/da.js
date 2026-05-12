@@ -166,14 +166,14 @@ export default {
   "automatedCardGroup": {
     "gallery": "Seneste gallerier",
     "item": "Seneste genstande",
-    "organisation": "Organisationer",
+    "organisation": "Ejerinstitutioner",
     "place": "Steder",
     "theme": "Temaer",
     "time": "Århundreder",
     "topic": "Emner"
   },
   "cardLabels": {
-    "organisation": "Organisation",
+    "organisation": "Institution",
     "person": "Person",
     "place": "Sted",
     "theme": "Tema",
@@ -333,13 +333,13 @@ export default {
       "description": "Der opstod en ukendt fejl.",
       "title": "Ukendt fejl"
     },
-    "IIIFManifestFailure": {
-      "description": "Desværre kan det medie genstand, der er leveret til Europeana, ikke vises i øjeblikket. Prøv venligst at downloade mediet genstand eller se emnet på den ejerinstiution hjemmeside."
-    },
     "itemNotFound": {
       "description": "Dette kan skyldes følgende årsager: denne vare findes ikke, eller; den blev offentliggjort, fordi den ikke opfyldte vores kvalitetskriterier, eller; den blev opdateret og genudgivet med en ny unik identifikator, i hvilket tilfælde prøv at finde varen igen.",
       "metaTitle": "Varen blev ikke fundet",
       "title": "Åh nej! {newline} Vi kunne ikke finde denne vare."
+    },
+    "mediaFailure": {
+      "description": "Desværre kan det medie genstand, der er leveret til Europeana, ikke vises i øjeblikket. Prøv venligst at downloade mediet genstand eller se emnet på den ejerinstiution hjemmeside."
     },
     "noFeatureIdeas": {
       "description": "Kom snart tilbage igen!",
@@ -821,7 +821,7 @@ export default {
       "dcType": "Medietype",
       "ebucoreAudioChannelNumber": "Lydkanaler",
       "ebucoreBitRate": "Bithastighed (bps)",
-      "ebucoreDuration": "Varighed (ms)",
+      "ebucoreDuration": "Varighed",
       "ebucoreFileByteSize": "Filstørrelse (byte)",
       "ebucoreFrameRate": "Billedhastighed (fps)",
       "ebucoreHasMimeType": "MIME-type",
@@ -1153,13 +1153,23 @@ export default {
     "englishName": "Engelsk navn",
     "nameAcronym": "Navn akronym"
   },
+  "organisations": {
+    "aggregators": {
+      "description": "Aggregatorer arbejder sammen med de leverende institutioner om at indsamle og offentliggøre deres digitale kulturelle genstande på Europeana.eu.",
+      "title": "Aggregatorer"
+    },
+    "providingInstitutions": {
+      "description": "En liste over museer, biblioteker, arkiver og gallerier, der deler deres digitale kulturelle genstande på Europeana.eu.",
+      "title": "Udbydende institutioner"
+    }
+  },
   "pageHasLoaded": "har indlæst",
   "pageNumber": "Side nummer",
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Udforsk de institutioner, der deler digitale kulturarvsgenstande på Europeana.eu.",
-        "title": "Institutioner"
+        "description": "Udforsk de ejerinstitutioner, der deler digitale kulturarvsgenstande på Europeana.eu.",
+        "title": "Ejerinstitutioner"
       },
       "persons": {
         "title": "Personer"

@@ -20,12 +20,18 @@ describe('redirectToPrefPath', () => {
 
       expect(redirect.called).toBe(false);
     });
+
+    it('returns false', () => {
+      const redirecting = redirectToPrefPath(id, label, { redirect, route });
+
+      expect(redirecting).toBe(false);
+    });
   });
 
   describe('when the URL slug does not use the label', () => {
     const route = { name, params: { pathMatch: '123-not-the-label' } };
 
-    it('redirects', async() => {
+    it('redirects', () => {
       redirectToPrefPath(id, label, { redirect, route });
 
       expect(redirect.calledWith(302, {
@@ -35,6 +41,12 @@ describe('redirectToPrefPath', () => {
         query: {},
         replace: true
       })).toBe(true);
+    });
+
+    it('returns true', () => {
+      const redirecting = redirectToPrefPath(id, label, { redirect, route });
+
+      expect(redirecting).toBe(true);
     });
   });
 });

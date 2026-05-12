@@ -1,16 +1,8 @@
 export default [
-  { name: 'acceptEntityRecommendations' },
-  { name: 'acceptSetRecommendations' },
+  { name: 'aggregatorsTab' },
   { name: 'eventLogging' },
-  { name: 'jiraServiceDeskFeedbackForm' },
-  { name: 'manageApiKeys' },
+  { name: 'isFormatOfMediaMetadata' },
   { name: 'mockTrendingItems' },
-  { name: 'multilingualSearchButton' },
-  { name: 'rejectEntityRecommendations' },
-  { name: 'showSetRecommendations' },
-  { name: 'storiesViewCounts' },
-  { name: 'transcribathonCta' },
-  { name: 'translatedItems' },
-  { name: 'videojs' },
-  { name: 'webResourceMetadata' }
+  { name: 'modelViewer' },
+  { name: 'modelViewerReplacesOembed' }
 ];

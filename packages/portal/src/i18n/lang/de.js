@@ -166,14 +166,14 @@ export default {
   "automatedCardGroup": {
     "gallery": "Neueste Galerien",
     "item": "Aktuelle Objekte",
-    "organisation": "Organisationen",
+    "organisation": "Datenpartner",
     "place": "Orte",
     "theme": "Themenbereiche",
     "time": "Jahrhunderte",
     "topic": "Themen"
   },
   "cardLabels": {
-    "organisation": "Organisation",
+    "organisation": "Institution",
     "person": "Person",
     "place": "Ort",
     "theme": "Thema",
@@ -333,13 +333,13 @@ export default {
       "description": "Ein unbekannter Fehler ist aufgetreten.",
       "title": "Unbekannter Fehler"
     },
-    "IIIFManifestFailure": {
-      "description": "Leider können die Objektmedien, wie sie Europeana zur Verfügung gestellt wurden, derzeit nicht angezeigt werden. Bitte versuchen Sie, die Medien herunterzuladen oder sich das Objekt auf der Website des Datenpartners anzusehen."
-    },
     "itemNotFound": {
       "description": "Dies kann folgende Gründe haben: Dieses Objekt existiert nicht oder; es wurde depubliziert, weil es nicht unseren Qualitätskriterien entsprach, oder; Es wurde aktualisiert und mit einer neuen eindeutigen Kennung erneut veröffentlicht. Versuchen Sie in diesem Fall, das Objekt erneut zu finden.",
       "metaTitle": "Objekt nicht gefunden",
       "title": "Oh nein! {newline} Wir konnten dies Objekt nicht finden."
+    },
+    "mediaFailure": {
+      "description": "Leider können die Objektmedien, wie sie Europeana zur Verfügung gestellt wurden, derzeit nicht angezeigt werden. Bitte versuchen Sie, die Medien herunterzuladen oder sich das Objekt auf der Website des Datenpartners anzusehen."
     },
     "noFeatureIdeas": {
       "description": "Schauen Sie bald wieder vorbei!",
@@ -821,7 +821,7 @@ export default {
       "dcType": "Medientyp",
       "ebucoreAudioChannelNumber": "Audiokanäle",
       "ebucoreBitRate": "Bitrate (bps)",
-      "ebucoreDuration": "Dauer (ms)",
+      "ebucoreDuration": "Dauer",
       "ebucoreFileByteSize": "Dateigröße (Bytes)",
       "ebucoreFrameRate": "Bildrate (fps)",
       "ebucoreHasMimeType": "MIME-Typ",
@@ -1153,13 +1153,23 @@ export default {
     "englishName": "Englischer Name",
     "nameAcronym": "Name Akronym"
   },
+  "organisations": {
+    "aggregators": {
+      "description": "Aggregatoren arbeiten mit den bereitstellenden Institutionen zusammen, um deren digitale kulturelle Objekte auf Europeana.eu zu sammeln und zu veröffentlichen.",
+      "title": "Aggregatoren"
+    },
+    "providingInstitutions": {
+      "description": "Eine Liste der Museen, Bibliotheken, Archive und Galerien, die ihr digitales Kulturerbe auf Europeana.eu zur Verfügung stellen.",
+      "title": "Datenpartner"
+    }
+  },
   "pageHasLoaded": "hat geladen",
   "pageNumber": "Seitennummer",
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Erkunden Sie die Institutionen, die digitale Kulturerbe-Objekte auf Europeana.eu teilen.",
-        "title": "Institutionen"
+        "description": "Entdecken Sie die bereitstellenden Institutionen, die digitale Kulturerbe-Objekte auf Europeana.eu teilen.",
+        "title": "Datenpartner"
       },
       "persons": {
         "title": "Personen"

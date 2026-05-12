@@ -66,7 +66,7 @@
             >
               <template #link>
                 <SmartLink
-                  :destination="$features.manageApiKeys ? '/account/api-keys' : 'https://pro.europeana.eu/pages/get-api'"
+                  destination="/account/api-keys"
                   hide-external-icon
                 >
                   {{ $t('debug.apiRequests.form.apiKey.here') }}<!-- This comment removes white space
@@ -143,7 +143,7 @@
     },
 
     async fetch() {
-      if (!this.$auth.loggedIn || !this.$features.manageApiKeys) {
+      if (!this.$auth.loggedIn) {
         return;
       }
       const userApiKeys = await this.$apis.auth.getUserClients();

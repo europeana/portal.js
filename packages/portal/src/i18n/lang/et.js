@@ -166,14 +166,14 @@ export default {
   "automatedCardGroup": {
     "gallery": "Viimased galeriid",
     "item": "Hiljutised üksused",
-    "organisation": "Organisatsioonid",
+    "organisation": "Pakkuja institutsioon",
     "place": "Kohad",
     "theme": "Teemad",
     "time": "Sajandeid",
     "topic": "Teemad"
   },
   "cardLabels": {
-    "organisation": "Organisatsioon",
+    "organisation": "Institutsioon",
     "person": "Isik",
     "place": "Koht",
     "theme": "Teema",
@@ -333,13 +333,13 @@ export default {
       "description": "Ilmnes tundmatu viga.",
       "title": "Tundmatu viga"
     },
-    "IIIFManifestFailure": {
-      "description": "Kahjuks ei saa Europeanale pakutavaid andmekandjaid praegu kuvada. Palun proovige meedia alla laadida või vaadake üksust edastava asutuse veebisaidil."
-    },
     "itemNotFound": {
       "description": "Selle põhjuseks võivad olla järgmised põhjused: seda üksust pole olemas või; see tühistati, kuna see ei vastanud meie kvaliteedikriteeriumidele või; seda värskendati ja avaldati uuesti uue kordumatu identifikaatoriga. Sel juhul proovige üksust uuesti leida.",
       "metaTitle": "Üksust ei leitud",
       "title": "Oh ei! {newline} Me ei leidnud seda üksust."
+    },
+    "mediaFailure": {
+      "description": "Kahjuks ei saa Europeanale pakutavaid andmekandjaid praegu kuvada. Palun proovige meedia alla laadida või vaadake üksust edastava asutuse veebisaidil."
     },
     "noFeatureIdeas": {
       "description": "Kontrollige varsti uuesti!",
@@ -821,7 +821,7 @@ export default {
       "dcType": "Meedia tüüp",
       "ebucoreAudioChannelNumber": "Helikanalid",
       "ebucoreBitRate": "Bitikiirus (bps)",
-      "ebucoreDuration": "Kestus (ms)",
+      "ebucoreDuration": "Kestus",
       "ebucoreFileByteSize": "Faili suurus (baidid)",
       "ebucoreFrameRate": "Kaadrisagedus (fps)",
       "ebucoreHasMimeType": "MIME tüüp",
@@ -1153,13 +1153,23 @@ export default {
     "englishName": "Ingliskeelne nimi",
     "nameAcronym": "Nime akronüüm"
   },
+  "organisations": {
+    "aggregators": {
+      "description": "Agregaatorid teevad koostööd andmeid esitavate asutustega, et koguda ja avaldada nende digitaalseid kultuuripärandi üksuseid saidil Europeana.eu.",
+      "title": "Agregaatorid"
+    },
+    "providingInstitutions": {
+      "description": "Nimekiri muuseumidest, raamatukogudest, arhiividest ja galeriidest, kes jagavad oma digitaalseid kultuuri üksused saidil Europeana.eu.",
+      "title": "Pakkuja institutsioon"
+    }
+  },
   "pageHasLoaded": "on laaditud",
   "pageNumber": "Lehekülje number",
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Uurige asutusi, mis jagavad digitaalse kultuuripärandi objekte Europeana.eu-s.",
-        "title": "Institutsioonid"
+        "description": "Avasta asutusi, mis jagavad portaalis Europeana.eu digitaalseid kultuuripärandi üksusi.",
+        "title": "Pakkuja institutsioon"
       },
       "persons": {
         "title": "Isikud"

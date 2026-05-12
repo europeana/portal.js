@@ -10,19 +10,12 @@ const factory = (options = {}) => mount(SearchResultsContext, {
   directives: { 'b-tooltip': () => {} },
   propsData: options.propsData,
   mocks: {
-    $config: { app: { search: { translateLocales: 'es', ...options.searchConfig } } },
     $apis: {
       entity: {
         imageUrl: (entity) => entity.logo || entity.isShownBy
       }
     },
-    $auth: {
-      loggedIn: false,
-      ...options.auth
-    },
-    $features: options.features || {},
-    $i18n: { locale: options.locale || 'en', n: (num) => num },
-    localePath: (args) => args,
+    $i18n: { n: (num) => num },
     $route: {
       path: '/search',
       query: {},
@@ -221,112 +214,6 @@ describe('SearchResultsContext', () => {
         expect(criteria.qf).toBe('qf');
         expect(criteria.reusability).toBe('reusability');
         expect(criteria.page).toBe(undefined);
-      });
-    });
-  });
-
-  describe('when multilingual search is enabled for the selected UI language', () => {
-    describe('and not logged in', () => {
-      describe('searching on keyword', () => {
-        const wrapper = factory({
-          locale: 'es',
-          route: { query: { query: 'casa' } }
-        });
-        it('suggests to log in to see more results', () => {
-          const suggestion = wrapper.find('[data-qa="results more link"]');
-
-          expect(suggestion.attributes('path')).toBe('search.results.loginToSeeMore');
-          expect(suggestion.text()).toBe('actions.login');
-        });
-        it('displays a tooltip explaining the multilingual results', () => {
-          const tooltip = wrapper.find('[data-qa="results more tooltip"]');
-
-          expect(tooltip.exists()).toBe(true);
-        });
-      });
-      describe('searrching on a collections page', () => {
-        describe('searching on keyword', () => {
-          const wrapper = factory({
-            propsData: { entity: fixtures.thematicCollectionTopicEntity },
-            locale: 'es',
-            route: { query: { query: 'casa' } }
-          });
-          it('suggests to log in to see more results', () => {
-            const suggestion = wrapper.find('[data-qa="results more link"]');
-
-            expect(suggestion.exists()).toBe(true);
-          });
-          it('displays a tooltip explaining the multilingual results', () => {
-            const tooltip = wrapper.find('[data-qa="results more tooltip"]');
-
-            expect(tooltip.exists()).toBe(true);
-          });
-        });
-
-        describe('searching without keyword', () => {
-          it('suggests to log in to see more results', () => {
-            const wrapper = factory({
-              propsData: { entity: fixtures.thematicCollectionTopicEntity },
-              locale: 'es'
-            });
-            const suggestion = wrapper.find('[data-qa="results more link"]');
-
-            expect(suggestion.attributes('path')).toBe('search.results.loginToSeeMore');
-            expect(suggestion.text()).toBe('actions.login');
-          });
-        });
-      });
-      describe('searching without keyword', () => {
-        it('suggests to log in to see more results', () => {
-          const wrapper = factory({
-            locale: 'es'
-          });
-
-          const suggestion = wrapper.find('[data-qa="results more link"]');
-
-          expect(suggestion.attributes('path')).toBe('search.results.loginToSeeMore');
-          expect(suggestion.text()).toBe('actions.login');
-        });
-      });
-    });
-    describe('and logged in', () => {
-      describe('searching on keyword', () => {
-        const wrapper = factory({
-          auth: { loggedIn: true },
-          locale: 'es',
-          route: { query: { query: 'casa' } }
-        });
-
-        it('does not suggest to log in to see more results', () => {
-          const suggestion = wrapper.find('[data-qa="results more link"]');
-
-          expect(suggestion.exists()).toBe(false);
-        });
-        it('displays a tooltip explaining the multilingual results', () => {
-          const tooltip = wrapper.find('[data-qa="results more tooltip"]');
-
-          expect(tooltip.exists()).toBe(true);
-        });
-      });
-    });
-  });
-
-  describe('when on the English portal', () => {
-    describe('and not logged in', () => {
-      describe('searching on keyword', () => {
-        const wrapper = factory({
-          route: { query: { query: 'casa' } }
-        });
-        it('does not suggest to log in to see more results', () => {
-          const suggestion = wrapper.find('[data-qa="results more link"]');
-
-          expect(suggestion.exists()).toBe(false);
-        });
-        it('does not display a tooltip explaining the multilingual results', () => {
-          const tooltip = wrapper.find('[data-qa="results more tooltip"]');
-
-          expect(tooltip.exists()).toBe(false);
-        });
       });
     });
   });

@@ -166,14 +166,14 @@ export default {
   "automatedCardGroup": {
     "gallery": "Uusimmat galleriat",
     "item": "Viimeaikaiset aineistot",
-    "organisation": "Organisaatiot",
+    "organisation": "Aineiston tarjoajat",
     "place": "Paikat",
     "theme": "Teemat",
     "time": "Vuosisadat",
     "topic": "Aiheet"
   },
   "cardLabels": {
-    "organisation": "Organisaatio",
+    "organisation": "Instituutio",
     "person": "Henkilö",
     "place": "Paikka",
     "theme": "Teema",
@@ -333,13 +333,13 @@ export default {
       "description": "Tapahtui tuntematon virhe.",
       "title": "Tuntematon virhe"
     },
-    "IIIFManifestFailure": {
-      "description": "Valitettavasti Europeanaan toimitettua media aineisto ei voida näyttää tällä hetkellä. Yritä ladata media tai katso aineisto tarjoavan laitoksen verkkosivustolla."
-    },
     "itemNotFound": {
       "description": "Tämä voi johtua seuraavista syistä: tätä aineisto ei ole olemassa tai; se poistettiin, koska se ei vastannut laatukriteereitämme tai; se päivitettiin ja julkaistiin uudelleen uudella yksilöivällä tunnisteella. Yritä siinä tapauksessa löytää aineisto uudelleen.",
       "metaTitle": "Aineisto ei löydy",
       "title": "Voi ei! {newline} Emme löytäneet tätä aineisto."
+    },
+    "mediaFailure": {
+      "description": "Valitettavasti Europeanaan toimitettua media aineisto ei voida näyttää tällä hetkellä. Yritä ladata media tai katso aineisto tarjoavan laitoksen verkkosivustolla."
     },
     "noFeatureIdeas": {
       "description": "Tarkista pian uudelleen!",
@@ -821,7 +821,7 @@ export default {
       "dcType": "Mediatyyppi",
       "ebucoreAudioChannelNumber": "Äänikanavat",
       "ebucoreBitRate": "Bittinopeus (bps)",
-      "ebucoreDuration": "Kesto (ms)",
+      "ebucoreDuration": "Kesto",
       "ebucoreFileByteSize": "Tiedostokoko (tavua)",
       "ebucoreFrameRate": "Kuvataajuus (fps)",
       "ebucoreHasMimeType": "MIME-tyyppi",
@@ -1153,13 +1153,23 @@ export default {
     "englishName": "Englanninkielinen nimi",
     "nameAcronym": "Nimen lyhenne"
   },
+  "organisations": {
+    "aggregators": {
+      "description": "Aggregaattorit tekevät yhteistyötä aineistoja toimittavien organisaatioiden kanssa kerätäkseen ja julkaistakseen niiden digitaaliset kulttuuriperinnön aineistot Europeana.eu-sivustolla.",
+      "title": "Aggregaattorit"
+    },
+    "providingInstitutions": {
+      "description": "Luettelo museoista, kirjastoista, arkistoista ja gallerioista, jotka jakavat digitaalisia kulttuuriperinnön aineistot Europeana.eu-sivustolla.",
+      "title": "Tarjoavat laitokset"
+    }
+  },
   "pageHasLoaded": "on ladattu",
   "pageNumber": "Sivunumero",
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Tutustu laitoksiin, jotka jakavat digitaalisia kulttuuriperintöaineistoja Europeana.eu:ssa.",
-        "title": "Toimielimet"
+        "description": "Tutustu tarjoaviin organisaatioihin, jotka jakavat digitaalisia kulttuuriperintöaineistoja Europeana.eu-palvelussa.",
+        "title": "Aineiston tarjoajat"
       },
       "persons": {
         "title": "Henkilöt"

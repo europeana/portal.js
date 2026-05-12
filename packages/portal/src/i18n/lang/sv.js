@@ -166,14 +166,14 @@ export default {
   "automatedCardGroup": {
     "gallery": "Senaste gallerier",
     "item": "Senaste objekt",
-    "organisation": "Organisationer",
+    "organisation": "Tillhandahållande institutioner",
     "place": "Platser",
     "theme": "Teman",
     "time": "Århundraden",
     "topic": "Ämnen"
   },
   "cardLabels": {
-    "organisation": "Organisation",
+    "organisation": "Institution",
     "person": "Person",
     "place": "Plats",
     "theme": "Tema",
@@ -333,13 +333,13 @@ export default {
       "description": "Ett okänt fel uppstod.",
       "title": "Okänt fel"
     },
-    "IIIFManifestFailure": {
-      "description": "Tyvärr kan inte det medieobjekt som tillhandahållits till Europeana visas för tillfället. Försök att ladda ner mediaobjektet eller visa objektet på den tillhandahållande institutionens webbplats."
-    },
     "itemNotFound": {
       "description": "Detta kan bero på följande orsaker: det här objektet finns inte, eller; den reduplicerades eftersom den inte matchade våra kvalitetskriterier, eller; den uppdaterades och publicerades på nytt med en ny unik identifierare. Försök i så fall att hitta objektet igen.",
       "metaTitle": "Objektet hittades inte",
       "title": "Åh nej! {newline} Vi kunde inte hitta det här objektet."
+    },
+    "mediaFailure": {
+      "description": "Tyvärr kan inte det medieobjekt som tillhandahållits till Europeana visas för tillfället. Försök att ladda ner mediaobjektet eller visa objektet på den tillhandahållande institutionens webbplats."
     },
     "noFeatureIdeas": {
       "description": "Kom tillbaka snart igen!",
@@ -821,7 +821,7 @@ export default {
       "dcType": "Typ av media",
       "ebucoreAudioChannelNumber": "Ljudkanaler",
       "ebucoreBitRate": "Bithastighet (bps)",
-      "ebucoreDuration": "Varaktighet (ms)",
+      "ebucoreDuration": "Varaktighet",
       "ebucoreFileByteSize": "Filstorlek (byte)",
       "ebucoreFrameRate": "Bildfrekvens (fps)",
       "ebucoreHasMimeType": "MIME-typ",
@@ -1153,13 +1153,23 @@ export default {
     "englishName": "Engelskt namn",
     "nameAcronym": "Namn akronym"
   },
+  "organisations": {
+    "aggregators": {
+      "description": "Aggregatorer samarbetar med tillhandahållande institutioner för att samla in och publicera deras digitala kulturarvsobjekt på Europeana.eu.",
+      "title": "Aggregatorer"
+    },
+    "providingInstitutions": {
+      "description": "En lista över museer, bibliotek, arkiv och gallerier som delar sina digitala kulturella objekt på Europeana.eu.",
+      "title": "Tillhandahållande institutioner"
+    }
+  },
   "pageHasLoaded": "har laddats",
   "pageNumber": "Sidonummer",
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Utforska de institutioner som delar digitala kulturarvsobjekt på Europeana.eu.",
-        "title": "institutioner"
+        "description": "Utforska de tillhandahållande institutioner som delar digitala kulturarvsobjekt på Europeana.eu.",
+        "title": "Tillhandahållande institutioner"
       },
       "persons": {
         "title": "Personer"

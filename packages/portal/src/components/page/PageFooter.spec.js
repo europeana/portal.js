@@ -12,7 +12,6 @@ const factory = ({ mocks = {} } = {}) => shallowMount(PageFooter, {
   localVue,
   mocks: {
     $t: (key) => key,
-    $features: { manageApiKey: true },
     ...mocks
   },
   stubs: {

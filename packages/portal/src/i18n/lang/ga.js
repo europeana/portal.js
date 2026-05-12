@@ -166,14 +166,14 @@ export default {
   "automatedCardGroup": {
     "gallery": "Gailearaithe is déanaí",
     "item": "Míreanna le déanaí",
-    "organisation": "Eagraíochtaí",
+    "organisation": "Institiúidí soláthartha",
     "place": "Áiteanna",
     "theme": "Téamaí",
     "time": "Céadta",
     "topic": "Ábhair"
   },
   "cardLabels": {
-    "organisation": "Eagraíocht",
+    "organisation": "Institiúid",
     "person": "Duine",
     "place": "Áit",
     "theme": "Téama",
@@ -333,13 +333,13 @@ export default {
       "description": "Tharla earráid anaithnid.",
       "title": "Earráid anaithnid"
     },
-    "IIIFManifestFailure": {
-      "description": "Ar an drochuair, ní féidir na meáin mhíreanna a chuirtear ar fáil do Europeana a thaispeáint faoi láthair. Déan iarracht na meáin a íoslódáil nó féachaint ar an mír ar shuíomh Gréasáin na hinstitiúide soláthair."
-    },
     "itemNotFound": {
       "description": "D'fhéadfadh sé seo a bheith mar gheall ar na cúiseanna seo a leanas: níl an mhír seo ann, nó; dífhoilsíodh é toisc nach raibh sé ag teacht lenár gcritéir cháilíochta, nó; Rinneadh é a nuashonrú agus a athfhoilsiú le haitheantóir uathúil nua, agus sa chás sin, déan iarracht an mhír a aimsiú arís.",
       "metaTitle": "Ní bhfuarthas an mhír",
       "title": "Ó níl! {newline} Ní rabhamar in ann an mhír seo a aimsiú."
+    },
+    "mediaFailure": {
+      "description": "Ar an drochuair, ní féidir na meáin mhíreanna a chuirtear ar fáil do Europeana a thaispeáint faoi láthair. Déan iarracht na meáin a íoslódáil nó féachaint ar an mír ar shuíomh Gréasáin na hinstitiúide soláthair."
     },
     "noFeatureIdeas": {
       "description": "Seiceáil ar ais arís go luath!",
@@ -821,7 +821,7 @@ export default {
       "dcType": "Cineál meáin",
       "ebucoreAudioChannelNumber": "Cainéil fuaime",
       "ebucoreBitRate": "Ráta giotán (bps)",
-      "ebucoreDuration": "Fad (ms)",
+      "ebucoreDuration": "Fad",
       "ebucoreFileByteSize": "Méid comhaid (bearta)",
       "ebucoreFrameRate": "Ráta frámaí (fps)",
       "ebucoreHasMimeType": "Cineál MIME",
@@ -1153,13 +1153,23 @@ export default {
     "englishName": "Ainm Béarla",
     "nameAcronym": "Acrainm ainm"
   },
+  "organisations": {
+    "aggregators": {
+      "description": "Oibríonn comhghréaqadóirí le hinstitiúidí soláthair chun a gcuid míreanna oidhreachta cultúrtha digiteacha a bhailiú agus a fhoilsiú ar Europeana.eu.",
+      "title": "Comhbhailitheoir"
+    },
+    "providingInstitutions": {
+      "description": "Liosta de mhúsaeim, leabharlanna, cartlanna agus dánlanna a roinneann a gcuid míreanna oidhreachta cultúrtha digití ar Europeana.eu.",
+      "title": "Institiúidí soláthair"
+    }
+  },
   "pageHasLoaded": "luchtaithe",
   "pageNumber": "Uimhir an leathanaigh",
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Déan iniúchadh ar na hinstitiúidí a roinneann míreanna digiteacha oidhreachta cultúrtha ar Europeana.eu.",
-        "title": "Institiúidí"
+        "description": "Déan iniúchadh ar naInstitiúidí soláthartha a roinneann míreanna digiteacha oidhreachta cultúrtha ar Europeana.eu.",
+        "title": "Institiúidí soláthartha"
       },
       "persons": {
         "title": "Daoine"
