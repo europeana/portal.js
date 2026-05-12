@@ -40,7 +40,6 @@ jobs:
           async_mode: true
           additional_params: |
             add_newline_eof: true
-            directory_prefix: packages/portal/src/i18n/lang
             exclude_tags:
               - "Not ready"
             export_empty_as: skip
@@ -80,7 +79,7 @@ jobs:
                 custom_language_iso: mt
               - original_language_iso: ga_IE
                 custom_language_iso: ga
-            original_filenames: true
+            original_filenames: false
             placeholder_format: icu
             replace_breaks: false
           
