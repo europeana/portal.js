@@ -32,13 +32,17 @@ jobs:
           base_lang: en_GB
           flat_naming: true
           skip_include_tags: true
+          skip_original_filenames: true
           always_pull_base: true
           git_commit_message: "chore: update translations"
           custom_github_token: "${{ secrets.GIT_PAT_LOKALISE }}"
-          post_process_command: node bin/post-process-lokalise-pull.js
+          post_process_command: |
+            mv packages/portal/src/i18n/lang/packages/portal/src/i18n/lang/*.js packages/portal/src/i18n/lang/ && \
+            node bin/post-process-lokalise-pull.js
           async_mode: true
           additional_params: |
             add_newline_eof: true
+            directory_prefix: packages/portal/src/i18n/lang
             exclude_tags:
               - "Not ready"
             export_empty_as: skip
@@ -78,6 +82,7 @@ jobs:
                 custom_language_iso: mt
               - original_language_iso: ga_IE
                 custom_language_iso: ga
+            original_filenames: true
             placeholder_format: icu
             replace_breaks: false
           
