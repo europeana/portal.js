@@ -379,6 +379,11 @@ describe('plugins/europeana/edm/WebResource', () => {
           expectation: false
         },
         {
+          title: 'when for an HTML document',
+          data: { ebucoreHasMimeType: 'text/html' },
+          expectation: false
+        },
+        {
           title: 'otherwise',
           data: {
             about: 'https://example.org/image.jpeg',
