@@ -40,7 +40,6 @@ jobs:
           async_mode: true
           additional_params: |
             add_newline_eof: true
-            directory_prefix: packages/portal/src/i18n/lang
             exclude_tags:
               - "Not ready"
             export_empty_as: skip
@@ -87,4 +86,4 @@ jobs:
       - name: Debug
         run: |
           git status
-          ls -l packages/portal/src/i18n/lang/packages/
+          ls -l packages/portal/src/i18n/lang/
