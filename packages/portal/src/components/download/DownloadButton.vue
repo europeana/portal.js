@@ -172,7 +172,7 @@
 
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
-  .icon-ic-download::before {
+  .btn-primary .icon-ic-download::before {
     font-size: 1.125rem;
     line-height: 1;
   }
