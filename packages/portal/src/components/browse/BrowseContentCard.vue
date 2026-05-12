@@ -18,6 +18,7 @@
   import { getEntityTypeHumanReadable } from '@/plugins/europeana/entity';
 
   export default {
+    name: 'BrowseContentCard',
     components: {
       ContentCard
     },

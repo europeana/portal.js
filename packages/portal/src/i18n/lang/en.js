@@ -1199,6 +1199,16 @@ export default {
     "englishName": "English name",
     "nameAcronym": "Name acronym"
   },
+  "organisations": {
+    "aggregators": {
+      "description": "Aggregators work with providing institutions to gather and publish their digital cultural heritage items on Europeana.eu.",
+      "title": "Aggregators"
+    },
+    "providingInstitutions": {
+      "description": "A list of museums, libraries, archives and galleries which share their digital cultural heritage items on Europeana.eu.",
+      "title": "Providing institutions"
+    }
+  },
   "pageHasLoaded": "has loaded",
   "pageNumber": "Page number",
   "pages": {

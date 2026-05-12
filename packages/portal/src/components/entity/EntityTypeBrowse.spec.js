@@ -1,14 +1,12 @@
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '@test/utils.js';
-import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
 
-import page from '@/pages/collections/persons-or-places';
+import EntityTypeBrowse from './EntityTypeBrowse.vue';
 
 const localVue = createLocalVue();
-localVue.use(BootstrapVue);
 
-const factory = () => shallowMountNuxt(page, {
+const factory = ({ propsData = {} } = {}) => shallowMountNuxt(EntityTypeBrowse, {
   localVue,
   data() {
     return {
@@ -29,32 +27,26 @@ const factory = () => shallowMountNuxt(page, {
       total: 17042
     };
   },
+  propsData: {
+    type: 'persons',
+    ...propsData
+  },
   mocks: {
     $t: key => key,
-    $route: { query: {}, path: '/collections/persons' },
-    $auth: {
-      loggedIn: false
-    },
+    $route: { query: {} },
     $apis: {
       entity: {
-        search: sinon.stub().resolves({}),
-        imageUrl: (image) => image.thumbnail
+        search: sinon.stub().resolves({})
       }
     },
     $i18n: {
       locale: 'es'
-    },
-    $store: {
-      state: {
-        sanitised: {
-          page: 1
-        }
-      }
     }
-  }
+  },
+  stubs: ['b-col', 'b-row']
 });
 
-describe('pages/collections/persons-or-places', () => {
+describe('components/entity/EntityTypeBrowse', () => {
   describe('template', () => {
     it('has a pagination nav', () => {
       const wrapper = factory();
@@ -92,12 +84,5 @@ describe('pages/collections/persons-or-places', () => {
       expect(wrapper.vm.scrollToSelector.calledWith('#header')).toBe(true);
     });
   });
-
-  describe('head', () => {
-    it('includes translated title', () => {
-      const wrapper = factory();
-
-      expect(wrapper.vm.pageMeta.title).toBe('pages.collections.persons.title');
-    });
-  });
 });
+
