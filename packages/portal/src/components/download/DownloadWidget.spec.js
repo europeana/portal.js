@@ -13,8 +13,10 @@ const factory = ({ propsData = {}, data = {}, mocks = {} } = {}) => {
     propsData,
     data: () => ({ ...data }),
     mocks: {
+      $t: (key) => key,
       ...mocks
-    }
+    },
+    stubs: ['DownloadButton']
   });
   sinon.spy(wrapper.vm.$bvModal, 'show');
   return wrapper;

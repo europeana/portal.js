@@ -32,7 +32,6 @@
           @download="handleDownload(wr.about)"
           @downloadError="$bvModal.show('download-failed-modal')"
         >
-          <span class="icon-ic-download d-inline-flex pr-1" />
           {{ mediaDownloadLabel(wr) }}
         </DownloadButton>
       </b-dropdown-text>
@@ -45,7 +44,9 @@
       class="ml-2"
       @download="handleDownload(downloadableMedia[0].about)"
       @downloadError="$bvModal.show('download-failed-modal')"
-    />
+    >
+      {{ $t('actions.download') }} {{ mediaDownloadLabel(downloadableMedia[0]) }}
+    </DownloadButton>
     <DownloadSuccessModal
       :title="attributionFields.title"
       :creator="attributionFields.creator"

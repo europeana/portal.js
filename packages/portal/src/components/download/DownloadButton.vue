@@ -10,8 +10,8 @@
     :role="role"
     @click.native="handleClickDownloadButton"
   >
+    <span class="icon-ic-download d-inline-flex pr-1" />
     <slot>
-      <span class="icon-ic-download d-inline-flex pr-1" />
       {{ $t('actions.download') }}
     </slot>
     <LoadingSpinner
