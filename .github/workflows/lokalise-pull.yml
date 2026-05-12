@@ -83,3 +83,6 @@ jobs:
             original_filenames: true
             placeholder_format: icu
             replace_breaks: false
+          
+      - name: Debug
+        run: git status
