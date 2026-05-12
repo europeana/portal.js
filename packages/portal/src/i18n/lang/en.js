@@ -1225,6 +1225,7 @@ export default {
       },
       "table": {
         "country": "Country",
+        "domain": "Domain / Theme",
         "items": "Items",
         "name": "Name",
         "searchPlaceholder": "Search within table",

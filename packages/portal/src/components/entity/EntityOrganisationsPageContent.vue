@@ -8,13 +8,26 @@
       <p>{{ description }}</p>
     </b-col>
     <!-- TODO: handle different aggregator types (national / international) and add aggregator types headings and descriptions -->
-    <client-only>
+    <client-only v-if="tab === 'organisations'">
       <EntityTable
-        v-if="type === 'organisations'"
-        :type="type"
+        type="organisations"
         class="mt-3 mt-md-4"
       />
     </client-only>
+    <div
+      v-for="aggregator, index in aggregatorTypes"
+      v-else
+      :key="index"
+    >
+      <client-only>
+        <EntityTable
+
+          :type="aggregator"
+          class="mt-3 mt-md-4"
+          :searchable="false"
+        />
+      </client-only>
+    </div>
   </div>
 </template>
 
@@ -46,19 +59,22 @@
 
     computed: {
       description() {
-        if (this.type === AGGREGATORS) {
+        if (this.tab === AGGREGATORS) {
           return this.$t('organisations.aggregators.description');
         } else {
           return this.$t('organisations.providingInstitutions.description');
         }
       },
-      type() {
+      tab() {
         // TODO: handle the different types (aggregators, institutions) in EntityTable
         if (this.activeTabHash === HASH_AGGREGATORS) {
           return AGGREGATORS;
         } else {
           return 'organisations';
         }
+      },
+      aggregatorTypes() {
+        return ['internationalAggregators', 'regionalAggregators'];
       }
     }
   };
