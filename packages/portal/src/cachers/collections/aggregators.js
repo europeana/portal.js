@@ -16,23 +16,22 @@ const data = async(config = {}) => {
 
   axiosClientEntity = createEuropeanaApiClient(config.europeana?.apis?.entity);
 
-  const internationalAggregators =  await Promise.all(organisationData.map(
+  return await Promise.all(organisationData.map(
     async(organisation) => {
-      // Add geographicScope and heritageDomain
+      // Add heritageDomain or countryPrefLabel depending on geographicScope
       const entityId = organisation.id.split('/').pop();
       const fullEntityResponse = await getFullEntity(`/organization/${entityId}.json`);
 
-      if (fullEntityResponse?.geographicScope !== 'International') {
-        return null;
+      if (fullEntityResponse?.geographicScope === 'International') {
+        organisation.heritageDomain = fullEntityResponse?.heritageDomain;
+      } else {
+        organisation.countryPrefLabel = organisation.country.prefLabel;
       }
-      organisation.heritageDomain = fullEntityResponse?.heritageDomain;
+
       organisation.recordCount = organisation.isAggregatedBy.recordCount;
-      organisation.countryPrefLabel = organisation.country.prefLabel;
 
       return organisation;
     }));
-
-  return internationalAggregators.filter(Boolean);
 };
 
 export {
