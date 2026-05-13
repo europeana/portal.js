@@ -11,7 +11,7 @@
   />
   <div
     v-else
-    :data-qa="isDeleted ? 'item tombstone page' : 'item page'"  
+    :data-qa="isDeleted ? 'item tombstone page' : 'item page'"
   >
     <b-container
       fluid
