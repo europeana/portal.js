@@ -104,8 +104,8 @@
         case ('/help'):
         case ('/stories'):
         case ('/account'):
-        case ('/account/login'):
-        case ('/account/logout'):
+        case ('/auth/login'):
+        case ('/auth/logout'):
         case ('/feature-ideas'):
           className = `icon-${url.split('/').pop()}`;
           break;
