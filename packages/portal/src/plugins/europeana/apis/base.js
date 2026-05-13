@@ -108,7 +108,7 @@ export default class EuropeanaApi {
     if (this.constructor.AUTHENTICATING) {
       params.wskey = this.key;
     }
-    if (this.constructor.AUTHORISING && this.context?.$auth?.loggedIn) {
+    if (this.constructor.AUTHORISING && this.context?.$auth?.user?.loggedIn) {
       headers.authorization = `Bearer ${this.context.$auth.accessToken}`;
     }
 

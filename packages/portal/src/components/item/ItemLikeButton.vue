@@ -123,7 +123,7 @@
 
     methods: {
       async toggleLiked() {
-        if (this.$auth.loggedIn) {
+        if (this.$auth.user.loggedIn) {
           try {
             await (this.pressed ? this.handleUnlike() : this.handleLike());
           } catch (e) {

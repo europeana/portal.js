@@ -18,7 +18,7 @@
       // NOTE: in mounted because it relies on localStorage for OIDC state validation
       await this.$auth.loginCallback();
 
-      if (this.$auth.loggedIn) {
+      if (this.$auth.user.loggedIn) {
         this.makeToast(this.$t('account.notifications.loggedIn'));
       }
     }

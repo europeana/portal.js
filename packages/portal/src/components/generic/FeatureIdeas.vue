@@ -92,7 +92,7 @@
 
     methods: {
       async voteOnFeature(featureId) {
-        if (this.$auth.loggedIn) {
+        if (this.$auth.user.loggedIn) {
           const method = this.hasVotedOnFeature(featureId) ? 'delete' : 'put';
 
           await this.$auth.requestWithAuth({

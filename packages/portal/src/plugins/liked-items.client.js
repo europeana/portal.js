@@ -4,9 +4,9 @@ import uniq from 'lodash/uniq';
 export default async({ $apis, $auth }, inject) => {
   let likedItemsSetId = null;
 
-  if ($auth?.loggedIn && $auth?.user?.sub) {
+  if ($auth?.user?.loggedIn && $auth?.user?.data?.sub) {
     try {
-      likedItemsSetId = await $apis.set.getLikes($auth.user.sub);
+      likedItemsSetId = await $apis.set.getLikes($auth.user.data.sub);
     } catch (e) {
       // Don't cause everything to break if the Set API is down...
     }

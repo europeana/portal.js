@@ -186,7 +186,7 @@
       // When entering a translated item page, but not logged-in,
       // redirect to Keycloak to login.
       ({ $auth, redirect, route }) => {
-        if (route.query.lang && !$auth.loggedIn) {
+        if (route.query.lang && !$auth.user.loggedIn) {
           return redirect(303, { name: 'account-login', query: { redirect: route.fullPath } });
         }
       }
@@ -353,7 +353,7 @@
         };
       },
       translatingMetadata() {
-        return !!(this.$route.query.lang && this.$auth.loggedIn);
+        return !!(this.$route.query.lang && this.$auth.user.loggedIn);
       },
       translationLanguage() {
         return this.translatingMetadata ? this.$route.query.lang : null;

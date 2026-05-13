@@ -39,16 +39,16 @@
 
     computed: {
       // TODO: refactor so that each page can register its own logout redirect path
-      //       (if needed), e.g. via a composable fn
+      //       (if needed), e.g. via a composable or provide/inject fn
       logoutRedirect() {
         if (this.$route.name.startsWith('account')) {
           return this.localePath('/');
-        } else if (this.$route.name.startsWith('item')) {
-          if (this.$route.query.lang && !this.$auth.loggedIn) {
-            // rm lang from query, otherwise preserve fullPath
+        } else if (this.$route.name.startsWith('item-all')) {
+          if (this.$route.query.lang) {
+            // rm lang from query
             const query = new URLSearchParams(this.$route.query);
             query.delete('lang');
-            return `${this.route.path}?${query.toString()}`;
+            return `${this.$route.path}?${query.toString()}`;
           }
         }
         return this.$route.fullPath;
@@ -88,7 +88,7 @@
         return this.mainNavigation.concat(this.sidebarNav ? this.sidebarNavigation : []).concat(this.authLinks);
       },
       isAuthenticated() {
-        return this.$auth?.loggedIn;
+        return this.$auth?.user.loggedIn;
       },
       isAccountPage() {
         return this.$route.name.startsWith('account');

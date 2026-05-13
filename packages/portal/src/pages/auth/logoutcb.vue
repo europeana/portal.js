@@ -18,7 +18,7 @@
       // NOTE: in mounted so that it clears the cookies from the browser
       await this.$auth.logoutCallback();
 
-      if (!this.$auth.loggedIn) {
+      if (!this.$auth.user.loggedIn) {
         this.makeToast(this.$t('account.notifications.loggedOut'));
       }
     }

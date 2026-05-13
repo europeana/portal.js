@@ -1,5 +1,7 @@
 import axios from 'axios';
 import { nanoid } from 'nanoid';
+import { extractLocaleFromRoutePath } from '@/i18n/routes.js';
+import Vue from 'vue';
 
 const PLUGIN_NAME = 'auth';
 const STATE_KEY = `$${PLUGIN_NAME}`;
@@ -18,14 +20,21 @@ export const createAuthPlugin = (ctx) => {
   };
 
   const appUrl = (path) => `${ctx.$config.app.baseUrl}${path}`;
+  // TODO: make configurable via plugin options from config
   const callbackPaths = {
     login: '/auth/logincb',
     logout: '/auth/logoutcb'
   };
 
-  let user = null;
-
-  const userIsLoggedIn = () => !!user;
+  const user = Vue.observable({
+    data: null,
+    get loggedIn() {
+      return !!this.data;
+    },
+    hasClientRole(client, role) {
+      return this.data?.resource_access?.[client]?.roles?.includes(role) || false;
+    }
+  });
 
   const storageKey = (key) => `${PLUGIN_NAME}.${key}`;
   const storage = {
@@ -119,15 +128,13 @@ export const createAuthPlugin = (ctx) => {
         // in case request does not need authorization anyway
         delete requestConfig.headers['authorization'];
         removeRefreshToken();
-        user = null;
+        user.data = null;
         return request(requestConfig);
       }
     } else {
       // User has not already logged in, or we have no refresh token:
-      // redirect to OIDC login URL
-      // TODO: is this the appropriate action here? or should we throw the error again?
-      //       for callers to trigger login if they deem appropriate
-      return login();
+      // throw error for caller to handle
+      throw error;
     }
   };
 
@@ -173,7 +180,7 @@ export const createAuthPlugin = (ctx) => {
   };
 
   const redirectUri = (action, { redirect } = {}) => {
-    const url = new URL(appUrl(callbackPaths[action]));
+    const url = new URL(appUrl(ctx.localePath(callbackPaths[action])));
     url.search = new URLSearchParams({
       redirect: redirect || redirectPath()
     });
@@ -199,7 +206,7 @@ export const createAuthPlugin = (ctx) => {
   };
 
   const loginCallback = async() => {
-    if (userIsLoggedIn()) {
+    if (user.loggedIn) {
       ctx.app.router.replace(ctx.route.query.redirect || '/');
     }
 
@@ -253,7 +260,8 @@ export const createAuthPlugin = (ctx) => {
   const logoutCallback = () => {
     removeAccessToken();
     removeRefreshToken();
-    user = null;
+    // FIXME: shouldn't need to do this as it shouldn't yet be set...
+    user.data = null;
 
     ctx.app.router.replace(ctx.route.query.redirect || '/');
   };
@@ -267,36 +275,43 @@ export const createAuthPlugin = (ctx) => {
   };
 
   const getUserInfo = async() => {
-    const response = await requestWithAuth({
-      url: endpoints.userinfo,
-      method: 'get',
-      params: {
-        'client_id': config.clientId
-      }
-    });
-    user = response.data;
+    let userData;
+
+    if (ctx.nuxtState?.[STATE_KEY]?.user) {
+      userData = ctx.nuxtState[STATE_KEY].user;
+    } else {
+      const response = await requestWithAuth({
+        url: endpoints.userinfo,
+        method: 'get',
+        params: {
+          'client_id': config.clientId
+        }
+      });
+      userData = response.data;
+    }
+
+    user.data = userData;
   };
 
   const initUserInfo = async() => {
-    if (getAccessToken() && !user && (ctx.route.path !== callbackPaths.logout)) {
-      if (ctx.nuxtState?.[STATE_KEY]?.user) {
-        user = ctx.nuxtState[STATE_KEY].user;
-      } else {
-        await getUserInfo();
-        // store it in the nuxt state for hydration to prevent re-calling getUserInfo client-side
-        ctx.beforeSerialize?.((nuxtState) => {
-          nuxtState[STATE_KEY] ||= {};
-          nuxtState[STATE_KEY].user = user;
-        });
-      }
+    // TODO: make assumption of use of i18n optional
+    const { path: localelessPath } = extractLocaleFromRoutePath(ctx.route.path);
+
+    // do not init user info on login/logout callback paths
+    if (Object.values(callbackPaths).includes(localelessPath)) {
+      return;
+    }
+
+    if (getAccessToken() && !user.loggedIn && (ctx.route.path !== callbackPaths.logout)) {
+      await getUserInfo();
+      // store it in the nuxt state for hydration to prevent re-calling getUserInfo client-side
+      ctx.beforeSerialize?.((nuxtState) => {
+        nuxtState[STATE_KEY] ||= {};
+        nuxtState[STATE_KEY].user = user.data;
+      });
     }
   };
 
-  const userHasClientRole = (client, role) => {
-    return user?.resource_access?.[client]?.roles?.includes(role) || false;
-  };
-
-  // TODO: assess which of these should be returned
   return {
     get accessToken() {
       return getAccessToken();
@@ -304,31 +319,18 @@ export const createAuthPlugin = (ctx) => {
     get accountUrl() {
       return accountUrl();
     },
-    config,
-    endpoints,
     handleRequestError,
-    getUserInfo,
     initUserInfo,
-    get loggedIn() {
-      return userIsLoggedIn();
-    },
     login,
     loginCallback,
     logout,
     logoutCallback,
-    redirectPath,
     get refreshToken() {
       return getRefreshToken();
     },
     request,
     requestWithAuth,
-    get storage() {
-      return storage;
-    },
-    get user() {
-      return user;
-    },
-    userHasClientRole
+    user
   };
 };
 

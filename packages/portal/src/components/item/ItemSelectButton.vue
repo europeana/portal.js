@@ -72,7 +72,7 @@
       },
       toggle() {
         this.showTooltip = false;
-        if (this.$auth.loggedIn) {
+        if (this.$auth.user.loggedIn) {
           this.selected = !this.selected;
           this.$emit('select', this.selected);
         } else {

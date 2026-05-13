@@ -143,7 +143,7 @@
     methods: {
       async fetchCollections() {
         const searchResponse = await this.$apis.set.search({
-          query: `creator:${this.$auth.user?.sub}`,
+          query: `creator:${this.$auth.user?.data?.sub}`,
           profile: 'items.meta',
           pageSize: 100,
           page: 1,
@@ -159,7 +159,7 @@
       async fetchCollectionsWithItem() {
         const itemsQueries = [].concat(this.itemIds).map(id => `item:${ITEM_URL_PREFIX}${id}`);
         const searchResponse = await this.$apis.set.search({
-          query: `creator:${this.$auth.user?.sub}`,
+          query: `creator:${this.$auth.user?.data?.sub}`,
           profile: 'items',
           pageSize: 100,
           page: 1,
