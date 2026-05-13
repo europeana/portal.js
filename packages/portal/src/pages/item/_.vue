@@ -1,115 +1,112 @@
 <template>
+  <LoadingSpinner
+    v-if="$fetchState.pending"
+    class="flex-md-row py-4 text-center"
+  />
+  <ErrorMessage
+    v-else-if="$fetchState.error"
+    data-qa="error message container"
+    :error="$fetchState.error"
+    class="pt-5"
+  />
   <div
-    data-qa="item page"
+    v-else
+    :data-qa="isDeleted ? 'item tombstone page' : 'item page'"  
   >
-    <LoadingSpinner
-      v-if="$fetchState.pending"
-      class="flex-md-row py-4 text-center"
-    />
-    <ErrorMessage
-      v-else-if="$fetchState.error"
-      data-qa="error message container"
-      :error="$fetchState.error"
-      class="pt-5"
-    />
-    <template
-      v-else
+    <b-container
+      fluid
+      class="mb-3 px-0"
     >
-      <b-container
-        fluid
-        class="mb-3 px-0"
-      >
-        <ItemHero
-          :identifier="identifier"
-          :media="webResources"
-          :services="services"
-          :edm-type="type"
-          :edm-rights="edmRights"
-          :attribution-fields="attributionFields"
-          :link-for-contributing-annotation="linkForContributingAnnotation"
-          :provider-url="isShownAt"
-          :iiif-presentation-manifest="iiifPresentationManifest"
-        />
-      </b-container>
-      <b-container
-        class="footer-margin"
-      >
-        <b-row class="mb-3 justify-content-center">
-          <b-col
-            cols="12"
-            class="col-lg-10"
-          >
-            <ItemSummaryInfo
-              :description="descriptionInCurrentLanguage"
-              :titles="titlesInCurrentLanguage"
-            />
-          </b-col>
-        </b-row>
-        <b-row
-          class="provider-row mb-3 justify-content-center"
+      <ItemHero
+        :identifier="identifier"
+        :media="webResources"
+        :services="services"
+        :edm-type="type"
+        :edm-rights="edmRights"
+        :attribution-fields="attributionFields"
+        :link-for-contributing-annotation="linkForContributingAnnotation"
+        :provider-url="isShownAt"
+        :iiif-presentation-manifest="iiifPresentationManifest"
+      />
+    </b-container>
+    <b-container
+      class="footer-margin"
+    >
+      <b-row class="mb-3 justify-content-center">
+        <b-col
+          cols="12"
+          class="col-lg-10"
         >
-          <b-col
-            cols="12"
-            class="col-lg-10"
-          >
-            <ItemDataProvider
-              :data-provider="!dataProviderEntityUri ? metadata.edmDataProvider : null"
-              :data-provider-entity="dataProviderEntity"
-              :metadata-language="metadataLanguage"
-              :is-shown-at="isShownAt"
-              :user-generated-content="metadata.edmUgc === 'true'"
-            />
-          </b-col>
-        </b-row>
-        <b-row class="mb-3 justify-content-center">
-          <b-col
-            cols="12"
-            class="col-lg-10 mt-3"
-          >
-            <MetadataBox
-              :metadata="fieldsAndKeywords"
-              :location="locationData"
-            />
-            <ItemLanguageSelector
-              :from-translation-error="fromTranslationError"
-              :translation-language="translationLanguage"
-            />
-          </b-col>
-        </b-row>
-        <client-only
-          v-if="relatedCollections.length > 0"
-        >
-          <b-row
-            class="justify-content-center"
-          >
-            <b-col
-              cols="12"
-              class="col-lg-10 mt-4"
-            >
-              <EntityBadges
-                :related-collections="relatedCollections"
-                data-qa="related entities"
-              />
-            </b-col>
-          </b-row>
-        </client-only>
-        <client-only>
-          <!--
-            NOTE: dcType/title does not make sense here, but leave it alone as
-                  eventually this will be deprecated and the Recommendation API
-                  used instead.
-            FIXME: ... but who knows when, so maybe fix here in the meantime
-          -->
-          <ItemRecommendations
-            :identifier="identifier"
-            :dc-type="metadata.dcTitle"
-            :dc-subject="metadata.dcSubject"
-            :dc-creator="metadata.dcCreator"
-            :edm-data-provider="dataProviderEntityLabel"
+          <ItemSummaryInfo
+            :description="descriptionInCurrentLanguage"
+            :titles="titlesInCurrentLanguage"
           />
-        </client-only>
-      </b-container>
-    </template>
+        </b-col>
+      </b-row>
+      <b-row
+        class="provider-row mb-3 justify-content-center"
+      >
+        <b-col
+          cols="12"
+          class="col-lg-10"
+        >
+          <ItemDataProvider
+            :data-provider="!dataProviderEntityUri ? metadata.edmDataProvider : null"
+            :data-provider-entity="dataProviderEntity"
+            :metadata-language="metadataLanguage"
+            :is-shown-at="isShownAt"
+            :user-generated-content="metadata.edmUgc === 'true'"
+          />
+        </b-col>
+      </b-row>
+      <b-row class="mb-3 justify-content-center">
+        <b-col
+          cols="12"
+          class="col-lg-10 mt-3"
+        >
+          <MetadataBox
+            :metadata="fieldsAndKeywords"
+            :location="locationData"
+          />
+          <ItemLanguageSelector
+            :from-translation-error="fromTranslationError"
+            :translation-language="translationLanguage"
+          />
+        </b-col>
+      </b-row>
+      <client-only
+        v-if="relatedCollections.length > 0"
+      >
+        <b-row
+          class="justify-content-center"
+        >
+          <b-col
+            cols="12"
+            class="col-lg-10 mt-4"
+          >
+            <EntityBadges
+              :related-collections="relatedCollections"
+              data-qa="related entities"
+            />
+          </b-col>
+        </b-row>
+      </client-only>
+      <client-only>
+        <!--
+          NOTE: dcType/title does not make sense here, but leave it alone as
+                eventually this will be deprecated and the Recommendation API
+                used instead.
+          FIXME: ... but who knows when, so maybe fix here in the meantime
+        -->
+        <ItemRecommendations
+          :identifier="identifier"
+          :dc-type="metadata.dcTitle"
+          :dc-subject="metadata.dcSubject"
+          :dc-creator="metadata.dcCreator"
+          :edm-data-provider="dataProviderEntityLabel"
+        />
+      </client-only>
+    </b-container>
   </div>
 </template>
 

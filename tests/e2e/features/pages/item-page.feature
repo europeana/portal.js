@@ -119,6 +119,10 @@ Feature: item page
     Then I see an `item language selector`
     Then I see a `item language selector toggle text suggestion`
 
+  Scenario: Tombstone page for deleted item
+    When I open an `item page for a deleted item`
+    Then I see an `item tombstone page`
+
   @klaro-notice-not-dismissed
   @resized-browser
   Scenario: HTML embedded media

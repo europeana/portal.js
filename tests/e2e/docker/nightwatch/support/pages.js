@@ -22,6 +22,7 @@ const pages = {
   'home page': `${url}/en`,
   'Newspapers theme search page': `${url}/en/search?qf=collection%3Anewspaper`,
   'immersive story page': `${url}/en/stories/melitta-bentz-the-woman-who-invented-the-coffee-filter`,
+  'item page for a deleted item': `${url}/en/item/92064/bildarchivaustria_Preview_1146754`,
   'item page with a IIIF Image': `${url}/en/item/9200357/BibliographicResource_3000095247457`,
   'item page with a IIIF Presentation': `${url}/en/item/9200301/BibliographicResource_3000126341277`,
   'item page with a responsive embedded video': `${url}/en/item/987/data_euscreenXL_DEMA_110`,
