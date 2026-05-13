@@ -1,3 +1,4 @@
+import mime from 'mime-types';
 import { oEmbeddable } from '@/utils/services/oembed.js';
 import { IIIF_PRESENTATION_API_URL } from '../iiif/index.js';
 import Base from './Base.js';
@@ -179,6 +180,10 @@ export default class WebResource extends Base {
     return this.mediaType && HTML_IMAGE_MEDIA_TYPES.includes(this.mediaType);
   }
 
+  get isHTMLDocument() {
+    return mime.extension(this.ebucoreHasMimeType) === 'html';
+  }
+
   get isOEmbed() {
     return oEmbeddable(this.id);
   }
@@ -223,7 +228,8 @@ export default class WebResource extends Base {
     return this.rightsStatementPermitsDownload &&
       !!this.ebucoreHasMimeType &&
       !this.forEdmIsShownAt &&
-      !this.isOEmbed;
+      !this.isOEmbed &&
+      !this.isHTMLDocument;
   }
 
   get isIIIFPresentationManifest() {

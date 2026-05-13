@@ -1153,6 +1153,16 @@ export default {
     "englishName": "Nom anglais",
     "nameAcronym": "Acronyme du nom"
   },
+  "organisations": {
+    "aggregators": {
+      "description": "Les agrégateurs travaillent avec les institutions fournisseuses pour collecter et publier leurs items du patrimoine culturel numérique sur Europeana.eu.",
+      "title": "Agrégateurs"
+    },
+    "providingInstitutions": {
+      "description": "Une liste de musées, bibliothèques, archives et galeries qui partagent leurs items du patrimoine culturel numérique sur Europeana.eu.",
+      "title": "Institutions prestataires"
+    }
+  },
   "pageHasLoaded": "a chargé",
   "pageNumber": "Numéro de page",
   "pages": {
