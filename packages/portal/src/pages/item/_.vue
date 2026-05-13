@@ -465,7 +465,7 @@
         //       - not iiif: proxy
         //       - iiif, europeana: proxy
         //       - iiif, institution: don't proxy
-        this.proxyableMedia = item.providerAggregation.webResources.map((wr) => wr.about)
+        this.proxyableMedia = (item.providerAggregation.webResources || []).map((wr) => wr.about)
           .filter((wr) => wr.ebucoreMimeType !== 'application/dash+xml');
         this.iiifPresentationManifest = item.iiifPresentationManifest;
         this.isShownAt = item.providerAggregation.edmIsShownAt;
