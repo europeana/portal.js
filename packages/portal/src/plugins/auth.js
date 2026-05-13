@@ -2,6 +2,7 @@ import axios from 'axios';
 import { nanoid } from 'nanoid';
 
 const PLUGIN_NAME = 'auth';
+const STATE_KEY = `$${PLUGIN_NAME}`;
 
 // TODO: consider whether everything belongs inside here, esp considering it gets called
 //       once on every SSR
@@ -278,12 +279,16 @@ export const createAuthPlugin = (ctx) => {
 
   const initUserInfo = async() => {
     if (getAccessToken() && !user && (ctx.route.path !== callbackPaths.logout)) {
-      // get userinfo
-      // TODO: avoid this being made on both server- and client-
-      //       side; by having the user data served and hydrated?
-      //       would having this be a composable instead of a plugin
-      //       help w/ that?
-      await getUserInfo();
+      if (ctx.nuxtState?.[STATE_KEY]?.user) {
+        user = ctx.nuxtState[STATE_KEY].user;
+      } else {
+        await getUserInfo();
+        // store it in the nuxt state for hydration to prevent re-calling getUserInfo client-side
+        ctx.beforeSerialize?.((nuxtState) => {
+          nuxtState[STATE_KEY] ||= {};
+          nuxtState[STATE_KEY].user = user;
+        });
+      }
     }
   };
 
