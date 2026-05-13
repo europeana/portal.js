@@ -57,16 +57,17 @@
         if (this.isAuthenticated) {
           return [
             { url: '/account', text: this.$t('account.title'), dataQa: 'account link' },
-            this.sidebarNav && { url: '/auth/logout', to: { name: 'auth-logout', query: { redirect: this.logoutRedirect } }, text: this.$t('account.linkLogout'), dataQa: 'log out link' }
+            this.sidebarNav && { url: '/auth/logout', to: { path: this.localePath('/auth/logout'), query: { redirect: this.logoutRedirect } }, text: this.$t('account.linkLogout'), dataQa: 'log out link' }
           ];
         } else {
           return [
-            { url: '/auth/login', to: { name: 'auth-login', query: { redirect: this.$route.fullPath } }, text: this.$t('account.linkLoginJoin'), dataQa: 'log in link' }
+            { url: '/auth/login', to: { path: this.localePath('/auth/login'), query: { redirect: this.$route.fullPath } }, text: this.$t('account.linkLoginJoin'), dataQa: 'log in link' }
           ];
         }
       },
       mainNavigation() {
         return [
+          // TODO: mv url to { to: { path: url } }
           { url: '/', text: this.$t('header.navigation.home') },
           { url: '/collections', text: this.$t('header.navigation.collections') },
           { url: '/stories', text: this.$t('header.navigation.stories') },

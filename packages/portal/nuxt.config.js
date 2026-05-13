@@ -14,7 +14,6 @@ import versions from './pkg-versions.js';
 
 import { locales as i18nLocales } from '@europeana/i18n';
 import i18nDateTime from './src/i18n/datetime.js';
-import { exclude as i18nRoutesExclude } from './src/i18n/routes.js';
 import features, { featureIsEnabled } from './src/features/index.js';
 import { featureNotificationExpiration } from './src/features/notifications.js';
 
@@ -366,9 +365,6 @@ export default {
         silentFallbackWarn: true,
         dateTimeFormats: i18nDateTime
       },
-      // Disable redirects to account pages
-      parsePages: false,
-      pages: i18nRoutesExclude.reduce((memo, route) => ({ ...memo, [route.slice(1)]: false }), {}),
       // Enable browser language detection to automatically redirect user
       // to their preferred language as they visit your app for the first time
       // Set to false to disable
