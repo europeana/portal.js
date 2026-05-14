@@ -4,10 +4,10 @@
 
 <script>
   export default {
-    name: 'AccountLoginPage',
+    name: 'AuthLoginPage',
 
     mounted() {
-      this.$auth.login({ replace: true });
+      this.$auth.login(this.$route.query?.redirect || this.localePath('/'));
     }
   };
 </script>

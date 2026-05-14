@@ -4,10 +4,10 @@
 
 <script>
   export default {
-    name: 'AccountLogoutPage',
+    name: 'AuthLogoutPage',
 
     mounted() {
-      this.$auth.logout({ replace: true });
+      this.$auth.logout(this.$route.query?.redirect || this.localePath('/'));
 
       // TODO: is any of the below still relevant?
       // localStorage.setItem('logout-event', `logout-${Math.random()}`);

@@ -114,6 +114,7 @@ export const createAuthPlugin = (ctx) => {
   };
 
   const handleUnauthorizedError = async(error) => {
+    console.log('handleUnauthorizedError', getRefreshToken(), error.config);
     removeAccessToken();
     const requestConfig = error.config;
 
@@ -138,25 +139,6 @@ export const createAuthPlugin = (ctx) => {
     }
   };
 
-  const redirectPath = () => {
-    let redirect = '/account';
-
-    // TODO: reassess the logic
-    if (ctx.route) {
-      if (ctx.route.query?.redirect) {
-        redirect = ctx.route.query.redirect;
-      } else if (ctx.route.path?.endsWith('/auth/login')) {
-        redirect = `/account${ctx.route.hash || ''}`;
-      } else if (ctx.route.fullPath) {
-        if (ctx.route.fullPath !== '/auth/logincb') {
-          redirect = ctx.route.fullPath;
-        }
-      }
-    }
-
-    return redirect;
-  };
-
   const accountUrl = () => {
     const authAccountUrl = new URL(
       `/auth/realms/${config.realm}/account`, config.origin
@@ -168,32 +150,32 @@ export const createAuthPlugin = (ctx) => {
     return authAccountUrl.toString();
   };
 
-  const goToAuthEndpoint = (endpoint, { params = {}, replace = false } = {}) => {
+  const goToAuthEndpoint = (endpoint, { params = {} } = {}) => {
     const url = new URL(endpoints[endpoint]);
     url.search = new URLSearchParams(params);
 
-    if (replace) {
-      window.location.replace(url);
-    } else {
-      window.location = url;
-    }
+    // TODO: use vue router?
+    window.location = url;
   };
 
-  const redirectUri = (action, { redirect } = {}) => {
+  const redirectUri = (action, destination) => {
+    console.log('redirectUri', action, destination);
     const url = new URL(appUrl(ctx.localePath(callbackPaths[action])));
-    url.search = new URLSearchParams({
-      redirect: redirect || redirectPath()
-    });
+    if (destination) {
+      url.search = new URLSearchParams({
+        redirect: destination
+      });
+    }
     return url.toString();
   };
 
-  const login = ({ redirect, replace = false } = {}) => {
+  function login(destination) {
     const params = {
       protocol: 'oauth2',
       'response_type': config.responseType,
       'access_type': config.accessType,
       'client_id': config.clientId,
-      'redirect_uri': redirectUri('login', { redirect }),
+      'redirect_uri': redirectUri('login', destination || ctx.route.fullPath),
       scope,
       state: nanoid(),
       'ui_locales': ctx.i18n.locale
@@ -202,10 +184,10 @@ export const createAuthPlugin = (ctx) => {
     storage.local.set('state', params.state);
     storage.local.set('redirect_uri', params.redirect_uri);
 
-    goToAuthEndpoint('auth', { params, replace });
-  };
+    goToAuthEndpoint('auth', { params });
+  }
 
-  const loginCallback = async() => {
+  login.callback = async function() {
     if (user.loggedIn) {
       ctx.app.router.replace(ctx.route.query.redirect || '/');
     }
@@ -245,19 +227,19 @@ export const createAuthPlugin = (ctx) => {
 
     await getUserInfo();
 
-    ctx.app.router.replace(ctx.route.query.redirect || '/');
+    ctx.app.router.replace(ctx.route.query?.redirect || '/');
   };
 
-  const logout = ({ replace = false } = {}) => {
+  function logout(destination) {
     const params = {
-      'redirect_uri': redirectUri('logout'),
+      'redirect_uri': redirectUri('logout', destination || ctx.route.fullPath),
       'ui_locales': ctx.i18n.locale
     };
 
-    goToAuthEndpoint('logout', { params, replace });
-  };
+    goToAuthEndpoint('logout', { params });
+  }
 
-  const logoutCallback = () => {
+  logout.callback = function() {
     removeAccessToken();
     removeRefreshToken();
     // FIXME: shouldn't need to do this as it shouldn't yet be set...
@@ -322,9 +304,7 @@ export const createAuthPlugin = (ctx) => {
     handleRequestError,
     initUserInfo,
     login,
-    loginCallback,
     logout,
-    logoutCallback,
     get refreshToken() {
       return getRefreshToken();
     },

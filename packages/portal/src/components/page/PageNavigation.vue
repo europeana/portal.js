@@ -27,6 +27,8 @@
 </template>
 
 <script>
+  import { useAuthRoutes } from '@/composables/authRoutes.js';
+
   export default {
     name: 'PageNavigation',
 
@@ -37,37 +39,27 @@
       }
     },
 
+    setup() {
+      const { loginRoute, logoutRoute } = useAuthRoutes();
+
+      return { loginRoute, logoutRoute };
+    },
+
     computed: {
-      // TODO: refactor so that each page can register its own logout redirect path
-      //       (if needed), e.g. via a composable or provide/inject fn
-      logoutRedirect() {
-        if (this.$route.name.startsWith('account')) {
-          return this.localePath('/');
-        } else if (this.$route.name.startsWith('item-all')) {
-          if (this.$route.query.lang) {
-            // rm lang from query
-            const query = new URLSearchParams(this.$route.query);
-            query.delete('lang');
-            return `${this.$route.path}?${query.toString()}`;
-          }
-        }
-        return this.$route.fullPath;
-      },
       authLinks() {
         if (this.isAuthenticated) {
           return [
             { url: '/account', text: this.$t('account.title'), dataQa: 'account link' },
-            this.sidebarNav && { url: '/auth/logout', to: { path: this.localePath('/auth/logout'), query: { redirect: this.logoutRedirect } }, text: this.$t('account.linkLogout'), dataQa: 'log out link' }
+            this.sidebarNav && { url: '/auth/logout', to: this.logoutRoute, text: this.$t('account.linkLogout'), dataQa: 'log out link' }
           ];
         } else {
           return [
-            { url: '/auth/login', to: { path: this.localePath('/auth/login'), query: { redirect: this.$route.fullPath } }, text: this.$t('account.linkLoginJoin'), dataQa: 'log in link' }
+            { url: '/auth/login', to: this.loginRoute, text: this.$t('account.linkLoginJoin'), dataQa: 'log in link' }
           ];
         }
       },
       mainNavigation() {
         return [
-          // TODO: mv url to { to: { path: url } }
           { url: '/', text: this.$t('header.navigation.home') },
           { url: '/collections', text: this.$t('header.navigation.collections') },
           { url: '/stories', text: this.$t('header.navigation.stories') },

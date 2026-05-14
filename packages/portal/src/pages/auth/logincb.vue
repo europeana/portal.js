@@ -6,7 +6,7 @@
   import useMakeToast from '@/composables/makeToast.js';
 
   export default {
-    name: 'AccountLoginCallbackPage',
+    name: 'AuthLoginCallbackPage',
 
     setup() {
       const { makeToast } = useMakeToast();
@@ -16,7 +16,7 @@
 
     async mounted() {
       // NOTE: in mounted because it relies on localStorage for OIDC state validation
-      await this.$auth.loginCallback();
+      await this.$auth.login.callback();
 
       if (this.$auth.user.loggedIn) {
         this.makeToast(this.$t('account.notifications.loggedIn'));

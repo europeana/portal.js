@@ -463,7 +463,7 @@
         });
 
         if (value && !this.$auth.user.loggedIn) {
-          this.$auth.login({ redirect });
+          this.$auth.login(redirect);
         } else {
           this.$router.push(redirect);
         }

@@ -18,8 +18,16 @@
 </template>
 
 <script>
+  import { useAuthRoutes } from '@/composables/authRoutes.js';
+
   export default {
     name: 'UserProfileDropdown',
+
+    setup() {
+      const { logoutRoute } = useAuthRoutes();
+
+      return { logoutRoute };
+    },
 
     data() {
       return {
@@ -32,7 +40,7 @@
             to: this.localePath('/account/api-keys')
           }, {
             text: this.$t('account.linkLogout'),
-            to: this.localePath('/auth/logout')
+            to: this.logoutRoute
           }
         ],
         menuOpen: false

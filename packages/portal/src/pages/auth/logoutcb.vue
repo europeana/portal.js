@@ -6,7 +6,7 @@
   import useMakeToast from '@/composables/makeToast.js';
 
   export default {
-    name: 'AccountLogoutCallbackPage',
+    name: 'AuthLogoutCallbackPage',
 
     setup() {
       const { makeToast } = useMakeToast();
@@ -16,7 +16,7 @@
 
     async mounted() {
       // NOTE: in mounted so that it clears the cookies from the browser
-      await this.$auth.logoutCallback();
+      await this.$auth.logout.callback();
 
       if (!this.$auth.user.loggedIn) {
         this.makeToast(this.$t('account.notifications.loggedOut'));
