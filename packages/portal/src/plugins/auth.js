@@ -27,13 +27,12 @@ export const createAuthPlugin = (ctx) => {
   };
 
   const user = Vue.observable({
-    // TODO: rename to info? per "userinfo"
-    data: null,
+    info: null,
     get loggedIn() {
-      return !!this.data;
+      return !!this.info;
     },
     hasClientRole(client, role) {
-      return this.data?.resource_access?.[client]?.roles?.includes(role) || false;
+      return this.info?.resource_access?.[client]?.roles?.includes(role) || false;
     }
   });
 
@@ -129,7 +128,7 @@ export const createAuthPlugin = (ctx) => {
         // in case request does not need authorization anyway
         delete requestConfig.headers['authorization'];
         removeRefreshToken();
-        user.data = null;
+        user.info = null;
         return request(requestConfig);
       }
     } else {
@@ -243,7 +242,7 @@ export const createAuthPlugin = (ctx) => {
     removeAccessToken();
     removeRefreshToken();
     // FIXME: shouldn't need to do this as it shouldn't yet be set...
-    user.data = null;
+    user.info = null;
 
     ctx.app.router.replace(ctx.route.query.redirect || '/');
   };
@@ -257,10 +256,10 @@ export const createAuthPlugin = (ctx) => {
   };
 
   const getUserInfo = async() => {
-    let userData;
+    let userInfo;
 
     if (ctx.nuxtState?.[NUXT_STATE_KEY]?.user) {
-      userData = ctx.nuxtState[NUXT_STATE_KEY].user;
+      userInfo = ctx.nuxtState[NUXT_STATE_KEY].user;
     } else {
       const response = await requestWithAuth({
         url: endpoints.userinfo,
@@ -269,10 +268,10 @@ export const createAuthPlugin = (ctx) => {
           'client_id': config.clientId
         }
       });
-      userData = response.data;
+      userInfo = response.data;
     }
 
-    user.data = userData;
+    user.info = userInfo;
   };
 
   const initUserInfo = async() => {
@@ -289,7 +288,7 @@ export const createAuthPlugin = (ctx) => {
       // store it in the nuxt state for hydration to prevent re-calling getUserInfo client-side
       ctx.beforeSerialize?.((nuxtState) => {
         nuxtState[NUXT_STATE_KEY] ||= {};
-        nuxtState[NUXT_STATE_KEY].user = user.data;
+        nuxtState[NUXT_STATE_KEY].user = user.info;
       });
     }
   };

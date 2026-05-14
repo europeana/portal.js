@@ -142,7 +142,7 @@
     },
     computed: {
       userId() {
-        return this.$auth.user?.data?.sub;
+        return this.$auth.user?.info?.sub;
       },
       userField() {
         return this.type === 'EntityBestItemsSet' ? 'contributor' : 'creator';

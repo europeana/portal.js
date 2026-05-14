@@ -241,7 +241,7 @@
       },
       userIsOwner() {
         return this.$auth.user.loggedIn && this.$auth.user &&
-          this.setCreatorId?.endsWith(`/${this.$auth.user.data.sub}`);
+          this.setCreatorId?.endsWith(`/${this.$auth.user.info.sub}`);
       },
       userIsEntityEditor() {
         return this.$auth.user.hasClientRole('entities', 'editor') &&

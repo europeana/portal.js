@@ -12,9 +12,9 @@ export const createLikedItemsPlugin = ({ $apis, $auth, beforeSerialize, nuxtStat
   const initSetId = async() => {
     if (nuxtState?.[NUXT_STATE_KEY]?.setId) {
       likedItemsSetId = nuxtState[NUXT_STATE_KEY].setId;
-    } else if ($auth?.user?.loggedIn && $auth?.user?.data?.sub) {
+    } else if ($auth?.user?.loggedIn && $auth?.user?.info?.sub) {
       try {
-        likedItemsSetId = await $apis.set.getLikes($auth.user.data.sub);
+        likedItemsSetId = await $apis.set.getLikes($auth.user.info.sub);
         beforeSerialize?.((nuxtState) => {
           nuxtState[NUXT_STATE_KEY] ||= {};
           nuxtState[NUXT_STATE_KEY].setId = likedItemsSetId;
