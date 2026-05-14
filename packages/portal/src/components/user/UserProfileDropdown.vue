@@ -32,7 +32,7 @@
             to: this.localePath('/account/api-keys')
           }, {
             text: this.$t('account.linkLogout'),
-            to: '/auth/logout'
+            to: this.localePath('/auth/logout')
           }
         ],
         menuOpen: false
