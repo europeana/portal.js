@@ -1,16 +1,18 @@
-import { nextTick, readonly, ref } from 'vue';
+import { nextTick, readonly, ref, watchEffect } from 'vue';
 import uniq from 'lodash/uniq';
 
-export default async({ $apis, $auth }, inject) => {
+export default ({ $apis, $auth }, inject) => {
   let likedItemsSetId = null;
 
-  if ($auth?.user?.loggedIn && $auth?.user?.data?.sub) {
-    try {
-      likedItemsSetId = await $apis.set.getLikes($auth.user.data.sub);
-    } catch (e) {
-      // Don't cause everything to break if the Set API is down...
+  watchEffect(async() => {
+    if ($auth?.user?.loggedIn && $auth?.user?.data?.sub) {
+      try {
+        likedItemsSetId = await $apis.set.getLikes($auth.user.data.sub);
+      } catch (e) {
+        // Don't cause everything to break if the Set API is down...
+      }
     }
-  }
+  });
 
   const watchedItemIds = ref([]);
   const liked = ref([]);
