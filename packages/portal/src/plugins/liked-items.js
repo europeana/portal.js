@@ -1,17 +1,32 @@
-import { nextTick, readonly, ref, watchEffect } from 'vue';
+// NOTE: without this shim use of EventTarget fails on SSR
+import { EventTarget } from 'event-target-shim';
+import { nextTick, readonly, ref, watch } from 'vue';
 import uniq from 'lodash/uniq';
 
-export default ({ $apis, $auth }, inject) => {
+const PLUGIN_NAME = 'likedItems';
+const NUXT_STATE_KEY = `$${PLUGIN_NAME}`;
+
+export const createLikedItemsPlugin = ({ $apis, $auth, beforeSerialize, nuxtState }) => {
   let likedItemsSetId = null;
 
-  watchEffect(async() => {
-    if ($auth?.user?.loggedIn && $auth?.user?.data?.sub) {
+  const initSetId = async() => {
+    if (nuxtState?.[NUXT_STATE_KEY]?.setId) {
+      likedItemsSetId = nuxtState[NUXT_STATE_KEY].setId;
+    } else if ($auth?.user?.loggedIn && $auth?.user?.data?.sub) {
       try {
         likedItemsSetId = await $apis.set.getLikes($auth.user.data.sub);
+        beforeSerialize?.((nuxtState) => {
+          nuxtState[NUXT_STATE_KEY] ||= {};
+          nuxtState[NUXT_STATE_KEY].setId = likedItemsSetId;
+        });
       } catch (e) {
         // Don't cause everything to break if the Set API is down...
       }
     }
+  };
+
+  watch($auth.user, async() => {
+    await initSetId();
   });
 
   const watchedItemIds = ref([]);
@@ -76,8 +91,9 @@ export default ({ $apis, $auth }, inject) => {
     eventTarget.removeEventListener(type, listener, options);
   };
 
-  inject('likedItems', {
+  return {
     fetch: fetchLikedItems,
+    initSetId,
     liked: readonly(liked),
     like,
     off,
@@ -85,5 +101,13 @@ export default ({ $apis, $auth }, inject) => {
     watchItems,
     unlike,
     unwatchItems
-  });
+  };
+};
+
+export default async(ctx, inject) => {
+  const plugin = createLikedItemsPlugin(ctx);
+
+  await plugin.initSetId();
+
+  inject(PLUGIN_NAME, plugin);
 };

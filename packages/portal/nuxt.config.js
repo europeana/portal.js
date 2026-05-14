@@ -343,7 +343,7 @@ export default {
     '~/plugins/vue-contentful-graphql',
     '~/plugins/auth',
     '~/plugins/europeana-apis',
-    '~/plugins/liked-items.client'
+    '~/plugins/liked-items'
   ],
 
   /*

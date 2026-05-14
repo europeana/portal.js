@@ -4,7 +4,7 @@ import { extractLocaleFromRoutePath } from '@/i18n/routes.js';
 import Vue from 'vue';
 
 const PLUGIN_NAME = 'auth';
-const STATE_KEY = `$${PLUGIN_NAME}`;
+const NUXT_STATE_KEY = `$${PLUGIN_NAME}`;
 
 // TODO: consider whether everything belongs inside here, esp considering it gets called
 //       once on every SSR
@@ -27,6 +27,7 @@ export const createAuthPlugin = (ctx) => {
   };
 
   const user = Vue.observable({
+    // TODO: rename to info? per "userinfo"
     data: null,
     get loggedIn() {
       return !!this.data;
@@ -114,7 +115,6 @@ export const createAuthPlugin = (ctx) => {
   };
 
   const handleUnauthorizedError = async(error) => {
-    console.log('handleUnauthorizedError', getRefreshToken(), error.config);
     removeAccessToken();
     const requestConfig = error.config;
 
@@ -155,11 +155,11 @@ export const createAuthPlugin = (ctx) => {
     url.search = new URLSearchParams(params);
 
     // TODO: use vue router?
+    // TODO: is replace needed at any point in the flow?
     window.location = url;
   };
 
   const redirectUri = (action, destination) => {
-    console.log('redirectUri', action, destination);
     const url = new URL(appUrl(ctx.localePath(callbackPaths[action])));
     if (destination) {
       url.search = new URLSearchParams({
@@ -259,8 +259,8 @@ export const createAuthPlugin = (ctx) => {
   const getUserInfo = async() => {
     let userData;
 
-    if (ctx.nuxtState?.[STATE_KEY]?.user) {
-      userData = ctx.nuxtState[STATE_KEY].user;
+    if (ctx.nuxtState?.[NUXT_STATE_KEY]?.user) {
+      userData = ctx.nuxtState[NUXT_STATE_KEY].user;
     } else {
       const response = await requestWithAuth({
         url: endpoints.userinfo,
@@ -276,7 +276,7 @@ export const createAuthPlugin = (ctx) => {
   };
 
   const initUserInfo = async() => {
-    // TODO: make assumption of use of i18n optional
+    // TODO: make use of i18n optional
     const { path: localelessPath } = extractLocaleFromRoutePath(ctx.route.path);
 
     // do not init user info on login/logout callback paths
@@ -288,8 +288,8 @@ export const createAuthPlugin = (ctx) => {
       await getUserInfo();
       // store it in the nuxt state for hydration to prevent re-calling getUserInfo client-side
       ctx.beforeSerialize?.((nuxtState) => {
-        nuxtState[STATE_KEY] ||= {};
-        nuxtState[STATE_KEY].user = user.data;
+        nuxtState[NUXT_STATE_KEY] ||= {};
+        nuxtState[NUXT_STATE_KEY].user = user.data;
       });
     }
   };
