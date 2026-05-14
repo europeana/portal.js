@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { nanoid } from 'nanoid';
 import { extractLocaleFromRoutePath } from '@/i18n/routes.js';
-import Vue from 'vue';
+import { reactive } from 'vue';
 
 const PLUGIN_NAME = 'auth';
 const NUXT_STATE_KEY = `$${PLUGIN_NAME}`;
@@ -26,7 +26,7 @@ export const createAuthPlugin = (ctx) => {
     logout: '/auth/logoutcb'
   };
 
-  const user = Vue.observable({
+  const user = reactive({
     info: null,
     get loggedIn() {
       return !!this.info;
