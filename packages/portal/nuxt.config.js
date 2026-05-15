@@ -133,11 +133,7 @@ export default {
       realm: process.env.AUTH_REALM || 'europeana',
       clientId: process.env.AUTH_CLIENT,
       // TODO: are all these scopes needed (by default)?
-      scope: (process.env.AUTH_SCOPE || 'openid,profile,email,usersets').split(','),
-      responseType: process.env.AUTH_RESPONSE_TYPE || 'code',
-      accessType: process.env.AUTH_ACCESS_TYPE || 'online',
-      grantType: process.env.AUTH_GRANT_TYPE || 'authorization_code'
-      // tokenType: process.env.AUTH_TOKEN_TYPE || 'Bearer'
+      scope: (process.env.AUTH_SCOPE || 'openid,profile,email,usersets').split(',')
     },
     axiosLogger: {
       clearParams: process.env.AXIOS_LOGGER_CLEAR_PARAMS?.split(',') || ['wskey'],

@@ -66,14 +66,14 @@ export default class EuropeanaApi {
       axiosInstance.interceptors.request.use(app.$axiosLogger);
     }
 
+    // TODO: see if we can use $auth.requestWithAuth() instead
     if (this.constructor.AUTHORISING) {
+      axiosInstance.interceptors.request.use(
+        (requestConfig) => this.context.$auth?.addAuthorizationHeaderToRequest(requestConfig)
+      );
       axiosInstance.interceptors.response.use(
         (response) => response,
-        (error) => {
-          this.context.$auth?.handleRequestError?.(error);
-          return Promise.reject(error);
-        }
-
+        (error) => this.context.$auth?.handleRequestError(error)
       );
     }
 
@@ -105,11 +105,11 @@ export default class EuropeanaApi {
     const headers = {};
     const params = {};
 
+    // if (this.constructor.AUTHORISING && this.context?.$auth?.user?.loggedIn) {
+    //   headers.authorization = `Bearer ${this.context.$auth.accessToken}`;
+    // } else
     if (this.constructor.AUTHENTICATING) {
       params.wskey = this.key;
-    }
-    if (this.constructor.AUTHORISING && this.context?.$auth?.user?.loggedIn) {
-      headers.authorization = `Bearer ${this.context.$auth.accessToken}`;
     }
 
     return {
