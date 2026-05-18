@@ -90,10 +90,10 @@ class Config {
   }
 }
 
-export const createAuthPlugin = (ctx) => {
-  const config = new Config(ctx.$config.auth);
+export const createAuthPlugin = ({ options, appBaseURL, route, router, localePath, locale, cookies }) => {
+  const config = new Config(options);
 
-  const appUrl = (path) => `${ctx.$config.app.baseUrl}${path}`;
+  const appUrl = (path) => `${appBaseURL}${path}`;
 
   const storageKey = (key) => `${PLUGIN_NAME}.${key}`;
   const storage = {
@@ -104,10 +104,10 @@ export const createAuthPlugin = (ctx) => {
       remove: (key) => localStorage.removeItem(storageKey(key))
     },
     cookies: {
-      get: (key) => ctx.$cookies.get(storageKey(key)),
-      set: (key, value) => ctx.$cookies.set(storageKey(key), value),
+      get: (key) => cookies.get(storageKey(key)),
+      set: (key, value) => cookies.set(storageKey(key), value),
       // TODO: does this do anything server-side?
-      remove: (key) => ctx.$cookies.remove(storageKey(key))
+      remove: (key) => cookies.remove(storageKey(key))
     }
   };
 
@@ -217,7 +217,7 @@ export const createAuthPlugin = (ctx) => {
     );
     authAccountUrl.search = new URLSearchParams({
       referrer: config.clientId,
-      'referrer_uri': appUrl(ctx.route.fullPath)
+      'referrer_uri': appUrl(route.fullPath)
     }).toString();
     return authAccountUrl.toString();
   };
@@ -226,13 +226,13 @@ export const createAuthPlugin = (ctx) => {
     const url = new URL(config.endpoints[endpoint]);
     url.search = new URLSearchParams(params);
 
-    // TODO: use vue router?
+    // TODO: use vue router? (but it's not a vue route...)
     // TODO: is replace needed at any point in the flow?
     window.location = url;
   };
 
   const redirectUri = (action, destination) => {
-    const url = new URL(appUrl(ctx.localePath(config.callbackPaths[action])));
+    const url = new URL(appUrl(localePath(config.callbackPaths[action])));
     if (destination) {
       url.search = new URLSearchParams({
         redirect: destination
@@ -247,10 +247,10 @@ export const createAuthPlugin = (ctx) => {
       'response_type': 'code',
       'access_type': 'online',
       'client_id': config.clientId,
-      'redirect_uri': redirectUri('login', destination || ctx.route.fullPath),
+      'redirect_uri': redirectUri('login', destination || route.fullPath),
       scope: config.scope,
       state: nanoid(),
-      'ui_locales': ctx.i18n.locale
+      'ui_locales': locale
     };
 
     storage.local.set('state', params.state);
@@ -261,10 +261,11 @@ export const createAuthPlugin = (ctx) => {
 
   login.callback = async function() {
     if (user.loggedIn) {
-      ctx.app.router.replace(ctx.route.query.redirect || '/');
+      router.replace(route.query.redirect || '/');
+      return;
     }
 
-    const routeQueryState = ctx.route.query.state;
+    const routeQueryState = route.query.state;
     const storedState = storage.local.get('state');
 
     storage.local.remove('state');
@@ -279,7 +280,7 @@ export const createAuthPlugin = (ctx) => {
       url: config.endpoints.token,
       method: 'post',
       data: new URLSearchParams({
-        'code': ctx.route.query.code,
+        'code': route.query.code,
         'response_type': 'code',
         'client_id': config.clientId,
         'grant_type': 'authorization_code',
@@ -295,15 +296,15 @@ export const createAuthPlugin = (ctx) => {
 
     updateTokensFromResponse(tokenResponse);
 
-    await fetchUserInfo();
+    await user.fetch();
 
-    ctx.app.router.replace(ctx.route.query?.redirect || '/');
+    router.replace(route.query?.redirect || '/');
   };
 
   function logout(destination) {
     const params = {
-      'redirect_uri': redirectUri('logout', destination || ctx.route.fullPath),
-      'ui_locales': ctx.i18n.locale
+      'redirect_uri': redirectUri('logout', destination || route.fullPath),
+      'ui_locales': locale
     };
 
     goToAuthEndpoint('logout', { params });
@@ -315,15 +316,20 @@ export const createAuthPlugin = (ctx) => {
     // FIXME: shouldn't need to do this as it shouldn't yet be set...
     user.info = null;
 
-    ctx.app.router.replace(ctx.route.query.redirect || '/');
+    router.replace(route.query.redirect || '/');
   };
 
-  const fetchUserInfo = async() => {
-    let userInfo;
+  const user = reactive({
+    info: null,
+    get loggedIn() {
+      return !!this.info;
+    },
+    hasClientRole(client, role) {
+      return this.info?.resource_access?.[client]?.roles?.includes(role) || false;
+    },
+    async fetch() {
+      let userInfo;
 
-    if (ctx.nuxtState?.[NUXT_STATE_KEY]?.user) {
-      userInfo = ctx.nuxtState[NUXT_STATE_KEY].user;
-    } else {
       try {
         const response = await request.withAuth({
           url: config.endpoints.userinfo,
@@ -338,60 +344,66 @@ export const createAuthPlugin = (ctx) => {
           // if by this point there is any kind of response error, then either
           // user is no longer logged in and refresh token is expired, or something
           // else is wrong, e.g. the server is down. give up. user is not logged in.
-          // tokens should have been cleared. let the caller handle that.
+          // tokens should have been cleared. let the caller detect & handle that.
         } else {
           throw err;
         }
       }
+
+      this.info = userInfo;
+      return userInfo;
     }
-
-    user.info = userInfo;
-  };
-
-  const initUserInfo = async() => {
-    // TODO: make use of i18n optional
-    const { path: localelessPath } = extractLocaleFromRoutePath(ctx.route.path);
-
-    // do not init user info on login/logout callback paths
-    if (Object.values(config.callbackPaths).includes(localelessPath)) {
-      return;
-    }
-
-    if (accessToken.value && !user.loggedIn) {
-      await fetchUserInfo();
-      // store it in the nuxt state for hydration to prevent re-calling fetchUserInfo client-side
-      ctx.beforeSerialize?.((nuxtState) => {
-        nuxtState[NUXT_STATE_KEY] ||= {};
-        nuxtState[NUXT_STATE_KEY].user = user.info;
-      });
-    }
-  };
-
-  const user = reactive({
-    info: null,
-    get loggedIn() {
-      return !!this.info;
-    },
-    hasClientRole(client, role) {
-      return this.info?.resource_access?.[client]?.roles?.includes(role) || false;
-    },
-    init: initUserInfo
   });
 
   return {
     accountUrl,
+    accessToken,
+    config,
     interceptors,
     login,
     logout,
+    refreshToken,
     request,
     user
   };
 };
 
 export default async(ctx, inject) => {
-  const plugin = createAuthPlugin(ctx);
+  const plugin = createAuthPlugin({
+    options: ctx.$config.auth,
+    appBaseURL: ctx.$config.app.baseUrl,
+    route: ctx.route,
+    router: ctx.app.router,
+    localePath: ctx.localePath,
+    locale: ctx.i18n.locale,
+    cookies: ctx.$cookies
+  });
 
-  await plugin.user.init();
+  const initUserInfo = async() => {
+    // TODO: make use of i18n optional
+    const { path: localelessPath } = extractLocaleFromRoutePath(ctx.route.path);
+
+    // do not init user info on login/logout callback paths
+    if (Object.values(plugin.config.callbackPaths).includes(localelessPath)) {
+      return;
+    }
+
+    if (plugin.accessToken.value && !plugin.user.loggedIn) {
+      if (ctx.nuxtState?.[NUXT_STATE_KEY]?.user) {
+        plugin.user.info = ctx.nuxtState[NUXT_STATE_KEY].user;
+      } else {
+        await plugin.user.fetch();
+      }
+
+      // store it in the nuxt state for hydration to prevent re-calling user.fetch client-side
+      ctx.beforeSerialize?.((nuxtState) => {
+        nuxtState[NUXT_STATE_KEY] ||= {};
+        nuxtState[NUXT_STATE_KEY].user = plugin.user.info;
+      });
+    }
+  };
+
+  await initUserInfo();
 
   inject(PLUGIN_NAME, plugin);
 };
