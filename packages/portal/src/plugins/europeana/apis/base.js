@@ -69,11 +69,11 @@ export default class EuropeanaApi {
     // TODO: see if we can use $auth.requestWithAuth() instead
     if (this.constructor.AUTHORISING) {
       axiosInstance.interceptors.request.use(
-        (requestConfig) => this.context.$auth?.addAuthorizationHeaderToRequest(requestConfig)
+        (requestConfig) => this.context.$auth?.interceptors?.request?.setAuthorizationHeader(requestConfig)
       );
       axiosInstance.interceptors.response.use(
         (response) => response,
-        (error) => this.context.$auth?.handleRequestError(error)
+        (error) => this.context.$auth?.interceptors?.response?.handleError(error)
       );
     }
 

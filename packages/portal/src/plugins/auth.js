@@ -57,33 +57,43 @@ class RefreshToken extends Token {
   static ID = 'refresh';
 }
 
+class Config {
+  clientId;
+  scope;
+  origin;
+  realm;
+  baseURL;
+  endpoints = {};
+  callbackPaths = {};
+
+  // TODO: set defaults
+  constructor({ clientId, scope, origin, realm } = {}) {
+    this.clientId = clientId;
+    this.scope = scope.join(' ');
+    this.origin = origin;
+    this.realm = realm;
+
+    this.baseURL = `${this.origin}/auth/realms/${this.realm}/protocol/openid-connect`;
+
+    this.endpoints = {
+      auth: `${this.baseURL}/auth`,
+      logout: `${this.baseURL}/logout`,
+      token: `${this.baseURL}/token`,
+      userinfo: `${this.baseURL}/userinfo`
+    };
+
+    // TODO: make configurable via plugin config
+    this.callbackPaths = {
+      login: '/auth/logincb',
+      logout: '/auth/logoutcb'
+    };
+  }
+}
+
 export const createAuthPlugin = (ctx) => {
-  const config = ctx.$config.auth;
-  const scope = config.scope.join(' ');
-  const url = `${config.origin}/auth/realms/${config.realm}/protocol/openid-connect`;
-  const endpoints = {
-    auth: `${url}/auth`,
-    logout: `${url}/logout`,
-    token: `${url}/token`,
-    userinfo: `${url}/userinfo`
-  };
+  const config = new Config(ctx.$config.auth);
 
   const appUrl = (path) => `${ctx.$config.app.baseUrl}${path}`;
-  // TODO: make configurable via plugin options from config
-  const callbackPaths = {
-    login: '/auth/logincb',
-    logout: '/auth/logoutcb'
-  };
-
-  const user = reactive({
-    info: null,
-    get loggedIn() {
-      return !!this.info;
-    },
-    hasClientRole(client, role) {
-      return this.info?.resource_access?.[client]?.roles?.includes(role) || false;
-    }
-  });
 
   const storageKey = (key) => `${PLUGIN_NAME}.${key}`;
   const storage = {
@@ -104,27 +114,42 @@ export const createAuthPlugin = (ctx) => {
   const refreshToken = new RefreshToken({ storage: storage.cookies });
   const accessToken = new AccessToken({ storage: storage.cookies });
 
-  const axiosInstanceWithoutAuth = axios.create();
-
-  const addAuthorizationHeaderToRequest = (requestConfig) => {
-    requestConfig.headers.authorization = `Bearer ${accessToken.value}`;
-    return requestConfig;
+  const interceptors = {
+    request: {
+      setAuthorizationHeader: (requestConfig) => {
+        requestConfig.headers.authorization = `Bearer ${accessToken.value}`;
+        return requestConfig;
+      }
+    },
+    response: {
+      handleError: (err) => new Promise((resolve, reject) => {
+        if (err.response?.status === 401) {
+          handleUnauthorizedError(err)
+            .then((response) => resolve(response))
+            .catch((error) => reject(error));
+        } else {
+          reject(err);
+        }
+      })
+    }
   };
+
+  const axiosInstanceWithoutAuth = axios.create();
 
   const axiosInstanceWithAuth = axios.create();
   axiosInstanceWithAuth.interceptors.request.use(
-    (requestConfig) => addAuthorizationHeaderToRequest(requestConfig)
+    (requestConfig) => interceptors.request.setAuthorizationHeader(requestConfig)
   );
   axiosInstanceWithAuth.interceptors.response.use(
     (response) => response,
-    (error) => handleRequestError(error)
+    (error) => interceptors.response.handleError(error)
   );
 
   const request = (requestConfig, axiosInstance = axiosInstanceWithoutAuth) => {
     return axiosInstance.request(requestConfig);
   };
 
-  const requestWithAuth = (requestConfig, axiosInstance = axiosInstanceWithAuth) => {
+  request.withAuth = (requestConfig, axiosInstance = axiosInstanceWithAuth) => {
     return request(requestConfig, axiosInstance);
   };
 
@@ -136,12 +161,12 @@ export const createAuthPlugin = (ctx) => {
   const refreshAccessToken = async() => {
     const refreshAccessTokenResponse = await request({
       method: 'post',
-      url: endpoints.token,
+      url: config.endpoints.token,
       data: new URLSearchParams({
         'client_id': config.clientId,
         'grant_type': 'refresh_token',
         'refresh_token': refreshToken.value,
-        scope
+        scope: config.scope
       }),
       headers: {
         'content-type': 'application/x-www-form-urlencoded'
@@ -163,7 +188,7 @@ export const createAuthPlugin = (ctx) => {
       // access token has expired: get a new access token
       try {
         await refreshAccessToken();
-        return requestWithAuth(requestConfig);
+        return request.withAuth(requestConfig);
       } catch (err) {
         if (errorResponseIsInvalidGrant(err.response)) {
           // Refresh token is no longer valid; clear it and try again
@@ -198,7 +223,7 @@ export const createAuthPlugin = (ctx) => {
   };
 
   const goToAuthEndpoint = (endpoint, { params = {} } = {}) => {
-    const url = new URL(endpoints[endpoint]);
+    const url = new URL(config.endpoints[endpoint]);
     url.search = new URLSearchParams(params);
 
     // TODO: use vue router?
@@ -207,7 +232,7 @@ export const createAuthPlugin = (ctx) => {
   };
 
   const redirectUri = (action, destination) => {
-    const url = new URL(appUrl(ctx.localePath(callbackPaths[action])));
+    const url = new URL(appUrl(ctx.localePath(config.callbackPaths[action])));
     if (destination) {
       url.search = new URLSearchParams({
         redirect: destination
@@ -223,7 +248,7 @@ export const createAuthPlugin = (ctx) => {
       'access_type': 'online',
       'client_id': config.clientId,
       'redirect_uri': redirectUri('login', destination || ctx.route.fullPath),
-      scope,
+      scope: config.scope,
       state: nanoid(),
       'ui_locales': ctx.i18n.locale
     };
@@ -251,7 +276,7 @@ export const createAuthPlugin = (ctx) => {
     }
 
     const tokenRequestConfig = {
-      url: endpoints.token,
+      url: config.endpoints.token,
       method: 'post',
       data: new URLSearchParams({
         'code': ctx.route.query.code,
@@ -293,17 +318,6 @@ export const createAuthPlugin = (ctx) => {
     ctx.app.router.replace(ctx.route.query.redirect || '/');
   };
 
-  // TODO: should this be named handleResponseError?
-  const handleRequestError = (err) => new Promise((resolve, reject) => {
-    if (err.response?.status === 401) {
-      handleUnauthorizedError(err)
-        .then((response) => resolve(response))
-        .catch((error) => reject(error));
-    } else {
-      reject(err);
-    }
-  });
-
   const fetchUserInfo = async() => {
     let userInfo;
 
@@ -311,8 +325,8 @@ export const createAuthPlugin = (ctx) => {
       userInfo = ctx.nuxtState[NUXT_STATE_KEY].user;
     } else {
       try {
-        const response = await requestWithAuth({
-          url: endpoints.userinfo,
+        const response = await request.withAuth({
+          url: config.endpoints.userinfo,
           method: 'get',
           params: {
             'client_id': config.clientId
@@ -339,11 +353,11 @@ export const createAuthPlugin = (ctx) => {
     const { path: localelessPath } = extractLocaleFromRoutePath(ctx.route.path);
 
     // do not init user info on login/logout callback paths
-    if (Object.values(callbackPaths).includes(localelessPath)) {
+    if (Object.values(config.callbackPaths).includes(localelessPath)) {
       return;
     }
 
-    if (accessToken.value && !user.loggedIn && (ctx.route.path !== callbackPaths.logout)) {
+    if (accessToken.value && !user.loggedIn) {
       await fetchUserInfo();
       // store it in the nuxt state for hydration to prevent re-calling fetchUserInfo client-side
       ctx.beforeSerialize?.((nuxtState) => {
@@ -353,17 +367,23 @@ export const createAuthPlugin = (ctx) => {
     }
   };
 
-  return {
-    get accountUrl() {
-      return accountUrl();
+  const user = reactive({
+    info: null,
+    get loggedIn() {
+      return !!this.info;
     },
-    addAuthorizationHeaderToRequest,
-    handleRequestError,
-    initUserInfo,
+    hasClientRole(client, role) {
+      return this.info?.resource_access?.[client]?.roles?.includes(role) || false;
+    },
+    init: initUserInfo
+  });
+
+  return {
+    accountUrl,
+    interceptors,
     login,
     logout,
     request,
-    requestWithAuth,
     user
   };
 };
@@ -371,7 +391,7 @@ export const createAuthPlugin = (ctx) => {
 export default async(ctx, inject) => {
   const plugin = createAuthPlugin(ctx);
 
-  await plugin.initUserInfo();
+  await plugin.user.init();
 
   inject(PLUGIN_NAME, plugin);
 };
