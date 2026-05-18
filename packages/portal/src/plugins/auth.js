@@ -90,13 +90,10 @@ class Config {
   }
 }
 
-export const createAuthPlugin = ({ options, appBaseURL, route, router, localePath, locale, cookies }) => {
-  const config = new Config(options);
-
-  const appUrl = (path) => `${appBaseURL}${path}`;
-
+const createStorage = ({ cookies }) => {
   const storageKey = (key) => `${PLUGIN_NAME}.${key}`;
-  const storage = {
+
+  return {
     // TODO: client-side only?
     local: {
       get: (key) => localStorage.getItem(storageKey(key)),
@@ -110,14 +107,27 @@ export const createAuthPlugin = ({ options, appBaseURL, route, router, localePat
       remove: (key) => cookies.remove(storageKey(key))
     }
   };
+};
 
-  const refreshToken = new RefreshToken({ storage: storage.cookies });
-  const accessToken = new AccessToken({ storage: storage.cookies });
+const createTokens = ({ storage }) => {
+  return {
+    access: new AccessToken({ storage }),
+    refresh: new RefreshToken({ storage })
+  };
+};
+
+export const createAuthPlugin = ({ options, appBaseURL, route, router, localePath, locale, cookies }) => {
+  const config = new Config(options);
+
+  const appUrl = (path) => `${appBaseURL}${path}`;
+
+  const storage = createStorage({ cookies });
+  const tokens = createTokens({ storage: storage.cookies });
 
   const interceptors = {
     request: {
       setAuthorizationHeader: (requestConfig) => {
-        requestConfig.headers.authorization = `Bearer ${accessToken.value}`;
+        requestConfig.headers.authorization = `Bearer ${tokens.access.value}`;
         return requestConfig;
       }
     },
@@ -154,8 +164,8 @@ export const createAuthPlugin = ({ options, appBaseURL, route, router, localePat
   };
 
   const updateTokensFromResponse = (response) => {
-    accessToken.value = response.data[AccessToken.id];
-    refreshToken.value = response.data[RefreshToken.id];
+    tokens.access.value = response.data[AccessToken.id];
+    tokens.refresh.value = response.data[RefreshToken.id];
   };
 
   const refreshAccessToken = async() => {
@@ -165,7 +175,7 @@ export const createAuthPlugin = ({ options, appBaseURL, route, router, localePat
       data: new URLSearchParams({
         'client_id': config.clientId,
         'grant_type': 'refresh_token',
-        'refresh_token': refreshToken.value,
+        'refresh_token': tokens.refresh.value,
         scope: config.scope
       }),
       headers: {
@@ -183,7 +193,7 @@ export const createAuthPlugin = ({ options, appBaseURL, route, router, localePat
   const handleUnauthorizedError = async(error) => {
     const requestConfig = error.config;
 
-    if (refreshToken.value) {
+    if (tokens.refresh.value) {
       // User has previously logged in, and we have a refresh token, e.g.
       // access token has expired: get a new access token
       try {
@@ -194,8 +204,8 @@ export const createAuthPlugin = ({ options, appBaseURL, route, router, localePat
           // Refresh token is no longer valid; clear it and try again
           // in case request does not need authorization anyway
           delete requestConfig.headers['authorization'];
-          accessToken.clear();
-          refreshToken.clear();
+          tokens.access.clear();
+          tokens.refresh.clear();
           user.info = null;
           const response = await request(requestConfig);
           return response;
@@ -311,8 +321,8 @@ export const createAuthPlugin = ({ options, appBaseURL, route, router, localePat
   }
 
   logout.callback = function() {
-    accessToken.clear();
-    refreshToken.clear();
+    tokens.access.clear();
+    tokens.refresh.clear();
     // FIXME: shouldn't need to do this as it shouldn't yet be set...
     user.info = null;
 
@@ -357,13 +367,12 @@ export const createAuthPlugin = ({ options, appBaseURL, route, router, localePat
 
   return {
     accountUrl,
-    accessToken,
     config,
     interceptors,
     login,
     logout,
-    refreshToken,
     request,
+    tokens,
     user
   };
 };
@@ -388,7 +397,7 @@ export default async(ctx, inject) => {
       return;
     }
 
-    if (plugin.accessToken.value && !plugin.user.loggedIn) {
+    if (plugin.tokens.access.value && !plugin.user.loggedIn) {
       if (ctx.nuxtState?.[NUXT_STATE_KEY]?.user) {
         plugin.user.info = ctx.nuxtState[NUXT_STATE_KEY].user;
       } else {
