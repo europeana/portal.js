@@ -220,7 +220,11 @@
         return `/_api/cache/${this.cacheKey}`;
       },
       cacheKey() {
-        return `${this.$i18n.locale}/collections/${this.aggregatorType || this.type}`;
+        if (this.aggregatorType) {
+          return `${this.$i18n.locale}/collections/organisations/aggregators`;
+        } else {
+          return `${this.$i18n.locale}/collections/${this.type}`;
+        }
       },
       currentPage() {
         return Number(this.$route?.query?.page) || 1;
