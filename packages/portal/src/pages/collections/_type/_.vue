@@ -238,7 +238,7 @@
           ['topic', 'organisation'].includes(this.collectionType);
       },
       userIsEntitiesEditor() {
-        return this.$auth.userHasClientRole('entities', 'editor');
+        return this.$auth.user.hasClientRole('entities', 'editor');
       },
       route() {
         return {

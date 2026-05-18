@@ -2,7 +2,7 @@
   <b-row>
     <b-col class="d-flex justify-content-center align-items-center pb-4">
       <h1 class="text-center mb-0 text-break">
-        @{{ loggedInUser?.preferred_username }}
+        @{{ loggedInUser?.info.preferred_username }}
       </h1>
       <UserProfileDropdown />
     </b-col>
@@ -21,7 +21,7 @@
 
     data() {
       return {
-        loggedInUser: this.$store?.state?.auth?.user
+        loggedInUser: this.$auth.user
       };
     }
   };

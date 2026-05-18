@@ -44,14 +44,16 @@ const factory = ({ mocks = {}, propsData = {}, data = {} } = {}) => shallowMount
         baseURL: 'https://api.europeana.eu/fulltext'
       }
     },
-    $auth: {},
-    $keycloak: { login: sinon.spy() },
     $i18n: {
       locale: 'en',
       n: (num) => num
     },
     $config: mocks.$config,
     ...mocks,
+    $auth: {
+      login: sinon.spy(),
+      ...mocks.$auth
+    },
     $store: {
       commit: sinon.spy(),
       getters: {
@@ -519,7 +521,7 @@ describe('components/search/SearchInterface', () => {
 
         wrapper.vm.handleMultilingualButtonInput(true);
 
-        expect(wrapper.vm.$keycloak.login.called).toBe(true);
+        expect(wrapper.vm.$auth.login.called).toBe(true);
       });
     });
 

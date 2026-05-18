@@ -240,15 +240,15 @@
         return this.set.creator && typeof this.set.creator === 'string' ? this.set.creator : this.set.creator.id;
       },
       userIsOwner() {
-        return this.$auth.loggedIn && this.$auth.user &&
-          this.setCreatorId?.endsWith(`/${this.$auth.user.sub}`);
+        return this.$auth.user.loggedIn && this.$auth.user &&
+          this.setCreatorId?.endsWith(`/${this.$auth.user.info.sub}`);
       },
       userIsEntityEditor() {
-        return this.$auth.userHasClientRole('entities', 'editor') &&
-          this.$auth.userHasClientRole('usersets', 'editor');
+        return this.$auth.user.hasClientRole('entities', 'editor') &&
+          this.$auth.user.hasClientRole('usersets', 'editor');
       },
       userIsPublisher() {
-        return this.$auth.userHasClientRole('usersets', 'publisher');
+        return this.$auth.user.hasClientRole('usersets', 'publisher');
       },
       userCanEditSet() {
         return this.userIsOwner || (this.userIsPublisher && this.set.visibility === 'published');

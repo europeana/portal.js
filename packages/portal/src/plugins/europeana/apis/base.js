@@ -67,13 +67,12 @@ export default class EuropeanaApi {
     }
 
     if (this.constructor.AUTHORISING) {
+      axiosInstance.interceptors.request.use(
+        (requestConfig) => this.context.$auth?.interceptors?.request?.setAuthorizationHeader(requestConfig)
+      );
       axiosInstance.interceptors.response.use(
         (response) => response,
-        (error) => {
-          this.context.$keycloak?.error?.(error);
-          return Promise.reject(error);
-        }
-
+        (error) => this.context.$auth?.interceptors?.response?.handleError(error)
       );
     }
 
@@ -105,11 +104,9 @@ export default class EuropeanaApi {
     const headers = {};
     const params = {};
 
+    // TODO: skip if `this.constructor.AUTHORISING`? (because token used)
     if (this.constructor.AUTHENTICATING) {
       params.wskey = this.key;
-    }
-    if (this.constructor.AUTHORISING && this.context?.$auth?.loggedIn) {
-      headers.authorization = this.context.$auth.getToken(this.context.$auth.strategy.name);
     }
 
     return {

@@ -181,17 +181,10 @@
 
     middleware: [
       // When entering a translated item page, but not logged-in,
-      // redirect to Keycloak to login, unless user just logged out in which case,
-      // redirect to page without translation.
+      // redirect to Keycloak to login.
       ({ $auth, redirect, route }) => {
-        if (route.query.lang && !$auth.loggedIn) {
-          if ($auth.$storage.getUniversal('portalLoggingOut')) {
-            // just logged out: redirect to page w/o lang param
-            return redirectToAltRoute({ query: { lang: undefined } }, { redirect, route, status: 303 });
-          } else {
-            // not yet logged-in: redirect to login
-            return redirect(303, { name: 'account-login', query: { redirect: route.fullPath } });
-          }
+        if (route.query.lang && !$auth.user.loggedIn) {
+          return redirect(303, { name: 'account-login', query: { redirect: route.fullPath } });
         }
       }
     ],
@@ -357,7 +350,7 @@
         };
       },
       translatingMetadata() {
-        return !!(this.$route.query.lang && this.$auth.loggedIn);
+        return !!(this.$route.query.lang && this.$auth.user.loggedIn);
       },
       translationLanguage() {
         return this.translatingMetadata ? this.$route.query.lang : null;

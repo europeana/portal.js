@@ -14,15 +14,15 @@ const factory = ({ propsData = { identifiers }, $auth = {} } = {}) => shallowMou
   attachTo: document.body,
   propsData,
   mocks: {
-    $auth,
+    $auth: {
+      login: sinon.spy(),
+      ...$auth
+    },
     $error: (error) => {
       console.error(error);
       throw error;
     },
     $features: {},
-    $keycloak: {
-      login: sinon.spy()
-    },
     $likedItems: {
       liked: { value: [] },
       like: sinon.spy(),
@@ -84,7 +84,7 @@ describe('components/item/ItemLikeButton', () => {
           const likeButton = wrapper.find('b-button-stub[data-qa="like button"]');
           likeButton.trigger('click');
 
-          expect(wrapper.vm.$keycloak.login.called).toBe(true);
+          expect(wrapper.vm.$auth.login.called).toBe(true);
         });
       });
     });

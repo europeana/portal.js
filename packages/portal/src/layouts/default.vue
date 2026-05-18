@@ -64,7 +64,6 @@
   import PageHeader from '@/components/page/PageHeader';
   import ProvideCanonicalUrl from '@/components/provide/ProvideCanonicalUrl';
   import ErrorModal from '@/components/error/ErrorModal';
-  import useMakeToast from '@/composables/makeToast.js';
   import versions from '../../pkg-versions';
   import { activeFeatureNotification } from '@/features/notifications';
 
@@ -81,12 +80,6 @@
       NewFeatureNotification: () => import('@/components/generic/NewFeatureNotification'),
       NotificationBanner: () => import('@/components/generic/NotificationBanner'),
       ErrorModal
-    },
-
-    setup() {
-      const { makeToast } = useMakeToast();
-
-      return { makeToast };
     },
 
     data() {
@@ -133,17 +126,6 @@
             this.enableAnnouncer = true;
           }
         });
-      }
-    },
-
-    mounted() {
-      if (this.$auth.$storage.getUniversal('portalLoggingIn') && this.$auth.loggedIn) {
-        this.makeToast(this.$t('account.notifications.loggedIn'));
-        this.$auth.$storage.removeUniversal('portalLoggingIn');
-      }
-      if (this.$auth.$storage.getUniversal('portalLoggingOut') && !this.$auth.loggedIn) {
-        this.makeToast(this.$t('account.notifications.loggedOut'));
-        this.$auth.$storage.removeUniversal('portalLoggingOut');
       }
     }
   };

@@ -44,7 +44,6 @@
 </template>
 
 <script>
-  import axios from 'axios';
   import ContentCard from '@/components/content/ContentCard';
 
   export default {
@@ -64,20 +63,12 @@
 
     data() {
       return {
-        axiosInstance: null,
         votesOnFeatures: {}
       };
     },
 
+    // TODO: check this is still working with $auth.requestWithAuth
     async fetch() {
-      this.axiosInstance = axios.create({
-        baseURL: this.$config.app.baseUrl
-      });
-      this.axiosInstance.interceptors.response.use(
-        (response) => response,
-        (error) => this.$keycloak.error(error)
-      );
-
       if (this.features.length < 1) {
         const error = new Error('No feature ideas');
         error.code = 'noFeatureIdeas';
@@ -86,10 +77,10 @@
       }
 
       const params = { candidate: this.features.map((feature) => feature.identifier).join(',') };
-      const votesResponse = await this.axiosInstance({
+      const votesResponse = await this.$auth.requestWithAuth({
+        baseURL: this.$config.app.baseUrl,
         url: '/_api/votes',
         method: 'get',
-        headers: this.headersForAuthorization(),
         params
       });
 
@@ -100,28 +91,19 @@
     fetchOnServer: false,
 
     methods: {
-      headersForAuthorization() {
-        if (this.$auth.loggedIn) {
-          return {
-            authorization: this.$auth.getToken(this.$auth.strategy?.name)
-          };
-        } else {
-          return {};
-        }
-      },
       async voteOnFeature(featureId) {
-        if (this.$auth.loggedIn) {
+        if (this.$auth.user.loggedIn) {
           const method = this.hasVotedOnFeature(featureId) ? 'delete' : 'put';
 
-          await this.axiosInstance({
+          await this.$auth.requestWithAuth({
+            baseURL: this.$config.app.baseUrl,
             url: `/_api/votes/${featureId}`,
-            method,
-            headers: this.headersForAuthorization()
+            method
           });
 
           this.$fetch();
         } else {
-          this.$keycloak.login();
+          this.$auth.login();
         }
       },
       voteCountOnFeature(featureId) {

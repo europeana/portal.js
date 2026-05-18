@@ -143,7 +143,7 @@
     },
 
     async fetch() {
-      if (!this.$auth.loggedIn) {
+      if (!this.$auth.user.loggedIn) {
         return;
       }
       const userApiKeys = await this.$apis.auth.getUserClients();

@@ -9,8 +9,8 @@ localVue.use(BootstrapVue);
 const factory = () => mount(UserProfileDropdown, {
   localVue,
   mocks: {
-    $keycloak: {
-      accountUrl: () => {}
+    $auth: {
+      accountUrl: null
     },
     localePath: (path) => path,
     $t: (key) => key

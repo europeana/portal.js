@@ -11,7 +11,6 @@ const COOKIE_NAME = 'i18n_locale_code';
 
 // Codes of all languages supported by the app
 import { codes as localeCodes } from '@europeana/i18n';
-import { exclude as i18nRoutesExclude } from '../i18n/routes.js';
 
 function appSupportsLocale(locale) {
   return locale && localeCodes.includes(locale);
@@ -28,11 +27,6 @@ const localiseRoute = ({ route, req, res, redirect, app }) => {
 };
 
 export default ({ app, route, redirect, req, res }) => {
-  // Exit early if route path is excluded from i18n
-  if (i18nRoutesExclude.includes(route.path)) {
-    return;
-  }
-
   // Is there a locale in the URL path already?
   if ((route.path.length === 3 || route.path.slice(3, 4) === '/')) {
     const routePathLocale = route.path.slice(1, 3);
