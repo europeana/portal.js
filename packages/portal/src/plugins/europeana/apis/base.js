@@ -105,9 +105,7 @@ export default class EuropeanaApi {
     const headers = {};
     const params = {};
 
-    // if (this.constructor.AUTHORISING && this.context?.$auth?.user?.loggedIn) {
-    //   headers.authorization = `Bearer ${this.context.$auth.accessToken}`;
-    // } else
+    // TODO: skip if `this.constructor.AUTHORISING`? (because token used)
     if (this.constructor.AUTHENTICATING) {
       params.wskey = this.key;
     }

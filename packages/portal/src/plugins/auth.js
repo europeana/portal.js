@@ -57,8 +57,6 @@ class RefreshToken extends Token {
   static ID = 'refresh';
 }
 
-// TODO: consider whether everything belongs inside here, esp considering it gets called
-//       once on every SSR
 export const createAuthPlugin = (ctx) => {
   const config = ctx.$config.auth;
   const scope = config.scope.join(' ');
@@ -106,26 +104,6 @@ export const createAuthPlugin = (ctx) => {
   const refreshToken = new RefreshToken({ storage: storage.cookies });
   const accessToken = new AccessToken({ storage: storage.cookies });
 
-  // const getAccessToken = () => {
-  //   return storage.cookies.get('accessToken');
-  // };
-
-  // const removeAccessToken = () => {
-  //   return storage.cookies.remove('accessToken');
-  // };
-
-  // const getRefreshToken = () => {
-  //   return storage.cookies.get('refreshToken');
-  // };
-
-  // const setRefreshToken = (value)  => {
-  //   return storage.cookies.set('refreshToken', value);
-  // };
-
-  // const removeRefreshToken = () => {
-  //   return storage.cookies.remove('refreshToken');
-  // };
-
   const axiosInstanceWithoutAuth = axios.create();
 
   const addAuthorizationHeaderToRequest = (requestConfig) => {
@@ -142,20 +120,8 @@ export const createAuthPlugin = (ctx) => {
     (error) => handleRequestError(error)
   );
 
-  const request = async(requestConfig, axiosInstance = axiosInstanceWithoutAuth) => {
-    console.group('request');
-    console.log('config.url', requestConfig.url);
-    console.log('config.headers', requestConfig.headers);
-    const response = await axiosInstance.request(requestConfig);
-    if (response) {
-      console.log('response is present', requestConfig);
-      console.log('response status', response.status);
-      console.log('response data', response.data);
-    } else {
-      console.log('response is empty', requestConfig);
-    }
-    console.groupEnd();
-    return response;
+  const request = (requestConfig, axiosInstance = axiosInstanceWithoutAuth) => {
+    return axiosInstance.request(requestConfig);
   };
 
   const requestWithAuth = (requestConfig, axiosInstance = axiosInstanceWithAuth) => {
@@ -163,51 +129,25 @@ export const createAuthPlugin = (ctx) => {
   };
 
   const updateTokensFromResponse = (response) => {
-    console.group('updateTokensFromResponse');
-    // console.log('response', response);
     accessToken.value = response.data[AccessToken.id];
     refreshToken.value = response.data[RefreshToken.id];
-    console.log('accessToken.value', accessToken.value);
-    console.log('refreshToken.value', refreshToken.value);
-    console.groupEnd();
   };
 
   const refreshAccessToken = async() => {
-    console.group('refreshAccessToken');
-    try {
-      const refreshAccessTokenResponse = await request({
-        method: 'post',
-        url: endpoints.token,
-        data: new URLSearchParams({
-          'client_id': config.clientId,
-          'grant_type': 'refresh_token',
-          'refresh_token': refreshToken.value,
-          scope
-        }),
-        headers: {
-          'content-type': 'application/x-www-form-urlencoded'
-        }
-      });
-      console.log('refreshAccessTokenResponse', refreshAccessTokenResponse?.data);
-      updateTokensFromResponse(refreshAccessTokenResponse);
-    } catch (error) {
-      logResponseError(error, 'refreshAccessToken');
-      throw error;
-    } finally {
-      console.groupEnd();
-    }
-  };
-
-  const logResponseError = (error, group) => {
-    console.group(`[${group}] logResponseError`);
-    console.error('message', error.message);
-    console.error('stack', error.stack);
-    error.config?.url && console.error('request.url', error.config?.url);
-    error.config?.headers && console.error('request.headers', error.config?.headers);
-    error.config?.data && console.error('request.data', error.config?.data);
-    error.response?.status && console.error('response.status', error.response?.status);
-    error.response?.data && console.error('response.data', error.response?.data);
-    console.groupEnd();
+    const refreshAccessTokenResponse = await request({
+      method: 'post',
+      url: endpoints.token,
+      data: new URLSearchParams({
+        'client_id': config.clientId,
+        'grant_type': 'refresh_token',
+        'refresh_token': refreshToken.value,
+        scope
+      }),
+      headers: {
+        'content-type': 'application/x-www-form-urlencoded'
+      }
+    });
+    updateTokensFromResponse(refreshAccessTokenResponse);
   };
 
   // @see https://www.rfc-editor.org/rfc/rfc6749.html#section-5.2
@@ -216,13 +156,6 @@ export const createAuthPlugin = (ctx) => {
   };
 
   const handleUnauthorizedError = async(error) => {
-    console.group('handleUnauthorizedError');
-    // TODO: should we clear it yet? or wait til later?
-    // accessToken.clear();
-    console.log('access token', accessToken.value);
-    console.log('refresh token', refreshToken.value);
-    console.groupEnd();
-    // throw error
     const requestConfig = error.config;
 
     if (refreshToken.value) {
@@ -230,14 +163,11 @@ export const createAuthPlugin = (ctx) => {
       // access token has expired: get a new access token
       try {
         await refreshAccessToken();
-        const response = await requestWithAuth(requestConfig);
-        console.log('handled unauthorized error', response);
-        return response;
+        return requestWithAuth(requestConfig);
       } catch (err) {
         if (errorResponseIsInvalidGrant(err.response)) {
           // Refresh token is no longer valid; clear it and try again
           // in case request does not need authorization anyway
-          console.log('refresh token no longer valid');
           delete requestConfig.headers['authorization'];
           accessToken.clear();
           refreshToken.clear();
@@ -262,7 +192,7 @@ export const createAuthPlugin = (ctx) => {
     );
     authAccountUrl.search = new URLSearchParams({
       referrer: config.clientId,
-      'referrer_uri': ctx.$config.app.baseUrl
+      'referrer_uri': appUrl(ctx.route.fullPath)
     }).toString();
     return authAccountUrl.toString();
   };
@@ -364,18 +294,15 @@ export const createAuthPlugin = (ctx) => {
   };
 
   // TODO: should this be named handleResponseError?
-  const handleRequestError = async(err) => {
-    logResponseError(err, 'handleRequestError');
-    return new Promise((resolve, reject) => {
-      if (err.response?.status === 401) {
-        handleUnauthorizedError(err)
-          .then((response) => resolve(response))
-          .catch((error) => reject(error));
-      } else {
-        reject(err);
-      }
-    });
-  };
+  const handleRequestError = (err) => new Promise((resolve, reject) => {
+    if (err.response?.status === 401) {
+      handleUnauthorizedError(err)
+        .then((response) => resolve(response))
+        .catch((error) => reject(error));
+    } else {
+      reject(err);
+    }
+  });
 
   const fetchUserInfo = async() => {
     let userInfo;
@@ -391,24 +318,16 @@ export const createAuthPlugin = (ctx) => {
             'client_id': config.clientId
           }
         });
-        console.log('fetchUserInfo response', response?.data);
         userInfo = response.data;
       } catch (err) {
-        console.group('fetchUserInfo error');
-        logResponseError(err, 'fetchUserInfo');
-        // if by this point there is any kind of response error, then either
-        // user is no longer logged in and refresh token is expired, or something
-        // else is wrong, e.g. the server is down. give up. user is not logged in.
-        // tokens should have been cleared. let the caller handle that.
         if (err.response?.status) {
-          console.log('fetchUserInfo failed due to response error');
-          console.log('accessToken', accessToken.value);
-          console.log('refreshToken', refreshToken.value);
-          // console.log('user', user)
+          // if by this point there is any kind of response error, then either
+          // user is no longer logged in and refresh token is expired, or something
+          // else is wrong, e.g. the server is down. give up. user is not logged in.
+          // tokens should have been cleared. let the caller handle that.
         } else {
           throw err;
         }
-        console.groupEnd();
       }
     }
 
@@ -435,9 +354,6 @@ export const createAuthPlugin = (ctx) => {
   };
 
   return {
-    get accessToken() {
-      return accessToken.value;
-    },
     get accountUrl() {
       return accountUrl();
     },
@@ -446,9 +362,6 @@ export const createAuthPlugin = (ctx) => {
     initUserInfo,
     login,
     logout,
-    get refreshToken() {
-      return refreshToken.value;
-    },
     request,
     requestWithAuth,
     user
@@ -457,10 +370,6 @@ export const createAuthPlugin = (ctx) => {
 
 export default async(ctx, inject) => {
   const plugin = createAuthPlugin(ctx);
-  console.group('init auth plugin');
-  console.log('accessToken', plugin.accessToken);
-  console.log('refreshToken', plugin.refreshToken);
-  console.groupEnd();
 
   await plugin.initUserInfo();
 

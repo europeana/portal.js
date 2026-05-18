@@ -9,7 +9,8 @@ export function useAuthRoutes() {
   const route = useRoute();
 
   const loginRedirectPath = computed(() => {
-    if (route.name.startsWith('account') || route.name.startsWith('auth')) {
+    // TODO: this should be derived, from auth path config
+    if (route.name.startsWith('auth')) {
       return $root.localePath('/');
     }
     return route.fullPath;
@@ -25,6 +26,8 @@ export function useAuthRoutes() {
   // TODO: refactor so that each page can register its own logout redirect path
   //       (if needed)
   const logoutRedirectPath = computed(() => {
+    // TODO: this should be derived, from auth path config, and whether the current
+    //       page uses the auth middleware
     if (route.name.startsWith('account') || route.name.startsWith('auth')) {
       return $root.localePath('/');
     } else if (route.name.startsWith('item-all')) {
