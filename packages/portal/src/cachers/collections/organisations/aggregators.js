@@ -1,5 +1,5 @@
-import baseData from './index.js';
-import { createEuropeanaApiClient } from '../utils.js';
+import baseData from '../index.js';
+import { createEuropeanaApiClient } from '../../utils.js';
 
 const PICK = ['id', 'slug', 'recordCount', 'prefLabel', 'geographicScope', 'countryPrefLabel', 'heritageDomain', 'logo'];
 const LOCALISE = 'countryPrefLabel';

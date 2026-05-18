@@ -1,4 +1,4 @@
-import * as cacher from '@/cachers/collections/aggregators.js';
+import * as cacher from '@/cachers/collections/organisations/aggregators.js';
 import * as baseCacher from '@/cachers/collections/index.js';
 import sinon from 'sinon';
 import nock from 'nock';
