@@ -66,7 +66,6 @@ export default class EuropeanaApi {
       axiosInstance.interceptors.request.use(app.$axiosLogger);
     }
 
-    // TODO: see if we can use $auth.requestWithAuth() instead
     if (this.constructor.AUTHORISING) {
       axiosInstance.interceptors.request.use(
         (requestConfig) => this.context.$auth?.interceptors?.request?.setAuthorizationHeader(requestConfig)

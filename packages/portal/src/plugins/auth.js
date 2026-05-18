@@ -63,7 +63,6 @@ class Config {
   origin;
   realm;
   baseURL;
-  endpoints = {};
   callbackPaths = {};
 
   // TODO: set defaults
@@ -74,13 +73,6 @@ class Config {
     this.realm = realm;
 
     this.baseURL = `${this.origin}/auth/realms/${this.realm}/protocol/openid-connect`;
-
-    this.endpoints = {
-      auth: `${this.baseURL}/auth`,
-      logout: `${this.baseURL}/logout`,
-      token: `${this.baseURL}/token`,
-      userinfo: `${this.baseURL}/userinfo`
-    };
 
     // TODO: make configurable via plugin config
     this.callbackPaths = {
@@ -116,6 +108,55 @@ const createTokens = ({ storage }) => {
   };
 };
 
+// @see https://openid.net/specs/openid-connect-core-1_0.html#TokenRequest
+const createTokenRequestConfig = ({ url, code, clientId, redirectUri }) => ({
+  url,
+  method: 'post',
+  data: new URLSearchParams({
+    code,
+    'response_type': 'code',
+    'client_id': clientId,
+    'grant_type': 'authorization_code',
+    'redirect_uri': redirectUri
+  }),
+  headers: { 'content-type': 'application/x-www-form-urlencoded' }
+});
+
+// @see https://openid.net/specs/openid-connect-core-1_0.html#UserInfoRequest
+const createUserInfoRequestConfig = ({ url, clientId }) => ({
+  url,
+  method: 'get',
+  params: {
+    'client_id': clientId
+  }
+});
+
+// @see https://openid.net/specs/openid-connect-core-1_0.html#RefreshingAccessToken
+const createRefreshRequestConfig = ({ url, clientId, refreshToken, scope }) => ({
+  url,
+  method: 'post',
+  data: new URLSearchParams({
+    'client_id': clientId,
+    'grant_type': 'refresh_token',
+    'refresh_token': refreshToken,
+    scope
+  }),
+  headers: {
+    'content-type': 'application/x-www-form-urlencoded'
+  }
+});
+
+const createLoginParams = ({ clientId, redirectUri, scope, uiLocales }) => ({
+  protocol: 'oauth2',
+  'response_type': 'code',
+  'access_type': 'online',
+  'client_id': clientId,
+  'redirect_uri': redirectUri,
+  scope,
+  state: nanoid(),
+  'ui_locales': uiLocales
+});
+
 export const createAuthPlugin = ({ options, appBaseURL, route, router, localePath, locale, cookies }) => {
   const config = new Config(options);
 
@@ -144,9 +185,9 @@ export const createAuthPlugin = ({ options, appBaseURL, route, router, localePat
     }
   };
 
-  const axiosInstanceWithoutAuth = axios.create();
+  const axiosInstanceWithoutAuth = axios.create({ baseURL: config.baseURL });
 
-  const axiosInstanceWithAuth = axios.create();
+  const axiosInstanceWithAuth = axios.create({ baseURL: config.baseURL });
   axiosInstanceWithAuth.interceptors.request.use(
     (requestConfig) => interceptors.request.setAuthorizationHeader(requestConfig)
   );
@@ -169,19 +210,12 @@ export const createAuthPlugin = ({ options, appBaseURL, route, router, localePat
   };
 
   const refreshAccessToken = async() => {
-    const refreshAccessTokenResponse = await request({
-      method: 'post',
-      url: config.endpoints.token,
-      data: new URLSearchParams({
-        'client_id': config.clientId,
-        'grant_type': 'refresh_token',
-        'refresh_token': tokens.refresh.value,
-        scope: config.scope
-      }),
-      headers: {
-        'content-type': 'application/x-www-form-urlencoded'
-      }
-    });
+    const refreshAccessTokenResponse = await request(createRefreshRequestConfig({
+      url: '/token',
+      clientId: config.clientId,
+      refreshToken: tokens.refresh.value,
+      scope: config.scope
+    }));
     updateTokensFromResponse(refreshAccessTokenResponse);
   };
 
@@ -233,7 +267,7 @@ export const createAuthPlugin = ({ options, appBaseURL, route, router, localePat
   };
 
   const goToAuthEndpoint = (endpoint, { params = {} } = {}) => {
-    const url = new URL(config.endpoints[endpoint]);
+    const url = new URL(`${config.baseURL}/${endpoint}`);
     url.search = new URLSearchParams(params);
 
     // TODO: use vue router? (but it's not a vue route...)
@@ -252,16 +286,12 @@ export const createAuthPlugin = ({ options, appBaseURL, route, router, localePat
   };
 
   function login(destination) {
-    const params = {
-      protocol: 'oauth2',
-      'response_type': 'code',
-      'access_type': 'online',
-      'client_id': config.clientId,
-      'redirect_uri': redirectUri('login', destination || route.fullPath),
+    const params = createLoginParams({
+      clientId: config.clientId,
+      redirectUri: redirectUri('login', destination || route.fullPath),
       scope: config.scope,
-      state: nanoid(),
-      'ui_locales': locale
-    };
+      uiLocales: locale
+    });
 
     storage.local.set('state', params.state);
     storage.local.set('redirect_uri', params.redirect_uri);
@@ -286,18 +316,12 @@ export const createAuthPlugin = ({ options, appBaseURL, route, router, localePat
       throw new Error('Unauthorised');
     }
 
-    const tokenRequestConfig = {
-      url: config.endpoints.token,
-      method: 'post',
-      data: new URLSearchParams({
-        'code': route.query.code,
-        'response_type': 'code',
-        'client_id': config.clientId,
-        'grant_type': 'authorization_code',
-        'redirect_uri': storage.local.get('redirect_uri')
-      }),
-      headers: { 'content-type': 'application/x-www-form-urlencoded' }
-    };
+    const tokenRequestConfig = createTokenRequestConfig({
+      url: '/token',
+      code: route.query.code,
+      clientId: config.clientId,
+      redirectUri: storage.local.get('redirect_uri')
+    });
     storage.local.remove('redirect_uri');
     const tokenResponse = await request(tokenRequestConfig);
 
@@ -329,6 +353,30 @@ export const createAuthPlugin = ({ options, appBaseURL, route, router, localePat
     router.replace(route.query.redirect || '/');
   };
 
+  const fetchUserInfo = async() => {
+    let userInfo;
+
+    try {
+      const response = await request.withAuth(createUserInfoRequestConfig({
+        url: '/userinfo',
+        clientId: config.clientId
+      }));
+      userInfo = response.data;
+    } catch (err) {
+      if (err.response?.status) {
+        // if by this point there is any kind of response error, then either
+        // user is no longer logged in and refresh token is expired, or something
+        // else is wrong, e.g. the server is down. give up. user is not logged in.
+        // tokens should have been cleared. let the caller detect & handle that.
+        return null;
+      } else {
+        throw err;
+      }
+    }
+
+    return userInfo;
+  };
+
   const user = reactive({
     info: null,
     get loggedIn() {
@@ -338,30 +386,7 @@ export const createAuthPlugin = ({ options, appBaseURL, route, router, localePat
       return this.info?.resource_access?.[client]?.roles?.includes(role) || false;
     },
     async fetch() {
-      let userInfo;
-
-      try {
-        const response = await request.withAuth({
-          url: config.endpoints.userinfo,
-          method: 'get',
-          params: {
-            'client_id': config.clientId
-          }
-        });
-        userInfo = response.data;
-      } catch (err) {
-        if (err.response?.status) {
-          // if by this point there is any kind of response error, then either
-          // user is no longer logged in and refresh token is expired, or something
-          // else is wrong, e.g. the server is down. give up. user is not logged in.
-          // tokens should have been cleared. let the caller detect & handle that.
-        } else {
-          throw err;
-        }
-      }
-
-      this.info = userInfo;
-      return userInfo;
+      this.info = await fetchUserInfo();
     }
   });
 
