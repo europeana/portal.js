@@ -16,13 +16,10 @@
 
     async mounted() {
       // NOTE: in mounted because it relies on localStorage for OIDC state validation
-      await this.$auth.login.callback(async() => {
+      this.$auth.login.callback(async() => {
         await this.$likedItems.initSetId();
-      });
-
-      if (this.$auth.user.loggedIn) {
         this.makeToast(this.$t('account.notifications.loggedIn'));
-      }
+      });
     }
   };
 </script>

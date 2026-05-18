@@ -57,30 +57,18 @@ class RefreshToken extends Token {
   static ID = 'refresh';
 }
 
-class Config {
-  clientId;
-  scope;
-  origin;
-  realm;
-  baseURL;
-  callbackPaths = {};
-
-  // TODO: set defaults
-  constructor({ clientId, scope, origin, realm } = {}) {
-    this.clientId = clientId;
-    this.scope = scope.join(' ');
-    this.origin = origin;
-    this.realm = realm;
-
-    this.baseURL = `${this.origin}/auth/realms/${this.realm}/protocol/openid-connect`;
-
-    // TODO: make configurable via plugin config
-    this.callbackPaths = {
-      login: '/auth/logincb',
-      logout: '/auth/logoutcb'
-    };
+const createConfig = ({ clientId, scope, origin, realm }) => ({
+  clientId,
+  scope: scope.join(' '),
+  origin,
+  realm,
+  baseURL: `${origin}/auth/realms/${realm}/protocol/openid-connect`,
+  // TODO: make configurable via plugin config?
+  callbackPaths: {
+    login: '/auth/logincb',
+    logout: '/auth/logoutcb'
   }
-}
+});
 
 const createStorage = ({ cookies }) => {
   const storageKey = (key) => `${PLUGIN_NAME}.${key}`;
@@ -104,27 +92,35 @@ const createStorage = ({ cookies }) => {
 const createTokens = ({ storage }) => {
   return {
     access: new AccessToken({ storage }),
-    refresh: new RefreshToken({ storage })
+    clear() {
+      this.access.clear();
+      this.refresh.clear();
+    },
+    refresh: new RefreshToken({ storage }),
+    setFromResponse(response) {
+      this.access.value = response.data[AccessToken.id];
+      this.refresh.value = response.data[RefreshToken.id];
+    }
   };
 };
 
 // @see https://openid.net/specs/openid-connect-core-1_0.html#TokenRequest
-const createTokenRequestConfig = ({ url, code, clientId, redirectUri }) => ({
-  url,
+const createTokenRequestConfig = ({ code, clientId, redirectUri }) => ({
+  url: '/token',
   method: 'post',
   data: new URLSearchParams({
-    code,
-    'response_type': 'code',
     'client_id': clientId,
+    code,
     'grant_type': 'authorization_code',
-    'redirect_uri': redirectUri
+    'redirect_uri': redirectUri,
+    'response_type': 'code'
   }),
   headers: { 'content-type': 'application/x-www-form-urlencoded' }
 });
 
 // @see https://openid.net/specs/openid-connect-core-1_0.html#UserInfoRequest
-const createUserInfoRequestConfig = ({ url, clientId }) => ({
-  url,
+const createUserInfoRequestConfig = ({ clientId }) => ({
+  url: '/userinfo',
   method: 'get',
   params: {
     'client_id': clientId
@@ -132,8 +128,8 @@ const createUserInfoRequestConfig = ({ url, clientId }) => ({
 });
 
 // @see https://openid.net/specs/openid-connect-core-1_0.html#RefreshingAccessToken
-const createRefreshRequestConfig = ({ url, clientId, refreshToken, scope }) => ({
-  url,
+const createRefreshRequestConfig = ({ clientId, refreshToken, scope }) => ({
+  url: '/token',
   method: 'post',
   data: new URLSearchParams({
     'client_id': clientId,
@@ -147,28 +143,29 @@ const createRefreshRequestConfig = ({ url, clientId, refreshToken, scope }) => (
 });
 
 const createLoginParams = ({ clientId, redirectUri, scope, uiLocales }) => ({
-  protocol: 'oauth2',
-  'response_type': 'code',
   'access_type': 'online',
   'client_id': clientId,
+  protocol: 'oauth2',
   'redirect_uri': redirectUri,
+  'response_type': 'code',
   scope,
   state: nanoid(),
   'ui_locales': uiLocales
 });
 
 export const createAuthPlugin = ({ options, appBaseURL, route, router, localePath, locale, cookies }) => {
-  const config = new Config(options);
-
-  const appUrl = (path) => `${appBaseURL}${path}`;
-
+  const config = createConfig(options);
   const storage = createStorage({ cookies });
   const tokens = createTokens({ storage: storage.cookies });
+
+  const appUrl = (path) => `${appBaseURL}${path}`;
 
   const interceptors = {
     request: {
       setAuthorizationHeader: (requestConfig) => {
-        requestConfig.headers.authorization = `Bearer ${tokens.access.value}`;
+        if (tokens.access.value) {
+          requestConfig.headers.authorization = `Bearer ${tokens.access.value}`;
+        }
         return requestConfig;
       }
     },
@@ -204,19 +201,14 @@ export const createAuthPlugin = ({ options, appBaseURL, route, router, localePat
     return request(requestConfig, axiosInstance);
   };
 
-  const updateTokensFromResponse = (response) => {
-    tokens.access.value = response.data[AccessToken.id];
-    tokens.refresh.value = response.data[RefreshToken.id];
-  };
-
   const refreshAccessToken = async() => {
+    tokens.access.clear();
     const refreshAccessTokenResponse = await request(createRefreshRequestConfig({
-      url: '/token',
       clientId: config.clientId,
       refreshToken: tokens.refresh.value,
       scope: config.scope
     }));
-    updateTokensFromResponse(refreshAccessTokenResponse);
+    tokens.setFromResponse(refreshAccessTokenResponse);
   };
 
   // @see https://www.rfc-editor.org/rfc/rfc6749.html#section-5.2
@@ -238,8 +230,7 @@ export const createAuthPlugin = ({ options, appBaseURL, route, router, localePat
           // Refresh token is no longer valid; clear it and try again
           // in case request does not need authorization anyway
           delete requestConfig.headers['authorization'];
-          tokens.access.clear();
-          tokens.refresh.clear();
+          tokens.clear();
           user.info = null;
           const response = await request(requestConfig);
           return response;
@@ -262,19 +253,13 @@ export const createAuthPlugin = ({ options, appBaseURL, route, router, localePat
     authAccountUrl.search = new URLSearchParams({
       referrer: config.clientId,
       'referrer_uri': appUrl(route.fullPath)
-    }).toString();
+    });
     return authAccountUrl.toString();
   };
 
-  const goToAuthEndpoint = (endpoint, { params = {} } = {}) => {
-    const url = new URL(`${config.baseURL}/${endpoint}`);
-    url.search = new URLSearchParams(params);
-
-    // TODO: use vue router? (but it's not a vue route...)
-    // TODO: is replace needed at any point in the flow?
-    window.location = url;
-  };
-
+  // generates the URI on the app to redirect back to after visiting
+  // auth/logout endpoints on the auth service. this will be a callback
+  // path, with a subsequent local redirect after the callback succeeds.
   const redirectUri = (action, destination) => {
     const url = new URL(appUrl(localePath(config.callbackPaths[action])));
     if (destination) {
@@ -285,80 +270,96 @@ export const createAuthPlugin = ({ options, appBaseURL, route, router, localePat
     return url.toString();
   };
 
-  function login(destination) {
-    const params = createLoginParams({
+  const createAuthServiceRedirectAction = (endpoint, paramsGenerator, cb) => (destination) => {
+    const params = paramsGenerator?.(destination) || {};
+    cb?.(params);
+
+    const url = new URL(`${config.baseURL}/${endpoint}`);
+    url.search = new URLSearchParams(params);
+
+    // TODO: use vue router? (but it's not a vue route...)
+    // TODO: is replace needed at any point in the flow?
+    window.location = url;
+  };
+
+  const createAuthServiceRedirectCallback = (impl) => async(cb) => {
+    await impl();
+
+    await cb?.();
+
+    router.replace(route.query?.redirect || '/');
+  };
+
+  const login = createAuthServiceRedirectAction('auth',
+    (destination) => (createLoginParams({
       clientId: config.clientId,
       redirectUri: redirectUri('login', destination || route.fullPath),
       scope: config.scope,
       uiLocales: locale
-    });
-
-    storage.local.set('state', params.state);
-    storage.local.set('redirect_uri', params.redirect_uri);
-
-    goToAuthEndpoint('auth', { params });
-  }
-
-  login.callback = async function() {
-    if (user.loggedIn) {
-      router.replace(route.query.redirect || '/');
-      return;
+    })),
+    (params) => {
+      // used for state validation in the login callback
+      storage.local.set('state', params.state);
+      // used for token creation in the login callback
+      storage.local.set('redirect_uri', params.redirect_uri);
     }
+  );
 
+  const validateLoginState = () => {
     const routeQueryState = route.query.state;
     const storedState = storage.local.get('state');
-
-    storage.local.remove('state');
 
     if (!routeQueryState || !storedState || (routeQueryState !== storedState)) {
       // TODO: use http-errors
       // TODO: handle this in the logincb.vue page
       throw new Error('Unauthorised');
     }
+  };
 
-    const tokenRequestConfig = createTokenRequestConfig({
-      url: '/token',
+  const fetchToken = () => {
+    // TODO: handle error response invalid_grant, when code is invalid
+    return request(createTokenRequestConfig({
       code: route.query.code,
       clientId: config.clientId,
       redirectUri: storage.local.get('redirect_uri')
-    });
-    storage.local.remove('redirect_uri');
-    const tokenResponse = await request(tokenRequestConfig);
+    }));
+  };
+
+  login.callback = createAuthServiceRedirectCallback(async() => {
+    validateLoginState();
+
+    const tokenResponse = await fetchToken();
 
     // TODO: id token validation
     //       https://openid.net/specs/openid-connect-core-1_0.html#IDTokenValidation
 
-    updateTokensFromResponse(tokenResponse);
+    tokens.setFromResponse(tokenResponse);
 
+    storage.local.remove('state');
+    storage.local.remove('redirect_uri');
+
+    // fetch the userinfo already as otherwise the user is not considered logged-in
     await user.fetch();
+  });
 
-    router.replace(route.query?.redirect || '/');
-  };
-
-  function logout(destination) {
-    const params = {
+  const logout = createAuthServiceRedirectAction('logout',
+    (destination) => ({
       'redirect_uri': redirectUri('logout', destination || route.fullPath),
       'ui_locales': locale
-    };
+    })
+  );
 
-    goToAuthEndpoint('logout', { params });
-  }
-
-  logout.callback = function() {
-    tokens.access.clear();
-    tokens.refresh.clear();
+  logout.callback = createAuthServiceRedirectCallback(() => {
+    tokens.clear();
     // FIXME: shouldn't need to do this as it shouldn't yet be set...
     user.info = null;
-
-    router.replace(route.query.redirect || '/');
-  };
+  });
 
   const fetchUserInfo = async() => {
-    let userInfo;
+    let userInfo = null;
 
     try {
       const response = await request.withAuth(createUserInfoRequestConfig({
-        url: '/userinfo',
         clientId: config.clientId
       }));
       userInfo = response.data;
@@ -368,7 +369,6 @@ export const createAuthPlugin = ({ options, appBaseURL, route, router, localePat
         // user is no longer logged in and refresh token is expired, or something
         // else is wrong, e.g. the server is down. give up. user is not logged in.
         // tokens should have been cleared. let the caller detect & handle that.
-        return null;
       } else {
         throw err;
       }
@@ -380,6 +380,9 @@ export const createAuthPlugin = ({ options, appBaseURL, route, router, localePat
   const user = reactive({
     info: null,
     get loggedIn() {
+      // TODO: should we rely on presence (hence retrieval) of userinfo to
+      //       determine logged-in state? costs a request, but does validate
+      //       tokens, so perhaps.
       return !!this.info;
     },
     hasClientRole(client, role) {
