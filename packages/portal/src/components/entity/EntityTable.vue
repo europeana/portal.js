@@ -31,8 +31,6 @@
       :sort-desc.sync="sortDesc"
       :busy="$fetchState.pending"
       :filter="filter"
-      :current-page="currentPage"
-      :per-page="perPage"
       striped
       class="borderless"
       @filtered="onFiltered"
@@ -67,7 +65,6 @@
         </SmartLink>
       </template>
       <template
-        v-if="type === 'organisations'"
         #cell(recordCount)="data"
       >
         <span>
@@ -95,6 +92,15 @@
       >
         <span>{{ row.item.countryPrefLabel }}</span>
       </template>
+      <template
+        v-if="type === 'organisations'"
+        #cell(aggregator)="row"
+      >
+        <EntityBadges
+          :related-collections="row.item.aggregatedVia"
+          :title="false"
+        />
+      </template>
     </b-table>
     <PaginationNavInput
       :total-results="totalResults"
@@ -106,8 +112,8 @@
 </template>
 
 <script>
-  import axios from 'axios';
   import { BTable } from 'bootstrap-vue';
+  import uniq from 'lodash/uniq';
 
   import LoadingSpinner from '../generic/LoadingSpinner';
   import PaginationNavInput from '@/components/generic/PaginationNavInput';
@@ -115,6 +121,7 @@
   import SmartLink from '../generic/SmartLink';
   import langAttributeMixin from '@/mixins/langAttribute';
   import { langMapValueForLocale } from '@europeana/i18n';
+  import { getLabelledSlug } from '@/plugins/europeana/utils.js';
 
   export default {
     name: 'EntityTable',
@@ -122,6 +129,7 @@
     components: {
       AlertMessage: () => import('@/components/generic/AlertMessage'),
       BTable,
+      EntityBadges: () => import('./EntityBadges.vue'),
       LoadingSpinner,
       PaginationNavInput,
       SmartLink
@@ -141,7 +149,6 @@
     data() {
       return {
         collections: null,
-        filter: this.$route?.query?.filter || null,
         fields: [
           {
             key: 'prefLabel',
@@ -156,6 +163,11 @@
             class: 'text-center d-none d-md-table-cell'
           },
           this.type === 'organisations' && {
+            key: 'aggregator',
+            label: this.$t('pages.collections.table.aggregator'),
+            class: 'text-center d-none d-md-table-cell'
+          },
+          {
             key: 'recordCount',
             sortable: true,
             label: this.$t('pages.collections.table.items'),
@@ -166,36 +178,66 @@
             class: 'table-toggle-cell d-md-none'
           }
         ],
+        filter: null,
         typeSingular: this.type.slice(0, -1),
-        totalResults: this.collections?.length || 0,
+        totalResults: 0,
         perPage: 40
       };
     },
 
     async fetch() {
       try {
-        const response = await axios.get(this.apiEndpoint, { baseURL: window.location.origin });
-        let collections = response.data[this.cacheKey];
-        if (this.type === 'organisations') {
-          collections = collections.map(this.organisationData);
-          this.collections = collections; // Do not freeze as _showDetails prop needs to be reactive for toggling the details display on small screens
-        } else {
-          this.collections = collections.map(Object.freeze);
+        const searchResponse = await this.$apis.entity.search({
+          type: this.apiType,
+          scope: 'europeana',
+          query: this.filter || '*:*',
+          page: this.currentPage,
+          pageSize: this.perPage,
+          sort: 'skos_prefLabel.*'
+        });
+        this.totalResults = searchResponse.total;
+
+        const entityIds = searchResponse.entities.map((e) => e.id);
+
+        const retrieveResponse = await this.$apis.entity.retrieve(entityIds);
+
+        let collections = entityIds.map((id) => retrieveResponse.find((entity) => entity.id === id))
+          // NOTE: this should not ever be empty... but it is, due to search including entities that
+          //       fetch redirects to another, and retrieve omits
+          .filter(Boolean);
+
+        const linkedIds = uniq(collections.map((entity) => [entity.country?.id].concat(entity.aggregatedVia)).flat().filter(Boolean));
+        if (linkedIds.length > 0) {
+          const linkedRetrieveResponse = await this.$apis.entity.retrieve(linkedIds);
+
+          for (const entity of collections) {
+            if (entity.country) {
+              entity.country = linkedRetrieveResponse.find((linked) => linked.id === entity.country.id);
+            }
+            if (entity.aggregatedVia) {
+              entity.aggregatedVia = entity.aggregatedVia.map((via) => linkedRetrieveResponse.find((linked) => linked.id === via));
+            }
+          }
         }
+
+        this.collections = collections.map((entity) => this.entityData(entity));
       } catch (e) {
         // TODO: set fetch state error from message
         console.error({ statusCode: 500, message: e.toString() });
       }
     },
 
-    fetchOnServer: false,
-
     computed: {
-      apiEndpoint() {
-        return `/_api/cache/${this.cacheKey}`;
-      },
-      cacheKey() {
-        return `${this.$i18n.locale}/collections/${this.type}`;
+      apiType() {
+        if (this.type === 'organisations') {
+          return 'organization';
+        } else if (this.type === 'topics') {
+          return 'concept';
+        } else if (this.type === 'times') {
+          return 'timespan';
+        } else {
+          return undefined;
+        }
       },
       currentPage() {
         return Number(this.$route?.query?.page) || 1;
@@ -228,38 +270,48 @@
     },
 
     watch: {
-      '$route.query.filter'() {
-        this.filter = this.$route.query.filter;
-        this.updateRouteQuery({ page: 1 });
-      },
-      'collections.length'() {
-        this.totalResults  = this.collections.length;
+      '$route.query'() {
+        this.$fetch();
       }
     },
 
     methods: {
       organizationEntityNativeName,
       organizationEntityNonNativeEnglishName,
-      organisationData(org) {
-        const nativeName = this.organizationEntityNativeName(org);
-        const nativeNameLangMapValue = langMapValueForLocale(nativeName, this.$i18n.locale);
-        const englishName = this.organizationEntityNonNativeEnglishName(org);
-        const englishNameLangMapValue = englishName && langMapValueForLocale(englishName, this.$i18n.locale);
-
-        return {
-          ...org,
-          prefLabel: nativeNameLangMapValue.values[0],
-          prefLabelLang: nativeNameLangMapValue.code,
-          altLabel: englishNameLangMapValue?.values[0],
-          altLabelLang: englishNameLangMapValue?.code
+      entityData(entity) {
+        const data = {
+          id: entity.id,
+          recordCount: entity.isAggregatedBy.recordCount,
+          slug: getLabelledSlug(entity.id, entity.prefLabel?.en)
         };
+
+        if (entity.type === 'Organization') {
+          const nativeName = this.organizationEntityNativeName(entity);
+          const nativeNameLangMapValue = langMapValueForLocale(nativeName, this.$i18n.locale);
+          const englishName = this.organizationEntityNonNativeEnglishName(entity);
+          const englishNameLangMapValue = englishName && langMapValueForLocale(englishName, this.$i18n.locale);
+          const countryPrefLabelLangMapValue = langMapValueForLocale(entity.country.prefLabel, this.$i18n.locale);
+
+          data.prefLabel = nativeNameLangMapValue.values[0];
+          data.prefLabelLang = nativeNameLangMapValue.code;
+          data.altLabel = englishNameLangMapValue?.values[0];
+          data.altLabelLang = englishNameLangMapValue?.code;
+          data.countryPrefLabel = countryPrefLabelLangMapValue.values[0];
+          data.countryPrefLabelLang = countryPrefLabelLangMapValue.code;
+          data.aggregatedVia = entity.aggregatedVia;
+        } else {
+          const prefLabelLangMapValue = langMapValueForLocale(entity.prefLabel, this.$i18n.locale);
+          data.prefLabel = prefLabelLangMapValue.values[0];
+          data.prefLabelLang = prefLabelLangMapValue.code;
+        }
+
+        return data;
       },
       entityRoute(slug) {
         return `/collections/${this.typeSingular}/${slug}`;
       },
-      onFiltered(filteredItems) {
-        this.totalResults = filteredItems.length;
-        this.updateRouteQuery({ filter: this.filter });
+      onFiltered() {
+        this.updateRouteQuery({ filter: this.filter, page: 1 });
       },
       updateRouteQuery(newQuery) {
         this.$router.push({ ...this.$route, query: { ...this.$route.query, ...newQuery } });

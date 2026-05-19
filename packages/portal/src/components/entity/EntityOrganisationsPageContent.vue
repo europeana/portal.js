@@ -8,13 +8,11 @@
       <p>{{ description }}</p>
     </b-col>
     <!-- TODO: handle different aggregator types (national / international) and add aggregator types headings and descriptions -->
-    <client-only>
-      <EntityTable
-        v-if="type === 'organisations'"
-        :type="type"
-        class="mt-3 mt-md-4"
-      />
-    </client-only>
+    <EntityTable
+      v-if="type === 'organisations'"
+      :type="type"
+      class="mt-3 mt-md-4"
+    />
   </div>
 </template>
 
