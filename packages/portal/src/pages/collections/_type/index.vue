@@ -31,20 +31,17 @@
           button-variant="secondary"
           class="half-col"
         />
-        <client-only>
-          <EntityTable
-            :type="type"
-            data-qa="collections table"
-            class="mt-3 mt-md-4"
-          />
-        </client-only>
+        <EntityTable
+          :type="type"
+          data-qa="collections table"
+          class="mt-3 mt-md-4"
+        />
       </template>
     </b-container>
   </div>
 </template>
 
 <script>
-  import ClientOnly from 'vue-client-only';
   import ContentHeader from '@/components/content/ContentHeader';
   import pageMetaMixin from '@/mixins/pageMeta';
 
@@ -61,7 +58,6 @@
 
     components: {
       ContentHeader,
-      ClientOnly,
       EntityOrganisationsPageContent: () => import('@/components/entity/EntityOrganisationsPageContent'),
       EntityOrganisationsTabs: () => import('@/components/entity/EntityOrganisationsTabs'),
       EntityTable: () => import('@/components/entity/EntityTable'),
