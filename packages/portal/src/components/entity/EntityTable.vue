@@ -113,11 +113,13 @@
               :entity-uris="row.item.aggregatesFrom"
               :title="$t('organisations.providingInstitutions.title')"
               class="mt-3 mt-md-0"
+              :transition="true"
             />
             <b-button
               v-if="row.item.viewMoreAggregatesFrom"
               key="button"
               variant="link"
+              class="p-0"
               @click="handleViewMore(row)"
             >
               {{ $t('actions.viewMore') }}
@@ -387,6 +389,14 @@
 
       &.show::before {
         transform: rotateX(180deg);
+      }
+    }
+
+    .b-table-details td {
+      max-width: calc(100vw - 6rem);
+
+      .btn-link:hover {
+        text-decoration: none;
       }
     }
   }
