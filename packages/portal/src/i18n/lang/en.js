@@ -1224,6 +1224,7 @@ export default {
         "title": "Places"
       },
       "table": {
+        "aggregator": "Aggregator",
         "country": "Country",
         "items": "Items",
         "name": "Name",
