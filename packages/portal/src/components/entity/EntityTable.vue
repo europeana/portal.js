@@ -31,8 +31,6 @@
       :sort-desc.sync="sortDesc"
       :busy="$fetchState.pending"
       :filter="filter"
-      :current-page="currentPage"
-      :per-page="perPage"
       striped
       class="borderless"
       @filtered="onFiltered"
@@ -174,8 +172,10 @@
 
     async fetch() {
       try {
-        const response = await axios.get(this.apiEndpoint, { baseURL: window.location.origin });
-        let collections = response.data[this.cacheKey];
+        const data = await this.fetchData();
+
+        this.totalResults  = data.total;
+        let collections = data.items;
         if (this.type === 'organisations') {
           collections = collections.map(this.organisationData);
           this.collections = collections; // Do not freeze as _showDetails prop needs to be reactive for toggling the details display on small screens
@@ -188,15 +188,7 @@
       }
     },
 
-    fetchOnServer: false,
-
     computed: {
-      apiEndpoint() {
-        return `/_api/cache/${this.cacheKey}`;
-      },
-      cacheKey() {
-        return `${this.$i18n.locale}/collections/${this.type}`;
-      },
       currentPage() {
         return Number(this.$route?.query?.page) || 1;
       },
@@ -219,7 +211,7 @@
       },
       sort: {
         get() {
-          return this.$route?.query?.sort?.split(' ') || [null, null];
+          return this.$route?.query?.sort?.split(' ') || ['prefLabel', 'asc'];
         },
         set({ sortBy, sortDesc }) {
           this.updateRouteQuery({ sort: `${sortBy} ${sortDesc ? 'desc' : 'asc'}` });
@@ -228,16 +220,36 @@
     },
 
     watch: {
-      '$route.query.filter'() {
-        this.filter = this.$route.query.filter;
-        this.updateRouteQuery({ page: 1 });
-      },
-      'collections.length'() {
-        this.totalResults  = this.collections.length;
+      '$route.query'() {
+        this.$fetch();
       }
     },
 
     methods: {
+      fetchData() {
+        const params = {
+          lang: this.$i18n.locale,
+          page: this.currentPage,
+          pageSize: this.perPage,
+          query: this.filter,
+          sort: this.sort.join(' ')
+        };
+
+        if (process.server) {
+          return import('@/server-middleware/api/collections/index.js')
+            .then((module) => {
+              return module.fetchCollections(this.type, params, this.$config.redis);
+            });
+        } else  {
+          return axios.request({
+            method: 'get',
+            baseURL: this.$config.app.baseUrl,
+            url: `/_api/collections/${this.type}`,
+            params
+          })
+            .then((response) => response.data);
+        }
+      },
       organizationEntityNativeName,
       organizationEntityNonNativeEnglishName,
       organisationData(org) {
@@ -257,9 +269,10 @@
       entityRoute(slug) {
         return `/collections/${this.typeSingular}/${slug}`;
       },
+      // TODO: debounce
       onFiltered(filteredItems) {
         this.totalResults = filteredItems.length;
-        this.updateRouteQuery({ filter: this.filter });
+        this.updateRouteQuery({ filter: this.filter, page: 1 });
       },
       updateRouteQuery(newQuery) {
         this.$router.push({ ...this.$route, query: { ...this.$route.query, ...newQuery } });
