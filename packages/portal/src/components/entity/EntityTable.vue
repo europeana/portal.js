@@ -111,9 +111,11 @@
             <EntityBadges
               key="badges"
               :entity-uris="row.item.aggregatesFrom"
+              :related-collections="row.item.aggregatesFromEntities"
               :title="$t('organisations.providingInstitutions.title')"
               class="mt-3 mt-md-0"
               :transition="true"
+              @entitiesFromUrisFetched="(entities) => handleAggregatesFromEntitiesFetched(entities, row.item.id)"
             />
             <b-button
               v-if="row.item.viewMoreAggregatesFrom"
@@ -337,6 +339,9 @@
       async fetchAggregatesFrom(aggregatorId, limit) {
         const collectionIndex = this.collections.findIndex(c => c.id === aggregatorId);
 
+        // reset related collections override
+        this.collections[collectionIndex].aggregatesFromEntities = undefined;
+
         const aggregatorFullData = await this.$apis.entity.find([aggregatorId]);
         const aggregatesFrom = aggregatorFullData[0].aggregatesFrom;
 
@@ -344,6 +349,7 @@
         this.collections[collectionIndex].viewMoreAggregatesFrom = limit ? aggregatesFrom?.length > limit : false;
       },
       async handleToggleDetails(row) {
+        // Only fetch when not yet set
         if (this.aggregatorType && !row.detailsShowing && !row.item.aggregatesFrom) {
           await this.fetchAggregatesFrom(row.item.id, 4);
         }
@@ -352,6 +358,10 @@
       async handleViewMore(row) {
         await this.fetchAggregatesFrom(row.item.id);
         this.$refs.table.refresh();
+      },
+      handleAggregatesFromEntitiesFetched(organisations, aggregatorId) {
+        const collectionIndex = this.collections.findIndex(c => c.id === aggregatorId);
+        this.collections[collectionIndex].aggregatesFromEntities = organisations;
       }
     }
   };
