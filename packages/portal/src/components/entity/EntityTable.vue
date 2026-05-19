@@ -11,6 +11,7 @@
       </b-col>
     </b-row>
     <b-form
+      v-if="searchable"
       class="search-form position-relative"
       inline
       @submit.stop.prevent="() => {}"
@@ -25,6 +26,7 @@
     </b-form>
     <b-table
       id="entity-table"
+      ref="table"
       :fields="fields"
       :items="collections"
       :sort-by.sync="sortBy"
@@ -49,7 +51,7 @@
         <SmartLink
           :destination="entityRoute(data.item.slug)"
         >
-          <template v-if="type === 'organisations'">
+          <template v-if="orgOrAggType">
             <strong :lang="langAttribute(data.item.prefLabelLang)">{{ data.item.prefLabel }}</strong>
             <span
               v-if="data.item.altLabel"
@@ -67,7 +69,7 @@
         </SmartLink>
       </template>
       <template
-        v-if="type === 'organisations'"
+        v-if="orgOrAggType"
         #cell(recordCount)="data"
       >
         <span>
@@ -75,14 +77,14 @@
         </span>
       </template>
       <template
-        v-if="type === 'organisations'"
+        v-if="orgOrAggType"
         #cell(showDetails)="row"
       >
         <b-button
           class="button-toggle button-icon-only icon-chevron"
           :class="{'show': row.detailsShowing}"
           variant="light-flat"
-          @click="row.toggleDetails"
+          @click="handleToggleDetails(row)"
         >
           <span class="visually-hidden">
             {{ $t('pages.collections.table.showMoreData', { entity: row.item.prefLabel }) }}
@@ -90,10 +92,42 @@
         </b-button>
       </template>
       <template
-        v-if="type === 'organisations'"
+        v-if="orgOrAggType"
         #row-details="row"
       >
-        <span>{{ row.item.countryPrefLabel }}</span>
+        <span
+          v-if="row.item.countryPrefLabel"
+          class="d-md-none"
+        >{{ row.item.countryPrefLabel }}</span>
+        <span
+          v-if="row.item.heritageDomain"
+          class="d-md-none"
+        >{{ row.item.heritageDomain }}</span>
+        <TransitionGroup
+          appear
+          name="fade"
+        >
+          <template v-if="row.item.aggregatesFrom">
+            <EntityBadges
+              key="badges"
+              :entity-uris="row.item.aggregatesFrom"
+              :related-collections="row.item.aggregatesFromEntities"
+              :title="$t('organisations.providingInstitutions.title')"
+              class="mt-3 mt-md-0"
+              :transition="true"
+              @entitiesFromUrisFetched="(entities) => handleAggregatesFromEntitiesFetched(entities, row.item.id)"
+            />
+            <b-button
+              v-if="row.item.viewMoreAggregatesFrom"
+              key="button"
+              variant="link"
+              class="p-0"
+              @click="handleViewMore(row)"
+            >
+              {{ $t('actions.viewMore') }}
+            </b-button>
+          </template>
+        </TransitionGroup>
       </template>
     </b-table>
     <PaginationNavInput
@@ -122,6 +156,7 @@
     components: {
       AlertMessage: () => import('@/components/generic/AlertMessage'),
       BTable,
+      EntityBadges: () => import('./EntityBadges'),
       LoadingSpinner,
       PaginationNavInput,
       SmartLink
@@ -135,6 +170,10 @@
       type: {
         type: String,
         required: true
+      },
+      searchable: {
+        type: Boolean,
+        default: true
       }
     },
 
@@ -142,30 +181,7 @@
       return {
         collections: null,
         filter: this.$route?.query?.filter || null,
-        fields: [
-          {
-            key: 'prefLabel',
-            sortable: true,
-            label: this.$t('pages.collections.table.name'),
-            class: 'table-name-cell'
-          },
-          this.type === 'organisations' && {
-            key: 'countryPrefLabel',
-            sortable: true,
-            label: this.$t('pages.collections.table.country'),
-            class: 'text-center d-none d-md-table-cell'
-          },
-          this.type === 'organisations' && {
-            key: 'recordCount',
-            sortable: true,
-            label: this.$t('pages.collections.table.items'),
-            class: 'text-right'
-          },
-          this.type === 'organisations' && {
-            key: 'showDetails',
-            class: 'table-toggle-cell d-md-none'
-          }
-        ],
+        fields: [],
         typeSingular: this.type.slice(0, -1),
         totalResults: this.collections?.length || 0,
         perPage: 40
@@ -176,7 +192,15 @@
       try {
         const response = await axios.get(this.apiEndpoint, { baseURL: window.location.origin });
         let collections = response.data[this.cacheKey];
-        if (this.type === 'organisations') {
+        if (this.aggregatorType) {
+          if (this.type === 'internationalAggregators') {
+            collections = collections.filter(agg => agg.geographicScope === 'International').map(this.organisationData);
+            this.collections = collections; // Do not freeze as _showDetails prop needs to be reactive for toggling the details display on small screens
+          } else {
+            collections = collections.filter(agg => agg.geographicScope !== 'International').map(this.organisationData);
+            this.collections = collections; // Do not freeze as _showDetails prop needs to be reactive for toggling the details display on small screens
+          }
+        } else if (this.type === 'organisations') {
           collections = collections.map(this.organisationData);
           this.collections = collections; // Do not freeze as _showDetails prop needs to be reactive for toggling the details display on small screens
         } else {
@@ -186,6 +210,37 @@
         // TODO: set fetch state error from message
         console.error({ statusCode: 500, message: e.toString() });
       }
+
+      this.fields = [
+        {
+          key: 'prefLabel',
+          sortable: true,
+          label: this.$t('pages.collections.table.name'),
+          class: 'table-name-cell'
+        },
+        this.showCountryColumn && {
+          key: 'countryPrefLabel',
+          sortable: true,
+          label: this.$t('pages.collections.table.country'),
+          class: 'text-center d-none d-md-table-cell'
+        },
+        this.showHeritageDomainColumn && {
+          key: 'heritageDomain',
+          sortable: true,
+          label: this.$t('pages.collections.table.domain'),
+          class: 'text-center d-none d-md-table-cell'
+        },
+        this.orgOrAggType && {
+          key: 'recordCount',
+          sortable: true,
+          label: this.$t('pages.collections.table.items'),
+          class: 'text-right'
+        },
+        this.orgOrAggType && {
+          key: 'showDetails',
+          class: 'table-toggle-cell'
+        }
+      ];
     },
 
     fetchOnServer: false,
@@ -195,7 +250,11 @@
         return `/_api/cache/${this.cacheKey}`;
       },
       cacheKey() {
-        return `${this.$i18n.locale}/collections/${this.type}`;
+        if (this.aggregatorType) {
+          return `${this.$i18n.locale}/collections/organisations/aggregators`;
+        } else {
+          return `${this.$i18n.locale}/collections/${this.type}`;
+        }
       },
       currentPage() {
         return Number(this.$route?.query?.page) || 1;
@@ -224,6 +283,18 @@
         set({ sortBy, sortDesc }) {
           this.updateRouteQuery({ sort: `${sortBy} ${sortDesc ? 'desc' : 'asc'}` });
         }
+      },
+      aggregatorType() {
+        return ['internationalAggregators', 'regionalAggregators'].includes(this.type) ? 'aggregators' : false;
+      },
+      orgOrAggType() {
+        return ['organisations', 'internationalAggregators', 'regionalAggregators'].includes(this.type);
+      },
+      showCountryColumn() {
+        return ['organisations', 'regionalAggregators'].includes(this.type);
+      },
+      showHeritageDomainColumn() {
+        return this.type === 'internationalAggregators';
       }
     },
 
@@ -251,7 +322,8 @@
           prefLabel: nativeNameLangMapValue.values[0],
           prefLabelLang: nativeNameLangMapValue.code,
           altLabel: englishNameLangMapValue?.values[0],
-          altLabelLang: englishNameLangMapValue?.code
+          altLabelLang: englishNameLangMapValue?.code,
+          ...org.heritageDomain && { heritageDomain: org.heritageDomain.join(', ') }
         };
       },
       entityRoute(slug) {
@@ -263,6 +335,33 @@
       },
       updateRouteQuery(newQuery) {
         this.$router.push({ ...this.$route, query: { ...this.$route.query, ...newQuery } });
+      },
+      async fetchAggregatesFrom(aggregatorId, limit) {
+        const collectionIndex = this.collections.findIndex(c => c.id === aggregatorId);
+
+        // reset related collections override
+        this.collections[collectionIndex].aggregatesFromEntities = undefined;
+
+        const aggregatorFullData = await this.$apis.entity.find([aggregatorId]);
+        const aggregatesFrom = aggregatorFullData[0].aggregatesFrom;
+
+        this.collections[collectionIndex].aggregatesFrom = limit ? aggregatesFrom?.slice(0, limit) : aggregatesFrom;
+        this.collections[collectionIndex].viewMoreAggregatesFrom = limit ? aggregatesFrom?.length > limit : false;
+      },
+      async handleToggleDetails(row) {
+        // Only fetch when not yet set
+        if (this.aggregatorType && !row.detailsShowing && !row.item.aggregatesFrom) {
+          await this.fetchAggregatesFrom(row.item.id, 4);
+        }
+        row.toggleDetails();
+      },
+      async handleViewMore(row) {
+        await this.fetchAggregatesFrom(row.item.id);
+        this.$refs.table.refresh();
+      },
+      handleAggregatesFromEntitiesFetched(organisations, aggregatorId) {
+        const collectionIndex = this.collections.findIndex(c => c.id === aggregatorId);
+        this.collections[collectionIndex].aggregatesFromEntities = organisations;
       }
     }
   };
@@ -272,6 +371,7 @@
   @import '@europeana/style/scss/variables';
   @import '@europeana/style/scss/icon-font';
   @import '@europeana/style/scss/table';
+  @import '@europeana/style/scss/transitions';
 
   .entity-table {
 
@@ -299,6 +399,14 @@
 
       &.show::before {
         transform: rotateX(180deg);
+      }
+    }
+
+    .b-table-details td {
+      max-width: calc(100vw - 6rem);
+
+      .btn-link:hover {
+        text-decoration: none;
       }
     }
   }

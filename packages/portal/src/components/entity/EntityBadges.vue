@@ -7,8 +7,12 @@
     <h2 class="related-heading text-uppercase">
       {{ title || $t('related.collections.title') }}
     </h2>
-    <div
+    <component
+      :is="transition ? 'transition-group' : 'div'"
       class="badges-wrapper d-flex flex-wrap"
+      appear
+      name="fade"
+      tag="div"
     >
       <LinkBadge
         v-for="relatedCollection in collections"
@@ -22,7 +26,7 @@
         :badge-variant="badgeVariant"
         :click-event-handler="() => clickEventHandler(relatedCollection.url || collectionLinkGen(relatedCollection))"
       />
-    </div>
+    </component>
   </div>
 </template>
 
@@ -72,6 +76,13 @@
       badgeVariant: {
         type: String,
         default: 'secondary'
+      },
+      /**
+       * Wrap badges in TransitionGroup, e.g. dynamically load more entities
+       */
+      transition: {
+        type: Boolean,
+        default: false
       }
     },
 
@@ -88,6 +99,13 @@
         this.$emit('entitiesFromUrisFetched', this.collections);
       }
       this.$emit('fetched');
+    },
+
+    watch: {
+      entityUris: {
+        deep: true,
+        handler: '$fetch'
+      }
     },
 
     mounted() {
