@@ -8,10 +8,11 @@
       {{ title || $t('related.collections.title') }}
     </h2>
     <component
-      :is="transition ? 'TransitionGroup' : 'div'"
+      :is="transition ? 'transition-group' : 'div'"
       class="badges-wrapper d-flex flex-wrap"
       appear
       name="fade"
+      tag="div"
     >
       <LinkBadge
         v-for="relatedCollection in collections"

@@ -1,44 +1,45 @@
 <template>
-  <div>
-    <b-col
-      cols="12"
-      lg="6"
-      class="p-0 mb-5 "
-    >
-      <p>{{ description }}</p>
-    </b-col>
-    <client-only v-if="tab === 'organisations'">
-      <EntityTable
-        type="organisations"
-        class="mt-3 mt-md-4"
-      />
-    </client-only>
-    <div
-      v-for="type, index in aggregatorTypes"
-      v-else
-      :key="index"
-    >
+  <!-- wrap in client-only as page content is dependent on browser URL hash -->
+  <client-only>
+    <div>
       <b-col
         cols="12"
         lg="6"
         class="p-0 mb-5 "
       >
-        <h2>{{ $t(`organisations.${type}.title`) }}</h2>
-        <p>{{ $t(`organisations.${type}.description`) }}</p>
+        <p>{{ description }}</p>
       </b-col>
-      <client-only>
+      <template v-if="tab === 'organisations'">
         <EntityTable
-
+          type="organisations"
+          class="mt-3 mt-md-4"
+        />
+      </template>
+      <div
+        v-for="type, index in aggregatorTypes"
+        v-else-if="tab === 'aggregators'"
+        :key="index"
+      >
+        <b-col
+          cols="12"
+          lg="6"
+          class="p-0 mb-5 "
+        >
+          <h2>{{ $t(`organisations.${type}.title`) }}</h2>
+          <p>{{ $t(`organisations.${type}.description`) }}</p>
+        </b-col>
+        <EntityTable
           :type="type"
           class="mt-3 mt-md-4"
           :searchable="false"
         />
-      </client-only>
+      </div>
     </div>
-  </div>
+  </client-only>
 </template>
 
 <script>
+  import ClientOnly from 'vue-client-only';
   import useActiveTab from '@/composables/activeTab.js';
   const HASH_PROVIDING_INSTITUTIONS = '#institutions';
   const HASH_AGGREGATORS = '#aggregators';
@@ -48,6 +49,7 @@
     name: 'EntityOrganisationsPageContent',
 
     components: {
+      ClientOnly,
       EntityTable: () => import('@/components/entity/EntityTable')
     },
 
