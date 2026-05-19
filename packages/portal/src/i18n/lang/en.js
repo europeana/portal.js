@@ -82,6 +82,7 @@ export default {
     "unlike": "Unlike",
     "viewAt": "View at {link}",
     "viewDocument": "View document",
+    "viewMore": "View more",
     "vote": "Vote"
   },
   "apiKeys": {

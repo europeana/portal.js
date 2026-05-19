@@ -90,6 +90,13 @@
       this.$emit('fetched');
     },
 
+    watch: {
+      entityUris: {
+        deep: true,
+        handler: '$fetch'
+      }
+    },
+
     mounted() {
       this.draw();
     },

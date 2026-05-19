@@ -14,7 +14,7 @@
       />
     </client-only>
     <div
-      v-for="aggregator, index in aggregatorTypes"
+      v-for="type, index in aggregatorTypes"
       v-else
       :key="index"
     >
@@ -23,13 +23,13 @@
         lg="6"
         class="p-0 mb-5 "
       >
-        <h2>{{ $t(`organisations.${aggregator}.title`) }}</h2>
-        <p>{{ $t(`organisations.${aggregator}.description`) }}</p>
+        <h2>{{ $t(`organisations.${type}.title`) }}</h2>
+        <p>{{ $t(`organisations.${type}.description`) }}</p>
       </b-col>
       <client-only>
         <EntityTable
 
-          :type="aggregator"
+          :type="type"
           class="mt-3 mt-md-4"
           :searchable="false"
         />
@@ -73,7 +73,6 @@
         }
       },
       tab() {
-        // TODO: handle the different types (aggregators, institutions) in EntityTable
         if (this.activeTabHash === HASH_AGGREGATORS) {
           return AGGREGATORS;
         } else {

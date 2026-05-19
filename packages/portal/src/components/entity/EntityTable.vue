@@ -26,6 +26,7 @@
     </b-form>
     <b-table
       id="entity-table"
+      ref="table"
       :fields="fields"
       :items="collections"
       :sort-by.sync="sortBy"
@@ -83,7 +84,7 @@
           class="button-toggle button-icon-only icon-chevron"
           :class="{'show': row.detailsShowing}"
           variant="light-flat"
-          @click="row.toggleDetails"
+          @click="handleToggleDetails(row)"
         >
           <span class="visually-hidden">
             {{ $t('pages.collections.table.showMoreData', { entity: row.item.prefLabel }) }}
@@ -94,11 +95,35 @@
         v-if="orgOrAggType"
         #row-details="row"
       >
-        <span v-if="row.item.countryPrefLabel">{{ row.item.countryPrefLabel }}</span>
-        <span v-if="row.item.heritageDomain">{{ row.item.heritageDomain }}</span>
-
-        <!-- TODO: add heritageDomain -->
-        <!-- TODO: fetch and add aggregated institutions -->
+        <span
+          v-if="row.item.countryPrefLabel"
+          class="d-md-none"
+        >{{ row.item.countryPrefLabel }}</span>
+        <span
+          v-if="row.item.heritageDomain"
+          class="d-md-none"
+        >{{ row.item.heritageDomain }}</span>
+        <TransitionGroup
+          appear
+          name="fade"
+        >
+          <template v-if="row.item.aggregatesFrom">
+            <EntityBadges
+              key="badges"
+              :entity-uris="row.item.aggregatesFrom"
+              :title="$t('organisations.providingInstitutions.title')"
+              class="mt-3 mt-md-0"
+            />
+            <b-button
+              v-if="row.item.viewMoreAggregatesFrom"
+              key="button"
+              variant="link"
+              @click="handleViewMore(row)"
+            >
+              {{ $t('actions.viewMore') }}
+            </b-button>
+          </template>
+        </TransitionGroup>
       </template>
     </b-table>
     <PaginationNavInput
@@ -127,6 +152,7 @@
     components: {
       AlertMessage: () => import('@/components/generic/AlertMessage'),
       BTable,
+      EntityBadges: () => import('./EntityBadges'),
       LoadingSpinner,
       PaginationNavInput,
       SmartLink
@@ -208,7 +234,7 @@
         },
         this.orgOrAggType && {
           key: 'showDetails',
-          class: 'table-toggle-cell d-md-none'
+          class: 'table-toggle-cell'
         }
       ];
     },
@@ -305,6 +331,25 @@
       },
       updateRouteQuery(newQuery) {
         this.$router.push({ ...this.$route, query: { ...this.$route.query, ...newQuery } });
+      },
+      async fetchAggregatesFrom(aggregatorId, limit) {
+        const collectionIndex = this.collections.findIndex(c => c.id === aggregatorId);
+
+        const aggregatorFullData = await this.$apis.entity.find([aggregatorId]);
+        const aggregatesFrom = aggregatorFullData[0].aggregatesFrom;
+
+        this.collections[collectionIndex].aggregatesFrom = limit ? aggregatesFrom?.slice(0, limit) : aggregatesFrom;
+        this.collections[collectionIndex].viewMoreAggregatesFrom = limit ? aggregatesFrom?.length > limit : false;
+      },
+      async handleToggleDetails(row) {
+        if (this.aggregatorType && !row.detailsShowing && !row.item.aggregatesFrom) {
+          await this.fetchAggregatesFrom(row.item.id, 4);
+        }
+        row.toggleDetails();
+      },
+      async handleViewMore(row) {
+        await this.fetchAggregatesFrom(row.item.id);
+        this.$refs.table.refresh();
       }
     }
   };
@@ -314,6 +359,7 @@
   @import '@europeana/style/scss/variables';
   @import '@europeana/style/scss/icon-font';
   @import '@europeana/style/scss/table';
+  @import '@europeana/style/scss/transitions';
 
   .entity-table {
 

@@ -36,7 +36,6 @@ table,
   }
 
   td {
-    line-height: 1.214;
     padding: 1.125rem 1rem;
     border-top: 1px solid $middlegrey;
     vertical-align: top;
@@ -131,9 +130,5 @@ table,
         color: $black;
       }
     }
-  }
-
-  td {
-    line-height: 1em;
   }
 }
