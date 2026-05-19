@@ -172,21 +172,10 @@
 
     async fetch() {
       try {
-        // TODO: load direct from imported middleware handler on SSR, like w/ BrowseAutomatedCardGroup
-        const response = await axios.request({
-          method: 'get',
-          baseURL: this.$config.app.baseUrl,
-          url: `/_api/collections/${this.type}`,
-          params: {
-            lang: this.$i18n.locale,
-            page: this.currentPage,
-            pageSize: this.perPage,
-            query: this.filter,
-            sort: this.sort.join(' ')
-          }
-        });
-        this.totalResults  = response.data.total;
-        let collections = response.data.items;
+        const data = await this.fetchData();
+
+        this.totalResults  = data.total;
+        let collections = data.items;
         if (this.type === 'organisations') {
           collections = collections.map(this.organisationData);
           this.collections = collections; // Do not freeze as _showDetails prop needs to be reactive for toggling the details display on small screens
@@ -237,6 +226,30 @@
     },
 
     methods: {
+      fetchData() {
+        const params = {
+          lang: this.$i18n.locale,
+          page: this.currentPage,
+          pageSize: this.perPage,
+          query: this.filter,
+          sort: this.sort.join(' ')
+        };
+
+        if (process.server) {
+          return import('@/server-middleware/api/collections/index.js')
+            .then((module) => {
+              return module.fetchCollections(this.type, params, this.$config.redis);
+            });
+        } else  {
+          return axios.request({
+            method: 'get',
+            baseURL: this.$config.app.baseUrl,
+            url: `/_api/collections/${this.type}`,
+            params
+          })
+            .then((response) => response.data);
+        }
+      },
       organizationEntityNativeName,
       organizationEntityNonNativeEnglishName,
       organisationData(org) {
