@@ -29,7 +29,7 @@ describe('components/entity/EntityOrganisationsPageContent', () => {
       it('shows the institutions description and table', () => {
         const wrapper = factory({ hash: '#institutions' });
 
-        const description = wrapper.find('b-col-stub');
+        const description = wrapper.find('.tab-header');
         const table = wrapper.find('entitytable-stub[type="organisations"]');
 
         expect(description.text()).toBe('organisations.providingInstitutions.description');
@@ -40,11 +40,25 @@ describe('components/entity/EntityOrganisationsPageContent', () => {
       it('shows the aggregators description', () => {
         const wrapper = factory({ hash: '#aggregators' });
 
-        const description = wrapper.find('b-col-stub');
-        const table = wrapper.find('entitytable-stub[type="organisations"]');
+        const description = wrapper.find('.tab-header');
+        const tables = wrapper.findAll('entitytable-stub');
 
         expect(description.text()).toBe('organisations.aggregators.description');
-        expect(table.exists()).toBe(false);
+        expect(tables.length).toBe(2);
+      });
+
+      ['internationalAggregators', 'regionalAggregators'].forEach(type => {
+        it(`shows the ${type} type title, description and table`, () => {
+          const wrapper = factory({ hash: '#aggregators' });
+
+          const title = wrapper.find(`.${type}-header h2`);
+          const description = wrapper.find(`.${type}-header p`);
+          const table = wrapper.find(`entitytable-stub[type="${type}"`);
+
+          expect(title.text()).toBe(`organisations.${type}.title`);
+          expect(description.text()).toBe(`organisations.${type}.description`);
+          expect(table.exists()).toBe(true);
+        });
       });
     });
   });

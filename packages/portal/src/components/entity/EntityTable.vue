@@ -26,7 +26,6 @@
     </b-form>
     <b-table
       id="entity-table"
-      ref="table"
       :fields="fields"
       :items="collections"
       :sort-by.sync="sortBy"
@@ -160,7 +159,36 @@
       return {
         collections: null,
         filter: this.$route?.query?.filter || null,
-        fields: [],
+        fields: [
+          {
+            key: 'prefLabel',
+            sortable: true,
+            label: this.$t('pages.collections.table.name'),
+            class: 'table-name-cell'
+          },
+          ['organisations', 'regionalAggregators'].includes(this.type) && {
+            key: 'countryPrefLabel',
+            sortable: true,
+            label: this.$t('pages.collections.table.country'),
+            class: 'text-center d-none d-md-table-cell'
+          },
+          this.type === 'internationalAggregators' && {
+            key: 'heritageDomain',
+            sortable: true,
+            label: this.$t('pages.collections.table.domain'),
+            class: 'text-center d-none d-md-table-cell'
+          },
+          ['organisations', 'internationalAggregators', 'regionalAggregators'].includes(this.type) && {
+            key: 'recordCount',
+            sortable: true,
+            label: this.$t('pages.collections.table.items'),
+            class: 'table-count-cell text-right'
+          },
+          ['organisations', 'internationalAggregators', 'regionalAggregators'].includes(this.type) && {
+            key: 'showDetails',
+            class: `table-toggle-cell ${this.type === 'organisations' ? 'd-md-none' : ''}`
+          }
+        ],
         typeSingular: this.type.slice(0, -1),
         totalResults: this.collections?.length || 0,
         perPage: 40
@@ -189,37 +217,6 @@
         // TODO: set fetch state error from message
         console.error({ statusCode: 500, message: e.toString() });
       }
-
-      this.fields = [
-        {
-          key: 'prefLabel',
-          sortable: true,
-          label: this.$t('pages.collections.table.name'),
-          class: 'table-name-cell'
-        },
-        this.showCountryColumn && {
-          key: 'countryPrefLabel',
-          sortable: true,
-          label: this.$t('pages.collections.table.country'),
-          class: 'text-center d-none d-md-table-cell'
-        },
-        this.showHeritageDomainColumn && {
-          key: 'heritageDomain',
-          sortable: true,
-          label: this.$t('pages.collections.table.domain'),
-          class: 'text-center d-none d-md-table-cell'
-        },
-        this.orgOrAggType && {
-          key: 'recordCount',
-          sortable: true,
-          label: this.$t('pages.collections.table.items'),
-          class: 'text-right'
-        },
-        this.orgOrAggType && {
-          key: 'showDetails',
-          class: `table-toggle-cell ${this.type === 'organisations' ? 'd-md-none' : ''}`
-        }
-      ];
     },
 
     fetchOnServer: false,
@@ -268,12 +265,6 @@
       },
       orgOrAggType() {
         return ['organisations', 'internationalAggregators', 'regionalAggregators'].includes(this.type);
-      },
-      showCountryColumn() {
-        return ['organisations', 'regionalAggregators'].includes(this.type);
-      },
-      showHeritageDomainColumn() {
-        return this.type === 'internationalAggregators';
       }
     },
 

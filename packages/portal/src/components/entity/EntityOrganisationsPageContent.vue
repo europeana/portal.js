@@ -5,7 +5,7 @@
       <b-col
         cols="12"
         lg="6"
-        class="p-0 mb-5 "
+        class="tab-header p-0 mb-5"
       >
         <p>{{ description }}</p>
       </b-col>
@@ -23,7 +23,8 @@
         <b-col
           cols="12"
           lg="6"
-          class="p-0 mb-5 "
+          class="p-0 mb-5"
+          :class="`${type}-header`"
         >
           <h2>{{ $t(`organisations.${type}.title`) }}</h2>
           <p>{{ $t(`organisations.${type}.description`) }}</p>

@@ -95,6 +95,36 @@ describe('components/related/EntityBadges', () => {
         const chips = wrapper.findAll('linkbadge-stub');
         expect(chips.length).toBe(4);
       });
+
+      describe('when a limit is set', () => {
+        it('shows the limited amount of badges and a view more button', async() => {
+          const limit = 2;
+          const wrapper = factory({ propsData: { limit } });
+          await wrapper.setData(data);
+
+          const chips = wrapper.findAll('linkbadge-stub');
+          const moreButton = wrapper.find('.view-more-button');
+
+          expect(chips.length).toBe(limit);
+          expect(moreButton.isVisible()).toBe(true);
+        });
+
+        describe('and the view more button is clicked', () => {
+          it('shows all badges and NO view more button', async() => {
+            const limit = 2;
+            const wrapper = factory({ propsData: { limit } });
+            await wrapper.setData(data);
+
+            await wrapper.find('.view-more-button').trigger('click');
+
+            const chips = wrapper.findAll('linkbadge-stub');
+            const moreButton = wrapper.find('.view-more-button');
+
+            expect(chips.length).toBe(4);
+            expect(moreButton.exists()).toBe(false);
+          });
+        });
+      });
     });
 
     describe('when no related collections are supplied', () => {

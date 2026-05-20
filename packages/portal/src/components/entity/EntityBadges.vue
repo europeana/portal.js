@@ -30,7 +30,7 @@
     <b-button
       v-if="limitCollections"
       variant="link"
-      class="p-0"
+      class="view-more-button p-0"
       @click="handleViewMore"
     >
       {{ $t('actions.viewMore') }}
