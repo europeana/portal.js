@@ -20,26 +20,29 @@ export const fetchCollections = async(type, reqQuery, config) => {
   // filter
   if (query) {
     const queryRegExp = new RegExp(query, 'i');
-    // TODO: look to altLabel and abbreviation too (if present); store in cache 1st
+    // TODO: look to abbreviation too (for orgs); store in cache 1st
     items = items.filter((i) => Object.values(i.prefLabel).some((label) => queryRegExp.test(label)));
   }
 
   const total = items.length;
 
-  // TODO: sort
+  // sort
   items = items.sort((a, b) => {
-    if (sortField === 'prefLabel') {
-      if (type === 'organisations') {
-        const aName = Object.values(organizationEntityNativeName(a))[0];
-        const bName = Object.values(organizationEntityNativeName(b))[0];
-        return sortDir === 'asc' ? aName.localeCompare(bName) : -aName.localeCompare(bName);
-      } else {
-        // TODO: localise prefLabel for lang, then sort by it
-      }
-    } else if (sortField === 'recordCount') {
-      return sortDir === 'asc' ? a.recordCount - b.recordCount : b.recordCount - a.recordCount;
+    let aValue = a[sortField];
+    let bValue = b[sortField];
+    if ((type === 'organisations') && (sortField === 'prefLabel')) {
+      aValue = Object.values(organizationEntityNativeName(a))[0];
+      bValue = Object.values(organizationEntityNativeName(b))[0];
     }
-    // TODO: country
+
+    if ((typeof aValue === 'number') && (typeof bValue === 'number')) {
+      return sortDir === 'asc' ? a.recordCount - b.recordCount : b.recordCount - a.recordCount;
+    } else if ((typeof aValue === 'string') && (typeof bValue === 'string')) {
+      return sortDir === 'asc' ? aValue.localeCompare(bValue) : -aValue.localeCompare(bValue);
+    } else {
+      // don't know how to sort types other than number or string; return 0 i.e. no sorting
+      return 0;
+    }
   });
 
   // paginate
