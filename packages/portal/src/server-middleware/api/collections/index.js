@@ -73,8 +73,6 @@ export const fetchData = async(type, reqQuery, config = {}) => {
   const endIndex = startIndex + pageSize;
   items = items.slice(startIndex, endIndex);
 
-  // TODO: tailor return? e.g. localise
-
   return { items, total };
 };
 
