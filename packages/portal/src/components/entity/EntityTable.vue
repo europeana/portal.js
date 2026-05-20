@@ -21,6 +21,7 @@
         :placeholder="$t('pages.collections.table.searchPlaceholder')"
         :aria-label="$t('search.title')"
         data-qa="entity table filter"
+        @change="onFiltered"
       />
     </b-form>
     <b-table
@@ -30,10 +31,8 @@
       :sort-by.sync="sortBy"
       :sort-desc.sync="sortDesc"
       :busy="$fetchState.pending"
-      :filter="filter"
       striped
       class="borderless"
-      @filtered="onFiltered"
     >
       <template #table-busy>
         <div class="text-center my-2">
@@ -267,9 +266,7 @@
       entityRoute(slug) {
         return `/collections/${this.typeSingular}/${slug}`;
       },
-      // TODO: debounce
-      onFiltered(filteredItems) {
-        this.totalResults = filteredItems.length;
+      onFiltered() {
         this.updateRouteQuery({ filter: this.filter, page: 1 });
       },
       updateRouteQuery(newQuery) {
