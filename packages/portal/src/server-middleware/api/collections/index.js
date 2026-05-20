@@ -15,7 +15,7 @@ export const fetchCollections = async(type, reqQuery, config) => {
   const key = `${lang}:collections:${type}`;
   const data = await cached(key, config);
 
-  let items = data[key];
+  let items = data[key] || [];
 
   // filter
   if (query) {
