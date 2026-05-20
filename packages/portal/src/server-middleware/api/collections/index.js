@@ -1,7 +1,5 @@
 import { cached } from '../cache/index.js';
 
-import { organizationEntityNativeName } from '../../../utils/europeana/entities/organizations.js';
-
 export const fetchData = async(type, reqQuery, config = {}) => {
   const lang = reqQuery.lang;
   const query = reqQuery.query;
@@ -37,10 +35,6 @@ export const fetchData = async(type, reqQuery, config = {}) => {
   items = items.sort((a, b) => {
     let aValue = a[sortField];
     let bValue = b[sortField];
-    if ((type === 'organisations') && (sortField === 'prefLabel')) {
-      aValue = Object.values(organizationEntityNativeName(a))[0];
-      bValue = Object.values(organizationEntityNativeName(b))[0];
-    }
 
     if ((typeof aValue === 'number') && (typeof bValue === 'number')) {
       return sortDir === 'asc' ? a.recordCount - b.recordCount : b.recordCount - a.recordCount;
