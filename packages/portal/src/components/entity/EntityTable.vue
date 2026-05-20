@@ -238,7 +238,7 @@
         },
         this.orgOrAggType && {
           key: 'showDetails',
-          class: 'table-toggle-cell'
+          class: `table-toggle-cell ${this.type === 'organisations' ? 'd-md-none' : ''}`
         }
       ];
     },
