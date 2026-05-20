@@ -29,6 +29,7 @@
             :title="title"
             :sub-title="subTitle"
             :logo="logo"
+            :mbox="mbox"
             :image="thumbnail"
             :editable="editable"
             :external-link="homepage"
@@ -150,7 +151,7 @@
         const entity = await this.$apis.entity.get(this.collectionType, this.$route.params.pathMatch);
 
         this.$store.commit('entity/setEntity', pick(entity, [
-          'id', 'logo', 'note', 'description', 'homepage', 'prefLabel', 'isShownBy', 'hasAddress', 'acronym', 'type'
+          'id', 'logo', 'note', 'description', 'homepage', 'prefLabel', 'isShownBy', 'hasAddress', 'acronym', 'type', 'mbox'
         ]));
         this.$store.commit('search/setCollectionLabel', this.title.values[0]);
 
@@ -207,6 +208,12 @@
       logo() {
         if (this.collectionType === 'organisation' && this.entity?.logo) {
           return this.entity.logo.id;
+        }
+        return null;
+      },
+      mbox() {
+        if (this.collectionType === 'organisation') {
+          return this.entity?.mbox;
         }
         return null;
       },

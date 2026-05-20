@@ -60,6 +60,15 @@
       />
     </template>
     <b-button
+      v-if="mbox"
+      class="d-inline-flex align-items-center"
+      data-qa="entity contact button"
+      :href="`mailto:${mbox}`"
+    >
+      <span class="icon-email pr-1" />
+      {{ $t('actions.contact') }}
+    </b-button>
+    <b-button
       v-if="externalLink"
       class="d-inline-flex align-items-center"
       :href="externalLink"
@@ -148,6 +157,13 @@
        * Logo image file path (currently only used for organisation entity)
        */
       logo: {
+        type: String,
+        default: null
+      },
+      /**
+       * Email, used for organisation entity contact button
+       */
+      mbox: {
         type: String,
         default: null
       },

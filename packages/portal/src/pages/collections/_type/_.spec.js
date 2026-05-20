@@ -15,6 +15,7 @@ const organisationEntity = {
   entity: {
     id: 'http://data.europeana.eu/organization/01234567890',
     logo: { id: 'http://commons.wikimedia.org/wiki/Special:FilePath/Albertina%20Logo.svg' },
+    mbox: 'email@example.org',
     prefLabel: { en: 'English name', nl: 'Dutch name' },
     homepage: 'https://www.example-organisation.eu',
     hasAddress: {
@@ -318,6 +319,15 @@ describe('pages/collections/_type/_', () => {
 
         const logo = wrapper.vm.logo;
         expect(logo).toBe(organisationEntity.entity.logo.id);
+      });
+    });
+
+    describe('mbox', () => {
+      it('returns the email on organisation pages', () => {
+        const wrapper = factory(organisationEntity);
+
+        const mbox = wrapper.vm.mbox;
+        expect(mbox).toBe(organisationEntity.entity.mbox);
       });
     });
 

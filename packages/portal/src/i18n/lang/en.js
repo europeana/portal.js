@@ -43,6 +43,7 @@ export default {
     "apply": "Apply",
     "cancel": "Cancel",
     "changeView": "Change view",
+    "contact": "Contact",
     "clear": "Clear",
     "clearFilters": "Clear filters",
     "close": "close",
