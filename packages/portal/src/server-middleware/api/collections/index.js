@@ -2,7 +2,7 @@ import { cached } from '../cache/index.js';
 
 import { organizationEntityNativeName } from '../../../utils/europeana/entities/organizations.js';
 
-export const fetchCollections = async(type, reqQuery, config) => {
+export const fetchData = async(type, reqQuery, config = {}) => {
   const lang = reqQuery.lang;
   const query = reqQuery.query;
   const pageSize = Number(reqQuery.pageSize) || 10;
@@ -15,7 +15,7 @@ export const fetchCollections = async(type, reqQuery, config) => {
   const key = `${lang}:collections:${type}`;
   const data = await cached(key, config);
 
-  let items = data[key] || [];
+  let items = Array.from(data[key] || []);
 
   // filter
   if (query) {
@@ -24,8 +24,9 @@ export const fetchCollections = async(type, reqQuery, config) => {
     items = items.filter((item) => {
       let candidates = typeof item.prefLabel === 'string' ? [item.prefLabel] : Object.values(item.prefLabel);
       if (item.altLabel) {
-        candidates = typeof item.altLabel === 'string' ? [item.altLabel] : Object.values(item.altLabel);
+        candidates = candidates.concat(typeof item.altLabel === 'string' ? [item.altLabel] : Object.values(item.altLabel));
       }
+
       return candidates.some((label) => queryRegExp.test(label));
     });
   }
@@ -64,10 +65,9 @@ export const fetchCollections = async(type, reqQuery, config) => {
 
 export default (config = {}) => async(req, res, next) => {
   try {
-    const { items, total } = await fetchCollections(req.params.type, req.query, config);
+    const { items, total } = await fetchData(req.params.type, req.query, config);
 
-    res.set('Content-Type', 'application/json');
-    res.send({ items, total });
+    res.json({ items, total });
   } catch (e) {
     next(e);
   }
