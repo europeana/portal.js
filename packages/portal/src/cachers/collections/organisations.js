@@ -1,12 +1,18 @@
-import baseData from './index.js';
-import { createEuropeanaApiClient } from '../utils.js';
-import { isEntityUri } from '../../plugins/europeana/entity.js';
 import uniq from 'lodash/uniq.js';
 // TODO: remove and uninstall when deprecated after API released with place references for countries
+// FIXME: has this happened now?
 import countryCodes from 'i18n-iso-countries';
 import { codes as localeCodes } from '@europeana/i18n';
 
-const PICK = ['id', 'slug', 'recordCount', 'prefLabel', 'countryPrefLabel'];
+import baseData from './index.js';
+import { createEuropeanaApiClient } from '../utils.js';
+import { isEntityUri } from '../../plugins/europeana/entity.js';
+import {
+  organizationEntityNativeName,
+  organizationEntityNonNativeEnglishName
+} from '../../utils/europeana/entities/organizations.js';
+
+const PICK = ['id', 'slug', 'recordCount', 'prefLabel', 'altLabel', 'countryPrefLabel'];
 const LOCALISE = 'countryPrefLabel';
 
 let axiosClient;
@@ -43,6 +49,7 @@ const data = async(config = {}) => {
 
   const organisationCountriesPrefLabels = {};
   for (const country of organisationCountries) {
+    // FIXME: are production & acceptance APIs consistent now?
     // Acceptance Entity API returns entity URI for country
     if (isEntityUri(country)) {
       const entityId = country.split('/').pop();
@@ -64,12 +71,19 @@ const data = async(config = {}) => {
   }
 
   return organisationData.map(
-    organisation => {
+    (organisation) => {
       // Add recordCount
+      // TODO: use aggregatedVia.recordCount now instead
       const organisationId = organisation.id;
-      const organisationWithCount = recordCounts.find(facet => facet.label === organisationId);
+      const organisationWithCount = recordCounts.find((facet) => facet.label === organisationId);
       const recordCount = organisationWithCount?.count || 0;
       organisation.recordCount = recordCount;
+
+      // store as prefLabel the native name, as altLabel the English name (if non-native)
+      const nativeName = organizationEntityNativeName(organisation);
+      const englishName = organizationEntityNonNativeEnglishName(organisation);
+      organisation.prefLabel = nativeName;
+      organisation.altLabel = englishName;
 
       // Add countryPrefLabel with langmap prefLabel
       organisation.countryPrefLabel = organisationCountriesPrefLabels[organisation.country?.id || organisation.country] || organisation.country;
