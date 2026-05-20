@@ -174,6 +174,7 @@ export default {
     "topic": "Topics"
   },
   "cardLabels": {
+    "aggregator": "Aggregator",
     "organisation": "Institution",
     "person": "Person",
     "place": "Place",

@@ -151,7 +151,7 @@
         const entity = await this.$apis.entity.get(this.collectionType, this.$route.params.pathMatch);
 
         this.$store.commit('entity/setEntity', pick(entity, [
-          'id', 'logo', 'note', 'description', 'homepage', 'prefLabel', 'isShownBy', 'hasAddress', 'acronym', 'type', 'mbox'
+          'id', 'logo', 'note', 'description', 'europeanaRole', 'homepage', 'prefLabel', 'isShownBy', 'hasAddress', 'acronym', 'type', 'mbox'
         ]));
         this.$store.commit('search/setCollectionLabel', this.title.values[0]);
 
