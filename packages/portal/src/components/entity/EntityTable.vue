@@ -108,10 +108,8 @@
 
   import LoadingSpinner from '../generic/LoadingSpinner';
   import PaginationNavInput from '@/components/generic/PaginationNavInput';
-  import { organizationEntityNativeName, organizationEntityNonNativeEnglishName } from '@/utils/europeana/entities/organizations.js';
   import SmartLink from '../generic/SmartLink';
   import langAttributeMixin from '@/mixins/langAttribute';
-  import { langMapValueForLocale } from '@europeana/i18n';
 
   export default {
     name: 'EntityTable',
@@ -248,20 +246,19 @@
             .then((response) => response.data);
         }
       },
-      organizationEntityNativeName,
-      organizationEntityNonNativeEnglishName,
       organisationData(org) {
-        const nativeName = this.organizationEntityNativeName(org);
-        const nativeNameLangMapValue = langMapValueForLocale(nativeName, this.$i18n.locale);
-        const englishName = this.organizationEntityNonNativeEnglishName(org);
-        const englishNameLangMapValue = englishName && langMapValueForLocale(englishName, this.$i18n.locale);
+        const nativeName = Object.values(org.prefLabel)[0];
+        const nativeNameLang = Object.keys(org.prefLabel)[0];
+        const englishName = org.altLabel && Object.values(org.altLabel)[0];
+        const englishNameLang = org.altLabel && Object.keys(org.altLabel)[0];
 
+        // TODO: is this necessary?
         return {
           ...org,
-          prefLabel: nativeNameLangMapValue.values[0],
-          prefLabelLang: nativeNameLangMapValue.code,
-          altLabel: englishNameLangMapValue?.values[0],
-          altLabelLang: englishNameLangMapValue?.code
+          prefLabel: nativeName,
+          prefLabelLang: nativeNameLang,
+          altLabel: englishName,
+          altLabelLang: englishNameLang
         };
       },
       entityRoute(slug) {
