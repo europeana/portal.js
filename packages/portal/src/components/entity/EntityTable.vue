@@ -233,7 +233,7 @@
 
         if (process.server) {
           return import('@/server-middleware/api/collections/index.js')
-            .then((module) => module.fetchCollections(this.type, params, this.$config.redis));
+            .then((module) => module.fetchData(this.type, params, this.$config.redis));
         } else  {
           return axios.request({
             method: 'get',
