@@ -22,7 +22,10 @@ export const fetchCollections = async(type, reqQuery, config) => {
     const queryRegExp = new RegExp(query, 'i');
     // TODO: look to abbreviation too (for orgs); store in cache 1st
     items = items.filter((item) => {
-      const candidates = typeof item.prefLabel === 'string' ? [item.prefLabel] : Object.values(item.prefLabel);
+      let candidates = typeof item.prefLabel === 'string' ? [item.prefLabel] : Object.values(item.prefLabel);
+      if (item.altLabel) {
+        candidates = typeof item.altLabel === 'string' ? [item.altLabel] : Object.values(item.altLabel);
+      }
       return candidates.some((label) => queryRegExp.test(label));
     });
   }
