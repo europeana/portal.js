@@ -5,24 +5,31 @@ import sinon from 'sinon';
 import nock from 'nock';
 
 const organisations = [
-  { id: 'http://data.europeana.eu/organization/001', type: 'Organization', prefLabel: { en: 'Museum', es: 'Museo' }, country: 'ES' },
-  { id: 'http://data.europeana.eu/organization/002', type: 'Organization', prefLabel: { en: 'Gallery' }, country: 'http://data.europeana.eu/place/001' },
-  { id: 'http://data.europeana.eu/organization/003', type: 'Organization', prefLabel: { en: 'Archive' } },
-  { id: 'http://data.europeana.eu/organization/004', type: 'Organization', prefLabel: { en: 'Library' }, country: { id: 'http://data.europeana.eu/place/002', prefLabel: { en: 'Germany' } } }
+  {
+    id: 'http://data.europeana.eu/organization/001',
+    type: 'Organization',
+    prefLabel: { en: 'Museum', es: 'Museo' },
+    country: 'ES',
+    isAggregatedBy: { recordCount: 100 }
+  },
+  {
+    id: 'http://data.europeana.eu/organization/002',
+    type: 'Organization',
+    prefLabel: { en: 'Gallery' },
+    country: 'http://data.europeana.eu/place/001'
+  },
+  {
+    id: 'http://data.europeana.eu/organization/003',
+    type: 'Organization',
+    prefLabel: { en: 'Archive' }
+  },
+  {
+    id: 'http://data.europeana.eu/organization/004',
+    type: 'Organization',
+    prefLabel: { en: 'Library' },
+    country: { id: 'http://data.europeana.eu/place/002', prefLabel: { en: 'Germany' } }
+  }
 ];
-
-const fields = [
-  { label: 'http://data.europeana.eu/organization/001', count: 100 },
-  { label: 'http://data.europeana.eu/organization/002', count: 200 },
-  { label: 'http://data.europeana.eu/organization/003', count: 150 }
-];
-
-const apiFacetResponse = {
-  facets: [{
-    name: 'foaf_organization',
-    fields
-  }]
-};
 
 const apiPlaceResponse = {
   prefLabel: { en: 'France' }
@@ -34,26 +41,9 @@ const config = {
       entity: {
         url: 'https://api.example.org/entity',
         key: 'entityApiKey'
-      },
-      record: {
-        url: 'https://api.example.org/record',
-        key: 'recordApiKey'
       }
     }
   }
-};
-
-const mockFacetRequest = (response = apiFacetResponse) => {
-  nock(config.europeana.apis.record.url)
-    .get('/search.json')
-    .query(query => (
-      query.profile === 'facets' &&
-        query.query === 'foaf_organization:*data.europeana.eu*' &&
-        query.facet === 'foaf_organization' &&
-        query['f.foaf_organization.facet.limit'] === '10000' &&
-        query.rows === '0'
-    ))
-    .reply(200, response);
 };
 
 const mockPlaceRequest = () => {
@@ -64,16 +54,23 @@ const mockPlaceRequest = () => {
 };
 
 const mockApiRequests = () => {
-  mockFacetRequest();
   mockPlaceRequest();
 };
 
 describe('@/cachers/collections/organisations', () => {
+  beforeEach(() => {
+    mockApiRequests();
+  });
+  beforeAll(() => {
+    nock.disableNetConnect();
+  });
+  afterAll(() => {
+    nock.enableNetConnect();
+  });
   sinon.stub(baseCacher, 'default').resolves(organisations);
   sinon.stub(countryCodes, 'getName').withArgs('ES', 'en', { select: 'official' }).returns('Spain');
 
   it('fetches data with type: organization', async() => {
-    mockApiRequests();
     await cacher.data(config);
 
     expect(baseCacher.default.calledWith({ type: 'organization' }, config)).toBe(true);
@@ -81,34 +78,46 @@ describe('@/cachers/collections/organisations', () => {
   });
 
   it('picks slug, recordCount and prefLabel', () => {
-    expect(cacher.PICK).toEqual(['id', 'slug', 'recordCount', 'prefLabel', 'countryPrefLabel']);
+    expect(cacher.PICK).toEqual(['id', 'slug', 'recordCount', 'prefLabel', 'altLabel', 'countryPrefLabel']);
   });
 
   it('localises countryPrefLabel', () => {
     expect(cacher.LOCALISE).toEqual('countryPrefLabel');
   });
 
-  describe('recordCount', () => {
-    describe('when there are no fields on the facets response', () => {
-      it('falls back to 0', async() => {
-        mockFacetRequest({
-          facets: [{
-            name: 'foaf_organization',
-            fields: null
-          }]
-        });
-        mockPlaceRequest();
-        const organisationData = await cacher.data(config);
+  describe('prefLabel', () => {
+    it('is reduced to the native language', async() => {
+      const organisationData = await cacher.data(config);
 
-        expect(organisationData[0].recordCount).toBe(0);
-      });
+      expect(organisationData[0].prefLabel).toEqual({ es: 'Museo' });
+    });
+  });
+
+  describe('altLabel', () => {
+    it('is taken from the non-native English language prefLabel', async() => {
+      const organisationData = await cacher.data(config);
+
+      expect(organisationData[0].altLabel).toEqual({ en: 'Museum' });
+    });
+  });
+
+  describe('recordCount', () => {
+    it('is set from isAggregatedBy.recordCount', async() => {
+      const organisationData = await cacher.data(config);
+
+      expect(organisationData[0].recordCount).toBe(100);
+    });
+
+    it('falls back to 0', async() => {
+      const organisationData = await cacher.data(config);
+
+      expect(organisationData[1].recordCount).toBe(0);
     });
   });
 
   describe('countryPrefLabel', () => {
     describe('when the country on the organisation entity is an entity reference', () => {
       it('fetches the place entity prefLabel', async() => {
-        mockApiRequests();
         const organisationData = await cacher.data(config);
 
         expect(organisationData[1].countryPrefLabel).toEqual(apiPlaceResponse.prefLabel);
@@ -117,7 +126,6 @@ describe('@/cachers/collections/organisations', () => {
 
     describe('when the country on the organisation entity is a full entity', () => {
       it('uses prefLabel from the entity', async() => {
-        mockApiRequests();
         const organisationData = await cacher.data(config);
 
         expect(organisationData[3].countryPrefLabel).toEqual({ en: 'Germany' });
@@ -126,7 +134,6 @@ describe('@/cachers/collections/organisations', () => {
 
     describe('when the country on the organisation entity is a language code', () => {
       it('fetches the place entity prefLabel', async() => {
-        mockApiRequests();
         const organisationData = await cacher.data(config);
 
         expect(organisationData[0].countryPrefLabel).toEqual({ en: 'Spain' });
@@ -135,7 +142,6 @@ describe('@/cachers/collections/organisations', () => {
 
     describe('when there is no country on the organisation entity', () => {
       it('does not include a countryPrefLabel', async() => {
-        mockApiRequests();
         const organisationData = await cacher.data(config);
 
         expect(organisationData[2].countryPrefLabel).toEqual(undefined);

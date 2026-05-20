@@ -18,6 +18,7 @@ const LOCALISE = 'countryPrefLabel';
 let axiosClient;
 
 async function getCountryPrefLabel(entityUrl) {
+  // TODO: memoise
   const response = await axiosClient.get(entityUrl);
   return response.data.prefLabel;
 }
@@ -54,22 +55,18 @@ const data = async(config = {}) => {
   }
 
   return organisationData.map(
-    (organisation) => {
+    (organisation) => ({
+      ...organisation,
       // Keep isAggregatedBy.recordCount as recordCount
       // TODO: add to other entity-type cachers too
-      organisation.recordCount = organisation.isAggregatedBy.recordCount;
-
-      // Store as prefLabel the native name, as altLabel the English name (if non-native)
-      const nativeName = organizationEntityNativeName(organisation);
-      const englishName = organizationEntityNonNativeEnglishName(organisation);
-      organisation.prefLabel = nativeName;
-      organisation.altLabel = englishName;
-
+      recordCount: organisation.isAggregatedBy?.recordCount || 0,
       // Add countryPrefLabel with langmap prefLabel
-      organisation.countryPrefLabel = organisationCountriesPrefLabels[organisation.country?.id || organisation.country] || organisation.country;
-
-      return organisation;
-    });
+      countryPrefLabel: organisationCountriesPrefLabels[organisation.country?.id || organisation.country] || organisation.country,
+      // Store as prefLabel the native name, as altLabel the English name (if non-native)
+      altLabel: organizationEntityNonNativeEnglishName(organisation),
+      prefLabel: organizationEntityNativeName(organisation)
+    })
+  );
 };
 
 export {
