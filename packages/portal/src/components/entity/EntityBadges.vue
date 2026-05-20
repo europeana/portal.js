@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="collections.length"
+    v-if="displayCollections.length"
     data-qa="related collections"
     class="related-collections"
   >
@@ -15,7 +15,7 @@
       tag="div"
     >
       <LinkBadge
-        v-for="relatedCollection in collections"
+        v-for="relatedCollection in displayCollections"
         :id="relatedCollection.id"
         :key="relatedCollection.id"
         ref="options"
@@ -27,6 +27,14 @@
         :click-event-handler="() => clickEventHandler(relatedCollection.url || collectionLinkGen(relatedCollection))"
       />
     </component>
+    <b-button
+      v-if="limitCollections"
+      variant="link"
+      class="p-0"
+      @click="handleViewMore"
+    >
+      {{ $t('actions.viewMore') }}
+    </b-button>
   </div>
 </template>
 
@@ -83,28 +91,41 @@
       transition: {
         type: Boolean,
         default: false
+      },
+      /**
+       * Limit the amount of badges to fetch and display
+       * Adds a view more button
+       */
+      limit: {
+        type: Number,
+        default: null
       }
     },
 
     data() {
       return {
-        collections: this.relatedCollections
+        collections: this.relatedCollections,
+        limitCollections: this.limit
       };
     },
 
     async fetch() {
-      if (((this.entityUris?.length || 0) > 0) && ((this.relatedCollections?.length || 0) === 0)) {
+      if (((this.entityUris?.length || 0) > 0) && (((this.relatedCollections?.length || 0) === 0))) {
         const entities = await this.$apis.entity.find(this.entityUris);
         this.collections = entities?.map((entity) => pick(entity, ['id', 'prefLabel', 'isShownBy', 'logo'])) || [];
         this.$emit('entitiesFromUrisFetched', this.collections);
       }
+
+      if (this.collections.length <= this.limit) {
+        this.limitCollections = false;
+      }
+
       this.$emit('fetched');
     },
 
-    watch: {
-      entityUris: {
-        deep: true,
-        handler: '$fetch'
+    computed: {
+      displayCollections() {
+        return this.limitCollections ? this.collections.slice(0, this.limitCollections) : this.collections;
       }
     },
 
@@ -128,6 +149,9 @@
         if (this.$matomo) {
           this.$matomo.trackEvent('Related_collections', 'Click related collection', link);
         }
+      },
+      handleViewMore() {
+        this.limitCollections = false;
       }
     }
   };
@@ -142,14 +166,20 @@
     }
   }
 
-  .related-collections ::v-deep .badge-pill {
-    margin-right: 0.5rem;
-    margin-bottom: 0.5rem;
+  .related-collections {
+    .btn-link:hover {
+      text-decoration: none;
+    }
 
-    @at-root .xxl-page & {
-      @media (min-width: $bp-4k) {
-        margin-right: 0.75rem;
-        margin-bottom: 0.75rem;
+    ::v-deep .badge-pill {
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+
+      @at-root .xxl-page & {
+        @media (min-width: $bp-4k) {
+          margin-right: 0.75rem;
+          margin-bottom: 0.75rem;
+        }
       }
     }
   }
@@ -184,6 +214,34 @@
       type: 'Organization',
       prefLabel: { en: 'Albertina', de: 'Albertina' }
       }]"
+  />
+  ```
+  With a limit
+    ```jsx
+  <EntityBadges
+    :related-collections="[
+      {
+      id: 'http://data.europeana.eu/concept/238',
+      isShownBy: { thumbnail: 'https://api.europeana.eu/thumbnail/v3/200/8a4531e9596247152fb127caa8ab8d2b' },
+      prefLabel: { en: 'Sonata' }
+      },
+      {
+      id: 'http://data.europeana.eu/concept/1482250000004477257',
+      logo:
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Albertina_Logo.svg/28px-Albertina_Logo.svg.png'
+      ,
+      type: 'Organization',
+      prefLabel: { en: 'Albertina', de: 'Albertina' }
+      },
+            {
+      id: 'http://data.europeana.eu/concept/001',
+      prefLabel: { en: 'Rijksmuseum' }
+      },
+      {
+      id: 'http://data.europeana.eu/concept/002',
+      prefLabel: { en: 'Vincent van Gogh' }
+      }]"
+      :limit="2"
   />
   ```
 </docs>

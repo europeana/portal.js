@@ -84,7 +84,7 @@
           class="button-toggle button-icon-only icon-chevron"
           :class="{'show': row.detailsShowing}"
           variant="light-flat"
-          @click="handleToggleDetails(row)"
+          @click="row.toggleDetails"
         >
           <span class="visually-hidden">
             {{ $t('pages.collections.table.showMoreData', { entity: row.item.prefLabel }) }}
@@ -103,31 +103,10 @@
           v-if="row.item.heritageDomain"
           class="d-md-none"
         >{{ row.item.heritageDomain }}</span>
-        <TransitionGroup
-          appear
-          name="fade"
-        >
-          <template v-if="row.item.aggregatesFrom">
-            <EntityBadges
-              key="badges"
-              :entity-uris="row.item.aggregatesFrom"
-              :related-collections="row.item.aggregatesFromEntities"
-              :title="$t('organisations.providingInstitutions.title')"
-              class="mt-3 mt-md-0"
-              :transition="true"
-              @entitiesFromUrisFetched="(entities) => handleAggregatesFromEntitiesFetched(entities, row.item.id)"
-            />
-            <b-button
-              v-if="row.item.viewMoreAggregatesFrom"
-              key="button"
-              variant="link"
-              class="p-0"
-              @click="handleViewMore(row)"
-            >
-              {{ $t('actions.viewMore') }}
-            </b-button>
-          </template>
-        </TransitionGroup>
+        <EntityOrganisationsRelated
+          v-if="aggregatorType"
+          :entity-id="row.item.id"
+        />
       </template>
     </b-table>
     <PaginationNavInput
@@ -156,7 +135,7 @@
     components: {
       AlertMessage: () => import('@/components/generic/AlertMessage'),
       BTable,
-      EntityBadges: () => import('./EntityBadges'),
+      EntityOrganisationsRelated: () => import('./EntityOrganisationsRelated'),
       LoadingSpinner,
       PaginationNavInput,
       SmartLink
@@ -335,33 +314,6 @@
       },
       updateRouteQuery(newQuery) {
         this.$router.push({ ...this.$route, query: { ...this.$route.query, ...newQuery } });
-      },
-      async fetchAggregatesFrom(aggregatorId, limit) {
-        const collectionIndex = this.collections.findIndex(c => c.id === aggregatorId);
-
-        // reset related collections override
-        this.collections[collectionIndex].aggregatesFromEntities = undefined;
-
-        const aggregatorFullData = await this.$apis.entity.find([aggregatorId]);
-        const aggregatesFrom = aggregatorFullData[0].aggregatesFrom;
-
-        this.collections[collectionIndex].aggregatesFrom = limit ? aggregatesFrom?.slice(0, limit) : aggregatesFrom;
-        this.collections[collectionIndex].viewMoreAggregatesFrom = limit ? aggregatesFrom?.length > limit : false;
-      },
-      async handleToggleDetails(row) {
-        // Only fetch when not yet set
-        if (this.aggregatorType && !row.detailsShowing && !row.item.aggregatesFrom) {
-          await this.fetchAggregatesFrom(row.item.id, 4);
-        }
-        row.toggleDetails();
-      },
-      async handleViewMore(row) {
-        await this.fetchAggregatesFrom(row.item.id);
-        this.$refs.table.refresh();
-      },
-      handleAggregatesFromEntitiesFetched(organisations, aggregatorId) {
-        const collectionIndex = this.collections.findIndex(c => c.id === aggregatorId);
-        this.collections[collectionIndex].aggregatesFromEntities = organisations;
       }
     }
   };
@@ -404,10 +356,6 @@
 
     .b-table-details td {
       max-width: calc(100vw - 6rem);
-
-      .btn-link:hover {
-        text-decoration: none;
-      }
     }
   }
 </style>
