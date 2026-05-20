@@ -16,33 +16,16 @@ const PICK = ['id', 'slug', 'recordCount', 'prefLabel', 'altLabel', 'countryPref
 const LOCALISE = 'countryPrefLabel';
 
 let axiosClient;
-let axiosClientEntity;
-
-async function getRecordCounts() {
-  const params = {
-    profile: 'facets',
-    query: 'foaf_organization:*data.europeana.eu*',
-    facet: 'foaf_organization',
-    ['f.foaf_organization.facet.limit']: 10000,
-    rows: 0
-  };
-  const response = await axiosClient.get('/search.json', { params });
-
-  return response.data?.facets?.[0]?.fields || [];
-}
 
 async function getCountryPrefLabel(entityUrl) {
-  const response = await axiosClientEntity.get(entityUrl);
+  const response = await axiosClient.get(entityUrl);
   return response.data.prefLabel;
 }
 
 const data = async(config = {}) => {
   const organisationData = await baseData({ type: 'organization' }, config);
 
-  axiosClient = createEuropeanaApiClient(config.europeana?.apis?.record);
-  axiosClientEntity = createEuropeanaApiClient(config.europeana?.apis?.entity);
-
-  const recordCounts = await getRecordCounts();
+  axiosClient = createEuropeanaApiClient(config.europeana?.apis?.entity);
 
   // Get array with all unique countries to only have to request prefLabels once
   const organisationCountries = uniq(organisationData.map(organisation => organisation.country));
@@ -72,14 +55,11 @@ const data = async(config = {}) => {
 
   return organisationData.map(
     (organisation) => {
-      // Add recordCount
-      // TODO: use aggregatedVia.recordCount now instead
-      const organisationId = organisation.id;
-      const organisationWithCount = recordCounts.find((facet) => facet.label === organisationId);
-      const recordCount = organisationWithCount?.count || 0;
-      organisation.recordCount = recordCount;
+      // Keep isAggregatedBy.recordCount as recordCount
+      // TODO: add to other entity-type cachers too
+      organisation.recordCount = organisation.isAggregatedBy.recordCount;
 
-      // store as prefLabel the native name, as altLabel the English name (if non-native)
+      // Store as prefLabel the native name, as altLabel the English name (if non-native)
       const nativeName = organizationEntityNativeName(organisation);
       const englishName = organizationEntityNonNativeEnglishName(organisation);
       organisation.prefLabel = nativeName;
