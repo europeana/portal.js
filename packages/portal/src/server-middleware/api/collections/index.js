@@ -21,7 +21,10 @@ export const fetchCollections = async(type, reqQuery, config) => {
   if (query) {
     const queryRegExp = new RegExp(query, 'i');
     // TODO: look to abbreviation too (for orgs); store in cache 1st
-    items = items.filter((i) => Object.values(i.prefLabel).some((label) => queryRegExp.test(label)));
+    items = items.filter((item) => {
+      const candidates = typeof item.prefLabel === 'string' ? [item.prefLabel] : Object.values(item.prefLabel);
+      return candidates.some((label) => queryRegExp.test(label));
+    });
   }
 
   const total = items.length;
@@ -41,6 +44,7 @@ export const fetchCollections = async(type, reqQuery, config) => {
       return sortDir === 'asc' ? aValue.localeCompare(bValue) : -aValue.localeCompare(bValue);
     } else {
       // don't know how to sort types other than number or string; return 0 i.e. no sorting
+      // TODO: handle langmaps? only if one key?
       return 0;
     }
   });
