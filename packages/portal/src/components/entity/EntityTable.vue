@@ -168,20 +168,15 @@
     },
 
     async fetch() {
-      try {
-        const data = await this.fetchData();
+      const data = await this.fetchData();
 
-        this.totalResults  = data.total;
-        let collections = data.items;
-        if (this.type === 'organisations') {
-          collections = collections.map(this.organisationData);
-          this.collections = collections; // Do not freeze as _showDetails prop needs to be reactive for toggling the details display on small screens
-        } else {
-          this.collections = collections.map(Object.freeze);
-        }
-      } catch (e) {
-        // TODO: set fetch state error from message
-        console.error({ statusCode: 500, message: e.toString() });
+      this.totalResults  = data.total;
+      let collections = data.items;
+      if (this.type === 'organisations') {
+        collections = collections.map(this.organisationData);
+        this.collections = collections; // Do not freeze as _showDetails prop needs to be reactive for toggling the details display on small screens
+      } else {
+        this.collections = collections.map(Object.freeze);
       }
     },
 
@@ -217,9 +212,12 @@
     },
 
     watch: {
-      '$route.query'() {
-        this.filter = this.$route.query.filter;
-        this.$fetch();
+      '$route.query': {
+        deep: true,
+        handler() {
+          this.filter = this.$route.query.filter;
+          this.$fetch();
+        }
       }
     },
 
