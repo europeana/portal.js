@@ -220,6 +220,7 @@
 
     watch: {
       '$route.query'() {
+        this.filter = this.$route.query.filter;
         this.$fetch();
       }
     },
