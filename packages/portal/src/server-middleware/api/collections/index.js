@@ -32,17 +32,25 @@ export const fetchData = async(type, reqQuery, config = {}) => {
   const total = items.length;
 
   // sort
+  // TODO: optimise, because the bothValuesAre tests are run many times; derive from 1st two values,
+  //       assuming consistency of field value type across all items?
   items = items.sort((a, b) => {
     let aValue = a[sortField];
     let bValue = b[sortField];
+    const bothValuesAre = (testFn) => testFn(aValue) && testFn(bValue);
 
-    if ((typeof aValue === 'number') && (typeof bValue === 'number')) {
+    // handle single-key lang maps, by picking the sole value and sorting on that
+    if (bothValuesAre((value) => typeof value === 'object' && Object.keys(value).length === 1)) {
+      aValue = Object.values(aValue)[0];
+      bValue = Object.values(bValue)[0];
+    }
+
+    if (bothValuesAre((value) => typeof value === 'number')) {
       return sortDir === 'asc' ? a.recordCount - b.recordCount : b.recordCount - a.recordCount;
-    } else if ((typeof aValue === 'string') && (typeof bValue === 'string')) {
+    } else if (bothValuesAre((value) => typeof value === 'string')) {
       return sortDir === 'asc' ? aValue.localeCompare(bValue) : -aValue.localeCompare(bValue);
     } else {
-      // don't know how to sort types other than number or string; return 0 i.e. no sorting
-      // TODO: handle langmaps? only if one key?
+      // don't know how to sort types other than number or string; return 0, i.e. unsorted
       return 0;
     }
   });
