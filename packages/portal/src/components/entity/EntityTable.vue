@@ -231,6 +231,8 @@
           sort: this.sort.join(' ')
         };
 
+        // TODO: similar code exists in multiple components now, e.g. also BrowseAutomatedCardGroup;
+        //       abstract out into a helper fn
         if (process.server) {
           return import('@/server-middleware/api/collections/index.js')
             .then((module) => module.fetchData(this.type, params, this.$config.redis));
