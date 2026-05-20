@@ -17,15 +17,28 @@ export const fetchData = async(type, reqQuery, config = {}) => {
 
   // filter
   if (query) {
-    const queryRegExp = new RegExp(query, 'i');
-    // TODO: look to abbreviation too (for orgs); store in cache 1st
-    items = items.filter((item) => {
-      let candidates = typeof item.prefLabel === 'string' ? [item.prefLabel] : Object.values(item.prefLabel);
-      if (item.altLabel) {
-        candidates = candidates.concat(typeof item.altLabel === 'string' ? [item.altLabel] : Object.values(item.altLabel));
+    // case-insensitive matching
+    const lowerCaseQuery = query.toLowerCase();
+
+    const candidatesFrom = (fieldValue) => {
+      let candidates = [];
+
+      if (fieldValue) {
+        if (typeof fieldValue === 'string') {
+          candidates.push(fieldValue.toLowerCase());
+        } else if (typeof fieldValue === 'object') {
+          candidates = candidates.concat(Object.values(fieldValue).map((val) => val.toLowerCase()));
+        }
       }
 
-      return candidates.some((label) => queryRegExp.test(label));
+      return candidates;
+    };
+
+    // TODO: look to abbreviation too (for orgs); store in cache 1st
+    items = items.filter((item) => {
+      return candidatesFrom(item.prefLabel)
+        .concat(candidatesFrom(item.altLabel))
+        .some((label) => label.includes(lowerCaseQuery));
     });
   }
 
