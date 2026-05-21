@@ -32,6 +32,7 @@
           <EntityOrganisationsPageContent />
         </template>
         <EntityTable
+          v-else
           :type="type"
           data-qa="collections table"
           class="mt-3 mt-md-4"

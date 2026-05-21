@@ -106,6 +106,7 @@
       </template>
     </b-table>
     <PaginationNavInput
+      v-if="perPage"
       :total-results="totalResults"
       :per-page="perPage"
       aria-controls="entity-table"
@@ -151,6 +152,10 @@
       searchable: {
         type: Boolean,
         default: true
+      },
+      perPage: {
+        type: Number,
+        default: 40
       }
     },
 
@@ -196,8 +201,7 @@
         filter: this.$route?.query?.filter || null,
         fields: fields.filter((field) => field.display),
         typeSingular: this.type.slice(0, -1),
-        totalResults: this.collections?.length || 0,
-        perPage: 40
+        totalResults: this.collections?.length || 0
       };
     },
 

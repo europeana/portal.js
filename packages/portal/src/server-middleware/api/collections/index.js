@@ -1,7 +1,6 @@
 import { cached } from '../cache/index.js';
 
 export const fetchData = async(type, reqQuery, config = {}) => {
-  console.log('fetchData type', type);
   const lang = reqQuery.lang;
   const query = reqQuery.query;
   const pageSize = reqQuery.pageSize ? Number(reqQuery.pageSize) : null;

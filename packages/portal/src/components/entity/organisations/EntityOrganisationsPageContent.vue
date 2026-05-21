@@ -15,26 +15,28 @@
           class="mt-3 mt-md-4"
         />
       </template>
-      <div
-        v-for="type, index in aggregatorTypes"
-        v-else-if="tab === 'aggregators'"
-        :key="index"
-      >
-        <b-col
-          cols="12"
-          lg="6"
-          class="p-0 mb-5"
-          :class="`${type}-header`"
+      <template v-else-if="tab === 'aggregators'">
+        <div
+          v-for="type, index in aggregatorTypes"
+          :key="index"
         >
-          <h2>{{ $t(`organisations.${type}.title`) }}</h2>
-          <p>{{ $t(`organisations.${type}.description`) }}</p>
-        </b-col>
-        <EntityTable
-          :type="type"
-          class="mt-3 mt-md-4"
-          :searchable="false"
-        />
-      </div>
+          <b-col
+            cols="12"
+            lg="6"
+            class="p-0 mb-5"
+            :class="`${type}-header`"
+          >
+            <h2>{{ $t(`organisations.${type}.title`) }}</h2>
+            <p>{{ $t(`organisations.${type}.description`) }}</p>
+          </b-col>
+          <EntityTable
+            :type="type"
+            class="mt-3 mt-md-4"
+            :searchable="false"
+            :per-page="null"
+          />
+        </div>
+      </template>
     </div>
   </client-only>
 </template>
