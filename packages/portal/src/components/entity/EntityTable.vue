@@ -212,10 +212,10 @@
         let collections = response.data[this.cacheKey];
         if (this.aggregatorType) {
           if (this.type === INTERNATIONAL_AGGREGATORS) {
-            collections = collections.filter(agg => agg.geographicScope === 'International').map(this.organisationData);
+            collections = collections.filter((agg) => agg.geographicScope === 'International').map(this.organisationData);
             this.collections = collections; // Do not freeze as _showDetails prop needs to be reactive for toggling the details display on small screens
           } else {
-            collections = collections.filter(agg => agg.geographicScope !== 'International').map(this.organisationData);
+            collections = collections.filter((agg) => agg.geographicScope !== 'International').map(this.organisationData);
             this.collections = collections; // Do not freeze as _showDetails prop needs to be reactive for toggling the details display on small screens
           }
         } else if (this.type === ORGANISATIONS) {
