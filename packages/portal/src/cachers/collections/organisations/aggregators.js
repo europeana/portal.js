@@ -16,6 +16,7 @@ const data = async(config = {}) => {
 
   axiosClientEntity = createEuropeanaApiClient(config.europeana?.apis?.entity);
 
+  // TODO: is this a good idea? won't it fire dozens of API requests at the same time?
   return await Promise.all(organisationData.map(
     async(organisation) => {
       // Add heritageDomain or countryPrefLabel depending on geographicScope
