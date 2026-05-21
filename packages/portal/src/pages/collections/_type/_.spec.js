@@ -61,6 +61,7 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
       userHasClientRole: options.userHasClientRoleStub || sinon.stub().returns(false)
     },
     $fetchState: {},
+    $features: {},
     $t: (key, args) => args ? `${key} ${args}` : key,
     $route: {
       query: options.query || '',
