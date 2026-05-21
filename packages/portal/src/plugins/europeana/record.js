@@ -2,8 +2,6 @@ import md5 from 'md5';
 
 import EuropeanaApi from './apis/base.js';
 
-// import search from './search.js';
-
 import { ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX } from './data.js';
 import EuropeanaMediaProxyApi from './media-proxy.js';
 
