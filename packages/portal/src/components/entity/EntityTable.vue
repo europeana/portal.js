@@ -160,39 +160,46 @@
     },
 
     data() {
+      const fields = [
+        {
+          key: 'prefLabel',
+          display: true,
+          sortable: true,
+          label: this.$t('pages.collections.table.name'),
+          class: 'table-name-cell'
+        },
+        {
+          key: 'countryPrefLabel',
+          display: [ORGANISATIONS, REGIONAL_AGGREGATORS].includes(this.type),
+          sortable: true,
+          label: this.$t('pages.collections.table.country'),
+          class: 'text-center d-none d-md-table-cell'
+        },
+        {
+          key: 'heritageDomain',
+          display: this.type === INTERNATIONAL_AGGREGATORS,
+          sortable: true,
+          label: this.$t('pages.collections.table.domain'),
+          class: 'text-center d-none d-md-table-cell'
+        },
+        {
+          key: 'recordCount',
+          display: this.isOrgOrAggType(this.type),
+          sortable: true,
+          label: this.$t('pages.collections.table.items'),
+          class: 'table-count-cell text-right'
+        },
+        {
+          key: 'showDetails',
+          display: this.isOrgOrAggType(this.type),
+          class: `table-toggle-cell ${this.type === ORGANISATIONS ? 'd-md-none' : ''}`
+        }
+      ];
+
       return {
         collections: null,
         filter: this.$route?.query?.filter || null,
-        fields: [
-          {
-            key: 'prefLabel',
-            sortable: true,
-            label: this.$t('pages.collections.table.name'),
-            class: 'table-name-cell'
-          },
-          [ORGANISATIONS, REGIONAL_AGGREGATORS].includes(this.type) && {
-            key: 'countryPrefLabel',
-            sortable: true,
-            label: this.$t('pages.collections.table.country'),
-            class: 'text-center d-none d-md-table-cell'
-          },
-          this.type === INTERNATIONAL_AGGREGATORS && {
-            key: 'heritageDomain',
-            sortable: true,
-            label: this.$t('pages.collections.table.domain'),
-            class: 'text-center d-none d-md-table-cell'
-          },
-          this.isOrgOrAggType(this.type) && {
-            key: 'recordCount',
-            sortable: true,
-            label: this.$t('pages.collections.table.items'),
-            class: 'table-count-cell text-right'
-          },
-          this.isOrgOrAggType(this.type) && {
-            key: 'showDetails',
-            class: `table-toggle-cell ${this.type === ORGANISATIONS ? 'd-md-none' : ''}`
-          }
-        ],
+        fields: fields.filter((field) => field.display),
         typeSingular: this.type.slice(0, -1),
         totalResults: this.collections?.length || 0,
         perPage: 40
