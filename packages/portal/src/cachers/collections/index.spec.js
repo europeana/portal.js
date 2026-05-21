@@ -1,6 +1,6 @@
 import nock from 'nock';
 
-import cacher, { countEntities } from '@/cachers/collections/index.js';
+import cacher from '@/cachers/collections/index.js';
 
 const ENTITY_TYPE = 'timespan';
 const ENTITY_SCOPE = 'europeana';
