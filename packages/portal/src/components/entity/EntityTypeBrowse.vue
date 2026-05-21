@@ -71,9 +71,8 @@
 
       try {
         const response = await this.$apis.entity.search(entityIndexParams);
-
-        this.entities = response.entities;
-        this.total = response.total;
+        this.entities = response.items;
+        this.total = response.partOf?.total || null;
       } finally {
         process.client && this.scrollToSelector('#header');
       }

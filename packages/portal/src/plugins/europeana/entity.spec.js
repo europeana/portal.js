@@ -475,19 +475,9 @@ describe('plugins/europeana/entity', () => {
         scope: 'europeana'
       };
 
-      it('returns a list of concept entities', async() => {
+      it('returns the response data', async() => {
         const response = await (new api).search(eParams, 'topic');
-        expect(response.entities.length).toBe(conceptEntitiesResponse.items.length);
-      });
-
-      it('returns the total number of entities', async() => {
-        const response = await (new api).search(eParams, 'topic');
-        expect(response.total).toBe(conceptEntitiesResponse.partOf.total);
-      });
-
-      it('returns a thumbnail for each entity', async() => {
-        const response = await (new api).search(eParams, 'topic');
-        expect(response.entities[0].isShownBy.thumbnail).toBe(conceptEntitiesResponse.items[0].isShownBy.thumbnail);
+        expect(response).toEqual(conceptEntitiesResponse);
       });
     });
   });
