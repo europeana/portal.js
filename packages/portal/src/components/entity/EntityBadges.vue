@@ -28,7 +28,7 @@
       />
     </component>
     <b-button
-      v-if="limitCollections"
+      v-if="limited"
       variant="link"
       class="view-more-button p-0"
       @click="handleViewMore"
@@ -105,7 +105,7 @@
     data() {
       return {
         collections: this.relatedCollections,
-        limitCollections: this.limit
+        limited: !!this.limit
       };
     },
 
@@ -117,7 +117,7 @@
       }
 
       if (this.collections.length <= this.limit) {
-        this.limitCollections = false;
+        this.limited = false;
       }
 
       this.$emit('fetched');
@@ -125,7 +125,7 @@
 
     computed: {
       displayCollections() {
-        return this.limitCollections ? this.collections.slice(0, this.limitCollections) : this.collections;
+        return this.limited ? this.collections.slice(0, this.limit) : this.collections;
       }
     },
 
@@ -151,7 +151,7 @@
         }
       },
       handleViewMore() {
-        this.limitCollections = false;
+        this.limited = false;
       }
     }
   };
