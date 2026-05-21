@@ -1,6 +1,6 @@
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '@test/utils.js';
-import EntityOrganisationsRelated from '@/components/entity/EntityOrganisationsRelated.vue';
+import EntityOrganisationsRelated from './EntityOrganisationsRelated.vue';
 import sinon from 'sinon';
 
 const localVue = createLocalVue();
@@ -18,7 +18,7 @@ const factory = (propsData) => {
   });
 };
 
-describe('components/entity/EntityOrganisationsRelated', () => {
+describe('components/entity/organisations/EntityOrganisationsRelated', () => {
   describe('fetch', () => {
     it('fetches full entity by id and sets aggregatesFrom', async() => {
       const aggregatesFrom = ['002'];

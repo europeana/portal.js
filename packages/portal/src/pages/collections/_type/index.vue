@@ -62,8 +62,8 @@
     components: {
       ContentHeader,
       ClientOnly,
-      EntityOrganisationsPageContent: () => import('@/components/entity/EntityOrganisationsPageContent'),
-      EntityOrganisationsTabs: () => import('@/components/entity/EntityOrganisationsTabs'),
+      EntityOrganisationsPageContent: () => import('@/components/entity/organisations/EntityOrganisationsPageContent'),
+      EntityOrganisationsTabs: () => import('@/components/entity/organisations/EntityOrganisationsTabs'),
       EntityTable: () => import('@/components/entity/EntityTable'),
       EntityTypeBrowse: () => import('@/components/entity/EntityTypeBrowse'),
       ErrorMessage: () => import('@/components/error/ErrorMessage')

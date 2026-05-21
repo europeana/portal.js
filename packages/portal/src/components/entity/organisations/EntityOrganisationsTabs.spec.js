@@ -1,6 +1,6 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 
-import EntityOrganisationsTabs from '@/components/entity/EntityOrganisationsTabs.vue';
+import EntityOrganisationsTabs from './EntityOrganisationsTabs.vue';
 
 const localVue = createLocalVue();
 
@@ -14,7 +14,7 @@ const factory = () => shallowMount(EntityOrganisationsTabs, {
 
 });
 
-describe('components/entity/EntityOrganisationsTabs', () => {
+describe('components/entity/organisations/EntityOrganisationsTabs', () => {
   describe('template', () => {
     it('renders two tabs, providing institutions, and aggregators', () => {
       const wrapper = factory();

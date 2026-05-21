@@ -17,7 +17,7 @@
 </template>
 
 <script>
-  import EntityBadges from './EntityBadges.vue';
+  import EntityBadges from '../EntityBadges.vue';
 
   export default {
     name: 'EntityOrganisationsRelated',

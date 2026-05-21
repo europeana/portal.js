@@ -51,7 +51,7 @@
 
     components: {
       ClientOnly,
-      EntityTable: () => import('@/components/entity/EntityTable')
+      EntityTable: () => import('../EntityTable')
     },
 
     setup() {

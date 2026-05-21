@@ -138,7 +138,7 @@
     components: {
       AlertMessage: () => import('@/components/generic/AlertMessage'),
       BTable,
-      EntityOrganisationsRelated: () => import('./EntityOrganisationsRelated'),
+      EntityOrganisationsRelated: () => import('./organisations/EntityOrganisationsRelated'),
       LoadingSpinner,
       PaginationNavInput,
       SmartLink

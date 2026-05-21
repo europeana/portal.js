@@ -2,7 +2,7 @@ import { createLocalVue, shallowMount } from '@vue/test-utils';
 import * as vue2RouterHelpers from 'vue2-helpers/vue-router';
 import sinon from 'sinon';
 import { reactive } from 'vue';
-import EntityOrganisationsPageContent from '@/components/entity/EntityOrganisationsPageContent.vue';
+import EntityOrganisationsPageContent from './EntityOrganisationsPageContent.vue';
 
 const localVue = createLocalVue();
 
@@ -18,7 +18,7 @@ const factory = (options) => {
   });
 };
 
-describe('components/entity/EntityOrganisationsPageContent', () => {
+describe('components/entity/organisations/EntityOrganisationsPageContent', () => {
   afterEach(() => {
     sinon.resetHistory();
     vue2RouterHelpers.useRoute.restore?.();
