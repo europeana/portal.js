@@ -12,6 +12,7 @@ import iiifPresentation from './europeana/iiif/presentation.js';
 import mediaProxy from './europeana/media-proxy.js';
 import recommendation from './europeana/recommendation.js';
 import record from './europeana/record.js';
+import recordSearch from './europeana/search.js';
 import set from './europeana/set.js';
 import thumbnail from './europeana/thumbnail.js';
 
@@ -70,6 +71,9 @@ export default (context, inject) => {
 
   const plugin = API_IDS.reduce((memo, id) => {
     memo[id] = new APIS[id](context);
+    if (id === 'record') {
+      memo[id].search = recordSearch;
+    }
     return memo;
   }, {});
 
