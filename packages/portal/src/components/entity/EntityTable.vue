@@ -11,6 +11,7 @@
       </b-col>
     </b-row>
     <b-form
+      v-if="searchable"
       class="search-form position-relative"
       inline
       @submit.stop.prevent="() => {}"
@@ -49,7 +50,7 @@
         <SmartLink
           :destination="entityRoute(data.item.slug)"
         >
-          <template v-if="type === 'organisations'">
+          <template v-if="orgOrAggType">
             <strong :lang="langAttribute(data.item.prefLabelLang)">{{ data.item.prefLabel }}</strong>
             <span
               v-if="data.item.altLabel"
@@ -67,7 +68,7 @@
         </SmartLink>
       </template>
       <template
-        v-if="type === 'organisations'"
+        v-if="orgOrAggType"
         #cell(recordCount)="data"
       >
         <span>
@@ -75,7 +76,7 @@
         </span>
       </template>
       <template
-        v-if="type === 'organisations'"
+        v-if="orgOrAggType"
         #cell(showDetails)="row"
       >
         <b-button
@@ -90,10 +91,21 @@
         </b-button>
       </template>
       <template
-        v-if="type === 'organisations'"
+        v-if="orgOrAggType"
         #row-details="row"
       >
-        <span>{{ row.item.countryPrefLabel }}</span>
+        <span
+          v-if="row.item.countryPrefLabel"
+          class="d-md-none"
+        >{{ row.item.countryPrefLabel }}</span>
+        <span
+          v-if="row.item.heritageDomain"
+          class="d-md-none"
+        >{{ row.item.heritageDomain }}</span>
+        <EntityOrganisationsRelated
+          v-if="aggregatorType"
+          :entity-id="row.item.id"
+        />
       </template>
     </b-table>
     <PaginationNavInput
@@ -116,12 +128,17 @@
   import langAttributeMixin from '@/mixins/langAttribute';
   import { langMapValueForLocale } from '@europeana/i18n';
 
+  const ORGANISATIONS = 'organisations';
+  const REGIONAL_AGGREGATORS = 'regionalAggregators';
+  const INTERNATIONAL_AGGREGATORS = 'internationalAggregators';
+
   export default {
     name: 'EntityTable',
 
     components: {
       AlertMessage: () => import('@/components/generic/AlertMessage'),
       BTable,
+      EntityOrganisationsRelated: () => import('./organisations/EntityOrganisationsRelated'),
       LoadingSpinner,
       PaginationNavInput,
       SmartLink
@@ -135,37 +152,54 @@
       type: {
         type: String,
         required: true
+      },
+      searchable: {
+        type: Boolean,
+        default: true
       }
     },
 
     data() {
+      const fields = [
+        {
+          key: 'prefLabel',
+          display: true,
+          sortable: true,
+          label: this.$t('pages.collections.table.name'),
+          class: 'table-name-cell'
+        },
+        {
+          key: 'countryPrefLabel',
+          display: [ORGANISATIONS, REGIONAL_AGGREGATORS].includes(this.type),
+          sortable: true,
+          label: this.$t('pages.collections.table.country'),
+          class: 'text-center d-none d-md-table-cell'
+        },
+        {
+          key: 'heritageDomain',
+          display: this.type === INTERNATIONAL_AGGREGATORS,
+          sortable: true,
+          label: this.$t('pages.collections.table.domain'),
+          class: 'text-center d-none d-md-table-cell'
+        },
+        {
+          key: 'recordCount',
+          display: this.isOrgOrAggType(this.type),
+          sortable: true,
+          label: this.$t('pages.collections.table.items'),
+          class: 'table-count-cell text-right'
+        },
+        {
+          key: 'showDetails',
+          display: this.isOrgOrAggType(this.type),
+          class: `table-toggle-cell ${this.type === ORGANISATIONS ? 'd-md-none' : ''}`
+        }
+      ];
+
       return {
         collections: null,
         filter: this.$route?.query?.filter || null,
-        fields: [
-          {
-            key: 'prefLabel',
-            sortable: true,
-            label: this.$t('pages.collections.table.name'),
-            class: 'table-name-cell'
-          },
-          this.type === 'organisations' && {
-            key: 'countryPrefLabel',
-            sortable: true,
-            label: this.$t('pages.collections.table.country'),
-            class: 'text-center d-none d-md-table-cell'
-          },
-          this.type === 'organisations' && {
-            key: 'recordCount',
-            sortable: true,
-            label: this.$t('pages.collections.table.items'),
-            class: 'text-right'
-          },
-          this.type === 'organisations' && {
-            key: 'showDetails',
-            class: 'table-toggle-cell d-md-none'
-          }
-        ],
+        fields: fields.filter((field) => field.display),
         typeSingular: this.type.slice(0, -1),
         totalResults: this.collections?.length || 0,
         perPage: 40
@@ -176,7 +210,15 @@
       try {
         const response = await axios.get(this.apiEndpoint, { baseURL: window.location.origin });
         let collections = response.data[this.cacheKey];
-        if (this.type === 'organisations') {
+        if (this.aggregatorType) {
+          if (this.type === INTERNATIONAL_AGGREGATORS) {
+            collections = collections.filter((agg) => agg.geographicScope === 'International').map(this.organisationData);
+            this.collections = collections; // Do not freeze as _showDetails prop needs to be reactive for toggling the details display on small screens
+          } else {
+            collections = collections.filter((agg) => agg.geographicScope !== 'International').map(this.organisationData);
+            this.collections = collections; // Do not freeze as _showDetails prop needs to be reactive for toggling the details display on small screens
+          }
+        } else if (this.type === ORGANISATIONS) {
           collections = collections.map(this.organisationData);
           this.collections = collections; // Do not freeze as _showDetails prop needs to be reactive for toggling the details display on small screens
         } else {
@@ -195,7 +237,11 @@
         return `/_api/cache/${this.cacheKey}`;
       },
       cacheKey() {
-        return `${this.$i18n.locale}/collections/${this.type}`;
+        if (this.aggregatorType) {
+          return `${this.$i18n.locale}/collections/organisations/aggregators`;
+        } else {
+          return `${this.$i18n.locale}/collections/${this.type}`;
+        }
       },
       currentPage() {
         return Number(this.$route?.query?.page) || 1;
@@ -224,6 +270,12 @@
         set({ sortBy, sortDesc }) {
           this.updateRouteQuery({ sort: `${sortBy} ${sortDesc ? 'desc' : 'asc'}` });
         }
+      },
+      aggregatorType() {
+        return [INTERNATIONAL_AGGREGATORS, REGIONAL_AGGREGATORS].includes(this.type) ? 'aggregators' : false;
+      },
+      orgOrAggType() {
+        return this.isOrgOrAggType(this.type);
       }
     },
 
@@ -251,7 +303,8 @@
           prefLabel: nativeNameLangMapValue.values[0],
           prefLabelLang: nativeNameLangMapValue.code,
           altLabel: englishNameLangMapValue?.values[0],
-          altLabelLang: englishNameLangMapValue?.code
+          altLabelLang: englishNameLangMapValue?.code,
+          ...org.heritageDomain && { heritageDomain: org.heritageDomain.join(', ') }
         };
       },
       entityRoute(slug) {
@@ -263,6 +316,9 @@
       },
       updateRouteQuery(newQuery) {
         this.$router.push({ ...this.$route, query: { ...this.$route.query, ...newQuery } });
+      },
+      isOrgOrAggType(type) {
+        return [ORGANISATIONS, INTERNATIONAL_AGGREGATORS, REGIONAL_AGGREGATORS].includes(type);
       }
     }
   };
@@ -272,6 +328,7 @@
   @import '@europeana/style/scss/variables';
   @import '@europeana/style/scss/icon-font';
   @import '@europeana/style/scss/table';
+  @import '@europeana/style/scss/transitions';
 
   .entity-table {
 
@@ -300,6 +357,10 @@
       &.show::before {
         transform: rotateX(180deg);
       }
+    }
+
+    .b-table-details td {
+      max-width: calc(100vw - 6rem);
     }
   }
 </style>

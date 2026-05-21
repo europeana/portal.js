@@ -20,10 +20,11 @@ const factory = (propsData = { type: 'organisations' }) => mountNuxt(EntityTable
     $router: { push: () => {} },
     localePath: () => '/'
   },
-  stubs: ['SmartLink']
+  stubs: ['SmartLink', 'EntityOrganisationsRelated', 'PaginationNavInput']
 });
 
 const middlewarePath = '/_api/cache/en/collections/organisations';
+const middlewarePathAggregators = '/_api/cache/en/collections/organisations/aggregators';
 const collections = [
   { id: 'http://data.europeana.eu/organization/001', slug: '001-museum', prefLabel: { de: 'museum', en: 'museum' }, countryPrefLabel: 'Deutschland' },
   { id: 'http://data.europeana.eu/organization/002', slug: '002-library', prefLabel: { nl: 'bibliotheek', en: 'library' }, countryPrefLabel: 'Nederland' }
@@ -49,6 +50,18 @@ const organisations = [
     countryPrefLabel: 'Nederland'
   }
 ];
+const internationalAggregator = {
+  id: '001',
+  geographicScope: 'International',
+  heritageDomain: ['Audio heritage']
+};
+const internationalAggregatorAsStored = {
+  ...internationalAggregator,
+  heritageDomain: 'Audio heritage'
+};
+const regionalAggregator = { id: '002',
+  geographicScope: 'Regional' };
+const aggregators = [internationalAggregator, regionalAggregator];
 
 describe('components/entity/EntityTable', () => {
   beforeEach(() => {
@@ -57,24 +70,42 @@ describe('components/entity/EntityTable', () => {
   afterEach(sinon.restore);
 
   describe('fetch()', () => {
-    beforeEach(() => {
-      axios.get.withArgs(middlewarePath).resolves({ data: { 'en/collections/organisations': collections } });
+    describe('when type is organisations', () => {
+      beforeEach(() => {
+        axios.get.withArgs(middlewarePath).resolves({ data: { 'en/collections/organisations': collections } });
+      });
+
+      it('sends a get request to the collections server middleware', async() => {
+        const wrapper = factory();
+
+        await wrapper.vm.fetch();
+
+        expect(axios.get.calledWith(middlewarePath)).toBe(true);
+      });
+
+      it('stores collections from response body on component collections property', async() => {
+        const wrapper = factory();
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.collections).toEqual(organisations);
+      });
     });
 
-    it('sends a get request to the collections server middleware', async() => {
-      const wrapper = factory();
+    ['internationalAggregators', 'regionalAggregators'].forEach(type => {
+      describe(`when type is ${type}`, () => {
+        beforeEach(() => {
+          axios.get.withArgs(middlewarePathAggregators).resolves({ data: { 'en/collections/organisations/aggregators': aggregators } });
+        });
+        it('stores type filtered collections on collections property', async() => {
+          const wrapper = factory({ type });
 
-      await wrapper.vm.fetch();
+          await wrapper.vm.fetch();
+          const filteredAggregators = type === 'internationalAggregators' ? [internationalAggregatorAsStored] : [regionalAggregator];
 
-      expect(axios.get.calledWith(middlewarePath)).toBe(true);
-    });
-
-    it('stores collections from response body on component collections property', async() => {
-      const wrapper = factory();
-
-      await wrapper.vm.fetch();
-
-      expect(wrapper.vm.collections).toEqual(organisations);
+          expect(wrapper.vm.collections).toEqual(filteredAggregators);
+        });
+      });
     });
   });
 
@@ -189,7 +220,7 @@ describe('components/entity/EntityTable', () => {
       const wrapper = factory();
       sinon.spy(wrapper.vm, 'updateRouteQuery');
 
-      const recordCountTh = wrapper.find('[aria-colindex="3"]');
+      const recordCountTh = wrapper.find('.table-count-cell');
       await recordCountTh.trigger('click');
 
       expect(wrapper.vm.updateRouteQuery.calledWith({ sort: 'recordCount asc' })).toBe(true);

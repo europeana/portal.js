@@ -1,17 +1,21 @@
 <template>
   <div
-    v-if="collections.length"
+    v-if="displayCollections.length"
     data-qa="related collections"
     class="related-collections"
   >
     <h2 class="related-heading text-uppercase">
       {{ title || $t('related.collections.title') }}
     </h2>
-    <div
+    <component
+      :is="transition ? 'transition-group' : 'div'"
       class="badges-wrapper d-flex flex-wrap"
+      appear
+      name="fade"
+      tag="div"
     >
       <LinkBadge
-        v-for="relatedCollection in collections"
+        v-for="relatedCollection in displayCollections"
         :id="relatedCollection.id"
         :key="relatedCollection.id"
         ref="options"
@@ -22,7 +26,15 @@
         :badge-variant="badgeVariant"
         :click-event-handler="() => clickEventHandler(relatedCollection.url || collectionLinkGen(relatedCollection))"
       />
-    </div>
+    </component>
+    <b-button
+      v-if="limited"
+      variant="link"
+      class="view-more-button p-0"
+      @click="handleViewMore"
+    >
+      {{ $t('actions.viewMore') }}
+    </b-button>
   </div>
 </template>
 
@@ -72,12 +84,28 @@
       badgeVariant: {
         type: String,
         default: 'secondary'
+      },
+      /**
+       * Wrap badges in TransitionGroup, e.g. dynamically load more entities
+       */
+      transition: {
+        type: Boolean,
+        default: false
+      },
+      /**
+       * Limit the amount of badges to fetch and display
+       * Adds a view more button
+       */
+      limit: {
+        type: Number,
+        default: null
       }
     },
 
     data() {
       return {
-        collections: this.relatedCollections
+        collections: this.relatedCollections,
+        limited: !!this.limit
       };
     },
 
@@ -87,7 +115,18 @@
         this.collections = entities?.map((entity) => pick(entity, ['id', 'prefLabel', 'isShownBy', 'logo'])) || [];
         this.$emit('entitiesFromUrisFetched', this.collections);
       }
+
+      if (this.collections.length <= this.limit) {
+        this.limited = false;
+      }
+
       this.$emit('fetched');
+    },
+
+    computed: {
+      displayCollections() {
+        return this.limited ? this.collections.slice(0, this.limit) : this.collections;
+      }
     },
 
     mounted() {
@@ -110,6 +149,9 @@
         if (this.$matomo) {
           this.$matomo.trackEvent('Related_collections', 'Click related collection', link);
         }
+      },
+      handleViewMore() {
+        this.limited = false;
       }
     }
   };
@@ -124,14 +166,20 @@
     }
   }
 
-  .related-collections ::v-deep .badge-pill {
-    margin-right: 0.5rem;
-    margin-bottom: 0.5rem;
+  .related-collections {
+    .btn-link:hover {
+      text-decoration: none;
+    }
 
-    @at-root .xxl-page & {
-      @media (min-width: $bp-4k) {
-        margin-right: 0.75rem;
-        margin-bottom: 0.75rem;
+    ::v-deep .badge-pill {
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+
+      @at-root .xxl-page & {
+        @media (min-width: $bp-4k) {
+          margin-right: 0.75rem;
+          margin-bottom: 0.75rem;
+        }
       }
     }
   }
@@ -166,6 +214,34 @@
       type: 'Organization',
       prefLabel: { en: 'Albertina', de: 'Albertina' }
       }]"
+  />
+  ```
+  With a limit
+    ```jsx
+  <EntityBadges
+    :related-collections="[
+      {
+      id: 'http://data.europeana.eu/concept/238',
+      isShownBy: { thumbnail: 'https://api.europeana.eu/thumbnail/v3/200/8a4531e9596247152fb127caa8ab8d2b' },
+      prefLabel: { en: 'Sonata' }
+      },
+      {
+      id: 'http://data.europeana.eu/concept/1482250000004477257',
+      logo:
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Albertina_Logo.svg/28px-Albertina_Logo.svg.png'
+      ,
+      type: 'Organization',
+      prefLabel: { en: 'Albertina', de: 'Albertina' }
+      },
+            {
+      id: 'http://data.europeana.eu/concept/001',
+      prefLabel: { en: 'Rijksmuseum' }
+      },
+      {
+      id: 'http://data.europeana.eu/concept/002',
+      prefLabel: { en: 'Vincent van Gogh' }
+      }]"
+      :limit="2"
   />
   ```
 </docs>
