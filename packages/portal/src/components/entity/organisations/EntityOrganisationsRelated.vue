@@ -6,12 +6,10 @@
   >
     <EntityBadges
       :entity-uris="aggregatesFrom"
-      :related-collections="aggregatesFromEntities"
       :title="$t('organisations.providingInstitutions.title')"
       class="mt-3 mt-md-0"
       :transition="true"
       :limit="4"
-      @entitiesFromUrisFetched="(entities) => relatedEntitiesFetched(entities)"
     />
   </transition>
 </template>
@@ -35,22 +33,14 @@
 
     data() {
       return {
-        aggregatesFrom: null,
-        aggregatesFromEntities: []
+        aggregatesFrom: null
       };
     },
 
     async fetch() {
       const entityFullData = await this.$apis.entity.find([this.entityId]);
-      const aggregatesFrom = entityFullData[0]?.aggregatesFrom;
 
-      this.aggregatesFrom = aggregatesFrom;
-    },
-
-    methods: {
-      relatedEntitiesFetched(organisations) {
-        this.aggregatesFromEntities = organisations;
-      }
+      this.aggregatesFrom = entityFullData[0]?.aggregatesFrom;
     }
   };
 </script>

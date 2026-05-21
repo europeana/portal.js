@@ -32,16 +32,4 @@ describe('components/entity/organisations/EntityOrganisationsRelated', () => {
       expect(wrapper.vm.aggregatesFrom).toBe(aggregatesFrom);
     });
   });
-
-  describe('methods', () => {
-    describe('relatedEntitiesFetched', () => {
-      it('sets aggregatesFromEntities to the passed in organisations', async() => {
-        const orgs = ['003'];
-        const wrapper = factory({ entityId });
-        wrapper.vm.relatedEntitiesFetched(orgs);
-
-        expect(wrapper.vm.aggregatesFromEntities).toEqual(orgs);
-      });
-    });
-  });
 });
