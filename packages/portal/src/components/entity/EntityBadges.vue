@@ -112,7 +112,7 @@
     async fetch() {
       if (((this.entityUris?.length || 0) > 0) && ((this.relatedCollections?.length || 0) === 0)) {
         const entities = await this.$apis.entity.find(this.entityUris);
-        this.collections = entities?.map((entity) => pick(entity, ['id', 'prefLabel', 'isShownBy', 'logo'])) || [];
+        this.collections = entities?.map((entity) => pick(entity, ['id', 'prefLabel', 'isShownBy', 'logo', 'type'])) || [];
         this.$emit('entitiesFromUrisFetched', this.collections);
       }
 
