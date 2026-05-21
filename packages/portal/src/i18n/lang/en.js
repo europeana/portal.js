@@ -1199,7 +1199,14 @@ export default {
     "city": "City",
     "country": "Country",
     "englishName": "English name",
-    "nameAcronym": "Name acronym"
+    "nameAcronym": "Name acronym",
+    "heritageDomain": "Types of heritage",
+    "providesSupportForMediaType": "Media type",
+    "geographicScope": "Geographic scope",
+    "providesSupportForDataActivity": "Data activities",
+    "providesCapacityBuildingActivity": "Capacity building",
+    "providesAudienceEngagementActivity": "Audience engagment activities",
+    "providingInstitutionsCount": "Number of providing institutions"
   },
   "organisations": {
     "aggregators": {

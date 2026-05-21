@@ -31,6 +31,9 @@
           >
             {{ info.value }}
           </b-link>
+          <template v-if="Array.isArray(info.value)">
+            {{ info.value.join('; ') }}
+          </template>
           <template v-else>
             {{ info.value }}
           </template>

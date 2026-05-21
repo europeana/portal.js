@@ -151,7 +151,25 @@
         const entity = await this.$apis.entity.get(this.collectionType, this.$route.params.pathMatch);
 
         this.$store.commit('entity/setEntity', pick(entity, [
-          'id', 'logo', 'note', 'description', 'europeanaRole', 'homepage', 'prefLabel', 'isShownBy', 'hasAddress', 'acronym', 'type', 'mbox'
+          'id',
+          'logo',
+          'note',
+          'description',
+          'europeanaRole',
+          'homepage',
+          'prefLabel',
+          'isShownBy',
+          'hasAddress',
+          'acronym',
+          'type',
+          'mbox',
+          'heritageDomain',
+          'providesSupportForMediaType',
+          'geographicScope',
+          'providesSupportForDataActivity',
+          'providesCapacityBuildingActivity',
+          'providesAudienceEngagementActivity',
+          'aggregatesFrom'
         ]));
         this.$store.commit('search/setCollectionLabel', this.title.values[0]);
 
@@ -314,6 +332,32 @@
         if (this.homepage)  {
           labelledMoreInfo.push({ label: this.$t('website'), value: this.homepage });
         }
+
+        // TODO: put each of these "fields" in an array and itterate over them to keep this method shorter.
+        if (this.entity?.heritageDomain)  {
+          labelledMoreInfo.push({ label: this.$t('organisation.heritageDomain'), value: this.entity.heritageDomain });
+        }
+        if (this.entity?.providesSupportForMediaType)  {
+          labelledMoreInfo.push({ label: this.$t('organisation.providesSupportForMediaType'), value: this.entity.providesSupportForMediaType });
+        }
+        if (this.entity?.geographicScope)  {
+          labelledMoreInfo.push({ label: this.$t('organisation.geographicScope'), value: this.entity.geographicScope });
+        }
+        if (this.entity?.providesSupportForDataActivity)  {
+          labelledMoreInfo.push({ label: this.$t('organisation.providesSupportForDataActivity'), value: this.entity.providesSupportForDataActivity });
+        }
+        if (this.entity?.providesCapacityBuildingActivity)  {
+          labelledMoreInfo.push({ label: this.$t('organisation.providesCapacityBuildingActivity'), value: this.entity.providesCapacityBuildingActivity });
+        }
+        if (this.entity?.providesAudienceEngagementActivity)  {
+          labelledMoreInfo.push({ label: this.$t('organisation.providesAudienceEngagementActivity'), value: this.entity.providesAudienceEngagementActivity });
+        }
+
+        // TODO: add number of items
+        if (this.entity?.aggregatesFrom)  {
+          labelledMoreInfo.push({ label: this.$t('organisation.providingInstitutionsCount'), value: this.entity.aggregatesFrom.length });
+        }
+        // TODO: Pass 4 institutions, but consider passing via distinct prop
 
         return labelledMoreInfo;
       }
