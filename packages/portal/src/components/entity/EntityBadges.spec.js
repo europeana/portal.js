@@ -97,31 +97,31 @@ describe('components/related/EntityBadges', () => {
       });
 
       describe('when a limit is set', () => {
-        it('shows the limited amount of badges and a view more button', async() => {
+        it('shows the limited amount of badges and a view all button', async() => {
           const limit = 2;
           const wrapper = factory({ propsData: { limit } });
           await wrapper.setData(data);
 
           const chips = wrapper.findAll('linkbadge-stub');
-          const moreButton = wrapper.find('.view-more-button');
+          const viewAllButton = wrapper.find('.view-all-button');
 
           expect(chips.length).toBe(limit);
-          expect(moreButton.isVisible()).toBe(true);
+          expect(viewAllButton.isVisible()).toBe(true);
         });
 
-        describe('and the view more button is clicked', () => {
-          it('shows all badges and NO view more button', async() => {
+        describe('and the view all button is clicked', () => {
+          it('shows all badges and NO view all button', async() => {
             const limit = 2;
             const wrapper = factory({ propsData: { limit } });
             await wrapper.setData(data);
 
-            await wrapper.find('.view-more-button').trigger('click');
+            await wrapper.find('.view-all-button').trigger('click');
 
             const chips = wrapper.findAll('linkbadge-stub');
-            const moreButton = wrapper.find('.view-more-button');
+            const viewAllButton = wrapper.find('.view-all-button');
 
             expect(chips.length).toBe(4);
-            expect(moreButton.exists()).toBe(false);
+            expect(viewAllButton.exists()).toBe(false);
           });
         });
       });

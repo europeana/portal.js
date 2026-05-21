@@ -30,10 +30,10 @@
     <b-button
       v-if="limited"
       variant="link"
-      class="view-more-button p-0"
-      @click="handleViewMore"
+      class="view-all-button p-0"
+      @click="handleViewAll"
     >
-      {{ $t('actions.viewMore') }}
+      {{ $t('actions.viewAll', { count: collections.length }) }}
     </b-button>
   </div>
 </template>
@@ -94,7 +94,7 @@
       },
       /**
        * Limit the amount of badges to fetch and display
-       * Adds a view more button
+       * Adds a view all button
        */
       limit: {
         type: Number,
@@ -112,7 +112,7 @@
     async fetch() {
       if (((this.entityUris?.length || 0) > 0) && ((this.relatedCollections?.length || 0) === 0)) {
         const entities = await this.$apis.entity.find(this.entityUris);
-        this.collections = entities?.map((entity) => pick(entity, ['id', 'prefLabel', 'isShownBy', 'logo'])) || [];
+        this.collections = entities?.map((entity) => pick(entity, ['id', 'prefLabel', 'isShownBy', 'logo', 'type'])) || [];
         this.$emit('entitiesFromUrisFetched', this.collections);
       }
 
@@ -150,7 +150,7 @@
           this.$matomo.trackEvent('Related_collections', 'Click related collection', link);
         }
       },
-      handleViewMore() {
+      handleViewAll() {
         this.limited = false;
       }
     }
