@@ -18,10 +18,6 @@
           :type="type"
         />
       </template>
-      <template v-else-if="$features.aggregatorsTab && type === 'organisations'">
-        <EntityOrganisationsTabs />
-        <EntityOrganisationsPageContent />
-      </template>
       <template v-else>
         <!-- TODO: replace media URL when available or a default placeholder is implemented -->
         <ContentHeader
@@ -31,7 +27,11 @@
           button-variant="secondary"
           class="half-col"
         />
-        <client-only>
+        <template v-if="$features.aggregatorsTab && type === 'organisations'">
+          <EntityOrganisationsTabs />
+          <EntityOrganisationsPageContent />
+        </template>
+        <client-only v-else>
           <EntityTable
             :type="type"
             data-qa="collections table"
@@ -62,8 +62,8 @@
     components: {
       ContentHeader,
       ClientOnly,
-      EntityOrganisationsPageContent: () => import('@/components/entity/EntityOrganisationsPageContent'),
-      EntityOrganisationsTabs: () => import('@/components/entity/EntityOrganisationsTabs'),
+      EntityOrganisationsPageContent: () => import('@/components/entity/organisations/EntityOrganisationsPageContent'),
+      EntityOrganisationsTabs: () => import('@/components/entity/organisations/EntityOrganisationsTabs'),
       EntityTable: () => import('@/components/entity/EntityTable'),
       EntityTypeBrowse: () => import('@/components/entity/EntityTypeBrowse'),
       ErrorMessage: () => import('@/components/error/ErrorMessage')
