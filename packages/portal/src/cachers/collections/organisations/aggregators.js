@@ -1,26 +1,18 @@
 import baseData from '../index.js';
-import { createEuropeanaApiClient } from '../../utils.js';
+import EuropeanaEntityApi from '../../../plugins/europeana/entity.js';
 
 const PICK = ['id', 'slug', 'recordCount', 'prefLabel', 'geographicScope', 'countryPrefLabel', 'heritageDomain', 'logo'];
 const LOCALISE = 'countryPrefLabel';
 
-let axiosClientEntity;
-
-async function getFullEntity(entityUrl) {
-  const response = await axiosClientEntity.get(entityUrl);
-  return response.data;
-}
-
-const data = async(config = {}) => {
-  const organisationData = await baseData({ type: 'aggregator' }, config);
-
-  axiosClientEntity = createEuropeanaApiClient(config.europeana?.apis?.entity);
+const data = async(context = {}) => {
+  const api = context.$apis?.entity || new EuropeanaEntityApi(context);
+  const organisationData = await baseData({ type: 'aggregator' }, context);
 
   return await Promise.all(organisationData.map(
     async(organisation) => {
       // Add heritageDomain or countryPrefLabel depending on geographicScope
       const entityId = organisation.id.split('/').pop();
-      const fullEntityResponse = await getFullEntity(`/organization/${entityId}.json`);
+      const fullEntityResponse = await api.get('organisation', entityId);
 
       if (fullEntityResponse?.geographicScope === 'International') {
         organisation.heritageDomain = fullEntityResponse?.heritageDomain;

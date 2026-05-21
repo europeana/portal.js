@@ -1,6 +1,6 @@
 import baseData from './index.js';
-import { createEuropeanaApiClient } from '../utils.js';
-import { isEntityUri } from '../../plugins/europeana/entity.js';
+import EuropeanaEntityApi, { isEntityUri } from '../../plugins/europeana/entity.js';
+import EuropeanaRecordApi from '../../plugins/europeana/record.js';
 import uniq from 'lodash/uniq.js';
 // TODO: remove and uninstall when deprecated after API released with place references for countries
 import countryCodes from 'i18n-iso-countries';
@@ -9,32 +9,28 @@ import { codes as localeCodes } from '@europeana/i18n';
 const PICK = ['id', 'slug', 'recordCount', 'prefLabel', 'countryPrefLabel'];
 const LOCALISE = 'countryPrefLabel';
 
-let axiosClient;
-let axiosClientEntity;
+const data = async(context = {}) => {
+  const organisationData = await baseData({ type: 'organization' }, context);
+  const entityApi = context.$apis?.entity || new EuropeanaEntityApi(context);
+  const recordApi = context.$apis?.record || new EuropeanaRecordApi(context);
 
-async function getRecordCounts() {
-  const params = {
-    profile: 'facets',
-    query: 'foaf_organization:*data.europeana.eu*',
-    facet: 'foaf_organization',
-    ['f.foaf_organization.facet.limit']: 10000,
-    rows: 0
-  };
-  const response = await axiosClient.get('/search.json', { params });
+  async function getRecordCounts() {
+    const params = {
+      profile: 'facets',
+      query: 'foaf_organization:*data.europeana.eu*',
+      facet: 'foaf_organization',
+      ['f.foaf_organization.facet.limit']: 10000,
+      rows: 0
+    };
+    const response = await recordApi.search(params);
 
-  return response.data?.facets?.[0]?.fields || [];
-}
+    return response.data?.facets?.[0]?.fields || [];
+  }
 
-async function getCountryPrefLabel(entityUrl) {
-  const response = await axiosClientEntity.get(entityUrl);
-  return response.data.prefLabel;
-}
-
-const data = async(config = {}) => {
-  const organisationData = await baseData({ type: 'organization' }, config);
-
-  axiosClient = createEuropeanaApiClient(config.europeana?.apis?.record);
-  axiosClientEntity = createEuropeanaApiClient(config.europeana?.apis?.entity);
+  async function getCountryPrefLabel(entityUrl) {
+    const response = await entityApi.get('place', entityUrl);
+    return response.data.prefLabel;
+  }
 
   const recordCounts = await getRecordCounts();
 
@@ -46,7 +42,7 @@ const data = async(config = {}) => {
     // Acceptance Entity API returns entity URI for country
     if (isEntityUri(country)) {
       const entityId = country.split('/').pop();
-      organisationCountriesPrefLabels[country] = await getCountryPrefLabel(`/place/${entityId}.json`);
+      organisationCountriesPrefLabels[country] = await getCountryPrefLabel(entityId);
     } else if (isEntityUri(country?.id) && country.prefLabel) {
       organisationCountriesPrefLabels[country.id] = country.prefLabel;
     } else if (country) {

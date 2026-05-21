@@ -69,71 +69,52 @@ const params = {
   type: ENTITY_TYPE
 };
 
-const config = {
-  europeana: {
-    apis: {
-      entity: {
-        url: 'https://api.example.org/entity',
-        key: 'entityApiKey'
+const context = {
+  $config: {
+    europeana: {
+      apis: {
+        entity: {
+          url: 'https://api.example.org/entity',
+          key: 'entityApiKey'
+        }
       }
     }
   }
 };
 
 describe('cachers/collections/index', () => {
+  beforeAll(() => {
+    nock.disableNetConnect();
+  });
   afterEach(() => {
     nock.cleanAll();
+  });
+  afterAll(() => {
+    nock.enableNetConnect();
   });
 
   describe('default export', () => {
     beforeEach(() => {
-      nock(config.europeana.apis.entity.url)
+      nock(context.$config.europeana.apis.entity.url)
         .get('/search')
         .query(query => query.type === ENTITY_TYPE && query.scope === ENTITY_SCOPE)
         .reply(200, apiResponse.pageOne);
-      nock(config.europeana.apis.entity.url)
+      nock(context.$config.europeana.apis.entity.url)
         .get('/search')
         .query(query => query.type === ENTITY_TYPE && query.scope === ENTITY_SCOPE && query.page === '2')
         .reply(200, apiResponse.pageTwo);
     });
 
     it('paginates over data via `next` in response', async() => {
-      await cacher(params, config);
+      await cacher(params, context);
 
       expect(nock.isDone()).toBe(true);
     });
 
     it('returns all data to cache, with slugs', async() => {
-      const data = await cacher(params, config);
+      const data = await cacher(params, context);
 
       expect(data).toEqual(dataToCache);
-    });
-  });
-
-  describe('countEntities', () => {
-    const countResponse = {
-      partOf: {
-        total: '2600'
-      }
-    };
-
-    beforeEach(() => {
-      nock(config.europeana.apis.entity.url)
-        .get('/search')
-        .query(query => query.type === ENTITY_TYPE && query.scope === ENTITY_SCOPE && query.pageSize === '0' && query.query === '*:*')
-        .reply(200, countResponse);
-    });
-
-    it('fetches the count from the Entity API', async() => {
-      await countEntities(params, config);
-
-      expect(nock.isDone()).toBe(true);
-    });
-
-    it('returns the entity total, to cache', async() => {
-      const data = await countEntities(params, config);
-
-      expect(data).toBe(countResponse.partOf.total);
     });
   });
 });

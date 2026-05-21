@@ -1,6 +1,7 @@
 import * as cacher from '@/cachers/collections/topics.js';
 import * as baseCacher from '@/cachers/collections/index.js';
 import sinon from 'sinon';
+import nock from 'nock';
 
 describe('@/cachers/collections/topics', () => {
   it('fetches data with type: topic', () => {
