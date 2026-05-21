@@ -2,7 +2,7 @@
   <b-nav
     v-if="tabs"
     tabs
-    class="pl-4"
+    class="pl-sm-4"
   >
     <b-nav-item
       v-for="tab in tabs"

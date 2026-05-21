@@ -37,7 +37,7 @@ describe('server-middleware/api/collections/index', () => {
   });
 
   describe('default export (middleware)', () => {
-    const req = { params: { type }, query };
+    const req = { params: [type], query };
     const resStub = {
       json: sinon.stub()
     };

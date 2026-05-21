@@ -27,12 +27,24 @@ const factory = (propsData = { type: 'organisations' }) => mountNuxt(EntityTable
     $router: { push: () => {} },
     localePath: () => '/'
   },
-  stubs: ['SmartLink']
+  stubs: ['SmartLink', 'EntityOrganisationsRelated', 'PaginationNavInput']
 });
 
 const collections = [
-  { id: 'http://data.europeana.eu/organization/001', slug: '001-museum', prefLabel: { de: 'museum' }, altLabel: { en: 'museum' }, countryPrefLabel: 'Deutschland' },
-  { id: 'http://data.europeana.eu/organization/002', slug: '002-library', prefLabel: { nl: 'bibliotheek' }, altLabel: { en: 'library' }, countryPrefLabel: 'Nederland' }
+  {
+    id: 'http://data.europeana.eu/organization/001',
+    slug: '001-museum',
+    prefLabel: { de: 'museum' },
+    altLabel: { en: 'museum' },
+    countryPrefLabel: 'Deutschland'
+  },
+  {
+    id: 'http://data.europeana.eu/organization/002',
+    slug: '002-library',
+    prefLabel: { nl: 'bibliotheek' },
+    altLabel: { en: 'library' },
+    countryPrefLabel: 'Nederland'
+  }
 ];
 
 const organisations = [
@@ -55,6 +67,18 @@ const organisations = [
     countryPrefLabel: 'Nederland'
   }
 ];
+// const internationalAggregator = {
+//   id: '001',
+//   geographicScope: 'International',
+//   heritageDomain: ['Audio heritage']
+// };
+// const internationalAggregatorAsStored = {
+//   ...internationalAggregator,
+//   heritageDomain: 'Audio heritage'
+// };
+// const regionalAggregator = { id: '002',
+//   geographicScope: 'Regional' };
+// const aggregators = [internationalAggregator, regionalAggregator];
 
 describe('components/entity/EntityTable', () => {
   beforeAll(() => {
@@ -96,6 +120,23 @@ describe('components/entity/EntityTable', () => {
 
       expect(wrapper.vm.collections).toEqual(organisations);
     });
+
+    // ['internationalAggregators', 'regionalAggregators'].forEach((type) => {
+    //   describe(`when type is ${type}`, () => {
+    //     beforeEach(() => {
+    //       axios.request.resolves({ data: { items: aggregators, total: aggregators.length } });
+    //     });
+    //     it('stores type-filtered collections on collections property', async() => {
+    //       const wrapper = factory({ type });
+
+    //       await wrapper.vm.fetch();
+    //       await wrapper.vm.$nextTick();
+    //       const filteredAggregators = type === 'internationalAggregators' ? [internationalAggregatorAsStored] : [regionalAggregator];
+
+    //       expect(wrapper.vm.collections).toEqual(filteredAggregators);
+    //     });
+    //   });
+    // });
   });
 
   describe('entityRoute', () => {
@@ -205,7 +246,7 @@ describe('components/entity/EntityTable', () => {
       const wrapper = factory();
       sinon.spy(wrapper.vm, 'updateRouteQuery');
 
-      const recordCountTh = wrapper.find('[aria-colindex="3"]');
+      const recordCountTh = wrapper.find('.table-count-cell');
       await recordCountTh.trigger('click');
 
       expect(wrapper.vm.updateRouteQuery.calledWith({ sort: 'recordCount asc' })).toBe(true);

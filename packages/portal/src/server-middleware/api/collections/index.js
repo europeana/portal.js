@@ -1,9 +1,10 @@
 import { cached } from '../cache/index.js';
 
 export const fetchData = async(type, reqQuery, config = {}) => {
+  console.log('fetchData type', type);
   const lang = reqQuery.lang;
   const query = reqQuery.query;
-  const pageSize = Number(reqQuery.pageSize) || 10;
+  const pageSize = reqQuery.pageSize ? Number(reqQuery.pageSize) : null;
   const page = Number(reqQuery.page) || 1;
   const sort = reqQuery.sort || 'prefLabel asc';
   const sortParts = sort.split(' ');
@@ -69,16 +70,18 @@ export const fetchData = async(type, reqQuery, config = {}) => {
   });
 
   // paginate
-  const startIndex = (page - 1) * pageSize;
-  const endIndex = startIndex + pageSize;
-  items = items.slice(startIndex, endIndex);
+  if (pageSize) {
+    const startIndex = (page - 1) * pageSize;
+    const endIndex = startIndex + pageSize;
+    items = items.slice(startIndex, endIndex);
+  }
 
   return { items, total };
 };
 
 export default (config = {}) => async(req, res, next) => {
   try {
-    const { items, total } = await fetchData(req.params.type, req.query, config);
+    const { items, total } = await fetchData(req.params[0], req.query, config);
 
     res.json({ items, total });
   } catch (e) {

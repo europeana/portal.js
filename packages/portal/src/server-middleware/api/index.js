@@ -61,7 +61,7 @@ app.use('/votes', polls);
 
 import createCollectionsEndpoint from './collections/index.js';
 const collectionsEndpoint = createCollectionsEndpoint(runtimeConfig.redis);
-app.get('/collections/:type', collectionsEndpoint);
+app.get('/collections/*', collectionsEndpoint);
 
 app.all('/*', (req, res) => res.sendStatus(404));
 app.use(errorHandler);

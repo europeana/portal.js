@@ -18,7 +18,6 @@ const LOCALISE = 'countryPrefLabel';
 let axiosClient;
 
 async function getCountryPrefLabel(entityUrl) {
-  // TODO: memoise
   const response = await axiosClient.get(entityUrl);
   return response.data.prefLabel;
 }
