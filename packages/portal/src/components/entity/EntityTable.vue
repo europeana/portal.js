@@ -128,6 +128,10 @@
   import langAttributeMixin from '@/mixins/langAttribute';
   import { langMapValueForLocale } from '@europeana/i18n';
 
+  const ORGANISATIONS = 'organisations';
+  const REGIONAL_AGGREGATORS = 'regionalAggregators';
+  const INTERNATIONAL_AGGREGATORS = 'internationalAggregators';
+
   export default {
     name: 'EntityTable',
 
@@ -166,27 +170,27 @@
             label: this.$t('pages.collections.table.name'),
             class: 'table-name-cell'
           },
-          ['organisations', 'regionalAggregators'].includes(this.type) && {
+          [ORGANISATIONS, REGIONAL_AGGREGATORS].includes(this.type) && {
             key: 'countryPrefLabel',
             sortable: true,
             label: this.$t('pages.collections.table.country'),
             class: 'text-center d-none d-md-table-cell'
           },
-          this.type === 'internationalAggregators' && {
+          this.type === INTERNATIONAL_AGGREGATORS && {
             key: 'heritageDomain',
             sortable: true,
             label: this.$t('pages.collections.table.domain'),
             class: 'text-center d-none d-md-table-cell'
           },
-          ['organisations', 'internationalAggregators', 'regionalAggregators'].includes(this.type) && {
+          this.isOrgOrAggType(this.type) && {
             key: 'recordCount',
             sortable: true,
             label: this.$t('pages.collections.table.items'),
             class: 'table-count-cell text-right'
           },
-          ['organisations', 'internationalAggregators', 'regionalAggregators'].includes(this.type) && {
+          this.isOrgOrAggType(this.type) && {
             key: 'showDetails',
-            class: `table-toggle-cell ${this.type === 'organisations' ? 'd-md-none' : ''}`
+            class: `table-toggle-cell ${this.type === ORGANISATIONS ? 'd-md-none' : ''}`
           }
         ],
         typeSingular: this.type.slice(0, -1),
@@ -200,14 +204,14 @@
         const response = await axios.get(this.apiEndpoint, { baseURL: window.location.origin });
         let collections = response.data[this.cacheKey];
         if (this.aggregatorType) {
-          if (this.type === 'internationalAggregators') {
+          if (this.type === INTERNATIONAL_AGGREGATORS) {
             collections = collections.filter(agg => agg.geographicScope === 'International').map(this.organisationData);
             this.collections = collections; // Do not freeze as _showDetails prop needs to be reactive for toggling the details display on small screens
           } else {
             collections = collections.filter(agg => agg.geographicScope !== 'International').map(this.organisationData);
             this.collections = collections; // Do not freeze as _showDetails prop needs to be reactive for toggling the details display on small screens
           }
-        } else if (this.type === 'organisations') {
+        } else if (this.type === ORGANISATIONS) {
           collections = collections.map(this.organisationData);
           this.collections = collections; // Do not freeze as _showDetails prop needs to be reactive for toggling the details display on small screens
         } else {
@@ -261,10 +265,10 @@
         }
       },
       aggregatorType() {
-        return ['internationalAggregators', 'regionalAggregators'].includes(this.type) ? 'aggregators' : false;
+        return [INTERNATIONAL_AGGREGATORS, REGIONAL_AGGREGATORS].includes(this.type) ? 'aggregators' : false;
       },
       orgOrAggType() {
-        return ['organisations', 'internationalAggregators', 'regionalAggregators'].includes(this.type);
+        return this.isOrgOrAggType(this.type);
       }
     },
 
@@ -305,6 +309,9 @@
       },
       updateRouteQuery(newQuery) {
         this.$router.push({ ...this.$route, query: { ...this.$route.query, ...newQuery } });
+      },
+      isOrgOrAggType(type) {
+        return [ORGANISATIONS, INTERNATIONAL_AGGREGATORS, REGIONAL_AGGREGATORS].includes(type);
       }
     }
   };
