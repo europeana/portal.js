@@ -210,10 +210,8 @@
       if (this.aggregatorType) {
         if (this.type === INTERNATIONAL_AGGREGATORS) {
           collections = collections.filter((agg) => agg.geographicScope === 'International');
-          console.log('collections', collections);
         } else {
           collections = collections.filter((agg) => agg.geographicScope !== 'International');
-          console.log('collections', collections);
         }
       }
 
