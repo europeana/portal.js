@@ -105,7 +105,8 @@
     'providesSupportForDataActivity',
     'providesCapacityBuildingActivity',
     'providesAudienceEngagementActivity',
-    'aggregatesFrom'
+    'aggregatesFrom',
+    'isAggregatedBy'
   ];
 
   export default {
@@ -342,7 +343,9 @@
           }
         }
 
-        // TODO: add number of items
+        if (this.entity?.isAggregatedBy?.recordCount) {
+          labelledMoreInfo.push({ label: this.$t('organisation.recordCount'), value: this.entity.isAggregatedBy.recordCount });
+        }
 
         if (this.$features.aggregatorsTab && this.entity?.aggregatesFrom)  {
           const aggregatesFromCount = this.entity.aggregatesFrom.length;

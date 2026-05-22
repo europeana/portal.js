@@ -34,6 +34,9 @@
           <template v-if="Array.isArray(info.value)">
             {{ info.value.join('; ') }}
           </template>
+          <template v-else-if="typeof info.value === 'number'">
+            {{ $n(info.value) }}
+          </template>
           <template v-else>
             {{ info.value }}
           </template>

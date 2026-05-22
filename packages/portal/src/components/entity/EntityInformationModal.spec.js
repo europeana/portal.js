@@ -10,6 +10,7 @@ const factory = (propsData = {}) => mount(EntityInformationModal, {
   localVue,
   propsData,
   mocks: {
+    $n: (val) => val,
     $t: (val) => val
   }
 });

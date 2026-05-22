@@ -1200,14 +1200,15 @@ export default {
     "city": "City",
     "country": "Country",
     "englishName": "English name",
-    "nameAcronym": "Name acronym",
-    "heritageDomain": "Types of heritage",
-    "providesSupportForMediaType": "Media type",
     "geographicScope": "Geographic scope",
-    "providesSupportForDataActivity": "Data activities",
-    "providesCapacityBuildingActivity": "Capacity building",
+    "heritageDomain": "Types of heritage",
+    "nameAcronym": "Name acronym",
     "providesAudienceEngagementActivity": "Audience engagment activities",
-    "providingInstitutionsCount": "Number of providing institutions"
+    "providesCapacityBuildingActivity": "Capacity building",
+    "providesSupportForDataActivity": "Data activities",
+    "providesSupportForMediaType": "Media type",
+    "providingInstitutionsCount": "Number of providing institutions",
+    "recordCount": "Number of items"
   },
   "organisations": {
     "aggregators": {
