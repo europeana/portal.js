@@ -4,22 +4,30 @@ import sinon from 'sinon';
 import nock from 'nock';
 
 const countryLabel = 'France';
-const organisations = [
-  { id: 'http://data.europeana.eu/organization/001', type: 'Aggregator', prefLabel: { en: 'Museum', es: 'Museo' }, country: { prefLabel: countryLabel }, isAggregatedBy: { recordCount: 100 } },
-  { id: 'http://data.europeana.eu/organization/002', type: 'Aggregator', prefLabel: { en: 'Gallery' }, country: { prefLabel: countryLabel }, isAggregatedBy: { recordCount: 100 } }
+const searchResponse = [
+  { id: 'http://data.europeana.eu/organization/001' },
+  { id: 'http://data.europeana.eu/organization/002' }
 ];
 
 const domain = ['Film heritage'];
-const apiOrganizationResponses = {
-  '001': {
+const retrieveResponse = [
+  {
+    id: 'http://data.europeana.eu/organization/001',
     geographicScope: 'National',
-    heritageDomain: domain
+    type: 'Aggregator',
+    prefLabel: { en: 'Museum', es: 'Museo' },
+    country: { prefLabel: countryLabel },
+    isAggregatedBy: { recordCount: 100 }
   },
-  '002': {
+  {
+    id: 'http://data.europeana.eu/organization/002',
     geographicScope: 'International',
-    heritageDomain: domain
+    heritageDomain: domain,
+    type: 'Aggregator',
+    prefLabel: { en: 'Gallery' },
+    isAggregatedBy: { recordCount: 100 }
   }
-};
+];
 
 const config = {
   europeana: {
@@ -32,55 +40,52 @@ const config = {
   }
 };
 
-const mockOrganizationRequest = (id) => {
-  nock(config.europeana.apis.entity.url)
-    .get(`/organization/${id}.json`)
-    .query(query => query.wskey === config.europeana.apis.entity.key)
-    .reply(200, apiOrganizationResponses[id]);
-};
-
 const mockApiRequests = () => {
-  organisations.forEach((org) => {
-    mockOrganizationRequest(org.id.split('/').pop());
-  });
+  nock(config.europeana.apis.entity.url)
+    .post('/retrieve')
+    .query((query) => query.wskey === config.europeana.apis.entity.key)
+    .reply(200, { items: retrieveResponse });
 };
 
 describe('@/cachers/collections/aggregators', () => {
-  sinon.stub(baseCacher, 'default').resolves(organisations);
+  beforeAll(() => {
+    nock.disableNetConnect();
+  });
+  beforeEach(() => {
+    mockApiRequests();
+  });
+  afterEach(() => {
+    nock.cleanAll();
+    sinon.resetHistory();
+  });
+  afterAll(() => {
+    nock.enableNetConnect();
+    sinon.resetBehavior();
+  });
+
+  sinon.stub(baseCacher, 'default')
+    .resolves(searchResponse);
 
   it('fetches data with type: aggregator', async() => {
-    mockApiRequests();
     await cacher.data(config);
 
     expect(baseCacher.default.calledWith({ type: 'aggregator' }, config)).toBe(true);
-    sinon.resetHistory();
   });
 
-  describe('when aggregator is international', () => {
-    it('adds the heritage domain to the organisation data', async() => {
-      mockApiRequests();
-      const data = await cacher.data(config);
+  it('adds the heritage domain to the organisation data', async() => {
+    const data = await cacher.data(config);
 
-      expect(data[0].heritageDomain).toEqual(undefined);
-      expect(data[1].heritageDomain).toEqual(domain);
-      sinon.resetHistory();
-    });
+    expect(data[1].heritageDomain).toEqual(domain);
   });
 
-  describe('when aggregator is NOT international', () => {
-    it('adds the country pref label to the organisation data', async() => {
-      mockApiRequests();
-      const data = await cacher.data(config);
+  it('adds the country pref label to the organisation data', async() => {
+    const data = await cacher.data(config);
 
-      expect(data[0].countryPrefLabel).toEqual(countryLabel);
-
-      expect(data[1].countryPrefLabel).toEqual(undefined);
-      sinon.resetHistory();
-    });
+    expect(data[0].countryPrefLabel).toEqual(countryLabel);
   });
 
-  it('picks slug, recordCount, prefLabel, geographicScope, heritageDomain, logo', () => {
-    expect(cacher.PICK).toEqual(['id', 'slug', 'recordCount', 'prefLabel', 'geographicScope', 'countryPrefLabel', 'heritageDomain', 'logo']);
+  it('picks specific fields', () => {
+    expect(cacher.PICK).toEqual(['id', 'slug', 'recordCount', 'prefLabel', 'altLabel', 'geographicScope', 'countryPrefLabel', 'heritageDomain', 'logo']);
   });
 
   it('localises countryPrefLabel', () => {
