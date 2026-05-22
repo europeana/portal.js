@@ -231,7 +231,7 @@ describe('components/entity/EntityTable', () => {
       const recordCountTh = wrapper.find('.table-name-cell');
       await recordCountTh.trigger('click');
 
-      expect(wrapper.vm.updateRouteQuery.calledWith({ sort: 'prefLabel desc' })).toBe(true);
+      expect(wrapper.vm.updateRouteQuery.calledWith({ sort: 'prefLabel desc', page: 1 })).toBe(true);
     });
   });
 });

@@ -252,7 +252,7 @@
           return this.$route?.query?.sort?.split(' ') || ['prefLabel', 'asc'];
         },
         set({ sortBy, sortDesc }) {
-          this.updateRouteQuery({ sort: `${sortBy} ${sortDesc ? 'desc' : 'asc'}` });
+          this.updateRouteQuery({ sort: `${sortBy} ${sortDesc ? 'desc' : 'asc'}`, page: 1 });
         }
       },
       aggregatorType() {
