@@ -2,8 +2,6 @@ import md5 from 'md5';
 
 import EuropeanaApi from './apis/base.js';
 
-import search from './search.js';
-
 import { ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX } from './data.js';
 import EuropeanaMediaProxyApi from './media-proxy.js';
 
@@ -13,8 +11,16 @@ export default class EuropeanaRecordApi extends EuropeanaApi {
   static AUTHENTICATING = true;
   static AUTHORISING = true;
 
-  get search() {
-    return search.bind(this);
+  /**
+   * Search for user sets
+   * @param {Object} params retrieval params to send to Set API search method
+   */
+  search(params) {
+    return this.request({
+      method: 'get',
+      url: '/search.json',
+      params
+    });
   }
 
   /**

@@ -100,5 +100,11 @@
   h2 {
     @extend %title-3;
     color: $black;
+
+    // TODO: remove when page is updated for 4k
+    @media(min-width: $bp-4k) {
+      font-size: $font-size-xl;
+      margin-bottom: 1rem;
+    }
   }
 </style>

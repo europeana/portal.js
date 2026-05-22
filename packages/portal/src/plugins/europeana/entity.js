@@ -89,11 +89,7 @@ export default class EuropeanaEntityApi extends EuropeanaApi {
       method: 'get',
       url: '/search',
       params
-    })
-      .then((response) => ({
-        entities: response.items || [],
-        total: response.partOf?.total || null
-      }));
+    });
   }
 
   imageUrl(entity) {
