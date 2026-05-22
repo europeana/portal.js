@@ -53,7 +53,7 @@ describe('components/entity/organisations/EntityOrganisationsPageContent', () =>
 
           const title = wrapper.find(`.${type}-header h2`);
           const description = wrapper.find(`.${type}-header p`);
-          const table = wrapper.find(`entitytable-stub[type="${type}"`);
+          const table = wrapper.find(`[data-qa="${type} entity table"]`);
 
           expect(title.text()).toBe(`organisations.${type}.title`);
           expect(description.text()).toBe(`organisations.${type}.description`);
