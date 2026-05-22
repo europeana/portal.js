@@ -124,7 +124,7 @@ describe('SearchResultsContext', () => {
         };
 
         it('displays the aggregator type label', () => {
-          const wrapper = factory({ propsData,  });
+          const wrapper = factory({ propsData  });
 
           expect(wrapper.text()).toContain('cardLabels.aggregator');
         });
