@@ -67,18 +67,6 @@ const organisations = [
     countryPrefLabel: 'Nederland'
   }
 ];
-// const internationalAggregator = {
-//   id: '001',
-//   geographicScope: 'International',
-//   heritageDomain: ['Audio heritage']
-// };
-// const internationalAggregatorAsStored = {
-//   ...internationalAggregator,
-//   heritageDomain: 'Audio heritage'
-// };
-// const regionalAggregator = { id: '002',
-//   geographicScope: 'Regional' };
-// const aggregators = [internationalAggregator, regionalAggregator];
 
 describe('components/entity/EntityTable', () => {
   beforeAll(() => {
@@ -120,23 +108,6 @@ describe('components/entity/EntityTable', () => {
 
       expect(wrapper.vm.collections).toEqual(organisations);
     });
-
-    // ['internationalAggregators', 'regionalAggregators'].forEach((type) => {
-    //   describe(`when type is ${type}`, () => {
-    //     beforeEach(() => {
-    //       axios.request.resolves({ data: { items: aggregators, total: aggregators.length } });
-    //     });
-    //     it('stores type-filtered collections on collections property', async() => {
-    //       const wrapper = factory({ type });
-
-    //       await wrapper.vm.fetch();
-    //       await wrapper.vm.$nextTick();
-    //       const filteredAggregators = type === 'internationalAggregators' ? [internationalAggregatorAsStored] : [regionalAggregator];
-
-    //       expect(wrapper.vm.collections).toEqual(filteredAggregators);
-    //     });
-    //   });
-    // });
   });
 
   describe('entityRoute', () => {
