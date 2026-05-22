@@ -16,7 +16,7 @@ const factory = (propsData = { type: 'organisations' }) => mountNuxt(EntityTable
     $n: (num) => num,
     $t: (key) => key,
     $i18n: { locale: 'en' },
-    $route: { query: { page: 1, filter: null, sort: null } },
+    $route: { query: { page: 1, query: null, sort: null } },
     $router: { push: () => {} },
     localePath: () => '/'
   },
@@ -24,7 +24,6 @@ const factory = (propsData = { type: 'organisations' }) => mountNuxt(EntityTable
 });
 
 const middlewarePath = '/_api/cache/en/collections/organisations';
-const middlewarePathAggregators = '/_api/cache/en/collections/organisations/aggregators';
 const collections = [
   { id: 'http://data.europeana.eu/organization/001', slug: '001-museum', prefLabel: { de: 'museum', en: 'museum' }, countryPrefLabel: 'Deutschland' },
   { id: 'http://data.europeana.eu/organization/002', slug: '002-library', prefLabel: { nl: 'bibliotheek', en: 'library' }, countryPrefLabel: 'Nederland' }
@@ -50,18 +49,6 @@ const organisations = [
     countryPrefLabel: 'Nederland'
   }
 ];
-const internationalAggregator = {
-  id: '001',
-  geographicScope: 'International',
-  heritageDomain: ['Audio heritage']
-};
-const internationalAggregatorAsStored = {
-  ...internationalAggregator,
-  heritageDomain: 'Audio heritage'
-};
-const regionalAggregator = { id: '002',
-  geographicScope: 'Regional' };
-const aggregators = [internationalAggregator, regionalAggregator];
 
 describe('components/entity/EntityTable', () => {
   beforeEach(() => {
@@ -70,41 +57,34 @@ describe('components/entity/EntityTable', () => {
   afterEach(sinon.restore);
 
   describe('fetch()', () => {
-    describe('when type is organisations', () => {
-      beforeEach(() => {
-        axios.get.withArgs(middlewarePath).resolves({ data: { 'en/collections/organisations': collections } });
-      });
-
-      it('sends a get request to the collections server middleware', async() => {
-        const wrapper = factory();
-
-        await wrapper.vm.fetch();
-
-        expect(axios.get.calledWith(middlewarePath)).toBe(true);
-      });
-
-      it('stores collections from response body on component collections property', async() => {
-        const wrapper = factory();
-
-        await wrapper.vm.fetch();
-
-        expect(wrapper.vm.collections).toEqual(organisations);
-      });
+    beforeEach(() => {
+      axios.get.withArgs(middlewarePath).resolves({ data: { 'en/collections/organisations': collections } });
     });
 
-    ['internationalAggregators', 'regionalAggregators'].forEach(type => {
-      describe(`when type is ${type}`, () => {
-        beforeEach(() => {
-          axios.get.withArgs(middlewarePathAggregators).resolves({ data: { 'en/collections/organisations/aggregators': aggregators } });
-        });
-        it('stores type filtered collections on collections property', async() => {
-          const wrapper = factory({ type });
+    it('sends a get request to the collections server middleware', async() => {
+      const wrapper = factory();
 
-          await wrapper.vm.fetch();
-          const filteredAggregators = type === 'internationalAggregators' ? [internationalAggregatorAsStored] : [regionalAggregator];
+      await wrapper.vm.fetch();
 
-          expect(wrapper.vm.collections).toEqual(filteredAggregators);
-        });
+      expect(axios.get.calledWith(middlewarePath)).toBe(true);
+    });
+
+    it('stores collections from response body on component collections property', async() => {
+      const wrapper = factory();
+
+      await wrapper.vm.fetch();
+
+      expect(wrapper.vm.collections).toEqual(organisations);
+    });
+
+    describe('when there is a filter function', () => {
+      it('stores filtered collections on collections property', async() => {
+        const wrapper = factory({ type: 'organisations', filter: (org) => org.id.endsWith('/001') });
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.collections.length).toBe(1);
+        expect(wrapper.vm.collections[0]).toEqual(organisations[0]);
       });
     });
   });
@@ -140,16 +120,16 @@ describe('components/entity/EntityTable', () => {
     it('filters the table on the query', async() => {
       const wrapper = factory();
 
-      wrapper.vm.$route.query.filter = newQuery;
+      wrapper.vm.$route.query.query = newQuery;
       await wrapper.vm.$nextTick();
 
-      expect(wrapper.vm.filter).toEqual(newQuery);
+      expect(wrapper.vm.query).toEqual(newQuery);
     });
     it('resets the page to 1', async() => {
       const wrapper = factory();
       sinon.spy(wrapper.vm, 'updateRouteQuery');
 
-      wrapper.vm.$route.query.filter = newQuery;
+      wrapper.vm.$route.query.query = newQuery;
       await wrapper.vm.$nextTick();
 
       expect(wrapper.vm.updateRouteQuery.calledWith({ page: 1 })).toBe(true);
@@ -211,7 +191,7 @@ describe('components/entity/EntityTable', () => {
       wrapper.find('[data-qa="entity table filter"]').setValue(newQuery);
       await wrapper.vm.$nextTick();
 
-      expect(wrapper.vm.updateRouteQuery.calledWith({ filter: newQuery })).toBe(true);
+      expect(wrapper.vm.updateRouteQuery.calledWith({ query: newQuery })).toBe(true);
     });
   });
 
@@ -220,10 +200,10 @@ describe('components/entity/EntityTable', () => {
       const wrapper = factory();
       sinon.spy(wrapper.vm, 'updateRouteQuery');
 
-      const recordCountTh = wrapper.find('.table-count-cell');
+      const recordCountTh = wrapper.find('.table-name-cell');
       await recordCountTh.trigger('click');
 
-      expect(wrapper.vm.updateRouteQuery.calledWith({ sort: 'recordCount asc' })).toBe(true);
+      expect(wrapper.vm.updateRouteQuery.calledWith({ sort: 'prefLabel desc' })).toBe(true);
     });
   });
 });

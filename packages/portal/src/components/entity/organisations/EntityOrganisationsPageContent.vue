@@ -40,6 +40,7 @@
         <EntityTable
           type="organisations"
           sub-type="aggregators"
+          :data-qa="`${type.key} entity table`"
           :filter="type.filter"
           :fields="type.fields"
           class="mt-3 mt-md-4"

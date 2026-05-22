@@ -31,7 +31,7 @@
       :sort-by.sync="sortBy"
       :sort-desc.sync="sortDesc"
       :busy="$fetchState.pending"
-      :query="query"
+      :filter="query"
       :current-page="currentPage"
       :per-page="perPage"
       striped
