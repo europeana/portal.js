@@ -28,7 +28,7 @@ const entityProps = {
   title: { values: ['Book'], code: 'en' },
   description: { values: ['Architecture is both the process and the product of planning, designing, and constructing buildings and other physical structures.'], code: 'en' },
   logo: 'https://www.example.eu/logo.svg',
-  mbox: 'email@example.org',
+  email: 'email@example.org',
   image: 'https://www.example.eu/image.jpg',
   editable: false,
   externalLink: 'https://www.example.eu/',

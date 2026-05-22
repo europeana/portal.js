@@ -29,7 +29,7 @@
             :title="title"
             :sub-title="subTitle"
             :logo="logo"
-            :mbox="mbox"
+            :email="mbox"
             :image="thumbnail"
             :editable="editable"
             :external-link="homepage"

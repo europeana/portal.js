@@ -60,10 +60,10 @@
       />
     </template>
     <b-button
-      v-if="mbox"
+      v-if="email"
       class="d-inline-flex align-items-center"
       data-qa="entity contact button"
-      :href="`mailto:${mbox}`"
+      :href="`mailto:${email}`"
     >
       <span class="icon-email pr-1" />
       {{ $t('actions.contact') }}
@@ -163,7 +163,7 @@
       /**
        * Email, used for organisation entity contact button
        */
-      mbox: {
+      email: {
         type: String,
         default: null
       },
