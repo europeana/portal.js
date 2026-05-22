@@ -22,6 +22,7 @@ const organisationEntity = {
       countryName: 'The Netherlands',
       locality: 'The Hague'
     },
+    geographicScope: 'National',
     description: { en: ['example of an organisation description'] },
     acronym: { en: 'ABC' },
     type: 'Organization'
@@ -413,6 +414,7 @@ describe('pages/collections/_type/_', () => {
         expect(moreInfo[2].value).toBe(organisationEntity.entity.hasAddress.countryName);
         expect(moreInfo[3].value).toBe(organisationEntity.entity.hasAddress.locality);
         expect(moreInfo[4].value).toBe(organisationEntity.entity.homepage);
+        expect(moreInfo[5].value).toBe(organisationEntity.entity.geographicScope);
       });
     });
   });
