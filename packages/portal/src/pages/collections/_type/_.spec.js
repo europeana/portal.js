@@ -119,7 +119,14 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
     'ErrorMessage': true,
     'RelatedEditorial': true,
     'SearchInterface': {
-      template: '<div><slot /><slot name="card-group-related-collections" /><slot name="after-results" /></div>'
+      template: `
+        <div>
+          <slot />
+          <slot name="card-group-header" />
+          <slot name="card-group-related-collections" />
+          <slot name="after-results" />
+        </div>
+      `
     }
   }
 });
@@ -451,18 +458,21 @@ describe('pages/collections/_type/_', () => {
     });
   });
 
-  describe('methods', () => {
-    describe('proxyUpdated', () => {
+  describe('event handling', () => {
+    describe('when EntityUpdateModal emits updated event', () => {
       it('triggers $fetch', () => {
         const wrapper = factory(topicEntity);
         sinon.spy(wrapper.vm, '$fetch');
 
-        wrapper.vm.proxyUpdated();
+        const entityHeaderStub = wrapper.find('entityheader-stub');
+        entityHeaderStub.vm.$emit('updated');
 
         expect(wrapper.vm.$fetch.called).toBe(true);
       });
     });
+  });
 
+  describe('methods', () => {
     describe('handleEntityRelatedCollectionsCardFetched', () => {
       it('is triggered by entitiesFromUrisFetched event on related entities component', () => {
         const wrapper = factory(topicEntity);

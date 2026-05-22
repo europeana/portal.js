@@ -189,13 +189,6 @@
         default: null
       },
       /**
-       * Proxy needed to update editable description
-       */
-      proxy: {
-        type: Object,
-        default: () => ({})
-      },
-      /**
        * More entity data to show in modal (currently only used for organisation entity)
        */
       moreInfo: {

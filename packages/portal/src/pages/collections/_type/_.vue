@@ -33,9 +33,8 @@
             :image="thumbnail"
             :editable="editable"
             :external-link="homepage"
-            :proxy="proxy"
             :more-info="moreInfo"
-            @updated="proxyUpdated"
+            @updated="handleUpdated"
           />
         </template>
         <template
@@ -145,7 +144,6 @@
 
     data() {
       return {
-        proxy: null,
         redirecting: false,
         relatedCollections: null
       };
@@ -377,7 +375,7 @@
           code: null
         };
       },
-      proxyUpdated() {
+      handleUpdated() {
         this.$fetch();
       }
     }
