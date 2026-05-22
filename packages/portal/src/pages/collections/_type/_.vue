@@ -338,7 +338,7 @@
 
         const aggregationInfoFields = ['heritageDomain', 'providesSupportForMediaType', 'geographicScope', 'providesSupportForDataActivity', 'providesCapacityBuildingActivity', 'providesAudienceEngagementActivity'];
         for (const field of aggregationInfoFields) {
-          if (this.entity?.[`${field}`])  {
+          if (this.entity?.[field])  {
             labelledMoreInfo.push({ label: this.$t(`organisation.${field}`), value: this.entity[`${field}`] });
           }
         }
