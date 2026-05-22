@@ -13,7 +13,15 @@
         <EntityTable
           type="organisations"
           class="mt-3 mt-md-4"
-        />
+          :fields="['prefLabel', 'countryPrefLabel', 'recordCount', 'showDetails']"
+        >
+          <template #row-details="rowDetails">
+            <span
+              v-if="rowDetails.entity.countryPrefLabel"
+              class="d-md-none"
+            >{{ rowDetails.entity.countryPrefLabel }}</span>
+          </template>
+        </EntityTable>
       </template>
       <div
         v-for="type, index in aggregatorTypes"
@@ -24,16 +32,35 @@
           cols="12"
           lg="6"
           class="p-0 mb-5"
-          :class="`${type}-header`"
+          :class="`${type.key}-header`"
         >
-          <h2>{{ $t(`organisations.${type}.title`) }}</h2>
-          <p>{{ $t(`organisations.${type}.description`) }}</p>
+          <h2>{{ $t(`organisations.${type.key}.title`) }}</h2>
+          <p>{{ $t(`organisations.${type.key}.description`) }}</p>
         </b-col>
         <EntityTable
-          :type="type"
+          type="organisations"
+          sub-type="aggregators"
+          :data-qa="`${type.key} entity table`"
+          :filter="type.filter"
+          :fields="type.fields"
           class="mt-3 mt-md-4"
           :searchable="false"
-        />
+          :always-show-row-details-toggles="true"
+        >
+          <template #row-details="rowDetails">
+            <span
+              v-if="rowDetails.entity.countryPrefLabel"
+              class="d-md-none"
+            >{{ rowDetails.entity.countryPrefLabel }}</span>
+            <span
+              v-if="rowDetails.entity.heritageDomain"
+              class="d-md-none"
+            >{{ rowDetails.entity.heritageDomain }}</span>
+            <EntityOrganisationsRelated
+              :entity-id="rowDetails.entity.id"
+            />
+          </template>
+        </EntityTable>
       </div>
     </div>
   </client-only>
@@ -51,6 +78,7 @@
 
     components: {
       ClientOnly,
+      EntityOrganisationsRelated: () => import('./EntityOrganisationsRelated'),
       EntityTable: () => import('../EntityTable')
     },
 
@@ -83,7 +111,18 @@
         }
       },
       aggregatorTypes() {
-        return ['internationalAggregators', 'regionalAggregators'];
+        return [
+          {
+            key: 'internationalAggregators',
+            filter: (agg) => agg.geographicScope === 'International',
+            fields: ['prefLabel', 'heritageDomain', 'recordCount', 'showDetails']
+          },
+          {
+            key: 'regionalAggregators',
+            filter: (agg) => agg.geographicScope !== 'International',
+            fields: ['prefLabel', 'countryPrefLabel', 'recordCount', 'showDetails']
+          }
+        ];
       }
     }
   };
