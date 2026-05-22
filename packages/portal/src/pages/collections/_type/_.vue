@@ -305,6 +305,10 @@
       organisationNonNativeEnglishName() {
         return this.organizationEntityNonNativeEnglishName(this.entity);
       },
+      // TODO: there is way too much logic here, which is done on behalf
+      //       of the EntityInformationModal component, which should
+      //       handle this itself. consider passing the whole entity down,
+      //       or provide/inject it, then move this logic there
       moreInfo() {
         if (!this.entity || this.collectionType !== 'organisation') {
           return null;
