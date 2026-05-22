@@ -42,7 +42,7 @@
           v-if="info.moreLink"
           :href="info.moreLink.link"
           variant="link"
-          class="view-more-button w-100 text-left"
+          class="view-all-button w-100 text-left"
         >
           {{ info.moreLink.text }}
         </b-button>

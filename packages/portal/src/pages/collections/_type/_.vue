@@ -356,11 +356,12 @@
         // TODO: add number of items
 
         if (this.$features.aggregatorsTab && this.entity?.aggregatesFrom)  {
+          const aggregatesFromCount = this.entity.aggregatesFrom.length;
           const moreLink = {
             link: '/collections/organisations#aggregators', // needs to link to the specific aggregator expanded
-            text: this.$t('actions.viewMore') // Should actually be "view all [count]"
+            text: this.$t('actions.viewAll', { count: aggregatesFromCount })
           };
-          labelledMoreInfo.push({ label: this.$t('organisation.providingInstitutionsCount'), value: this.entity.aggregatesFrom.length, moreLink });
+          labelledMoreInfo.push({ label: this.$t('organisation.providingInstitutionsCount'), value: aggregatesFromCount, moreLink });
         }
         // TODO: Pass 4 institutions, but consider passing via distinct prop
 
