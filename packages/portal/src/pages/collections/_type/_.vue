@@ -86,6 +86,28 @@
   } from '@/plugins/europeana/entity';
   import { langMapValueForLocale, uriRegex } from  '@europeana/i18n';
 
+  const FIELDS = [
+    'id',
+    'logo',
+    'note',
+    'description',
+    'europeanaRole',
+    'homepage',
+    'prefLabel',
+    'isShownBy',
+    'hasAddress',
+    'acronym',
+    'type',
+    'mbox',
+    'heritageDomain',
+    'providesSupportForMediaType',
+    'geographicScope',
+    'providesSupportForDataActivity',
+    'providesCapacityBuildingActivity',
+    'providesAudienceEngagementActivity',
+    'aggregatesFrom'
+  ];
+
   export default {
     name: 'CollectionPage',
 
@@ -150,27 +172,7 @@
       try {
         const entity = await this.$apis.entity.get(this.collectionType, this.$route.params.pathMatch);
 
-        this.$store.commit('entity/setEntity', pick(entity, [
-          'id',
-          'logo',
-          'note',
-          'description',
-          'europeanaRole',
-          'homepage',
-          'prefLabel',
-          'isShownBy',
-          'hasAddress',
-          'acronym',
-          'type',
-          'mbox',
-          'heritageDomain',
-          'providesSupportForMediaType',
-          'geographicScope',
-          'providesSupportForDataActivity',
-          'providesCapacityBuildingActivity',
-          'providesAudienceEngagementActivity',
-          'aggregatesFrom'
-        ]));
+        this.$store.commit('entity/setEntity', pick(entity, FIELDS));
         this.$store.commit('search/setCollectionLabel', this.title.values[0]);
 
         this.userIsEntitiesEditor && await this.setBestItems();
