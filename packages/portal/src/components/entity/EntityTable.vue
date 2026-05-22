@@ -31,7 +31,6 @@
       :items="collections"
       :sort-by.sync="sortBy"
       :sort-desc.sync="sortDesc"
-      :busy="$fetchState.pending"
       striped
       class="borderless"
     >
