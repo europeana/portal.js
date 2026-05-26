@@ -31,7 +31,7 @@
           >
             {{ info.value }}
           </b-link>
-          <template v-if="Array.isArray(info.value)">
+          <template v-else-if="Array.isArray(info.value)">
             {{ info.value.join('; ') }}
           </template>
           <template v-else-if="typeof info.value === 'number'">
