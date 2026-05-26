@@ -23,45 +23,47 @@
           </template>
         </EntityTable>
       </template>
-      <div
-        v-for="type, index in aggregatorTypes"
-        v-else-if="tab === 'aggregators'"
-        :key="index"
-      >
-        <b-col
-          cols="12"
-          lg="6"
-          class="p-0 mb-5"
-          :class="`${type.key}-header`"
+      <template v-else-if="tab === 'aggregators'">
+        <div
+          v-for="type, index in aggregatorTypes"
+          :key="index"
         >
-          <h2>{{ $t(`organisations.${type.key}.title`) }}</h2>
-          <p>{{ $t(`organisations.${type.key}.description`) }}</p>
-        </b-col>
-        <EntityTable
-          type="organisations"
-          sub-type="aggregators"
-          :data-qa="`${type.key} entity table`"
-          :filter="type.filter"
-          :fields="type.fields"
-          class="mt-3 mt-md-4"
-          :searchable="false"
-          :always-show-row-details-toggles="true"
-        >
-          <template #row-details="rowDetails">
-            <span
-              v-if="rowDetails.entity.countryPrefLabel"
-              class="d-md-none"
-            >{{ rowDetails.entity.countryPrefLabel }}</span>
-            <span
-              v-if="rowDetails.entity.heritageDomain"
-              class="d-md-none"
-            >{{ rowDetails.entity.heritageDomain }}</span>
-            <EntityOrganisationsRelated
-              :entity-id="rowDetails.entity.id"
-            />
-          </template>
-        </EntityTable>
-      </div>
+          <b-col
+            cols="12"
+            lg="6"
+            class="p-0 mb-5"
+            :class="`${type.key}-header`"
+          >
+            <h2>{{ $t(`organisations.${type.key}.title`) }}</h2>
+            <p>{{ $t(`organisations.${type.key}.description`) }}</p>
+          </b-col>
+          <EntityTable
+            type="organisations"
+            sub-type="aggregators"
+            :data-qa="`${type.key} entity table`"
+            :filter="type.filter"
+            :fields="type.fields"
+            class="mt-3 mt-md-4"
+            :searchable="false"
+            :always-show-row-details-toggles="true"
+            :per-page="null"
+          >
+            <template #row-details="rowDetails">
+              <span
+                v-if="rowDetails.entity.countryPrefLabel"
+                class="d-md-none"
+              >{{ rowDetails.entity.countryPrefLabel }}</span>
+              <span
+                v-if="rowDetails.entity.heritageDomain"
+                class="d-md-none"
+              >{{ rowDetails.entity.heritageDomain }}</span>
+              <EntityOrganisationsRelated
+                :entity-id="rowDetails.entity.id"
+              />
+            </template>
+          </EntityTable>
+        </div>
+      </template>
     </div>
   </client-only>
 </template>

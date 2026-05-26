@@ -59,6 +59,10 @@ app.get('/version', version);
 import polls from './polls/index.js';
 app.use('/votes', polls);
 
+import createCollectionsEndpoint from './collections/index.js';
+const collectionsEndpoint = createCollectionsEndpoint(runtimeConfig.redis);
+app.get('/collections/*', collectionsEndpoint);
+
 app.all('/*', (req, res) => res.sendStatus(404));
 app.use(errorHandler);
 

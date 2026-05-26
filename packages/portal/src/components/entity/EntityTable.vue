@@ -22,6 +22,7 @@
         :placeholder="$t('pages.collections.table.searchPlaceholder')"
         :aria-label="$t('search.title')"
         data-qa="entity table filter"
+        @change="onFiltered"
       />
     </b-form>
     <b-table
@@ -30,13 +31,8 @@
       :items="collections"
       :sort-by.sync="sortBy"
       :sort-desc.sync="sortDesc"
-      :busy="$fetchState.pending"
-      :filter="query"
-      :current-page="currentPage"
-      :per-page="perPage"
       striped
       class="borderless"
-      @filtered="onFiltered"
     >
       <template #table-busy>
         <div class="text-center my-2">
@@ -98,6 +94,7 @@
       </template>
     </b-table>
     <PaginationNavInput
+      v-if="perPage"
       :total-results="totalResults"
       :per-page="perPage"
       aria-controls="entity-table"
@@ -112,10 +109,8 @@
 
   import LoadingSpinner from '../generic/LoadingSpinner';
   import PaginationNavInput from '@/components/generic/PaginationNavInput';
-  import { organizationEntityNativeName, organizationEntityNonNativeEnglishName } from '@/utils/europeana/entities/organizations.js';
   import SmartLink from '../generic/SmartLink';
   import langAttributeMixin from '@/mixins/langAttribute';
-  import { langMapValueForLocale } from '@europeana/i18n';
 
   export default {
     name: 'EntityTable',
@@ -166,6 +161,10 @@
       alwaysShowRowDetailsToggles: {
         type: Boolean,
         default: false
+      },
+      perPage: {
+        type: Number,
+        default: 40
       }
     },
 
@@ -206,43 +205,28 @@
         query: this.$route?.query?.query || null,
         tableFields: fields.filter((field) => this.displayField(field.key)),
         typeSingular: this.type.slice(0, -1),
-        totalResults: this.collections?.length || 0,
-        perPage: 40
+        totalResults: this.collections?.length || 0
       };
     },
 
     async fetch() {
-      try {
-        const response = await axios.get(this.apiEndpoint, { baseURL: window.location.origin });
-        let collections = response.data[this.cacheKey];
-        if (this.filter) {
-          collections = collections.filter(this.filter);
-        }
-        if (this.type === 'organisations') {
-          collections = collections.map(this.organisationData);
-          this.collections = collections; // Do not freeze as _showDetails prop needs to be reactive for toggling the details display on small screens
-        } else {
-          this.collections = collections.map(Object.freeze);
-        }
-      } catch (e) {
-        // TODO: set fetch state error from message
-        console.error({ statusCode: 500, message: e.toString() });
+      const data = await this.fetchData();
+
+      this.totalResults  = data.total;
+      let collections = data.items;
+
+      if (this.filter) {
+        collections = collections.filter(this.filter);
       }
+
+      if (this.type === 'organisations') {
+        collections = collections.map(this.organisationData);
+      }
+
+      this.collections = collections;
     },
 
-    fetchOnServer: false,
-
     computed: {
-      apiEndpoint() {
-        return `/_api/cache/${this.cacheKey}`;
-      },
-      cacheKey() {
-        let cacheKey = `${this.$i18n.locale}/collections/${this.type}`;
-        if (this.subType) {
-          cacheKey = `${cacheKey}/${this.subType}`;
-        }
-        return cacheKey;
-      },
       currentPage() {
         return Number(this.$route?.query?.page) || 1;
       },
@@ -265,10 +249,10 @@
       },
       sort: {
         get() {
-          return this.$route?.query?.sort?.split(' ') || [null, null];
+          return this.$route?.query?.sort?.split(' ') || ['prefLabel', 'asc'];
         },
         set({ sortBy, sortDesc }) {
-          this.updateRouteQuery({ sort: `${sortBy} ${sortDesc ? 'desc' : 'asc'}` });
+          this.updateRouteQuery({ sort: `${sortBy} ${sortDesc ? 'desc' : 'asc'}`, page: 1 });
         }
       },
       aggregatorType() {
@@ -280,12 +264,12 @@
     },
 
     watch: {
-      '$route.query.query'() {
-        this.query = this.$route.query.query;
-        this.updateRouteQuery({ page: 1 });
-      },
-      'collections.length'() {
-        this.totalResults  = this.collections.length;
+      '$route.query': {
+        deep: true,
+        handler() {
+          this.query = this.$route.query.query;
+          this.$fetch();
+        }
       }
     },
 
@@ -293,29 +277,54 @@
       displayField(key) {
         return this.fields.includes(key);
       },
-      organizationEntityNativeName,
-      organizationEntityNonNativeEnglishName,
+      fetchData() {
+        let fetchType = this.type;
+        if (this.subType) {
+          fetchType = `${fetchType}/${this.subType}`;
+        }
+        const params = {
+          lang: this.$i18n.locale,
+          page: this.currentPage,
+          pageSize: this.perPage,
+          query: this.query,
+          sort: this.sort.join(' ')
+        };
+
+        // TODO: similar code exists in multiple components now, e.g. also BrowseAutomatedCardGroup;
+        //       abstract out into a helper fn
+        if (process.server) {
+          return import('@/server-middleware/api/collections/index.js')
+            .then((module) => module.fetchData(fetchType, params, this.$config.redis));
+        } else  {
+          return axios.request({
+            method: 'get',
+            baseURL: this.$config.app.baseUrl,
+            url: `/_api/collections/${fetchType}`,
+            params
+          })
+            .then((response) => response.data);
+        }
+      },
       organisationData(org) {
-        const nativeName = this.organizationEntityNativeName(org);
-        const nativeNameLangMapValue = langMapValueForLocale(nativeName, this.$i18n.locale);
-        const englishName = this.organizationEntityNonNativeEnglishName(org);
-        const englishNameLangMapValue = englishName && langMapValueForLocale(englishName, this.$i18n.locale);
+        const nativeName = Object.values(org.prefLabel)[0];
+        const nativeNameLang = Object.keys(org.prefLabel)[0];
+        const englishName = org.altLabel && Object.values(org.altLabel)[0];
+        const englishNameLang = org.altLabel && Object.keys(org.altLabel)[0];
 
         return {
           ...org,
-          prefLabel: nativeNameLangMapValue.values[0],
-          prefLabelLang: nativeNameLangMapValue.code,
-          altLabel: englishNameLangMapValue?.values[0],
-          altLabelLang: englishNameLangMapValue?.code,
+          prefLabel: nativeName,
+          prefLabelLang: nativeNameLang,
+          altLabel: englishName,
+          altLabelLang: englishNameLang,
           ...org.heritageDomain && { heritageDomain: org.heritageDomain.join(', ') }
         };
       },
       entityRoute(slug) {
         return `/collections/${this.typeSingular}/${slug}`;
       },
-      onFiltered(filteredItems) {
-        this.totalResults = filteredItems.length;
-        this.updateRouteQuery({ query: this.query });
+      onFiltered() {
+        this.updateRouteQuery({ query: this.query, page: 1 });
       },
       updateRouteQuery(newQuery) {
         this.$router.push({ ...this.$route, query: { ...this.$route.query, ...newQuery } });
