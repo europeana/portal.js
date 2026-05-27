@@ -16,8 +16,13 @@ const data = async(config = {}) => {
   const retrieveResponse = await axiosClientEntity.post('/retrieve', entityIds, { params: { profile: 'dereference' } });
   const fullEntities = retrieveResponse.data.items;
 
-  return entityIds
-    .map((id) => fullEntities.find((entity) => entity.id === id))
+  return entityData
+    .map((entity) => {
+      return {
+        ...entity, // keep the slug from baseData
+        ...fullEntities.find((fullEntity) => fullEntity.id === entity.id)
+      };
+    })
     .filter(Boolean)
     .map(organisationData);
 };
