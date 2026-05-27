@@ -4,8 +4,9 @@ import sinon from 'sinon';
 import nock from 'nock';
 
 const countryLabel = 'France';
+const slug = '001-museum';
 const searchResponse = [
-  { id: 'http://data.europeana.eu/organization/001' },
+  { id: 'http://data.europeana.eu/organization/001', slug },
   { id: 'http://data.europeana.eu/organization/002' }
 ];
 
@@ -82,6 +83,12 @@ describe('@/cachers/collections/aggregators', () => {
     const data = await cacher.data(config);
 
     expect(data[0].countryPrefLabel).toEqual(countryLabel);
+  });
+
+  it('keeps the slug for the organisation data', async() => {
+    const data = await cacher.data(config);
+
+    expect(data[0].slug).toEqual(slug);
   });
 
   it('picks specific fields', () => {
