@@ -64,11 +64,13 @@
         </SmartLink>
       </template>
       <template
-        #cell(recordCount)="data"
+        #cell(aggregator)="data"
       >
-        <span>
-          {{ $n(data.item.recordCount) }}
-        </span>
+        <EntityBadges
+          v-if="(data.item.aggregatedVia?.length || 0) > 0"
+          :related-collections="data.item.aggregatedVia"
+          :title="false"
+        />
       </template>
       <template
         #cell(showDetails)="row"
@@ -117,6 +119,7 @@
 
     components: {
       AlertMessage: () => import('@/components/generic/AlertMessage'),
+      EntityBadges: () => import('./EntityBadges'),
       BTable,
       LoadingSpinner,
       PaginationNavInput,
@@ -183,6 +186,12 @@
           class: 'text-center d-none d-md-table-cell'
         },
         {
+          key: 'aggregator',
+          sortable: false,
+          label: this.$t('pages.collections.table.aggregator'),
+          class: 'text-center d-none d-md-table-cell'
+        },
+        {
           key: 'heritageDomain',
           sortable: true,
           label: this.$t('pages.collections.table.domain'),
@@ -220,7 +229,13 @@
       }
 
       if (this.type === 'organisations') {
-        collections = collections.map(this.organisationData);
+        let aggregators;
+        if (this.fields.includes('aggregator')) {
+          aggregators = await this.fetchAggregatorData(collections);
+        }
+        console.log('aggregators', aggregators);
+
+        collections = collections.map((org) => this.organisationData(org, aggregators));
       }
 
       this.collections = collections;
@@ -277,6 +292,28 @@
       displayField(key) {
         return this.fields.includes(key);
       },
+      fetchAggregatorData(organisations) {
+        const ids = organisations.map((org) => org.aggregatedVia).flat().filter(Boolean);
+        const params = {
+          fl: 'id,prefLabel'
+        };
+
+        // TODO: similar code exists in multiple components now, e.g. also BrowseAutomatedCardGroup;
+        //       abstract out into a helper fn
+        if (process.server) {
+          return import('@/server-middleware/api/collections/retrieve.js')
+            .then((module) => module.fetchData(ids, params, { $config: this.$config }));
+        } else  {
+          return axios.request({
+            method: 'post',
+            data: ids,
+            baseURL: this.$config.app.baseUrl,
+            url: '/_api/collections/retrieve',
+            params
+          })
+            .then((response) => response.data);
+        }
+      },
       fetchData() {
         let fetchType = this.type;
         if (this.subType) {
@@ -305,7 +342,7 @@
             .then((response) => response.data);
         }
       },
-      organisationData(org) {
+      organisationData(org, aggregators) {
         const nativeName = Object.values(org.prefLabel)[0];
         const nativeNameLang = Object.keys(org.prefLabel)[0];
         const englishName = org.altLabel && Object.values(org.altLabel)[0];
@@ -317,7 +354,8 @@
           prefLabelLang: nativeNameLang,
           altLabel: englishName,
           altLabelLang: englishNameLang,
-          ...org.heritageDomain && { heritageDomain: org.heritageDomain.join(', ') }
+          ...org.heritageDomain && { heritageDomain: org.heritageDomain.join(', ') },
+          ...org.aggregatedVia && { aggregatedVia: org.aggregatedVia.map((aggId) => (aggregators || []).find((agg) => agg.id === aggId)).filter(Boolean) }
         };
       },
       entityRoute(slug) {

@@ -10,10 +10,12 @@
         <p>{{ description }}</p>
       </b-col>
       <template v-if="tab === 'organisations'">
+        <!-- FIXME: this table should not be showing aggregators -->
         <EntityTable
           type="organisations"
+          data-qa="providingInstitutions entity table"
           class="mt-3 mt-md-4"
-          :fields="['prefLabel', 'countryPrefLabel', 'recordCount', 'showDetails']"
+          :fields="['prefLabel', 'countryPrefLabel', 'aggregator', 'recordCount', 'showDetails']"
         >
           <template #row-details="rowDetails">
             <span

@@ -46,7 +46,7 @@ describe('@/cachers/collections/organisations', () => {
   });
 
   it('picks required fields', () => {
-    expect(cacher.PICK).toEqual(['id', 'slug', 'recordCount', 'prefLabel', 'altLabel', 'countryPrefLabel']);
+    expect(cacher.PICK).toEqual(['id', 'slug', 'recordCount', 'prefLabel', 'altLabel', 'countryPrefLabel', 'aggregatedVia']);
   });
 
   it('localises countryPrefLabel', () => {

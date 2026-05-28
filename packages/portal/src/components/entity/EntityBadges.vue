@@ -4,7 +4,10 @@
     data-qa="related collections"
     class="related-collections"
   >
-    <h2 class="related-heading text-uppercase">
+    <h2
+      v-if="title !== false"
+      class="related-heading text-uppercase"
+    >
       {{ title || $t('related.collections.title') }}
     </h2>
     <component
@@ -61,7 +64,7 @@
        * Title which appears above the badges
        */
       title: {
-        type: String,
+        type: [Boolean, String],
         default: ''
       },
       /**

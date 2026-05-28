@@ -1243,6 +1243,7 @@ export default {
         "title": "Places"
       },
       "table": {
+        "aggregator": "Aggregator",
         "country": "Country",
         "domain": "Domain / Theme",
         "items": "Items",
