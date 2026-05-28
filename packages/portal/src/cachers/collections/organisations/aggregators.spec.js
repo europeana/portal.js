@@ -46,10 +46,6 @@ const context = {
 };
 
 const mockApiRequests = () => {
-  // nock(config.europeana.apis.entity.url)
-  //   .post('/retrieve')
-  //   .query((query) => query.wskey === config.europeana.apis.entity.key)
-  //   .reply(200, { items: retrieveResponse });
   nock(context.$config.europeana.apis.entity.url)
     .post('/retrieve')
     .query(query => query.wskey === context.$config.europeana.apis.entity.key)
