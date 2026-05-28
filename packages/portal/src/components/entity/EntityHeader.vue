@@ -60,6 +60,15 @@
       />
     </template>
     <b-button
+      v-if="email"
+      class="d-inline-flex align-items-center"
+      data-qa="entity contact button"
+      :href="`mailto:${email}`"
+    >
+      <span class="icon-email pr-1" />
+      {{ $t('actions.contact') }}
+    </b-button>
+    <b-button
       v-if="externalLink"
       class="d-inline-flex align-items-center"
       :href="externalLink"
@@ -152,6 +161,13 @@
         default: null
       },
       /**
+       * Email, used for organisation entity contact button
+       */
+      email: {
+        type: String,
+        default: null
+      },
+      /**
        * Image file path for social media sharing
        */
       image: {
@@ -171,13 +187,6 @@
       externalLink: {
         type: String,
         default: null
-      },
-      /**
-       * Proxy needed to update editable description
-       */
-      proxy: {
-        type: Object,
-        default: () => ({})
       },
       /**
        * More entity data to show in modal (currently only used for organisation entity)

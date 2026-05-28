@@ -31,20 +31,18 @@
           <EntityOrganisationsTabs />
           <EntityOrganisationsPageContent />
         </template>
-        <client-only v-else>
-          <EntityTable
-            :type="type"
-            data-qa="collections table"
-            class="mt-3 mt-md-4"
-          />
-        </client-only>
+        <EntityTable
+          v-else
+          :type="type"
+          data-qa="collections table"
+          class="mt-3 mt-md-4"
+        />
       </template>
     </b-container>
   </div>
 </template>
 
 <script>
-  import ClientOnly from 'vue-client-only';
   import ContentHeader from '@/components/content/ContentHeader';
   import pageMetaMixin from '@/mixins/pageMeta';
 
@@ -61,7 +59,6 @@
 
     components: {
       ContentHeader,
-      ClientOnly,
       EntityOrganisationsPageContent: () => import('@/components/entity/organisations/EntityOrganisationsPageContent'),
       EntityOrganisationsTabs: () => import('@/components/entity/organisations/EntityOrganisationsTabs'),
       EntityTable: () => import('@/components/entity/EntityTable'),

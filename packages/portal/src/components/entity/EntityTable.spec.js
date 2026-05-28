@@ -2,6 +2,7 @@ import { createLocalVue } from '@vue/test-utils';
 import axios from 'axios';
 import { mountNuxt } from '@test/utils.js';
 import sinon from 'sinon';
+import nock from 'nock';
 import BootstrapVue from 'bootstrap-vue';
 
 import EntityTable from '@/components/entity/EntityTable.vue';
@@ -10,24 +11,40 @@ const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
 const factory = (propsData = { type: 'organisations' }) => mountNuxt(EntityTable, {
+  attachTo: document.body,
   localVue,
   propsData,
   mocks: {
+    $config: {
+      app: {
+        baseUrl: 'https://example.org'
+      }
+    },
     $n: (num) => num,
     $t: (key) => key,
     $i18n: { locale: 'en' },
-    $route: { query: { page: 1, filter: null, sort: null } },
+    $route: { query: { page: 1, query: null, sort: null } },
     $router: { push: () => {} },
     localePath: () => '/'
   },
   stubs: ['SmartLink', 'EntityOrganisationsRelated', 'PaginationNavInput']
 });
 
-const middlewarePath = '/_api/cache/en/collections/organisations';
-const middlewarePathAggregators = '/_api/cache/en/collections/organisations/aggregators';
 const collections = [
-  { id: 'http://data.europeana.eu/organization/001', slug: '001-museum', prefLabel: { de: 'museum', en: 'museum' }, countryPrefLabel: 'Deutschland' },
-  { id: 'http://data.europeana.eu/organization/002', slug: '002-library', prefLabel: { nl: 'bibliotheek', en: 'library' }, countryPrefLabel: 'Nederland' }
+  {
+    id: 'http://data.europeana.eu/organization/001',
+    slug: '001-museum',
+    prefLabel: { de: 'museum' },
+    altLabel: { en: 'museum' },
+    countryPrefLabel: 'Deutschland'
+  },
+  {
+    id: 'http://data.europeana.eu/organization/002',
+    slug: '002-library',
+    prefLabel: { nl: 'bibliotheek' },
+    altLabel: { en: 'library' },
+    countryPrefLabel: 'Nederland'
+  }
 ];
 
 const organisations = [
@@ -50,61 +67,56 @@ const organisations = [
     countryPrefLabel: 'Nederland'
   }
 ];
-const internationalAggregator = {
-  id: '001',
-  geographicScope: 'International',
-  heritageDomain: ['Audio heritage']
-};
-const internationalAggregatorAsStored = {
-  ...internationalAggregator,
-  heritageDomain: 'Audio heritage'
-};
-const regionalAggregator = { id: '002',
-  geographicScope: 'Regional' };
-const aggregators = [internationalAggregator, regionalAggregator];
 
 describe('components/entity/EntityTable', () => {
+  beforeAll(() => {
+    nock.disableNetConnect();
+  });
+  afterAll(() => {
+    nock.enableNetConnect();
+  });
   beforeEach(() => {
-    sinon.stub(axios, 'get');
+    sinon.stub(axios, 'request');
+    axios.request.resolves({ data: { items: collections, total: collections.length } });
   });
   afterEach(sinon.restore);
 
   describe('fetch()', () => {
-    describe('when type is organisations', () => {
-      beforeEach(() => {
-        axios.get.withArgs(middlewarePath).resolves({ data: { 'en/collections/organisations': collections } });
-      });
+    it('sends a get request to the collections server middleware', async() => {
+      const wrapper = factory();
 
-      it('sends a get request to the collections server middleware', async() => {
-        const wrapper = factory();
+      await wrapper.vm.fetch();
 
-        await wrapper.vm.fetch();
-
-        expect(axios.get.calledWith(middlewarePath)).toBe(true);
-      });
-
-      it('stores collections from response body on component collections property', async() => {
-        const wrapper = factory();
-
-        await wrapper.vm.fetch();
-
-        expect(wrapper.vm.collections).toEqual(organisations);
-      });
+      expect(axios.request.calledWith({
+        method: 'get',
+        baseURL: 'https://example.org',
+        url: '/_api/collections/organisations',
+        params: {
+          lang: 'en',
+          page: 1,
+          pageSize: 40,
+          query: null,
+          sort: 'prefLabel asc'
+        }
+      })).toBe(true);
     });
 
-    ['internationalAggregators', 'regionalAggregators'].forEach(type => {
-      describe(`when type is ${type}`, () => {
-        beforeEach(() => {
-          axios.get.withArgs(middlewarePathAggregators).resolves({ data: { 'en/collections/organisations/aggregators': aggregators } });
-        });
-        it('stores type filtered collections on collections property', async() => {
-          const wrapper = factory({ type });
+    it('stores collections from response body on component collections property', async() => {
+      const wrapper = factory();
 
-          await wrapper.vm.fetch();
-          const filteredAggregators = type === 'internationalAggregators' ? [internationalAggregatorAsStored] : [regionalAggregator];
+      await wrapper.vm.fetch();
 
-          expect(wrapper.vm.collections).toEqual(filteredAggregators);
-        });
+      expect(wrapper.vm.collections).toEqual(organisations);
+    });
+
+    describe('when there is a filter function', () => {
+      it('stores filtered collections on collections property', async() => {
+        const wrapper = factory({ type: 'organisations', filter: (org) => org.id.endsWith('/001') });
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.collections.length).toBe(1);
+        expect(wrapper.vm.collections[0]).toEqual(organisations[0]);
       });
     });
   });
@@ -140,37 +152,35 @@ describe('components/entity/EntityTable', () => {
     it('filters the table on the query', async() => {
       const wrapper = factory();
 
-      wrapper.vm.$route.query.filter = newQuery;
+      wrapper.vm.$route.query.query = newQuery;
       await wrapper.vm.$nextTick();
 
-      expect(wrapper.vm.filter).toEqual(newQuery);
+      expect(wrapper.vm.query).toEqual(newQuery);
     });
-    it('resets the page to 1', async() => {
+    it('calls $fetch', async() => {
       const wrapper = factory();
-      sinon.spy(wrapper.vm, 'updateRouteQuery');
+      sinon.spy(wrapper.vm, '$fetch');
 
-      wrapper.vm.$route.query.filter = newQuery;
+      wrapper.vm.$route.query.query = newQuery;
       await wrapper.vm.$nextTick();
 
-      expect(wrapper.vm.updateRouteQuery.calledWith({ page: 1 })).toBe(true);
+      expect(wrapper.vm.$fetch.called).toBe(true);
     });
   });
 
   describe('when the route page query updates', () => {
-    it('updates the current table page', async() => {
+    it('updates the current table page', () => {
       const wrapper = factory();
 
       wrapper.vm.$route.query.page = 4;
-      await wrapper.vm.$nextTick();
 
       expect(wrapper.vm.currentPage).toEqual(4);
     });
     describe('when falsy value', () => {
-      it('falls back to current table page 1', async() => {
+      it('falls back to current table page 1', () => {
         const wrapper = factory();
 
         wrapper.vm.$route.query.page = null;
-        await wrapper.vm.$nextTick();
 
         expect(wrapper.vm.currentPage).toEqual(1);
       });
@@ -178,23 +188,21 @@ describe('components/entity/EntityTable', () => {
   });
 
   describe('when the route sort query updates', () => {
-    it('updates the current table sort order and field', async() => {
+    it('updates the current table sort order and field', () => {
       const wrapper = factory();
       const sortField = 'countryPrefLabel';
       const sortDirection = 'desc';
 
       wrapper.vm.$route.query.sort = `${sortField} ${sortDirection}`;
-      await wrapper.vm.$nextTick();
 
       expect(wrapper.vm.sortBy).toEqual(sortField);
       expect(wrapper.vm.sortDesc).toEqual(true);
     });
     describe('when falsy value', () => {
-      it('falls back to sorting on the name in asc order', async() => {
+      it('falls back to sorting on the name in asc order', () => {
         const wrapper = factory();
 
         wrapper.vm.$route.query.sort = null;
-        await wrapper.vm.$nextTick();
 
         expect(wrapper.vm.sortBy).toEqual('prefLabel');
         expect(wrapper.vm.sortDesc).toEqual(false);
@@ -203,15 +211,15 @@ describe('components/entity/EntityTable', () => {
   });
 
   describe('when the table is filtered', () => {
-    it('updates the route query', async() => {
+    it('updates the route query', () => {
       const newQuery = 'museum';
       const wrapper = factory();
       sinon.spy(wrapper.vm, 'updateRouteQuery');
 
-      wrapper.find('[data-qa="entity table filter"]').setValue(newQuery);
-      await wrapper.vm.$nextTick();
+      wrapper.vm.query = newQuery;
+      wrapper.find('[data-qa="entity table filter"]').vm.$emit('change', newQuery);
 
-      expect(wrapper.vm.updateRouteQuery.calledWith({ filter: newQuery })).toBe(true);
+      expect(wrapper.vm.updateRouteQuery.calledWith({ query: newQuery, page: 1 })).toBe(true);
     });
   });
 
@@ -220,10 +228,10 @@ describe('components/entity/EntityTable', () => {
       const wrapper = factory();
       sinon.spy(wrapper.vm, 'updateRouteQuery');
 
-      const recordCountTh = wrapper.find('.table-count-cell');
+      const recordCountTh = wrapper.find('.table-name-cell');
       await recordCountTh.trigger('click');
 
-      expect(wrapper.vm.updateRouteQuery.calledWith({ sort: 'recordCount asc' })).toBe(true);
+      expect(wrapper.vm.updateRouteQuery.calledWith({ sort: 'prefLabel desc', page: 1 })).toBe(true);
     });
   });
 });

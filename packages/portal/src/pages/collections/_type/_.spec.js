@@ -15,12 +15,14 @@ const organisationEntity = {
   entity: {
     id: 'http://data.europeana.eu/organization/01234567890',
     logo: { id: 'http://commons.wikimedia.org/wiki/Special:FilePath/Albertina%20Logo.svg' },
+    mbox: 'email@example.org',
     prefLabel: { en: 'English name', nl: 'Dutch name' },
     homepage: 'https://www.example-organisation.eu',
     hasAddress: {
       countryName: 'The Netherlands',
       locality: 'The Hague'
     },
+    geographicScope: 'National',
     description: { en: ['example of an organisation description'] },
     acronym: { en: 'ABC' },
     type: 'Organization'
@@ -60,6 +62,7 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
       userHasClientRole: options.userHasClientRoleStub || sinon.stub().returns(false)
     },
     $fetchState: {},
+    $features: {},
     $t: (key, args) => args ? `${key} ${args}` : key,
     $route: {
       query: options.query || '',
@@ -116,7 +119,14 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
     'ErrorMessage': true,
     'RelatedEditorial': true,
     'SearchInterface': {
-      template: '<div><slot /><slot name="card-group-related-collections" /><slot name="after-results" /></div>'
+      template: `
+        <div>
+          <slot />
+          <slot name="card-group-header" />
+          <slot name="card-group-related-collections" />
+          <slot name="after-results" />
+        </div>
+      `
     }
   }
 });
@@ -321,6 +331,15 @@ describe('pages/collections/_type/_', () => {
       });
     });
 
+    describe('mbox', () => {
+      it('returns the email on organisation pages', () => {
+        const wrapper = factory(organisationEntity);
+
+        const mbox = wrapper.vm.mbox;
+        expect(mbox).toBe(organisationEntity.entity.mbox);
+      });
+    });
+
     describe('title', () => {
       it('uses the fallback title if no entity is present', () => {
         const wrapper = factory();
@@ -402,6 +421,7 @@ describe('pages/collections/_type/_', () => {
         expect(moreInfo[2].value).toBe(organisationEntity.entity.hasAddress.countryName);
         expect(moreInfo[3].value).toBe(organisationEntity.entity.hasAddress.locality);
         expect(moreInfo[4].value).toBe(organisationEntity.entity.homepage);
+        expect(moreInfo[5].value).toBe(organisationEntity.entity.geographicScope);
       });
     });
   });
@@ -438,18 +458,21 @@ describe('pages/collections/_type/_', () => {
     });
   });
 
-  describe('methods', () => {
-    describe('proxyUpdated', () => {
+  describe('event handling', () => {
+    describe('when EntityUpdateModal emits updated event', () => {
       it('triggers $fetch', () => {
         const wrapper = factory(topicEntity);
         sinon.spy(wrapper.vm, '$fetch');
 
-        wrapper.vm.proxyUpdated();
+        const entityHeaderStub = wrapper.find('entityheader-stub');
+        entityHeaderStub.vm.$emit('updated');
 
         expect(wrapper.vm.$fetch.called).toBe(true);
       });
     });
+  });
 
+  describe('methods', () => {
     describe('handleEntityRelatedCollectionsCardFetched', () => {
       it('is triggered by entitiesFromUrisFetched event on related entities component', () => {
         const wrapper = factory(topicEntity);

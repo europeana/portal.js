@@ -28,6 +28,7 @@ const entityProps = {
   title: { values: ['Book'], code: 'en' },
   description: { values: ['Architecture is both the process and the product of planning, designing, and constructing buildings and other physical structures.'], code: 'en' },
   logo: 'https://www.example.eu/logo.svg',
+  email: 'email@example.org',
   image: 'https://www.example.eu/image.jpg',
   editable: false,
   externalLink: 'https://www.example.eu/',
@@ -74,6 +75,15 @@ describe('components/entity/EntityHeaders', () => {
 
       expect(logo.exists()).toBe(true);
       expect(logo.attributes('style')).toBe(`background-image: url(${resizedLogo});`);
+    });
+
+    it('shows a contact button', () => {
+      const wrapper = factory(entityProps);
+
+      const contactButton = wrapper.find('[data-qa="entity contact button"]');
+
+      expect(contactButton.exists()).toBe(true);
+      expect(contactButton.attributes('href')).toBe('mailto:email@example.org');
     });
 
     it('shows a learn more button', () => {
