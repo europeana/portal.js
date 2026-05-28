@@ -85,7 +85,7 @@ describe('server-middleware/api/collections/retrieve.js', () => {
       });
 
       it('picks multiple top-level fields', async() => {
-        const fields = 'id,prefLabel';
+        const fields = ['id', 'prefLabel'];
         const expected = [
           { id: entities[0].id, prefLabel: entities[0].prefLabel },
           { id: entities[1].id, prefLabel: entities[1].prefLabel }

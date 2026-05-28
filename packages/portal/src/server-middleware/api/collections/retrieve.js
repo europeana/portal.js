@@ -14,7 +14,7 @@ export const fetchData = async(ids, { fields, lang } = {}, context = {}) => {
   let entities = await api.retrieve(ids);
 
   if (fields) {
-    entities = entities.map((entity) => pickFields(entity, fields.split(',')));
+    entities = entities.map((entity) => pickFields(entity, fields));
   }
   if (lang) {
     entities = reduceLangMapsForLocale(entities, lang);
@@ -25,7 +25,9 @@ export const fetchData = async(ids, { fields, lang } = {}, context = {}) => {
 
 export default (context = {}) => async(req, res, next) => {
   try {
-    const data = await fetchData(req.body, { fields: req.query.fl, lang: req.query.lang }, context);
+    const data = await fetchData(req.body, {
+      fields: req.query.fl?.split(','), lang: req.query.lang?.split(',')
+    }, context);
 
     res.json(data);
   } catch (e) {
