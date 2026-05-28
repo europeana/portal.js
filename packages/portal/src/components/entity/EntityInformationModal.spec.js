@@ -14,9 +14,11 @@ const factory = (propsData = {}) => mount(EntityInformationModal, {
     $n: (val) => val,
     $t: (val) => val,
     $features: { aggregatorsTab: true }
-  }
+  },
+  stubs: ['EntityBadges']
 });
 
+const id = 'http://data.europeana.eu/organization/190';
 const englishName = { values: ['Library of Europe'], code: 'en' };
 const homepage = 'https://www.deutsche-digitale-bibliothek.de';
 const country = 'Germany';
@@ -48,6 +50,7 @@ const expectedInfo = [
 ];
 
 const entity = {
+  id,
   homepage,
   hasAddress: {
     countryName: country,
@@ -92,5 +95,16 @@ describe('components/entity/EntityInformationModal', () => {
 
     const websiteLink = wrapper.find('ul li[data-qa="website field"] a');
     expect(websiteLink.attributes().href).toEqual(homepage);
+  });
+
+  describe('when entity aggregates from', () => {
+    it('shows 4 entity badges and a view all link', () => {
+      const wrapper = factory(entityProps);
+
+      const viewAllLink = wrapper.find('.view-all-button');
+      expect(wrapper.find('entitybadges-stub').exists()).toBe(true);
+      expect(viewAllLink.text()).toEqual('actions.viewAll');
+      expect(viewAllLink.attributes().href).toEqual('/collections/organisations#aggregators-190');
+    });
   });
 });

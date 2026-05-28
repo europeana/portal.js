@@ -41,16 +41,24 @@
             {{ info.value }}
           </template>
         </span>
-        <b-button
-          v-if="info.moreLink"
-          :href="info.moreLink.link"
-          variant="link"
-          class="view-all-button w-100 text-left"
-        >
-          {{ info.moreLink.text }}
-        </b-button>
       </li>
     </ul>
+    <div
+      v-if="$features.aggregatorsTab && aggregatesFrom"
+      class="mb-4 ml-sm-3"
+    >
+      <EntityBadges
+        :entity-uris="aggregatesFromForDisplay"
+        :show-title="false"
+      />
+      <b-button
+        :href="aggregatorPageLink.link"
+        variant="link"
+        class="view-all-button p-0"
+      >
+        {{ aggregatorPageLink.text }}
+      </b-button>
+    </div>
     <b-button
       variant="outline-primary"
       @click="$bvModal.hide('entityInformationModal')"
@@ -66,6 +74,10 @@
 
   export default {
     name: 'EntityInformationModal',
+
+    components: {
+      EntityBadges: () => import('./EntityBadges')
+    },
 
     mixins: [langAttributeMixin],
 
@@ -125,17 +137,29 @@
           labelledMoreInfo.push({ label: this.$t('organisation.recordCount'), value: this.entity.isAggregatedBy.recordCount });
         }
 
-        if (this.$features.aggregatorsTab && this.entity?.aggregatesFrom)  {
-          const aggregatesFromCount = this.entity.aggregatesFrom.length;
-          const moreLink = {
-            link: '/collections/organisations#aggregators', // TODO: needs to link to the specific aggregator expanded
-            text: this.$t('actions.viewAll', { count: aggregatesFromCount })
-          };
-          labelledMoreInfo.push({ label: this.$t('organisation.providingInstitutionsCount'), value: aggregatesFromCount, moreLink });
+        if (this.$features.aggregatorsTab && this.aggregatesFrom)  {
+          labelledMoreInfo.push({ label: this.$t('organisation.providingInstitutionsCount'), value: this.aggregatesFromCount });
         }
-        // TODO: Pass 4 institutions, but consider passing via distinct prop
 
         return labelledMoreInfo;
+      },
+      aggregatesFrom() {
+        return this.entity.aggregatesFrom;
+      },
+      aggregatesFromForDisplay() {
+        return this.entity.aggregatesFrom.slice(0, 4);
+      },
+      aggregatesFromCount() {
+        return this.aggregatesFrom?.length;
+      },
+      entityId() {
+        return this.entity.id.toString().split('/').pop();
+      },
+      aggregatorPageLink() {
+        return {
+          link: `/collections/organisations#aggregators-${this.entityId}`,
+          text: this.$t('actions.viewAll', { count: this.aggregatesFromCount })
+        };
       }
     },
 
@@ -162,5 +186,9 @@
     .semibold {
       font-weight: 600;
     }
+  }
+
+  .view-all-button.btn-link:hover {
+    text-decoration: none;
   }
 </style>
