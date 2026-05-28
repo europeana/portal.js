@@ -31,10 +31,24 @@
           >
             {{ info.value }}
           </b-link>
+          <template v-else-if="Array.isArray(info.value)">
+            {{ info.value.join('; ') }}
+          </template>
+          <template v-else-if="typeof info.value === 'number'">
+            {{ $n(info.value) }}
+          </template>
           <template v-else>
             {{ info.value }}
           </template>
         </span>
+        <b-button
+          v-if="info.moreLink"
+          :href="info.moreLink.link"
+          variant="link"
+          class="view-all-button w-100 text-left"
+        >
+          {{ info.moreLink.text }}
+        </b-button>
       </li>
     </ul>
     <b-button

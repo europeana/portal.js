@@ -145,6 +145,12 @@ Example:
           <td><span class="icon icon-edit" /></td>
         </tr>
         <tr>
+          <td>Email</td>
+          <td><code>icon-email</code></td>
+          <td><span class="icon icon-email" /></td>
+        </tr>
+        <tr>
+        <tr>
           <td>Enrichment</td>
           <td><code>icon-enrichment</code></td>
           <td><span class="icon icon-enrichment" /></td>

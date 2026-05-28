@@ -43,6 +43,7 @@ export default {
     "apply": "Apply",
     "cancel": "Cancel",
     "changeView": "Change view",
+    "contact": "Contact",
     "clear": "Clear",
     "clearFilters": "Clear filters",
     "close": "close",
@@ -174,6 +175,7 @@ export default {
     "topic": "Topics"
   },
   "cardLabels": {
+    "aggregator": "Aggregator",
     "organisation": "Institution",
     "person": "Person",
     "place": "Place",
@@ -1198,7 +1200,15 @@ export default {
     "city": "City",
     "country": "Country",
     "englishName": "English name",
-    "nameAcronym": "Name acronym"
+    "geographicScope": "Geographic scope",
+    "heritageDomain": "Types of heritage",
+    "nameAcronym": "Name acronym",
+    "providesAudienceEngagementActivity": "Audience engagment activities",
+    "providesCapacityBuildingActivity": "Capacity building",
+    "providesSupportForDataActivity": "Data activities",
+    "providesSupportForMediaType": "Media type",
+    "providingInstitutionsCount": "Number of providing institutions",
+    "recordCount": "Number of items"
   },
   "organisations": {
     "aggregators": {

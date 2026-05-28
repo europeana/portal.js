@@ -29,6 +29,7 @@
             :title="title"
             :sub-title="subTitle"
             :logo="logo"
+            :email="mbox"
             :image="thumbnail"
             :editable="editable"
             :external-link="homepage"
@@ -83,6 +84,29 @@
     getEntityTypeApi, getEntityUri, getEntityQuery, normalizeEntityId
   } from '@/plugins/europeana/entity';
   import { langMapValueForLocale, uriRegex } from  '@europeana/i18n';
+
+  const FIELDS = [
+    'id',
+    'logo',
+    'note',
+    'description',
+    'europeanaRole',
+    'homepage',
+    'prefLabel',
+    'isShownBy',
+    'hasAddress',
+    'acronym',
+    'type',
+    'mbox',
+    'heritageDomain',
+    'providesSupportForMediaType',
+    'geographicScope',
+    'providesSupportForDataActivity',
+    'providesCapacityBuildingActivity',
+    'providesAudienceEngagementActivity',
+    'aggregatesFrom',
+    'isAggregatedBy'
+  ];
 
   export default {
     name: 'CollectionPage',
@@ -147,9 +171,7 @@
       try {
         const entity = await this.$apis.entity.get(this.collectionType, this.$route.params.pathMatch);
 
-        this.$store.commit('entity/setEntity', pick(entity, [
-          'id', 'logo', 'note', 'description', 'homepage', 'prefLabel', 'isShownBy', 'hasAddress', 'acronym', 'type'
-        ]));
+        this.$store.commit('entity/setEntity', pick(entity, FIELDS));
         this.$store.commit('search/setCollectionLabel', this.title.values[0]);
 
         this.userIsEntitiesEditor && await this.setBestItems();
@@ -205,6 +227,12 @@
       logo() {
         if (this.collectionType === 'organisation' && this.entity?.logo) {
           return this.entity.logo.id;
+        }
+        return null;
+      },
+      mbox() {
+        if (this.collectionType === 'organisation') {
+          return this.entity?.mbox;
         }
         return null;
       },
@@ -277,6 +305,10 @@
       organisationNonNativeEnglishName() {
         return this.organizationEntityNonNativeEnglishName(this.entity);
       },
+      // TODO: there is way too much logic here, which is done on behalf
+      //       of the EntityInformationModal component, which should
+      //       handle this itself. consider passing the whole entity down,
+      //       or provide/inject it, then move this logic there
       moreInfo() {
         if (!this.entity || this.collectionType !== 'organisation') {
           return null;
@@ -305,6 +337,27 @@
         if (this.homepage)  {
           labelledMoreInfo.push({ label: this.$t('website'), value: this.homepage });
         }
+
+        const aggregationInfoFields = ['heritageDomain', 'providesSupportForMediaType', 'geographicScope', 'providesSupportForDataActivity', 'providesCapacityBuildingActivity', 'providesAudienceEngagementActivity'];
+        for (const field of aggregationInfoFields) {
+          if (this.entity?.[field])  {
+            labelledMoreInfo.push({ label: this.$t(`organisation.${field}`), value: this.entity[field] });
+          }
+        }
+
+        if (this.entity?.isAggregatedBy?.recordCount) {
+          labelledMoreInfo.push({ label: this.$t('organisation.recordCount'), value: this.entity.isAggregatedBy.recordCount });
+        }
+
+        if (this.$features.aggregatorsTab && this.entity?.aggregatesFrom)  {
+          const aggregatesFromCount = this.entity.aggregatesFrom.length;
+          const moreLink = {
+            link: '/collections/organisations#aggregators', // needs to link to the specific aggregator expanded
+            text: this.$t('actions.viewAll', { count: aggregatesFromCount })
+          };
+          labelledMoreInfo.push({ label: this.$t('organisation.providingInstitutionsCount'), value: aggregatesFromCount, moreLink });
+        }
+        // TODO: Pass 4 institutions, but consider passing via distinct prop
 
         return labelledMoreInfo;
       }
