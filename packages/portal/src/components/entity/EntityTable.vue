@@ -77,7 +77,7 @@
           class="button-toggle button-icon-only icon-chevron"
           :class="{'show': row.detailsShowing}"
           variant="light-flat"
-          @click="toggleDetailsRow(row.item.id)"
+          @click="setExpandedHash(row.item.id)"
         >
           <span class="visually-hidden">
             {{ $t('pages.collections.table.showMoreData', { entity: row.item.prefLabel }) }}
@@ -264,7 +264,7 @@
       isOrganisationsType() {
         return this.type === 'organisations';
       },
-      selectedAggregatorId() {
+      expandedEntityId() {
         if (this.$route.hash?.split('-').length <= 1) {
           return null;
         }
@@ -276,8 +276,10 @@
       '$route.query': {
         deep: true,
         handler() {
-          this.query = this.$route.query.query;
-          this.$fetch();
+          if (this.query !== this.$route.query.query) {
+            this.query = this.$route.query.query;
+            this.$fetch();
+          }
         }
       },
       '$route.hash'() {
@@ -333,23 +335,32 @@
         };
       },
       setExpandedRow() {
-        // if (this.selectedAggregatorId && this.collections) {
-        // unset any other values here first, to colapse previously opened rows?
-        console.log('checking for', this.selectedAggregatorId);
-        let row = this.collections.find((row) => row.id.endsWith(this.selectedAggregatorId));
-        console.log('row', row);
-        if (row) {
-          row['_showDetails'] = true;
-          console.log('row_showDetails', row['_showDetails']);
+        // if (this.expandedEntityId && this.collections) {
+        console.log('checking for', this.expandedEntityId);
+        const expansionTargetRow = this.collections.find((row) => row.id.endsWith(this.expandedEntityId));
+
+        // for any rows which weren't targeted, switch expansion off.
+        this.collections.filter((row) => row['_showDetails']).forEach(expandedRow => {
+          if (expandedRow !== expansionTargetRow) {
+            expandedRow['_showDetails'] = false;
+          }
+        });
+
+        // toggle expanded status of target row
+        if (expansionTargetRow) {
+          expansionTargetRow['_showDetails'] = !expansionTargetRow['_showDetails'];
+          console.log('expansionTargetRow_showDetails set to', expansionTargetRow['_showDetails']);
         }
       //  }
       },
-      toggleDetailsRow(id) {
+      setExpandedHash(id) {
         console.log('toggling details show for', id);
         const numericId = id.split('/').pop();
-        this.$router.push({
-          ...this.$route,
-          hash: this.$route.hash.replace(this.selectedAggregatorId, numericId)
+        // TODO: Remove hash on collapse
+        const targetHash = this.expandedEntityId ? this.$route.hash.replace(this.expandedEntityId, numericId) : this.$route.hash + `-${numericId}`;
+        this.$router.replace({
+          hash: targetHash
+          // TODO: prevent this from scolling the page
         });
       },
       entityRoute(slug) {
