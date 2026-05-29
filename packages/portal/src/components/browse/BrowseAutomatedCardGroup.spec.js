@@ -1,10 +1,11 @@
 import { createLocalVue } from '@vue/test-utils';
-import axios from 'axios';
 import { shallowMountNuxt } from '@test/utils.js';
+import nock from 'nock';
 import sinon from 'sinon';
 import BootstrapVue from 'bootstrap-vue';
 
 import BrowseAutomatedCardGroup from '@/components/browse/BrowseAutomatedCardGroup.vue';
+import * as backendFetchModule from '@/utils/backendFetch.js';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -52,8 +53,8 @@ const factory = (propsData = { sectionType: FEATURED_TOPICS })  => shallowMountN
     },
     localePath: () => 'mocked path',
     $i18n: { locale: 'en', t: (key) => key, n: (num) => `${num}`, localeProperties: { iso: 'en-GB' } },
+    $nuxt: { context: { $config: { redis: {} } } },
     $route: { query: {} },
-    $config: { app: { internalLinkDomain: 'https://europeana.eu' } },
     $t: (key) => key
   }
 });
@@ -152,28 +153,34 @@ const entries = {
 };
 
 describe('components/browse/BrowseAutomatedCardGroup', () => {
-  beforeEach(() => {
-    sinon.stub(axios, 'get');
+  const backendFetch = sinon.stub(backendFetchModule, 'backendFetch').resolves({ 'en/collections/topics/featured': entries.featuredTopics });
+
+  beforeAll(() => {
+    nock.disableNetConnect();
   });
-  afterEach(sinon.restore);
-  afterEach(sinon.resetHistory);
+  afterEach(() => {
+    sinon.resetHistory();
+  });
+  afterAll(() => {
+    nock.enableNetConnect();
+    sinon.restore();
+  });
 
   describe('fetch()', () => {
     describe('when section is cached', () => {
       const propsData = { sectionType: FEATURED_TOPICS };
-      beforeEach(() => {
-        axios.get.withArgs('/_api/cache/en/collections/topics/featured').resolves(
-          { data: { 'en/collections/topics/featured': entries.featuredTopics } }
-        );
-      });
-      afterEach(() => {
-        axios.get.reset();
-      });
+
       describe('when rendering on the client', () => {
-        it('gets the data from the cache API endpoint', async() => {
+        it('fetches cached data from the backend', async() => {
           const wrapper = factory(propsData);
+
           await wrapper.vm.fetch();
-          expect(axios.get.calledWith('/_api/cache/en/collections/topics/featured')).toBe(true);
+
+          expect(backendFetch.calledWith(
+            'cache',
+            ['en/collections/topics/featured'],
+            wrapper.vm.$nuxt.context
+          )).toBe(true);
           expect(wrapper.vm.entries).toEqual(entries.featuredTopics);
         });
       });
