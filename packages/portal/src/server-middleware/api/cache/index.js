@@ -11,6 +11,7 @@ const createRedisClient = (config = {}) => {
 };
 
 export const cached = async(ids, config = {}) => {
+  console.log('cached', ids, config);
   if (!config.url) {
     return Promise.reject(new Error('No cache configured.'));
   }

@@ -104,13 +104,13 @@
 </template>
 
 <script>
-  import axios from 'axios';
   import { BTable } from 'bootstrap-vue';
 
   import LoadingSpinner from '../generic/LoadingSpinner';
   import PaginationNavInput from '@/components/generic/PaginationNavInput';
   import SmartLink from '../generic/SmartLink';
   import langAttributeMixin from '@/mixins/langAttribute';
+  import { backendFetch } from '@/utils/backendFetch.js';
 
   export default {
     name: 'EntityTable',
@@ -290,20 +290,19 @@
           sort: this.sort.join(' ')
         };
 
-        // TODO: similar code exists in multiple components now, e.g. also BrowseAutomatedCardGroup;
-        //       abstract out into a helper fn
-        if (process.server) {
-          return import('@/server-middleware/api/collections/index.js')
-            .then((module) => module.fetchData(fetchType, params, this.$config.redis));
-        } else  {
-          return axios.request({
+        return backendFetch(process.server ? {
+          module: {
+            import: () => import('@/server-middleware/api/collections/index.js'),
+            fn: 'fetchData',
+            args: [fetchType, params, this.$config.redis]
+          }
+        } : {
+          http: {
             method: 'get',
-            baseURL: this.$config.app.baseUrl,
             url: `/_api/collections/${fetchType}`,
             params
-          })
-            .then((response) => response.data);
-        }
+          }
+        }, this.$nuxt.context);
       },
       organisationData(org) {
         const nativeName = Object.values(org.prefLabel)[0];
