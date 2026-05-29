@@ -1,11 +1,11 @@
 import { createLocalVue } from '@vue/test-utils';
-import axios from 'axios';
 import { mountNuxt } from '@test/utils.js';
 import sinon from 'sinon';
 import nock from 'nock';
 import BootstrapVue from 'bootstrap-vue';
 
 import EntityTable from '@/components/entity/EntityTable.vue';
+import * as backendFetchModule from '@/utils/backendFetch.js';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -15,12 +15,8 @@ const factory = (propsData = { type: 'organisations' }) => mountNuxt(EntityTable
   localVue,
   propsData,
   mocks: {
-    $config: {
-      app: {
-        baseUrl: 'https://example.org'
-      }
-    },
     $n: (num) => num,
+    $nuxt: { context: { $config: { redis: {} } } },
     $t: (key) => key,
     $i18n: { locale: 'en' },
     $route: { query: { page: 1, query: null, sort: null } },
@@ -69,36 +65,40 @@ const organisations = [
 ];
 
 describe('components/entity/EntityTable', () => {
+  const backendFetch = sinon.stub(backendFetchModule, 'backendFetch')
+    .resolves({ items: collections, total: collections.length });
+
   beforeAll(() => {
     nock.disableNetConnect();
   });
+  afterEach(() => {
+    sinon.resetHistory();
+  });
   afterAll(() => {
     nock.enableNetConnect();
+    sinon.restore();
   });
-  beforeEach(() => {
-    sinon.stub(axios, 'request');
-    axios.request.resolves({ data: { items: collections, total: collections.length } });
-  });
-  afterEach(sinon.restore);
 
   describe('fetch()', () => {
-    it('sends a get request to the collections server middleware', async() => {
+    it('fetches collections data from the backend', async() => {
       const wrapper = factory();
 
       await wrapper.vm.fetch();
 
-      expect(axios.request.calledWith({
-        method: 'get',
-        baseURL: 'https://example.org',
-        url: '/_api/collections/organisations',
-        params: {
-          lang: 'en',
-          page: 1,
-          pageSize: 40,
-          query: null,
-          sort: 'prefLabel asc'
-        }
-      })).toBe(true);
+      expect(backendFetch.calledWith(
+        'collections',
+        [
+          'organisations',
+          {
+            lang: 'en',
+            page: 1,
+            pageSize: 40,
+            query: null,
+            sort: 'prefLabel asc'
+          }
+        ],
+        wrapper.vm.$nuxt.context
+      )).toBe(true);
     });
 
     it('stores collections from response body on component collections property', async() => {

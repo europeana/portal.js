@@ -26,10 +26,10 @@
 </template>
 
 <script>
-  import axios from 'axios';
   import camelCase from 'lodash/camelCase.js';
 
   import InfoCard from '@/components/generic/InfoCard';
+  import { backendFetch } from '@/utils/backendFetch.js';
 
   const EUROPEANA_NUMBERS = 'Europeana numbers';
 
@@ -105,18 +105,7 @@
     },
     methods: {
       fetchCachedData() {
-        if (process.server) {
-          return import('@/server-middleware/api/cache/index.js')
-            .then(module => {
-              return module.cached(this.keys, this.$config.redis)
-                .then((response) => response);
-            });
-        } else {
-          const queryIds = `?id=${this.keys.join('&id=')}`;
-
-          return axios.get(`/_api/cache${queryIds}`, { baseURL: window.location.origin })
-            .then((response) => response.data);
-        }
+        return backendFetch('cache', [this.keys], this.$nuxt.context);
       },
       roundedNumber(number) {
         const precision = 2;
