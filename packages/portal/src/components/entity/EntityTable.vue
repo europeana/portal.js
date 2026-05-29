@@ -304,21 +304,7 @@
           fl: 'id,prefLabel'
         };
 
-        // TODO: similar code exists in multiple components now, e.g. also BrowseAutomatedCardGroup;
-        //       abstract out into a helper fn
-        if (process.server) {
-          return import('@/server-middleware/api/collections/retrieve.js')
-            .then((module) => module.fetchData(ids, params, { $config: this.$config }));
-        } else  {
-          return axios.request({
-            method: 'post',
-            data: ids,
-            baseURL: this.$config.app.baseUrl,
-            url: '/_api/collections/retrieve',
-            params
-          })
-            .then((response) => response.data);
-        }
+        return backendFetch('collections/retrieve', [ids, params], this.$nuxt.context);
       },
       fetchData() {
         let fetchType = this.type;
