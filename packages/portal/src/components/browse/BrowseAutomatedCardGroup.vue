@@ -192,18 +192,7 @@
 
     methods: {
       fetchCachedData() {
-        return backendFetch(process.server ? {
-          module: {
-            import: () => import('@/server-middleware/api/cache/index.js'),
-            fn: 'cached',
-            args: [this.key, this.$config.redis]
-          }
-        } : {
-          http: {
-            method: 'get',
-            url: `/_api/cache/${this.key}`
-          }
-        }, this.$nuxt.context)
+        return backendFetch('cache', [this.key], this.$nuxt.context)
           .then((response) => response[this.key]);
       },
       async fetchContentfulData() {

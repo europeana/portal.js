@@ -105,21 +105,7 @@
     },
     methods: {
       fetchCachedData() {
-        return backendFetch(process.server ? {
-          module: {
-            import: () => import('@/server-middleware/api/cache/index.js'),
-            fn: 'cached',
-            args: [this.keys, this.$config.redis]
-          }
-        } : {
-          http: {
-            method: 'get',
-            url: '/_api/cache',
-            params: {
-              id: this.keys
-            }
-          }
-        }, this.$nuxt.context);
+        return backendFetch('cache', [this.keys], this.$nuxt.context);
       },
       roundedNumber(number) {
         const precision = 2;

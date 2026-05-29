@@ -290,19 +290,7 @@
           sort: this.sort.join(' ')
         };
 
-        return backendFetch(process.server ? {
-          module: {
-            import: () => import('@/server-middleware/api/collections/index.js'),
-            fn: 'fetchData',
-            args: [fetchType, params, this.$config.redis]
-          }
-        } : {
-          http: {
-            method: 'get',
-            url: `/_api/collections/${fetchType}`,
-            params
-          }
-        }, this.$nuxt.context);
+        return backendFetch('collections', [fetchType, params], this.$nuxt.context);
       },
       organisationData(org) {
         const nativeName = Object.values(org.prefLabel)[0];
