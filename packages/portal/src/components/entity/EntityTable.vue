@@ -64,6 +64,13 @@
         </SmartLink>
       </template>
       <template
+        #cell(recordCount)="data"
+      >
+        <span>
+          {{ $n(data.item.recordCount) }}
+        </span>
+      </template>
+      <template
         #cell(aggregator)="data"
       >
         <EntityBadges
