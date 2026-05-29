@@ -77,7 +77,7 @@
           class="button-toggle button-icon-only icon-chevron"
           :class="{'show': row.detailsShowing}"
           variant="light-flat"
-          @click="row.toggleDetails"
+          @click="toggleDetailsRow(row.item.id)"
         >
           <span class="visually-hidden">
             {{ $t('pages.collections.table.showMoreData', { entity: row.item.prefLabel }) }}
@@ -224,6 +224,9 @@
       }
 
       this.collections = collections;
+
+      console.log('setting expanded row after fetch');
+      this.setExpandedRow();
     },
 
     computed: {
@@ -260,6 +263,12 @@
       },
       isOrganisationsType() {
         return this.type === 'organisations';
+      },
+      selectedAggregatorId() {
+        if (this.$route.hash?.split('-').length <= 1) {
+          return null;
+        }
+        return this.$route.hash.split('-')[1];
       }
     },
 
@@ -270,6 +279,9 @@
           this.query = this.$route.query.query;
           this.$fetch();
         }
+      },
+      '$route.hash'() {
+        this.setExpandedRow();
       }
     },
 
@@ -319,6 +331,26 @@
           altLabelLang: englishNameLang,
           ...org.heritageDomain && { heritageDomain: org.heritageDomain.join(', ') }
         };
+      },
+      setExpandedRow() {
+        // if (this.selectedAggregatorId && this.collections) {
+        // unset any other values here first, to colapse previously opened rows?
+        console.log('checking for', this.selectedAggregatorId);
+        let row = this.collections.find((row) => row.id.endsWith(this.selectedAggregatorId));
+        console.log('row', row);
+        if (row) {
+          row['_showDetails'] = true;
+          console.log('row_showDetails', row['_showDetails']);
+        }
+      //  }
+      },
+      toggleDetailsRow(id) {
+        console.log('toggling details show for', id);
+        const numericId = id.split('/').pop();
+        this.$router.push({
+          ...this.$route,
+          hash: this.$route.hash.replace(this.selectedAggregatorId, numericId)
+        });
       },
       entityRoute(slug) {
         return `/collections/${this.typeSingular}/${slug}`;

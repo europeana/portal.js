@@ -20,8 +20,8 @@ export default function useActiveTab(tabHashes, options = {}) {
       if (!route.hash) {
         activeTabIndex.value = 0;
         activeTabHistory.value.push(activeTabHash.value);
-      } else if (tabHashes.includes(route.hash)) {
-        activeTabIndex.value = tabHashes.indexOf(route.hash);
+      } else if (tabHashes.includes(route.hash.split('-')[0])) {
+        activeTabIndex.value = tabHashes.indexOf(route.hash.split('-')[0]);
         activeTabHistory.value.push(activeTabHash.value);
       }
     }
