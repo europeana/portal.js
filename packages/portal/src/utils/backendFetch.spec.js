@@ -4,16 +4,18 @@ import sinon from 'sinon';
 
 import { backendFetch } from './backendFetch.js';
 
+import * as cacheBackendServerMiddlewareModule from '@/server-middleware/api/cache/index.js';
+import * as collectionsBackendServerMiddlewareModule from '@/server-middleware/api/collections/index.js';
+
 describe('@/utils/backendFetch.js', () => {
   const clientSide = () => {
     process.client = true;
     process.server = false;
   };
-  // TODO: spec server-side module imports
-  // const serverSide = () => {
-  //   process.client = false;
-  //   process.server = true;
-  // };
+  const serverSide = () => {
+    process.client = false;
+    process.server = true;
+  };
 
   const baseUrl = 'https://example.org';
 
@@ -33,6 +35,24 @@ describe('@/utils/backendFetch.js', () => {
   describe('backendFetch', () => {
     describe('backend: cache', () => {
       const id = 'cache';
+      const keys = ['items/featured', 'matomo/visits'];
+      const response = { 'items/featured': ['/123/abc'], 'matomo/visits': 4000 };
+
+      describe('server-side', () => {
+        beforeEach(() => {
+          serverSide();
+        });
+
+        it('fetches cached content for supplied keys from server middleware module fn', async() => {
+          const context = { $config: { redis: {} } };
+          const fn = sinon.stub(cacheBackendServerMiddlewareModule, 'cached').resolves(response);
+
+          const fetched = await backendFetch(id, [keys], context);
+
+          expect(fn.calledWith(['items/featured', 'matomo/visits'], {})).toBe(true);
+          expect(fetched).toEqual(response);
+        });
+      });
 
       describe('client-side', () => {
         beforeEach(() => {
@@ -41,8 +61,7 @@ describe('@/utils/backendFetch.js', () => {
 
         it('fetches cached content for supplied keys from /_api/cache', async() => {
           const context = { $config: { app: { baseUrl } } };
-          const keys = ['items/featured', 'matomo/visits'];
-          const response = { 'items/featured': ['/123/abc'], 'matomo/visits': 4000 };
+
           nock(baseUrl)
             .get('/_api/cache')
             .query((query) => isEqual(query.id, keys))
@@ -58,6 +77,28 @@ describe('@/utils/backendFetch.js', () => {
 
     describe('backend: collections', () => {
       const id = 'collections';
+      const type = 'organisations/aggregators';
+      const params = {
+        page: '2',
+        query: 'museum'
+      };
+      const response = { items: [{ id: 'http://data.example.org/organization/1' }] };
+
+      describe('server-side', () => {
+        beforeEach(() => {
+          serverSide();
+        });
+
+        it('fetches cached content for supplied keys from server middleware module fn', async() => {
+          const context = { $config: { redis: {} } };
+          const fn = sinon.stub(collectionsBackendServerMiddlewareModule, 'fetchData').resolves(response);
+
+          const fetched = await backendFetch(id, [type, params], context);
+
+          expect(fn.calledWith('organisations/aggregators', { page: '2', query: 'museum' }, {})).toBe(true);
+          expect(fetched).toEqual(response);
+        });
+      });
 
       describe('client-side', () => {
         beforeEach(() => {
@@ -66,12 +107,6 @@ describe('@/utils/backendFetch.js', () => {
 
         it('fetches collections content for supplied type and params from /_api/collections/${type}', async() => {
           const context = { $config: { app: { baseUrl } } };
-          const type = 'organisations/aggregators';
-          const params = {
-            page: '2',
-            query: 'museum'
-          };
-          const response = { items: [{ id: 'http://data.example.org/organization/1' }] };
           nock(baseUrl)
             .get('/_api/collections/organisations/aggregators')
             .query((query) => isEqual(query, params))
