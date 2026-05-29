@@ -240,7 +240,6 @@
         if (this.fields.includes('aggregator')) {
           aggregators = await this.fetchAggregatorData(collections);
         }
-        console.log('aggregators', aggregators);
 
         collections = collections.map((org) => this.organisationData(org, aggregators));
       }
