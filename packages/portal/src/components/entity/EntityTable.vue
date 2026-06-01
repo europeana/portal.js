@@ -110,6 +110,7 @@
   import LoadingSpinner from '../generic/LoadingSpinner';
   import PaginationNavInput from '@/components/generic/PaginationNavInput';
   import SmartLink from '../generic/SmartLink';
+  import useScrollTo from '@/composables/scrollTo.js';
   import langAttributeMixin from '@/mixins/langAttribute';
   import { backendFetch } from '@/utils/backendFetch.js';
 
@@ -167,6 +168,11 @@
         type: Number,
         default: 40
       }
+    },
+
+    setup() {
+      const { scrollToSelector } = useScrollTo();
+      return { scrollToSelector };
     },
 
     data() {
@@ -330,7 +336,9 @@
           expansionTargetRow['_showDetails'] = true;
           console.log('expansionTargetRow_showDetails set to', expansionTargetRow['_showDetails']);
         }
-      //  }
+        this.$nextTick(() => {
+          this.scrollToSelector(this.rowHash(this.initiallyExpanded))
+        });
       },
       rowId(id) {
         return this.rowHash(id).slice(1);
