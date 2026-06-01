@@ -401,6 +401,10 @@
       display: none;
     }
 
+    tr {
+      scroll-margin-top: 4rem;
+    }
+
     .button-toggle {
       background-color: transparent;
       &::before {
