@@ -129,13 +129,6 @@
 
     props: {
       /**
-       * index to differentiate multiple tables
-       */
-      index: {
-        type: String,
-        default: null
-      },
-      /**
        * the type of entity, human-friendly, plural
        * @values organisations, topics, times
        */
@@ -147,6 +140,13 @@
        * sub-type of entity, e.g. "aggregators"
        */
       subType: {
+        type: String,
+        default: null
+      },
+      /**
+       * id to differentiate multiple tables
+       */
+      tableId: {
         type: String,
         default: null
       },
@@ -235,10 +235,13 @@
 
     computed: {
       id() {
-        return this.index ? `entity-table-${this.index}` : 'entity-table';
+        return this.tableId ? `entity-table-${this.tableId}` : 'entity-table';
       },
       currentPage() {
         return Number(this.$route?.query?.page) || 1;
+      },
+      sortQuery() {
+        return this.tableId ? `${this.tableId}-sort` : 'sort';
       },
       sortBy: {
         get() {
@@ -259,12 +262,10 @@
       },
       sort: {
         get() {
-          const sortQuery = this.index ? this.$route?.query?.[`t${this.index}-sort`] : this.$route?.query?.sort;
-          return sortQuery?.split(' ') || ['prefLabel', 'asc'];
+          return this.$route?.query?.[this.sortQuery]?.split(' ') || ['prefLabel', 'asc'];
         },
         set({ sortBy, sortDesc }) {
-          const sortQuery = this.index ? `t${this.index}-sort` : 'sort';
-          const newRouteQuery = { [sortQuery]: `${sortBy} ${sortDesc ? 'desc' : 'asc'}` };
+          const newRouteQuery = { [this.sortQuery]: `${sortBy} ${sortDesc ? 'desc' : 'asc'}` };
           if (this.perPage) {
             newRouteQuery.page = 1;
           }

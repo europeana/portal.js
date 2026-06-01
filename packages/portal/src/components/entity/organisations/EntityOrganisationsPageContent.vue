@@ -25,8 +25,8 @@
       </template>
       <template v-else-if="tab === 'aggregators'">
         <div
-          v-for="type, index in aggregatorTypes"
-          :key="index"
+          v-for="type in aggregatorTypes"
+          :key="type.key"
         >
           <b-col
             cols="12"
@@ -38,7 +38,7 @@
             <p>{{ $t(`organisations.${type.key}.description`) }}</p>
           </b-col>
           <EntityTable
-            :index="`${index}`"
+            :table-id="type.key"
             type="organisations"
             sub-type="aggregators"
             :data-qa="`${type.key} entity table`"
