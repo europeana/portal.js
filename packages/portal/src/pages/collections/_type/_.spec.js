@@ -14,18 +14,8 @@ const redirectSpy = sinon.spy();
 const organisationEntity = {
   entity: {
     id: 'http://data.europeana.eu/organization/01234567890',
-    logo: { id: 'http://commons.wikimedia.org/wiki/Special:FilePath/Albertina%20Logo.svg' },
-    mbox: 'email@example.org',
     prefLabel: { en: 'English name', nl: 'Dutch name' },
-    homepage: 'https://www.example-organisation.eu',
-    hasAddress: {
-      countryName: 'The Netherlands',
-      locality: 'The Hague'
-    },
-    geographicScope: 'National',
-    description: { en: ['example of an organisation description'] },
-    acronym: { en: 'ABC' },
-    type: 'Organization'
+    description: { en: ['example of an organisation description'] }
   },
   type: 'organisation',
   pathMatch: '01234567890-organisation'
@@ -62,7 +52,6 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
       userHasClientRole: options.userHasClientRoleStub || sinon.stub().returns(false)
     },
     $fetchState: {},
-    $features: {},
     $t: (key, args) => args ? `${key} ${args}` : key,
     $route: {
       query: options.query || '',
@@ -71,8 +60,7 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
     $apis: {
       entity: {
         get: options.get || sinon.stub().resolves({}),
-        facets: sinon.stub().resolves([]),
-        imageUrl: sinon.spy()
+        facets: sinon.stub().resolves([])
       },
       entityManagement: {
         get: sinon.stub().resolves({})
@@ -304,39 +292,12 @@ describe('pages/collections/_type/_', () => {
       });
     });
 
-    describe('contextLabel', () => {
-      it('returns the label for an organisation', () => {
-        const wrapper = factory(organisationEntity);
-
-        const contextLabel = wrapper.vm.contextLabel;
-        expect(contextLabel).toBe('cardLabels.organisation');
-      });
-    });
-
     describe('collectionType', () => {
       it('returns the collection type', () => {
         const wrapper = factory(organisationEntity);
 
         const collectionType = wrapper.vm.collectionType;
         expect(collectionType).toBe('organisation');
-      });
-    });
-
-    describe('logo', () => {
-      it('returns a logo on organisation pages', () => {
-        const wrapper = factory(organisationEntity);
-
-        const logo = wrapper.vm.logo;
-        expect(logo).toBe(organisationEntity.entity.logo.id);
-      });
-    });
-
-    describe('mbox', () => {
-      it('returns the email on organisation pages', () => {
-        const wrapper = factory(organisationEntity);
-
-        const mbox = wrapper.vm.mbox;
-        expect(mbox).toBe(organisationEntity.entity.mbox);
       });
     });
 
@@ -366,16 +327,6 @@ describe('pages/collections/_type/_', () => {
       });
     });
 
-    describe('subTitle', () => {
-      it('uses the English prefLabel for an organisation, if non-native', () => {
-        const wrapper = factory(organisationEntity);
-
-        const subTitle = wrapper.vm.subTitle.values[0];
-
-        expect(subTitle).toBe(organisationEntity.entity.prefLabel.en);
-      });
-    });
-
     describe('description', () => {
       it('uses the entity note, if present', () => {
         const wrapper = factory(topicEntity);
@@ -391,37 +342,6 @@ describe('pages/collections/_type/_', () => {
         const description = wrapper.vm.description.values;
 
         expect(description).toEqual(organisationEntity.entity.description.en);
-      });
-    });
-
-    describe('homepage', () => {
-      it('returns a homepage on organisation pages', () => {
-        const wrapper = factory(organisationEntity);
-
-        const homepage = wrapper.vm.homepage;
-        expect(homepage).toBe(organisationEntity.entity.homepage);
-      });
-    });
-
-    describe('thumbnail', () => {
-      it('returns a thumbnail when available', () => {
-        const wrapper = factory(topicEntity);
-
-        wrapper.vm.thumbnail;
-        expect(wrapper.vm.$apis.entity.imageUrl.called).toBe(true);
-      });
-    });
-    describe('moreInfo', () => {
-      it('returns an array with more entity data on organisation pages', () => {
-        const wrapper = factory(organisationEntity);
-
-        const moreInfo = wrapper.vm.moreInfo;
-        expect(moreInfo[0].value).toBe(organisationEntity.entity.prefLabel.en);
-        expect(moreInfo[1].value).toBe(organisationEntity.entity.acronym.en);
-        expect(moreInfo[2].value).toBe(organisationEntity.entity.hasAddress.countryName);
-        expect(moreInfo[3].value).toBe(organisationEntity.entity.hasAddress.locality);
-        expect(moreInfo[4].value).toBe(organisationEntity.entity.homepage);
-        expect(moreInfo[5].value).toBe(organisationEntity.entity.geographicScope);
       });
     });
   });

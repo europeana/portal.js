@@ -4,7 +4,10 @@
     data-qa="related collections"
     class="related-collections"
   >
-    <h2 class="related-heading text-uppercase">
+    <h2
+      v-if="showTitle"
+      class="related-heading text-uppercase"
+    >
       {{ title || $t('related.collections.title') }}
     </h2>
     <component
@@ -99,6 +102,13 @@
       limit: {
         type: Number,
         default: null
+      },
+      /**
+       * Show or hide title
+       */
+      showTitle: {
+        type: Boolean,
+        default: true
       }
     },
 

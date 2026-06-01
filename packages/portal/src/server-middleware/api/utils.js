@@ -1,8 +1,5 @@
 import apm from 'elastic-apm-node';
-import defu  from 'defu';
 import createHttpError from 'http-errors';
-
-import nuxtConfig from '../../../nuxt.config.js';
 
 export const errorHandler = (err, req, res, next) => {
   if (err) {
@@ -20,19 +17,6 @@ export const errorHandler = (err, req, res, next) => {
     }
   } else {
     next();
-  }
-};
-
-let runtimeConfig;
-export const nuxtRuntimeConfig = (key) => {
-  if (!runtimeConfig) {
-    runtimeConfig = defu(nuxtConfig.privateRuntimeConfig, nuxtConfig.publicRuntimeConfig);
-  }
-
-  if (key) {
-    return runtimeConfig[key];
-  } else {
-    return runtimeConfig;
   }
 };
 
