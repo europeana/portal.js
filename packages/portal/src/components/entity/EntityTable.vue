@@ -31,6 +31,7 @@
       :items="collections"
       :sort-by.sync="sortBy"
       :sort-desc.sync="sortDesc"
+      :tbody-tr-attr="(item) => ({ id: rowId(item.id) })"
       striped
       class="borderless"
     >
@@ -77,7 +78,7 @@
           class="button-toggle button-icon-only icon-chevron"
           :class="{'show': row.detailsShowing}"
           variant="light-flat"
-          @click="setExpandedHash(row.item.id)"
+          :to="rowHash(row.item.id)"
         >
           <span class="visually-hidden">
             {{ $t('pages.collections.table.showMoreData', { entity: row.item.prefLabel }) }}
@@ -353,15 +354,12 @@
         }
       //  }
       },
-      setExpandedHash(id) {
-        console.log('toggling details show for', id);
+      rowId(id) {
+        return this.rowHash(id).slice(1);
+      },
+      rowHash(id) {
         const numericId = id.split('/').pop();
-        // TODO: Remove hash on collapse
-        const targetHash = this.expandedEntityId ? this.$route.hash.replace(this.expandedEntityId, numericId) : this.$route.hash + `-${numericId}`;
-        this.$router.replace({
-          hash: targetHash
-          // TODO: prevent this from scolling the page
-        });
+        return this.expandedEntityId ? this.$route.hash.replace(this.expandedEntityId, numericId) : this.$route.hash + `-${numericId}`;
       },
       entityRoute(slug) {
         return `/collections/${this.typeSingular}/${slug}`;
