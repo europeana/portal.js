@@ -203,7 +203,7 @@
 
       return {
         collections: null,
-        query: this.$route?.query?.query || null,
+        query: this.$route?.query?.query || undefined,
         tableFields: fields.filter((field) => this.displayField(field.key)),
         typeSingular: this.type.slice(0, -1),
         totalResults: this.collections?.length || 0
@@ -277,10 +277,9 @@
       '$route.query': {
         deep: true,
         handler() {
-          if (this.query !== this.$route.query.query) {
-            this.query = this.$route.query.query;
-            this.$fetch();
-          }
+          // TODO: is this query assignment needed?
+          // this.query = this.$route.query.query;
+          this.$fetch();
         }
       },
       '$route.hash'() {
