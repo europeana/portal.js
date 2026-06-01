@@ -78,7 +78,7 @@
           class="button-toggle button-icon-only icon-chevron"
           :class="{'show': row.detailsShowing}"
           variant="light-flat"
-          :to="row.detailsShowing ? removeRowHash() : rowHash(row.item.id)"
+          @click="row.toggleDetails"
         >
           <span class="visually-hidden">
             {{ $t('pages.collections.table.showMoreData', { entity: row.item.prefLabel }) }}
@@ -206,7 +206,8 @@
         query: this.$route?.query?.query || undefined,
         tableFields: fields.filter((field) => this.displayField(field.key)),
         typeSingular: this.type.slice(0, -1),
-        totalResults: this.collections?.length || 0
+        totalResults: this.collections?.length || 0,
+        initiallyExpanded: this.$route.hash?.split('-').length <= 1 ? undefined : this.$route.hash.split('-')[1]
       };
     },
 
@@ -264,12 +265,6 @@
       },
       isOrganisationsType() {
         return this.type === 'organisations';
-      },
-      expandedEntityId() {
-        if (this.$route.hash?.split('-').length <= 1) {
-          return null;
-        }
-        return this.$route.hash.split('-')[1];
       }
     },
 
@@ -282,9 +277,6 @@
           this.$fetch();
         }
       },
-      '$route.hash'() {
-        this.setExpandedRow();
-      }
     },
 
     methods: {
@@ -323,19 +315,19 @@
       },
       setExpandedRow() {
         // if (this.expandedEntityId && this.collections) {
-        console.log('checking for', this.expandedEntityId);
-        const expansionTargetRow = this.collections.find((row) => row.id.endsWith(this.expandedEntityId));
+        console.log('checking for', this.initiallyExpanded);
+        const expansionTargetRow = this.collections.find((row) => row.id.endsWith(this.initiallyExpanded));
 
         // for any rows which weren't targeted, switch expansion off.
-        this.collections.filter((row) => row['_showDetails']).forEach(expandedRow => {
-          if (expandedRow !== expansionTargetRow) {
-            expandedRow['_showDetails'] = false;
-          }
-        });
+        // this.collections.filter((row) => row['_showDetails']).forEach(expandedRow => {
+        //   if (expandedRow !== expansionTargetRow) {
+        //     expandedRow['_showDetails'] = false;
+        //   }
+        // });
 
         // toggle expanded status of target row
         if (expansionTargetRow) {
-          expansionTargetRow['_showDetails'] = !expansionTargetRow['_showDetails'];
+          expansionTargetRow['_showDetails'] = true;
           console.log('expansionTargetRow_showDetails set to', expansionTargetRow['_showDetails']);
         }
       //  }
@@ -345,10 +337,7 @@
       },
       rowHash(id) {
         const numericId = id.split('/').pop();
-        return this.expandedEntityId ? this.$route.hash.replace(this.expandedEntityId, numericId) : this.$route.hash + `-${numericId}`;
-      },
-      removeRowHash() {
-        return this.$route.hash.replace('-' + this.expandedEntityId, '');
+        return this.initiallyExpanded ? this.$route.hash.replace(this.initiallyExpanded, numericId) : this.$route.hash + `-${numericId}`;
       },
       entityRoute(slug) {
         return `/collections/${this.typeSingular}/${slug}`;
