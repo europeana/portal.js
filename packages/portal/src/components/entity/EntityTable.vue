@@ -26,7 +26,7 @@
       />
     </b-form>
     <b-table
-      id="entity-table"
+      :id="id"
       :fields="tableFields"
       :items="collections"
       :sort-by.sync="sortBy"
@@ -143,6 +143,13 @@
         type: String,
         default: null
       },
+      /**
+       * id to differentiate multiple tables
+       */
+      tableId: {
+        type: String,
+        default: null
+      },
       fields: {
         type: Array,
         default: () => ['prefLabel']
@@ -227,8 +234,14 @@
     },
 
     computed: {
+      id() {
+        return this.tableId ? `entity-table-${this.tableId}` : 'entity-table';
+      },
       currentPage() {
         return Number(this.$route?.query?.page) || 1;
+      },
+      sortQuery() {
+        return this.tableId ? `${this.tableId}-sort` : 'sort';
       },
       sortBy: {
         get() {
@@ -249,10 +262,14 @@
       },
       sort: {
         get() {
-          return this.$route?.query?.sort?.split(' ') || ['prefLabel', 'asc'];
+          return this.$route?.query?.[this.sortQuery]?.split(' ') || ['prefLabel', 'asc'];
         },
         set({ sortBy, sortDesc }) {
-          this.updateRouteQuery({ sort: `${sortBy} ${sortDesc ? 'desc' : 'asc'}`, page: 1 });
+          const newRouteQuery = { [this.sortQuery]: `${sortBy} ${sortDesc ? 'desc' : 'asc'}` };
+          if (this.perPage) {
+            newRouteQuery.page = 1;
+          }
+          this.updateRouteQuery(newRouteQuery);
         }
       },
       aggregatorType() {
