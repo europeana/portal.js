@@ -243,14 +243,13 @@ describe('components/entity/EntityTable', () => {
     });
 
     describe('when a table ID is set', () => {
-      it('updates the route query including it', async() => {
+      it('updates the route query including it', () => {
         const wrapper = factory({ type: 'organisations', tableId: 'aggregators' });
         sinon.spy(wrapper.vm, 'updateRouteQuery');
 
-        const recordCountTh = wrapper.find('.table-name-cell');
-        await recordCountTh.trigger('click');
+        wrapper.vm.sortBy = 'recordCount';
 
-        expect(wrapper.vm.updateRouteQuery.calledWith({ 'aggregators-sort': 'prefLabel desc', page: 1 })).toBe(true);
+        expect(wrapper.vm.updateRouteQuery.calledWith({ 'aggregators-sort': 'recordCount asc', page: 1 })).toBe(true);
       });
     });
   });
