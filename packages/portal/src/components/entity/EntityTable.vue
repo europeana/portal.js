@@ -232,6 +232,7 @@
       let collections = data.items;
 
       if (this.filter) {
+        // TODO: this should preferably happen on the BFF
         collections = collections.filter(this.filter);
       }
 
@@ -298,6 +299,7 @@
       displayField(key) {
         return this.fields.includes(key);
       },
+      // TODO: this would preferably be handled by the fetchData BFF
       fetchAggregatorData(organisations) {
         const ids = organisations.map((org) => org.aggregatedVia).flat().filter(Boolean);
         const params = {

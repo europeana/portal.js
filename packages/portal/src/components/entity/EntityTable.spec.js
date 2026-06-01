@@ -1,16 +1,15 @@
 import { createLocalVue } from '@vue/test-utils';
-import { mountNuxt } from '@test/utils.js';
+import { shallowMountNuxt } from '@test/utils.js';
 import sinon from 'sinon';
 import nock from 'nock';
-import BootstrapVue from 'bootstrap-vue';
 
-import EntityTable from '@/components/entity/EntityTable.vue';
+import EntityTable from './EntityTable.vue';
+import { fixtures } from './EntityTable.fixtures.js';
 import * as backendFetchModule from '@/utils/backendFetch.js';
 
 const localVue = createLocalVue();
-localVue.use(BootstrapVue);
 
-const factory = (propsData = { type: 'organisations' }) => mountNuxt(EntityTable, {
+const factory = (propsData = fixtures.propsData.organisations) => shallowMountNuxt(EntityTable, {
   attachTo: document.body,
   localVue,
   propsData,
@@ -23,56 +22,22 @@ const factory = (propsData = { type: 'organisations' }) => mountNuxt(EntityTable
     $router: { push: () => {} },
     localePath: () => '/'
   },
-  stubs: ['SmartLink', 'EntityOrganisationsRelated', 'PaginationNavInput']
+  stubs: ['SmartLink', 'EntityOrganisationsRelated', 'PaginationNavInput', 'b-form-input', 'b-form']
 });
 
-const collections = [
-  {
-    id: 'http://data.europeana.eu/organization/001',
-    slug: '001-museum',
-    prefLabel: { de: 'museum' },
-    altLabel: { en: 'museum' },
-    countryPrefLabel: 'Deutschland'
-  },
-  {
-    id: 'http://data.europeana.eu/organization/002',
-    slug: '002-library',
-    prefLabel: { nl: 'bibliotheek' },
-    altLabel: { en: 'library' },
-    countryPrefLabel: 'Nederland'
-  }
-];
-
-const organisations = [
-  {
-    id: 'http://data.europeana.eu/organization/001',
-    slug: '001-museum',
-    prefLabel: 'museum',
-    prefLabelLang: 'de',
-    altLabel: 'museum',
-    altLabelLang: 'en',
-    countryPrefLabel: 'Deutschland'
-  },
-  {
-    id: 'http://data.europeana.eu/organization/002',
-    slug: '002-library',
-    prefLabel: 'bibliotheek',
-    prefLabelLang: 'nl',
-    altLabel: 'library',
-    altLabelLang: 'en',
-    countryPrefLabel: 'Nederland'
-  }
-];
-
 describe('components/entity/EntityTable', () => {
-  const backendFetch = sinon.stub(backendFetchModule, 'backendFetch')
-    .resolves({ items: collections, total: collections.length });
+  const backendFetch = sinon.stub(backendFetchModule, 'backendFetch');
 
   beforeAll(() => {
     nock.disableNetConnect();
   });
+  beforeEach(() => {
+    backendFetch.withArgs('collections', sinon.match.array, sinon.match.object)
+      .resolves({ items: fixtures.backend.collections.organisations, total: fixtures.backend.collections.organisations.length });
+  });
   afterEach(() => {
     sinon.resetHistory();
+    sinon.resetBehavior();
   });
   afterAll(() => {
     nock.enableNetConnect();
@@ -106,17 +71,61 @@ describe('components/entity/EntityTable', () => {
 
       await wrapper.vm.fetch();
 
-      expect(wrapper.vm.collections).toEqual(organisations);
+      expect(wrapper.vm.collections).toEqual(fixtures.frontend.organisations);
     });
 
     describe('when there is a filter function', () => {
       it('stores filtered collections on collections property', async() => {
-        const wrapper = factory({ type: 'organisations', filter: (org) => org.id.endsWith('/001') });
+        const wrapper = factory({ ...fixtures.propsData.organisations, filter: (org) => org.id.endsWith('/001') });
 
         await wrapper.vm.fetch();
 
         expect(wrapper.vm.collections.length).toBe(1);
-        expect(wrapper.vm.collections[0]).toEqual(organisations[0]);
+        expect(wrapper.vm.collections[0]).toEqual(fixtures.frontend.organisations[0]);
+      });
+    });
+
+    describe('when type is "organisations"', () => {
+      describe('and fields includes "aggregator"', () => {
+        const propsData = fixtures.propsData.organisationsWithAggregatedVia;
+
+        beforeEach(() => {
+          backendFetch.withArgs('collections', sinon.match.array, sinon.match.object)
+            .resolves({
+              items: fixtures.backend.collections.organisationsWithAggregatedVia,
+              total: fixtures.backend.collections.organisationsWithAggregatedVia.length
+            });
+          backendFetch.withArgs('collections/retrieve', sinon.match.array, sinon.match.object)
+            .resolves(fixtures.backend['collections/retrieve'].aggregators);
+        });
+
+        it('fetches aggregator data from the backend', async() => {
+          const wrapper = factory(propsData);
+
+          await wrapper.vm.fetch();
+
+          expect(backendFetch.calledWith(
+            'collections/retrieve',
+            [
+              [
+                ...fixtures.backend.collections.organisationsWithAggregatedVia[0].aggregatedVia,
+                ...fixtures.backend.collections.organisationsWithAggregatedVia[1].aggregatedVia
+              ],
+              {
+                fl: 'id,prefLabel'
+              }
+            ],
+            wrapper.vm.$nuxt.context
+          )).toBe(true);
+        });
+
+        it('adds aggregator data to stored collections', async() => {
+          const wrapper = factory(propsData);
+
+          await wrapper.vm.fetch();
+
+          expect(wrapper.vm.collections).toEqual(fixtures.frontend.organisationsWithAggregatedVia);
+        });
       });
     });
   });
@@ -125,9 +134,9 @@ describe('components/entity/EntityTable', () => {
     it('returns the local path', async() => {
       const wrapper = factory();
 
-      const entityRoute = wrapper.vm.entityRoute(organisations[0].slug);
+      const entityRoute = wrapper.vm.entityRoute(fixtures.frontend.organisations[0].slug);
 
-      expect(entityRoute).toBe(`/collections/organisation/${organisations[0].slug}`);
+      expect(entityRoute).toBe(`/collections/organisation/${fixtures.frontend.organisations[0].slug}`);
     });
   });
 
@@ -224,14 +233,13 @@ describe('components/entity/EntityTable', () => {
   });
 
   describe('when the table is sorted', () => {
-    it('updates the route query', async() => {
+    it('updates the route query', () => {
       const wrapper = factory();
       sinon.spy(wrapper.vm, 'updateRouteQuery');
 
-      const recordCountTh = wrapper.find('.table-name-cell');
-      await recordCountTh.trigger('click');
+      wrapper.vm.sortBy = 'recordCount';
 
-      expect(wrapper.vm.updateRouteQuery.calledWith({ sort: 'prefLabel desc', page: 1 })).toBe(true);
+      expect(wrapper.vm.updateRouteQuery.calledWith({ sort: 'recordCount asc', page: 1 })).toBe(true);
     });
   });
 });
