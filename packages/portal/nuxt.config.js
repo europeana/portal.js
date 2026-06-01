@@ -489,7 +489,7 @@ export default {
   serverMiddleware: [
     // We can't use /api as that's reserved on www.europeana.eu for (deprecated)
     // access to Europeana APIs.
-    { path: '/_api', handler: '~/server-middleware/api' },
+    { path: '/_api', handler: '~/server-middleware/api.js' },
     { path: '/robots.txt', handler: '~/server-middleware/robots.txt' },
     '~/server-middleware/logging',
     '~/server-middleware/referrer-policy',
