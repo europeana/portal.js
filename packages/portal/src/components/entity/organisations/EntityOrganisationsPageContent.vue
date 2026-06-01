@@ -38,6 +38,7 @@
             <p>{{ $t(`organisations.${type.key}.description`) }}</p>
           </b-col>
           <EntityTable
+            :index="`${index}`"
             type="organisations"
             sub-type="aggregators"
             :data-qa="`${type.key} entity table`"

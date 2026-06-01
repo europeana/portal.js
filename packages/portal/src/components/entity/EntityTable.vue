@@ -26,7 +26,7 @@
       />
     </b-form>
     <b-table
-      id="entity-table"
+      :id="id"
       :fields="tableFields"
       :items="collections"
       :sort-by.sync="sortBy"
@@ -129,6 +129,13 @@
 
     props: {
       /**
+       * index to differentiate multiple tables
+       */
+      index: {
+        type: String,
+        default: null
+      },
+      /**
        * the type of entity, human-friendly, plural
        * @values organisations, topics, times
        */
@@ -227,6 +234,9 @@
     },
 
     computed: {
+      id() {
+        return `entity-table${this.index ? `-${this.index}` : ''}`;
+      },
       currentPage() {
         return Number(this.$route?.query?.page) || 1;
       },
@@ -249,10 +259,16 @@
       },
       sort: {
         get() {
-          return this.$route?.query?.sort?.split(' ') || ['prefLabel', 'asc'];
+          const sortQuery = this.index ? this.$route?.query?.[`t${this.index}-sort`] : this.$route?.query?.sort;
+          return sortQuery?.split(' ') || ['prefLabel', 'asc'];
         },
         set({ sortBy, sortDesc }) {
-          this.updateRouteQuery({ sort: `${sortBy} ${sortDesc ? 'desc' : 'asc'}`, page: 1 });
+          const sortQuery = this.index ? `t${this.index}-sort` : 'sort';
+          const newRouteQuery = { [sortQuery]: `${sortBy} ${sortDesc ? 'desc' : 'asc'}` };
+          if (this.perPage) {
+            newRouteQuery.page = 1;
+          }
+          this.updateRouteQuery(newRouteQuery);
         }
       },
       aggregatorType() {

@@ -233,5 +233,17 @@ describe('components/entity/EntityTable', () => {
 
       expect(wrapper.vm.updateRouteQuery.calledWith({ sort: 'prefLabel desc', page: 1 })).toBe(true);
     });
+
+    describe('when an index is set', () => {
+      it('updates the route query per index', async() => {
+        const wrapper = factory({ type: 'organisations', index: '1' });
+        sinon.spy(wrapper.vm, 'updateRouteQuery');
+
+        const recordCountTh = wrapper.find('.table-name-cell');
+        await recordCountTh.trigger('click');
+
+        expect(wrapper.vm.updateRouteQuery.calledWith({ 't1-sort': 'prefLabel desc', page: 1 })).toBe(true);
+      });
+    });
   });
 });
