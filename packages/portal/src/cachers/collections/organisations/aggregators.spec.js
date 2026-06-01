@@ -6,61 +6,43 @@ import nock from 'nock';
 const countryLabel = 'France';
 const slug = '001-museum';
 const searchResponse = [
-  { id: 'http://data.europeana.eu/organization/001', slug },
+  { id: 'http://data.europeana.eu/organization/001', slug, country: { id: 'http://data.europeana.eu/place/100' } },
   { id: 'http://data.europeana.eu/organization/002' }
 ];
 
 const domain = ['Film heritage'];
-const retrieveResponse = {
-  items: [
-    {
-      id: 'http://data.europeana.eu/organization/001',
-      geographicScope: 'National',
-      type: 'Aggregator',
-      prefLabel: { en: 'Museum', es: 'Museo' },
-      country: { prefLabel: countryLabel },
-      isAggregatedBy: { recordCount: 100 }
-    },
-    {
-      id: 'http://data.europeana.eu/organization/002',
-      geographicScope: 'International',
-      heritageDomain: domain,
-      type: 'Aggregator',
-      prefLabel: { en: 'Gallery' },
-      isAggregatedBy: { recordCount: 100 }
-    }
-  ]
-};
+const retrieveResponse = [
+  {
+    id: 'http://data.europeana.eu/organization/001',
+    geographicScope: 'National',
+    type: 'Aggregator',
+    prefLabel: { en: 'Museum', es: 'Museo' },
+    country: { id: 'http://data.europeana.eu/place/100', prefLabel: countryLabel },
+    isAggregatedBy: { recordCount: 100 }
+  },
+  {
+    id: 'http://data.europeana.eu/organization/002',
+    geographicScope: 'International',
+    heritageDomain: domain,
+    type: 'Aggregator',
+    prefLabel: { en: 'Gallery' },
+    isAggregatedBy: { recordCount: 100 }
+  }
+];
 
 const context = {
-  $config: {
-    europeana: {
-      apis: {
-        entity: {
-          url: 'https://api.example.org/entity',
-          key: 'entityApiKey'
-        }
-      }
+  $apis: {
+    entity: {
+      retrieve: sinon.stub().resolves(retrieveResponse)
     }
   }
-};
-
-const mockApiRequests = () => {
-  nock(context.$config.europeana.apis.entity.url)
-    .post('/retrieve')
-    .query(query => query.wskey === context.$config.europeana.apis.entity.key)
-    .reply(200, retrieveResponse);
 };
 
 describe('@/cachers/collections/aggregators', () => {
   beforeAll(() => {
     nock.disableNetConnect();
   });
-  beforeEach(() => {
-    mockApiRequests();
-  });
   afterEach(() => {
-    nock.cleanAll();
     sinon.resetHistory();
   });
   afterAll(() => {
@@ -77,16 +59,22 @@ describe('@/cachers/collections/aggregators', () => {
     expect(baseCacher.default.calledWith({ type: 'aggregator' }, context)).toBe(true);
   });
 
-  it('adds the heritage domain to the organisation data', async() => {
+  it('retrieves full entity data from the API', async() => {
+    await cacher.data(context);
+
+    expect(context.$apis.entity.retrieve.calledWith(
+      [
+        'http://data.europeana.eu/organization/001',
+        'http://data.europeana.eu/organization/002'
+      ],
+      { profile: 'dereference' }
+    )).toBe(true);
+  });
+
+  it('adds data from full entities to the organisation data', async() => {
     const data = await cacher.data(context);
 
     expect(data[1].heritageDomain).toEqual(domain);
-  });
-
-  it('adds the country pref label to the organisation data', async() => {
-    const data = await cacher.data(context);
-
-    expect(data[0].countryPrefLabel).toEqual(countryLabel);
   });
 
   it('keeps the slug for the organisation data', async() => {

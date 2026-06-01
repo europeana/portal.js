@@ -11,7 +11,7 @@ const data = async(context = {}) => {
   const entityData = await baseData({ type: 'aggregator' }, context);
   const entityIds = entityData.map((entity) => entity.id);
 
-  const fullEntities = await api.retrieve(entityIds, { params: { profile: 'dereference' } });
+  const fullEntities = await api.retrieve(entityIds, { profile: 'dereference' });
 
   return entityData
     .map((entity) => {
