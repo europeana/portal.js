@@ -24,16 +24,10 @@
         >
           <EntityHeader
             v-show="!hasUserQuery"
-            :id="entity && entity.id"
             :description="description"
             :title="title"
-            :sub-title="subTitle"
-            :logo="logo"
-            :email="mbox"
-            :image="thumbnail"
             :editable="editable"
-            :external-link="homepage"
-            :more-info="moreInfo"
+            :entity="entity"
             @updated="handleUpdated"
           />
         </template>
@@ -75,7 +69,7 @@
   import ClientOnly from 'vue-client-only';
 
   import SearchInterface from '@/components/search/SearchInterface';
-  import { organizationEntityNativeName, organizationEntityNonNativeEnglishName } from '@/utils/europeana/entities/organizations.js';
+  import { organizationEntityNativeName } from '@/utils/europeana/entities/organizations.js';
   import pageMetaMixin from '@/mixins/pageMeta';
   import entityBestItemsSetMixin from '@/mixins/europeana/entities/entityBestItemsSet';
   import { redirectToPrefPath } from '@/utils/redirect/redirectToPrefPath.js';
@@ -83,7 +77,7 @@
   import {
     getEntityTypeApi, getEntityUri, getEntityQuery, normalizeEntityId
   } from '@/plugins/europeana/entity';
-  import { langMapValueForLocale, uriRegex } from  '@europeana/i18n';
+  import { langMapValueForLocale } from  '@europeana/i18n';
 
   const FIELDS = [
     'id',
@@ -218,23 +212,8 @@
       entityId() {
         return normalizeEntityId(this.$route.params.pathMatch);
       },
-      contextLabel() {
-        return this.$t(`cardLabels.${this.collectionType}`);
-      },
       collectionType() {
         return this.$route.params.type;
-      },
-      logo() {
-        if (this.collectionType === 'organisation' && this.entity?.logo) {
-          return this.entity.logo.id;
-        }
-        return null;
-      },
-      mbox() {
-        if (this.collectionType === 'organisation') {
-          return this.entity?.mbox;
-        }
-        return null;
       },
       description() {
         let description = null;
@@ -249,14 +228,6 @@
       },
       descriptionText() {
         return ((this.description?.values?.length || 0) >= 1) ? this.description.values[0] : null;
-      },
-      homepage() {
-        if (this.collectionType === 'organisation' &&
-          this.entity?.homepage &&
-          uriRegex.test(this.entity.homepage)) {
-          return this.entity.homepage;
-        }
-        return null;
       },
       editable() {
         return this.entity &&
@@ -288,83 +259,16 @@
 
         return title;
       },
-      subTitle() {
-        return this.organisationNonNativeEnglishName ?
-          langMapValueForLocale(this.organisationNonNativeEnglishName, this.$i18n.locale) :
-          null;
-      },
       hasUserQuery() {
         return this.$route.query.query &&  this.$route.query.query !== '';
       },
-      thumbnail() {
-        return this.$apis.entity.imageUrl(this.entity);
-      },
       organisationNativeName() {
         return this.organizationEntityNativeName(this.entity);
-      },
-      organisationNonNativeEnglishName() {
-        return this.organizationEntityNonNativeEnglishName(this.entity);
-      },
-      // TODO: there is way too much logic here, which is done on behalf
-      //       of the EntityInformationModal component, which should
-      //       handle this itself. consider passing the whole entity down,
-      //       or provide/inject it, then move this logic there
-      moreInfo() {
-        if (!this.entity || this.collectionType !== 'organisation') {
-          return null;
-        }
-
-        const labelledMoreInfo = [];
-
-        if (this.organisationNonNativeEnglishName) {
-          labelledMoreInfo.push({
-            label: this.$t('organisation.englishName'),
-            value: Object.values(this.organisationNonNativeEnglishName)[0],
-            lang: Object.keys(this.organisationNonNativeEnglishName)[0]
-          });
-        }
-        if (this.entity?.acronym)  {
-          const langMapValue = langMapValueForLocale(this.entity.acronym, this.$i18n.locale);
-          labelledMoreInfo.push({ label: this.$t('organisation.nameAcronym'), value: langMapValue.values[0], lang: langMapValue.code });
-        }
-        // TODO: Update to use API country field?
-        if (this.entity?.hasAddress?.countryName)  {
-          labelledMoreInfo.push({ label: this.$t('organisation.country'), value: this.entity.hasAddress.countryName });
-        }
-        if (this.entity?.hasAddress?.locality)  {
-          labelledMoreInfo.push({ label: this.$t('organisation.city'), value: this.entity.hasAddress.locality });
-        }
-        if (this.homepage)  {
-          labelledMoreInfo.push({ label: this.$t('website'), value: this.homepage });
-        }
-
-        const aggregationInfoFields = ['heritageDomain', 'providesSupportForMediaType', 'geographicScope', 'providesSupportForDataActivity', 'providesCapacityBuildingActivity', 'providesAudienceEngagementActivity'];
-        for (const field of aggregationInfoFields) {
-          if (this.entity?.[field])  {
-            labelledMoreInfo.push({ label: this.$t(`organisation.${field}`), value: this.entity[field] });
-          }
-        }
-
-        if (this.entity?.isAggregatedBy?.recordCount) {
-          labelledMoreInfo.push({ label: this.$t('organisation.recordCount'), value: this.entity.isAggregatedBy.recordCount });
-        }
-
-        if (this.$features.aggregatorsTab && this.entity?.aggregatesFrom)  {
-          const aggregatesFromCount = this.entity.aggregatesFrom.length;
-          const moreLink = {
-            link: '/collections/organisations#aggregators', // needs to link to the specific aggregator expanded
-            text: this.$t('actions.viewAll', { count: aggregatesFromCount })
-          };
-          labelledMoreInfo.push({ label: this.$t('organisation.providingInstitutionsCount'), value: aggregatesFromCount, moreLink });
-        }
-        // TODO: Pass 4 institutions, but consider passing via distinct prop
-
-        return labelledMoreInfo;
       }
     },
+
     methods: {
       organizationEntityNativeName,
-      organizationEntityNonNativeEnglishName,
       handleEntityRelatedCollectionsFetched(relatedCollections) {
         this.relatedCollections = relatedCollections;
       },

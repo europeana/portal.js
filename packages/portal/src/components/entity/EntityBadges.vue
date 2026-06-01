@@ -5,7 +5,7 @@
     class="related-collections"
   >
     <h2
-      v-if="title !== false"
+      v-if="showTitle"
       class="related-heading text-uppercase"
     >
       {{ title || $t('related.collections.title') }}
@@ -102,6 +102,13 @@
       limit: {
         type: Number,
         default: null
+      },
+      /**
+       * Show or hide title
+       */
+      showTitle: {
+        type: Boolean,
+        default: true
       }
     },
 
