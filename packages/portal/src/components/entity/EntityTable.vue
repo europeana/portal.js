@@ -235,7 +235,7 @@
 
     computed: {
       id() {
-        return `entity-table${this.index ? `-${this.index}` : ''}`;
+        return this.index ? `entity-table-${this.index}` : 'entity-table';
       },
       currentPage() {
         return Number(this.$route?.query?.page) || 1;
