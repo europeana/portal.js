@@ -78,7 +78,7 @@
           class="button-toggle button-icon-only icon-chevron"
           :class="{'show': row.detailsShowing}"
           variant="light-flat"
-          :to="rowHash(row.item.id)"
+          :to="row.detailsShowing ? removeRowHash() : rowHash(row.item.id)"
         >
           <span class="visually-hidden">
             {{ $t('pages.collections.table.showMoreData', { entity: row.item.prefLabel }) }}
@@ -360,6 +360,9 @@
       rowHash(id) {
         const numericId = id.split('/').pop();
         return this.expandedEntityId ? this.$route.hash.replace(this.expandedEntityId, numericId) : this.$route.hash + `-${numericId}`;
+      },
+      removeRowHash() {
+        return this.$route.hash.replace('-' + this.expandedEntityId, '');
       },
       entityRoute(slug) {
         return `/collections/${this.typeSingular}/${slug}`;
