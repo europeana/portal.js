@@ -4,7 +4,7 @@ const PICK = ['id', 'slug', 'prefLabel'];
 const LOCALISE = 'prefLabel';
 const SORT = 'prefLabel';
 
-const data = (config = {}) => baseData({ type: 'concept' }, config);
+const data = (context = {}) => baseData({ type: 'concept' }, context);
 
 export {
   data,

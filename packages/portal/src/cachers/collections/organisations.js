@@ -18,9 +18,9 @@ export const organisationData = (organisation) => ({
   prefLabel: organizationEntityNativeName(organisation)
 });
 
-const data = async(config = {}) => {
+const data = async(context = {}) => {
   // TODO: exclude aggregators? or do it in the consumer?
-  const entityData = await baseData({ type: 'organization' }, config);
+  const entityData = await baseData({ type: 'organization' }, context);
 
   return entityData.map(organisationData);
 };
