@@ -4,7 +4,7 @@ import {
   organizationEntityNonNativeEnglishName
 } from '../../utils/europeana/entities/organizations.js';
 
-const PICK = ['id', 'slug', 'recordCount', 'prefLabel', 'altLabel', 'countryPrefLabel'];
+const PICK = ['id', 'slug', 'recordCount', 'prefLabel', 'altLabel', 'countryPrefLabel', 'aggregatedVia'];
 const LOCALISE = 'countryPrefLabel';
 
 export const organisationData = (organisation) => ({
