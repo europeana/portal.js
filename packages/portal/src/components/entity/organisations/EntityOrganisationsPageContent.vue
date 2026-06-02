@@ -58,7 +58,6 @@
             :per-page="null"
           >
             <template #row-details="rowDetails">
-              <!-- TODO: only add when field for type -->
               <span
                 v-if="rowDetails.entity.countryPrefLabel"
                 class="d-lg-none"
