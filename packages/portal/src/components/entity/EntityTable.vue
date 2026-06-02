@@ -353,7 +353,8 @@
           altLabel: englishName,
           altLabelLang: englishNameLang,
           ...org.heritageDomain && { heritageDomain: org.heritageDomain.join(', ') },
-          ...org.aggregatedVia && { aggregatedVia: org.aggregatedVia.map((aggId) => (aggregators || []).find((agg) => agg.id === aggId)).filter(Boolean) }
+          ...org.aggregatedVia && { aggregatedVia: org.aggregatedVia.map((aggId) => (aggregators || []).find((agg) => agg.id === aggId)).filter(Boolean) },
+          ...org.aggregatesFrom && { aggregatesFrom: org.aggregatesFrom }
         };
       },
       entityRoute(slug) {

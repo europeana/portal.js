@@ -2,7 +2,7 @@ import baseData from '../index.js';
 import { organisationData } from '../organisations.js';
 import EuropeanaEntityApi from '../../../plugins/europeana/entity.js';
 
-const PICK = ['id', 'slug', 'recordCount', 'prefLabel', 'altLabel', 'geographicScope', 'countryPrefLabel', 'heritageDomain', 'logo'];
+const PICK = ['id', 'slug', 'recordCount', 'prefLabel', 'altLabel', 'geographicScope', 'countryPrefLabel', 'heritageDomain', 'logo', 'aggregatesFrom'];
 const LOCALISE = 'countryPrefLabel';
 
 const data = async(context = {}) => {

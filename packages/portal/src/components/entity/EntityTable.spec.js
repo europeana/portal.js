@@ -22,7 +22,7 @@ const factory = (propsData = fixtures.propsData.organisations) => shallowMountNu
     $router: { push: () => {} },
     localePath: () => '/'
   },
-  stubs: ['SmartLink', 'EntityOrganisationsRelated', 'PaginationNavInput', 'b-form-input', 'b-form']
+  stubs: ['SmartLink', 'PaginationNavInput', 'b-form-input', 'b-form']
 });
 
 describe('components/entity/EntityTable', () => {

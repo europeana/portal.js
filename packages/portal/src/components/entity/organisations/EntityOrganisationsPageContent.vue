@@ -66,9 +66,19 @@
                 v-if="type.fields.includes('heritageDomain') && rowDetails.entity.heritageDomain"
                 class="d-lg-none"
               >{{ rowDetails.entity.heritageDomain }}</span>
-              <EntityOrganisationsRelated
-                :entity-id="rowDetails.entity.id"
-              />
+              <transition
+                v-if="(rowDetails.entity.aggregatesFrom?.length || 0) > 0"
+                appear
+                name="fade"
+              >
+                <EntityBadges
+                  :entity-uris="rowDetails.entity.aggregatesFrom"
+                  :title="$t('organisations.providingInstitutions.title')"
+                  class="mt-3 mt-md-0"
+                  :transition="true"
+                  :limit="4"
+                />
+              </transition>
             </template>
           </EntityTable>
         </div>
@@ -89,9 +99,8 @@
 
     components: {
       ClientOnly,
-      EntityOrganisationsRelated: () => import('./EntityOrganisationsRelated'),
-      EntityTable: () => import('../EntityTable'),
-      EntityBadges: () => import('../EntityBadges')
+      EntityBadges: () => import('../EntityBadges'),
+      EntityTable: () => import('../EntityTable')
     },
 
     setup() {
