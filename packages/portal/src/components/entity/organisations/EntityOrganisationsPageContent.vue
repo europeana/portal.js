@@ -51,11 +51,11 @@
           >
             <template #row-details="rowDetails">
               <span
-                v-if="rowDetails.entity.countryPrefLabel"
+                v-if="type.fields.includes('countryPrefLabel') && rowDetails.entity.countryPrefLabel"
                 class="d-md-none"
               >{{ rowDetails.entity.countryPrefLabel }}</span>
               <span
-                v-if="rowDetails.entity.heritageDomain"
+                v-if="type.fields.includes('heritageDomain') && rowDetails.entity.heritageDomain"
                 class="d-md-none"
               >{{ rowDetails.entity.heritageDomain }}</span>
               <EntityOrganisationsRelated
