@@ -31,6 +31,7 @@
       :items="collections"
       :sort-by.sync="sortBy"
       :sort-desc.sync="sortDesc"
+      :tbody-tr-attr="(item) => ({ id: item.rowId })"
       striped
       class="borderless"
     >
@@ -77,7 +78,7 @@
           class="button-toggle button-icon-only icon-chevron"
           :class="{'show': row.detailsShowing}"
           variant="light-flat"
-          @click="row.toggleDetails"
+          @click="handleClickRow(row)"
         >
           <span class="visually-hidden">
             {{ $t('pages.collections.table.showMoreData', { entity: row.item.prefLabel }) }}
@@ -226,11 +227,18 @@
         collections = collections.filter(this.filter);
       }
 
+      collections = collections.map((collection) => ({
+        ...collection,
+        rowId: this.rowId(collection.id),
+        rowHash: this.rowHash(collection.id)
+      }));
+
       if (this.type === 'organisations') {
         collections = collections.map(this.organisationData);
       }
 
       this.collections = collections;
+      process.client && this.expandFocusedRow();
     },
 
     computed: {
@@ -290,7 +298,33 @@
       }
     },
 
+    mounted() {
+      this.expandFocusedRow();
+    },
+
     methods: {
+      expandFocusedRow() {
+        if (this.$route.hash) {
+          const focusedRow = this.collections?.find((entity) => entity.rowHash === this.$route.hash);
+          if (focusedRow) {
+            focusedRow['_showDetails'] = true;
+            this.$nextTick(() => {
+              document.querySelector(this.$route.hash)?.scrollIntoView({ behavior: 'smooth' });
+            });
+          }
+        }
+      },
+      handleClickRow(row) {
+        row.toggleDetails();
+        history.pushState(null, null, row.item.rowHash);
+      },
+      rowId(entityId) {
+        const numericId = entityId.split('/').pop();
+        return `${this.subType || this.type}-${numericId}`;
+      },
+      rowHash(entityId) {
+        return `#${this.rowId(entityId)}`;
+      },
       displayField(key) {
         return this.fields.includes(key);
       },
@@ -351,6 +385,10 @@
       @media (min-width: $bp-medium) {
         margin-bottom: 2rem;
       }
+    }
+
+    tr {
+      scroll-margin-top: 4rem;
     }
 
     td.table-name-cell {

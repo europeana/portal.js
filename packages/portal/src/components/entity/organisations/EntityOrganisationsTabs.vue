@@ -6,9 +6,9 @@
   >
     <b-nav-item
       v-for="tab in tabs"
-      :key="tab.hash"
-      :to="localePath({ hash: tab.hash})"
-      :active="activeTabHash === tab.hash"
+      :key="tab.id"
+      :to="tabRoute(tab)"
+      :active="activeTabId === tab.id"
     >
       {{ tab.label }}
     </b-nav-item>
@@ -29,24 +29,35 @@
         HASH_AGGREGATORS
       ];
 
-      const { activeTabHash } = useActiveTab(tabHashes, { replaceRoute: false });
+      const { activeTabHash, activeTabId } = useActiveTab(tabHashes, { replaceRoute: false });
 
       return {
-        activeTabHash
+        activeTabHash,
+        activeTabId
       };
     },
 
     data() {
       return {
-        tabs: [{
-                 label: this.$t('organisations.providingInstitutions.title'),
-                 hash: HASH_PROVIDING_INSTITUTIONS
-               },
-               {
-                 label: this.$t('organisations.aggregators.title'),
-                 hash: HASH_AGGREGATORS
-               }]
+        tabs: [
+          {
+            label: this.$t('organisations.providingInstitutions.title'),
+            hash: HASH_PROVIDING_INSTITUTIONS,
+            id: 'institutions'
+          },
+          {
+            label: this.$t('organisations.aggregators.title'),
+            hash: HASH_AGGREGATORS,
+            id: 'aggregators'
+          }
+        ]
       };
+    },
+
+    methods: {
+      tabRoute(tab) {
+        return { ...this.$route, query: { tab: tab.id }, hash: undefined };
+      }
     }
   };
     </script>

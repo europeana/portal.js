@@ -1,5 +1,6 @@
 <template>
-  <!-- wrap in client-only as page content is dependent on browser URL hash -->
+  <!-- wrapped in client-only as page content was dependent on browser URL hash -->
+  <!-- TODO: see if client-only can be removed  -->
   <client-only>
     <div>
       <b-col
@@ -9,7 +10,7 @@
       >
         <p>{{ description }}</p>
       </b-col>
-      <template v-if="tab === 'organisations'">
+      <template v-if="tab === 'institutions'">
         <EntityTable
           type="organisations"
           class="mt-3 mt-md-4"
@@ -72,9 +73,9 @@
 <script>
   import ClientOnly from 'vue-client-only';
   import useActiveTab from '@/composables/activeTab.js';
-  const HASH_PROVIDING_INSTITUTIONS = '#institutions';
-  const HASH_AGGREGATORS = '#aggregators';
+
   const AGGREGATORS = 'aggregators';
+  const INSTITUTIONS = 'institutions';
 
   export default {
     name: 'EntityOrganisationsPageContent',
@@ -87,14 +88,14 @@
 
     setup() {
       const tabHashes = [
-        HASH_PROVIDING_INSTITUTIONS,
-        HASH_AGGREGATORS
-      ];
+        AGGREGATORS,
+        INSTITUTIONS
+      ].map((id) => `#${id}`);
 
-      const { activeTabHash } = useActiveTab(tabHashes, { replaceRoute: false });
+      const { activeTabId } = useActiveTab(tabHashes, { replaceRoute: false });
 
       return {
-        activeTabHash
+        activeTabId
       };
     },
 
@@ -107,11 +108,7 @@
         }
       },
       tab() {
-        if (this.activeTabHash === HASH_AGGREGATORS) {
-          return AGGREGATORS;
-        } else {
-          return 'organisations';
-        }
+        return this.activeTabId || INSTITUTIONS;
       },
       aggregatorTypes() {
         return [

@@ -15,6 +15,8 @@ export default function useActiveTab(tabHashes, options = {}) {
   const activeTabIndex = ref(-1);
   const activeTabHistory = ref([]);
 
+  const tabIds = computed(() => tabHashes.map((hash) => hash.slice(1)));
+
   const setActiveTabIndexFromRouteHash = () => {
     if (route) {
       if (!route.hash) {
@@ -27,8 +29,24 @@ export default function useActiveTab(tabHashes, options = {}) {
     }
   };
 
+  const setActiveTabIndexFromRouteQuery = () => {
+    if (route) {
+      if (!route.query?.tab) {
+        activeTabIndex.value = 0;
+        activeTabHistory.value.push(activeTabId.value);
+      } else if (tabIds.value.includes(route.query.tab)) {
+        activeTabIndex.value = tabIds.value.indexOf(route.query.tab);
+        activeTabHistory.value.push(activeTabId.value);
+      }
+    }
+  };
+
   const activeTabHash = computed(() => {
     return tabHashes[activeTabIndex.value];
+  });
+
+  const activeTabId = computed(() => {
+    return tabIds.value[activeTabIndex.value];
   });
 
   let unwatchTabIndex = () => {};
@@ -55,16 +73,19 @@ export default function useActiveTab(tabHashes, options = {}) {
   if (route) {
     watch(route, () => {
       setActiveTabIndexFromRouteHash();
+      setActiveTabIndexFromRouteQuery();
     });
   }
 
   onBeforeMount(() => {
     setActiveTabIndexFromRouteHash();
+    setActiveTabIndexFromRouteQuery();
   });
 
   return {
     activeTabHash,
     activeTabHistory,
+    activeTabId,
     activeTabIndex,
     unwatchTabIndex,
     watchTabIndex
