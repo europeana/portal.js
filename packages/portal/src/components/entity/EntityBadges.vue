@@ -64,7 +64,7 @@
        * Title which appears above the badges
        */
       title: {
-        type: [Boolean, String],
+        type: String,
         default: ''
       },
       /**
