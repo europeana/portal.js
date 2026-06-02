@@ -197,19 +197,19 @@
           key: 'countryPrefLabel',
           sortable: true,
           label: this.$t('pages.collections.table.country'),
-          class: 'text-center d-none d-md-table-cell'
+          class: 'text-center d-none d-lg-table-cell'
         },
         {
           key: 'aggregator',
           sortable: false,
           label: this.$t('pages.collections.table.aggregator'),
-          class: 'text-center d-none d-md-table-cell'
+          class: 'text-center d-none d-lg-table-cell'
         },
         {
           key: 'heritageDomain',
           sortable: true,
           label: this.$t('pages.collections.table.domain'),
-          class: 'text-center d-none d-md-table-cell'
+          class: 'text-center d-none d-lg-table-cell'
         },
         {
           key: 'recordCount',
@@ -219,7 +219,7 @@
         },
         {
           key: 'showDetails',
-          class: `table-toggle-cell ${this.alwaysShowRowDetailsToggles ? '' : 'd-md-none'}`
+          class: `table-toggle-cell ${this.alwaysShowRowDetailsToggles ? '' : 'd-lg-none'}`
         }
       ];
 
@@ -406,6 +406,10 @@
 
     .b-table-details td {
       max-width: calc(100vw - 6rem);
+    }
+
+    td.text-center .badges-wrapper {
+      justify-content: center;
     }
   }
 </style>

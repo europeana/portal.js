@@ -20,9 +20,15 @@
           <template #row-details="rowDetails">
             <span
               v-if="rowDetails.entity.countryPrefLabel"
-              class="d-md-none"
+              class="d-lg-none"
             >{{ rowDetails.entity.countryPrefLabel }}</span>
-          </template>
+            <EntityBadges
+              v-if="(rowDetails.entity.aggregatedVia?.length || 0) > 0"
+              :related-collections="rowDetails.entity.aggregatedVia"
+              :title="$t('pages.collections.table.aggregator')"
+              class="d-lg-none mt-3"
+            />
+          </template>md
         </EntityTable>
       </template>
       <template v-else-if="tab === 'aggregators'">
@@ -52,13 +58,14 @@
             :per-page="null"
           >
             <template #row-details="rowDetails">
+              <!-- TODO: only add when field for type -->
               <span
                 v-if="rowDetails.entity.countryPrefLabel"
-                class="d-md-none"
+                class="d-lg-none"
               >{{ rowDetails.entity.countryPrefLabel }}</span>
               <span
                 v-if="rowDetails.entity.heritageDomain"
-                class="d-md-none"
+                class="d-lg-none"
               >{{ rowDetails.entity.heritageDomain }}</span>
               <EntityOrganisationsRelated
                 :entity-id="rowDetails.entity.id"
@@ -84,7 +91,8 @@
     components: {
       ClientOnly,
       EntityOrganisationsRelated: () => import('./EntityOrganisationsRelated'),
-      EntityTable: () => import('../EntityTable')
+      EntityTable: () => import('../EntityTable'),
+      EntityBadges: () => import('../EntityBadges')
     },
 
     setup() {
