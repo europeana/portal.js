@@ -92,7 +92,7 @@ describe('@/cachers/collections/aggregators', () => {
   });
 
   it('picks specific fields', () => {
-    expect(cacher.PICK).toEqual(['id', 'slug', 'recordCount', 'prefLabel', 'altLabel', 'geographicScope', 'countryPrefLabel', 'heritageDomain', 'logo']);
+    expect(cacher.PICK).toEqual(['id', 'slug', 'recordCount', 'prefLabel', 'altLabel', 'geographicScope', 'countryPrefLabel', 'heritageDomain', 'logo', 'aggregatesFrom']);
   });
 
   it('localises countryPrefLabel', () => {

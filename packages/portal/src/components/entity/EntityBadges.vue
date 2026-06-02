@@ -42,11 +42,10 @@
 </template>
 
 <script>
-  import pick from 'lodash/pick.js';
-
+  import LinkBadge from '../generic/LinkBadge';
   import collectionLinkGenMixin from '@/mixins/collectionLinkGen';
   import { collectionTitle } from '@/utils/europeana/entities/entityLinks';
-  import LinkBadge from '../generic/LinkBadge';
+  import { backendFetch } from '@/utils/backendFetch.js';
 
   export default {
     name: 'EntityBadges',
@@ -121,8 +120,12 @@
 
     async fetch() {
       if (((this.entityUris?.length || 0) > 0) && ((this.relatedCollections?.length || 0) === 0)) {
-        const entities = await this.$apis.entity.find(this.entityUris);
-        this.collections = entities?.map((entity) => pick(entity, ['id', 'prefLabel', 'isShownBy', 'logo', 'type'])) || [];
+        const params = {
+          fl: 'id,prefLabel,isShownBy,logo,type'
+        };
+
+        this.collections = await backendFetch('collections/retrieve', [this.entityUris, params], this.$nuxt.context);
+
         this.$emit('entitiesFromUrisFetched', this.collections);
       }
 
