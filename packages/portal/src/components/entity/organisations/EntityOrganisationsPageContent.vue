@@ -1,8 +1,22 @@
 <template>
-  <!-- wrapped in client-only as page content was dependent on browser URL hash -->
-  <!-- TODO: see if client-only can be removed  -->
-  <client-only>
-    <div>
+  <div>
+    <b-nav
+      v-if="tabs"
+      tabs
+      class="pl-sm-4"
+    >
+      <b-nav-item
+        v-for="tab in tabs"
+        :key="tab.id"
+        :to="tabRoute(tab)"
+        :active="activeTabId === tab.id"
+      >
+        {{ tab.label }}
+      </b-nav-item>
+    </b-nav>
+    <!-- wrapped in client-only as page content was dependent on browser URL hash -->
+    <!-- TODO: see if client-only can be removed  -->
+    <client-only>
       <b-col
         cols="12"
         lg="6"
@@ -10,7 +24,7 @@
       >
         <p>{{ description }}</p>
       </b-col>
-      <template v-if="tab === 'institutions'">
+      <template v-if="tab === TABS.INSTITUTIONS">
         <EntityTable
           type="organisations"
           class="mt-3 mt-md-4"
@@ -24,7 +38,7 @@
           </template>
         </EntityTable>
       </template>
-      <template v-else-if="tab === 'aggregators'">
+      <template v-else-if="tab === TABS.AGGREGATORS">
         <div
           v-for="type in aggregatorTypes"
           :key="type.key"
@@ -66,16 +80,18 @@
           </EntityTable>
         </div>
       </template>
-    </div>
-  </client-only>
+    </client-only>
+  </div>
 </template>
 
 <script>
   import ClientOnly from 'vue-client-only';
   import useActiveTab from '@/composables/activeTab.js';
 
-  const AGGREGATORS = 'aggregators';
-  const INSTITUTIONS = 'institutions';
+  const TABS = {
+    AGGREGATORS: 'aggregators',
+    INSTITUTIONS: 'institutions'
+  };
 
   export default {
     name: 'EntityOrganisationsPageContent',
@@ -88,8 +104,8 @@
 
     setup() {
       const tabIds = [
-        AGGREGATORS,
-        INSTITUTIONS
+        TABS.INSTITUTIONS,
+        TABS.AGGREGATORS
       ];
 
       const { activeTabId } = useActiveTab(tabIds, { replaceRoute: false, query: 'tab' });
@@ -99,16 +115,32 @@
       };
     },
 
+    data() {
+      return {
+        tabs: [
+          {
+            label: this.$t('organisations.providingInstitutions.title'),
+            id: TABS.INSTITUTIONS
+          },
+          {
+            label: this.$t('organisations.aggregators.title'),
+            id: TABS.AGGREGATORS
+          }
+        ],
+        TABS
+      };
+    },
+
     computed: {
       description() {
-        if (this.tab === AGGREGATORS) {
+        if (this.tab === TABS.AGGREGATORS) {
           return this.$t('organisations.aggregators.description');
         } else {
           return this.$t('organisations.providingInstitutions.description');
         }
       },
       tab() {
-        return this.activeTabId || INSTITUTIONS;
+        return this.activeTabId || TABS.INSTITUTIONS;
       },
       aggregatorTypes() {
         return [
@@ -124,12 +156,19 @@
           }
         ];
       }
+    },
+
+    methods: {
+      tabRoute(tab) {
+        return { ...this.$route, query: { tab: tab.id }, hash: undefined };
+      }
     }
   };
 </script>
 
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
+  @import '@europeana/style/scss/tabs';
 
   .col-12 {
     color: $darkgrey;

@@ -14,7 +14,7 @@ const factory = ({ tab = '' } = {}) => {
     mocks: {
       $t: (val) => val
     },
-    stubs: ['b-col', 'client-only', 'EntityTable']
+    stubs: ['b-col', 'client-only', 'EntityTable', 'b-nav', 'b-nav-item']
   });
 };
 
@@ -25,6 +25,16 @@ describe('components/entity/organisations/EntityOrganisationsPageContent', () =>
   });
 
   describe('template', () => {
+    it('renders two tabs: providing institutions, and aggregators', () => {
+      const wrapper = factory();
+
+      const tabs = wrapper.findAll('b-nav-item-stub');
+
+      expect(tabs.length).toBe(2);
+      expect(tabs.at(0).text()).toBe('organisations.providingInstitutions.title');
+      expect(tabs.at(1).text()).toBe('organisations.aggregators.title');
+    });
+
     describe('when visiting the institutions tab', () => {
       it('shows the institutions description and table', () => {
         const wrapper = factory({ tab: 'institutions' });
