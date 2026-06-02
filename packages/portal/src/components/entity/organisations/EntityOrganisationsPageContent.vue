@@ -87,12 +87,12 @@
     },
 
     setup() {
-      const tabHashes = [
+      const tabIds = [
         AGGREGATORS,
         INSTITUTIONS
-      ].map((id) => `#${id}`);
+      ];
 
-      const { activeTabId } = useActiveTab(tabHashes, { replaceRoute: false });
+      const { activeTabId } = useActiveTab(tabIds, { replaceRoute: false, query: 'tab' });
 
       return {
         activeTabId

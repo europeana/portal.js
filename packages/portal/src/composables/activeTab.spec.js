@@ -15,19 +15,19 @@ sinon.stub(vueRouter, 'useRouter').returns({
   replace: routerReplaceSpy
 });
 
-const tabHashes = ['#annotations', '#search', '#links'];
+const tabIds = ['annotations', 'search', 'links'];
 
 const component = (options = {}) => ({
   template: `
     <div>
-      <span id="activeTabHash">{{ activeTabHash }}</span>
+      <span id="activeTabId">{{ activeTabId }}</span>
       <input id="activeTabIndex" v-model="activeTabIndex" />
     </div>
   `,
   setup() {
-    const { activeTabHash, activeTabIndex, watchTabIndex } = useActiveTab(tabHashes, options);
+    const { activeTabId, activeTabIndex, watchTabIndex } = useActiveTab(tabIds, options);
 
-    return { activeTabHash, activeTabIndex, watchTabIndex };
+    return { activeTabId, activeTabIndex, watchTabIndex };
   }
 });
 
@@ -46,15 +46,15 @@ describe('useActiveTab', () => {
   afterEach(sinon.resetHistory);
   afterAll(sinon.restore);
 
-  describe('activeTabHash', () => {
+  describe('activeTabId', () => {
     it('is computed from activeTabIndex', async() => {
       const wrapper = factory();
 
       wrapper.find('#activeTabIndex').setValue(1);
       await wrapper.vm.$nextTick();
 
-      const span = wrapper.find('#activeTabHash');
-      expect(span.text()).toBe('#search');
+      const span = wrapper.find('#activeTabId');
+      expect(span.text()).toBe('search');
     });
   });
 
@@ -87,6 +87,16 @@ describe('useActiveTab', () => {
       await wrapper.vm.$nextTick();
 
       expect(routerReplaceSpy.calledWith({ hash: '#search' })).toBe(true);
+    });
+
+    it('updates route query if supplied option `query`', async() => {
+      const wrapper = factory({ query: 'tab' });
+      wrapper.vm.watchTabIndex();
+
+      wrapper.find('#activeTabIndex').setValue(1);
+      await wrapper.vm.$nextTick();
+
+      expect(routerReplaceSpy.calledWith({ hash: undefined, query: { tab: 'search' } })).toBe(true);
     });
 
     it('uses push instead of replace if supplied option replaceRoute: false', async() => {

@@ -3,9 +3,10 @@ import { computed, onBeforeMount, ref, watch } from 'vue';
 // vue2-helpers provides helpers that do
 import { useRoute, useRouter } from 'vue2-helpers/vue-router';
 
-export default function useActiveTab(tabHashes, options = {}) {
-  const { replaceRoute } = {
+export default function useActiveTab(tabIds, options = {}) {
+  const { replaceRoute, query } = {
     replaceRoute: true,
+    query: null,
     ...options
   };
   const routerUpdateAction = replaceRoute ? 'replace' : 'push';
@@ -15,38 +16,44 @@ export default function useActiveTab(tabHashes, options = {}) {
   const activeTabIndex = ref(-1);
   const activeTabHistory = ref([]);
 
-  const tabIds = computed(() => tabHashes.map((hash) => hash.slice(1)));
+  const tabHashes = computed(() => tabIds.map((id) => `#${id}`));
 
   const setActiveTabIndexFromRouteHash = () => {
-    if (route) {
-      if (!route.hash) {
-        activeTabIndex.value = 0;
-        activeTabHistory.value.push(activeTabHash.value);
-      } else if (tabHashes.includes(route.hash)) {
-        activeTabIndex.value = tabHashes.indexOf(route.hash);
-        activeTabHistory.value.push(activeTabHash.value);
-      }
+    if (!route.hash) {
+      activeTabIndex.value = 0;
+      activeTabHistory.value.push(activeTabId.value);
+    } else if (tabHashes.value.includes(route.hash)) {
+      activeTabIndex.value = tabHashes.value.indexOf(route.hash);
+      activeTabHistory.value.push(activeTabId.value);
     }
   };
 
   const setActiveTabIndexFromRouteQuery = () => {
+    if (!route.query?.[query]) {
+      activeTabIndex.value = 0;
+      activeTabHistory.value.push(activeTabId.value);
+    } else if (tabIds.includes(route.query?.[query])) {
+      activeTabIndex.value = tabIds.indexOf(route.query[query]);
+      activeTabHistory.value.push(activeTabId.value);
+    }
+  };
+
+  const setActiveTabIndexFromRoute = () => {
     if (route) {
-      if (!route.query?.tab) {
-        activeTabIndex.value = 0;
-        activeTabHistory.value.push(activeTabId.value);
-      } else if (tabIds.value.includes(route.query.tab)) {
-        activeTabIndex.value = tabIds.value.indexOf(route.query.tab);
-        activeTabHistory.value.push(activeTabId.value);
+      if (query) {
+        setActiveTabIndexFromRouteQuery();
+      } else {
+        setActiveTabIndexFromRouteHash();
       }
     }
   };
 
   const activeTabHash = computed(() => {
-    return tabHashes[activeTabIndex.value];
+    return tabHashes.value[activeTabIndex.value];
   });
 
   const activeTabId = computed(() => {
-    return tabIds.value[activeTabIndex.value];
+    return tabIds[activeTabIndex.value];
   });
 
   let unwatchTabIndex = () => {};
@@ -56,30 +63,36 @@ export default function useActiveTab(tabHashes, options = {}) {
     unwatchTabIndex();
 
     if (activeTabIndex.value !== -1) {
-      activeTabHistory.value.push(activeTabHash.value);
+      activeTabHistory.value.push(activeTabId.value);
       if (activeTabHash.value !== route.hash) {
-        router[routerUpdateAction]({ ...route, hash: activeTabHash.value });
+        updateRoute();
       }
     }
 
     unwatchTabIndex = watch(activeTabIndex, () => {
       if (activeTabIndex.value !== -1) {
-        activeTabHistory.value.push(activeTabHash.value);
-        router[routerUpdateAction]({ ...route, hash: activeTabHash.value });
+        activeTabHistory.value.push(activeTabId.value);
+        updateRoute();
       }
     });
   };
 
+  const updateRoute = () => {
+    if (query) {
+      router[routerUpdateAction]({ ...route, query: { [query]: activeTabId.value }, hash: undefined });
+    } else {
+      router[routerUpdateAction]({ ...route, hash: activeTabHash.value });
+    }
+  };
+
   if (route) {
     watch(route, () => {
-      setActiveTabIndexFromRouteHash();
-      setActiveTabIndexFromRouteQuery();
+      setActiveTabIndexFromRoute();
     });
   }
 
   onBeforeMount(() => {
-    setActiveTabIndexFromRouteHash();
-    setActiveTabIndexFromRouteQuery();
+    setActiveTabIndexFromRoute();
   });
 
   return {

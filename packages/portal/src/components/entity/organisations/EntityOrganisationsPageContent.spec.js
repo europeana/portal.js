@@ -6,8 +6,8 @@ import EntityOrganisationsPageContent from './EntityOrganisationsPageContent.vue
 
 const localVue = createLocalVue();
 
-const factory = (options) => {
-  sinon.stub(vue2RouterHelpers, 'useRoute').returns(reactive({ hash: options.hash || '' }));
+const factory = ({ tab = '' } = {}) => {
+  sinon.stub(vue2RouterHelpers, 'useRoute').returns(reactive({ query: { tab } }));
 
   return shallowMount(EntityOrganisationsPageContent, {
     localVue,
@@ -27,7 +27,7 @@ describe('components/entity/organisations/EntityOrganisationsPageContent', () =>
   describe('template', () => {
     describe('when visiting the institutions tab', () => {
       it('shows the institutions description and table', () => {
-        const wrapper = factory({ hash: '#institutions' });
+        const wrapper = factory({ tab: 'institutions' });
 
         const description = wrapper.find('.tab-header');
         const table = wrapper.find('entitytable-stub[type="organisations"]');
@@ -38,7 +38,7 @@ describe('components/entity/organisations/EntityOrganisationsPageContent', () =>
     });
     describe('when visiting the aggregators tab', () => {
       it('shows the aggregators description', () => {
-        const wrapper = factory({ hash: '#aggregators' });
+        const wrapper = factory({ tab: 'aggregators' });
 
         const description = wrapper.find('.tab-header');
         const tables = wrapper.findAll('entitytable-stub');
@@ -49,7 +49,7 @@ describe('components/entity/organisations/EntityOrganisationsPageContent', () =>
 
       ['internationalAggregators', 'regionalAggregators'].forEach(type => {
         it(`shows the ${type} type title, description and table`, () => {
-          const wrapper = factory({ hash: '#aggregators' });
+          const wrapper = factory({ tab: 'aggregators' });
 
           const title = wrapper.find(`.${type}-header h2`);
           const description = wrapper.find(`.${type}-header p`);

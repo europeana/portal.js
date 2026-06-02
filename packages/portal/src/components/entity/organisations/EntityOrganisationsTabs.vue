@@ -17,19 +17,19 @@
 
 <script>
   import useActiveTab from '@/composables/activeTab.js';
-  const HASH_PROVIDING_INSTITUTIONS = '#institutions';
-  const HASH_AGGREGATORS = '#aggregators';
+  const INSTITUTIONS = 'institutions';
+  const AGGREGATORS = 'aggregators';
 
   export default {
     name: 'EntityOrganisationsTabs',
 
     setup() {
-      const tabHashes = [
-        HASH_PROVIDING_INSTITUTIONS,
-        HASH_AGGREGATORS
+      const tabIds = [
+        INSTITUTIONS,
+        AGGREGATORS
       ];
 
-      const { activeTabId } = useActiveTab(tabHashes, { replaceRoute: false });
+      const { activeTabId } = useActiveTab(tabIds, { replaceRoute: false, query: 'tab' });
 
       return {
         activeTabId
