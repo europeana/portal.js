@@ -29,10 +29,9 @@
         HASH_AGGREGATORS
       ];
 
-      const { activeTabHash, activeTabId } = useActiveTab(tabHashes, { replaceRoute: false });
+      const { activeTabId } = useActiveTab(tabHashes, { replaceRoute: false });
 
       return {
-        activeTabHash,
         activeTabId
       };
     },
@@ -42,12 +41,10 @@
         tabs: [
           {
             label: this.$t('organisations.providingInstitutions.title'),
-            hash: HASH_PROVIDING_INSTITUTIONS,
             id: 'institutions'
           },
           {
             label: this.$t('organisations.aggregators.title'),
-            hash: HASH_AGGREGATORS,
             id: 'aggregators'
           }
         ]
