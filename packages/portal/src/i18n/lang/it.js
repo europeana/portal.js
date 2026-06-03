@@ -47,6 +47,7 @@ export default {
     "clearFilters": "Cancella filtri",
     "close": "chiudi",
     "confirm": "Confermare",
+    "contact": "Contatto",
     "continue": "continua",
     "depublish": "Depubblicare",
     "download": "Scarica",
@@ -80,6 +81,7 @@ export default {
     "transcribe": "Trascrivere",
     "transcribeNow": "Trascrivi ora",
     "unlike": "Rimuovi il mi piace",
+    "viewAll": "Visualizza tutti {count}",
     "viewAt": "Vedi su {link}",
     "viewDocument": "Visualizza documento",
     "vote": "Votare"
@@ -173,6 +175,7 @@ export default {
     "topic": "Argomenti"
   },
   "cardLabels": {
+    "aggregator": "Aggregatore",
     "organisation": "Istituzione",
     "person": "Persona",
     "place": "Luogo",
@@ -1151,16 +1154,32 @@ export default {
     "city": "Città",
     "country": "Paese",
     "englishName": "Nome inglese",
-    "nameAcronym": "Nome acronimo"
+    "geographicScope": "Ambito geografico",
+    "heritageDomain": "Tipi di patrimonio",
+    "nameAcronym": "Nome acronimo",
+    "providesAudienceEngagementActivity": "Attività di coinvolgimento del pubblico",
+    "providesCapacityBuildingActivity": "Sviluppo delle capacità",
+    "providesSupportForDataActivity": "Attività sui dati",
+    "providesSupportForMediaType": "Tipo di supporto",
+    "providingInstitutionsCount": "Numero di fornitori di contenuti",
+    "recordCount": "Numero di oggetti"
   },
   "organisations": {
     "aggregators": {
       "description": "Gli aggregatori collaborano con gli enti erogatori per raccogliere e pubblicare i loro oggetti del patrimonio culturale digitale su Europeana.eu.",
       "title": "Aggregatori"
     },
+    "internationalAggregators": {
+      "description": "Gli aggregatori di dominio e tematici definiscono il proprio ambito in base al settore culturale (come musei, archivi o biblioteche) o per argomento e tema (come la moda). Collaborano con partner provenienti da diversi paesi europei.",
+      "title": "Aggregatori di dominio e tematici"
+    },
     "providingInstitutions": {
       "description": "Elenco di musei, biblioteche, archivi e gallerie che condividono oggetti del patrimonio culturale digitale su Europeana.eu.",
       "title": "Fornitori di contenuti"
+    },
+    "regionalAggregators": {
+      "description": "Gli aggregatori nazionali e regionali definiscono il proprio ambito in base a un paese o una regione specifici. Collaborano con i contributori situati in quel paese o in quella regione.",
+      "title": "Aggregatori nazionali e regionali"
     }
   },
   "pageHasLoaded": "ha caricato",
@@ -1178,7 +1197,9 @@ export default {
         "title": "Posti"
       },
       "table": {
+        "aggregator": "Aggregatore",
         "country": "Paese",
+        "domain": "Dominio / Tema",
         "items": "Oggetti",
         "name": "Nome",
         "searchPlaceholder": "Cerca all'interno della tabella",

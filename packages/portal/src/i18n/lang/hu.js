@@ -47,6 +47,7 @@ export default {
     "clearFilters": "Szűrők törlése",
     "close": "bezárás",
     "confirm": "Megerősít",
+    "contact": "Kapcsolat",
     "continue": "folytatás",
     "depublish": "Közzététel visszavonása",
     "download": "Letöltés",
@@ -80,6 +81,7 @@ export default {
     "transcribe": "Átirat készítése",
     "transcribeNow": "Átirat készítése most",
     "unlike": "Nem tetszik",
+    "viewAll": "Összes megtekintése {count}",
     "viewAt": "Megtekintés a következő helyen: {link}",
     "viewDocument": "Dokumentum megtekintése",
     "vote": "Szavazás"
@@ -173,6 +175,7 @@ export default {
     "topic": "Témák"
   },
   "cardLabels": {
+    "aggregator": "Aggregátor",
     "organisation": "Intézmény",
     "person": "Személy",
     "place": "Hely",
@@ -1151,16 +1154,32 @@ export default {
     "city": "Város",
     "country": "Ország",
     "englishName": "Angol név",
-    "nameAcronym": "Név rövidítése"
+    "geographicScope": "Földrajzi hatókör",
+    "heritageDomain": "Örökségtípusok",
+    "nameAcronym": "Név rövidítése",
+    "providesAudienceEngagementActivity": "Közönségbevonó tevékenységek",
+    "providesCapacityBuildingActivity": "Kapacitásépítés",
+    "providesSupportForDataActivity": "Adattevékenységek",
+    "providesSupportForMediaType": "Médiatípus",
+    "providingInstitutionsCount": "Szolgáltató intézmények száma",
+    "recordCount": "Elemek száma"
   },
   "organisations": {
     "aggregators": {
       "description": "Az aggregátorok együttműködnek az adatszolgáltató intézményekkel, hogy összegyűjtsék és közzétegyék azok digitális kulturális örökségi elemeit az Europeana.eu oldalon.",
       "title": "Aggregátorok"
     },
+    "internationalAggregators": {
+      "description": "A tartományi és tematikus aggregátorok a kulturális ágazat (például múzeum, archívum vagy könyvtár) vagy téma (például divat) szerint határozzák meg a hatókörüket. Különböző európai országokban működő közreműködőkkel dolgoznak együtt.",
+      "title": "Tartományi és tematikus aggregátorok"
+    },
     "providingInstitutions": {
       "description": "Azon múzeumok, könyvtárak, archívumok és galériák listája, amelyek megosztják digitális kulturális elemek az Europeana.eu oldalon.",
       "title": "Szolgáltató intézmények"
+    },
+    "regionalAggregators": {
+      "description": "A nemzeti és regionális aggregátorok országonként vagy régiónként határozzák meg hatókörüket. Az adott országban vagy régióban található közreműködőkkel dolgoznak.",
+      "title": "Országos és regionális aggregátorok"
     }
   },
   "pageHasLoaded": "betöltődött",
@@ -1178,7 +1197,9 @@ export default {
         "title": "Helyek"
       },
       "table": {
+        "aggregator": "Aggregátor",
         "country": "Ország",
+        "domain": "Domain / Téma",
         "items": "Elemek",
         "name": "Név",
         "searchPlaceholder": "Keresés a táblázatban",

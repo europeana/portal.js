@@ -47,6 +47,7 @@ export default {
     "clearFilters": "Tühjenda filtrid",
     "close": "Sulge",
     "confirm": "Kinnita",
+    "contact": "Kontakt",
     "continue": "jätka",
     "depublish": "Tühista avaldamine",
     "download": "Lae alla",
@@ -80,6 +81,7 @@ export default {
     "transcribe": "Transkribeeri",
     "transcribeNow": "Transkribeeri nüüd",
     "unlike": "Ei meeldi",
+    "viewAll": "Vaata kõiki {count}",
     "viewAt": "Kuva saidil {link}",
     "viewDocument": "Vaadake dokumenti",
     "vote": "Hääletage"
@@ -173,6 +175,7 @@ export default {
     "topic": "Teemad"
   },
   "cardLabels": {
+    "aggregator": "Agregaator",
     "organisation": "Institutsioon",
     "person": "Isik",
     "place": "Koht",
@@ -1151,16 +1154,32 @@ export default {
     "city": "Linn",
     "country": "Riik",
     "englishName": "Ingliskeelne nimi",
-    "nameAcronym": "Nime akronüüm"
+    "geographicScope": "Geograafiline ulatus",
+    "heritageDomain": "Pärandi liigid",
+    "nameAcronym": "Nime akronüüm",
+    "providesAudienceEngagementActivity": "Publiku kaasamise tegevused",
+    "providesCapacityBuildingActivity": "Suutlikkuse suurendamine",
+    "providesSupportForDataActivity": "Andmetegevused",
+    "providesSupportForMediaType": "Meediumitüüp",
+    "providingInstitutionsCount": "Pakkujate institutsioonide arv",
+    "recordCount": "Üksuste arv"
   },
   "organisations": {
     "aggregators": {
       "description": "Agregaatorid teevad koostööd andmeid esitavate asutustega, et koguda ja avaldada nende digitaalseid kultuuripärandi üksuseid saidil Europeana.eu.",
       "title": "Agregaatorid"
     },
+    "internationalAggregators": {
+      "description": "Domeeni- ja temaatilised agregaatorid määratlevad oma ulatuse kultuurisektori (nt muuseum, arhiiv või raamatukogu) või teema järgi (nt mood). Nad teevad koostööd eri Euroopa riikides asuvate kaastöötajatega.",
+      "title": "Domeeni- ja temaatilised koondajad"
+    },
     "providingInstitutions": {
       "description": "Nimekiri muuseumidest, raamatukogudest, arhiividest ja galeriidest, kes jagavad oma digitaalseid kultuuri üksused saidil Europeana.eu.",
       "title": "Pakkuja institutsioon"
+    },
+    "regionalAggregators": {
+      "description": "Riiklikud ja piirkondlikud koondajad määratlevad oma tegevusala konkreetse riigi või piirkonna järgi. Nad teevad koostööd selles riigis või piirkonnas asuvate kaastöötajatega.",
+      "title": "Riiklikud ja piirkondlikud koondajad"
     }
   },
   "pageHasLoaded": "on laaditud",
@@ -1178,7 +1197,9 @@ export default {
         "title": "Kohad"
       },
       "table": {
+        "aggregator": "Agregaator",
         "country": "Riik",
+        "domain": "Domeen / Teema",
         "items": "Üksused",
         "name": "Nimi",
         "searchPlaceholder": "Otsige tabelist",

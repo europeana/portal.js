@@ -47,6 +47,7 @@ export default {
     "clearFilters": "Filtri ċari",
     "close": "agħlaq",
     "confirm": "Ikkonferma",
+    "contact": "Kuntatt",
     "continue": "kompli",
     "depublish": "Tneħħi l-pubblikazzjoni",
     "download": "Niżżel",
@@ -80,6 +81,7 @@ export default {
     "transcribe": "Traskrivi",
     "transcribeNow": "Traskrivi issa",
     "unlike": "Tneħħi l-like",
+    "viewAll": "Ara kollha {count}",
     "viewAt": "Ara fuq {link}",
     "viewDocument": "Ara d-dokument",
     "vote": "Ivvota"
@@ -173,6 +175,7 @@ export default {
     "topic": "Suġġetti"
   },
   "cardLabels": {
+    "aggregator": "Aggregatur",
     "organisation": "Istituzzjoni",
     "person": "Persuna",
     "place": "Post",
@@ -1151,16 +1154,32 @@ export default {
     "city": "Belt",
     "country": "Pajjiż",
     "englishName": "Isem l-Ingliż",
-    "nameAcronym": "Isem akronimu"
+    "geographicScope": "Ambitu ġeografiku",
+    "heritageDomain": "Tipi ta' wirt",
+    "nameAcronym": "Isem akronimu",
+    "providesAudienceEngagementActivity": "Attivitajiet ta’ involviment tal-udjenza",
+    "providesCapacityBuildingActivity": "Bini tal-kapaċità",
+    "providesSupportForDataActivity": "Attivitajiet tad-data",
+    "providesSupportForMediaType": "Tip ta’ midja",
+    "providingInstitutionsCount": "Numru ta' istituzzjonijiet li jipprovdu",
+    "recordCount": "Numru ta' oggetti"
   },
   "organisations": {
     "aggregators": {
       "description": "L-aggregaturi jaħdmu mal-istituzzjonijiet fornitriċi biex jiġbru u jippubblikaw l-oġġetti tal-wirt kulturali diġitali tagħhom fuq Europeana.eu.",
       "title": "Aggregaturi"
     },
+    "internationalAggregators": {
+      "description": "L-aggregaturi tad-dominju u tematiċi jiddefinixxu l-ambitu tagħhom skont is-settur kulturali (bħal mużew, arkivju jew librerija) jew skont is-suġġett u t-tema (bħall-moda). Huma jaħdmu ma’ kontributuri bbażati f’pajjiżi Ewropej differenti.",
+      "title": "Aggregaturi tad-dominju u tematiċi"
+    },
     "providingInstitutions": {
       "description": "Lista ta’ mużewijiet, libreriji, arkivji u galleriji li jaqsmu l-oġġetti tal-wirt kulturali diġitali tagħhom fuq Europeana.eu.",
       "title": "Istituzzjonijiet li jipprovdu"
+    },
+    "regionalAggregators": {
+      "description": "L-aggregaturi nazzjonali u reġjonali jiddefinixxu l-ambitu tagħhom skont pajjiż jew reġjun speċifiku. Huma jaħdmu ma’ kontributuri li jinsabu f’dak il-pajjiż jew reġjun.",
+      "title": "Aggregaturi nazzjonali u reġjonali"
     }
   },
   "pageHasLoaded": "ġie illowdjat",
@@ -1178,7 +1197,9 @@ export default {
         "title": "Postijiet"
       },
       "table": {
+        "aggregator": "Aggregatur",
         "country": "Pajjiż",
+        "domain": "Dominju / Tema",
         "items": "Oġġetti",
         "name": "Isem",
         "searchPlaceholder": "Fittex fit-tabella",

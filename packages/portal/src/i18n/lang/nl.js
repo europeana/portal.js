@@ -47,6 +47,7 @@ export default {
     "clearFilters": "Filters wissen",
     "close": "sluiten",
     "confirm": "Bevestigen",
+    "contact": "Contact",
     "continue": "doorgaan",
     "depublish": "Depubliceren",
     "download": "Download",
@@ -80,6 +81,7 @@ export default {
     "transcribe": "Transcriberen",
     "transcribeNow": "Nu transcriberen",
     "unlike": "Unlike",
+    "viewAll": "Alles bekijken {count}",
     "viewAt": "Bekijken op {link}",
     "viewDocument": "Document weergeven",
     "vote": "Stemmen"
@@ -173,6 +175,7 @@ export default {
     "topic": "Onderwerpen"
   },
   "cardLabels": {
+    "aggregator": "Aggregator",
     "organisation": "Instelling",
     "person": "Persoon",
     "place": "Plaats",
@@ -1151,16 +1154,32 @@ export default {
     "city": "Stad",
     "country": "Land",
     "englishName": "Engelse naam",
-    "nameAcronym": "Naam acroniem"
+    "geographicScope": "Geografische reikwijdte",
+    "heritageDomain": "Soorten erfgoed",
+    "nameAcronym": "Naam acroniem",
+    "providesAudienceEngagementActivity": "Activiteiten voor publieksbetrokkenheid",
+    "providesCapacityBuildingActivity": "Capaciteitsopbouw",
+    "providesSupportForDataActivity": "Gegevensactiviteiten",
+    "providesSupportForMediaType": "Mediatype",
+    "providingInstitutionsCount": "Aantal aanbiedende instellingen",
+    "recordCount": "Aantal objecten"
   },
   "organisations": {
     "aggregators": {
       "description": "Aggregatoren werken samen met aanbiedende instellingen om hun digitale culturele erfgoed te verzamelen en te publiceren op Europeana.eu.",
       "title": "Aggregators"
     },
+    "internationalAggregators": {
+      "description": "Domein- en thematische aggregatoren bepalen hun reikwijdte op basis van culturele sector (zoals museum, archief of bibliotheek) of op basis van onderwerp en thema (zoals mode). Zij werken samen met aanbieders in verschillende Europese landen.",
+      "title": "Domein- en thematische aggregators"
+    },
     "providingInstitutions": {
       "description": "Een lijst van musea, bibliotheken, archieven en galerijen die hun digitale culturele erfgoedcollecties delen op Europeana.eu.",
       "title": "Aanbiedende instellingen"
+    },
+    "regionalAggregators": {
+      "description": "Nationale en regionale aggregators definiëren hun werkgebied per specifiek land of regio. Ze werken samen met bijdragers die zich binnen dat land of die regio bevinden.",
+      "title": "Nationale en regionale aggregators"
     }
   },
   "pageHasLoaded": "heeft geladen",
@@ -1178,7 +1197,9 @@ export default {
         "title": "Plaatsen"
       },
       "table": {
+        "aggregator": "Aggregator",
         "country": "Land",
+        "domain": "Domein / Thema",
         "items": "Objecten",
         "name": "Naam",
         "searchPlaceholder": "Zoeken binnen tabel",

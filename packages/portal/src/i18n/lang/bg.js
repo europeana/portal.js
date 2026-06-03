@@ -47,6 +47,7 @@ export default {
     "clearFilters": "Изчисти филтрите",
     "close": "затвори",
     "confirm": "Потвърди",
+    "contact": "Контакт",
     "continue": "продължи",
     "depublish": "Депубликувай",
     "download": "Изтегляне",
@@ -80,6 +81,7 @@ export default {
     "transcribe": "Транскрибиране",
     "transcribeNow": "Транскрибирайте сега",
     "unlike": "Не харесвам",
+    "viewAll": "Вижте всички {count}",
     "viewAt": "Преглед на {link}",
     "viewDocument": "Преглед на документа",
     "vote": "Гласувайте"
@@ -173,6 +175,7 @@ export default {
     "topic": "Рубрика"
   },
   "cardLabels": {
+    "aggregator": "Агрегатор",
     "organisation": "Институция",
     "person": "човек",
     "place": "място",
@@ -1151,16 +1154,32 @@ export default {
     "city": "град",
     "country": "Държава:",
     "englishName": "английско име",
-    "nameAcronym": "Акроним на името"
+    "geographicScope": "Географски обхват",
+    "heritageDomain": "Видове наследство",
+    "nameAcronym": "Акроним на името",
+    "providesAudienceEngagementActivity": "Дейности за ангажиране на аудиторията",
+    "providesCapacityBuildingActivity": "Изграждане на капацитет",
+    "providesSupportForDataActivity": "Дейности с данни",
+    "providesSupportForMediaType": "Тип медия",
+    "providingInstitutionsCount": "Брой доставчици на данни",
+    "recordCount": "Брой обекти"
   },
   "organisations": {
     "aggregators": {
       "description": "Агрегаторите работят с предоставящите институции за събиране и публикуване на техните дигитални културни обекта в Europeana.eu.",
       "title": "Агрегатори"
     },
+    "internationalAggregators": {
+      "description": "Домейн и тематичните агрегатори определят обхвата си по културни сектори (например музей, архив или библиотека) или по теми и тематични области (например мода). Те работят със сътрудници, базирани в различни европейски държави.",
+      "title": "Домейн и тематични агрегатори"
+    },
     "providingInstitutions": {
       "description": "Списък с музеи, библиотеки, архиви и галерии, които споделят своите дигитални културни обекти в Europeana.eu.",
       "title": "Предоставящи институции"
+    },
+    "regionalAggregators": {
+      "description": "Националните и регионалните агрегатори определят своя обхват според конкретна държава или регион. Те работят с участници, които се намират в рамките на тази държава или регион.",
+      "title": "Национални и регионални агрегатори"
     }
   },
   "pageHasLoaded": "е зареден",
@@ -1178,7 +1197,9 @@ export default {
         "title": "Места"
       },
       "table": {
+        "aggregator": "Агрегатор",
         "country": "Държава:",
+        "domain": "Домейн / Тема",
         "items": "обекта",
         "name": "Име",
         "searchPlaceholder": "Търсене в таблицата",

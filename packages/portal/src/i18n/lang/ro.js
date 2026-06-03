@@ -47,6 +47,7 @@ export default {
     "clearFilters": "Ștergeți filtrele",
     "close": "închidere",
     "confirm": "Confirmă",
+    "contact": "Contact",
     "continue": "continua",
     "depublish": "Depublicați",
     "download": "Descarcă",
@@ -80,6 +81,7 @@ export default {
     "transcribe": "Transcrie",
     "transcribeNow": "Transcrie acum",
     "unlike": "Nu îmi place",
+    "viewAll": "Vezi toate {count}",
     "viewAt": "Vizualizați pe {link}",
     "viewDocument": "Vizualizare document",
     "vote": "Vot"
@@ -173,6 +175,7 @@ export default {
     "topic": "Subiecte"
   },
   "cardLabels": {
+    "aggregator": "Agregator",
     "organisation": "Instituție",
     "person": "Persoană",
     "place": "Loc",
@@ -1151,16 +1154,32 @@ export default {
     "city": "Oraș",
     "country": "Țara",
     "englishName": "Nume englezesc",
-    "nameAcronym": "Acronim de nume"
+    "geographicScope": "Arie de aplicare geografică",
+    "heritageDomain": "Tipuri de patrimoniu",
+    "nameAcronym": "Acronim de nume",
+    "providesAudienceEngagementActivity": "Activități de implicare a publicului",
+    "providesCapacityBuildingActivity": "Consolidarea capacităților",
+    "providesSupportForDataActivity": "Activități privind datele",
+    "providesSupportForMediaType": "Tip media",
+    "providingInstitutionsCount": "Numărul instituțiilor furnizoare",
+    "recordCount": "Numărul de resurse culturale"
   },
   "organisations": {
     "aggregators": {
       "description": "Agregatorii colaborează cu instituțiile furnizoare pentru a colecta și publica obiectele lor de patrimoniu cultural digital pe Europeana.eu.",
       "title": "Agregatori"
     },
+    "internationalAggregators": {
+      "description": "Agregatorii de domeniu și tematici își definesc aria de acoperire în funcție de sectorul cultural (precum muzeele, arhivele sau bibliotecile) sau de subiect și temă (precum moda). Ei colaborează cu furnizorii de date din diferite țări europene.",
+      "title": "Agregatori de domenii și tematici"
+    },
     "providingInstitutions": {
       "description": "O listă de muzee, biblioteci, arhive și galerii care își partajează resurse culturale digitale pe Europeana.eu.",
       "title": "Instituții furnizoare"
+    },
+    "regionalAggregators": {
+      "description": "Agregatorii naționali și regionali își definesc aria de acoperire în funcție de o anumită țară sau regiune. Ei colaborează cu contributori aflați în acea țară sau regiune.",
+      "title": "Agregatori naționali și regionali"
     }
   },
   "pageHasLoaded": "a încărcat",
@@ -1178,7 +1197,9 @@ export default {
         "title": "Locuri"
       },
       "table": {
+        "aggregator": "Agregator",
         "country": "Țara",
+        "domain": "Domeniu / Temă",
         "items": "Resurse culturale",
         "name": "Nume",
         "searchPlaceholder": "Căutați în tabel",

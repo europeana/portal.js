@@ -47,6 +47,7 @@ export default {
     "clearFilters": "Počisti filtre",
     "close": "zapri",
     "confirm": "Potrdi",
+    "contact": "Kontakt",
     "continue": "nadaljuj",
     "depublish": "Depubliš",
     "download": "Prenos",
@@ -80,6 +81,7 @@ export default {
     "transcribe": "Prepisujte",
     "transcribeNow": "Prepiši zdaj",
     "unlike": "Odstrani všeček",
+    "viewAll": "Prikaži vse {count}",
     "viewAt": "Ogled na {link}",
     "viewDocument": "Ogled dokumenta",
     "vote": "Glasuj"
@@ -173,6 +175,7 @@ export default {
     "topic": "Teme"
   },
   "cardLabels": {
+    "aggregator": "Agregator",
     "organisation": "Institucija",
     "person": "Oseba",
     "place": "Mesto",
@@ -1151,16 +1154,32 @@ export default {
     "city": "Mesto",
     "country": "Država",
     "englishName": "Angleško ime",
-    "nameAcronym": "Kratica imena"
+    "geographicScope": "Geografsko področje uporabe",
+    "heritageDomain": "Vrste dediščine",
+    "nameAcronym": "Kratica imena",
+    "providesAudienceEngagementActivity": "Dejavnosti za vključevanje občinstva",
+    "providesCapacityBuildingActivity": "Krepitev zmogljivosti",
+    "providesSupportForDataActivity": "Dejavnosti v zvezi s podatki",
+    "providesSupportForMediaType": "Vrsta medija",
+    "providingInstitutionsCount": "Število ponudnikov podatkov",
+    "recordCount": "Število enot"
   },
   "organisations": {
     "aggregators": {
       "description": "Agregatorji sodelujejo z institucijami, ki zagotavljajo podatke, da zberejo in objavijo njihove digitalne enote kulturne dediščine na Europeana.eu.",
       "title": "Agregatorji"
     },
+    "internationalAggregators": {
+      "description": "Domenski in tematski agregatorji opredeljujejo svoje področje delovanja glede na kulturni sektor (kot so muzeji, arhivi ali knjižnice) ali glede na temo (kot je moda). Sodelujejo s ponudniki podatkov iz različnih evropskih držav.",
+      "title": "Področni in tematski agregatorji"
+    },
     "providingInstitutions": {
       "description": "Seznam muzejev, knjižnic, arhivov in galerij, ki delijo svoje digitalne kulturne enote na Europeana.eu.",
-      "title": "Zagotavljanje institucij"
+      "title": "Ponudnik podatkov"
+    },
+    "regionalAggregators": {
+      "description": "Nacionalni in regionalni agregatorji opredeljujejo svoj obseg delovanja glede na določeno državo ali regijo. Sodelujejo s sodelavci, ki se nahajajo v tej državi ali regiji.",
+      "title": "Nacionalni in regionalni agregatorji"
     }
   },
   "pageHasLoaded": "je naložena",
@@ -1178,7 +1197,9 @@ export default {
         "title": "Krajev"
       },
       "table": {
+        "aggregator": "Agregator",
         "country": "Država",
+        "domain": "Domena / Tema",
         "items": "Enote",
         "name": "Ime",
         "searchPlaceholder": "Išči znotraj tabele",
