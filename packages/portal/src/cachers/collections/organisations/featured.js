@@ -14,7 +14,7 @@ const SORT = (entity) => {
   return Object.values(entity.prefLabel)[0];
 };
 
-const data = (config = {}) => baseData({ type: 'organization' }, config);
+const data = (context = {}) => baseData({ type: 'organization' }, context);
 
 export {
   data,

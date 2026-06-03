@@ -1,20 +1,17 @@
 import baseData from '../index.js';
 import { organisationData } from '../organisations.js';
-import { createEuropeanaApiClient } from '../../utils.js';
+import EuropeanaEntityApi from '../../../plugins/europeana/entity.js';
 
 const PICK = ['id', 'slug', 'recordCount', 'prefLabel', 'altLabel', 'geographicScope', 'countryPrefLabel', 'heritageDomain', 'logo'];
 const LOCALISE = 'countryPrefLabel';
 
-let axiosClientEntity;
+const data = async(context = {}) => {
+  const api = context.$apis?.entity || new EuropeanaEntityApi(context);
 
-const data = async(config = {}) => {
-  axiosClientEntity = createEuropeanaApiClient(config.europeana?.apis?.entity);
-
-  const entityData = await baseData({ type: 'aggregator' }, config);
+  const entityData = await baseData({ type: 'aggregator' }, context);
   const entityIds = entityData.map((entity) => entity.id);
 
-  const retrieveResponse = await axiosClientEntity.post('/retrieve', entityIds, { params: { profile: 'dereference' } });
-  const fullEntities = retrieveResponse.data.items;
+  const fullEntities = await api.retrieve(entityIds, { profile: 'dereference' });
 
   return entityData
     .map((entity) => {

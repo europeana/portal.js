@@ -78,7 +78,7 @@ const featuredQf = FEATURED
   .map(idNum => `*/${idNum}`)
   .join(' OR ');
 
-const data = (config = {}) => baseData({ type: 'concept', qf: `id:(${featuredQf})` }, config);
+const data = (context = {}) => baseData({ type: 'concept', qf: `id:(${featuredQf})` }, context);
 
 export {
   data,

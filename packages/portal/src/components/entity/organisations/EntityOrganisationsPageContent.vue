@@ -24,21 +24,29 @@
       >
         <p>{{ description }}</p>
       </b-col>
-      <template v-if="tab === TABS.INSTITUTIONS">
+      <template v-if="activeTabId === TABS.INSTITUTIONS">
+        <!-- FIXME: this table should not be showing aggregators -->
         <EntityTable
           type="organisations"
+          data-qa="providingInstitutions entity table"
           class="mt-3 mt-md-4"
-          :fields="['prefLabel', 'countryPrefLabel', 'recordCount', 'showDetails']"
+          :fields="['prefLabel', 'countryPrefLabel', 'aggregator', 'recordCount', 'showDetails']"
         >
           <template #row-details="rowDetails">
             <span
               v-if="rowDetails.entity.countryPrefLabel"
-              class="d-md-none"
+              class="d-lg-none"
             >{{ rowDetails.entity.countryPrefLabel }}</span>
-          </template>
+            <EntityBadges
+              v-if="(rowDetails.entity.aggregatedVia?.length || 0) > 0"
+              :related-collections="rowDetails.entity.aggregatedVia"
+              :title="$t('pages.collections.table.aggregator')"
+              class="d-lg-none mt-3"
+            />
+          </template>md
         </EntityTable>
       </template>
-      <template v-else-if="tab === TABS.AGGREGATORS">
+      <template v-else-if="activeTabId === TABS.AGGREGATORS">
         <div
           v-for="type in aggregatorTypes"
           :key="type.key"
@@ -66,12 +74,12 @@
           >
             <template #row-details="rowDetails">
               <span
-                v-if="rowDetails.entity.countryPrefLabel"
-                class="d-md-none"
+                v-if="type.fields.includes('countryPrefLabel') && rowDetails.entity.countryPrefLabel"
+                class="d-lg-none"
               >{{ rowDetails.entity.countryPrefLabel }}</span>
               <span
-                v-if="rowDetails.entity.heritageDomain"
-                class="d-md-none"
+                v-if="type.fields.includes('heritageDomain') && rowDetails.entity.heritageDomain"
+                class="d-lg-none"
               >{{ rowDetails.entity.heritageDomain }}</span>
               <EntityOrganisationsRelated
                 :entity-id="rowDetails.entity.id"
@@ -99,7 +107,8 @@
     components: {
       ClientOnly,
       EntityOrganisationsRelated: () => import('./EntityOrganisationsRelated'),
-      EntityTable: () => import('../EntityTable')
+      EntityTable: () => import('../EntityTable'),
+      EntityBadges: () => import('../EntityBadges')
     },
 
     setup() {
@@ -133,14 +142,11 @@
 
     computed: {
       description() {
-        if (this.tab === TABS.AGGREGATORS) {
+        if (this.activeTabId === TABS.AGGREGATORS) {
           return this.$t('organisations.aggregators.description');
         } else {
           return this.$t('organisations.providingInstitutions.description');
         }
-      },
-      tab() {
-        return this.activeTabId || TABS.INSTITUTIONS;
       },
       aggregatorTypes() {
         return [

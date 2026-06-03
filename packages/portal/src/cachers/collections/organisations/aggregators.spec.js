@@ -6,7 +6,7 @@ import nock from 'nock';
 const countryLabel = 'France';
 const slug = '001-museum';
 const searchResponse = [
-  { id: 'http://data.europeana.eu/organization/001', slug },
+  { id: 'http://data.europeana.eu/organization/001', slug, country: { id: 'http://data.europeana.eu/place/100' } },
   { id: 'http://data.europeana.eu/organization/002' }
 ];
 
@@ -17,7 +17,7 @@ const retrieveResponse = [
     geographicScope: 'National',
     type: 'Aggregator',
     prefLabel: { en: 'Museum', es: 'Museo' },
-    country: { prefLabel: countryLabel },
+    country: { id: 'http://data.europeana.eu/place/100', prefLabel: countryLabel },
     isAggregatedBy: { recordCount: 100 }
   },
   {
@@ -30,33 +30,19 @@ const retrieveResponse = [
   }
 ];
 
-const config = {
-  europeana: {
-    apis: {
-      entity: {
-        url: 'https://api.example.org/entity',
-        key: 'entityApiKey'
-      }
+const context = {
+  $apis: {
+    entity: {
+      retrieve: sinon.stub().resolves(retrieveResponse)
     }
   }
-};
-
-const mockApiRequests = () => {
-  nock(config.europeana.apis.entity.url)
-    .post('/retrieve')
-    .query((query) => query.wskey === config.europeana.apis.entity.key)
-    .reply(200, { items: retrieveResponse });
 };
 
 describe('@/cachers/collections/aggregators', () => {
   beforeAll(() => {
     nock.disableNetConnect();
   });
-  beforeEach(() => {
-    mockApiRequests();
-  });
   afterEach(() => {
-    nock.cleanAll();
     sinon.resetHistory();
   });
   afterAll(() => {
@@ -68,25 +54,31 @@ describe('@/cachers/collections/aggregators', () => {
     .resolves(searchResponse);
 
   it('fetches data with type: aggregator', async() => {
-    await cacher.data(config);
+    await cacher.data(context);
 
-    expect(baseCacher.default.calledWith({ type: 'aggregator' }, config)).toBe(true);
+    expect(baseCacher.default.calledWith({ type: 'aggregator' }, context)).toBe(true);
   });
 
-  it('adds the heritage domain to the organisation data', async() => {
-    const data = await cacher.data(config);
+  it('retrieves full entity data from the API', async() => {
+    await cacher.data(context);
+
+    expect(context.$apis.entity.retrieve.calledWith(
+      [
+        'http://data.europeana.eu/organization/001',
+        'http://data.europeana.eu/organization/002'
+      ],
+      { profile: 'dereference' }
+    )).toBe(true);
+  });
+
+  it('adds data from full entities to the organisation data', async() => {
+    const data = await cacher.data(context);
 
     expect(data[1].heritageDomain).toEqual(domain);
   });
 
-  it('adds the country pref label to the organisation data', async() => {
-    const data = await cacher.data(config);
-
-    expect(data[0].countryPrefLabel).toEqual(countryLabel);
-  });
-
   it('keeps the slug for the organisation data', async() => {
-    const data = await cacher.data(config);
+    const data = await cacher.data(context);
 
     expect(data[0].slug).toEqual(slug);
   });

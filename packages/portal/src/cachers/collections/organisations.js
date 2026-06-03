@@ -4,7 +4,7 @@ import {
   organizationEntityNonNativeEnglishName
 } from '../../utils/europeana/entities/organizations.js';
 
-const PICK = ['id', 'slug', 'recordCount', 'prefLabel', 'altLabel', 'countryPrefLabel'];
+const PICK = ['id', 'slug', 'recordCount', 'prefLabel', 'altLabel', 'countryPrefLabel', 'aggregatedVia'];
 const LOCALISE = 'countryPrefLabel';
 
 export const organisationData = (organisation) => ({
@@ -18,9 +18,9 @@ export const organisationData = (organisation) => ({
   prefLabel: organizationEntityNativeName(organisation)
 });
 
-const data = async(config = {}) => {
+const data = async(context = {}) => {
   // TODO: exclude aggregators? or do it in the consumer?
-  const entityData = await baseData({ type: 'organization' }, config);
+  const entityData = await baseData({ type: 'organization' }, context);
 
   return entityData.map(organisationData);
 };
