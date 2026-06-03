@@ -6,7 +6,6 @@ const getCurrentInstanceRoot = () => {
 };
 
 export const useRoute = () => {
-  console.log('useRoute');
   const root = getCurrentInstanceRoot();
   const route = computed(() => root.$route);
   return route;
