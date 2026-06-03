@@ -176,6 +176,7 @@
       };
     },
     beforeRouteLeave(_to, _from, next) {
+      this.leaving = true;
       this.$store.commit('entity/setPinned', []);
       this.$store.commit('entity/setBestItemsSetId', null);
       this.clearSelectedItems();
@@ -193,7 +194,8 @@
         perPage: 48,
         set: {},
         title: '',
-        rawDescription: ''
+        rawDescription: '',
+        leaving: false
       };
     },
     async fetch() {
@@ -283,7 +285,7 @@
 
     watch: {
       '$store.state.entity.pinned.length'() {
-        if (this.setIsEntityBestItems) {
+        if (!this.leaving && this.setIsEntityBestItems) {
           this.$fetch();
         }
       },
