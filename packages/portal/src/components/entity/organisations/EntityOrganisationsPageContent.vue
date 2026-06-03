@@ -14,86 +14,81 @@
         {{ tab.label }}
       </b-nav-item>
     </b-nav>
-    <!-- wrapped in client-only as page content was dependent on browser URL hash -->
-    <!-- TODO: see if client-only can be removed  -->
-    <client-only>
-      <b-col
-        cols="12"
-        lg="6"
-        class="tab-header p-0 mb-5"
+    <b-col
+      cols="12"
+      lg="6"
+      class="tab-header p-0 mb-5"
+    >
+      <p>{{ description }}</p>
+    </b-col>
+    <template v-if="activeTabId === TABS.INSTITUTIONS">
+      <!-- FIXME: this table should not be showing aggregators -->
+      <EntityTable
+        type="organisations"
+        data-qa="providingInstitutions entity table"
+        class="mt-3 mt-md-4"
+        :fields="['prefLabel', 'countryPrefLabel', 'aggregator', 'recordCount', 'showDetails']"
       >
-        <p>{{ description }}</p>
-      </b-col>
-      <template v-if="activeTabId === TABS.INSTITUTIONS">
-        <!-- FIXME: this table should not be showing aggregators -->
+        <template #row-details="rowDetails">
+          <span
+            v-if="rowDetails.entity.countryPrefLabel"
+            class="d-lg-none"
+          >{{ rowDetails.entity.countryPrefLabel }}</span>
+          <EntityBadges
+            v-if="(rowDetails.entity.aggregatedVia?.length || 0) > 0"
+            :related-collections="rowDetails.entity.aggregatedVia"
+            :title="$t('pages.collections.table.aggregator')"
+            class="d-lg-none mt-3"
+          />
+        </template>md
+      </EntityTable>
+    </template>
+    <template v-else-if="activeTabId === TABS.AGGREGATORS">
+      <div
+        v-for="type in aggregatorTypes"
+        :key="type.key"
+      >
+        <b-col
+          cols="12"
+          lg="6"
+          class="p-0 mb-5"
+          :class="`${type.key}-header`"
+        >
+          <h2>{{ $t(`organisations.${type.key}.title`) }}</h2>
+          <p>{{ $t(`organisations.${type.key}.description`) }}</p>
+        </b-col>
         <EntityTable
+          :table-id="type.key"
           type="organisations"
-          data-qa="providingInstitutions entity table"
+          sub-type="aggregators"
+          :data-qa="`${type.key} entity table`"
+          :filter="type.filter"
+          :fields="type.fields"
           class="mt-3 mt-md-4"
-          :fields="['prefLabel', 'countryPrefLabel', 'aggregator', 'recordCount', 'showDetails']"
+          :searchable="false"
+          :always-show-row-details-toggles="true"
+          :per-page="null"
         >
           <template #row-details="rowDetails">
             <span
-              v-if="rowDetails.entity.countryPrefLabel"
+              v-if="type.fields.includes('countryPrefLabel') && rowDetails.entity.countryPrefLabel"
               class="d-lg-none"
             >{{ rowDetails.entity.countryPrefLabel }}</span>
-            <EntityBadges
-              v-if="(rowDetails.entity.aggregatedVia?.length || 0) > 0"
-              :related-collections="rowDetails.entity.aggregatedVia"
-              :title="$t('pages.collections.table.aggregator')"
-              class="d-lg-none mt-3"
+            <span
+              v-if="type.fields.includes('heritageDomain') && rowDetails.entity.heritageDomain"
+              class="d-lg-none"
+            >{{ rowDetails.entity.heritageDomain }}</span>
+            <EntityOrganisationsRelated
+              :entity-id="rowDetails.entity.id"
             />
-          </template>md
+          </template>
         </EntityTable>
-      </template>
-      <template v-else-if="activeTabId === TABS.AGGREGATORS">
-        <div
-          v-for="type in aggregatorTypes"
-          :key="type.key"
-        >
-          <b-col
-            cols="12"
-            lg="6"
-            class="p-0 mb-5"
-            :class="`${type.key}-header`"
-          >
-            <h2>{{ $t(`organisations.${type.key}.title`) }}</h2>
-            <p>{{ $t(`organisations.${type.key}.description`) }}</p>
-          </b-col>
-          <EntityTable
-            :table-id="type.key"
-            type="organisations"
-            sub-type="aggregators"
-            :data-qa="`${type.key} entity table`"
-            :filter="type.filter"
-            :fields="type.fields"
-            class="mt-3 mt-md-4"
-            :searchable="false"
-            :always-show-row-details-toggles="true"
-            :per-page="null"
-          >
-            <template #row-details="rowDetails">
-              <span
-                v-if="type.fields.includes('countryPrefLabel') && rowDetails.entity.countryPrefLabel"
-                class="d-lg-none"
-              >{{ rowDetails.entity.countryPrefLabel }}</span>
-              <span
-                v-if="type.fields.includes('heritageDomain') && rowDetails.entity.heritageDomain"
-                class="d-lg-none"
-              >{{ rowDetails.entity.heritageDomain }}</span>
-              <EntityOrganisationsRelated
-                :entity-id="rowDetails.entity.id"
-              />
-            </template>
-          </EntityTable>
-        </div>
-      </template>
-    </client-only>
+      </div>
+    </template>
   </div>
 </template>
 
 <script>
-  import ClientOnly from 'vue-client-only';
   import useActiveTab from '@/composables/activeTab.js';
 
   const TABS = {
@@ -105,7 +100,6 @@
     name: 'EntityOrganisationsPageContent',
 
     components: {
-      ClientOnly,
       EntityOrganisationsRelated: () => import('./EntityOrganisationsRelated'),
       EntityTable: () => import('../EntityTable'),
       EntityBadges: () => import('../EntityBadges')

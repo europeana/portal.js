@@ -1,13 +1,14 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
-import * as vue2RouterHelpers from 'vue2-helpers/vue-router';
 import sinon from 'sinon';
-import { reactive } from 'vue';
+import { computed, reactive } from 'vue';
+import * as vueRouter from '@/composables/vueRouter.js';
+
 import EntityOrganisationsPageContent from './EntityOrganisationsPageContent.vue';
 
 const localVue = createLocalVue();
 
 const factory = ({ tab = '' } = {}) => {
-  sinon.stub(vue2RouterHelpers, 'useRoute').returns(reactive({ query: { tab } }));
+  sinon.stub(vueRouter, 'useRoute').returns(computed(() => reactive({ query: { tab } })));
 
   return shallowMount(EntityOrganisationsPageContent, {
     localVue,
@@ -21,7 +22,7 @@ const factory = ({ tab = '' } = {}) => {
 describe('components/entity/organisations/EntityOrganisationsPageContent', () => {
   afterEach(() => {
     sinon.resetHistory();
-    vue2RouterHelpers.useRoute.restore?.();
+    vueRouter.useRoute.restore?.();
   });
 
   describe('template', () => {
