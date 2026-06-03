@@ -1160,7 +1160,7 @@ export default {
     },
     "providingInstitutions": {
       "description": "Seznam muzejev, knjižnic, arhivov in galerij, ki delijo svoje digitalne kulturne enote na Europeana.eu.",
-      "title": "Zagotavljanje institucij"
+      "title": "Ponudnik podatkov"
     }
   },
   "pageHasLoaded": "je naložena",
