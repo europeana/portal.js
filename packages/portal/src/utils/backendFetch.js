@@ -16,7 +16,8 @@ const backends = () => {
       },
       'collections/retrieve': {
         import: () => import('@/server-middleware/api/collections/retrieve.js'),
-        fn: 'fetchData'
+        fn: 'fetchData',
+        args: (args = [], context = {}) => [...args, context]
       }
     };
   } else {
