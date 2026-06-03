@@ -47,6 +47,7 @@ export default {
     "clearFilters": "Effacer les filtres",
     "close": "fermer",
     "confirm": "Confirmer",
+    "contact": "Contact",
     "continue": "continuer",
     "depublish": "Dépublier",
     "download": "Télécharger",
@@ -80,6 +81,7 @@ export default {
     "transcribe": "Transcrire",
     "transcribeNow": "Transcrivez maintenant",
     "unlike": "Retirer le 'j'aime",
+    "viewAll": "Afficher tout {count}",
     "viewAt": "Consulter sur {link}",
     "viewDocument": "Afficher le document",
     "vote": "Voter"
@@ -173,6 +175,7 @@ export default {
     "topic": "Sujets"
   },
   "cardLabels": {
+    "aggregator": "Agrégateur",
     "organisation": "Institution",
     "person": "Personne",
     "place": "Place",
@@ -1151,16 +1154,32 @@ export default {
     "city": "Ville",
     "country": "Pays",
     "englishName": "Nom anglais",
-    "nameAcronym": "Acronyme du nom"
+    "geographicScope": "Champ d'application géographique",
+    "heritageDomain": "Types de patrimoine",
+    "nameAcronym": "Acronyme du nom",
+    "providesAudienceEngagementActivity": "Activités d’engagement du public",
+    "providesCapacityBuildingActivity": "Renforcement des capacités",
+    "providesSupportForDataActivity": "Activités liées aux données",
+    "providesSupportForMediaType": "Type de média",
+    "providingInstitutionsCount": "Nombre d'institutions prestataires",
+    "recordCount": "Nombre d'items"
   },
   "organisations": {
     "aggregators": {
       "description": "Les agrégateurs travaillent avec les institutions fournisseuses pour collecter et publier leurs items du patrimoine culturel numérique sur Europeana.eu.",
       "title": "Agrégateurs"
     },
+    "internationalAggregators": {
+      "description": "Les agrégateurs de domaines et de thèmes définissent leur champ d'action par secteur culturel (comme les musées, les archives ou les bibliothèques) ou par sujet et thème (comme la mode). Ils travaillent avec des contributeurs basés dans différents pays européens.",
+      "title": "Agrégateurs de domaines et de thèmes"
+    },
     "providingInstitutions": {
       "description": "Une liste de musées, bibliothèques, archives et galeries qui partagent leurs items du patrimoine culturel numérique sur Europeana.eu.",
       "title": "Institutions prestataires"
+    },
+    "regionalAggregators": {
+      "description": "Les agrégateurs nationaux et régionaux définissent leur champ d'action par pays ou région. Ils collaborent avec des contributeurs situés dans ce pays ou cette région.",
+      "title": "Agrégateurs nationaux et régionaux"
     }
   },
   "pageHasLoaded": "a chargé",
@@ -1178,7 +1197,9 @@ export default {
         "title": "Des endroits"
       },
       "table": {
+        "aggregator": "Agrégateur",
         "country": "Pays",
+        "domain": "Domaine / Thème",
         "items": "Items",
         "name": "Nom",
         "searchPlaceholder": "Rechercher dans la table",

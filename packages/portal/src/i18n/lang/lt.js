@@ -47,6 +47,7 @@ export default {
     "clearFilters": "Išvalyti filtrai",
     "close": "uždaryti",
     "confirm": "Patvirtinti",
+    "contact": "Kontaktai",
     "continue": "tęsti",
     "depublish": "Išskelbti",
     "download": "Parsisiųsti",
@@ -80,6 +81,7 @@ export default {
     "transcribe": "Transkribuoti",
     "transcribeNow": "Transkribuokite dabar",
     "unlike": "Nepatinka",
+    "viewAll": "Peržiūrėti visus {count}",
     "viewAt": "Peržiūrėkite {link}",
     "viewDocument": "Peržiūrėti dokumentą",
     "vote": "Balsuoti"
@@ -173,6 +175,7 @@ export default {
     "topic": "Potemė"
   },
   "cardLabels": {
+    "aggregator": "Agregatorius",
     "organisation": "Institucija",
     "person": "Asmuo",
     "place": "Vieta",
@@ -1151,16 +1154,32 @@ export default {
     "city": "Miestas",
     "country": "Šalis",
     "englishName": "Angliškas pavadinimas",
-    "nameAcronym": "Pavadinimo akronimas"
+    "geographicScope": "Geografinė aprėptis",
+    "heritageDomain": "Paveldo rūšys",
+    "nameAcronym": "Pavadinimo akronimas",
+    "providesAudienceEngagementActivity": "Auditorijos įtraukimo veiklos",
+    "providesCapacityBuildingActivity": "Gebėjimų stiprinimas",
+    "providesSupportForDataActivity": "Duomenų veikla",
+    "providesSupportForMediaType": "Medijos tipas",
+    "providingInstitutionsCount": "Teikiančiųjų institucijų skaičius",
+    "recordCount": "Skaitmeninių objektų skaičius"
   },
   "organisations": {
     "aggregators": {
       "description": "Agregatoriai bendradarbiauja su teikiančiomis institucijomis, kad surinktų ir paskelbtų jų skaitmeninio kultūros paveldo objektus Europeana.eu.",
       "title": "Agregatoriai"
     },
+    "internationalAggregators": {
+      "description": "Domenų ir teminiai agregatoriai savo veiklos sritį apibrėžia pagal kultūros sektorių (pavyzdžiui, muziejus, archyvus ar bibliotekas) arba pagal temą (pavyzdžiui, madą). Jie bendradarbiauja su įvairiose Europos šalyse įsikūrusiais turinio teikėjais.",
+      "title": "Domenų ir teminiai agregatoriai"
+    },
     "providingInstitutions": {
       "description": "Muziejų, bibliotekų, archyvų ir galerijų, kurios dalijasi savo skaitmeninio kultūros paveldo skaitmeniniai objektai Europeana.eu, sąrašas.",
       "title": "Teikiančiosios institucijos"
+    },
+    "regionalAggregators": {
+      "description": "Nacionaliniai ir regioniniai agregatoriai apibrėžia savo veiklos sritį pagal konkrečią šalį ar regioną. Jie dirba su toje šalyje ar regione esančiais duomenų teikėjais.",
+      "title": "Nacionaliniai ir regioniniai agregatoriai"
     }
   },
   "pageHasLoaded": "įkelta",
@@ -1178,7 +1197,9 @@ export default {
         "title": "Vietos"
       },
       "table": {
+        "aggregator": "Agregatorius",
         "country": "Šalis",
+        "domain": "Domenas / Tema",
         "items": "Skaitmeniniai objektai",
         "name": "Vardas",
         "searchPlaceholder": "Ieškoti lentelėje",

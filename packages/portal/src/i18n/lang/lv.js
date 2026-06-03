@@ -47,6 +47,7 @@ export default {
     "clearFilters": "Notīrīt filtrus",
     "close": "aizvērt",
     "confirm": "Apstiprināt",
+    "contact": "Kontakti",
     "continue": "turpināt",
     "depublish": "Depublicēt",
     "download": "Lejupielādēt",
@@ -80,6 +81,7 @@ export default {
     "transcribe": "Transkribēt",
     "transcribeNow": "Transkribēt tūlīt",
     "unlike": "Atcelt patiku",
+    "viewAll": "Skatīt visu {count}",
     "viewAt": "Skatīt vietnē {link}",
     "viewDocument": "Skatīt dokumentu",
     "vote": "Balsojums"
@@ -173,6 +175,7 @@ export default {
     "topic": "Tematikas"
   },
   "cardLabels": {
+    "aggregator": "Agregators",
     "organisation": "Iestāde",
     "person": "Persona",
     "place": "Vieta",
@@ -1151,16 +1154,32 @@ export default {
     "city": "Pilsēta",
     "country": "Valsts",
     "englishName": "Angliskais nosaukums",
-    "nameAcronym": "Vārda akronīms"
+    "geographicScope": "Ģeogrāfiskais tvērums",
+    "heritageDomain": "Mantojuma veidi",
+    "nameAcronym": "Vārda akronīms",
+    "providesAudienceEngagementActivity": "Auditorijas iesaistes aktivitātes",
+    "providesCapacityBuildingActivity": "Spēju veidošana",
+    "providesSupportForDataActivity": "Datu darbības",
+    "providesSupportForMediaType": "Multivides veids",
+    "providingInstitutionsCount": "Piedāvājošo iestāžu skaits",
+    "recordCount": "Digitālo objektu skaits"
   },
   "organisations": {
     "aggregators": {
       "description": "Agregatori sadarbojas ar sniedzējām institūcijām, lai apkopotu un publicētu to digitālos kultūras mantojuma objektus vietnē Europeana.eu.",
       "title": "Agregatori"
     },
+    "internationalAggregators": {
+      "description": "Domēnu un tematiskie agregatori definē savu darbības jomu pēc kultūras nozares (piemēram, muzeja, arhīva vai bibliotēkas) vai pēc tēmas (piemēram, modes). Tie sadarbojas ar datu sniedzējiem no dažādām Eiropas valstīm.",
+      "title": "Domēnu un tematiskie agregatori"
+    },
     "providingInstitutions": {
       "description": "Muzeju, bibliotēku, arhīvu un galeriju saraksts, kas kopīgo savus digitālos kultūras digitālie objekti vietnē Europeana.eu.",
       "title": "Piedāvājošās iestādes"
+    },
+    "regionalAggregators": {
+      "description": "Nacionālie un reģionālie apkopotāji nosaka savu darbības jomu atbilstoši konkrētai valstij vai reģionam. Tie strādā ar līdzstrādniekiem, kas atrodas attiecīgajā valstī vai reģionā.",
+      "title": "Nacionālie un reģionālie agregatori"
     }
   },
   "pageHasLoaded": "ir ielādēts",
@@ -1178,7 +1197,9 @@ export default {
         "title": "Vietas"
       },
       "table": {
+        "aggregator": "Agregators",
         "country": "Valsts",
+        "domain": "Domēns / Tēma",
         "items": "Digitālie objekti",
         "name": "Vārds",
         "searchPlaceholder": "Meklēt tabulā",

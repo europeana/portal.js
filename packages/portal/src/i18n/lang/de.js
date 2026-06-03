@@ -47,6 +47,7 @@ export default {
     "clearFilters": "Filter löschen",
     "close": "schließen",
     "confirm": "Bestätigen",
+    "contact": "Kontakt",
     "continue": "Fortfahren",
     "depublish": "Veröffentlichung aufheben",
     "download": "Herunterladen",
@@ -80,6 +81,7 @@ export default {
     "transcribe": "Transkribieren",
     "transcribeNow": "Jetzt transkribieren",
     "unlike": "Unlike",
+    "viewAll": "Alle anzeigen {count}",
     "viewAt": "Ansicht unter {link}",
     "viewDocument": "Dokument anzeigen",
     "vote": "Abstimmen"
@@ -173,6 +175,7 @@ export default {
     "topic": "Themen"
   },
   "cardLabels": {
+    "aggregator": "Aggregator",
     "organisation": "Institution",
     "person": "Person",
     "place": "Ort",
@@ -1151,16 +1154,32 @@ export default {
     "city": "Stadt",
     "country": "Land",
     "englishName": "Englischer Name",
-    "nameAcronym": "Name Akronym"
+    "geographicScope": "Geografischer Geltungsbereich",
+    "heritageDomain": "Arten des Erbes",
+    "nameAcronym": "Name Akronym",
+    "providesAudienceEngagementActivity": "Aktivitäten zur Einbindung des Publikums",
+    "providesCapacityBuildingActivity": "Kapazitätsaufbau",
+    "providesSupportForDataActivity": "Datenaktivitäten",
+    "providesSupportForMediaType": "Medientyp",
+    "providingInstitutionsCount": "Anzahl der Datenpartner",
+    "recordCount": "Anzahl der Objekte"
   },
   "organisations": {
     "aggregators": {
       "description": "Aggregatoren arbeiten mit den bereitstellenden Institutionen zusammen, um deren digitale kulturelle Objekte auf Europeana.eu zu sammeln und zu veröffentlichen.",
       "title": "Aggregatoren"
     },
+    "internationalAggregators": {
+      "description": "Domänen- und Themenaggregatoren definieren ihren Geltungsbereich nach Kultursektor (z. B. Museum, Archiv oder Bibliothek) oder nach Thema (z. B. Mode). Sie arbeiten mit Beiträgern aus verschiedenen europäischen Ländern zusammen.",
+      "title": "Domänen- und Themenaggregatoren"
+    },
     "providingInstitutions": {
       "description": "Eine Liste der Museen, Bibliotheken, Archive und Galerien, die ihr digitales Kulturerbe auf Europeana.eu zur Verfügung stellen.",
       "title": "Datenpartner"
+    },
+    "regionalAggregators": {
+      "description": "Nationale und regionale Aggregatoren definieren ihren Tätigkeitsbereich nach einem bestimmten Land oder einer bestimmten Region. Sie arbeiten mit Anbietern in diesem Land oder dieser Region zusammen.",
+      "title": "Nationale und regionale Aggregatoren"
     }
   },
   "pageHasLoaded": "hat geladen",
@@ -1178,7 +1197,9 @@ export default {
         "title": "Orte"
       },
       "table": {
+        "aggregator": "Aggregator",
         "country": "Land",
+        "domain": "Domäne / Thema",
         "items": "Objekte",
         "name": "Name",
         "searchPlaceholder": "Suche innerhalb der Tabelle",

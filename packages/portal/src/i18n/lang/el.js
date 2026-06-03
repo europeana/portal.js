@@ -47,6 +47,7 @@ export default {
     "clearFilters": "Καθαρισμός φίλτρων",
     "close": "κλείσιμο",
     "confirm": "Επιβεβαιώνω",
+    "contact": "Επικοινωνία",
     "continue": "Συνέχεια",
     "depublish": "Αναδημοσίευση",
     "download": "Μεταφόρτωση",
@@ -80,6 +81,7 @@ export default {
     "transcribe": "Μεταγραφή",
     "transcribeNow": "Μεταγραφή τώρα",
     "unlike": "Δεν μου αρέσει",
+    "viewAll": "Προβολή όλων των {count}",
     "viewAt": "Προβολή στο {link}",
     "viewDocument": "Προβολή εγγράφου",
     "vote": "Ψήφος"
@@ -173,6 +175,7 @@ export default {
     "topic": "Θέματα"
   },
   "cardLabels": {
+    "aggregator": "Συσσωρευτής",
     "organisation": "Ίδρυμα",
     "person": "Πρόσωπο",
     "place": "Θέση",
@@ -1151,16 +1154,32 @@ export default {
     "city": "Πόλη",
     "country": "Χώρα",
     "englishName": "Αγγλικό όνομα",
-    "nameAcronym": "Ακρωνύμιο ονόματος"
+    "geographicScope": "Γεωγραφικό πεδίο εφαρμογής",
+    "heritageDomain": "Είδη κληρονομιάς",
+    "nameAcronym": "Ακρωνύμιο ονόματος",
+    "providesAudienceEngagementActivity": "Δραστηριότητες εμπλοκής κοινού",
+    "providesCapacityBuildingActivity": "Ανάπτυξη ικανοτήτων",
+    "providesSupportForDataActivity": "Δραστηριότητες δεδομένων",
+    "providesSupportForMediaType": "Τύπος μέσου",
+    "providingInstitutionsCount": "Αριθμός φορέων παροχής",
+    "recordCount": "Αριθμός τεκμηρίων"
   },
   "organisations": {
     "aggregators": {
       "description": "Οι συσσωρευτές συνεργάζονται με τους φορείς παροχής για τη συλλογή και τη δημοσίευση των ψηφιακών πολιτιστικών τους τεκμηρίων στο Europeana.eu.",
       "title": "Συγκεντρωτές"
     },
+    "internationalAggregators": {
+      "description": "Οι συσσωρευτές τομέων και θεματικών περιοχών ορίζουν το πεδίο δράσης τους ανά πολιτιστικό τομέα (όπως μουσεία, αρχεία ή βιβλιοθήκες) ή ανά θέμα (όπως η μόδα). Συνεργάζονται με παρόχους δεδομένων από διάφορες ευρωπαϊκές χώρες.",
+      "title": "Συσσωρευτές τομέων και θεματικών περιοχών"
+    },
     "providingInstitutions": {
       "description": "Λίστα με μουσεία, βιβλιοθήκες, αρχεία και γκαλερί που μοιράζονται ψηφιακά πολιτιστικά τεκμήρια στο Europeana.eu.",
       "title": "Φορείς παροχής"
+    },
+    "regionalAggregators": {
+      "description": "Οι εθνικοί και περιφερειακοί συσσωρευτές ορίζουν το πεδίο εφαρμογής τους ανά συγκεκριμένη χώρα ή περιοχή. Συνεργάζονται με συνεισφέροντες που βρίσκονται εντός αυτής της χώρας ή περιοχής.",
+      "title": "Εθνικοί και περιφερειακοί συσσωρευτές"
     }
   },
   "pageHasLoaded": "έχει φορτωθεί",
@@ -1178,7 +1197,9 @@ export default {
         "title": "Μέρη"
       },
       "table": {
+        "aggregator": "Συσσωρευτής",
         "country": "Χώρα",
+        "domain": "Τομέας / Θέμα",
         "items": "Τεκμήρια",
         "name": "Ονομα",
         "searchPlaceholder": "Αναζήτηση εντός του πίνακα",

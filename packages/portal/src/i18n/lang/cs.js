@@ -47,6 +47,7 @@ export default {
     "clearFilters": "Vymazat filtry",
     "close": "zavřít",
     "confirm": "Potvrdit",
+    "contact": "Kontakt",
     "continue": "pokračovat",
     "depublish": "Zrušit publikování",
     "download": "Stáhnout",
@@ -80,6 +81,7 @@ export default {
     "transcribe": "Přepsat",
     "transcribeNow": "Přepište nyní",
     "unlike": "Nelíbí se mi",
+    "viewAll": "Zobrazit vše {count}",
     "viewAt": "Zobrazit na stránce{link}",
     "viewDocument": "Zobrazit dokument",
     "vote": "Hlasování"
@@ -173,6 +175,7 @@ export default {
     "topic": "Tématy"
   },
   "cardLabels": {
+    "aggregator": "Agregátor",
     "organisation": "Instituce",
     "person": "Osoba",
     "place": "Místo",
@@ -1151,16 +1154,32 @@ export default {
     "city": "Město",
     "country": "Země",
     "englishName": "Anglický název",
-    "nameAcronym": "Zkratka jména"
+    "geographicScope": "Zeměpisná oblast působnosti",
+    "heritageDomain": "Typy dědictví",
+    "nameAcronym": "Zkratka jména",
+    "providesAudienceEngagementActivity": "Aktivity pro zapojení publika",
+    "providesCapacityBuildingActivity": "Budování kapacit",
+    "providesSupportForDataActivity": "Datové aktivity",
+    "providesSupportForMediaType": "Typ média",
+    "providingInstitutionsCount": "Počet poskytujících institucí",
+    "recordCount": "Počet položek"
   },
   "organisations": {
     "aggregators": {
       "description": "Agregátoři spolupracují s poskytujícími institucemi na shromažďování a zveřejňování jejich digitálních kulturních položky na Europeana.eu.",
       "title": "Agregátory"
     },
+    "internationalAggregators": {
+      "description": "Doménové a tematické agregátory vymezují svou působnost podle kulturního sektoru (například muzeum, archiv nebo knihovna) nebo podle tématu (například móda). Spolupracují s přispěvateli z různých evropských zemí.",
+      "title": "Doménové a tematické agregátory"
+    },
     "providingInstitutions": {
       "description": "Seznam muzeí, knihoven, archivů a galerií, které sdílejí své digitální kulturní položky na Europeana.eu.",
       "title": "Poskytující instituce"
+    },
+    "regionalAggregators": {
+      "description": "Národní a regionální agregátoři vymezují svůj rozsah podle konkrétní země nebo regionu. Spolupracují s přispěvateli, kteří se nacházejí v dané zemi nebo regionu.",
+      "title": "Národní a regionální agregátoři"
     }
   },
   "pageHasLoaded": "načteno",
@@ -1178,7 +1197,9 @@ export default {
         "title": "Místa"
       },
       "table": {
+        "aggregator": "Agregátor",
         "country": "Země",
+        "domain": "Doména / Téma",
         "items": "Položky",
         "name": "Název",
         "searchPlaceholder": "Hledat v tabulce",
