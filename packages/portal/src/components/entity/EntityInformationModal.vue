@@ -46,7 +46,7 @@
         :show-title="false"
       />
       <b-button
-        :href="aggregatorPageLink.link"
+        :to="aggregatorPageLink.to"
         variant="link"
         class="view-all-button p-0"
       >
@@ -147,7 +147,13 @@
       },
       aggregatorPageLink() {
         return {
-          link: `/collections/organisations#aggregators-${this.entityId}`,
+          to: this.localePath({
+            path: '/collections/organisations',
+            query: {
+              tab: 'aggregators',
+              show: this.entityId
+            }
+          }),
           text: this.$t('actions.viewAll', { count: this.aggregatesFromCount })
         };
       }
