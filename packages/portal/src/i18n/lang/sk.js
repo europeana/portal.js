@@ -47,6 +47,7 @@ export default {
     "clearFilters": "Vymazať filtre",
     "close": "zatvoriť",
     "confirm": "Potvrdiť",
+    "contact": "Kontakt",
     "continue": "pokračovať",
     "depublish": "Zrušiť zverejnenie",
     "download": "Stiahnuť",
@@ -80,6 +81,7 @@ export default {
     "transcribe": "Prepísať",
     "transcribeNow": "Teraz prepíšte",
     "unlike": "Nepáči sa mi",
+    "viewAll": "Zobraziť všetky {count}",
     "viewAt": "Zobraziť na adrese {link}",
     "viewDocument": "Zobraziť dokument",
     "vote": "Hlasujte"
@@ -173,6 +175,7 @@ export default {
     "topic": "Témy"
   },
   "cardLabels": {
+    "aggregator": "Agregátor",
     "organisation": "Inštitúcia",
     "person": "Osoba",
     "place": "Miesto",
@@ -1151,16 +1154,32 @@ export default {
     "city": "Mesto",
     "country": "Krajina",
     "englishName": "Anglický názov",
-    "nameAcronym": "Názov akronym"
+    "geographicScope": "Geografický rozsah",
+    "heritageDomain": "Druhy dedičstva",
+    "nameAcronym": "Názov akronym",
+    "providesAudienceEngagementActivity": "Aktivity zamerané na zapojenie publika",
+    "providesCapacityBuildingActivity": "Budovanie kapacít",
+    "providesSupportForDataActivity": "Činnosti súvisiace s údajmi",
+    "providesSupportForMediaType": "Typ média",
+    "providingInstitutionsCount": "Počet poskytujúcich inštitúcií",
+    "recordCount": "Počet objektov"
   },
   "organisations": {
     "aggregators": {
       "description": "Agregátori spolupracujú s poskytujúcimi inštitúciami na zhromažďovaní a zverejňovaní ich digitálnych objektov kultúrneho dedičstva na Europeana.eu.",
       "title": "Agregátory"
     },
+    "internationalAggregators": {
+      "description": "Doménové a tematické agregátory definujú svoju pôsobnosť podľa kultúrneho sektora (napríklad múzeum, archív alebo knižnica) oder podľa témy (napríklad móda). Spolupracujú s poskytovateľmi údajov sídliacimi v rôznych európskych krajinách.",
+      "title": "Doménové a tematické agregátory"
+    },
     "providingInstitutions": {
       "description": "Zoznam múzeí, knižníc, archívov a galérií, ktoré zdieľajú svoje digitálne kultúrne objekty na Europeana.eu.",
       "title": "Poskytujúce inštitúcie"
+    },
+    "regionalAggregators": {
+      "description": "Národní a regionálni agregátori vymedzujú svoj rozsah podľa konkrétnej krajiny alebo regiónu. Spolupracujú s prispievateľmi pôsobiacimi v danej krajine alebo regióne.",
+      "title": "Národné a regionálne agregátory"
     }
   },
   "pageHasLoaded": "načítal",
@@ -1178,7 +1197,9 @@ export default {
         "title": "Miesta"
       },
       "table": {
+        "aggregator": "Agregátor",
         "country": "Krajina",
+        "domain": "Doména / Téma",
         "items": "Objekty",
         "name": "Meno",
         "searchPlaceholder": "Hľadať v tabuľke",

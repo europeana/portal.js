@@ -43,11 +43,11 @@ export default {
     "apply": "Apply",
     "cancel": "Cancel",
     "changeView": "Change view",
-    "contact": "Contact",
     "clear": "Clear",
     "clearFilters": "Clear filters",
     "close": "close",
     "confirm": "Confirm",
+    "contact": "Contact",
     "continue": "continue",
     "depublish": "Depublish",
     "download": "Download",
@@ -81,9 +81,9 @@ export default {
     "transcribe": "Transcribe",
     "transcribeNow": "Transcribe now",
     "unlike": "Unlike",
+    "viewAll": "View all {count}",
     "viewAt": "View at {link}",
     "viewDocument": "View document",
-    "viewAll": "View all {count}",
     "vote": "Vote"
   },
   "apiKeys": {
@@ -1219,13 +1219,13 @@ export default {
       "description": "Domain and thematic aggregators define their scope by cultural sector (such as museum, archive or library) or by topic and theme (such as fashion). They work with contributors based in different European countries.",
       "title": "Domain and thematic aggregators"
     },
-    "regionalAggregators": {
-      "description": "National and regional aggregators define their scope by specific country or region. They work with contributors situated within that country or region.",
-      "title": "National and regional aggregators"
-    },
     "providingInstitutions": {
       "description": "A list of museums, libraries, archives and galleries which share their digital cultural heritage items on Europeana.eu.",
       "title": "Providing institutions"
+    },
+    "regionalAggregators": {
+      "description": "National and regional aggregators define their scope by specific country or region. They work with contributors situated within that country or region.",
+      "title": "National and regional aggregators"
     }
   },
   "pageHasLoaded": "has loaded",

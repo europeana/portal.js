@@ -47,6 +47,7 @@ export default {
     "clearFilters": "Ryd filtre",
     "close": "luk",
     "confirm": "Bekræft",
+    "contact": "Kontakt",
     "continue": "fortsæt",
     "depublish": "Depublicer",
     "download": "Hent",
@@ -80,6 +81,7 @@ export default {
     "transcribe": "Transskriber",
     "transcribeNow": "Transskriber nu",
     "unlike": "Fjern like",
+    "viewAll": "Se alle {count}",
     "viewAt": "Se på {link}",
     "viewDocument": "Se dokument",
     "vote": "Stemme"
@@ -173,6 +175,7 @@ export default {
     "topic": "Emner"
   },
   "cardLabels": {
+    "aggregator": "Aggregator",
     "organisation": "Institution",
     "person": "Person",
     "place": "Sted",
@@ -1151,16 +1154,32 @@ export default {
     "city": "By",
     "country": "Land",
     "englishName": "Engelsk navn",
-    "nameAcronym": "Navn akronym"
+    "geographicScope": "Geografisk rækkevidde",
+    "heritageDomain": "Typer af kulturarv",
+    "nameAcronym": "Navn akronym",
+    "providesAudienceEngagementActivity": "Aktiviteter til publikumsinddragelse",
+    "providesCapacityBuildingActivity": "Kapacitetsopbygning",
+    "providesSupportForDataActivity": "Dataaktiviteter",
+    "providesSupportForMediaType": "Medietype",
+    "providingInstitutionsCount": "Antal udbydende institutioner",
+    "recordCount": "Antal genstande"
   },
   "organisations": {
     "aggregators": {
       "description": "Aggregatorer arbejder sammen med de leverende institutioner om at indsamle og offentliggøre deres digitale kulturelle genstande på Europeana.eu.",
       "title": "Aggregatorer"
     },
+    "internationalAggregators": {
+      "description": "Domæne- og tematiske aggregatorer definerer deres omfang efter kultursektor (f.eks. museum, arkiv eller bibliotek) eller efter emne og tema (f.eks. mode). De samarbejder med bidragydere fra forskellige europæiske lande.",
+      "title": "Domæne- og tematiske aggregatorer"
+    },
     "providingInstitutions": {
       "description": "En liste over museer, biblioteker, arkiver og gallerier, der deler deres digitale kulturelle genstande på Europeana.eu.",
       "title": "Udbydende institutioner"
+    },
+    "regionalAggregators": {
+      "description": "Nationale og regionale aggregatorer definerer deres omfang ud fra et bestemt land eller en bestemt region. De samarbejder med bidragydere, der befinder sig i det pågældende land eller den pågældende region.",
+      "title": "Nationale og regionale aggregatorer"
     }
   },
   "pageHasLoaded": "har indlæst",
@@ -1178,7 +1197,9 @@ export default {
         "title": "Steder"
       },
       "table": {
+        "aggregator": "Aggregator",
         "country": "Land",
+        "domain": "Domæne / Tema",
         "items": "Genstande",
         "name": "Navn",
         "searchPlaceholder": "Søg i tabel",

@@ -47,6 +47,7 @@ export default {
     "clearFilters": "Wyczyść filtry",
     "close": "zamknij",
     "confirm": "Potwierdź",
+    "contact": "Kontakt",
     "continue": "kontynuuj",
     "depublish": "Depublikuj",
     "download": "Ściągnij",
@@ -80,6 +81,7 @@ export default {
     "transcribe": "Transkrybować",
     "transcribeNow": "Transkrybuj teraz",
     "unlike": "Nie lubię",
+    "viewAll": "Wyświetl wszystkie {count}",
     "viewAt": "Zobacz w {link}",
     "viewDocument": "Zobacz dokument",
     "vote": "Głosować"
@@ -173,6 +175,7 @@ export default {
     "topic": "Tematy"
   },
   "cardLabels": {
+    "aggregator": "Agregator",
     "organisation": "Instytucja",
     "person": "Osoba",
     "place": "Miejsce",
@@ -1151,16 +1154,32 @@ export default {
     "city": "Miasto",
     "country": "Kraj",
     "englishName": "Nazwa angielska",
-    "nameAcronym": "Nazwa akronim"
+    "geographicScope": "Zakres geograficzny",
+    "heritageDomain": "Rodzaje dziedzictwa",
+    "nameAcronym": "Nazwa akronim",
+    "providesAudienceEngagementActivity": "Działania angażujące odbiorców",
+    "providesCapacityBuildingActivity": "Budowanie potencjału",
+    "providesSupportForDataActivity": "Działania związane z danymi",
+    "providesSupportForMediaType": "Typ nośnika",
+    "providingInstitutionsCount": "Liczba instytucji udostępniających",
+    "recordCount": "Liczba obiektów cyfrowych"
   },
   "organisations": {
     "aggregators": {
       "description": "Agregatory współpracują z instytucjami dostarczającymi dane w celu gromadzenia i udostępniania ich cyfrowych obiektów dziedzictwa kulturowego na Europeana.eu.",
       "title": "Agregatory"
     },
+    "internationalAggregators": {
+      "description": "Agregatory dziedzinowe i tematyczne definiują swój zakres według sektora kultury (np. muzeum, archiwum lub biblioteka) lub według tematu i motywu (np. moda). Współpracują z podmiotami z różnych krajów europejskich.",
+      "title": "Agregatory domenowe i tematyczne"
+    },
     "providingInstitutions": {
       "description": "Lista muzeów, bibliotek, archiwów i galerii udostępniających swoje cyfrowe obiekty cyfrowe w Europeana.eu.",
       "title": "Instytucje udostępniające"
+    },
+    "regionalAggregators": {
+      "description": "Agregatory krajowe i regionalne definiują swój zakres według określonego kraju lub regionu. Współpracują z podmiotami zlokalizowanymi w danym kraju lub regionie.",
+      "title": "Krajowi i regionalni agregatorzy"
     }
   },
   "pageHasLoaded": "załadował",
@@ -1178,7 +1197,9 @@ export default {
         "title": "Miejsca"
       },
       "table": {
+        "aggregator": "Agregator",
         "country": "Kraj",
+        "domain": "Domena / Temat",
         "items": "Obiekty cyfrowe",
         "name": "Nazwa",
         "searchPlaceholder": "Szukaj w tabeli",

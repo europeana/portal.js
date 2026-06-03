@@ -47,6 +47,7 @@ export default {
     "clearFilters": "Rensa filter",
     "close": "stäng",
     "confirm": "Bekräfta",
+    "contact": "Kontakt",
     "continue": "Fortsätt",
     "depublish": "Avpublicera",
     "download": "Ladda ner",
@@ -80,6 +81,7 @@ export default {
     "transcribe": "Transkribera",
     "transcribeNow": "Transkribera nu",
     "unlike": "Ogilla",
+    "viewAll": "Visa alla {count}",
     "viewAt": "Visa på {link}",
     "viewDocument": "Visa dokument",
     "vote": "Rösta"
@@ -173,6 +175,7 @@ export default {
     "topic": "Ämnen"
   },
   "cardLabels": {
+    "aggregator": "Aggregator",
     "organisation": "Institution",
     "person": "Person",
     "place": "Plats",
@@ -1151,16 +1154,32 @@ export default {
     "city": "Stad",
     "country": "Land",
     "englishName": "Engelskt namn",
-    "nameAcronym": "Namn akronym"
+    "geographicScope": "Geografisk omfattning",
+    "heritageDomain": "Typer av kulturarv",
+    "nameAcronym": "Namn akronym",
+    "providesAudienceEngagementActivity": "Aktiviteter för publikengagemang",
+    "providesCapacityBuildingActivity": "Kapacitetsuppbyggnad",
+    "providesSupportForDataActivity": "Dataaktiviteter",
+    "providesSupportForMediaType": "Medietyp",
+    "providingInstitutionsCount": "Antal tillhandahållande institutioner",
+    "recordCount": "Antal objekt"
   },
   "organisations": {
     "aggregators": {
       "description": "Aggregatorer samarbetar med tillhandahållande institutioner för att samla in och publicera deras digitala kulturarvsobjekt på Europeana.eu.",
       "title": "Aggregatorer"
     },
+    "internationalAggregators": {
+      "description": "Domän- och tematiska aggregatorer definierar sitt omfång utifrån kultursektor (till exempel museer, arkiv eller bibliotek) eller utifrån ämne (till exempel mode). De samarbetar med datapartner från olika europeiska länder.",
+      "title": "Domän- och tematiska aggregatorer"
+    },
     "providingInstitutions": {
       "description": "En lista över museer, bibliotek, arkiv och gallerier som delar sina digitala kulturella objekt på Europeana.eu.",
       "title": "Tillhandahållande institutioner"
+    },
+    "regionalAggregators": {
+      "description": "Nationella och regionala aggregatorer definierar sitt omfång utifrån ett specifikt land eller en specifik region. De samarbetar med bidragsgivare som befinner sig inom det landet eller den regionen.",
+      "title": "Nationella och regionala aggregatorer"
     }
   },
   "pageHasLoaded": "har laddats",
@@ -1178,7 +1197,9 @@ export default {
         "title": "Platser"
       },
       "table": {
+        "aggregator": "Aggregator",
         "country": "Land",
+        "domain": "Domän / Tema",
         "items": "Objekt",
         "name": "Namn",
         "searchPlaceholder": "Sök inom tabell",
