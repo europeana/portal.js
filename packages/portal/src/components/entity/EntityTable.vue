@@ -31,7 +31,7 @@
       :items="collections"
       :sort-by.sync="sortBy"
       :sort-desc.sync="sortDesc"
-      :tbody-tr-attr="(item) => ({ id: item.rowId })"
+      :tbody-tr-attr="(item) => ({ id: rowId(item.numericId) })"
       striped
       class="borderless"
     >
@@ -246,8 +246,7 @@
 
       collections = collections.map((collection) => ({
         ...collection,
-        rowId: this.rowId(collection.id),
-        rowHash: this.rowHash(collection.id)
+        numericId: collection.id.split('/').pop()
       }));
 
       if (this.type === 'organisations') {
@@ -260,7 +259,8 @@
       }
 
       this.collections = collections;
-      process.client && this.expandFocusedRow();
+      this.expandFocusedCollection();
+      this.scrollToFocusedCollection();
     },
 
     computed: {
@@ -307,45 +307,54 @@
       },
       isOrganisationsType() {
         return this.type === 'organisations';
+      },
+      focusedCollection() {
+        return this.collections?.find((entity) => entity.numericId === this.$route.query.show);
       }
     },
 
     watch: {
-      '$route.query': {
-        deep: true,
-        handler() {
-          this.query = this.$route.query.query;
-          this.$fetch();
-        }
-      }
+      '$route.query.query'() {
+        this.query = this.$route.query.query;
+        this.$fetch();
+      },
+      '$route.query.page': '$fetch',
+      '$route.query.tab': '$fetch',
+      '$route.query.sort': '$fetch'
     },
 
     mounted() {
-      this.expandFocusedRow();
+      this.scrollToFocusedCollection();
     },
 
     methods: {
-      expandFocusedRow() {
-        if (this.$route.hash) {
-          const focusedRow = this.collections?.find((entity) => entity.rowHash === this.$route.hash);
-          if (focusedRow) {
-            focusedRow['_showDetails'] = true;
-            this.$nextTick(() => {
-              document.querySelector(this.$route.hash)?.scrollIntoView({ behavior: 'smooth' });
-            });
-          }
+      expandFocusedCollection() {
+        const focusedCollection = this.collections?.find((entity) => entity.numericId === this.$route.query.show);
+        if (focusedCollection) {
+          focusedCollection['_showDetails'] = true;
+        }
+      },
+      scrollToFocusedCollection() {
+        if (!process.client) {
+          return;
+        }
+
+        if (process.client && this.focusedCollection) {
+          this.$nextTick(() => {
+            const rowElement = document.querySelector(this.rowSelector(this.focusedCollection.numericId));
+            rowElement?.scrollIntoView({ behavior: 'smooth' });
+          });
         }
       },
       handleClickRow(row) {
-        row.toggleDetails();
-        history.pushState(null, null, row.item.rowHash);
+        row.item['_showDetails'] = !row.item['_showDetails'];
+        this.updateRouteQuery({ show: row.item['_showDetails'] ? row.item.numericId : undefined }, 'replace');
       },
-      rowId(entityId) {
-        const numericId = entityId.split('/').pop();
-        return `${this.subType || this.type}-${numericId}`;
+      rowId(entityNumericId) {
+        return `${this.id}-${entityNumericId}`;
       },
-      rowHash(entityId) {
-        return `#${this.rowId(entityId)}`;
+      rowSelector(entityNumericId) {
+        return `#${this.rowId(entityNumericId)}`;
       },
       displayField(key) {
         return this.fields.includes(key);
@@ -396,8 +405,8 @@
       onFiltered() {
         this.updateRouteQuery({ query: this.query, page: 1 });
       },
-      updateRouteQuery(newQuery) {
-        this.$router.push({ ...this.$route, query: { ...this.$route.query, ...newQuery } });
+      updateRouteQuery(newQuery, method = 'push') {
+        this.$router[method]({ ...this.$route, query: { ...this.$route.query, ...newQuery } });
       }
     }
   };
