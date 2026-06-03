@@ -54,8 +54,7 @@ const frontend = {
     {
       id: 'http://data.europeana.eu/organization/001',
       slug: '001-museum',
-      rowHash: '#organisations-001',
-      rowId: 'organisations-001',
+      numericId: '001',
       prefLabel: 'museum',
       prefLabelLang: 'de',
       altLabel: 'museum',
@@ -65,8 +64,7 @@ const frontend = {
     {
       id: 'http://data.europeana.eu/organization/002',
       slug: '002-library',
-      rowHash: '#organisations-002',
-      rowId: 'organisations-002',
+      numericId: '002',
       prefLabel: 'bibliotheek',
       prefLabelLang: 'nl',
       altLabel: 'library',
@@ -78,8 +76,7 @@ const frontend = {
     {
       id: 'http://data.europeana.eu/organization/001',
       slug: '001-museum',
-      rowHash: '#organisations-001',
-      rowId: 'organisations-001',
+      numericId: '001',
       prefLabel: 'museum',
       prefLabelLang: 'de',
       altLabel: 'museum',
@@ -92,8 +89,7 @@ const frontend = {
     {
       id: 'http://data.europeana.eu/organization/002',
       slug: '002-library',
-      rowHash: '#organisations-002',
-      rowId: 'organisations-002',
+      numericId: '002',
       prefLabel: 'bibliotheek',
       prefLabelLang: 'nl',
       altLabel: 'library',

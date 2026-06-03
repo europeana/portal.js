@@ -318,9 +318,15 @@
         this.query = this.$route.query.query;
         this.$fetch();
       },
-      '$route.query.page': '$fetch',
-      '$route.query.tab': '$fetch',
-      '$route.query.sort': '$fetch'
+      '$route.query.page'() {
+        this.$fetch();
+      },
+      '$route.query.tab'() {
+        this.$fetch();
+      },
+      '$route.query.sort'() {
+        this.$fetch();
+      }
     },
 
     mounted() {
