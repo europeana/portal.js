@@ -47,6 +47,11 @@ const agentEntity = {
 
 const factory = (options = {}) => shallowMountNuxt(collection, {
   localVue,
+  data() {
+    return {
+      entity: options.entity
+    };
+  },
   mocks: {
     $auth: {
       userHasClientRole: options.userHasClientRoleStub || sinon.stub().returns(false)
@@ -85,17 +90,10 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
     },
     $store: {
       state: {
-        entity: {
-          entity: options.entity
-        },
         search: {
           view: 'grid'
         }
       },
-      getters: {
-        'entity/curatedEntity': sinon.stub().returns(null)
-      },
-      dispatch: sinon.spy(),
       commit: sinon.spy()
     },
     ...options.mocks

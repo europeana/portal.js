@@ -164,7 +164,7 @@
       },
       async pinAction() {
         if (this.setId || this.entityId) {
-          await this.togglePin(); // On an entity/entity set page all info is in the store.
+          await this.togglePin(); // On an entity/entity set page all info is injected.
         } else {
           await this.$bvModal.show(this.pinModalId); // Open the modal to find which entity to pin to.
         }

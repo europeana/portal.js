@@ -1,7 +1,9 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
+
 import ItemPinModal from '@/components/item/ItemPinModal';
+import * as usePinnedItemsModule from '@/composables/pinnedItems';
 
 /*
 ** The pin modal has a lot of API dependencies.
@@ -116,7 +118,7 @@ const setApiCreateStub = sinon.stub().resolves({ id: '457' });
 const setApiPinItemStub = sinon.stub().resolves({});
 const setApiDeleteItemStub = sinon.stub().resolves({});
 
-const factory = ({ propsData, data } = {}) => mount(ItemPinModal, {
+const factory = ({ propsData, data, provide } = {}) => mount(ItemPinModal, {
   localVue,
   propsData: {
     identifier: '/123/abc',
@@ -150,21 +152,21 @@ const factory = ({ propsData, data } = {}) => mount(ItemPinModal, {
       throw error;
     },
     $i18n: { locale: 'en' },
-    $store: {
-      commit: sinon.spy(),
-      state: {
-        entity: {
-          pinned: []
-        }
-      }
-    },
     $t: (key) => key
-  }
+  },
+  provide
 });
 
 describe('components/item/ItemPinModal', () => {
+  const pinSpy = sinon.spy();
+  const unpinSpy = sinon.spy();
+  sinon.stub(usePinnedItemsModule, 'usePinnedItems').returns({
+    pin: pinSpy,
+    unpin: unpinSpy
+  });
+
   afterEach(sinon.resetHistory);
-  afterAll(sinon.reset);
+  afterAll(sinon.restore);
 
   describe('template', () => {
     describe('while NO entity is selected', () => {
@@ -489,12 +491,11 @@ describe('components/item/ItemPinModal', () => {
           const wrapper = factory();
           await wrapper.setData({ selected: ENTITY_URI });
 
-          const pinMock = sinon.mock(wrapper.vm).expects('pin').once();
           const hideMock = sinon.mock(wrapper.vm).expects('hide').once();
 
           await wrapper.vm.togglePin();
 
-          expect(pinMock.verify()).toBe(true);
+          expect(pinSpy.called).toBe(true);
           expect(hideMock.verify()).toBe(true);
         });
       });
@@ -503,11 +504,9 @@ describe('components/item/ItemPinModal', () => {
         it('calls the unpin method', async() => {
           const wrapper = factory(fixtures.itemAlreadyPinned);
 
-          const unpinMock = sinon.mock(wrapper.vm).expects('unpin').once();
-
           await wrapper.vm.togglePin();
 
-          expect(unpinMock.verify()).toBe(true);
+          expect(unpinSpy.called).toBe(true);
         });
       });
     });
