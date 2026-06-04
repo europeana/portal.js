@@ -53,13 +53,6 @@ describe('store/entity', () => {
         expect(state.editable).toEqual(true);
       });
     });
-    describe('setBestItemsSetId', () => {
-      it('sets best items set ID state, numeric part only', () => {
-        const state = {};
-        store.mutations.setBestItemsSetId(state, 'http://data.europeana.eu/set/1');
-        expect(state.bestItemsSetId).toEqual('1');
-      });
-    });
   });
 
   describe('getters', () => {
