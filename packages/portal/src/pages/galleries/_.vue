@@ -146,8 +146,6 @@
   import ShareSocialModal from '@/components/share/ShareSocialModal.vue';
   import useScrollTo from '@/composables/scrollTo.js';
   import { useSelectedItems } from '@/composables/selectedItems.js';
-  // used solely for storeEntityBestItemsSetPinnedItems
-  import entityBestItemsSetMixin from '@/mixins/europeana/entities/entityBestItemsSet';
   import langAttributeMixin from '@/mixins/langAttribute';
   import pageMetaMixin from '@/mixins/pageMeta';
   import { redirectToPrefPath } from '@/utils/redirect/redirectToPrefPath.js';
@@ -166,18 +164,17 @@
 
     },
     mixins: [
-      entityBestItemsSetMixin,
       langAttributeMixin,
       pageMetaMixin
     ],
     provide() {
       return {
         currentSet: computed(() => this.set),
+        currentEntity: computed(() => this.entity),
         fetchCurrentSet: this.fetchSet
       };
     },
     beforeRouteLeave(_to, _from, next) {
-      this.$store.commit('entity/setPinned', []);
       this.clearSelectedItems();
       next();
     },
@@ -191,6 +188,7 @@
         logoSrc: require('@europeana/style/img/logo.svg'),
         identifier: null,
         perPage: 48,
+        entity: null,
         set: {},
         title: '',
         rawDescription: ''
@@ -203,16 +201,15 @@
 
       try {
         this.validateRoute();
+
         await this.fetchSet();
+        await this.fetchEntity();
+
         redirectToPrefPath(
           this.setId,
           this.set.title.en,
           { route: this.$route, redirect: this.$nuxt.context.redirect }
         );
-
-        if (this.setIsEntityBestItems && this.userIsEntityEditor) {
-          this.storeEntityBestItemsSetPinnedItems(this.set);
-        }
       } catch (e) {
         this.$error(e, { scope: 'gallery' });
       }
@@ -281,11 +278,6 @@
     },
 
     watch: {
-      '$store.state.entity.pinned.length'() {
-        if (this.setIsEntityBestItems) {
-          this.$fetch();
-        }
-      },
       async '$route.query.page'() {
         await this.$fetch();
         this.clearSelectedItems();
@@ -310,6 +302,16 @@
           ...responses[0],
           items: responses[1]
         };
+      },
+      async fetchEntity() {
+        if (!this.$auth.userHasClientRole('entities', 'editor') || (this.set.type !== 'EntityBestItemsSet')) {
+          this.entity = null;
+          return;
+        }
+
+        const response = await this.$apis.entity.retrieve(this.set.subject);
+        const entity = response[0];
+        this.entity = { id: entity.id };
       },
       validateRoute() {
         if (!/^\d+(-.+)?$/.test(this.$route.params.pathMatch)) {

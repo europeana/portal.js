@@ -73,7 +73,7 @@
 <script>
   import pick from 'lodash/pick.js';
 
-  import entityBestItemsSetMixin from '@/mixins/europeana/entities/entityBestItemsSet';
+  import { usePinnedItems } from '@/composables/pinnedItems.js';
   import langAttributeMixin from '@/mixins/langAttribute';
   import { langMapValueForLocale } from '@europeana/i18n';
 
@@ -81,8 +81,7 @@
     name: 'ItemPinModal',
 
     mixins: [
-      langAttributeMixin,
-      entityBestItemsSetMixin
+      langAttributeMixin
     ],
 
     props: {
@@ -111,6 +110,12 @@
         type: Boolean,
         default: false
       }
+    },
+
+    setup() {
+      const { pin, unpin } = usePinnedItems();
+
+      return { pin, unpin };
     },
 
     data() {
@@ -223,19 +228,6 @@
         }));
       },
 
-      async pin() {
-        this.selectedEntitySet.id = await this.ensureEntityBestItemsSetExists(this.selectedEntitySet?.id, this.selectedEntity);
-        await this.pinItemToEntityBestItemsSet(this.identifier, this.selectedEntitySet.id, this.selectedEntityPrefLabelValue);
-        this.selectedEntitySet.pinned.push(this.identifier);
-        this.hide();
-      },
-
-      async unpin() {
-        await this.unpinItemFromEntityBestItemsSet(this.identifier, this.selectedEntitySet.id);
-        this.selectedEntitySet.pinned = this.selectedEntitySet.pinned.filter(itemId => itemId !== this.identifier);
-        this.hide();
-      },
-
       entityDisplayLabel(entity) {
         return langMapValueForLocale(entity?.prefLabel, this.$i18n.locale);
       },
@@ -250,9 +242,16 @@
 
       async togglePin() {
         try {
-          await (this.selectedIsPinned ? this.unpin() : this.pin());
+          if (this.selectedIsPinned) {
+            await this.unpin(this.identifier, this.selectedEntity.id);
+            this.selectedEntitySet.pinned = this.selectedEntitySet.pinned.filter(itemId => itemId !== this.identifier);
+          } else {
+            await this.pin(this.identifier, this.selectedEntity.id);
+            this.selectedEntitySet.pinned.push(this.identifier);
+          }
           this.hide();
         } catch (error) {
+          console.error(error);
           this.$error(error, { scope: error.statusCode === 404 ? 'pinning' : 'gallery' });
         }
       },

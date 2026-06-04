@@ -50,8 +50,7 @@
 </template>
 
 <script>
-  import entityBestItemsSetMixin from '@/mixins/europeana/entities/entityBestItemsSet';
-  import { langMapValueForLocale } from '@europeana/i18n';
+  import { usePinnedItems } from '@/composables/pinnedItems.js';
 
   export default {
     name: 'ItemPinButton',
@@ -60,11 +59,10 @@
       ItemPinModal: () => import('./ItemPinModal')
     },
 
-    mixins: [
-      entityBestItemsSetMixin
-    ],
-
     inject: {
+      currentEntity: {
+        default: null
+      },
       currentSet: {
         default: null
       },
@@ -99,8 +97,15 @@
       }
     },
 
+    setup() {
+      const { pin, unpin } = usePinnedItems();
+
+      return { pin, unpin };
+    },
+
     data() {
       return {
+        pinned: false,
         pinModalId: `pin-modal-${this.identifier}`,
         pinnedLimitModalId: `pinned-limit-modal-${this.identifier}`
       };
@@ -125,9 +130,6 @@
       userIsSetsEditor() {
         return this.$auth.userHasClientRole('usersets', 'editor');
       },
-      pinned() {
-        return this.$store.state.entity.pinned?.some((pin) => pin.endsWith(this.identifier));
-      },
       pinButtonText() {
         if (this.buttonText) {
           return this.pinned ? this.$t('statuses.pinned') : this.$t('actions.pin');
@@ -135,7 +137,7 @@
         return '';
       },
       entityId() {
-        return this.$store.state.entity.id;
+        return this.currentEntity?.id;
       },
       setId() {
         return (this.currentSet?.type === 'EntityBestItemsSet' && this.currentSet?.id?.split('/')?.pop())
@@ -143,17 +145,22 @@
       }
     },
 
+    created() {
+      let pinnedItemIds = [];
+
+      if ((this.currentSet?.pinned > 0) && this.currentSet?.items) {
+        pinnedItemIds = this.currentSet.items
+          .slice(0, this.currentSet.pinned)
+          .map((item) => typeof item === 'object' ? item.id : item);
+      }
+
+      this.pinned = pinnedItemIds.some((pin) => pin.endsWith(this.identifier));
+    },
+
     methods: {
       goToPins() {
         const path = this.localePath(`/set/${this.setId}`);
         this.$router.push(path);
-      },
-      async pin() {
-        const setId = await this.ensureEntityBestItemsSetExists(this.setId, this.$store.state.entity.entity);
-        await this.pinItemToEntityBestItemsSet(this.identifier, setId, langMapValueForLocale(this.$store.state.entity.entity?.prefLabel, this.$i18n.locale).values[0]);
-      },
-      async unpin() {
-        await this.unpinItemFromEntityBestItemsSet(this.identifier, this.setId);
       },
       async pinAction() {
         if (this.setId || this.entityId) {
@@ -165,14 +172,18 @@
       async togglePin() {
         try {
           if (this.pinned) {
-            await this.unpin();
+            await this.unpin(this.identifier, this.entityId);
+            this.pinned = false;
           } else {
-            await this.pin();
+            await this.pin(this.identifier, this.entityId);
+            this.pinned = true;
           }
         } catch (error) {
+          console.error(error);
           this.$error(error, { scope: error.statusCode === 404 ? 'pinning' : 'gallery' });
         } finally {
-          this.fetchEntityBestItemsSetPinnedItems(this.setId);
+          // FIXME
+          // this.fetchEntityBestItemsSetPinnedItems(this.setId);
         }
       }
     }
