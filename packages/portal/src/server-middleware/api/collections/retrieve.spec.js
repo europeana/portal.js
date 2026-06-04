@@ -74,24 +74,24 @@ describe('server-middleware/api/collections/retrieve.js', () => {
       expect(response).toEqual(entities);
     });
 
-    describe('picking fields to include from fields prop', () => {
+    describe('picking fields to include from fl prop', () => {
       it('picks single top-level field', async() => {
-        const fields = 'id';
+        const fl = 'id';
         const expected = [{ id: entities[0].id }, { id: entities[1].id }];
 
-        const response = await fetchData(ids, { fields }, context);
+        const response = await fetchData(ids, { fl }, context);
 
         expect(response).toEqual(expected);
       });
 
       it('picks multiple top-level fields', async() => {
-        const fields = ['id', 'prefLabel'];
+        const fl = 'id,prefLabel';
         const expected = [
           { id: entities[0].id, prefLabel: entities[0].prefLabel },
           { id: entities[1].id, prefLabel: entities[1].prefLabel }
         ];
 
-        const response = await fetchData(ids, { fields }, context);
+        const response = await fetchData(ids, { fl }, context);
 
         expect(response).toEqual(expected);
       });
