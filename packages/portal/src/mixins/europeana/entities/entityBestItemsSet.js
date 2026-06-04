@@ -6,12 +6,6 @@ export default {
     return { makeToast };
   },
 
-  data() {
-    return {
-      entityBestItemsSetPinnedItems: []
-    };
-  },
-
   methods: {
     async ensureEntityBestItemsSetExists(setId, entity) {
       if (setId) {
