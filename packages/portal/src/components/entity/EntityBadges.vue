@@ -36,14 +36,13 @@
       class="view-all-button p-0"
       @click="handleViewAll"
     >
-      {{ $t('actions.viewAll', { count: collections.length }) }}
+      {{ $t('actions.viewAll', { count: count }) }}
     </b-button>
   </div>
 </template>
 
 <script>
-  import pick from 'lodash/pick.js';
-
+  import { backendFetch } from '@/utils/backendFetch.js';
   import collectionLinkGenMixin from '@/mixins/collectionLinkGen';
   import { collectionTitle } from '@/utils/europeana/entities/entityLinks';
   import LinkBadge from '../generic/LinkBadge';
@@ -103,6 +102,10 @@
         type: Number,
         default: null
       },
+      total: {
+        type: Number,
+        default: null
+      },
       /**
        * Show or hide title
        */
@@ -120,13 +123,20 @@
     },
 
     async fetch() {
-      if (((this.entityUris?.length || 0) > 0) && ((this.relatedCollections?.length || 0) === 0)) {
-        const entities = await this.$apis.entity.find(this.entityUris);
-        this.collections = entities?.map((entity) => pick(entity, ['id', 'prefLabel', 'isShownBy', 'logo', 'type'])) || [];
+      let uris = this.entityUris;
+      if (this.limit) {
+        uris = uris.slice(0, this.limit);
+      }
+
+      if (((uris.length || 0) > 0) && ((this.relatedCollections?.length || 0) === 0)) {
+        this.collections = await backendFetch('collections/retrieve', [
+          uris,
+          { fl: ['id', 'prefLabel', 'isShownBy', 'logo', 'type'].join(',') }
+        ], this.$nuxt.context);
         this.$emit('entitiesFromUrisFetched', this.collections);
       }
 
-      if (this.collections.length <= this.limit) {
+      if (this.count <= this.limit) {
         this.limited = false;
       }
 
@@ -136,6 +146,10 @@
     computed: {
       displayCollections() {
         return this.limited ? this.collections.slice(0, this.limit) : this.collections;
+      },
+
+      count() {
+        return this.total || this.collections.length;
       }
     },
 
