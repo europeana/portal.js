@@ -29,12 +29,5 @@ export default {
     setEditable(state, value) {
       state.editable = value;
     }
-  },
-
-  getters: {
-    // itemId may be a full URI or just the identifier part
-    isPinned: (state) => (itemId) => {
-      return state.pinned ? state.pinned.includes(itemUri(itemId)) : false;
-    }
   }
 };

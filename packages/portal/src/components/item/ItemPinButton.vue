@@ -126,7 +126,7 @@
         return this.$auth.userHasClientRole('usersets', 'editor');
       },
       pinned() {
-        return this.$store.getters['entity/isPinned'](this.identifier);
+        return this.$store.state.entity.pinned?.some((pin) => pin.endsWith(this.identifier));
       },
       pinButtonText() {
         if (this.buttonText) {

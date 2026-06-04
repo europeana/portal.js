@@ -3,8 +3,6 @@ import store from '@/store/entity';
 const entity = { id: 'http://data.europeana.eu/concept/001' };
 const id = 'http://data.europeana.eu/concept/001';
 const pinned = ['http://data.europeana.eu/item/123/abc', 'http://data.europeana.eu/item/234/abc'];
-const itemId = '/123/abc';
-const itemIdNotPinned = '/345/abc';
 const entityDescription = { en: 'example entity description' };
 
 describe('store/entity', () => {
@@ -51,31 +49,6 @@ describe('store/entity', () => {
         const state = { editable: false };
         store.mutations.setEditable(state, true);
         expect(state.editable).toEqual(true);
-      });
-    });
-  });
-
-  describe('getters', () => {
-    describe('isPinned()', () => {
-      describe('when there are pinned items', () => {
-        it('returns whether the item is pinned', () => {
-          const state = { pinned };
-
-          const isPinned = store.getters.isPinned(state)(itemId);
-          const isNotPinned = store.getters.isPinned(state)(itemIdNotPinned);
-
-          expect(isPinned).toEqual(true);
-          expect(isNotPinned).toEqual(false);
-        });
-      });
-      describe('when there are no pinned items', () => {
-        it('returns false', () => {
-          const state = {};
-
-          const isPinned = store.getters.isPinned(state)(itemId);
-
-          expect(isPinned).toEqual(false);
-        });
       });
     });
   });

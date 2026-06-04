@@ -7,10 +7,8 @@ const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
 const identifier = '/123/abc';
-const storeDispatchSuccess = sinon.spy();
-const storeIsPinnedGetter = sinon.stub();
 
-const factory = ({ mocks = {}, provide = {}, storeState = {}, storeDispatch = storeDispatchSuccess } = {}) => shallowMount(ItemPinButton, {
+const factory = ({ mocks = {}, provide = {}, storeState = {} } = {}) => shallowMount(ItemPinButton, {
   localVue,
   propsData: { identifier },
   provide,
@@ -37,11 +35,7 @@ const factory = ({ mocks = {}, provide = {}, storeState = {}, storeDispatch = st
       commit: () => {},
       state: {
         entity: { entity: { id: 'http://data.europeana.eu/topic/123' }, pinned: [], ...storeState }
-      },
-      getters: {
-        'entity/isPinned': storeIsPinnedGetter
-      },
-      dispatch: storeDispatch
+      }
     },
     $t: (key) => key,
     ...mocks
@@ -121,9 +115,7 @@ describe('components/item/ItemPinButton', () => {
         });
 
         describe('when item is not pinned', () => {
-          beforeEach(() => {
-            storeIsPinnedGetter.returns(false);
-          });
+          const storeState = { pinned: [], id: 'http://data.europeana.eu/topic/123' };
 
           describe('when pressed', () => {
             it('ensures the set exists', async() => {
@@ -148,9 +140,7 @@ describe('components/item/ItemPinButton', () => {
           });
         });
         describe('when item is pinned', () => {
-          beforeEach(() => {
-            storeIsPinnedGetter.returns(true);
-          });
+          const storeState = { pinned: [identifier], id: 'http://data.europeana.eu/topic/123' };
 
           it('button text is updated', async() => {
             const wrapper = factory({ mocks: { $auth }, storeState });
@@ -207,13 +197,11 @@ describe('components/item/ItemPinButton', () => {
           });
 
           describe('when item is pinned', () => {
-            beforeEach(() => {
-              storeIsPinnedGetter.returns(true);
-            });
+            const storeState = { pinned: [identifier] };
 
             describe('when pressed', () => {
               it('unpins the item', async() => {
-                const wrapper = factory({ mocks: { $auth }, provide });
+                const wrapper = factory({ mocks: { $auth }, provide, storeState });
                 sinon.spy(wrapper.vm, 'unpinItemFromEntityBestItemsSet');
 
                 const pinButton = wrapper.find('b-button-stub[data-qa="pin button"]');
