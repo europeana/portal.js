@@ -53,20 +53,6 @@ export default {
       }
     },
 
-    async findEntityBestItemsSet(entityId) {
-      const searchResponse = await this.$apis.set.search({
-        profile: 'items',
-        query: 'type:EntityBestItemsSet',
-        qf: `subject:${entityId}`
-      });
-
-      if (searchResponse.total > 0) {
-        return searchResponse.items[0].split('/').pop();
-      } else {
-        return null;
-      }
-    },
-
     async pinItemToEntityBestItemsSet(itemId, entityBestItemsSetId, entityPrefLabel) {
       await this.fetchEntityBestItemsSetPinnedItems(entityBestItemsSetId);
       if (this.$store.state.entity.pinned && (this.$store.state.entity.pinned.length >= 24)) {

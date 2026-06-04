@@ -174,39 +174,53 @@ describe('components/item/ItemPinButton', () => {
         });
       });
 
-      describe('when on an entity-set page', () => {
-        const storeState = { bestItemsSetId: 1 };
+      describe('when provided a currentSet', () => {
+        describe('that is not an EntityBestItemsSet', () => {
+          const provide = { currentSet: { id: 'http://data.europeana.eu/set/1234', type: 'Collection' } };
 
-        it('is visible', () => {
-          const wrapper = factory({ mocks: { $auth }, storeState });
+          it('is not rendered', () => {
+            const wrapper = factory({ mocks: { $auth }, provide });
 
-          const pinButton = wrapper.find('b-button-stub[data-qa="pin button"]');
+            const pinButton = wrapper.find('b-button-stub[data-qa="pin button"]');
 
-          expect(pinButton.isVisible()).toBe(true);
+            expect(pinButton.exists()).toBe(false);
+          });
         });
 
-        it('does not contain text', () => {
-          const wrapper = factory({ mocks: { $auth }, storeState });
+        describe('that is an EntityBestItemsSet', () => {
+          const provide = { currentSet: { id: 'http://data.europeana.eu/set/1234', type: 'EntityBestItemsSet' } };
 
-          const pinButton = wrapper.find('b-button-stub[data-qa="pin button"]');
+          it('is visible', () => {
+            const wrapper = factory({ mocks: { $auth }, provide });
 
-          expect(pinButton.text()).toBe('');
-        });
+            const pinButton = wrapper.find('b-button-stub[data-qa="pin button"]');
 
-        describe('when item is pinned', () => {
-          beforeEach(() => {
-            storeIsPinnedGetter.returns(true);
+            expect(pinButton.isVisible()).toBe(true);
           });
 
-          describe('when pressed', () => {
-            it('unpins the item', async() => {
-              const wrapper = factory({ mocks: { $auth }, storeState });
-              sinon.spy(wrapper.vm, 'unpinItemFromEntityBestItemsSet');
+          it('does not contain text', () => {
+            const wrapper = factory({ mocks: { $auth }, provide });
 
-              const pinButton = wrapper.find('b-button-stub[data-qa="pin button"]');
-              await pinButton.trigger('click');
+            const pinButton = wrapper.find('b-button-stub[data-qa="pin button"]');
 
-              expect(wrapper.vm.unpinItemFromEntityBestItemsSet.called).toBe(true);
+            expect(pinButton.text()).toBe('');
+          });
+
+          describe('when item is pinned', () => {
+            beforeEach(() => {
+              storeIsPinnedGetter.returns(true);
+            });
+
+            describe('when pressed', () => {
+              it('unpins the item', async() => {
+                const wrapper = factory({ mocks: { $auth }, provide });
+                sinon.spy(wrapper.vm, 'unpinItemFromEntityBestItemsSet');
+
+                const pinButton = wrapper.find('b-button-stub[data-qa="pin button"]');
+                await pinButton.trigger('click');
+
+                expect(wrapper.vm.unpinItemFromEntityBestItemsSet.called).toBe(true);
+              });
             });
           });
         });

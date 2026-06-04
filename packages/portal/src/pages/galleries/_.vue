@@ -146,6 +146,7 @@
   import ShareSocialModal from '@/components/share/ShareSocialModal.vue';
   import useScrollTo from '@/composables/scrollTo.js';
   import { useSelectedItems } from '@/composables/selectedItems.js';
+  // used solely for storeEntityBestItemsSetPinnedItems
   import entityBestItemsSetMixin from '@/mixins/europeana/entities/entityBestItemsSet';
   import langAttributeMixin from '@/mixins/langAttribute';
   import pageMetaMixin from '@/mixins/pageMeta';
@@ -177,7 +178,6 @@
     },
     beforeRouteLeave(_to, _from, next) {
       this.$store.commit('entity/setPinned', []);
-      this.$store.commit('entity/setBestItemsSetId', null);
       this.clearSelectedItems();
       next();
     },
@@ -211,7 +211,6 @@
         );
 
         if (this.setIsEntityBestItems && this.userIsEntityEditor) {
-          this.$store.commit('entity/setBestItemsSetId', this.setId);
           this.storeEntityBestItemsSetPinnedItems(this.set);
         }
       } catch (e) {

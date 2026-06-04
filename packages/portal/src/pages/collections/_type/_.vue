@@ -121,6 +121,7 @@
 
     provide() {
       return {
+        currentSet: computed(() => this.entityBestItemsSet),
         relatedCollectionsHasResults: computed(() => !!this.relatedCollections?.length)
       };
     },
@@ -131,13 +132,13 @@
       }
       this.$store.commit('entity/setId', null); // needed to re-enable auto-suggest in header
       this.$store.commit('entity/setEntity', null); // needed for best bets handling
-      this.$store.commit('entity/setBestItemsSetId', null);
       this.$store.commit('entity/setPinned', []);
       next();
     },
 
     data() {
       return {
+        entityBestItemsSet: null,
         redirecting: false,
         relatedCollections: null
       };
@@ -158,7 +159,6 @@
         this.$store.commit('entity/setEntity', null);
         this.$store.commit('entity/setPinned', null);
         this.$store.commit('entity/setEditable', false);
-        this.$store.commit('entity/setBestItemsSetId', null);
       }
       this.$store.commit('entity/setId', entityUri);
 
@@ -273,9 +273,20 @@
         this.relatedCollections = relatedCollections;
       },
       async setBestItems() {
-        const entityBestItemsSetId = await this.findEntityBestItemsSet(this.entity.id);
-        this.$store.commit('entity/setBestItemsSetId', entityBestItemsSetId);
-        await this.fetchEntityBestItemsSetPinnedItems(entityBestItemsSetId);
+        const searchResponse = await this.$apis.set.search({
+          profile: 'items',
+          query: 'type:EntityBestItemsSet',
+          qf: `subject:${this.entity.id}`
+        });
+
+        const entityBestItemsSetId = searchResponse.items?.[0] || null;
+        if (entityBestItemsSetId) {
+          this.entityBestItemsSet = {
+            id: entityBestItemsSetId,
+            type: 'EntityBestItemsSet'
+          };
+          await this.fetchEntityBestItemsSetPinnedItems(entityBestItemsSetId);
+        }
       },
       titleFallback(title) {
         return {
