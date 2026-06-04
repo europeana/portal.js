@@ -8,7 +8,10 @@ const pickFields = (entity, fields) => {
   }, {});
 };
 
-export const fetchData = async(ids, { fields, lang } = {}, context = {}) => {
+export const fetchData = async(ids, options = {}, context = {}) => {
+  const fields = options.fl?.split(',');
+  const lang = options.lang?.split(',');
+
   const api = context.$apis?.entity || new EuropeanaEntityApi(context);
 
   let entities = await api.retrieve(ids);
@@ -25,9 +28,7 @@ export const fetchData = async(ids, { fields, lang } = {}, context = {}) => {
 
 export default (context = {}) => async(req, res, next) => {
   try {
-    const data = await fetchData(req.body, {
-      fields: req.query.fl?.split(','), lang: req.query.lang?.split(',')
-    }, context);
+    const data = await fetchData(req.body, req.query, context);
 
     res.json(data);
   } catch (e) {
