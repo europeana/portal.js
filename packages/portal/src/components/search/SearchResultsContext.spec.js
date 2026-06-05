@@ -116,7 +116,7 @@ describe('SearchResultsContext', () => {
       describe('when the organisation is an aggregator', () => {
         const propsData = {
           entity: {
-            europeanaRole: [{ id: 'http://data.europeana.eu/vocabulary/role/Aggregator' }],
+            aggregatesFrom: ['http://data.europeana.eu/organization/987'],
             ...entity
           },
           query: '',

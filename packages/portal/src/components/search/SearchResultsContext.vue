@@ -99,7 +99,7 @@
 
     computed: {
       isAggregator() {
-        return this.entity?.europeanaRole?.some(role => role?.id === 'http://data.europeana.eu/vocabulary/role/Aggregator');
+        return (this.entity?.aggregatesFrom?.length || 0) > 0;
       },
       // TODO: it's not possible to pluralise these keys properly due to the
       // i18n component usage here. i18n-vue 9.x supports a :plural prop for
