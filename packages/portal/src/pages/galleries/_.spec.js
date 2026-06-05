@@ -1,6 +1,7 @@
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '@test/utils.js';
 import BootstrapVue from 'bootstrap-vue';
+import nock from 'nock';
 import sinon from 'sinon';
 
 import page from '@/pages/galleries/_';
@@ -12,8 +13,8 @@ localVue.use(BootstrapVue);
 const setApiRepositionItemStub = sinon.stub().resolves({});
 const setApiGetStub = sinon.stub().resolves({});
 const setApiGetItemsStub = sinon.stub().resolves([]);
+const entityApiRetrieveStub = sinon.stub().resolves([]);
 const clearSelectedItemsSpy = sinon.spy();
-const storeCommit = sinon.spy();
 
 const $i18n = {
   locale: 'en'
@@ -74,10 +75,10 @@ const factory = (options = {}) => {
         },
         query: {}
       },
-      $store: {
-        commit: storeCommit
-      },
       $apis: {
+        entity: {
+          retrieve: entityApiRetrieveStub
+        },
         set: {
           get: setApiGetStub,
           getItems: setApiGetItemsStub,
@@ -109,13 +110,19 @@ const factory = (options = {}) => {
 
 describe('GalleryPage (Set)', () => {
   beforeAll(() => {
+    nock.disableNetConnect();
     sinon.stub(selectedItemsComposable, 'useSelectedItems')
       .returns({
         clear: clearSelectedItemsSpy
       });
   });
-  afterEach(sinon.resetHistory);
-  afterAll(sinon.resetBehavior);
+  afterEach(() => {
+    sinon.resetHistory();
+  });
+  afterAll(() => {
+    nock.enableNetConnect();
+    sinon.restore();
+  });
 
   describe('fetch', () => {
     it('validates the format of the Set ID', async() => {
@@ -209,13 +216,14 @@ describe('GalleryPage (Set)', () => {
       });
     });
 
-    describe('when user is entity editor and set is a curated collection', () => {
-      const testSetEntityBestItems = { ...testSet1, type: 'EntityBestItemsSet' };
+    describe('when user is entity editor and set is an EntityBestItemsSet', () => {
+      const subject = ['http://data.europeana.eu/concept/789'];
+      const testSetEntityBestItems = { ...testSet1, type: 'EntityBestItemsSet', subject };
       const userHasClientRoleStub = sinon.stub().returns(false)
         .withArgs('entities', 'editor').returns(true)
         .withArgs('usersets', 'editor').returns(true);
 
-      it('gets the pinned items', async() => {
+      it('fetches the subject entity', async() => {
         const wrapper = factory({
           set: testSetEntityBestItems,
           user: { loggedIn: true },
@@ -224,7 +232,7 @@ describe('GalleryPage (Set)', () => {
 
         await wrapper.vm.fetch();
 
-        expect(storeCommit.calledWith('entity/setPinned', sinon.match.array)).toBe(true);
+        expect(entityApiRetrieveStub.calledWith(subject)).toBe(true);
       });
     });
   });
