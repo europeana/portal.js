@@ -9,8 +9,6 @@ localVue.use(BootstrapVue);
 localVue.directive('masonry', {});
 localVue.directive('masonry-tile', {});
 
-const storeDispatch = sinon.spy();
-const storeIsPinnedGetter = sinon.stub();
 const redrawMasonry = sinon.spy();
 
 const factory = ({ propsData, mocks, provide, slots } = {}) => mountNuxt(ItemPreviewCardGroup, {
@@ -26,12 +24,6 @@ const factory = ({ propsData, mocks, provide, slots } = {}) => mountNuxt(ItemPre
     },
     $route: { query: {} },
     $t: () => {},
-    $store: {
-      getters: {
-        'entity/isPinned': storeIsPinnedGetter
-      },
-      dispatch: storeDispatch
-    },
     $apis: {
       record: {
         mediaProxyUrl: () => 'proxied'

@@ -65,6 +65,9 @@
     ],
 
     inject: {
+      currentSet: {
+        default: null
+      },
       itemPinning: {
         default() {
           return {};
@@ -123,7 +126,7 @@
         return this.$auth.userHasClientRole('usersets', 'editor');
       },
       pinned() {
-        return this.$store.getters['entity/isPinned'](this.identifier);
+        return this.$store.state.entity.pinned?.some((pin) => pin.endsWith(this.identifier));
       },
       pinButtonText() {
         if (this.buttonText) {
@@ -135,7 +138,8 @@
         return this.$store.state.entity.id;
       },
       setId() {
-        return this.$store.state.entity.bestItemsSetId;
+        return (this.currentSet?.type === 'EntityBestItemsSet' && this.currentSet?.id?.split('/')?.pop())
+          || null;
       }
     },
 
@@ -146,8 +150,7 @@
       },
       async pin() {
         const setId = await this.ensureEntityBestItemsSetExists(this.setId, this.$store.state.entity.entity);
-        this.$store.commit('entity/setBestItemsSetId', setId);
-        await this.pinItemToEntityBestItemsSet(this.identifier, this.setId, langMapValueForLocale(this.$store.state.entity.entity?.prefLabel, this.$i18n.locale).values[0]);
+        await this.pinItemToEntityBestItemsSet(this.identifier, setId, langMapValueForLocale(this.$store.state.entity.entity?.prefLabel, this.$i18n.locale).values[0]);
       },
       async unpin() {
         await this.unpinItemFromEntityBestItemsSet(this.identifier, this.setId);

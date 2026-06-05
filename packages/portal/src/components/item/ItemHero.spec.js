@@ -3,13 +3,9 @@ import BootstrapVue from 'bootstrap-vue';
 
 import WebResource from '@/plugins/europeana/edm/WebResource.js';
 import ItemHero from '@/components/item/ItemHero.vue';
-import sinon from 'sinon';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
-
-const storeDispatch = sinon.spy();
-const storeIsPinnedGetter = sinon.stub();
 
 const factory = ({ propsData = {}, mocks = {}, provide = {} } = {}) => shallowMount(ItemHero, {
   localVue,
@@ -24,13 +20,6 @@ const factory = ({ propsData = {}, mocks = {}, provide = {} } = {}) => shallowMo
   mocks: {
     $t: (key) => key,
     $i18n: { locale: 'en' },
-    $store: {
-      getters: {
-        'entity/isPinned': storeIsPinnedGetter,
-        'entity/id': 'id123'
-      },
-      dispatch: storeDispatch
-    },
     $nuxt: {
       context: {}
     },
