@@ -25,6 +25,7 @@
       <!-- FIXME: this table should not be showing aggregators -->
       <EntityTable
         type="organisations"
+        sub-type="institutions"
         data-qa="providingInstitutions entity table"
         class="mt-3 mt-md-4"
         :fields="['prefLabel', 'countryPrefLabel', 'aggregator', 'recordCount', 'showDetails']"
