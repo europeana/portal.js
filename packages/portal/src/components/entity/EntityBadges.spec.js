@@ -1,9 +1,11 @@
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '@test/utils.js';
 import BootstrapVue from 'bootstrap-vue';
+import nock from 'nock';
 import sinon from 'sinon';
 
 import EntityBadges from '@/components/entity/EntityBadges.vue';
+import * as backendFetchModule from '@/utils/backendFetch.js';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -71,12 +73,34 @@ const factory = ({ propsData, mocks } = {}) => {
       $matomo: {
         trackEvent: sinon.spy()
       },
+      $nuxt: {
+        context: {}
+      },
       ...mocks
     }
   });
 };
 
 describe('components/related/EntityBadges', () => {
+  const backendFetch = sinon.stub(backendFetchModule, 'backendFetch');
+
+  beforeAll(() => {
+    nock.disableNetConnect();
+  });
+  beforeEach(() => {
+    backendFetch
+      .withArgs('collections/retrieve', sinon.match.array, sinon.match.object)
+      .resolves(relatedCollections);
+  });
+  afterEach(() => {
+    sinon.resetHistory();
+    sinon.resetBehavior();
+  });
+  afterAll(() => {
+    nock.enableNetConnect();
+    sinon.restore();
+  });
+
   describe('template', () => {
     describe('when related collections are present', () => {
       const data = { collections: relatedCollections };
@@ -158,14 +182,19 @@ describe('components/related/EntityBadges', () => {
       describe('but entity URIs are supplied', () => {
         const propsData = { entityUris };
 
-        it('fetches entities with editorial overrides', async() => {
+        it('fetches entities from backend', async() => {
           const wrapper = factory({ propsData });
-
-          wrapper.vm.$apis = { entity: { find: sinon.stub().resolves([]) } };
 
           await wrapper.vm.fetch();
 
-          expect(wrapper.vm.$apis.entity.find.calledWith(entityUris)).toBe(true);
+          expect(backendFetch.calledWith(
+            'collections/retrieve',
+            [
+              entityUris,
+              { fl: 'id,prefLabel,isShownBy,logo,type' }
+            ],
+            {}
+          )).toBe(true);
         });
       });
 
