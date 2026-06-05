@@ -124,7 +124,7 @@
 
     async fetch() {
       let uris = this.entityUris;
-      if (this.limit) {
+      if (this.limited) {
         uris = uris.slice(0, this.limit);
       }
 
@@ -176,6 +176,7 @@
       },
       handleViewAll() {
         this.limited = false;
+        this.$fetch();
       }
     }
   };
