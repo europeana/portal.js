@@ -244,10 +244,12 @@
         collections = collections.filter(this.filter);
       }
 
-      collections = collections.map((collection) => ({
-        ...collection,
-        numericId: collection.id.split('/').pop()
-      }));
+      collections = collections.map((collection) => {
+        collection.numericId = collection.id.split('/').pop();
+        collection['_showDetails'] = this.isCollectionFocused(collection);
+
+        return collection;
+      });
 
       if (this.type === 'organisations') {
         let aggregators;
@@ -259,7 +261,6 @@
       }
 
       this.collections = collections;
-      this.expandFocusedCollection();
       this.scrollToFocusedCollection();
     },
 
@@ -307,9 +308,6 @@
       },
       isOrganisationsType() {
         return this.type === 'organisations';
-      },
-      focusedCollection() {
-        return this.collections?.find((entity) => entity.numericId === this.$route.query.show);
       }
     },
 
@@ -334,20 +332,21 @@
     },
 
     methods: {
-      expandFocusedCollection() {
-        const focusedCollection = this.collections?.find((entity) => entity.numericId === this.$route.query.show);
-        if (focusedCollection) {
-          focusedCollection['_showDetails'] = true;
-        }
+      isCollectionFocused(collection) {
+        return collection.numericId === this.$route.query.show;
+      },
+      findFocusedCollection() {
+        return this.collections?.find(this.isCollectionFocused);
       },
       scrollToFocusedCollection() {
         if (!process.client) {
           return;
         }
 
-        if (process.client && this.focusedCollection) {
+        const focusedCollection = this.findFocusedCollection();
+        if (process.client && focusedCollection) {
           this.$nextTick(() => {
-            const rowElement = document.querySelector(this.rowSelector(this.focusedCollection.numericId));
+            const rowElement = document.querySelector(this.rowSelector(focusedCollection.numericId));
             rowElement?.scrollIntoView({ behavior: 'smooth' });
           });
         }
