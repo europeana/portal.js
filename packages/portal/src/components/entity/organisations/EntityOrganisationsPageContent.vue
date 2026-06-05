@@ -160,7 +160,7 @@
 
     methods: {
       tabRoute(tab) {
-        return { ...this.$route, query: { tab: tab.id }, hash: undefined };
+        return { ...this.$route, query: { tab: tab.id } };
       }
     }
   };
