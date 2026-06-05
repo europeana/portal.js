@@ -54,26 +54,31 @@ const frontend = {
     {
       id: 'http://data.europeana.eu/organization/001',
       slug: '001-museum',
+      numericId: '001',
       prefLabel: 'museum',
       prefLabelLang: 'de',
       altLabel: 'museum',
       altLabelLang: 'en',
-      countryPrefLabel: 'Deutschland'
+      countryPrefLabel: 'Deutschland',
+      _showDetails: false
     },
     {
       id: 'http://data.europeana.eu/organization/002',
       slug: '002-library',
+      numericId: '002',
       prefLabel: 'bibliotheek',
       prefLabelLang: 'nl',
       altLabel: 'library',
       altLabelLang: 'en',
-      countryPrefLabel: 'Nederland'
+      countryPrefLabel: 'Nederland',
+      _showDetails: false
     }
   ],
   organisationsWithAggregatedVia: [
     {
       id: 'http://data.europeana.eu/organization/001',
       slug: '001-museum',
+      numericId: '001',
       prefLabel: 'museum',
       prefLabelLang: 'de',
       altLabel: 'museum',
@@ -81,11 +86,13 @@ const frontend = {
       countryPrefLabel: 'Deutschland',
       aggregatedVia: [
         { id: 'http://data.europeana.eu/organization/003', prefLabel: 'Three' }
-      ]
+      ],
+      _showDetails: false
     },
     {
       id: 'http://data.europeana.eu/organization/002',
       slug: '002-library',
+      numericId: '002',
       prefLabel: 'bibliotheek',
       prefLabelLang: 'nl',
       altLabel: 'library',
@@ -94,7 +101,8 @@ const frontend = {
       aggregatedVia: [
         { id: 'http://data.europeana.eu/organization/004', prefLabel: 'Four' },
         { id: 'http://data.europeana.eu/organization/005', prefLabel: 'Five' }
-      ]
+      ],
+      _showDetails: false
     }
   ]
 };

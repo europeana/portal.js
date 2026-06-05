@@ -1,33 +1,44 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
-import * as vue2RouterHelpers from 'vue2-helpers/vue-router';
 import sinon from 'sinon';
-import { reactive } from 'vue';
+import { computed, reactive } from 'vue';
+import * as vueRouter from '@/composables/vueRouter.js';
+
 import EntityOrganisationsPageContent from './EntityOrganisationsPageContent.vue';
 
 const localVue = createLocalVue();
 
-const factory = (options) => {
-  sinon.stub(vue2RouterHelpers, 'useRoute').returns(reactive({ hash: options.hash || '' }));
+const factory = ({ tab = '' } = {}) => {
+  sinon.stub(vueRouter, 'useRoute').returns(computed(() => reactive({ query: { tab } })));
 
   return shallowMount(EntityOrganisationsPageContent, {
     localVue,
     mocks: {
       $t: (val) => val
     },
-    stubs: ['b-col', 'client-only', 'EntityTable']
+    stubs: ['b-col', 'client-only', 'EntityTable', 'b-nav', 'b-nav-item']
   });
 };
 
 describe('components/entity/organisations/EntityOrganisationsPageContent', () => {
   afterEach(() => {
     sinon.resetHistory();
-    vue2RouterHelpers.useRoute.restore?.();
+    vueRouter.useRoute.restore?.();
   });
 
   describe('template', () => {
+    it('renders two tabs: providing institutions, and aggregators', () => {
+      const wrapper = factory();
+
+      const tabs = wrapper.findAll('b-nav-item-stub');
+
+      expect(tabs.length).toBe(2);
+      expect(tabs.at(0).text()).toBe('organisations.providingInstitutions.title');
+      expect(tabs.at(1).text()).toBe('organisations.aggregators.title');
+    });
+
     describe('when visiting the institutions tab', () => {
       it('shows the institutions description and table', () => {
-        const wrapper = factory({ hash: '#institutions' });
+        const wrapper = factory({ tab: 'institutions' });
 
         const description = wrapper.find('.tab-header');
         const table = wrapper.find('entitytable-stub[type="organisations"]');
@@ -38,7 +49,7 @@ describe('components/entity/organisations/EntityOrganisationsPageContent', () =>
     });
     describe('when visiting the aggregators tab', () => {
       it('shows the aggregators description', () => {
-        const wrapper = factory({ hash: '#aggregators' });
+        const wrapper = factory({ tab: 'aggregators' });
 
         const description = wrapper.find('.tab-header');
         const tables = wrapper.findAll('entitytable-stub');
@@ -49,7 +60,7 @@ describe('components/entity/organisations/EntityOrganisationsPageContent', () =>
 
       ['internationalAggregators', 'regionalAggregators'].forEach(type => {
         it(`shows the ${type} type title, description and table`, () => {
-          const wrapper = factory({ hash: '#aggregators' });
+          const wrapper = factory({ tab: 'aggregators' });
 
           const title = wrapper.find(`.${type}-header h2`);
           const description = wrapper.find(`.${type}-header p`);

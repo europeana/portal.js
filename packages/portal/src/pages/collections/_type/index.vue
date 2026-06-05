@@ -28,7 +28,6 @@
           class="half-col"
         />
         <template v-if="$features.aggregatorsTab && type === 'organisations'">
-          <EntityOrganisationsTabs />
           <EntityOrganisationsPageContent />
         </template>
         <EntityTable
@@ -60,7 +59,6 @@
     components: {
       ContentHeader,
       EntityOrganisationsPageContent: () => import('@/components/entity/organisations/EntityOrganisationsPageContent'),
-      EntityOrganisationsTabs: () => import('@/components/entity/organisations/EntityOrganisationsTabs'),
       EntityTable: () => import('@/components/entity/EntityTable'),
       EntityTypeBrowse: () => import('@/components/entity/EntityTypeBrowse'),
       ErrorMessage: () => import('@/components/error/ErrorMessage')

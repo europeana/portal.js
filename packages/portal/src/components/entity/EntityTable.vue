@@ -31,6 +31,7 @@
       :items="collections"
       :sort-by.sync="sortBy"
       :sort-desc.sync="sortDesc"
+      :tbody-tr-attr="(item) => ({ id: rowId(item.numericId) })"
       striped
       class="borderless"
     >
@@ -86,7 +87,7 @@
           class="button-toggle button-icon-only icon-chevron"
           :class="{'show': row.detailsShowing}"
           variant="light-flat"
-          @click="row.toggleDetails"
+          @click="handleClickRow(row)"
         >
           <span class="visually-hidden">
             {{ $t('pages.collections.table.showMoreData', { entity: row.item.prefLabel }) }}
@@ -243,6 +244,13 @@
         collections = collections.filter(this.filter);
       }
 
+      collections = collections.map((collection) => {
+        collection.numericId = collection.id.split('/').pop();
+        collection['_showDetails'] = this.isCollectionFocused(collection);
+
+        return collection;
+      });
+
       if (this.type === 'organisations') {
         let aggregators;
         if (this.fields.includes('aggregator')) {
@@ -253,6 +261,7 @@
       }
 
       this.collections = collections;
+      this.scrollToFocusedCollection();
     },
 
     computed: {
@@ -303,16 +312,55 @@
     },
 
     watch: {
-      '$route.query': {
-        deep: true,
-        handler() {
-          this.query = this.$route.query.query;
-          this.$fetch();
-        }
+      '$route.query.query'() {
+        this.query = this.$route.query.query;
+        this.$fetch();
+      },
+      '$route.query.page'() {
+        this.$fetch();
+      },
+      '$route.query.tab'() {
+        this.$fetch();
+      },
+      '$route.query.sort'() {
+        this.$fetch();
       }
     },
 
+    mounted() {
+      this.scrollToFocusedCollection();
+    },
+
     methods: {
+      isCollectionFocused(collection) {
+        return collection.numericId === this.$route.query.show;
+      },
+      findFocusedCollection() {
+        return this.collections?.find(this.isCollectionFocused);
+      },
+      scrollToFocusedCollection() {
+        if (!process.client) {
+          return;
+        }
+
+        const focusedCollection = this.findFocusedCollection();
+        if (process.client && focusedCollection) {
+          this.$nextTick(() => {
+            const rowElement = document.querySelector(this.rowSelector(focusedCollection.numericId));
+            rowElement?.scrollIntoView({ behavior: 'smooth' });
+          });
+        }
+      },
+      handleClickRow(row) {
+        row.item['_showDetails'] = !row.item['_showDetails'];
+        this.updateRouteQuery({ show: row.item['_showDetails'] ? row.item.numericId : undefined }, 'replace');
+      },
+      rowId(entityNumericId) {
+        return `${this.id}-${entityNumericId}`;
+      },
+      rowSelector(entityNumericId) {
+        return `#${this.rowId(entityNumericId)}`;
+      },
       displayField(key) {
         return this.fields.includes(key);
       },
@@ -362,8 +410,8 @@
       onFiltered() {
         this.updateRouteQuery({ query: this.query, page: 1 });
       },
-      updateRouteQuery(newQuery) {
-        this.$router.push({ ...this.$route, query: { ...this.$route.query, ...newQuery } });
+      updateRouteQuery(newQuery, method = 'push') {
+        this.$router[method]({ ...this.$route, query: { ...this.$route.query, ...newQuery } });
       }
     }
   };
@@ -383,6 +431,10 @@
       @media (min-width: $bp-medium) {
         margin-bottom: 2rem;
       }
+    }
+
+    tr {
+      scroll-margin-top: 4rem;
     }
 
     td.table-name-cell {
