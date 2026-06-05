@@ -59,7 +59,8 @@ const frontend = {
       prefLabelLang: 'de',
       altLabel: 'museum',
       altLabelLang: 'en',
-      countryPrefLabel: 'Deutschland'
+      countryPrefLabel: 'Deutschland',
+      _showDetails: false
     },
     {
       id: 'http://data.europeana.eu/organization/002',
@@ -69,7 +70,8 @@ const frontend = {
       prefLabelLang: 'nl',
       altLabel: 'library',
       altLabelLang: 'en',
-      countryPrefLabel: 'Nederland'
+      countryPrefLabel: 'Nederland',
+      _showDetails: false
     }
   ],
   organisationsWithAggregatedVia: [
@@ -84,7 +86,8 @@ const frontend = {
       countryPrefLabel: 'Deutschland',
       aggregatedVia: [
         { id: 'http://data.europeana.eu/organization/003', prefLabel: 'Three' }
-      ]
+      ],
+      _showDetails: false
     },
     {
       id: 'http://data.europeana.eu/organization/002',
@@ -98,7 +101,8 @@ const frontend = {
       aggregatedVia: [
         { id: 'http://data.europeana.eu/organization/004', prefLabel: 'Four' },
         { id: 'http://data.europeana.eu/organization/005', prefLabel: 'Five' }
-      ]
+      ],
+      _showDetails: false
     }
   ]
 };
