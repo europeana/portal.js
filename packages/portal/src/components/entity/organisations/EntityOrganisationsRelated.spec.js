@@ -1,7 +1,10 @@
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '@test/utils.js';
-import EntityOrganisationsRelated from './EntityOrganisationsRelated.vue';
 import sinon from 'sinon';
+import nock from 'nock';
+
+import EntityOrganisationsRelated from './EntityOrganisationsRelated.vue';
+import * as backendFetchModule from '@/utils/backendFetch.js';
 
 const localVue = createLocalVue();
 
@@ -12,6 +15,7 @@ const factory = (propsData) => {
     localVue,
     propsData,
     mocks: {
+      $nuxt: { context: {} },
       $t: (val) => val
     },
     stubs: ['EntityBadges']
@@ -19,16 +23,34 @@ const factory = (propsData) => {
 };
 
 describe('components/entity/organisations/EntityOrganisationsRelated', () => {
+  const backendFetch = sinon.stub(backendFetchModule, 'backendFetch');
+
+  beforeAll(() => {
+    nock.disableNetConnect();
+  });
+  afterEach(() => {
+    sinon.resetHistory();
+    sinon.resetBehavior();
+  });
+  afterAll(() => {
+    nock.enableNetConnect();
+    sinon.restore();
+  });
+
   describe('fetch', () => {
     it('fetches full entity by id and sets aggregatesFrom', async() => {
       const aggregatesFrom = ['002'];
       const wrapper = factory({ entityId });
 
-      wrapper.vm.$apis = { entity: { find: sinon.stub().resolves([{ aggregatesFrom }]) } };
+      backendFetch
+        .withArgs('collections/retrieve', sinon.match.array, sinon.match.object)
+        .resolves([{ aggregatesFrom }]);
 
       await wrapper.vm.fetch();
 
-      expect(wrapper.vm.$apis.entity.find.calledWith([entityId])).toBe(true);
+      expect(backendFetch.calledWith(
+        'collections/retrieve', [[entityId], { fl: 'aggregatesFrom' }], {}
+      )).toBe(true);
       expect(wrapper.vm.aggregatesFrom).toBe(aggregatesFrom);
     });
   });

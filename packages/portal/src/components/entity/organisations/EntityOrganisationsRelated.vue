@@ -10,11 +10,13 @@
       class="mt-3 mt-lg-0"
       :transition="true"
       :limit="4"
+      :total="aggregatesFrom?.length || 0"
     />
   </transition>
 </template>
 
 <script>
+  import { backendFetch } from '@/utils/backendFetch.js';
   import EntityBadges from '../EntityBadges.vue';
 
   export default {
@@ -38,9 +40,9 @@
     },
 
     async fetch() {
-      const entityFullData = await this.$apis.entity.find([this.entityId]);
+      const collections = await backendFetch('collections/retrieve', [[this.entityId], { fl: 'aggregatesFrom' }], this.$nuxt.context);
 
-      this.aggregatesFrom = entityFullData[0]?.aggregatesFrom;
+      this.aggregatesFrom = collections[0]?.aggregatesFrom;
     }
   };
 </script>
