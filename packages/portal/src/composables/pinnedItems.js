@@ -14,7 +14,7 @@ export class PinnedItemsError extends Error {
   }
 }
 
-export function usePinnedItems() {
+const createInstance = () => {
   const instance = getCurrentInstance();
   const $root = instance.proxy.$root;
   const nuxtContext = $root.$nuxt?.context;
@@ -97,4 +97,14 @@ export function usePinnedItems() {
     pin,
     unpin
   };
+};
+
+export function usePinnedItems() {
+  const instance = getCurrentInstance();
+
+  if (!instance.proxy.$root.$pinnedItems) {
+    instance.proxy.$root.$pinnedItems = createInstance();
+  }
+
+  return instance.proxy.$root.$pinnedItems;
 }

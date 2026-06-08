@@ -62,6 +62,14 @@ describe('useMakeToast', () => {
   afterEach(sinon.resetHistory);
   afterAll(sinon.restore);
 
+  it('creates a $pinnedItems instance on the root', () => {
+    const wrapper = factory();
+
+    expect(typeof wrapper.vm.$root.$pinnedItems).toBe('object');
+    expect(typeof wrapper.vm.$root.$pinnedItems.pin).toBe('function');
+    expect(typeof wrapper.vm.$root.$pinnedItems.unpin).toBe('function');
+  });
+
   describe('pin', () => {
     beforeEach(() => {
       $nuxt.context.$apis.entity.retrieve.resolves([{ id: ENTITY_ID, prefLabel: { en: 'Entity' } }]);
