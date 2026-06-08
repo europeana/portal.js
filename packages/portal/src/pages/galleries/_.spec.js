@@ -145,7 +145,7 @@ describe('GalleryPage (Set)', () => {
       it('calls $error', async() => {
         const unauthorisedError = { statusCode: 403, message: 'Unauthorised' };
         const wrapper = factory();
-        wrapper.vm.$store.dispatch = sinon.stub().throws(() => unauthorisedError);
+        wrapper.vm.$apis.set.get = sinon.stub().throws(() => unauthorisedError);
 
         await wrapper.vm.$fetch();
 
@@ -287,7 +287,7 @@ describe('GalleryPage (Set)', () => {
         expect(setApiRepositionItemStub.calledWith(defaultOptions.set.id, itemId, position)).toBe(true);
       });
 
-      it('re-fetches the active set via the store', async() => {
+      it('re-fetches the active set via the API', async() => {
         const wrapper = factory(defaultOptions);
 
         await wrapper.vm.repositionItem({ itemId, position });

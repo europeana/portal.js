@@ -263,7 +263,6 @@ describe('pages/collections/_type/_', () => {
 
       await wrapper.vm.$options.beforeRouteLeave.call(wrapper.vm, to, null, next);
 
-      expect(wrapper.vm.$store.commit.calledWith('entity/setEntity', null)).toBe(true);
       expect(wrapper.vm.$store.commit.calledWith('entity/setId', null)).toBe(true);
       expect(next.called).toBe(true);
     });
