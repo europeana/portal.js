@@ -1,4 +1,6 @@
 import { getCurrentInstance } from 'vue';
+import { EventTarget, Event } from 'event-target-shim';
+
 import { langMapValueForLocale } from '@europeana/i18n';
 import useMakeToast from '@/composables/makeToast.js';
 
@@ -14,12 +16,22 @@ export class PinnedItemsError extends Error {
   }
 }
 
+export class ItemPinningEvent extends Event {
+  constructor(type, itemId, entityId) {
+    super(type);
+    this.itemId = itemId;
+    this.entityId = entityId;
+  }
+}
+
 const createInstance = () => {
   const instance = getCurrentInstance();
   const $root = instance.proxy.$root;
   const nuxtContext = $root.$nuxt?.context;
 
   const { makeToast } = useMakeToast();
+
+  const eventTarget = new EventTarget();
 
   const findEntityItemsBestSetId = async(entityId) => {
     const searchResponse = await nuxtContext.$apis.set.search({
@@ -79,6 +91,8 @@ const createInstance = () => {
     const entityPrefLabel = langMapValueForLocale(entity.prefLabel, $root.$i18n.locale).values[0];
     // TODO: emit an event instead, and let consumer make the toast?
     makeToast($root.$i18n.t('entity.notifications.pinned', { entity: entityPrefLabel }));
+
+    eventTarget.dispatchEvent(new ItemPinningEvent('pin', itemId, entityId));
   };
 
   const unpin = async(itemId, entityId) => {
@@ -91,9 +105,21 @@ const createInstance = () => {
     await nuxtContext.$apis.set.deleteItems(entityBestItemsSetId, itemId);
     // TODO: emit an event instead, and let consumer make the toast?
     makeToast($root.$i18n.t('entity.notifications.unpinned'));
+
+    eventTarget.dispatchEvent(new ItemPinningEvent('unpin', itemId, entityId));
+  };
+
+  const on = (type, listener, options) => {
+    eventTarget.addEventListener(type, listener, options);
+  };
+
+  const off = (type, listener, options) => {
+    eventTarget.removeEventListener(type, listener, options);
   };
 
   return {
+    off,
+    on,
     pin,
     unpin
   };

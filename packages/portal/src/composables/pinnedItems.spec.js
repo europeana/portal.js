@@ -8,8 +8,8 @@ import { createLocalVue, shallowMount } from '@vue/test-utils';
 const component = {
   template: '<span />',
   setup() {
-    const { pin, unpin } = usePinnedItems();
-    return { pin, unpin };
+    const { off, on, pin, unpin } = usePinnedItems();
+    return { off, on, pin, unpin };
   }
 };
 
@@ -158,6 +158,18 @@ describe('useMakeToast', () => {
 
         expect(makeToastSpy.calledWith('entity.notifications.pinned')).toBe(true);
       });
+
+      it('dispatches a pin event', async() => {
+        const wrapper = factory();
+        const unpinListener = sinon.spy();
+        wrapper.vm.on('pin', unpinListener);
+
+        await wrapper.vm.pin(ITEM_ID, ENTITY_ID);
+
+        expect(unpinListener.calledWith(sinon.match((event) => {
+          return event.type === 'pin' && event.itemId === ITEM_ID && event.entityId === ENTITY_ID;
+        }))).toBe(true);
+      });
     });
 
     describe('when an EntityBestItemsSet for the entity is found', () => {
@@ -215,6 +227,18 @@ describe('useMakeToast', () => {
           await wrapper.vm.pin(ITEM_ID, ENTITY_ID);
 
           expect(makeToastSpy.calledWith('entity.notifications.pinned')).toBe(true);
+        });
+
+        it('dispatches a pin event', async() => {
+          const wrapper = factory();
+          const unpinListener = sinon.spy();
+          wrapper.vm.on('pin', unpinListener);
+
+          await wrapper.vm.pin(ITEM_ID, ENTITY_ID);
+
+          expect(unpinListener.calledWith(sinon.match((event) => {
+            return event.type === 'pin' && event.itemId === ITEM_ID && event.entityId === ENTITY_ID;
+          }))).toBe(true);
         });
       });
     });
@@ -277,6 +301,18 @@ describe('useMakeToast', () => {
         await wrapper.vm.unpin(ITEM_ID, ENTITY_ID);
 
         expect(makeToastSpy.calledWith('entity.notifications.unpinned')).toBe(true);
+      });
+
+      it('dispatches an unpin event', async() => {
+        const wrapper = factory();
+        const unpinListener = sinon.spy();
+        wrapper.vm.on('unpin', unpinListener);
+
+        await wrapper.vm.unpin(ITEM_ID, ENTITY_ID);
+
+        expect(unpinListener.calledWith(sinon.match((event) => {
+          return event.type === 'unpin' && event.itemId === ITEM_ID && event.entityId === ENTITY_ID;
+        }))).toBe(true);
       });
     });
   });

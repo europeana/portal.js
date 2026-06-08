@@ -180,9 +180,6 @@
           }
         } catch (error) {
           this.$error(error, { scope: error.statusCode === 404 ? 'pinning' : 'gallery' });
-        } finally {
-          // FIXME
-          // this.fetchEntityBestItemsSetPinnedItems(this.setId);
         }
       }
     }

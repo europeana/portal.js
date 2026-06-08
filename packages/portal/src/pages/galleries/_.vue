@@ -144,6 +144,7 @@
   import ItemPreviewInterface from '@/components/item/ItemPreviewInterface';
   import ShareButton from '@/components/share/ShareButton.vue';
   import ShareSocialModal from '@/components/share/ShareSocialModal.vue';
+  import { usePinnedItems } from '@/composables/pinnedItems.js';
   import useScrollTo from '@/composables/scrollTo.js';
   import { useSelectedItems } from '@/composables/selectedItems.js';
   import langAttributeMixin from '@/mixins/langAttribute';
@@ -179,9 +180,10 @@
       next();
     },
     setup() {
+      const { on: addPinEventListener, off: removePinEventListener } = usePinnedItems();
       const { scrollToSelector } = useScrollTo();
       const { clear: clearSelectedItems } = useSelectedItems();
-      return { clearSelectedItems, scrollToSelector };
+      return { addPinEventListener, clearSelectedItems, removePinEventListener, scrollToSelector };
     },
     data() {
       return {
@@ -282,6 +284,17 @@
         await this.$fetch();
         this.clearSelectedItems();
       }
+    },
+
+    created() {
+      this.addPinEventListener('pin', this.$fetch);
+      this.addPinEventListener('unpin', this.$fetch);
+    },
+
+    beforeDestroy() {
+      this.clearSelectedItems();
+      this.removePinEventListener('pin', this.$fetch);
+      this.removePinEventListener('unpin', this.$fetch);
     },
 
     mounted() {
