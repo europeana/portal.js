@@ -124,9 +124,6 @@ export default {
       internalLinkDomain: process.env.INTERNAL_LINK_DOMAIN,
       notificationBanner: process.env.APP_NOTIFICATION_BANNER,
       projectApiKeyFormUrl: process.env.PROJECT_API_KEY_FORM_URL,
-      search: {
-        translateLocales: (process.env.APP_SEARCH_TRANSLATE_LOCALES || '').split(',')
-      },
       siteName: APP_SITE_NAME
     },
     auth: {
