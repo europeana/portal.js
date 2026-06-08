@@ -251,7 +251,6 @@
           }
           this.hide();
         } catch (error) {
-          console.error(error);
           this.$error(error, { scope: error.statusCode === 404 ? 'pinning' : 'gallery' });
         }
       },
