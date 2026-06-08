@@ -226,6 +226,9 @@
           this.userIsEntitiesEditor &&
           ['topic', 'organisation'].includes(this.collectionType);
       },
+      userIsEntitiesEditor() {
+        return this.$auth.userHasClientRole('entities', 'editor');
+      },
       route() {
         return {
           name: 'collections-type-all',
@@ -262,7 +265,7 @@
         this.relatedCollections = relatedCollections;
       },
       async fetchEntityBestItemsSet() {
-        if (!this.$auth.userHasClientRole('entities', 'editor')) {
+        if (!this.userIsEntitiesEditor) {
           this.entityBestItemsSet = null;
           return;
         }
