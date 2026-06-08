@@ -62,6 +62,156 @@ describe('useMakeToast', () => {
   afterEach(sinon.resetHistory);
   afterAll(sinon.restore);
 
+  describe('pin', () => {
+    beforeEach(() => {
+      $nuxt.context.$apis.entity.retrieve.resolves([{ id: ENTITY_ID, prefLabel: { en: 'Entity' } }]);
+      $nuxt.context.$apis.set.search.resolves({ total: 1, items: [ENTITY_ITEMS_BEST_SET_ID] });
+    });
+
+    it('retrieves the full entity data', async() => {
+      const wrapper = factory();
+
+      await wrapper.vm.pin(ITEM_ID, ENTITY_ID);
+
+      expect($nuxt.context.$apis.entity.retrieve.calledWith([ENTITY_ID])).toBe(true);
+    });
+
+    describe('when no such entity is found', () => {
+      beforeEach(() => {
+        $nuxt.context.$apis.entity.retrieve.resolves([]);
+      });
+
+      it('throws a PinnedItemsError', async() => {
+        const wrapper = factory();
+
+        let error;
+
+        try {
+          await wrapper.vm.pin(ITEM_ID, ENTITY_ID);
+        } catch (e) {
+          error = e;
+        }
+
+        expect(error.name).toBe('PinnedItemsError');
+        expect(error.message).toBe('Entity not found');
+      });
+    });
+
+    describe('when the entity is found', () => {
+      beforeEach(() => {
+        $nuxt.context.$apis.entity.retrieve.resolves([{ id: ENTITY_ID, prefLabel: { en: 'Entity' } }]);
+      });
+
+      it('searches for an EntityBestItemsSet for the entity', async() => {
+        const wrapper = factory();
+
+        await wrapper.vm.pin(ITEM_ID, ENTITY_ID);
+
+        expect($nuxt.context.$apis.set.search.calledWith({
+          profile: 'items',
+          query: 'type:EntityBestItemsSet',
+          qf: `subject:${ENTITY_ID}`
+        })).toBe(true);
+      });
+    });
+
+    describe('when no EntityBestItemsSet for the entity is found', () => {
+      beforeEach(() => {
+        $nuxt.context.$apis.set.search.resolves({ total: 0 });
+        $nuxt.context.$apis.set.create.resolves({ id: ENTITY_ITEMS_BEST_SET_ID });
+      });
+
+      it('creates an EntityBestItemsSet for the entity', async() => {
+        const wrapper = factory();
+
+        await wrapper.vm.pin(ITEM_ID, ENTITY_ID);
+
+        expect($nuxt.context.$apis.set.create.calledWith({
+          type: 'EntityBestItemsSet',
+          title: {
+            en: 'Entity'
+          },
+          subject: [ENTITY_ID]
+        })).toBe(true);
+      });
+
+      it('pins the item to the set', async() => {
+        const wrapper = factory();
+
+        await wrapper.vm.pin(ITEM_ID, ENTITY_ID);
+
+        expect($nuxt.context.$apis.set.pinItem.calledWith(ENTITY_ITEMS_BEST_SET_ID, ITEM_ID)).toBe(true);
+      });
+
+      it('makes toast to announce pinning', async() => {
+        const wrapper = factory();
+
+        await wrapper.vm.pin(ITEM_ID, ENTITY_ID);
+
+        expect(makeToastSpy.calledWith('entity.notifications.pinned')).toBe(true);
+      });
+    });
+
+    describe('when an EntityBestItemsSet for the entity is found', () => {
+      beforeEach(() => {
+        $nuxt.context.$apis.set.search.resolves({ total: 1, items: [ENTITY_ITEMS_BEST_SET_ID] });
+        $nuxt.context.$apis.set.requestSet.resolves({ pinned: 0 });
+      });
+
+      it('fetches the full set', async() => {
+        const wrapper = factory();
+
+        await wrapper.vm.pin(ITEM_ID, ENTITY_ID);
+
+        expect($nuxt.context.$apis.set.requestSet.calledWith(ENTITY_ITEMS_BEST_SET_ID)).toBe(true);
+      });
+
+      describe('when the set has 24 pinned items already', () => {
+        beforeEach(() => {
+          $nuxt.context.$apis.set.requestSet.resolves({ pinned: 24 });
+        });
+
+        it('does not pin the item to the set', async() => {
+          const wrapper = factory();
+
+          await wrapper.vm.pin(ITEM_ID, ENTITY_ID);
+
+          expect($nuxt.context.$apis.set.pinItem.called).toBe(false);
+        });
+
+        it('shows an notification modal', async() => {
+          const wrapper = factory();
+
+          await wrapper.vm.pin(ITEM_ID, ENTITY_ID);
+
+          expect($bvModal.show.calledWith(`pinned-limit-modal-${ITEM_ID}`)).toBe(true);
+        });
+      });
+
+      describe('when the set does not yet have 24 pinned items', () => {
+        beforeEach(() => {
+          $nuxt.context.$apis.set.requestSet.resolves({ pinned: 10 });
+        });
+
+        it('pins the item to the set', async() => {
+          const wrapper = factory();
+
+          await wrapper.vm.pin(ITEM_ID, ENTITY_ID);
+
+          expect($nuxt.context.$apis.set.pinItem.calledWith(ENTITY_ITEMS_BEST_SET_ID, ITEM_ID)).toBe(true);
+        });
+
+        it('makes toast to announce pinning', async() => {
+          const wrapper = factory();
+
+          await wrapper.vm.pin(ITEM_ID, ENTITY_ID);
+
+          expect(makeToastSpy.calledWith('entity.notifications.pinned')).toBe(true);
+        });
+      });
+    });
+  });
+
   describe('unpin', () => {
     beforeEach(() => {
       $nuxt.context.$apis.set.search.resolves({ total: 1, items: [ENTITY_ITEMS_BEST_SET_ID] });
@@ -84,7 +234,7 @@ describe('useMakeToast', () => {
         $nuxt.context.$apis.set.search.resolves({ total: 0 });
       });
 
-      it('throws a Not Found error', async() => {
+      it('throws a PinnedItemsError', async() => {
         const wrapper = factory();
 
         let error;
@@ -95,7 +245,8 @@ describe('useMakeToast', () => {
           error = e;
         }
 
-        expect(error?.message).toBe('Not Found');
+        expect(error.name).toBe('PinnedItemsError');
+        expect(error.message).toBe('EntityBestItemsSet not found');
       });
     });
 
@@ -112,7 +263,7 @@ describe('useMakeToast', () => {
         expect($nuxt.context.$apis.set.deleteItems.calledWith(ENTITY_ITEMS_BEST_SET_ID, ITEM_ID)).toBe(true);
       });
 
-      it('makes toast to announce deletion', async() => {
+      it('makes toast to announce unpinning', async() => {
         const wrapper = factory();
 
         await wrapper.vm.unpin(ITEM_ID, ENTITY_ID);
