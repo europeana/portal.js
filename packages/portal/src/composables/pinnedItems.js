@@ -4,6 +4,16 @@ import useMakeToast from '@/composables/makeToast.js';
 
 const ENTITY_ITEMS_BEST_SET = 'EntityBestItemsSet';
 
+export class PinnedItemsError extends Error {
+  static ENTITY_NOT_FOUND = 'Entity not found';
+  static ENTITY_ITEMS_BEST_SET_NOT_FOUND = 'EntityBestItemsSet not found';
+
+  constructor(message) {
+    super(message);
+    this.name = 'PinnedItemsError';
+  }
+}
+
 export function usePinnedItems() {
   const instance = getCurrentInstance();
   const $root = instance.proxy.$root;
@@ -40,6 +50,9 @@ export function usePinnedItems() {
     // first, retrieve full entity for prefLabel for set title, & toast
     const retrieveResponse = await nuxtContext.$apis.entity.retrieve([entityId]);
     const entity = retrieveResponse[0];
+    if (!entity) {
+      throw new PinnedItemsError(PinnedItemsError.ENTITY_NOT_FOUND);
+    }
 
     // find the EntityItemsBestSet for the entityId
     let entityBestItemsSetId = await findEntityItemsBestSetId(entityId);
@@ -72,7 +85,7 @@ export function usePinnedItems() {
     // find the EntityItemsBestSet for the entityId
     const entityBestItemsSetId = await findEntityItemsBestSetId(entityId);
     if (!entityBestItemsSetId) {
-      throw new Error('Not Found');
+      throw new PinnedItemsError(PinnedItemsError.ENTITY_ITEMS_BEST_SET_NOT_FOUND);
     }
 
     await nuxtContext.$apis.set.deleteItems(entityBestItemsSetId, itemId);
