@@ -120,8 +120,8 @@ describe('components/item/ItemPinButton', () => {
             items: [],
             pinned: 0
           };
-          describe('when pressed via usePinnedItems composable', () => {
-            it('pins the item', async() => {
+          describe('when pressed', () => {
+            it('pins the item via usePinnedItems composable', async() => {
               const wrapper = factory({ mocks: { $auth }, provide: {
                 currentEntity,
                 currentSet
@@ -150,7 +150,7 @@ describe('components/item/ItemPinButton', () => {
           });
 
           describe('when pressed', () => {
-            it('unpins the item', async() => {
+            it('unpins the item via usePinnedItems composable', async() => {
               const wrapper = factory({ mocks: { $auth }, provide: { currentEntity, currentSet } });
 
               const pinButton = wrapper.find('b-button-stub[data-qa="pin button"]');
