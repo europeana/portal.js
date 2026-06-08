@@ -13,7 +13,8 @@ const factory = (propsData = {}) => mount(EntityInformationModal, {
     $i18n: { locale: 'en' },
     $n: (val) => val,
     $t: (val) => val,
-    $features: { aggregatorsTab: true }
+    $features: { aggregatorsTab: true },
+    localePath: (val) => val
   },
   stubs: ['EntityBadges']
 });
@@ -104,7 +105,7 @@ describe('components/entity/EntityInformationModal', () => {
       const viewAllLink = wrapper.find('.view-all-button');
       expect(wrapper.find('entitybadges-stub').exists()).toBe(true);
       expect(viewAllLink.text()).toEqual('actions.viewAll');
-      expect(viewAllLink.attributes().href).toEqual('/collections/organisations#aggregators-190');
+      expect(viewAllLink.attributes().href).toEqual('/collections/organisations?tab=aggregators&show=190');
     });
   });
 });

@@ -2,8 +2,8 @@ import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '@test/utils.js';
 import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
-import { reactive } from 'vue';
-import * as vue2RouterHelpers from 'vue2-helpers/vue-router';
+import { computed, reactive } from 'vue';
+import * as vueRouter from '@/composables/vueRouter.js';
 
 import page from '@/pages/account/index';
 import * as selectedItemsComposable from '@/composables/selectedItems.js';
@@ -14,7 +14,7 @@ localVue.use(BootstrapVue);
 const clearSelectedItemsSpy = sinon.spy();
 
 const factory = (options = {}) => {
-  sinon.stub(vue2RouterHelpers, 'useRoute').returns(reactive({ hash: options.hash || '' }));
+  sinon.stub(vueRouter, 'useRoute').returns(computed(() => reactive({ hash: options.hash || '' })));
 
   return shallowMountNuxt(page, {
     localVue,
@@ -45,7 +45,7 @@ describe('pages/account/index.vue', () => {
   });
   afterEach(() => {
     sinon.resetHistory();
-    vue2RouterHelpers.useRoute.restore?.();
+    vueRouter.useRoute.restore?.();
   });
   afterAll(sinon.restore);
 

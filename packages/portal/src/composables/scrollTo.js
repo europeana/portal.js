@@ -30,12 +30,6 @@ export default function useScrollTo() {
   };
 
   const scrollToElement = (element, options = {}) => {
-    if (scrolling.value) {
-      enqueue(element, options);
-      return;
-    }
-    scrolling.value = true;
-
     const { behavior, container, offsetLeft, offsetTop } = {
       container: window,
       offsetLeft: 0,
@@ -46,6 +40,12 @@ export default function useScrollTo() {
     if (!element || !container || !container.scroll) {
       return;
     }
+
+    if (scrolling.value) {
+      enqueue(element, options);
+      return;
+    }
+    scrolling.value = true;
 
     const left = element.offsetLeft + offsetLeft;
     const top = element.offsetTop + offsetTop;

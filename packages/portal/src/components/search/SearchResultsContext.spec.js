@@ -127,7 +127,7 @@ describe('SearchResultsContext', () => {
         };
         const provide = {
           currentEntity: {
-            europeanaRole: [{ id: 'http://data.europeana.eu/vocabulary/role/Aggregator' }],
+            aggregatesFrom: ['http://data.europeana.eu/organization/987'],
             ...entity
           }
         };

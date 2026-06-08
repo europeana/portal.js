@@ -19,7 +19,8 @@ export const organisationData = (organisation) => ({
 });
 
 const data = async(context = {}) => {
-  // TODO: exclude aggregators? or do it in the consumer?
+  // TODO: is this cacher still relevant/used, given separate organisations/aggregators
+  //       and organisations/institutions cachcers?
   const entityData = await baseData({ type: 'organization' }, context);
 
   return entityData.map(organisationData);

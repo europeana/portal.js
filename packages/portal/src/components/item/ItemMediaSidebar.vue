@@ -14,7 +14,7 @@
         vertical
       >
         <template
-          v-if="shouldRenderTab('annotations')"
+          v-if="shouldRenderTab(TABS.ANNOTATIONS)"
         >
           <!-- Place tooltip outside tab to prevent being lazy loaded -->
           <b-tooltip
@@ -27,7 +27,7 @@
           <b-tab
             data-qa="item media sidebar annotations"
             :button-id="annotationsTabButtonId"
-            :title-link-attributes="{ 'aria-label': $t('media.sidebar.annotations'), href: '#annotations' }"
+            :title-link-attributes="{ 'aria-label': $t('media.sidebar.annotations'), href: `#${TABS.ANNOTATIONS}` }"
           >
             <template #title>
               <!-- Listen to mouseleave on span, on b-tab does not work -->
@@ -43,15 +43,15 @@
               {{ $tc('media.sidebar.annotationsCount', $n(annotationsCount)) }}
             </h2>
             <MediaAnnotationList
-              v-if="activeTabHistory.includes('#annotations')"
-              :active="activeTabHash === '#annotations'"
+              v-if="activeTabHistory.includes(TABS.ANNOTATIONS)"
+              :active="activeTabId === TABS.ANNOTATIONS"
               class="media-viewer-sidebar-panel"
               @fetched="handleAnnotationsFetched"
             />
           </b-tab>
         </template>
         <template
-          v-if="shouldRenderTab('search')"
+          v-if="shouldRenderTab(TABS.SEARCH)"
         >
           <b-tooltip
             :target="searchTabButtonId"
@@ -63,7 +63,7 @@
           <b-tab
             data-qa="item media sidebar search"
             :button-id="searchTabButtonId"
-            :title-link-attributes="{ 'aria-label': $t('media.sidebar.search'), href: '#search' }"
+            :title-link-attributes="{ 'aria-label': $t('media.sidebar.search'), href: `#${TABS.SEARCH}` }"
           >
             <template #title>
               <span
@@ -78,14 +78,14 @@
               {{ $t('media.sidebar.search') }}
             </h2>
             <MediaAnnotationSearch
-              v-if="activeTabHistory.includes('#search')"
-              :active="activeTabHash === '#search'"
+              v-if="activeTabHistory.includes(TABS.SEARCH)"
+              :active="activeTabId === TABS.SEARCH"
               class="media-viewer-sidebar-panel"
             />
           </b-tab>
         </template>
         <template
-          v-if="shouldRenderTab('metadata')"
+          v-if="shouldRenderTab(TABS.METADATA)"
         >
           <b-tooltip
             :target="metadataTabButtonId"
@@ -98,7 +98,7 @@
             data-qa="item media sidebar metadata"
             :button-id="metadataTabButtonId"
             lazy
-            :title-link-attributes="{ 'aria-label': $t('media.sidebar.metadata'), href: '#metadata' }"
+            :title-link-attributes="{ 'aria-label': $t('media.sidebar.metadata'), href: `#${TABS.METADATA}` }"
           >
             <template #title>
               <span
@@ -128,7 +128,7 @@
           </b-tab>
         </template>
         <template
-          v-if="shouldRenderTab('links')"
+          v-if="shouldRenderTab(TABS.LINKS)"
         >
           <b-tooltip
             :target="linksTabButtonId"
@@ -141,7 +141,7 @@
             data-qa="item media sidebar links"
             :button-id="linksTabButtonId"
             lazy
-            :title-link-attributes="{ 'aria-label': $t('media.sidebar.links'), href: '#links' }"
+            :title-link-attributes="{ 'aria-label': $t('media.sidebar.links'), href: `#${TABS.LINKS}` }"
           >
             <template #title>
               <span
@@ -175,6 +175,13 @@
   import useActiveTab from '@/composables/activeTab.js';
   import useHideTooltips from '@/composables/hideTooltips.js';
   import MediaMetadataList from '../media/MediaMetadataList.vue';
+
+  const TABS = {
+    ANNOTATIONS: 'annotations',
+    SEARCH: 'search',
+    METADATA: 'metadata',
+    LINKS: 'links'
+  };
 
   export default {
     name: 'ItemMediaSidebar',
@@ -227,33 +234,33 @@
       const linksTabButtonId = 'item-media-sidebar-links-button';
       const metadataTabButtonId = 'item-media-sidebar-metadata-button';
 
-      const tabHashes = [];
+      const tabIds = [];
       if (props.annotationList) {
-        tabHashes.push('#annotations');
+        tabIds.push(TABS.ANNOTATIONS);
       }
       if (props.annotationSearch) {
-        tabHashes.push('#search');
+        tabIds.push(TABS.SEARCH);
       }
       if (props.webResource) {
-        tabHashes.push('#metadata');
+        tabIds.push(TABS.METADATA);
       }
       if (props.manifestUri) {
-        tabHashes.push('#links');
+        tabIds.push(TABS.LINKS);
       }
 
-      const { activeTabHash, activeTabHistory, activeTabIndex, watchTabIndex, unwatchTabIndex } = useActiveTab(tabHashes);
+      const { activeTabHistory, activeTabId, activeTabIndex, watchTabIndex, unwatchTabIndex } = useActiveTab(tabIds);
       const { hideTooltips } = useHideTooltips([annotationsTabButtonId, searchTabButtonId, linksTabButtonId, metadataTabButtonId]);
 
       return {
-        activeTabHash,
         activeTabHistory,
+        activeTabId,
         activeTabIndex,
         annotationsTabButtonId,
         hideTooltips,
         linksTabButtonId,
         metadataTabButtonId,
         searchTabButtonId,
-        tabHashes,
+        tabIds,
         watchTabIndex,
         unwatchTabIndex
       };
@@ -261,8 +268,9 @@
 
     data() {
       return {
+        annotationsCount: null,
         sidebarId: 'item-media-sidebar',
-        annotationsCount: null
+        TABS
       };
     },
 
@@ -297,7 +305,7 @@
       },
 
       shouldRenderTab(tab) {
-        return this.tabHashes.includes(`#${tab}`);
+        return this.tabIds.includes(tab);
       }
     }
   };

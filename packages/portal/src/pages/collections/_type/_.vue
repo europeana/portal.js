@@ -83,7 +83,6 @@
     'logo',
     'note',
     'description',
-    'europeanaRole',
     'homepage',
     'prefLabel',
     'isShownBy',
