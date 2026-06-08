@@ -332,7 +332,7 @@
         return this.$store.state.search.showSearchBar;
       },
       translateSearchForCurrentLocale() {
-        return this.$config?.app?.search?.translateLocales?.includes(this.$i18n.locale);
+        return this.$i18n.locale !== 'en';
       }
     },
 
