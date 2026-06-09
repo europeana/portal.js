@@ -11,7 +11,7 @@
       @click.capture="clickEventHandler?.()"
     >
       <div
-        v-if="imageUrl && type === 'Organization'"
+        v-if="imageUrl && isOrganisationType"
         class="organisation-logo mr-2"
         data-qa="entity logo"
         :style="`background-image: url('${imageUrl}')`"
@@ -100,6 +100,9 @@
           };
         }
         return langMapValueForLocale(this.title, this.$i18n.locale);
+      },
+      isOrganisationType() {
+        return ['Organization', 'Aggregator'].includes(this.type);
       }
     },
 
