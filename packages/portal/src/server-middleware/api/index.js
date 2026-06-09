@@ -26,9 +26,8 @@ export const createApiExpressApp = (context = {}, app) => {
   app.use(express.json());
   app.use(logging);
 
-  const runtimeConfig = nuxtRuntimeConfig();
-  pg.config = runtimeConfig.postgres;
-  keycloak.config = runtimeConfig.auth;
+  pg.config = config.postgres;
+  keycloak.config = config.auth;
 
   app.use((req, res, next) => {
     if (apm.isStarted())  {
