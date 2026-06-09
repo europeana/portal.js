@@ -208,7 +208,7 @@
         },
         {
           key: 'heritageDomain',
-          sortable: true,
+          sortable: false,
           label: this.$t('pages.collections.table.domain'),
           class: 'text-center d-none d-lg-table-cell'
         },
