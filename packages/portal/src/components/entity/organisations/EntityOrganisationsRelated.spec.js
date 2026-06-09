@@ -18,7 +18,7 @@ const factory = (propsData) => {
       $nuxt: { context: {} },
       $t: (val) => val
     },
-    stubs: ['EntityBadges']
+    stubs: ['EntityBadges', 'client-only']
   });
 };
 
