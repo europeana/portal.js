@@ -1,7 +1,8 @@
-import { createLocalVue } from '@vue/test-utils';
-import axios from 'axios';
-import { shallowMountNuxt } from '@test/utils.js';
+import nock from 'nock';
 import sinon from 'sinon';
+import { createLocalVue } from '@vue/test-utils';
+import { shallowMountNuxt } from '@test/utils.js';
+import * as backendFetchModule from '@/utils/backendFetch.js';
 
 import LandingAutomatedCardGroup from '@/components/landing/LandingAutomatedCardGroup.vue';
 
@@ -13,34 +14,47 @@ const factory = (propsData) => shallowMountNuxt(LandingAutomatedCardGroup, {
   localVue,
   propsData,
   mocks: {
-    $config: { redis: {} },
     $i18n: { n: (num) => `${num}` },
+    $nuxt: { context: { $config: { redis: {} } } },
     $t: key => key
   },
   stubs: ['b-container', 'b-col']
 });
 
 describe('components/landing/LandingAutomatedCardGroup', () => {
-  beforeEach(() => {
-    sinon.stub(axios, 'get');
+  const backendFetch = sinon.stub(backendFetchModule, 'backendFetch').resolves({});
+
+  beforeAll(() => {
+    nock.disableNetConnect();
   });
-  afterEach(sinon.restore);
+  afterEach(() => {
+    sinon.resetHistory();
+  });
+  afterAll(() => {
+    nock.enableNetConnect();
+    sinon.restore();
+  });
 
   describe('fetch()', () => {
     describe('when rendering on the client', () => {
       describe('for Europeana numbers', () => {
         const propsData = { genre: EUROPEANA_NUMBERS };
-        const axiosArgs = '/_api/cache?id=matomo/visits&id=items/type-counts&id=collections/organisations/count';
-        beforeEach(() => {
-          axios.get.withArgs(axiosArgs).resolves({ data: 2000 });
-        });
-        afterEach(() => {
-          axios.get.reset();
-        });
-        it('gets the data from the cache API endpoint', async() => {
+
+        it('fetches cached data from the backend', async() => {
           const wrapper = factory(propsData);
           await wrapper.vm.fetch();
-          expect(axios.get.calledWith(axiosArgs)).toBe(true);
+
+          expect(backendFetch.calledWith(
+            'cache',
+            [
+              [
+                'matomo/visits',
+                'items/type-counts',
+                'collections/organisations/count'
+              ]
+            ],
+            wrapper.vm.$nuxt.context
+          )).toBe(true);
         });
       });
     });

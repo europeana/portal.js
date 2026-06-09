@@ -8,6 +8,7 @@ const config = {
     siteId: '1'
   }
 };
+const context = { $config: config };
 
 const matomoApiRequest = () => nock(config.matomo.host)
   .get('/')
@@ -22,8 +23,14 @@ const matomoApiRequest = () => nock(config.matomo.host)
   ));
 
 describe('@/cachers/matomo/visits.js', () => {
+  beforeAll(() => {
+    nock.disableNetConnect();
+  });
   afterEach(() => {
     nock.cleanAll();
+  });
+  afterAll(() => {
+    nock.enableNetConnect();
   });
 
   describe('data', () => {
@@ -43,7 +50,7 @@ describe('@/cachers/matomo/visits.js', () => {
     it('fetches the count from the Matomo API', async() => {
       matomoApiRequest().reply(200, response);
 
-      await cacher.data(config);
+      await cacher.data(context);
 
       expect(nock.isDone()).toBe(true);
     });
@@ -51,7 +58,7 @@ describe('@/cachers/matomo/visits.js', () => {
     it('returns the average number of visits, to cache', async() => {
       matomoApiRequest().reply(200, response);
 
-      const data = await cacher.data(config);
+      const data = await cacher.data(context);
 
       expect(data).toBe(averageVisits);
     });
@@ -65,7 +72,7 @@ describe('@/cachers/matomo/visits.js', () => {
 
       let error;
       try {
-        await cacher.data(config);
+        await cacher.data(context);
       } catch (e) {
         error = e;
       }

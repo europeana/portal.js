@@ -47,6 +47,7 @@ export default {
     "clearFilters": "Glan scagairí",
     "close": "dún",
     "confirm": "Deimhnigh",
+    "contact": "Teagmháil",
     "continue": "Lean ar aghaidh",
     "depublish": "Dífhoilsiú",
     "download": "Íoslódáil",
@@ -80,6 +81,7 @@ export default {
     "transcribe": "Tras-scríobh",
     "transcribeNow": "Tras-scríobh anois",
     "unlike": "Ní maith liom",
+    "viewAll": "Féach ar gach {count}",
     "viewAt": "Féach ar ag {link}",
     "viewDocument": "Breathnaigh ar dhoiciméad",
     "vote": "Vóta"
@@ -173,6 +175,7 @@ export default {
     "topic": "Ábhair"
   },
   "cardLabels": {
+    "aggregator": "Comhbhailitheoir",
     "organisation": "Institiúid",
     "person": "Duine",
     "place": "Áit",
@@ -1151,16 +1154,32 @@ export default {
     "city": "Cathair",
     "country": "Tír",
     "englishName": "Ainm Béarla",
-    "nameAcronym": "Acrainm ainm"
+    "geographicScope": "Raon feidhme geografach",
+    "heritageDomain": "Cineálacha oidhreachta",
+    "nameAcronym": "Acrainm ainm",
+    "providesAudienceEngagementActivity": "Gníomhaíochtaí rannpháirtíochta lucht féachana",
+    "providesCapacityBuildingActivity": "Tógáil acmhainneachta",
+    "providesSupportForDataActivity": "Gníomhaíochtaí sonraí",
+    "providesSupportForMediaType": "Cineál meáin",
+    "providingInstitutionsCount": "Líon na n-institiúidí soláthair",
+    "recordCount": "Líon na míreanna"
   },
   "organisations": {
     "aggregators": {
       "description": "Oibríonn comhghréaqadóirí le hinstitiúidí soláthair chun a gcuid míreanna oidhreachta cultúrtha digiteacha a bhailiú agus a fhoilsiú ar Europeana.eu.",
       "title": "Comhbhailitheoir"
     },
+    "internationalAggregators": {
+      "description": "Sainmhíníonn comhiomlánaitheoirí fearainn agus comhiomlánaitheoirí téamacha a raon feidhme de réir earnáil chultúrtha (amhail músaem, cartlann nó leabharlann) nó de réir topaice agus téama (amhail faisean). Oibríonn siad le rannchuiditheoirí atá lonnaithe i dtíortha éagsúla na hEorpa.",
+      "title": "Comhiomlánaitheoirí fearainn agus téamacha"
+    },
     "providingInstitutions": {
       "description": "Liosta de mhúsaeim, leabharlanna, cartlanna agus dánlanna a roinneann a gcuid míreanna oidhreachta cultúrtha digití ar Europeana.eu.",
       "title": "Institiúidí soláthair"
+    },
+    "regionalAggregators": {
+      "description": "Sainmhíníonn comhbhailitheoir náisiúnta agus réigiúnacha a raon feidhme de réir tíre nó réigiúin ar leith. Oibríonn siad le rannchuiditheoirí atá lonnaithe sa tír nó sa réigiún sin.",
+      "title": "Comhbhailitheoir náisiúnta agus réigiúnacha"
     }
   },
   "pageHasLoaded": "luchtaithe",
@@ -1178,7 +1197,9 @@ export default {
         "title": "Áiteanna"
       },
       "table": {
+        "aggregator": "Comhbhailitheoir",
         "country": "Tír",
+        "domain": "Fearann / Téama",
         "items": "Míreanna",
         "name": "Ainm",
         "searchPlaceholder": "Cuardaigh laistigh den tábla",

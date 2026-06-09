@@ -6,12 +6,6 @@ export default {
     return { makeToast };
   },
 
-  data() {
-    return {
-      entityBestItemsSetPinnedItems: []
-    };
-  },
-
   methods: {
     async ensureEntityBestItemsSetExists(setId, entity) {
       if (setId) {
@@ -56,20 +50,6 @@ export default {
         this.$store.commit('entity/setPinned', entityBestItemsSet.items.slice(0, entityBestItemsSet.pinned));
       } else {
         this.$store.commit('entity/setPinned', []);
-      }
-    },
-
-    async findEntityBestItemsSet(entityId) {
-      const searchResponse = await this.$apis.set.search({
-        profile: 'items',
-        query: 'type:EntityBestItemsSet',
-        qf: `subject:${entityId}`
-      });
-
-      if (searchResponse.total > 0) {
-        return searchResponse.items[0].split('/').pop();
-      } else {
-        return null;
       }
     },
 

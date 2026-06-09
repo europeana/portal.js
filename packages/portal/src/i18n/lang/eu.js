@@ -47,6 +47,7 @@ export default {
     "clearFilters": "Garbitu iragazkiak",
     "close": "itxi",
     "confirm": "Baieztatu",
+    "contact": "Kontaktua",
     "continue": "jarraitu",
     "depublish": "Argitalpena bertan behera utzi",
     "download": "Deskargatu",
@@ -80,6 +81,7 @@ export default {
     "transcribe": "Transkribatu",
     "transcribeNow": "Transkribatu orain",
     "unlike": "Ez gustatu",
+    "viewAll": "Ikusi guztiak {count}",
     "viewAt": "Ikusi hemen {link}",
     "viewDocument": "Dokumentua ikusi",
     "vote": "Bozkatu"
@@ -173,6 +175,7 @@ export default {
     "topic": "Gaiak"
   },
   "cardLabels": {
+    "aggregator": "Agregatzailea",
     "organisation": "Erakundea:",
     "person": "Pertsona",
     "place": "Lekua",
@@ -1151,16 +1154,32 @@ export default {
     "city": "Hiria",
     "country": "Herrialdea",
     "englishName": "Ingelesezko izena",
-    "nameAcronym": "Izenaren akronimoa"
+    "geographicScope": "Esparru geografikoa",
+    "heritageDomain": "Ondare motak",
+    "nameAcronym": "Izenaren akronimoa",
+    "providesAudienceEngagementActivity": "Publikoaren parte-hartze jarduerak",
+    "providesCapacityBuildingActivity": "Gaitasunen eraikuntza",
+    "providesSupportForDataActivity": "Datuen jarduerak",
+    "providesSupportForMediaType": "Multimedia mota",
+    "providingInstitutionsCount": "Hornitzaile erakundeen kopurua",
+    "recordCount": "Elementu kopurua"
   },
   "organisations": {
     "aggregators": {
       "description": "Aggregatoreek erakunde emaileekin lan egiten dute euren kultur ondare digitaleko elementuak Europeana.eu-n biltzeko eta argitaratzeko.",
       "title": "Agregatzaileak"
     },
+    "internationalAggregators": {
+      "description": "Domeinu- eta gai-agregatzaileek beren esparrua kultura-sektorearen arabera (hala nola museoa, artxiboa edo liburutegia) edo gaiaren eta temaren arabera (hala nola moda) definitzen dute. Europako hainbat herrialdetan kokatutako laguntzaileekin lan egiten dute.",
+      "title": "Domeinu eta gai-agregatzaileak"
+    },
     "providingInstitutions": {
       "description": "Europeana.eu-n beren ondare kultural digitaleko elementuak partekatzen dituzten museo, liburutegi, artxibo eta galeria zerrenda.",
       "title": "Erakunde hornitzailea"
+    },
+    "regionalAggregators": {
+      "description": "Nazio eta eskualdeko agregatzaileek beren esparrua herrialde edo eskualde zehatz baten arabera definitzen dute. Herrialde edo eskualde horretan kokatutako laguntzaileekin lan egiten dute.",
+      "title": "Nazio eta eskualdeko agregatzaileak"
     }
   },
   "pageHasLoaded": "kargatu du",
@@ -1178,7 +1197,9 @@ export default {
         "title": "Lekuak"
       },
       "table": {
+        "aggregator": "Agregatzailea",
         "country": "Herrialdea",
+        "domain": "Domeinua / Gaia",
         "items": "Elementuak",
         "name": "Izena",
         "searchPlaceholder": "Taula barruan bilatu",

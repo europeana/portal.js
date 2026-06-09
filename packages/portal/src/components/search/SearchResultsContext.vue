@@ -98,6 +98,9 @@
     },
 
     computed: {
+      isAggregator() {
+        return (this.entity?.aggregatesFrom?.length || 0) > 0;
+      },
       // TODO: it's not possible to pluralise these keys properly due to the
       // i18n component usage here. i18n-vue 9.x supports a :plural prop for
       // the updated i18n-t component. Depends on Vue 3.
@@ -135,7 +138,7 @@
         return this.hasEntity ? entityParamsFromUri(this.entity.id) : {};
       },
       entityType() {
-        return this.entityParams.type;
+        return this.isAggregator ? 'aggregator' : this.entityParams.type;
       },
       entityId() {
         return this.entityParams.id;

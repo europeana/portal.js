@@ -47,6 +47,7 @@ export default {
     "clearFilters": "Tyhjennä suodattimet",
     "close": "sulje",
     "confirm": "Vahvista",
+    "contact": "Yhteystiedot",
     "continue": "jatka",
     "depublish": "Julkaisun peruuttaminen",
     "download": "Lataa",
@@ -80,6 +81,7 @@ export default {
     "transcribe": "Transkribeerida",
     "transcribeNow": "Transkriboi nyt",
     "unlike": "Älä tykkää",
+    "viewAll": "Näytä kaikki {count}",
     "viewAt": "Näytä osoitteessa {link}",
     "viewDocument": "Näytä asiakirja",
     "vote": "Äänestää"
@@ -173,6 +175,7 @@ export default {
     "topic": "Aiheet"
   },
   "cardLabels": {
+    "aggregator": "Aggregaattori",
     "organisation": "Instituutio",
     "person": "Henkilö",
     "place": "Paikka",
@@ -1151,16 +1154,32 @@ export default {
     "city": "Kaupunki",
     "country": "Maa",
     "englishName": "Englanninkielinen nimi",
-    "nameAcronym": "Nimen lyhenne"
+    "geographicScope": "Maantieteellinen soveltamisala",
+    "heritageDomain": "Perintötyypit",
+    "nameAcronym": "Nimen lyhenne",
+    "providesAudienceEngagementActivity": "Yleisön osallistamisaktiviteetit",
+    "providesCapacityBuildingActivity": "Kapasiteetin kehittäminen",
+    "providesSupportForDataActivity": "Datatoiminnot",
+    "providesSupportForMediaType": "Mediatyyppi",
+    "providingInstitutionsCount": "Tarjoavien laitosten määrä",
+    "recordCount": "Aineistojen määrä"
   },
   "organisations": {
     "aggregators": {
       "description": "Aggregaattorit tekevät yhteistyötä aineistoja toimittavien organisaatioiden kanssa kerätäkseen ja julkaistakseen niiden digitaaliset kulttuuriperinnön aineistot Europeana.eu-sivustolla.",
       "title": "Aggregaattorit"
     },
+    "internationalAggregators": {
+      "description": "Toimiala- ja temaattiset aggregaattorit määrittelevät toimialansa kulttuurisektorin (kuten museo, arkisto tai kirjasto) tai aiheen ja teeman (kuten muoti) mukaan. Ne tekevät yhteistyötä eri Euroopan maissa toimivien sisällöntuottajien kanssa.",
+      "title": "Toimiala- ja teema-aggregaattorit"
+    },
     "providingInstitutions": {
       "description": "Luettelo museoista, kirjastoista, arkistoista ja gallerioista, jotka jakavat digitaalisia kulttuuriperinnön aineistot Europeana.eu-sivustolla.",
       "title": "Tarjoavat laitokset"
+    },
+    "regionalAggregators": {
+      "description": "Kansalliset ja alueelliset aggregaattorit määrittelevät toiminta-alueensa tietyn maan tai alueen mukaan. Ne tekevät yhteistyötä kyseisessä maassa tai alueella sijaitsevien sisällöntuottajien kanssa.",
+      "title": "Kansalliset ja alueelliset aggregaattorit"
     }
   },
   "pageHasLoaded": "on ladattu",
@@ -1178,7 +1197,9 @@ export default {
         "title": "Paikat"
       },
       "table": {
+        "aggregator": "Aggregaattori",
         "country": "Maa",
+        "domain": "Verkkotunnus / Teema",
         "items": "Aineistot",
         "name": "Nimi",
         "searchPlaceholder": "Etsi taulukosta",

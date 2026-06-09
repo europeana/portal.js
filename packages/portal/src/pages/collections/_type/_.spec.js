@@ -14,16 +14,8 @@ const redirectSpy = sinon.spy();
 const organisationEntity = {
   entity: {
     id: 'http://data.europeana.eu/organization/01234567890',
-    logo: { id: 'http://commons.wikimedia.org/wiki/Special:FilePath/Albertina%20Logo.svg' },
     prefLabel: { en: 'English name', nl: 'Dutch name' },
-    homepage: 'https://www.example-organisation.eu',
-    hasAddress: {
-      countryName: 'The Netherlands',
-      locality: 'The Hague'
-    },
-    description: { en: ['example of an organisation description'] },
-    acronym: { en: 'ABC' },
-    type: 'Organization'
+    description: { en: ['example of an organisation description'] }
   },
   type: 'organisation',
   pathMatch: '01234567890-organisation'
@@ -68,11 +60,10 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
     $apis: {
       entity: {
         get: options.get || sinon.stub().resolves({}),
-        facets: sinon.stub().resolves([]),
-        imageUrl: sinon.spy()
+        facets: sinon.stub().resolves([])
       },
-      entityManagement: {
-        get: sinon.stub().resolves({})
+      set: {
+        search: sinon.stub().resolves({})
       }
     },
     $i18n: {
@@ -116,7 +107,14 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
     'ErrorMessage': true,
     'RelatedEditorial': true,
     'SearchInterface': {
-      template: '<div><slot /><slot name="card-group-related-collections" /><slot name="after-results" /></div>'
+      template: `
+        <div>
+          <slot />
+          <slot name="card-group-header" />
+          <slot name="card-group-related-collections" />
+          <slot name="after-results" />
+        </div>
+      `
     }
   }
 });
@@ -202,18 +200,47 @@ describe('pages/collections/_type/_', () => {
     });
 
     describe('when user is entities editor', () => {
-      it('finds and stores the collection\'s pinned items', async() => {
+      it('searches for the EntityBestItemsSet', async() => {
         const setId = 'http://data.europeana.eu/set/123';
         const userHasClientRoleStub = sinon.stub().withArgs('entities', 'editor').returns(true);
         const wrapper = factory({ ...topicEntity, userHasClientRoleStub });
-        sinon.stub(wrapper.vm, 'findEntityBestItemsSet').resolves(setId);
+        wrapper.vm.$apis.set.search.resolves({ items: [setId] });
         sinon.stub(wrapper.vm, 'fetchEntityBestItemsSetPinnedItems');
 
         await wrapper.vm.fetch();
 
-        expect(wrapper.vm.findEntityBestItemsSet.calledWith(topicEntity.entity.id)).toBe(true);
-        expect(wrapper.vm.$store.commit.calledWith('entity/setBestItemsSetId', setId)).toBe(true);
-        expect(wrapper.vm.fetchEntityBestItemsSetPinnedItems.calledWith(setId)).toBe(true);
+        expect(wrapper.vm.$apis.set.search.calledWith({
+          profile: 'items',
+          query: 'type:EntityBestItemsSet',
+          qf: `subject:${topicEntity.entity.id}`
+        })).toBe(true);
+      });
+
+      describe('when one is found', () => {
+        it('also fetches the pinned items', async() => {
+          const setId = 'http://data.europeana.eu/set/123';
+          const userHasClientRoleStub = sinon.stub().withArgs('entities', 'editor').returns(true);
+          const wrapper = factory({ ...topicEntity, userHasClientRoleStub });
+          wrapper.vm.$apis.set.search.resolves({ items: [setId] });
+          sinon.stub(wrapper.vm, 'fetchEntityBestItemsSetPinnedItems');
+
+          await wrapper.vm.fetch();
+
+          expect(wrapper.vm.fetchEntityBestItemsSetPinnedItems.calledWith(setId)).toBe(true);
+        });
+      });
+
+      describe('when none is found', () => {
+        it('does not try to fetch the pinned items', async() => {
+          const userHasClientRoleStub = sinon.stub().withArgs('entities', 'editor').returns(true);
+          const wrapper = factory({ ...topicEntity, userHasClientRoleStub });
+          wrapper.vm.$apis.set.search.resolves({ items: [] });
+          sinon.stub(wrapper.vm, 'fetchEntityBestItemsSetPinnedItems');
+
+          await wrapper.vm.fetch();
+
+          expect(wrapper.vm.fetchEntityBestItemsSetPinnedItems.called).toBe(false);
+        });
       });
     });
   });
@@ -294,30 +321,12 @@ describe('pages/collections/_type/_', () => {
       });
     });
 
-    describe('contextLabel', () => {
-      it('returns the label for an organisation', () => {
-        const wrapper = factory(organisationEntity);
-
-        const contextLabel = wrapper.vm.contextLabel;
-        expect(contextLabel).toBe('cardLabels.organisation');
-      });
-    });
-
     describe('collectionType', () => {
       it('returns the collection type', () => {
         const wrapper = factory(organisationEntity);
 
         const collectionType = wrapper.vm.collectionType;
         expect(collectionType).toBe('organisation');
-      });
-    });
-
-    describe('logo', () => {
-      it('returns a logo on organisation pages', () => {
-        const wrapper = factory(organisationEntity);
-
-        const logo = wrapper.vm.logo;
-        expect(logo).toBe(organisationEntity.entity.logo.id);
       });
     });
 
@@ -347,16 +356,6 @@ describe('pages/collections/_type/_', () => {
       });
     });
 
-    describe('subTitle', () => {
-      it('uses the English prefLabel for an organisation, if non-native', () => {
-        const wrapper = factory(organisationEntity);
-
-        const subTitle = wrapper.vm.subTitle.values[0];
-
-        expect(subTitle).toBe(organisationEntity.entity.prefLabel.en);
-      });
-    });
-
     describe('description', () => {
       it('uses the entity note, if present', () => {
         const wrapper = factory(topicEntity);
@@ -372,36 +371,6 @@ describe('pages/collections/_type/_', () => {
         const description = wrapper.vm.description.values;
 
         expect(description).toEqual(organisationEntity.entity.description.en);
-      });
-    });
-
-    describe('homepage', () => {
-      it('returns a homepage on organisation pages', () => {
-        const wrapper = factory(organisationEntity);
-
-        const homepage = wrapper.vm.homepage;
-        expect(homepage).toBe(organisationEntity.entity.homepage);
-      });
-    });
-
-    describe('thumbnail', () => {
-      it('returns a thumbnail when available', () => {
-        const wrapper = factory(topicEntity);
-
-        wrapper.vm.thumbnail;
-        expect(wrapper.vm.$apis.entity.imageUrl.called).toBe(true);
-      });
-    });
-    describe('moreInfo', () => {
-      it('returns an array with more entity data on organisation pages', () => {
-        const wrapper = factory(organisationEntity);
-
-        const moreInfo = wrapper.vm.moreInfo;
-        expect(moreInfo[0].value).toBe(organisationEntity.entity.prefLabel.en);
-        expect(moreInfo[1].value).toBe(organisationEntity.entity.acronym.en);
-        expect(moreInfo[2].value).toBe(organisationEntity.entity.hasAddress.countryName);
-        expect(moreInfo[3].value).toBe(organisationEntity.entity.hasAddress.locality);
-        expect(moreInfo[4].value).toBe(organisationEntity.entity.homepage);
       });
     });
   });
@@ -438,18 +407,21 @@ describe('pages/collections/_type/_', () => {
     });
   });
 
-  describe('methods', () => {
-    describe('proxyUpdated', () => {
+  describe('event handling', () => {
+    describe('when EntityUpdateModal emits updated event', () => {
       it('triggers $fetch', () => {
         const wrapper = factory(topicEntity);
         sinon.spy(wrapper.vm, '$fetch');
 
-        wrapper.vm.proxyUpdated();
+        const entityHeaderStub = wrapper.find('entityheader-stub');
+        entityHeaderStub.vm.$emit('updated');
 
         expect(wrapper.vm.$fetch.called).toBe(true);
       });
     });
+  });
 
+  describe('methods', () => {
     describe('handleEntityRelatedCollectionsCardFetched', () => {
       it('is triggered by entitiesFromUrisFetched event on related entities component', () => {
         const wrapper = factory(topicEntity);

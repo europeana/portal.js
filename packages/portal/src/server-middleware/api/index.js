@@ -5,61 +5,75 @@ import apm from 'elastic-apm-node';
 import logging from '../logging.js';
 import pg from './pg.js';
 import keycloak from './keycloak.js';
-import { errorHandler, forbiddenUnlessOriginAllowed, nuxtRuntimeConfig } from './utils.js';
-
-const app = express();
-app.disable('x-powered-by'); // Security: do not disclose technology fingerprints
-app.use(express.json());
-app.use(logging);
-
-const runtimeConfig = nuxtRuntimeConfig();
-pg.config = runtimeConfig.postgres;
-keycloak.config = runtimeConfig.auth;
-
-app.use((req, res, next) => {
-  if (apm.isStarted())  {
-    // Elastic APM Node agent instruments Express requests automatically, but
-    // omits any prefix such as /_api/, so override the transactions name here
-    // to restore it form the original URL.
-    apm.setTransactionName(`${req.method} ${req.originalUrl.split('?')[0]}`);
-  }
-  next();
-});
+import { errorHandler, forbiddenUnlessOriginAllowed } from './utils.js';
 
 import debugMemoryUsage from './debug/memory-usage.js';
-app.get('/debug/memory-usage', debugMemoryUsage);
-
 import cache from './cache/index.js';
-const cacheHandler = cache(runtimeConfig.redis);
-app.get('/cache', cacheHandler);
-app.get('/cache/*', cacheHandler);
-
 import events from './events/index.js';
-app.use('/events', events);
-
 import jiraServiceDeskFeedback from './jira-service-desk/feedback.js';
-const feedbackCorsOptions = {
-  origin: forbiddenUnlessOriginAllowed(runtimeConfig.app.feedback.cors.origin)
-};
-app.options('/jira-service-desk/feedback',
-  cors(feedbackCorsOptions),
-  (req, res) => res.sendStatus(200)
-);
-app.post('/jira-service-desk/feedback',
-  cors(feedbackCorsOptions),
-  jiraServiceDeskFeedback(runtimeConfig.jira)
-);
-
 import jiraServiceDeskGalleries from './jira-service-desk/galleries.js';
-app.post('/jira-service-desk/galleries', jiraServiceDeskGalleries(runtimeConfig.jira));
-
 import version from './version.js';
-app.get('/version', version);
-
 import polls from './polls/index.js';
-app.use('/votes', polls);
+import createCollectionsIndexEndpoint from './collections/index.js';
+import createCollectionsRetrieveEndpoint from './collections/retrieve.js';
 
-app.all('/*', (req, res) => res.sendStatus(404));
-app.use(errorHandler);
+export const createApiExpressApp = (context = {}, app) => {
+  const config = context.$config || {};
 
-export default app;
+  app ||= express();
+
+  app.disable('x-powered-by'); // Security: do not disclose technology fingerprints
+  app.use(express.json());
+  app.use(logging);
+
+  const runtimeConfig = nuxtRuntimeConfig();
+  pg.config = runtimeConfig.postgres;
+  keycloak.config = runtimeConfig.auth;
+
+  app.use((req, res, next) => {
+    if (apm.isStarted())  {
+      // Elastic APM Node agent instruments Express requests automatically, but
+      // omits any prefix such as /_api/, so override the transactions name here
+      // to restore it form the original URL.
+      apm.setTransactionName(`${req.method} ${req.originalUrl.split('?')[0]}`);
+    }
+    next();
+  });
+
+  app.get('/debug/memory-usage', debugMemoryUsage);
+
+  const cacheHandler = cache(config.redis);
+  app.get('/cache', cacheHandler);
+  app.get('/cache/*', cacheHandler);
+
+  app.use('/events', events);
+
+  const feedbackCorsOptions = {
+    origin: forbiddenUnlessOriginAllowed(config.app?.feedback?.cors?.origin)
+  };
+  app.options('/jira-service-desk/feedback',
+    cors(feedbackCorsOptions),
+    (req, res) => res.sendStatus(200)
+  );
+  app.post('/jira-service-desk/feedback',
+    cors(feedbackCorsOptions),
+    jiraServiceDeskFeedback(config.jira)
+  );
+
+  app.post('/jira-service-desk/galleries', jiraServiceDeskGalleries(config.jira));
+
+  app.get('/version', version);
+
+  app.use('/votes', polls);
+
+  const collectionsIndexEndpoint = createCollectionsIndexEndpoint(config.redis);
+  app.get('/collections/*', collectionsIndexEndpoint);
+
+  const collectionsRetrieveEndpoint = createCollectionsRetrieveEndpoint(context);
+  app.post('/collections/retrieve', collectionsRetrieveEndpoint);
+
+  app.all('/*', (req, res) => res.sendStatus(404));
+  app.use(errorHandler);
+
+  return app;
+};

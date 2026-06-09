@@ -123,43 +123,6 @@ describe('mixins/europeana/entities/entityBestItemsSet', () => {
       });
     });
 
-    describe('findEntityBestItemsSet', () => {
-      it('searches Set API for entity\'s EntityBestItemsSet', async() => {
-        const wrapper = factory();
-
-        await wrapper.vm.findEntityBestItemsSet(fixtures.entityId);
-
-        expect(wrapper.vm.$apis.set.search.calledWith({
-          profile: 'items',
-          query: 'type:EntityBestItemsSet',
-          qf: `subject:${fixtures.entityId}`
-        })).toBe(true);
-      });
-
-      it('returns the set\'s numeric ID if found', async() => {
-        const wrapper = factory();
-        wrapper.vm.$apis.set.search.resolves({
-          total: 1,
-          items: [fixtures.setId]
-        });
-
-        const setNumber = await wrapper.vm.findEntityBestItemsSet(fixtures.entityId);
-
-        expect(setNumber).toBe(fixtures.setNumber);
-      });
-
-      it('returns `null` if not found', async() => {
-        const wrapper = factory();
-        wrapper.vm.$apis.set.search.resolves({
-          total: 0
-        });
-
-        const setNumber = await wrapper.vm.findEntityBestItemsSet(fixtures.entityId);
-
-        expect(setNumber).toBe(null);
-      });
-    });
-
     describe('fetchEntityBestItemsSetPinnedItems', () => {
       it('fetches EntityBestItemsSet from Set API', async() => {
         const wrapper = factory();

@@ -47,6 +47,7 @@ export default {
     "clearFilters": "Clear filters",
     "close": "close",
     "confirm": "Confirm",
+    "contact": "Contact",
     "continue": "continue",
     "depublish": "Depublish",
     "download": "Download",
@@ -80,6 +81,7 @@ export default {
     "transcribe": "Transcribe",
     "transcribeNow": "Transcribe now",
     "unlike": "Unlike",
+    "viewAll": "View all {count}",
     "viewAt": "View at {link}",
     "viewDocument": "View document",
     "vote": "Vote"
@@ -173,6 +175,7 @@ export default {
     "topic": "Topics"
   },
   "cardLabels": {
+    "aggregator": "Aggregator",
     "organisation": "Institution",
     "person": "Person",
     "place": "Place",
@@ -1197,16 +1200,32 @@ export default {
     "city": "City",
     "country": "Country",
     "englishName": "English name",
-    "nameAcronym": "Name acronym"
+    "geographicScope": "Geographic scope",
+    "heritageDomain": "Types of heritage",
+    "nameAcronym": "Name acronym",
+    "providesAudienceEngagementActivity": "Audience engagment activities",
+    "providesCapacityBuildingActivity": "Capacity building",
+    "providesSupportForDataActivity": "Data activities",
+    "providesSupportForMediaType": "Media type",
+    "providingInstitutionsCount": "Number of providing institutions",
+    "recordCount": "Number of items"
   },
   "organisations": {
     "aggregators": {
       "description": "Aggregators work with providing institutions to gather and publish their digital cultural heritage items on Europeana.eu.",
       "title": "Aggregators"
     },
+    "internationalAggregators": {
+      "description": "Domain and thematic aggregators define their scope by cultural sector (such as museum, archive or library) or by topic and theme (such as fashion). They work with contributors based in different European countries.",
+      "title": "Domain and thematic aggregators"
+    },
     "providingInstitutions": {
       "description": "A list of museums, libraries, archives and galleries which share their digital cultural heritage items on Europeana.eu.",
       "title": "Providing institutions"
+    },
+    "regionalAggregators": {
+      "description": "National and regional aggregators define their scope by specific country or region. They work with contributors situated within that country or region.",
+      "title": "National and regional aggregators"
     }
   },
   "pageHasLoaded": "has loaded",
@@ -1224,7 +1243,9 @@ export default {
         "title": "Places"
       },
       "table": {
+        "aggregator": "Aggregator",
         "country": "Country",
+        "domain": "Domain / Theme",
         "items": "Items",
         "name": "Name",
         "searchPlaceholder": "Search within table",

@@ -33,23 +33,6 @@ describe('server-middleware/api/utils', () => {
     });
   });
 
-  describe('nuxtRuntimeConfig', () => {
-    describe('when no runtime config has been loaded', () => {
-      it('loads the runtime config from the private and public configs', () => {
-        const configForKey = utils.nuxtRuntimeConfig('app');
-
-        expect(configForKey.siteName).toEqual('Europeana');
-      });
-    });
-    describe('when called without a key', () => {
-      it('returns the entire runtimeConfig', () => {
-        const config = utils.nuxtRuntimeConfig();
-
-        expect(config.app.siteName).toBe('Europeana');
-      });
-    });
-  });
-
   describe('errorHandler', () => {
     describe('when there is an error', () => {
       const err = { message: 'NOT FOUND', statusCode: 404 };

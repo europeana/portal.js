@@ -112,6 +112,23 @@ describe('SearchResultsContext', () => {
           expect(badge.exists()).toBe(false);
         });
       });
+
+      describe('when the organisation is an aggregator', () => {
+        const propsData = {
+          entity: {
+            aggregatesFrom: ['http://data.europeana.eu/organization/987'],
+            ...entity
+          },
+          query: '',
+          totalResults: 1234
+        };
+
+        it('displays the aggregator type label', () => {
+          const wrapper = factory({ propsData  });
+
+          expect(wrapper.text()).toContain('cardLabels.aggregator');
+        });
+      });
     });
 
     describe('when searching without an entity collection', () => {

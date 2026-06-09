@@ -1,5 +1,6 @@
 import { computed, getCurrentInstance } from 'vue';
-import { useRoute } from 'vue2-helpers/vue-router';
+
+import { useRoute } from './vueRouter.js';
 
 // TODO: the routes should be shared across components, i.e. not re-initialised
 //       on each use
@@ -10,10 +11,10 @@ export function useAuthRoutes() {
 
   const loginRedirectPath = computed(() => {
     // TODO: this should be derived, from auth path config
-    if (route.name.startsWith('auth')) {
+    if (route.value.name.startsWith('auth')) {
       return $root.localePath('/');
     }
-    return route.fullPath;
+    return route.value.fullPath;
   });
 
   const loginRoute = computed(() => {
@@ -28,17 +29,17 @@ export function useAuthRoutes() {
   const logoutRedirectPath = computed(() => {
     // TODO: this should be derived, from auth path config, and whether the current
     //       page uses the auth middleware
-    if (route.name.startsWith('account') || route.name.startsWith('auth')) {
+    if (route.value.name.startsWith('account') || route.value.name.startsWith('auth')) {
       return $root.localePath('/');
-    } else if (route.name.startsWith('item-all')) {
-      if (route.query.lang) {
+    } else if (route.value.name.startsWith('item-all')) {
+      if (route.value.query.lang) {
         // rm lang from query
-        const query = new URLSearchParams(route.query);
+        const query = new URLSearchParams(route.value.query);
         query.delete('lang');
-        return `${route.path}?${query.toString()}`;
+        return `${route.value.path}?${query.toString()}`;
       }
     }
-    return route.fullPath;
+    return route.value.fullPath;
   });
 
   const logoutRoute = computed(() => {

@@ -18,10 +18,6 @@
           :type="type"
         />
       </template>
-      <template v-else-if="$features.aggregatorsTab && type === 'organisations'">
-        <EntityOrganisationsTabs />
-        <EntityOrganisationsPageContent />
-      </template>
       <template v-else>
         <!-- TODO: replace media URL when available or a default placeholder is implemented -->
         <ContentHeader
@@ -31,20 +27,21 @@
           button-variant="secondary"
           class="half-col"
         />
-        <client-only>
-          <EntityTable
-            :type="type"
-            data-qa="collections table"
-            class="mt-3 mt-md-4"
-          />
-        </client-only>
+        <template v-if="$features.aggregatorsTab && type === 'organisations'">
+          <EntityOrganisationsPageContent />
+        </template>
+        <EntityTable
+          v-else
+          :type="type"
+          data-qa="collections table"
+          class="mt-3 mt-md-4"
+        />
       </template>
     </b-container>
   </div>
 </template>
 
 <script>
-  import ClientOnly from 'vue-client-only';
   import ContentHeader from '@/components/content/ContentHeader';
   import pageMetaMixin from '@/mixins/pageMeta';
 
@@ -61,9 +58,7 @@
 
     components: {
       ContentHeader,
-      ClientOnly,
-      EntityOrganisationsPageContent: () => import('@/components/entity/EntityOrganisationsPageContent'),
-      EntityOrganisationsTabs: () => import('@/components/entity/EntityOrganisationsTabs'),
+      EntityOrganisationsPageContent: () => import('@/components/entity/organisations/EntityOrganisationsPageContent'),
       EntityTable: () => import('@/components/entity/EntityTable'),
       EntityTypeBrowse: () => import('@/components/entity/EntityTypeBrowse'),
       ErrorMessage: () => import('@/components/error/ErrorMessage')

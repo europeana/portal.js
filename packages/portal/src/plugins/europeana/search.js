@@ -137,6 +137,7 @@ export default function(params, options = {}) {
 
 const reduceFieldsForItem = (item, options = {}) => {
   // Pick fields we need for search result display. See components/item/ItemPreviewCard.vue
+  // TODO: make this the responsibility of the component(s)!
   item = pick(item,
     [
       'dataProvider',

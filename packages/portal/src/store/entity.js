@@ -6,7 +6,6 @@ const itemUri = (itemId) => {
 
 export default {
   state: () => ({
-    bestItemsSetId: null,
     editable: false,
     entity: null,
     id: null,
@@ -14,9 +13,6 @@ export default {
   }),
 
   mutations: {
-    setBestItemsSetId(state, value) {
-      state.bestItemsSetId = value?.split('/').pop();
-    },
     setEntity(state, value) {
       state.entity = value;
     },
@@ -32,13 +28,6 @@ export default {
     },
     setEditable(state, value) {
       state.editable = value;
-    }
-  },
-
-  getters: {
-    // itemId may be a full URI or just the identifier part
-    isPinned: (state) => (itemId) => {
-      return state.pinned ? state.pinned.includes(itemUri(itemId)) : false;
     }
   }
 };
