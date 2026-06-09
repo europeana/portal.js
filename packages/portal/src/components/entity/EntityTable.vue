@@ -368,7 +368,7 @@
       fetchAggregatorData(organisations) {
         const ids = organisations.map((org) => org.aggregatedVia).flat().filter(Boolean);
         const params = {
-          fl: 'id,prefLabel'
+          fl: 'id,prefLabel,logo,type'
         };
 
         return backendFetch('collections/retrieve', [ids, params], this.$nuxt.context);
