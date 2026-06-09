@@ -56,7 +56,7 @@
       },
       sidebarNavigation() {
         return [
-          { url: '/partners', text: this.$t('header.navigation.partners') },
+          // { url: '/partners', text: this.$t('header.navigation.partners') },
           { url: '/educators', text: this.$t('header.navigation.educators') },
           { url: '/research', text: this.$t('header.navigation.research') },
           { url: '/about-us', text: this.$t('header.navigation.about') },
