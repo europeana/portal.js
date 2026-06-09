@@ -153,6 +153,15 @@
       }
     },
 
+    watch: {
+      entityUris() {
+        this.$fetch();
+      },
+      relatedCollections() {
+        this.collections = this.relatedCollections;
+      }
+    },
+
     mounted() {
       this.draw();
     },
