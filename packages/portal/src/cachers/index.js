@@ -13,6 +13,7 @@ const cacherNames = [
   'collections:organisations:count',
   'collections:organisations:featured',
   'collections:organisations:institutions',
+  'collections:organisations:map',
   'collections:places',
   'collections:places:featured',
   'collections:times',
