@@ -27,7 +27,7 @@ export const createApiExpressApp = (context = {}, app) => {
   app.use(logging);
 
   pg.config = config.postgres;
-  keycloak.config = config.auth?.strategies?.keycloak;
+  keycloak.config = config.auth;
 
   app.use((req, res, next) => {
     if (apm.isStarted())  {

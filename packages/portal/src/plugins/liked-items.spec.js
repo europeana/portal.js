@@ -1,6 +1,6 @@
 import sinon from 'sinon';
 import { nextTick } from 'vue';
-import likedItemsClientPlugin from './liked-items.client.js';
+import likedItemsPlugin from './liked-items.js';
 
 const itemIds = ['/123/abc', '/123/def'];
 const moreItemIds = ['/123/ghi'];
@@ -30,19 +30,19 @@ const factory = async(context = {}) => {
     injected = injection;
   };
 
-  await likedItemsClientPlugin({ $apis, $auth: $authNotLoggedIn, ...context }, inject);
+  await likedItemsPlugin({ $apis, $auth: $authNotLoggedIn, ...context }, inject);
 
   return injected;
 };
 
-describe('liked-items.client plugin', () => {
+describe('liked-items plugin', () => {
   afterEach(sinon.resetHistory);
   afterAll(sinon.reset);
 
   it('is injected into context as likedItems', () => {
     const inject = sinon.spy();
 
-    likedItemsClientPlugin({}, inject);
+    likedItemsPlugin({}, inject);
 
     expect(inject.calledWith('likedItems', sinon.match.object)).toBe(true);
   });

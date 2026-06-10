@@ -17,9 +17,9 @@ const factory = ({ $auth = {}, data = {}, propsData = { identifiers: identifier 
     return { ...data };
   },
   mocks: {
-    $auth,
-    $keycloak: {
-      login: sinon.spy()
+    $auth: {
+      login: sinon.spy(),
+      ...$auth
     },
     $matomo: {
       trackEvent: sinon.spy()
@@ -56,7 +56,7 @@ describe('components/item/ItemAddButton', () => {
           const addButton = wrapper.find('[data-qa="add button"]');
           addButton.trigger('click');
 
-          expect(wrapper.vm.$keycloak.login.called).toBe(true);
+          expect(wrapper.vm.$auth.login.called).toBe(true);
         });
       });
     });

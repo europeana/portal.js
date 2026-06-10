@@ -10,6 +10,10 @@ export default (ctx, inject) => {
       return parse(ctxCookie())[name];
     },
 
+    remove(name) {
+      this.set(name, this.get(name), { maxAge: 0 });
+    },
+
     set(name, value, options = {}) {
       options = {
         path: '/',

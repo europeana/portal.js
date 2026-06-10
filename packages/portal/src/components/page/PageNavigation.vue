@@ -27,6 +27,8 @@
 </template>
 
 <script>
+  import { useAuthRoutes } from '@/composables/authRoutes.js';
+
   export default {
     name: 'PageNavigation',
 
@@ -37,14 +39,24 @@
       }
     },
 
+    setup() {
+      const { loginRoute, logoutRoute } = useAuthRoutes();
+
+      return { loginRoute, logoutRoute };
+    },
+
     computed: {
       authLinks() {
-        return this.isAuthenticated ? [
-          { url: '/account', text: this.$t('account.title'), dataQa: 'account link' },
-          this.sidebarNav && { url: '/account/logout', to: '/account/logout', text: this.$t('account.linkLogout'), dataQa: 'log out link' }
-        ] : [
-          { url: '/account/login', to: { name: 'account-login', query: { redirect: this.$route.fullPath } }, text: this.$t('account.linkLoginJoin'), dataQa: 'log in link' }
-        ];
+        if (this.isAuthenticated) {
+          return [
+            { url: '/account', text: this.$t('account.title'), dataQa: 'account link' },
+            this.sidebarNav && { url: '/auth/logout', to: this.logoutRoute, text: this.$t('account.linkLogout'), dataQa: 'log out link' }
+          ];
+        } else {
+          return [
+            { url: '/auth/login', to: this.loginRoute, text: this.$t('account.linkLoginJoin'), dataQa: 'log in link' }
+          ];
+        }
       },
       mainNavigation() {
         return [
@@ -68,7 +80,7 @@
         return this.mainNavigation.concat(this.sidebarNav ? this.sidebarNavigation : []).concat(this.authLinks);
       },
       isAuthenticated() {
-        return this.$store.state.auth.loggedIn;
+        return this.$auth?.user.loggedIn;
       },
       isAccountPage() {
         return this.$route.name.startsWith('account');
@@ -85,8 +97,8 @@
         case ('/help'):
         case ('/stories'):
         case ('/account'):
-        case ('/account/login'):
-        case ('/account/logout'):
+        case ('/auth/login'):
+        case ('/auth/logout'):
         case ('/feature-ideas'):
           className = `icon-${url.split('/').pop()}`;
           break;
@@ -116,6 +128,7 @@
       },
       storageEvent(event) {
         if (event.key === 'logout-event') {
+          // TODO: check this still works
           this.$auth.logout();
         }
       }

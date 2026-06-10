@@ -124,7 +124,7 @@
       pageMetaMixin
     ],
 
-    middleware: 'auth',
+    middleware: ['auth'],
 
     setup() {
       const tabIds = [
@@ -159,8 +159,8 @@
         };
       },
       userIsEditor() {
-        return this.$auth.userHasClientRole('entities', 'editor') &&
-          this.$auth.userHasClientRole('usersets', 'editor');
+        return this.$auth.user.hasClientRole('entities', 'editor') &&
+          this.$auth.user.hasClientRole('usersets', 'editor');
       }
     }
   };

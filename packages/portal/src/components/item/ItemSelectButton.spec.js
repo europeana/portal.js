@@ -11,11 +11,11 @@ const factory = ({ mocks = {} } = {}) => shallowMount(ItemSelectButton, {
   attachTo: document.body,
   directives: { 'b-tooltip': () => {} },
   mocks: {
-    $auth: { loggedIn: false },
-    $features: { itemMultiSelect: true },
-    $keycloak: {
-      login: sinon.spy()
+    $auth: {
+      login: sinon.spy(),
+      loggedIn: false
     },
+    $features: { itemMultiSelect: true },
     $t: (key) => key,
     ...mocks
   },
@@ -49,7 +49,7 @@ describe('components/item/ItemSelectButton', () => {
           const selectButton = wrapper.find('.item-select-button');
           selectButton.trigger('click');
 
-          expect(wrapper.vm.$keycloak.login.called).toBe(true);
+          expect(wrapper.vm.$auth.login.called).toBe(true);
         });
       });
 
