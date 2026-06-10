@@ -22,7 +22,6 @@
       <p>{{ description }}</p>
     </b-col>
     <template v-if="activeTabId === TABS.INSTITUTIONS">
-      <!-- FIXME: this table should not be showing aggregators -->
       <EntityTable
         type="organisations"
         sub-type="institutions"

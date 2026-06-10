@@ -112,7 +112,7 @@ describe('components/entity/EntityTable', () => {
                 ...fixtures.backend.collections.organisationsWithAggregatedVia[1].aggregatedVia
               ],
               {
-                fl: 'id,prefLabel'
+                fl: 'id,prefLabel,logo,type'
               }
             ],
             wrapper.vm.$nuxt.context

@@ -291,7 +291,6 @@
 
   .swiper-button-prev,
   .swiper-button-next {
-    display: none;
     height: 48px;
     width: 48px;
     color: $black;
@@ -299,17 +298,23 @@
     border-radius: 50%;
     top: calc(50% - 2rem);
 
-    @media (min-width: $bp-medium) {
-      display: flex;
+    @media (max-width: ($bp-medium - 1px)) {
+      display: none;
     }
 
     @media (min-width: $bp-large) {
       top: calc(50% - 3rem);
     }
 
-    &:after {
-      font-size: 1.25rem;
-      font-weight: 700;
+    ::v-deep svg {
+      height: 1.25rem;
+      overflow: visible;
+      padding-left: 2px;
+
+      path {
+        stroke-width: 1;
+        stroke: $black;
+      }
     }
 
     @media (min-width: $bp-4k) {
@@ -317,18 +322,10 @@
       width: 96px;
       top: calc(50% - 5rem);
 
-      &:after {
-        font-size: 2.5rem;
+      ::v-deep svg {
+        height: 2.5rem;
       }
     }
-  }
-
-  .swiper-button-prev::after {
-    padding-right: 2px;
-  }
-
-  .swiper-button-next::after {
-    padding-left: 2px;
   }
 
   .swiper-pagination {

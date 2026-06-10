@@ -208,7 +208,7 @@
         },
         {
           key: 'heritageDomain',
-          sortable: true,
+          sortable: false,
           label: this.$t('pages.collections.table.domain'),
           class: 'text-center d-none d-lg-table-cell'
         },
@@ -368,7 +368,7 @@
       fetchAggregatorData(organisations) {
         const ids = organisations.map((org) => org.aggregatedVia).flat().filter(Boolean);
         const params = {
-          fl: 'id,prefLabel'
+          fl: 'id,prefLabel,logo,type'
         };
 
         return backendFetch('collections/retrieve', [ids, params], this.$nuxt.context);
