@@ -40,6 +40,7 @@
     "defu": "^6.1.5",
     "dotenv": "^10.0.0",
     "elastic-apm-node": "^3.24.0",
+    "event-target-shim": "^6.0.2",
     "express": "^4.21.2",
     "filesize": "^11.0.16",
     "graphql": "^16.11.0",

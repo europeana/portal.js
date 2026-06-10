@@ -1,47 +1,14 @@
 import store from '@/store/entity';
 
-const entity = { id: 'http://data.europeana.eu/concept/001' };
 const id = 'http://data.europeana.eu/concept/001';
-const pinned = ['http://data.europeana.eu/item/123/abc', 'http://data.europeana.eu/item/234/abc'];
-const entityDescription = { en: 'example entity description' };
 
 describe('store/entity', () => {
   describe('mutations', () => {
-    describe('setEntity()', () => {
-      it('sets the entity state', () => {
-        const state = { entity: null };
-        store.mutations.setEntity(state, entity);
-        expect(state.entity).toEqual(entity);
-      });
-    });
     describe('setId()', () => {
       it('sets the id state', () => {
         const state = { id: null };
         store.mutations.setId(state, id);
         expect(state.id).toEqual(id);
-      });
-    });
-    describe('setPinned()', () => {
-      describe('when value passed in', () => {
-        it('sets the pinned state', () => {
-          const state = { pinned: null };
-          store.mutations.setPinned(state, pinned);
-          expect(state.pinned).toEqual(pinned);
-        });
-      });
-      describe('when no value passed in', () => {
-        it('sets the pinned state to an empty array', () => {
-          const state = { pinned: null };
-          store.mutations.setPinned(state);
-          expect(state.pinned).toEqual([]);
-        });
-      });
-    });
-    describe('setEntityDescription()', () => {
-      it('sets the note on the entity state', () => {
-        const state = { entity: {} };
-        store.mutations.setEntityDescription(state, entityDescription);
-        expect(state.entity.note).toEqual(entityDescription);
       });
     });
     describe('setEditable()', () => {

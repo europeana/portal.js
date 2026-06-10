@@ -63,6 +63,13 @@
       SearchRemovalChip
     },
 
+    inject: {
+      entity: {
+        from: 'currentEntity',
+        default: null
+      }
+    },
+
     props: {
       /**
        * Total number of results from the current search.
@@ -77,14 +84,6 @@
        */
       query: {
         type: String,
-        default: null
-      },
-
-      /**
-       * The entity theme/collection within which the search has been made.
-       */
-      entity: {
-        type: Object,
         default: null
       },
 

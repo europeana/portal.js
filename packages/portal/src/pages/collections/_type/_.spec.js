@@ -1,6 +1,7 @@
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '@test/utils.js';
 import BootstrapVue from 'bootstrap-vue';
+import nock from 'nock';
 import sinon from 'sinon';
 
 import collection from '@/pages/collections/_type/_';
@@ -47,6 +48,11 @@ const agentEntity = {
 
 const factory = (options = {}) => shallowMountNuxt(collection, {
   localVue,
+  data() {
+    return {
+      entity: options.entity
+    };
+  },
   mocks: {
     $auth: {
       userHasClientRole: options.userHasClientRoleStub || sinon.stub().returns(false)
@@ -59,10 +65,11 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
     },
     $apis: {
       entity: {
-        get: options.get || sinon.stub().resolves({}),
-        facets: sinon.stub().resolves([])
+        get: options.get || sinon.stub().resolves(options.entity)
       },
       set: {
+        get: sinon.stub().resolves({}),
+        getItemIds: sinon.stub().resolves([]),
         search: sinon.stub().resolves({})
       }
     },
@@ -85,17 +92,11 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
     },
     $store: {
       state: {
-        entity: {
-          entity: options.entity
-        },
+        entity: {},
         search: {
           view: 'grid'
         }
       },
-      getters: {
-        'entity/curatedEntity': sinon.stub().returns(null)
-      },
-      dispatch: sinon.spy(),
       commit: sinon.spy()
     },
     ...options.mocks
@@ -120,7 +121,16 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
 });
 
 describe('pages/collections/_type/_', () => {
-  afterEach(sinon.resetHistory);
+  beforeAll(() => {
+    nock.disableNetConnect();
+  });
+  afterEach(() => {
+    sinon.resetHistory();
+  });
+  afterAll(() => {
+    nock.enableNetConnect();
+    sinon.restore();
+  });
 
   describe('fetch', () => {
     describe('when entity type in route is invalid', () => {
@@ -205,7 +215,6 @@ describe('pages/collections/_type/_', () => {
         const userHasClientRoleStub = sinon.stub().withArgs('entities', 'editor').returns(true);
         const wrapper = factory({ ...topicEntity, userHasClientRoleStub });
         wrapper.vm.$apis.set.search.resolves({ items: [setId] });
-        sinon.stub(wrapper.vm, 'fetchEntityBestItemsSetPinnedItems');
 
         await wrapper.vm.fetch();
 
@@ -217,29 +226,29 @@ describe('pages/collections/_type/_', () => {
       });
 
       describe('when one is found', () => {
-        it('also fetches the pinned items', async() => {
+        it('also fetches the full set', async() => {
           const setId = 'http://data.europeana.eu/set/123';
           const userHasClientRoleStub = sinon.stub().withArgs('entities', 'editor').returns(true);
           const wrapper = factory({ ...topicEntity, userHasClientRoleStub });
           wrapper.vm.$apis.set.search.resolves({ items: [setId] });
-          sinon.stub(wrapper.vm, 'fetchEntityBestItemsSetPinnedItems');
 
           await wrapper.vm.fetch();
 
-          expect(wrapper.vm.fetchEntityBestItemsSetPinnedItems.calledWith(setId)).toBe(true);
+          expect(wrapper.vm.$apis.set.get.calledWith(setId)).toBe(true);
+          expect(wrapper.vm.$apis.set.getItemIds.calledWith(setId)).toBe(true);
         });
       });
 
       describe('when none is found', () => {
-        it('does not try to fetch the pinned items', async() => {
+        it('does not try to fetch the full set', async() => {
           const userHasClientRoleStub = sinon.stub().withArgs('entities', 'editor').returns(true);
           const wrapper = factory({ ...topicEntity, userHasClientRoleStub });
           wrapper.vm.$apis.set.search.resolves({ items: [] });
-          sinon.stub(wrapper.vm, 'fetchEntityBestItemsSetPinnedItems');
 
           await wrapper.vm.fetch();
 
-          expect(wrapper.vm.fetchEntityBestItemsSetPinnedItems.called).toBe(false);
+          expect(wrapper.vm.$apis.set.get.called).toBe(false);
+          expect(wrapper.vm.$apis.set.getItemIds.called).toBe(false);
         });
       });
     });
@@ -254,7 +263,6 @@ describe('pages/collections/_type/_', () => {
 
       await wrapper.vm.$options.beforeRouteLeave.call(wrapper.vm, to, null, next);
 
-      expect(wrapper.vm.$store.commit.calledWith('entity/setEntity', null)).toBe(true);
       expect(wrapper.vm.$store.commit.calledWith('entity/setId', null)).toBe(true);
       expect(next.called).toBe(true);
     });

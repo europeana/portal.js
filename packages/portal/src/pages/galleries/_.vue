@@ -144,10 +144,9 @@
   import ItemPreviewInterface from '@/components/item/ItemPreviewInterface';
   import ShareButton from '@/components/share/ShareButton.vue';
   import ShareSocialModal from '@/components/share/ShareSocialModal.vue';
+  import { usePinnedItems } from '@/composables/pinnedItems.js';
   import useScrollTo from '@/composables/scrollTo.js';
   import { useSelectedItems } from '@/composables/selectedItems.js';
-  // used solely for storeEntityBestItemsSetPinnedItems
-  import entityBestItemsSetMixin from '@/mixins/europeana/entities/entityBestItemsSet';
   import langAttributeMixin from '@/mixins/langAttribute';
   import pageMetaMixin from '@/mixins/pageMeta';
   import { redirectToPrefPath } from '@/utils/redirect/redirectToPrefPath.js';
@@ -166,31 +165,32 @@
 
     },
     mixins: [
-      entityBestItemsSetMixin,
       langAttributeMixin,
       pageMetaMixin
     ],
     provide() {
       return {
         currentSet: computed(() => this.set),
+        currentEntity: computed(() => this.entity),
         fetchCurrentSet: this.fetchSet
       };
     },
     beforeRouteLeave(_to, _from, next) {
-      this.$store.commit('entity/setPinned', []);
       this.clearSelectedItems();
       next();
     },
     setup() {
+      const { on: addPinEventListener, off: removePinEventListener } = usePinnedItems();
       const { scrollToSelector } = useScrollTo();
       const { clear: clearSelectedItems } = useSelectedItems();
-      return { clearSelectedItems, scrollToSelector };
+      return { addPinEventListener, clearSelectedItems, removePinEventListener, scrollToSelector };
     },
     data() {
       return {
         logoSrc: require('@europeana/style/img/logo.svg'),
         identifier: null,
         perPage: 48,
+        entity: null,
         set: {},
         title: '',
         rawDescription: ''
@@ -203,16 +203,15 @@
 
       try {
         this.validateRoute();
+
         await this.fetchSet();
+        await this.fetchEntity();
+
         redirectToPrefPath(
           this.setId,
           this.set.title.en,
           { route: this.$route, redirect: this.$nuxt.context.redirect }
         );
-
-        if (this.setIsEntityBestItems && this.userIsEntityEditor) {
-          this.storeEntityBestItemsSetPinnedItems(this.set);
-        }
       } catch (e) {
         this.$error(e, { scope: 'gallery' });
       }
@@ -281,15 +280,21 @@
     },
 
     watch: {
-      '$store.state.entity.pinned.length'() {
-        if (this.setIsEntityBestItems) {
-          this.$fetch();
-        }
-      },
       async '$route.query.page'() {
         await this.$fetch();
         this.clearSelectedItems();
       }
+    },
+
+    created() {
+      this.addPinEventListener('pin', this.$fetch);
+      this.addPinEventListener('unpin', this.$fetch);
+    },
+
+    beforeDestroy() {
+      this.clearSelectedItems();
+      this.removePinEventListener('pin', this.$fetch);
+      this.removePinEventListener('unpin', this.$fetch);
     },
 
     mounted() {
@@ -310,6 +315,16 @@
           ...responses[0],
           items: responses[1]
         };
+      },
+      async fetchEntity() {
+        if (!this.$auth.userHasClientRole('entities', 'editor') || (this.set.type !== 'EntityBestItemsSet')) {
+          this.entity = null;
+          return;
+        }
+
+        const response = await this.$apis.entity.retrieve(this.set.subject);
+        const entity = response[0];
+        this.entity = { id: entity.id };
       },
       validateRoute() {
         if (!/^\d+(-.+)?$/.test(this.$route.params.pathMatch)) {
