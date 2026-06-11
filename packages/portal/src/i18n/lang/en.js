@@ -38,6 +38,7 @@ export default {
     }
   },
   "actions": {
+    "testValueTwo": "test string for localisation, please remove",
     "accept": "Accept",
     "add": "Add",
     "apply": "Apply",
