@@ -31,7 +31,7 @@ jobs:
           name_pattern: en.js
           use_tag_tracking: true
           rambo_mode: ${{ inputs.force }}
+          skip_default_flags: true
           additional_params: |
             cleanup_mode: true
-            distinguish_by_file: false
-            include_path: false
+            replace_modified: true
