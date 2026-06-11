@@ -28,10 +28,12 @@ jobs:
           translations_path: packages/portal/src/i18n/lang
           base_lang: en_GB
           flat_naming: true
+          name_pattern: en.js
           use_tag_tracking: true
           rambo_mode: ${{ inputs.force }}
           skip_default_flags: true
           additional_params: |
             cleanup_mode: true
             replace_modified: true
+            include_path: false
 
