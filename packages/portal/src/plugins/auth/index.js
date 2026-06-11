@@ -6,55 +6,10 @@ import { nanoid } from 'nanoid';
 import { extractLocaleFromRoutePath } from '@/i18n/routes.js';
 import { computed, reactive, ref } from 'vue';
 
-const PLUGIN_NAME = 'auth';
-const NUXT_STATE_KEY = `$${PLUGIN_NAME}`;
-
-class Token {
-  static ID = '';
-  #value = undefined;
-  storage;
-
-  static get id() {
-    return `${this.ID}_token`;
-  }
-
-  constructor({ storage }) {
-    this.storage = storage;
-    this.load();
-  }
-
-  get value() {
-    return this.#value;
-  }
-
-  set value(value) {
-    this.#value = value;
-    this.save();
-  }
-
-  clear() {
-    this.value = undefined;
-  }
-
-  save() {
-    if (this.value === undefined) {
-      this.storage?.remove(this.constructor.id);
-    } else {
-      // TODO: consider & test expiration of the cookies
-      this.storage?.set(this.constructor.id, this.value);
-    }
-  }
-
-  load() {
-    this.value = this.storage?.get(this.constructor.id);
-  }
-}
-class AccessToken extends Token {
-  static ID = 'access';
-}
-class RefreshToken extends Token {
-  static ID = 'refresh';
-}
+import { PLUGIN_NAME, NUXT_STATE_KEY } from './constants.js';
+import { createStorage } from './storage.js';
+import { createTokens } from './token.js';
+import { createTokenRequestConfig, createUserInfoRequestConfig, createRefreshRequestConfig } from './requests.js';
 
 const createConfig = ({ clientId, scope, origin, realm }) => ({
   clientId,
@@ -66,80 +21,6 @@ const createConfig = ({ clientId, scope, origin, realm }) => ({
   callbackPaths: {
     login: '/auth/logincb',
     logout: '/auth/logoutcb'
-  }
-});
-
-const createStorage = ({ cookies }) => {
-  const storageKey = (key) => `${PLUGIN_NAME}.${key}`;
-
-  return {
-    // TODO: client-side only?
-    local: {
-      get: (key) => localStorage.getItem(storageKey(key)),
-      set: (key, value) => localStorage.setItem(storageKey(key), value),
-      remove: (key) => localStorage.removeItem(storageKey(key))
-    },
-    cookies: {
-      get: (key) => cookies.get(storageKey(key)),
-      set: (key, value) => cookies.set(storageKey(key), value),
-      // TODO: does this do anything server-side?
-      remove: (key) => cookies.remove(storageKey(key))
-    }
-  };
-};
-
-const createTokens = ({ storage }) => {
-  return {
-    access: new AccessToken({ storage }),
-    clear() {
-      // TODO: ensure that after this happens on server-side, on client-side
-      //       the cookies & localStorage are cleared too
-      this.access.clear();
-      this.refresh.clear();
-    },
-    refresh: new RefreshToken({ storage }),
-    setFromResponse(response) {
-      this.access.value = response.data[AccessToken.id];
-      this.refresh.value = response.data[RefreshToken.id];
-    }
-  };
-};
-
-// @see https://openid.net/specs/openid-connect-core-1_0.html#TokenRequest
-const createTokenRequestConfig = ({ code, clientId, redirectUri }) => ({
-  url: '/token',
-  method: 'post',
-  data: new URLSearchParams({
-    'client_id': clientId,
-    code,
-    'grant_type': 'authorization_code',
-    'redirect_uri': redirectUri,
-    'response_type': 'code'
-  }),
-  headers: { 'content-type': 'application/x-www-form-urlencoded' }
-});
-
-// @see https://openid.net/specs/openid-connect-core-1_0.html#UserInfoRequest
-const createUserInfoRequestConfig = ({ clientId }) => ({
-  url: '/userinfo',
-  method: 'get',
-  params: {
-    'client_id': clientId
-  }
-});
-
-// @see https://openid.net/specs/openid-connect-core-1_0.html#RefreshingAccessToken
-const createRefreshRequestConfig = ({ clientId, refreshToken, scope }) => ({
-  url: '/token',
-  method: 'post',
-  data: new URLSearchParams({
-    'client_id': clientId,
-    'grant_type': 'refresh_token',
-    'refresh_token': refreshToken,
-    scope
-  }),
-  headers: {
-    'content-type': 'application/x-www-form-urlencoded'
   }
 });
 
