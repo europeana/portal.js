@@ -9,6 +9,9 @@
     <ItemTrendingItems
       v-else-if="trending"
     />
+    <EntityOrganisationsMap
+      v-if="key === 'collections/organisations/featured'"
+    />
     <ContentCardSection
       v-else
       :section="contentCardSection"
@@ -42,7 +45,8 @@
     components: {
       ContentCardSection,
       BrowseInfoCardSection,
-      ItemTrendingItems
+      ItemTrendingItems,
+      EntityOrganisationsMap: () => import('@/components/entity/organisations/EntityOrganisationsMap')
     },
 
     props: {
