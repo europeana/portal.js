@@ -49,7 +49,6 @@
             <template #heading>
               <SearchResultsContext
                 :total-results="totalResults"
-                :entity="$store.state.entity.entity"
                 :query="query"
                 badge-variant="primary-light"
                 class="mr-auto"

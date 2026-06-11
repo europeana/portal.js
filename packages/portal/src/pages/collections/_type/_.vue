@@ -71,7 +71,6 @@
   import SearchInterface from '@/components/search/SearchInterface';
   import { organizationEntityNativeName } from '@/utils/europeana/entities/organizations.js';
   import pageMetaMixin from '@/mixins/pageMeta';
-  import entityBestItemsSetMixin from '@/mixins/europeana/entities/entityBestItemsSet';
   import { redirectToPrefPath } from '@/utils/redirect/redirectToPrefPath.js';
 
   import {
@@ -114,12 +113,12 @@
     },
 
     mixins: [
-      entityBestItemsSetMixin,
       pageMetaMixin
     ],
 
     provide() {
       return {
+        currentEntity: computed(() => this.entity),
         currentSet: computed(() => this.entityBestItemsSet),
         relatedCollectionsHasResults: computed(() => !!this.relatedCollections?.length)
       };
@@ -130,13 +129,12 @@
         this.$store.commit('search/setShowSearchBar', false);
       }
       this.$store.commit('entity/setId', null); // needed to re-enable auto-suggest in header
-      this.$store.commit('entity/setEntity', null); // needed for best bets handling
-      this.$store.commit('entity/setPinned', []);
       next();
     },
 
     data() {
       return {
+        entity: null,
         entityBestItemsSet: null,
         redirecting: false,
         relatedCollections: null
@@ -155,8 +153,6 @@
       if (entityUri !== this.$store.state.entity.id) {
         // TODO: group as a reset action on the store?
         this.$store.commit('entity/setId', null);
-        this.$store.commit('entity/setEntity', null);
-        this.$store.commit('entity/setPinned', null);
         this.$store.commit('entity/setEditable', false);
       }
       this.$store.commit('entity/setId', entityUri);
@@ -164,10 +160,10 @@
       try {
         const entity = await this.$apis.entity.get(this.collectionType, this.$route.params.pathMatch);
 
-        this.$store.commit('entity/setEntity', pick(entity, FIELDS));
+        this.entity = pick(entity, FIELDS);
         this.$store.commit('search/setCollectionLabel', this.title.values[0]);
 
-        this.userIsEntitiesEditor && await this.setBestItems();
+        await this.fetchEntityBestItemsSet();
 
         // TODO: don't do this on SSRs, it's too expensive. instead just update
         //       window.location when mounted, and set Content-Location response
@@ -193,9 +189,6 @@
           description: this.descriptionText,
           ogType: 'article'
         };
-      },
-      entity() {
-        return this.$store.state.entity.entity;
       },
       searchOverrides() {
         const defaultParams = {};
@@ -271,7 +264,12 @@
       handleEntityRelatedCollectionsFetched(relatedCollections) {
         this.relatedCollections = relatedCollections;
       },
-      async setBestItems() {
+      async fetchEntityBestItemsSet() {
+        if (!this.userIsEntitiesEditor) {
+          this.entityBestItemsSet = null;
+          return;
+        }
+
         const searchResponse = await this.$apis.set.search({
           profile: 'items',
           query: 'type:EntityBestItemsSet',
@@ -280,11 +278,16 @@
 
         const entityBestItemsSetId = searchResponse.items?.[0] || null;
         if (entityBestItemsSetId) {
+          const responses = await Promise.all([
+            this.$apis.set.get(entityBestItemsSetId),
+            this.$apis.set.getItemIds(entityBestItemsSetId)
+          ]);
           this.entityBestItemsSet = {
-            id: entityBestItemsSetId,
-            type: 'EntityBestItemsSet'
+            ...responses[0],
+            items: responses[1]
           };
-          await this.fetchEntityBestItemsSetPinnedItems(entityBestItemsSetId);
+        } else {
+          this.entityBestItemsSet = null;
         }
       },
       titleFallback(title) {

@@ -1,6 +1,7 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import ItemPinButton from '@/components/item/ItemPinButton';
+import * as usePinnedItemsModule from '@/composables/pinnedItems';
 import sinon from 'sinon';
 
 const localVue = createLocalVue();
@@ -8,21 +9,11 @@ localVue.use(BootstrapVue);
 
 const identifier = '/123/abc';
 
-const factory = ({ mocks = {}, provide = {}, storeState = {} } = {}) => shallowMount(ItemPinButton, {
+const factory = ({ mocks = {}, provide = {} } = {}) => shallowMount(ItemPinButton, {
   localVue,
   propsData: { identifier },
   provide,
   mocks: {
-    $apis: {
-      set: {
-        create: sinon.stub().resolves({}),
-        get: sinon.stub().resolves({}),
-        getItemIds: sinon.stub().resolves([]),
-        search: sinon.stub().resolves({}),
-        deleteItems: sinon.spy(),
-        pinItem: sinon.spy()
-      }
-    },
     $auth: {},
     $error: (error) => {
       console.error(error);
@@ -31,19 +22,21 @@ const factory = ({ mocks = {}, provide = {}, storeState = {} } = {}) => shallowM
     $i18n: { locale: 'de' },
     $router: { push: sinon.spy() },
     localePath: () => 'mocked path',
-    $store: {
-      commit: () => {},
-      state: {
-        entity: { entity: { id: 'http://data.europeana.eu/topic/123' }, pinned: [], ...storeState }
-      }
-    },
     $t: (key) => key,
     ...mocks
   }
 });
 
 describe('components/item/ItemPinButton', () => {
+  const pinSpy = sinon.spy();
+  const unpinSpy = sinon.spy();
+  sinon.stub(usePinnedItemsModule, 'usePinnedItems').returns({
+    pin: pinSpy,
+    unpin: unpinSpy
+  });
+
   afterEach(sinon.resetHistory);
+  afterAll(sinon.restore);
 
   describe('template', () => {
     describe('when not logged-in', () => {
@@ -85,10 +78,14 @@ describe('components/item/ItemPinButton', () => {
       };
 
       describe('when on an entity page', () => {
-        const storeState = { id: 'http://data.europeana.eu/topic/123' };
+        const currentEntity = {
+          id: 'http://data.europeana.eu/topic/123'
+        };
 
         it('is visible', async() => {
-          const wrapper = factory({ mocks: { $auth }, storeState });
+          const wrapper = factory({ mocks: { $auth }, provide: {
+            currentEntity
+          } });
 
           const pinButton = wrapper.find('b-button-stub[data-qa="pin button"]');
 
@@ -96,7 +93,9 @@ describe('components/item/ItemPinButton', () => {
         });
 
         it('does not contain text', async() => {
-          const wrapper = factory({ mocks: { $auth }, storeState });
+          const wrapper = factory({ mocks: { $auth }, provide: {
+            currentEntity
+          } });
 
           const pinButton = wrapper.find('b-button-stub[data-qa="pin button"]');
 
@@ -105,7 +104,9 @@ describe('components/item/ItemPinButton', () => {
 
         describe('when button with text', () => {
           it('contains text', async() => {
-            const wrapper = factory({ mocks: { $auth }, storeState });
+            const wrapper = factory({ mocks: { $auth }, provide: {
+              currentEntity
+            } });
             await wrapper.setProps({ buttonText: true });
 
             const pinButton = wrapper.find('b-button-stub[data-qa="pin button"]');
@@ -115,35 +116,33 @@ describe('components/item/ItemPinButton', () => {
         });
 
         describe('when item is not pinned', () => {
-          const storeState = { pinned: [], id: 'http://data.europeana.eu/topic/123' };
-
+          const currentSet = {
+            items: [],
+            pinned: 0
+          };
           describe('when pressed', () => {
-            it('ensures the set exists', async() => {
-              const wrapper = factory({ mocks: { $auth }, storeState });
-              sinon.spy(wrapper.vm, 'ensureEntityBestItemsSetExists');
+            it('pins the item via usePinnedItems composable', async() => {
+              const wrapper = factory({ mocks: { $auth }, provide: {
+                currentEntity,
+                currentSet
+              } });
 
               const pinButton = wrapper.find('b-button-stub[data-qa="pin button"]');
               await pinButton.trigger('click');
 
-              expect(wrapper.vm.ensureEntityBestItemsSetExists.called).toBe(true);
-            });
-
-            it('pins the item', async() => {
-              const wrapper = factory({ mocks: { $auth }, storeState });
-              sinon.spy(wrapper.vm, 'pinItemToEntityBestItemsSet');
-
-              const pinButton = wrapper.find('b-button-stub[data-qa="pin button"]');
-              await pinButton.trigger('click');
-
-              expect(wrapper.vm.pinItemToEntityBestItemsSet.called).toBe(true);
+              expect(pinSpy.called).toBe(true);
             });
           });
         });
+
         describe('when item is pinned', () => {
-          const storeState = { pinned: [identifier], id: 'http://data.europeana.eu/topic/123' };
+          const currentSet = {
+            items: [identifier],
+            pinned: 1
+          };
 
           it('button text is updated', async() => {
-            const wrapper = factory({ mocks: { $auth }, storeState });
+            const wrapper = factory({ mocks: { $auth }, provide: { currentEntity, currentSet } });
             await wrapper.setProps({ buttonText: true });
 
             const pinButton = wrapper.find('b-button-stub[data-qa="pin button"]');
@@ -151,14 +150,13 @@ describe('components/item/ItemPinButton', () => {
           });
 
           describe('when pressed', () => {
-            it('unpins the item', async() => {
-              const wrapper = factory({ mocks: { $auth }, storeState });
-              sinon.spy(wrapper.vm, 'unpinItemFromEntityBestItemsSet');
+            it('unpins the item via usePinnedItems composable', async() => {
+              const wrapper = factory({ mocks: { $auth }, provide: { currentEntity, currentSet } });
 
               const pinButton = wrapper.find('b-button-stub[data-qa="pin button"]');
               await pinButton.trigger('click');
 
-              expect(wrapper.vm.unpinItemFromEntityBestItemsSet.called).toBe(true);
+              expect(unpinSpy.called).toBe(true);
             });
           });
         });
@@ -166,10 +164,10 @@ describe('components/item/ItemPinButton', () => {
 
       describe('when provided a currentSet', () => {
         describe('that is not an EntityBestItemsSet', () => {
-          const provide = { currentSet: { id: 'http://data.europeana.eu/set/1234', type: 'Collection' } };
+          const currentSet = { id: 'http://data.europeana.eu/set/1234', type: 'Collection' };
 
           it('is not rendered', () => {
-            const wrapper = factory({ mocks: { $auth }, provide });
+            const wrapper = factory({ mocks: { $auth }, provide: { currentSet } });
 
             const pinButton = wrapper.find('b-button-stub[data-qa="pin button"]');
 
@@ -178,10 +176,10 @@ describe('components/item/ItemPinButton', () => {
         });
 
         describe('that is an EntityBestItemsSet', () => {
-          const provide = { currentSet: { id: 'http://data.europeana.eu/set/1234', type: 'EntityBestItemsSet' } };
+          const currentSet = { id: 'http://data.europeana.eu/set/1234', type: 'EntityBestItemsSet' };
 
           it('is visible', () => {
-            const wrapper = factory({ mocks: { $auth }, provide });
+            const wrapper = factory({ mocks: { $auth }, provide: { currentSet } });
 
             const pinButton = wrapper.find('b-button-stub[data-qa="pin button"]');
 
@@ -189,7 +187,7 @@ describe('components/item/ItemPinButton', () => {
           });
 
           it('does not contain text', () => {
-            const wrapper = factory({ mocks: { $auth }, provide });
+            const wrapper = factory({ mocks: { $auth }, provide: { currentSet } });
 
             const pinButton = wrapper.find('b-button-stub[data-qa="pin button"]');
 
@@ -197,17 +195,15 @@ describe('components/item/ItemPinButton', () => {
           });
 
           describe('when item is pinned', () => {
-            const storeState = { pinned: [identifier] };
-
+            const currentSet = { id: 'http://data.europeana.eu/set/1234', type: 'EntityBestItemsSet', items: [identifier], pinned: 1 };
             describe('when pressed', () => {
               it('unpins the item', async() => {
-                const wrapper = factory({ mocks: { $auth }, provide, storeState });
-                sinon.spy(wrapper.vm, 'unpinItemFromEntityBestItemsSet');
+                const wrapper = factory({ mocks: { $auth }, provide: { currentSet } });
 
                 const pinButton = wrapper.find('b-button-stub[data-qa="pin button"]');
                 await pinButton.trigger('click');
 
-                expect(wrapper.vm.unpinItemFromEntityBestItemsSet.called).toBe(true);
+                expect(unpinSpy.called).toBe(true);
               });
             });
           });

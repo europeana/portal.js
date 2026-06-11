@@ -5,10 +5,10 @@ import SearchResultsContext from '@/components/search/SearchResultsContext.vue';
 
 const localVue = createLocalVue();
 
-const factory = (options = {}) => mount(SearchResultsContext, {
+const factory = ({ propsData, provide, route, storeState } = {}) => mount(SearchResultsContext, {
   localVue,
   directives: { 'b-tooltip': () => {} },
-  propsData: options.propsData,
+  propsData,
   mocks: {
     $apis: {
       entity: {
@@ -19,16 +19,19 @@ const factory = (options = {}) => mount(SearchResultsContext, {
     $route: {
       path: '/search',
       query: {},
-      ...options.route
+      ...route
     },
     $store: {
       state: {
-        entity: {},
         search: { userParams: {} },
-        ...options.storeState
+        ...storeState
       }
     },
     $t: (key) => key
+  },
+  provide: {
+    currentEntity: {},
+    ...provide
   },
   stubs: ['SearchRemovalChip', 'b-button', 'b-link', 'i18n']
 });
@@ -55,19 +58,21 @@ describe('SearchResultsContext', () => {
 
       describe('and there are search terms', () => {
         const propsData = {
-          entity,
           query: 'painting',
           totalResults: 1234
         };
+        const provide = {
+          currentEntity: entity
+        };
 
         it('displays the entity type label', () => {
-          const wrapper = factory({ propsData });
+          const wrapper = factory({ propsData, provide });
 
           expect(wrapper.text()).toContain('cardLabels.organisation');
         });
 
         it('displays an entity removal badge', () => {
-          const wrapper = factory({ propsData });
+          const wrapper = factory({ propsData, provide });
 
           const badge = wrapper.find('[data-qa="entity removal badge"]');
 
@@ -75,7 +80,7 @@ describe('SearchResultsContext', () => {
         });
 
         it('displays a query removal badge', () => {
-          const wrapper = factory({ propsData });
+          const wrapper = factory({ propsData, provide });
 
           const badge = wrapper.find('[data-qa="query removal badge"]');
 
@@ -85,19 +90,21 @@ describe('SearchResultsContext', () => {
 
       describe('but there are no search terms', () => {
         const propsData = {
-          entity,
           query: '',
           totalResults: 1234
         };
+        const provide = {
+          currentEntity: entity
+        };
 
         it('displays the entity type label', () => {
-          const wrapper = factory({ propsData });
+          const wrapper = factory({ propsData, provide });
 
           expect(wrapper.text()).toContain('cardLabels.organisation');
         });
 
         it('displays an entity removal badge', () => {
-          const wrapper = factory({ propsData });
+          const wrapper = factory({ propsData, provide });
 
           const badge = wrapper.find('[data-qa="entity removal badge"]');
 
@@ -105,7 +112,7 @@ describe('SearchResultsContext', () => {
         });
 
         it('does not display a query removal badge', () => {
-          const wrapper = factory({ propsData });
+          const wrapper = factory({ propsData, provide });
 
           const badge = wrapper.find('[data-qa="query removal badge"]');
 
@@ -115,16 +122,18 @@ describe('SearchResultsContext', () => {
 
       describe('when the organisation is an aggregator', () => {
         const propsData = {
-          entity: {
-            aggregatesFrom: ['http://data.europeana.eu/organization/987'],
-            ...entity
-          },
           query: '',
           totalResults: 1234
         };
+        const provide = {
+          currentEntity: {
+            aggregatesFrom: ['http://data.europeana.eu/organization/987'],
+            ...entity
+          }
+        };
 
         it('displays the aggregator type label', () => {
-          const wrapper = factory({ propsData  });
+          const wrapper = factory({ propsData, provide });
 
           expect(wrapper.text()).toContain('cardLabels.aggregator');
         });
@@ -136,13 +145,15 @@ describe('SearchResultsContext', () => {
 
       describe('and there are search terms', () => {
         const propsData = {
-          entity,
           query: 'painting',
           totalResults: 1234
         };
+        const provide = {
+          currentEntity: entity
+        };
 
         it('displays a query removal badge', () => {
-          const wrapper = factory({ propsData });
+          const wrapper = factory({ propsData, provide });
 
           const badge = wrapper.find('[data-qa="query removal badge"]');
 
@@ -156,9 +167,12 @@ describe('SearchResultsContext', () => {
           query: '',
           totalResults: 1234
         };
+        const provide = {
+          currentEntity: entity
+        };
 
         it('displays the generic results label', () => {
-          const wrapper = factory({ propsData });
+          const wrapper = factory({ propsData, provide });
 
           expect(wrapper.vm.i18nPath).toBe('search.results.withoutQuery');
         });
@@ -178,11 +192,13 @@ describe('SearchResultsContext', () => {
     describe('entityLabel', () => {
       it('uses the entity prefLabel', () => {
         const propsData = {
-          entity: fixtures.organisationEntity,
           totalResults: 1234
         };
+        const provide = {
+          currentEntity: fixtures.organisationEntity
+        };
 
-        const wrapper = factory({ propsData });
+        const wrapper = factory({ propsData, provide });
 
         expect(wrapper.vm.entityLabel).toEqual(fixtures.organisationEntity.prefLabel);
       });
@@ -191,11 +207,13 @@ describe('SearchResultsContext', () => {
     describe('entityImage', () => {
       it('uses the imageUrl from the entity', () => {
         const propsData = {
-          entity: fixtures.organisationEntity,
           totalResults: 1234
         };
+        const provide = {
+          currentEntity: fixtures.organisationEntity
+        };
 
-        const wrapper = factory({ propsData });
+        const wrapper = factory({ propsData, provide });
 
         expect(wrapper.vm.entityImage).toBe('organisation logo');
       });
