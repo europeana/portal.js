@@ -35,5 +35,5 @@ jobs:
           additional_params: |
             cleanup_mode: true
             replace_modified: true
-            include_path: false
+            distinguish_by_file: false
 
