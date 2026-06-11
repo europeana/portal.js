@@ -4,6 +4,7 @@
       id="organisations-map"
       ref="map"
       class="organisations-map"
+      :class="{ 'greyscale-on': greyscale }"
       width="100vh"
       height="80vh"
     >
@@ -50,8 +51,12 @@
             </option>
           </optgroup>
         </select>
+        <button @click="toggleGreyscale">
+          Toggle greyscale
+        </button>
       </div>
     </div>
+
     <b-card
       ref="popover"
       class="ol-popup"
@@ -96,24 +101,25 @@
         selectedStyle: 'osm_standard',
         organisations: [],
         clusters: null,
-        overlay: null
+        overlay: null,
+        greyscale: true
       };
     },
     async fetch() {
       const response = await this.fetchData();
       this.organisations = response.items;
+    },
 
-      // CSR
-      if (process.client) {
-        this.initMap();
+    watch: {
+      organisations() {
+        this.initClustersLayer();
+        this.olMap.addLayer(this.clusters);
       }
     },
 
     // SSR
     mounted() {
-      if (this.organisations.length && !this.olMap) {
-        this.initMap();
-      }
+      this.initMap();
     },
 
     methods: {
@@ -125,13 +131,15 @@
         useGeographic();
 
         // set default baseLayer to use OSM map style
-        this.baseLayer = new TileLayer({ source: new OSM() });
+        this.baseLayer = new TileLayer({ source: new OSM(), className: 'osm-layer' });
+
         const layers = [this.baseLayer];
-        // TODO: is this check still needed?
+
         if (this.organisations.length) {
           this.initClustersLayer();
           layers.push(this.clusters);
         }
+
         // Create an overlay to anchor the popover to the map.
         this.overlay = new Overlay({
           element: this.$refs.popover,
@@ -260,6 +268,9 @@
 
           this.olMap.getLayers().insertAt(0, this.baseLayer);
         }
+      },
+      toggleGreyscale() {
+        this.greyscale = !this.greyscale;
       }
 
     }
@@ -272,9 +283,14 @@
   height: 80vh;
   position: relative;
 
+  &.greyscale-on ::v-deep .osm-layer {
+    filter: grayscale(100%)
+  }
+
   .ol-popup {
     position: absolute;
     min-width: 10rem;
   }
+
 }
 </style>
