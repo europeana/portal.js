@@ -586,6 +586,7 @@ export default {
       'ol/render/Feature.js',
       'ol/reproj/DataTile.js',
       'ol/reproj/Tile.js',
+      'ol/source/Cluster.js',
       'ol/source/IIIF.js',
       'ol/source/ImageStatic.js',
       'ol/source/Source.js',

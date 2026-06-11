@@ -58,6 +58,21 @@
   import TileLayer from 'ol/layer/Tile.js';
   import OSM from 'ol/source/OSM.js';
   import StadiaMaps from 'ol/source/StadiaMaps.js';
+  import Feature from 'ol/Feature.js';
+  import Point from 'ol/geom/Point.js';
+  import VectorSource from 'ol/source/Vector.js';
+  import Cluster from 'ol/source/Cluster.js';
+  import VectorLayer from 'ol/layer/Vector.js';
+  import CircleStyle from 'ol/style/Circle.js';
+  import Fill from 'ol/style/Fill.js';
+  import Stroke from 'ol/style/Stroke.js';
+  import Style from 'ol/style/Style.js';
+  import Text from 'ol/style/Text.js';
+  import { useGeographic } from 'ol/proj.js';
+  import { boundingExtent } from 'ol/extent.js';
+  import 'ol/ol.css';
+
+  import { backendFetch } from '@/utils/backendFetch.js';
 
   export default {
     name: 'EntityOrganisationsMap',
@@ -66,24 +81,98 @@
       return {
         olMap: null,
         baseLayer: null,
-        selectedStyle: 'osm_standard'
+        selectedStyle: 'osm_standard',
+        organisations: [],
+        clusters: null
       };
     },
+    async fetch() {
+      const response = await this.fetchData();
+      this.organisations = response.items;
+      console.log(this.organisations[0]);
+    },
+
     mounted() {
       this.initMap();
+      this.olMap.on('click', (e) => {
+        this.clusters.getFeatures(e.pixel).then((clickedFeatures) => {
+          if (clickedFeatures.length) {
+            // Get clustered Coordinates
+            const features = clickedFeatures[0].get('features');
+            if (features.length > 1) {
+              const extent = boundingExtent(
+                features.map((r) => r.getGeometry().getCoordinates())
+              );
+              this.olMap.getView().fit(extent, { duration: 1000, padding: [50, 50, 50, 50] });
+            }
+          }
+        });
+      });
     },
+
     methods: {
+      fetchData() {
+        return backendFetch('collections', ['organisations/map', {}], this.$nuxt.context);
+      },
       initMap() {
+        useGeographic();
         this.baseLayer = new TileLayer({ source: new OSM() });
+        if (this.organisations.length) {
+          this.initClustersLayer();
+        }
 
         this.olMap = new Map({
           target: 'organisations-map',
-          layers: [this.baseLayer],
+          layers: [this.baseLayer, this.clusters],
           view: new View({
             center: [0, 0],
             minZoom: 1,
             zoom: 2
           })
+        });
+      },
+      initClustersLayer() {
+        // TODO: store coordinates as needed here in the cacher, i.e. [Number, Number]
+        const features = this.organisations.map((org) => (new Feature(new Point([Number(org.long), Number(org.lat)]))));
+
+        const source = new VectorSource({
+          features
+        });
+
+        const clusterSource = new Cluster({
+          distance: parseInt(40, 10),
+          minDistance: parseInt(20, 10),
+          source
+        });
+
+        const styleCache = {};
+        this.clusters = new VectorLayer({
+          source: clusterSource,
+          style(feature) {
+            const size = feature.get('features').length;
+            let style = styleCache[size];
+            if (!style) {
+              style = new Style({
+                image: new CircleStyle({
+                  radius: 10,
+                  stroke: new Stroke({
+                    color: '#fff'
+                  }),
+                  fill: new Fill({
+                    color: '#0a72cc'
+                  })
+                }),
+                text: new Text({
+                  text: size.toString(),
+                  fill: new Fill({
+                    color: '#fff'
+                  })
+                })
+              });
+              styleCache[size] = style;
+            }
+            return style;
+          }
         });
       },
       updateBasemap() {
