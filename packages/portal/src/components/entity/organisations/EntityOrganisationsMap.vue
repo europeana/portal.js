@@ -117,7 +117,6 @@
       }
     },
 
-    // SSR
     mounted() {
       this.initMap();
     },
@@ -165,9 +164,8 @@
         this.olMap.on('click', this.handleClick);
       },
       initClustersLayer() {
-        // TODO: store coordinates as needed here in the cacher, i.e. [Number, Number]
         const features = this.organisations.map((org) => (new Feature({
-          geometry: new Point([Number(org.long), Number(org.lat)]),
+          geometry: new Point(org.geo),
           name: org.id
         })));
 
