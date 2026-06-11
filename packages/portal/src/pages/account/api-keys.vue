@@ -1,5 +1,6 @@
 <template>
   <div
+    v-if="$auth.user.loggedIn"
     class="xxl-page page api-keys-page mb-3 mb-sm-5"
   >
     <b-container fluid>
@@ -172,8 +173,6 @@
     mixins: [
       pageMetaMixin
     ],
-
-    middleware: 'auth',
 
     data() {
       return {

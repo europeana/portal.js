@@ -6,8 +6,10 @@
   export default {
     name: 'AuthLoginPage',
 
+    layout: 'minimal',
+
     mounted() {
-      this.$auth.login(this.$route.query?.redirect || this.localePath('/'));
+      this.$auth.login();
     }
   };
 </script>

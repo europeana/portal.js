@@ -4,7 +4,7 @@
 import axios from 'axios';
 import { nanoid } from 'nanoid';
 import { extractLocaleFromRoutePath } from '@/i18n/routes.js';
-import { reactive } from 'vue';
+import { computed, reactive, ref } from 'vue';
 
 const PLUGIN_NAME = 'auth';
 const NUXT_STATE_KEY = `$${PLUGIN_NAME}`;
@@ -33,8 +33,7 @@ class Token {
   }
 
   clear() {
-    this.#value = undefined;
-    this.save();
+    this.value = undefined;
   }
 
   save() {
@@ -93,6 +92,8 @@ const createTokens = ({ storage }) => {
   return {
     access: new AccessToken({ storage }),
     clear() {
+      // TODO: ensure that after this happens on server-side, on client-side
+      //       the cookies & localStorage are cleared too
       this.access.clear();
       this.refresh.clear();
     },
@@ -153,10 +154,24 @@ const createLoginParams = ({ clientId, redirectUri, scope, uiLocales }) => ({
   'ui_locales': uiLocales
 });
 
-export const createAuthPlugin = ({ options, appBaseURL, route, router, localePath, locale, cookies }) => {
-  const config = createConfig(options);
-  const storage = createStorage({ cookies });
+export const createAuthPlugin = (options = {}) => {
+  const { appBaseURL, redirect, route, router, localePath, locale } = options;
+  const config = createConfig(options.config);
+  const storage = createStorage({ cookies: options.cookies });
   const tokens = createTokens({ storage: storage.cookies });
+
+  const routeRef = ref(route);
+
+  router.beforeEach((to, from, next) => {
+    routeRef.value = to;
+
+    if (to.meta?.auth && !user.loggedIn) {
+      redirect(login.route.value);
+      return;
+    }
+
+    next();
+  });
 
   const appUrl = (path) => `${appBaseURL}${path}`;
 
@@ -216,33 +231,46 @@ export const createAuthPlugin = ({ options, appBaseURL, route, router, localePat
     return (errorResponse?.status === 400) && (errorResponse?.data?.error === 'invalid_grant');
   };
 
-  const handleUnauthorizedError = async(error) => {
-    const requestConfig = error.config;
+  const handleUnauthorizedError = async(unauthorizedError) => {
+    const requestConfig = unauthorizedError.config;
 
-    if (tokens.refresh.value) {
-      // User has previously logged in, and we have a refresh token, e.g.
-      // access token has expired: get a new access token
-      try {
-        await refreshAccessToken();
-        return request.withAuth(requestConfig);
-      } catch (err) {
-        if (errorResponseIsInvalidGrant(err.response)) {
-          // Refresh token is no longer valid; clear it and try again
-          // in case request does not need authorization anyway
-          delete requestConfig.headers['authorization'];
-          tokens.clear();
-          user.info = null;
-          const response = await request(requestConfig);
-          return response;
-        } else {
-          // some other error: throw for caller to handle
-          throw err;
-        }
-      }
-    } else {
+    if (!tokens.refresh.value) {
       // User has not already logged in, or we have no refresh token:
       // throw error for caller to handle
-      throw error;
+      throw unauthorizedError;
+    }
+
+    // User has previously logged in, and we have a refresh token, e.g.
+    // access token has expired: get a new access token
+    try {
+      await refreshAccessToken();
+      return request.withAuth(requestConfig);
+    } catch (refreshError) {
+      if (!errorResponseIsInvalidGrant(refreshError.response)) {
+        // Failed to refresh access token, but not due to refresh token
+        // having expired: throw for caller to handle
+        throw refreshError;
+      }
+
+      // refresh token is no longer valid; user is no longer logged in
+      tokens.clear();
+      user.info = null;
+
+      // if it is known to require auth via use of auth middleware,
+      // re-route to login page
+      if (routeRef.value.meta?.auth) {
+        router.push(login.route.value);
+        return;
+      }
+
+      // otherwise, try the request again in case it does not need
+      // token-based authorization anyway
+      // if it fails again, the error will need to be caught and handled
+      // by caller.
+      // TODO: or if this is an SSR, should we send error code in response?
+      delete requestConfig.headers['authorization'];
+      const response = await request(requestConfig);
+      return response;
     }
   };
 
@@ -271,29 +299,36 @@ export const createAuthPlugin = ({ options, appBaseURL, route, router, localePat
   };
 
   const createAuthServiceRedirectAction = (endpoint, paramsGenerator, cb) => (destination) => {
+    if (process.server) {
+      // client-side only due to reliance on localStorage for OIDC state mgmt
+      throw new Error('Auth service redirect action is client-side only');
+    }
+
+    if (!destination) {
+      destination = route.query?.redirect || localePath('/');
+    }
+
     const params = paramsGenerator?.(destination) || {};
     cb?.(params);
 
     const url = new URL(`${config.baseURL}/${endpoint}`);
     url.search = new URLSearchParams(params);
 
-    // TODO: use vue router? (but it's not a vue route...)
-    // TODO: is replace needed at any point in the flow?
-    window.location = url;
+    window.location.replace(url);
   };
 
   const createAuthServiceRedirectCallback = (impl) => async(cb) => {
     await impl();
-
     await cb?.();
 
-    router.replace(route.query?.redirect || '/');
+    const path = route.query?.redirect || '/';
+    router.replace(path);
   };
 
   const login = createAuthServiceRedirectAction('auth',
     (destination) => (createLoginParams({
       clientId: config.clientId,
-      redirectUri: redirectUri('login', destination || route.fullPath),
+      redirectUri: redirectUri('login', destination || route.value.query.redirect),
       scope: config.scope,
       uiLocales: locale
     })),
@@ -342,17 +377,53 @@ export const createAuthPlugin = ({ options, appBaseURL, route, router, localePat
     await user.fetch();
   });
 
+  const loginRedirectPath = computed(() => {
+    // TODO: this should be derived, from auth path config
+    if (routeRef.value.name.startsWith('auth')) {
+      return localePath('/');
+    }
+    return routeRef.value.fullPath;
+  });
+
+  login.route = computed(() => {
+    return {
+      path: localePath('/auth/login'),
+      query: { redirect: loginRedirectPath.value }
+    };
+  });
+
   const logout = createAuthServiceRedirectAction('logout',
     (destination) => ({
-      'redirect_uri': redirectUri('logout', destination || route.fullPath),
+      'redirect_uri': redirectUri('logout', destination || route.value.query.redirect),
       'ui_locales': locale
     })
   );
 
   logout.callback = createAuthServiceRedirectCallback(() => {
     tokens.clear();
-    // FIXME: shouldn't need to do this as it shouldn't yet be set...
-    user.info = null;
+  });
+
+  // TODO: refactor so that each page can register its own logout redirect path
+  //       (if needed)
+  const logoutRedirectPath = computed(() => {
+    if (routeRef.value.meta?.auth) {
+      return localePath('/');
+    } else if (routeRef.value.name.startsWith('item-all')) {
+      if (routeRef.value.query.lang) {
+        // rm lang from query
+        const query = new URLSearchParams(routeRef.value.query);
+        query.delete('lang');
+        return `${routeRef.value.path}?${query.toString()}`;
+      }
+    }
+    return routeRef.value.fullPath;
+  });
+
+  logout.route = computed(() => {
+    return {
+      path: localePath('/auth/logout'),
+      query: { redirect: logoutRedirectPath.value }
+    };
   });
 
   const fetchUserInfo = async() => {
@@ -363,14 +434,12 @@ export const createAuthPlugin = ({ options, appBaseURL, route, router, localePat
         clientId: config.clientId
       }));
       userInfo = response.data;
-    } catch (err) {
-      if (err.response?.status) {
-        // if by this point there is any kind of response error, then either
-        // user is no longer logged in and refresh token is expired, or something
-        // else is wrong, e.g. the server is down. give up. user is not logged in.
-        // tokens should have been cleared. let the caller detect & handle that.
+    } catch (fetchUserInfoError) {
+      if (fetchUserInfoError.response?.status === 401) {
+        // user is not logged-in (any more), let return result in userInfo
+        // being reset to null, reflecting this
       } else {
-        throw err;
+        throw fetchUserInfoError;
       }
     }
 
@@ -383,6 +452,8 @@ export const createAuthPlugin = ({ options, appBaseURL, route, router, localePat
       // TODO: should we rely on presence (hence retrieval) of userinfo to
       //       determine logged-in state? costs a request, but does validate
       //       tokens, so perhaps.
+      // TODO: if not logged in, ensure client-side localStorage and cookies for auth
+      //       get cleared after page load
       return !!this.info;
     },
     hasClientRole(client, role) {
@@ -407,13 +478,22 @@ export const createAuthPlugin = ({ options, appBaseURL, route, router, localePat
 
 export default async(ctx, inject) => {
   const plugin = createAuthPlugin({
-    options: ctx.$config.auth,
+    config: ctx.$config.auth,
     appBaseURL: ctx.$config.app.baseUrl,
+    beforeSerialize: ctx.beforeSerialize,
+    nuxtState: ctx.nuxtState,
+    redirect: ctx.redirect,
     route: ctx.route,
     router: ctx.app.router,
     localePath: ctx.localePath,
     locale: ctx.i18n.locale,
     cookies: ctx.$cookies
+  });
+
+  // initialise nuxt state on SSR to hydrate front-end w/ shared data
+  ctx.beforeSerialize?.((nuxtState) => {
+    nuxtState[NUXT_STATE_KEY] ||= {};
+    nuxtState[NUXT_STATE_KEY].user = plugin.user.info;
   });
 
   const initUserInfo = async() => {
@@ -434,7 +514,7 @@ export default async(ctx, inject) => {
 
       // store it in the nuxt state for hydration to prevent re-calling user.fetch client-side
       ctx.beforeSerialize?.((nuxtState) => {
-        nuxtState[NUXT_STATE_KEY] ||= {};
+        // TODO: is this redundant given previous setting of nuxtState[NUXT_STATE_KEY].user?
         nuxtState[NUXT_STATE_KEY].user = plugin.user.info;
       });
     }

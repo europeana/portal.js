@@ -6,8 +6,10 @@
   export default {
     name: 'AuthLogoutPage',
 
+    layout: 'minimal',
+
     mounted() {
-      this.$auth.logout(this.$route.query?.redirect || this.localePath('/'));
+      this.$auth.logout();
 
       // TODO: is any of the below still relevant?
       // localStorage.setItem('logout-event', `logout-${Math.random()}`);

@@ -27,8 +27,6 @@
 </template>
 
 <script>
-  import { useAuthRoutes } from '@/composables/authRoutes.js';
-
   export default {
     name: 'PageNavigation',
 
@@ -39,22 +37,16 @@
       }
     },
 
-    setup() {
-      const { loginRoute, logoutRoute } = useAuthRoutes();
-
-      return { loginRoute, logoutRoute };
-    },
-
     computed: {
       authLinks() {
         if (this.isAuthenticated) {
           return [
             { url: '/account', text: this.$t('account.title'), dataQa: 'account link' },
-            this.sidebarNav && { url: '/auth/logout', to: this.logoutRoute, text: this.$t('account.linkLogout'), dataQa: 'log out link' }
+            this.sidebarNav && { url: '/auth/logout', to: this.$auth.logout.route.value, text: this.$t('account.linkLogout'), dataQa: 'log out link' }
           ];
         } else {
           return [
-            { url: '/auth/login', to: this.loginRoute, text: this.$t('account.linkLoginJoin'), dataQa: 'log in link' }
+            { url: '/auth/login', to: this.$auth.login.route.value, text: this.$t('account.linkLoginJoin'), dataQa: 'log in link' }
           ];
         }
       },

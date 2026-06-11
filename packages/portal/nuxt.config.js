@@ -422,6 +422,12 @@ export default {
       'cache-control/auth'
     ],
     extendRoutes(routes) {
+      for (const route of routes) {
+        if (route.path === '/account' || route.path.startsWith('/account/')) {
+          route.meta ||= {};
+          route.meta.auth = true;
+        }
+      }
       routes.push({
         name: 'slug',
         path: '/*',

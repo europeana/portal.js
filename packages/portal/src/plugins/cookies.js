@@ -11,7 +11,8 @@ export default (ctx, inject) => {
     },
 
     remove(name) {
-      this.set(name, this.get(name), { maxAge: 0 });
+      // FIXME: is this leaving unnamed "undefined" cookies in the browser?
+      this.set(name, '', { maxAge: 0 });
     },
 
     set(name, value, options = {}) {
@@ -23,6 +24,7 @@ export default (ctx, inject) => {
       const serialized = serialize(name, value, options);
 
       if (ctx.res) {
+        // FIXME: this needs to remove any others of the same name...
         ctx.res.setHeader('set-cookie', [].concat(ctx.res.getHeader('set-cookie'), serialized));
       } else {
         document.cookie = serialized;

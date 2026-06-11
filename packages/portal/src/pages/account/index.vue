@@ -1,5 +1,6 @@
 <template>
   <div
+    v-if="$auth.user.loggedIn"
     data-qa="account page"
     class="xxl-page page"
   >
@@ -123,8 +124,6 @@
     mixins: [
       pageMetaMixin
     ],
-
-    middleware: ['auth'],
 
     setup() {
       const tabIds = [

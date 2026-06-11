@@ -10,18 +10,22 @@ export const createLikedItemsPlugin = ({ $apis, $auth, beforeSerialize, nuxtStat
   let likedItemsSetId = null;
 
   const initSetId = async() => {
-    if (nuxtState?.[NUXT_STATE_KEY]?.setId) {
-      likedItemsSetId = nuxtState[NUXT_STATE_KEY].setId;
-    } else if ($auth?.user?.loggedIn && $auth?.user?.info?.sub) {
-      try {
-        likedItemsSetId = await $apis.set.getLikes($auth.user.info.sub);
-        beforeSerialize?.((nuxtState) => {
-          nuxtState[NUXT_STATE_KEY] ||= {};
-          nuxtState[NUXT_STATE_KEY].setId = likedItemsSetId;
-        });
-      } catch (e) {
-        // Don't cause everything to break if the Set API is down...
+    if ($auth?.user?.loggedIn) {
+      if (nuxtState?.[NUXT_STATE_KEY]?.setId) {
+        likedItemsSetId = nuxtState[NUXT_STATE_KEY].setId;
+      } else if ($auth?.user?.info?.sub) {
+        try {
+          likedItemsSetId = await $apis.set.getLikes($auth.user.info.sub);
+          beforeSerialize?.((nuxtState) => {
+            nuxtState[NUXT_STATE_KEY] ||= {};
+            nuxtState[NUXT_STATE_KEY].setId = likedItemsSetId;
+          });
+        } catch (e) {
+          // Don't cause everything to break if the Set API is down...
+        }
       }
+    } else {
+      likedItemsSetId = null;
     }
   };
 
