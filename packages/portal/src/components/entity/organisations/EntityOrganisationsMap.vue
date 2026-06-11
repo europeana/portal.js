@@ -184,19 +184,20 @@
             if (!style) {
               style = new Style({
                 image: new CircleStyle({
-                  radius: 10,
+                  radius: 14,
                   stroke: new Stroke({
-                    color: '#fff'
+                    color: '#000'
                   }),
                   fill: new Fill({
-                    color: '#0a72cc'
+                    color: '#000'
                   })
                 }),
                 text: new Text({
                   text: size.toString(),
                   fill: new Fill({
                     color: '#fff'
-                  })
+                  }),
+                  font: '700 0.875rem "Open Sans", "Arial", sans-serif'
                 })
               });
               styleCache[size] = style;
