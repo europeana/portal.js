@@ -38,6 +38,7 @@ export default {
     }
   },
   "actions": {
+    "testKey": "test value",
     "accept": "Accept",
     "add": "Add",
     "apply": "Apply",
