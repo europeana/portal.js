@@ -28,7 +28,6 @@ jobs:
           project_id: ${{ secrets.LOKALISE_PROJECT_ID }}
           file_format: react_native
           file_ext: js
-          translations_path: packages/portal/src/i18n/lang
           base_lang: en_GB
           flat_naming: true
           skip_include_tags: true
@@ -40,6 +39,7 @@ jobs:
           async_mode: true
           additional_params: |
             add_newline_eof: true
+            directory_prefix: packages/portal/src/i18n/lang
             exclude_tags:
               - "Not ready"
             export_empty_as: skip
