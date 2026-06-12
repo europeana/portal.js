@@ -78,6 +78,7 @@ export default {
     "showMore": "Továbbiak megjelenítése",
     "submitForPublication": "Beküldés közzétételre",
     "submittedForPublication": "Közzétételre benyújtva",
+    "testKey": "tesztérték",
     "transcribe": "Átirat készítése",
     "transcribeNow": "Átirat készítése most",
     "unlike": "Nem tetszik",
@@ -1335,9 +1336,6 @@ export default {
     },
     "results": {
       "limitWarning": "A további találatok nem láthatóak, mivel csak az első 1000 legrelevánsabb találat jelenik meg. Ha nem találtad meg, amit keresel, fontold meg a keresés finomítását.",
-      "loginToSeeMore": "{login} további találatok megtekintéséhez",
-      "loginToSeeMultilingualResults": "Jelentkezz be, ha szeretnél a teljes gyűjteményben keresni, és nem korlátozni a találatokat a keresési kifejezés nyelvére.",
-      "showingMultilingualResults": "Eredmények megjelenítése a teljes gyűjteményben és az összes nyelven.",
       "withinCollection": "{count} találat ezzel kapcsolatban: {type}:{collection}",
       "withinCollectionWithQuery": "{count} találat ezzel kapcsolatban: {type}:{collection}, {query}",
       "withoutQuery": "{count} találat",

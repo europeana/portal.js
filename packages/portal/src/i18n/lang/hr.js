@@ -78,6 +78,7 @@ export default {
     "showMore": "Prikaži više",
     "submitForPublication": "Predajte za objavu",
     "submittedForPublication": "Predano za objavu",
+    "testKey": "vrijednost ispitivanja",
     "transcribe": "Prepisati",
     "transcribeNow": "Prepišite sada",
     "unlike": "Ukloni lajk",
@@ -1335,9 +1336,6 @@ export default {
     },
     "results": {
       "limitWarning": "Dodatni rezultati nisu prikazani jer je prikazano samo prvih 1000 najrelevantnijih rezultata. Ako niste pronašli ono što tražite, razmislite o suženju pretraživanja.",
-      "loginToSeeMore": "{login} da biste vidjeli više rezultata",
-      "loginToSeeMultilingualResults": "Prijavite se kako biste pretraživali cijelu zbirku i dobili rezultate koji nisu ograničeni na jezik vašeg pojma za pretraživanje.",
-      "showingMultilingualResults": "Prikaz rezultata kroz cijelu kolekciju i sve jezike.",
       "withinCollection": "{count} rezultata unutar {type} {collection}",
       "withinCollectionWithQuery": "{count} rezultata unutar {type} {collection} za {query}",
       "withoutQuery": "{count} rezultata",

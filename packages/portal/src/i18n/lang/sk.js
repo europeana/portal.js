@@ -78,6 +78,7 @@ export default {
     "showMore": "Zobraziť viac",
     "submitForPublication": "Odoslať na zverejnenie",
     "submittedForPublication": "Predložené na zverejnenie",
+    "testKey": "testovacia hodnota",
     "transcribe": "Prepísať",
     "transcribeNow": "Teraz prepíšte",
     "unlike": "Nepáči sa mi",
@@ -1335,9 +1336,6 @@ export default {
     },
     "results": {
       "limitWarning": "Ďalšie výsledky sa nezobrazujú, pretože je zobrazených iba prvých 1000 najrelevantnejších výsledkov. Ak ste nenašli to, čo ste hľadali, zvážte spresnenie vyhľadávania.",
-      "loginToSeeMore": "{login} pre zobrazenie viac výsledkov",
-      "loginToSeeMultilingualResults": "Prihláste sa a vyhľadávajte v celej zbierke a získajte výsledky, ktoré nie sú obmedzené na jazyk vyhľadávaného výrazu.",
-      "showingMultilingualResults": "Zobrazujú sa výsledky z celej kolekcie a vo všetkých jazykoch.",
       "withinCollection": "{count} výsledkov v rámci {type} {collection}",
       "withinCollectionWithQuery": "{count} výsledkov v rámci {type} {collection} pre {query}",
       "withoutQuery": "{count} výsledkov",

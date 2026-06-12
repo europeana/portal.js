@@ -78,6 +78,7 @@ export default {
     "showMore": "Rodyti daugiau",
     "submitForPublication": "Pateikti publikavimui",
     "submittedForPublication": "Pateikta publikuoti",
+    "testKey": "bandymo vertė",
     "transcribe": "Transkribuoti",
     "transcribeNow": "Transkribuokite dabar",
     "unlike": "Nepatinka",
@@ -1335,9 +1336,6 @@ export default {
     },
     "results": {
       "limitWarning": "Papildomi rezultatai nerodomi, nes rodomi tik pirmieji 1000 aktualiausių rezultatų. Jei neradote to, ko ieškote, apsvarstykite galimybę patikslinti paiešką.",
-      "loginToSeeMore": "{login} kad pamatytumėte daugiau rezultatų",
-      "loginToSeeMultilingualResults": "Prisijunkite, kad galėtumėte ieškoti visoje kolekcijoje ir gauti rezultatus, neribotus jūsų paieškos termino kalba.",
-      "showingMultilingualResults": "Rodomi rezultatai iš visos kolekcijos ir visomis kalbomis.",
       "withinCollection": "{count} rezultatų pagal {type} {collection}",
       "withinCollectionWithQuery": "{count} rezultatų pagal {type} {collection} dėl {query}",
       "withoutQuery": "{count} rezultatai",

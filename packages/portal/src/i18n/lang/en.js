@@ -38,7 +38,6 @@ export default {
     }
   },
   "actions": {
-    "testKey": "test value",
     "accept": "Accept",
     "add": "Add",
     "apply": "Apply",
@@ -79,6 +78,7 @@ export default {
     "showMore": "Show more",
     "submitForPublication": "Submit for publication",
     "submittedForPublication": "Submitted for publication",
+    "testKey": "test value",
     "transcribe": "Transcribe",
     "transcribeNow": "Transcribe now",
     "unlike": "Unlike",

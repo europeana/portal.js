@@ -78,6 +78,7 @@ export default {
     "showMore": "Näita rohkem",
     "submitForPublication": "Esitage avaldamiseks",
     "submittedForPublication": "Esitatud avaldamiseks",
+    "testKey": "testväärtus",
     "transcribe": "Transkribeeri",
     "transcribeNow": "Transkribeeri nüüd",
     "unlike": "Ei meeldi",
@@ -1335,9 +1336,6 @@ export default {
     },
     "results": {
       "limitWarning": "Täiendavaid tulemusi ei näidata, kuna näidatakse ainult esimesed 1000 kõige asjakohasemat tulemust. Kui te ei ole leidnud seda, mida otsite, palun täpsustage oma otsingut.",
-      "loginToSeeMore": "{login} , et näha rohkem tulemusi",
-      "loginToSeeMultilingualResults": "Logige sisse, et otsida kogu kollektsioonist ja saada tulemusi, mis ei piirdu teie otsingutermini keelega.",
-      "showingMultilingualResults": "Kuvatakse tulemusi kogu kogumiku ja kõigi keelte lõikes.",
       "withinCollection": "{count} tulemust jaotises {type} {collection}",
       "withinCollectionWithQuery": "{count} tulemust jaotises {type} {collection} jaoks {query}",
       "withoutQuery": "{count} tulemust",

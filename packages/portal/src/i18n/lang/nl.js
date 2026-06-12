@@ -78,6 +78,7 @@ export default {
     "showMore": "Meer weergeven",
     "submitForPublication": "Indienen voor publicatie",
     "submittedForPublication": "Ingezonden voor publicatie",
+    "testKey": "testwaarde",
     "transcribe": "Transcriberen",
     "transcribeNow": "Nu transcriberen",
     "unlike": "Unlike",
@@ -1335,9 +1336,6 @@ export default {
     },
     "results": {
       "limitWarning": "Aanvullende resultaten worden niet getoond, omdat alleen de eerste 1000 meest relevante resultaten worden getoond. Als u niet heeft gevonden wat u zocht, kunt u overwegen uw zoekopdracht te verfijnen.",
-      "loginToSeeMore": "{login} om meer resultaten te zien",
-      "loginToSeeMultilingualResults": "Log in om in de hele collectie te zoeken en krijg resultaten die niet beperkt zijn tot de taal van uw zoekterm.",
-      "showingMultilingualResults": "Resultaten weergeven voor de gehele collectie en alle talen.",
       "withinCollection": "{count} resultaten binnen {type} {collection}",
       "withinCollectionWithQuery": "{count} resultaten binnen {type} {collection} voor {query}",
       "withoutQuery": "{count} resultaten",

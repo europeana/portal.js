@@ -78,6 +78,7 @@ export default {
     "showMore": "Visa mer",
     "submitForPublication": "Skicka in för publicering",
     "submittedForPublication": "Inlämnad för publicering",
+    "testKey": "testvärde",
     "transcribe": "Transkribera",
     "transcribeNow": "Transkribera nu",
     "unlike": "Ogilla",
@@ -1335,9 +1336,6 @@ export default {
     },
     "results": {
       "limitWarning": "Ytterligare resultat visas inte eftersom endast de 1000 första mest relevanta resultaten visas. Om du inte har hittat det du letar efter kan du prova att förfina din sökning.",
-      "loginToSeeMore": "{login} för att se fler resultat",
-      "loginToSeeMultilingualResults": "Logga in för att söka i hela samlingen och få resultat som inte är begränsade till språket för din sökterm.",
-      "showingMultilingualResults": "Visar resultat över hela samlingen och alla språk.",
       "withinCollection": "{count} resultat inom {type} {collection}",
       "withinCollectionWithQuery": "{count} resultat inom {type} {collection} för {query}",
       "withoutQuery": "{count} resultat",

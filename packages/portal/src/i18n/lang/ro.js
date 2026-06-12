@@ -78,6 +78,7 @@ export default {
     "showMore": "Afișează mai multe",
     "submitForPublication": "Trimiteți spre publicare",
     "submittedForPublication": "Trimis spre publicare",
+    "testKey": "valoare de test",
     "transcribe": "Transcrie",
     "transcribeNow": "Transcrie acum",
     "unlike": "Nu îmi place",
@@ -1335,9 +1336,6 @@ export default {
     },
     "results": {
       "limitWarning": "Rezultate suplimentare nu sunt afișate, deoarece sunt afișate doar primele 1000 de rezultate cele mai relevante. Dacă nu ați găsit ceea ce căutați, vă rugăm să vă rafinați căutarea.",
-      "loginToSeeMore": "{login} pentru a vedea mai multe rezultate",
-      "loginToSeeMultilingualResults": "Conectați-vă pentru a căuta în întreaga colecție și pentru a obține rezultate care nu se limitează la limba termenului dvs. de căutare.",
-      "showingMultilingualResults": "Afișare rezultate din întreaga colecție și toate limbile.",
       "withinCollection": "{count} rezultate în cadrul {type} {collection}",
       "withinCollectionWithQuery": "{count} rezultate în {type} {collection} pentru {query}",
       "withoutQuery": "{count} rezultate",

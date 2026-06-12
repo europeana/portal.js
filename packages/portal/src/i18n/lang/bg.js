@@ -78,6 +78,7 @@ export default {
     "showMore": "Покажи повече",
     "submitForPublication": "Изпратете за публикуване",
     "submittedForPublication": "Изпратено за публикуване",
+    "testKey": "тестова стойност",
     "transcribe": "Транскрибиране",
     "transcribeNow": "Транскрибирайте сега",
     "unlike": "Не харесвам",
@@ -1335,9 +1336,6 @@ export default {
     },
     "results": {
       "limitWarning": "Допълнителни резултати не се показват, тъй като се показват само първите 1000 най-подходящи резултата. Ако не сте намерили това, което търсите, моля, помислете за прецизиране на търсенето.",
-      "loginToSeeMore": "{login} за да видите повече резултати",
-      "loginToSeeMultilingualResults": "Влезте, за да търсите в цялата колекция и да получите резултати, които не са ограничени до езика на вашата дума за търсене.",
-      "showingMultilingualResults": "Показване на резултати от цялата колекция и всички езици.",
       "withinCollection": "{count} резултати в рамките на {type} {collection}",
       "withinCollectionWithQuery": "{count} резултати в рамките на {type} {collection} за {query}",
       "withoutQuery": "{count} резултати",

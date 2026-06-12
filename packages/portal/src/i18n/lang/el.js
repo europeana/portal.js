@@ -78,6 +78,7 @@ export default {
     "showMore": "Εμφάνιση περισσότερων",
     "submitForPublication": "Υποβολή για δημοσίευση",
     "submittedForPublication": "Υποβλήθηκε για δημοσίευση",
+    "testKey": "τιμή δοκιμής",
     "transcribe": "Μεταγραφή",
     "transcribeNow": "Μεταγραφή τώρα",
     "unlike": "Δεν μου αρέσει",
@@ -1335,9 +1336,6 @@ export default {
     },
     "results": {
       "limitWarning": "Δεν εμφανίζονται πρόσθετα αποτελέσματα καθώς εμφανίζονται μόνο τα πρώτα 1000 πιο σχετικά αποτελέσματα. Εάν δεν έχετε βρει αυτό που ψάχνετε, εξετάστε το ενδεχόμενο να βελτιώσετε την αναζήτησή σας.",
-      "loginToSeeMore": "{login} για να δείτε περισσότερα αποτελέσματα",
-      "loginToSeeMultilingualResults": "Συνδεθείτε για αναζήτηση σε ολόκληρη τη συλλογή και λάβετε αποτελέσματα που δεν περιορίζονται στη γλώσσα του όρου αναζήτησής σας.",
-      "showingMultilingualResults": "Εμφάνιση αποτελεσμάτων σε ολόκληρη τη συλλογή και σε όλες τις γλώσσες.",
       "withinCollection": "{count} αποτελέσματα εντός {type} {collection}",
       "withinCollectionWithQuery": "{count} αποτελέσματα εντός {type} {collection} για {query}",
       "withoutQuery": "{count} αποτελέσματα",

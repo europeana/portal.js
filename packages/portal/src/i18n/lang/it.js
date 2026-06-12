@@ -78,6 +78,7 @@ export default {
     "showMore": "Mostra di più",
     "submitForPublication": "Invia per la pubblicazione",
     "submittedForPublication": "Inviato per la pubblicazione",
+    "testKey": "valore di prova",
     "transcribe": "Trascrivere",
     "transcribeNow": "Trascrivi ora",
     "unlike": "Rimuovi il mi piace",
@@ -1335,9 +1336,6 @@ export default {
     },
     "results": {
       "limitWarning": "I risultati aggiuntivi non vengono visualizzati, in quanto vengono mostrati solo i primi 1000 risultati più rilevanti. Se non avete trovato quello che cercate, potete affinare la vostra ricerca.",
-      "loginToSeeMore": "{login} per vedere più risultati",
-      "loginToSeeMultilingualResults": "Accedi per effettuare ricerche nell'intera raccolta e ottenere risultati non limitati alla lingua del termine di ricerca.",
-      "showingMultilingualResults": "Visualizzazione dei risultati nell'intera raccolta e in tutte le lingue.",
       "withinCollection": "{count} risultati all'interno di {type} {collection}",
       "withinCollectionWithQuery": "{count} risultati all'interno di {type} {collection} per {query}",
       "withoutQuery": "{count} risultati",

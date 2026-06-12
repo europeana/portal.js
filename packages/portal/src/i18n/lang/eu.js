@@ -78,6 +78,7 @@ export default {
     "showMore": "Gehiago erakutsi",
     "submitForPublication": "Bidali argitaratzeko",
     "submittedForPublication": "Argitalpenerako aurkeztu da",
+    "testKey": "proba balioa",
     "transcribe": "Transkribatu",
     "transcribeNow": "Transkribatu orain",
     "unlike": "Ez gustatu",
@@ -1335,9 +1336,6 @@ export default {
     },
     "results": {
       "limitWarning": "Emaitza gehigarriak ez dira erakusten lehen 1000 emaitza garrantzitsuenak bakarrik erakusten baitira. Ez baduzu aurkitu bilatzen ari zarena, kontuan hartu bilaketa hobetzea.",
-      "loginToSeeMore": "{login} emaitza gehiago ikusteko",
-      "loginToSeeMultilingualResults": "Hasi saioa bilduma osoan bilatzeko eta lortu emaitzak bilaketa-terminoaren hizkuntzara mugatu gabe.",
-      "showingMultilingualResults": "Bilduma osoan eta hizkuntza guztietan emaitzak erakusten.",
       "withinCollection": "{count} emaitza barruan {type} {collection}",
       "withinCollectionWithQuery": "{count} emaitza {type} {collection} barruan {query}",
       "withoutQuery": "{count} emaitza",

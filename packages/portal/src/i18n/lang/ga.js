@@ -78,6 +78,7 @@ export default {
     "showMore": "Taispeáin níos mó",
     "submitForPublication": "Cuir isteach le foilsiú",
     "submittedForPublication": "Arna chur isteach le foilsiú",
+    "testKey": "luach tástála",
     "transcribe": "Tras-scríobh",
     "transcribeNow": "Tras-scríobh anois",
     "unlike": "Ní maith liom",
@@ -1335,9 +1336,6 @@ export default {
     },
     "results": {
       "limitWarning": "Ní thaispeántar torthaí breise mar ní léirítear ach an chéad 1000 toradh is ábhartha. Mura bhfuil a bhfuil uait aimsithe agat, smaoinigh ar do chuardach a bheachtú.",
-      "loginToSeeMore": "{login} chun tuilleadh torthaí a fheiceáil",
-      "loginToSeeMultilingualResults": "Logáil isteach chun cuardach a dhéanamh ar fud an bhailiúcháin ar fad, agus faigh torthaí nach bhfuil teoranta do theanga do théarma cuardaigh.",
-      "showingMultilingualResults": "Torthaí a thaispeáint ar fud an bhailiúcháin ar fad agus gach teanga.",
       "withinCollection": "{count} torthaí laistigh de {type} {collection}",
       "withinCollectionWithQuery": "{count} torthaí laistigh de {type} {collection} le haghaidh {query}",
       "withoutQuery": "{count} torthaí",

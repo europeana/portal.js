@@ -78,6 +78,7 @@ export default {
     "showMore": "Näytä lisää",
     "submitForPublication": "Lähetä julkaistavaksi",
     "submittedForPublication": "Lähetetty julkaistavaksi",
+    "testKey": "testiarvo",
     "transcribe": "Transkribeerida",
     "transcribeNow": "Transkriboi nyt",
     "unlike": "Älä tykkää",
@@ -1335,9 +1336,6 @@ export default {
     },
     "results": {
       "limitWarning": "Lisätuloksia ei näytetä, koska vain ensimmäiset 1000 osuvinta tulosta näytetään. Jos et löytänyt etsimääsi, harkitse hakusi tarkentamista.",
-      "loginToSeeMore": "{login} nähdäksesi lisää tuloksia",
-      "loginToSeeMultilingualResults": "Kirjaudu sisään tehdäksesi hakuja koko kokoelmasta ja saat tuloksia, jotka eivät rajoitu hakusanasi kieleen.",
-      "showingMultilingualResults": "Näytetään tulosta koko kokoelmasta ja kaikilla kielillä.",
       "withinCollection": "{count} tulokset sisällä {type} {collection}",
       "withinCollectionWithQuery": "{count} tulokset sisällä {type} {collection} for {query}",
       "withoutQuery": "{count} tulokset",

@@ -78,6 +78,7 @@ export default {
     "showMore": "Uri aktar",
     "submitForPublication": "Ibgħat għall-pubblikazzjoni",
     "submittedForPublication": "Mibgħut għall-pubblikazzjoni",
+    "testKey": "valur tat-test",
     "transcribe": "Traskrivi",
     "transcribeNow": "Traskrivi issa",
     "unlike": "Tneħħi l-like",
@@ -1335,9 +1336,6 @@ export default {
     },
     "results": {
       "limitWarning": "Riżultati addizzjonali mhumiex murija peress li jintwerew biss l-ewwel 1000 riżultat l-aktar rilevanti. Jekk ma sibtx dak li qed tfittex, jekk jogħġbok ikkunsidra li tirfina t-tfittxija tiegħek.",
-      "loginToSeeMore": "{login} biex tara aktar riżultati",
-      "loginToSeeMultilingualResults": "Illoggja biex tfittex madwar il-kollezzjoni kollha, u tikseb riżultati li mhumiex limitati għall-lingwa tat-terminu tat-tfittxija tiegħek.",
-      "showingMultilingualResults": "Li juru r-riżultati fil-kollezzjoni kollha u l-lingwi kollha.",
       "withinCollection": "{count} riżultati fi ħdan {type} {collection}",
       "withinCollectionWithQuery": "{count} riżultati fi ħdan {type} {collection} għal {query}",
       "withoutQuery": "{count} riżultati",

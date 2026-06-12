@@ -78,6 +78,7 @@ export default {
     "showMore": "Rādīt vairāk",
     "submitForPublication": "Iesniegt publicēšanai",
     "submittedForPublication": "Iesniegts publicēšanai",
+    "testKey": "testa vērtība",
     "transcribe": "Transkribēt",
     "transcribeNow": "Transkribēt tūlīt",
     "unlike": "Atcelt patiku",
@@ -1335,9 +1336,6 @@ export default {
     },
     "results": {
       "limitWarning": "Papildu rezultāti netiek rādīti, jo tiek rādīti tikai pirmie 1000 visatbilstošākie rezultāti. Ja neatradāt to, ko meklējat, lūdzu, apsveriet iespēju uzlabot meklēšanu.",
-      "loginToSeeMore": "{login} lai redzētu vairāk rezultātu",
-      "loginToSeeMultilingualResults": "Piesakieties, lai meklētu visā kolekcijā un saņemiet rezultātus ne tikai jūsu meklēšanas vienuma valodā.",
-      "showingMultilingualResults": "Rāda rezultātus visā kolekcijā un visās valodās.",
       "withinCollection": "{count} rezultāti sadaļā {type} {collection}",
       "withinCollectionWithQuery": "{count} rezultāti sadaļā {type} {collection} par {query}",
       "withoutQuery": "{count} rezultāti",
