@@ -9,7 +9,8 @@ import { computed, reactive, ref } from 'vue';
 import { PLUGIN_NAME, NUXT_STATE_KEY } from './constants.js';
 import { createStorage } from './storage.js';
 import { createTokens } from './token.js';
-import { createTokenRequestConfig, createUserInfoRequestConfig, createRefreshRequestConfig } from './requests.js';
+import { createUserInfoRequestConfig } from './requests.js';
+import { EuropeanaAuthService } from './service.js';
 
 const createConfig = ({ clientId, scope, origin, realm }) => ({
   clientId,
@@ -40,6 +41,8 @@ export const createAuthPlugin = (options = {}) => {
   const config = createConfig(options.config);
   const storage = createStorage({ cookies: options.cookies });
   const tokens = createTokens({ storage: storage.cookies });
+
+  const service = new EuropeanaAuthService({ baseURL: config.baseURL });
 
   const routeRef = ref(route);
 
@@ -93,17 +96,31 @@ export const createAuthPlugin = (options = {}) => {
     return axiosInstance.request(requestConfig);
   };
 
+  const withAuth = (config, cb) => {
+    const configWithAuth = interceptors.request.setAuthorizationHeader(config);
+
+    try {
+      return cb(configWithAuth);
+    } catch (e) {
+      return interceptors.response.handleError(e);
+    }
+  };
+
+  withAuth(config, service.getUserinfo);
+
   request.withAuth = (requestConfig, axiosInstance = axiosInstanceWithAuth) => {
     return request(requestConfig, axiosInstance);
   };
 
+  // @see https://openid.net/specs/openid-connect-core-1_0.html#RefreshingAccessToken
   const refreshAccessToken = async() => {
     tokens.access.clear();
-    const refreshAccessTokenResponse = await request(createRefreshRequestConfig({
-      clientId: config.clientId,
-      refreshToken: tokens.refresh.value,
+    const refreshAccessTokenResponse = await service.createToken({ data: {
+      'client_id': config.clientId,
+      'grant_type': 'refresh_token',
+      'refresh_token': tokens.refresh.value,
       scope: config.scope
-    }));
+    } });
     tokens.setFromResponse(refreshAccessTokenResponse);
   };
 
@@ -234,11 +251,14 @@ export const createAuthPlugin = (options = {}) => {
 
   const fetchToken = () => {
     // TODO: handle error response invalid_grant, when code is invalid
-    return request(createTokenRequestConfig({
+    // @see https://openid.net/specs/openid-connect-core-1_0.html#TokenRequest
+    return service.createToken({ data: {
+      'client_id': config.clientId,
       code: route.query.code,
-      clientId: config.clientId,
-      redirectUri: storage.local.get('redirect_uri')
-    }));
+      'grant_type': 'authorization_code',
+      'redirect_uri': storage.local.get('redirect_uri'),
+      'response_type': 'code'
+    } });
   };
 
   login.callback = createAuthServiceRedirectCallback(async() => {
@@ -311,6 +331,7 @@ export const createAuthPlugin = (options = {}) => {
     let userInfo = null;
 
     try {
+      const response = await service.getUserinfo({ params: { 'client_id': config.clientId } })
       const response = await request.withAuth(createUserInfoRequestConfig({
         clientId: config.clientId
       }));
