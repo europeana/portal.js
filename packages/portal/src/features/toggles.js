@@ -4,5 +4,6 @@ export default [
   { name: 'isFormatOfMediaMetadata' },
   { name: 'mockTrendingItems' },
   { name: 'modelViewer' },
-  { name: 'modelViewerReplacesOembed' }
+  { name: 'modelViewerReplacesOembed' },
+  { name: 'organisationsMap' }
 ];

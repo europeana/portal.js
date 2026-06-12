@@ -10,7 +10,7 @@
       v-else-if="trending"
     />
     <EntityOrganisationsMap
-      v-if="key === 'collections/organisations/featured'"
+      v-if="$features.organisationsMap && (key === 'collections/organisations/featured')"
     />
     <ContentCardSection
       v-else
