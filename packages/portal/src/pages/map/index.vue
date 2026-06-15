@@ -10,13 +10,11 @@
 </template>
 
 <script>
-  import EntityOrganisationsMap from '@/components/entity/organisations/EntityOrganisationsMap';
-
   export default {
     name: 'MapIndexPage',
 
     components: {
-      EntityOrganisationsMap,
+      EntityOrganisationsMap: () => import('@/components/entity/organisations/EntityOrganisationsMap'),
       ErrorMessage: () => import('@/components/error/ErrorMessage')
     },
 
