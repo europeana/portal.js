@@ -21,6 +21,7 @@ const factory = ({ mocks = {} } = {}) => shallowMountNuxt(MapIndexPage, {
     ...mocks
   },
   stubs: [
+    'ClientOnly',
     'EntityOrganisationsMap',
     'ErrorMessage'
   ]
@@ -34,12 +35,12 @@ describe('MapIndexPage', () => {
     describe('when organisationsMap feature is enabled', () => {
       const $features = { organisationsMap: true };
 
-      it('displays the map component', () => {
+      it('displays the map component, client-only', () => {
         const wrapper = factory({ mocks: { $features } });
 
         expect(errorPluginSpy.called).toBe(false);
 
-        const entityOrganisationsMapStub = wrapper.find('entityorganisationsmap-stub');
+        const entityOrganisationsMapStub = wrapper.find('clientonly-stub > entityorganisationsmap-stub');
 
         expect(entityOrganisationsMapStub.isVisible()).toBe(true);
       });

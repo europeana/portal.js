@@ -9,9 +9,11 @@
     <ItemTrendingItems
       v-else-if="trending"
     />
-    <EntityOrganisationsMap
+    <client-only
       v-if="$features.organisationsMap && (key === 'collections/organisations/featured')"
-    />
+    >
+      <EntityOrganisationsMap />
+    </client-only>
     <ContentCardSection
       v-else
       :section="contentCardSection"

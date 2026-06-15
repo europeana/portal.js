@@ -51,6 +51,7 @@ const factory = (propsData = { sectionType: FEATURED_TOPICS })  => shallowMountN
     $contentful: {
       query: contentfulQueryStub
     },
+    $features: {},
     localePath: () => 'mocked path',
     $i18n: { locale: 'en', t: (key) => key, n: (num) => `${num}`, localeProperties: { iso: 'en-GB' } },
     $nuxt: { context: { $config: { redis: {} } } },
