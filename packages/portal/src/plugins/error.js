@@ -89,6 +89,7 @@ export function handleError(errorOrStatusCode, options = {}) {
   }
 
   // TODO: refactor to not rely on the store
+  //       e.g. just keep it here on the plugin?
   this.$store.commit('error/set', error);
 
   this.$nuxt?.context?.$apm?.captureError(error);
