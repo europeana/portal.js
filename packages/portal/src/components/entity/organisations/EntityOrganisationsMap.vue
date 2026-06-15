@@ -80,6 +80,7 @@
   import Cluster from 'ol/source/Cluster.js';
   import VectorLayer from 'ol/layer/Vector.js';
   import CircleStyle from 'ol/style/Circle.js';
+  import Icon from 'ol/style/Icon.js';
   import Fill from 'ol/style/Fill.js';
   import Stroke from 'ol/style/Stroke.js';
   import Style from 'ol/style/Style.js';
@@ -188,24 +189,34 @@
             const size = feature.get('features').length;
             let style = styleCache[size];
             if (!style) {
-              style = new Style({
-                image: new CircleStyle({
-                  radius: 14,
-                  stroke: new Stroke({
-                    color: '#000'
-                  }),
-                  fill: new Fill({
-                    color: '#000'
+              if (size === 1) {
+                style = new Style({
+                  image: new Icon({
+                    src: require('@europeana/style/img/icons/ic_location.svg'),
+                    width: 32,
+                    height: 32
                   })
-                }),
-                text: new Text({
-                  text: size.toString(),
-                  fill: new Fill({
-                    color: '#fff'
+                });
+              } else {
+                style = new Style({
+                  image: new CircleStyle({
+                    radius: 14,
+                    stroke: new Stroke({
+                      color: '#000'
+                    }),
+                    fill: new Fill({
+                      color: size === 1 ? '#f00' : '#000'
+                    })
                   }),
-                  font: '700 0.875rem "Open Sans", "Arial", sans-serif'
-                })
-              });
+                  text: new Text({
+                    text: size.toString(),
+                    fill: new Fill({
+                      color: '#fff'
+                    }),
+                    font: '700 0.875rem "Open Sans", "Arial", sans-serif'
+                  })
+                });
+              }
               styleCache[size] = style;
             }
             return style;
