@@ -9,6 +9,7 @@ const data = async(context = {}) => {
     .filter((entity) => entity.hasAddress?.hasGeo)
     .map((entity) => {
       const [lat, long] = entity.hasAddress.hasGeo.replace('geo:', '').split(',').map(geoString => Number(geoString));
+      // FIXME: don't reverse the lat/lng order!
       const geo = [long, lat];
 
       return {
