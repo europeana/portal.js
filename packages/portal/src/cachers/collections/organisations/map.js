@@ -1,25 +1,39 @@
 import baseData from '../index.js';
 
-const PICK = ['id', 'geo'];
+const toGeoJsonFeature = (id, lat, long) => {
+  return {
+    type: 'Feature',
+    id,
+    geometry: {
+      type: 'Point',
+      coordinates: [
+        lat,
+        long
+      ]
+    }
+  };
+};
 
 const data = async(context = {}) => {
   const entityData = await baseData({ qf: 'type:Organization' }, context);
 
-  return entityData
-    .filter((entity) => entity.hasAddress?.hasGeo)
-    .map((entity) => {
-      const [lat, long] = entity.hasAddress.hasGeo.replace('geo:', '').split(',').map(geoString => Number(geoString));
-      // FIXME: don't reverse the lat/lng order!
-      const geo = [long, lat];
-
-      return {
-        ...entity,
-        geo
-      };
-    });
+  return {
+    type: 'FeatureCollection',
+    crs: {
+      type: 'name',
+      properties: {
+        name: 'urn:ogc:def:crs:OGC:1.3:CRS84'
+      }
+    },
+    features: entityData
+      .filter((entity) => entity.hasAddress?.hasGeo)
+      .map((entity) => {
+        const [lat, long] = entity.hasAddress.hasGeo.replace('geo:', '').split(',').map(geoString => Number(geoString));
+        return toGeoJsonFeature(entity.id, lat, long);
+      })
+  };
 };
 
 export {
-  data,
-  PICK
+  data
 };
