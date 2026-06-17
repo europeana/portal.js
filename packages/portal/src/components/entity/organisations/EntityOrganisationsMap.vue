@@ -56,7 +56,6 @@
       return {
         olMap: null,
         baseLayer: null,
-        selectedStyle: 'osm_standard',
         organisations: [],
         clusters: null,
         overlay: null,
@@ -162,7 +161,7 @@
                       color: '#000'
                     }),
                     fill: new Fill({
-                      color: size === 1 ? '#f00' : '#000'
+                      color: '#000'
                     })
                   }),
                   text: new Text({
