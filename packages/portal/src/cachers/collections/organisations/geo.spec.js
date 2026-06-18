@@ -1,4 +1,4 @@
-import * as cacher from './map.js';
+import * as cacher from './geo.js';
 import * as baseCacher from '../index.js';
 import sinon from 'sinon';
 import nock from 'nock';
@@ -10,7 +10,7 @@ const searchResponse = [
 
 const context = {};
 
-describe('@/cachers/collections/map', () => {
+describe('@/cachers/collections/geo', () => {
   beforeAll(() => {
     nock.disableNetConnect();
   });
@@ -31,13 +31,19 @@ describe('@/cachers/collections/map', () => {
     expect(baseCacher.default.calledWith({ qf: 'type:Organization' }, context)).toBe(true);
   });
 
-  it('picks specific fields', () => {
-    expect(cacher.PICK).toEqual(['id', 'geo']);
-  });
-
   it('modifies geo data', async() => {
     const data = await cacher.data(context);
 
-    expect(data[0].geo).toEqual([24.1042986, 56.950364]);
+    expect(data.features[0]).toEqual({
+      'type': 'Feature',
+      'id': 'http://data.europeana.eu/organization/001',
+      'geometry': {
+        'type': 'Point',
+        'coordinates': [
+          24.1042986,
+          56.950364
+        ]
+      }
+    });
   });
 });

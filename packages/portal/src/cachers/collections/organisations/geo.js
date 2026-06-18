@@ -1,6 +1,6 @@
 import baseData from '../index.js';
 
-const toGeoJsonFeature = (id, lat, long) => {
+const toGeoJsonFeature = ({ id, lat, long }) => {
   return {
     type: 'Feature',
     id,
@@ -22,8 +22,12 @@ const data = async(context = {}) => {
     features: entityData
       .filter((entity) => entity.hasAddress?.hasGeo)
       .map((entity) => {
-        const [lat, long] = entity.hasAddress.hasGeo.replace('geo:', '').split(',').map(geoString => Number(geoString));
-        return toGeoJsonFeature(entity.id, lat, long);
+        const [lat, long] = entity.hasAddress.hasGeo
+          .replace('geo:', '')
+          .split(',')
+          .map((geoString) => Number(geoString));
+
+        return toGeoJsonFeature({ id: entity.id, lat, long });
       })
   };
 };

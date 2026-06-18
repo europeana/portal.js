@@ -16,6 +16,7 @@ import version from './version.js';
 import polls from './polls/index.js';
 import createCollectionsIndexEndpoint from './collections/index.js';
 import createCollectionsRetrieveEndpoint from './collections/retrieve.js';
+import createCollectionsOrganisationsGeoEndpoint from './collections/organisations/geo.js';
 
 export const createApiExpressApp = (context = {}, app) => {
   const config = context.$config || {};
@@ -65,11 +66,14 @@ export const createApiExpressApp = (context = {}, app) => {
 
   app.use('/votes', polls);
 
-  const collectionsIndexEndpoint = createCollectionsIndexEndpoint(config.redis);
-  app.get('/collections/*', collectionsIndexEndpoint);
-
   const collectionsRetrieveEndpoint = createCollectionsRetrieveEndpoint(context);
   app.post('/collections/retrieve', collectionsRetrieveEndpoint);
+
+  const collectionsOrganisationsGeoEndpoint = createCollectionsOrganisationsGeoEndpoint(config.redis);
+  app.get('/collections/organisations/geo', collectionsOrganisationsGeoEndpoint);
+
+  const collectionsIndexEndpoint = createCollectionsIndexEndpoint(config.redis);
+  app.get('/collections/*', collectionsIndexEndpoint);
 
   app.all('/*', (req, res) => res.sendStatus(404));
   app.use(errorHandler);
