@@ -50,7 +50,6 @@ const factory = ({ mocks = {}, propsData = {}, data = {} } = {}) => shallowMount
       locale: 'en',
       n: (num) => num
     },
-    $config: mocks.$config,
     ...mocks,
     $store: {
       commit: sinon.spy(),
@@ -95,11 +94,10 @@ describe('components/search/SearchInterface', () => {
 
     describe('when multilingualSearch cookie is saved to true, logged in and enabled for locale', () => {
       const $auth = { loggedIn: true };
-      const $config = { app: { search: { translateLocales: ['nl'] } } };
       const $i18n = { locale: 'nl' };
 
       it('activates multilingual search', async() => {
-        const wrapper = factory({ mocks: { $auth, $config, $i18n } });
+        const wrapper = factory({ mocks: { $auth, $i18n } });
         wrapper.vm.$cookies.get.returns('true');
 
         await wrapper.vm.fetch();
