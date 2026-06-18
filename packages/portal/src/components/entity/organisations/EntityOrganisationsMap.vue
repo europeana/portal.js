@@ -56,7 +56,7 @@
       return {
         olMap: null,
         baseLayer: null,
-        organisations: [],
+        geoData: {},
         clusters: null,
         overlay: null,
         greyscale: true
@@ -64,11 +64,11 @@
     },
     async fetch() {
       const response = await this.fetchData();
-      this.organisations = response.items;
+      this.geoData = response;
     },
 
     watch: {
-      organisations() {
+      geoData() {
         this.initClustersLayer();
         this.olMap.addLayer(this.clusters);
       }
@@ -80,7 +80,7 @@
 
     methods: {
       fetchData() {
-        return backendFetch('collections', ['organisations/map', {}], this.$nuxt.context);
+        return backendFetch('collections', ['organisations/geo', {}], this.$nuxt.context);
       },
       initMap() {
         // use Geographic projection for correct position of geo coordinates
@@ -91,7 +91,7 @@
 
         const layers = [this.baseLayer];
 
-        if (this.organisations.length) {
+        if (this.geoData.features?.length) {
           this.initClustersLayer();
           layers.push(this.clusters);
         }
@@ -121,9 +121,9 @@
         this.olMap.on('click', this.handleClick);
       },
       initClustersLayer() {
-        const features = this.organisations.map((org) => (new Feature({
-          geometry: new Point(org.geo),
-          name: org.id
+        const features = this.geoData.features.map((feature) => (new Feature({
+          geometry: new Point(feature.geometry.coordinates),
+          name: feature.id
         })));
 
         const source = new VectorSource({
