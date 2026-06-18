@@ -7,8 +7,8 @@ const toGeoJsonFeature = (id, lat, long) => {
     geometry: {
       type: 'Point',
       coordinates: [
-        lat,
-        long
+        long,
+        lat
       ]
     }
   };
@@ -19,12 +19,6 @@ const data = async(context = {}) => {
 
   return {
     type: 'FeatureCollection',
-    crs: {
-      type: 'name',
-      properties: {
-        name: 'urn:ogc:def:crs:OGC:1.3:CRS84'
-      }
-    },
     features: entityData
       .filter((entity) => entity.hasAddress?.hasGeo)
       .map((entity) => {
