@@ -4,9 +4,7 @@
     data-qa="error message container"
     :error="$store.state.error.error"
   />
-  <client-only v-else>
-    <EntityOrganisationsMap />
-  </client-only>
+  <EntityOrganisationsMap v-else />
 </template>
 
 <script>

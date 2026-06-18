@@ -14,15 +14,32 @@
       {{ formattedCoordinates }}
     </label>
     <div
-      class="embed-responsive embed-responsive-16by9"
+      class="my-5"
     >
-      <iframe
-        id="map-embed"
-        data-qa="map embed"
-        class="embed-responsive-item"
-        :src="iframeSrc"
-        :title="$t('record.locationOnMap')"
-      />
+      <client-only>
+        <div
+          id="europeana-map"
+          class="europeana-map"
+          width="100vh"
+          height="80vh"
+          :data-json="geoJSON"
+        />
+        <script
+          type="module"
+          src="http://localhost:4173/europeana-map.app.openlayers.js"
+        >
+          <!-- prevent eslint closing this -->
+        </script>
+        <link
+          rel="preload"
+          as="style"
+          href="http://localhost:4173/europeana-map.css"
+        >
+        <link
+          rel="stylesheet"
+          href="http://localhost:4173/europeana-map.css"
+        >
+      </client-only>
     </div>
   </div>
 </template>
@@ -61,6 +78,24 @@
     },
 
     computed: {
+      geoJSON() {
+        return JSON.stringify({
+          type: 'FeatureCollection',
+          features: [{
+            type: 'Feature',
+            // TODO: add id
+            // id,
+            geometry: {
+              type: 'Point',
+              coordinates: [
+                this.longitude,
+                this.latitude
+              ]
+            }
+          }]
+        });
+      },
+
       localisedPrefLabel() {
         return langMapValueForLocale(this.prefLabel, this.$i18n.locale);
       },
@@ -82,10 +117,6 @@
         const yLng = this.longitude + this.longitudeBoundaryDegrees;
 
         return `${xLng},${xLat},${yLng},${yLat}`;
-      },
-
-      iframeSrc() {
-        return `https://www.openstreetmap.org/export/embed.html?marker=${this.marker}&bbox=${this.bbox}&layer=mapnik`;
       }
     }
   };

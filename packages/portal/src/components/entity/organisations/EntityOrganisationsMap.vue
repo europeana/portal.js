@@ -6,7 +6,7 @@
         class="europeana-map"
         width="100vh"
         height="80vh"
-        :data-api-url="`${$config.app.baseUrl}/_api/collections/organisations/geo`"
+        :data-url="`${$config.app.baseUrl}/_api/collections/organisations/geo`"
       />
       <script
         type="module"
