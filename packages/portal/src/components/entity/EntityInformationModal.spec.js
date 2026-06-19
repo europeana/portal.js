@@ -13,7 +13,7 @@ const factory = (propsData = {}) => mount(EntityInformationModal, {
     $i18n: { locale: 'en' },
     $n: (val) => val,
     $t: (val) => val,
-    $features: { aggregatorsTab: true },
+    $features: {},
     localePath: (val) => val
   },
   stubs: ['EntityBadges']

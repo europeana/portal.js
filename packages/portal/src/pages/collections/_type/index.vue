@@ -27,7 +27,7 @@
           button-variant="secondary"
           class="half-col"
         />
-        <template v-if="$features.aggregatorsTab && type === 'organisations'">
+        <template v-if="type === 'organisations'">
           <EntityOrganisationsPageContent />
         </template>
         <EntityTable
