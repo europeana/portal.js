@@ -73,7 +73,7 @@
     "css-loader": "^4.2.0",
     "jest-transform-graphql": "^2.1.0",
     "nock": "^13.2.7",
-    "nuxt": "2.17.0",
+    "nuxt": "3.21.7",
     "postcss": "^8.5.10",
     "postcss-html": "^1.5.0",
     "postcss-scss": "^4.0.4",
