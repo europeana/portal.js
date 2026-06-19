@@ -38,7 +38,7 @@
       </li>
     </ul>
     <div
-      v-if="$features.aggregatorsTab && aggregatesFrom"
+      v-if="aggregatesFrom"
       class="mb-4 ml-sm-3"
     >
       <EntityBadges
@@ -111,7 +111,7 @@
           'organisation.providesCapacityBuildingActivity': this.entity.providesCapacityBuildingActivity,
           'organisation.providesAudienceEngagementActivity': this.entity.providesAudienceEngagementActivity,
           'organisation.recordCount': this.entity.isAggregatedBy?.recordCount,
-          'organisation.providingInstitutionsCount': this.$features.aggregatorsTab ? this.aggregatesFromCount : undefined
+          'organisation.providingInstitutionsCount': this.aggregatesFromCount
         };
 
         return Object.keys(fieldData)
