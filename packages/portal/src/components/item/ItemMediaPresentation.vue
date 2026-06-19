@@ -335,7 +335,9 @@
       },
 
       hasWebResourceMetadataToDisplay() {
-        const wrs = [this.resource?.edm].concat(this.resource?.edm?.dctermsIsFormatOf?.def).filter(Boolean);
+        const wrs = [this.resource?.edm].concat(
+          this.resource?.edm?.dctermsIsFormatOf?.def?.filter((wr) => wr.isDownloadable)
+        ).filter(Boolean);
         return WEB_RESOURCE_METADATA_DISPLAY_FIELDS.some((field) => wrs.some((wr) => wr[field] !== undefined));
       },
 
