@@ -17,7 +17,6 @@ export default class EuropeanaApi {
   constructor(context) {
     this.context = context;
     this.config = new EuropeanaApiContextConfig(this.constructor.ID, context);
-    console.log(this.constructor.ID, this.config);
   }
 
   get axios() {
