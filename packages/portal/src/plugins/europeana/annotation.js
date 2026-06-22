@@ -14,11 +14,4 @@ export default class EuropeanaAnnotationApi extends EuropeanaApi {
 
     return response.items || [];
   }
-
-  get axiosInstanceOptions() {
-    return {
-      ...super.axiosInstanceOptions,
-      timeout: 1000
-    };
-  }
 }
