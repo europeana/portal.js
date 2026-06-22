@@ -4,6 +4,7 @@ export default class EuropeanaApiContextConfig {
   constructor(id, context = {}) {
     this.id = id;
     this.key = this.keyFromContext(context);
+    this.timeout = this.timeoutFromContext(context);
     this.url = this.urlFromContext(context);
     this.urlRewrite = this.urlRewriteFromContext(context);
     this.version = this.versionFromContext(context);
@@ -11,6 +12,10 @@ export default class EuropeanaApiContextConfig {
 
   keyFromContext(context) {
     return context.$config?.europeana?.apis?.[this.id]?.key;
+  }
+
+  timeoutFromContext(context) {
+    return context.$config?.europeana?.apis?.[this.id]?.timeout;
   }
 
   urlFromContext(context) {

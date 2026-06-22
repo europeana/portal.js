@@ -17,6 +17,7 @@ export default class EuropeanaApi {
   constructor(context) {
     this.context = context;
     this.config = new EuropeanaApiContextConfig(this.constructor.ID, context);
+    console.log(this.constructor.ID, this.config);
   }
 
   get axios() {
@@ -32,6 +33,10 @@ export default class EuropeanaApi {
 
   get key() {
     return this.config.key;
+  }
+
+  get timeout() {
+    return this.config.timeout ? Number(this.config.timeout) : 10000;
   }
 
   // TODO: should this be a new class extending Error?
@@ -119,7 +124,7 @@ export default class EuropeanaApi {
       paramsSerializer(params) {
         return qs.stringify(params, { arrayFormat: 'repeat' });
       },
-      timeout: 10000,
+      timeout: this.timeout,
       validateStatus(status) {
         // axios default is only 2xx codes, resulting in e.g. 304 Not Modified throwing an error
         return (status >= 200 && status < 400);
