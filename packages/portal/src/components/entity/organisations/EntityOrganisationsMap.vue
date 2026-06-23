@@ -6,22 +6,22 @@
         class="europeana-map"
         width="100vh"
         height="80vh"
-        :data-api-url="`${$config.app.baseUrl}/_api/collections/organisations/geo`"
+        data-url="https://www.europeana.eu/_api/collections/organisations/geo"
       />
       <script
         type="module"
-        src="http://localhost:4173/europeana-map.app.openlayers.js"
+        src="https://cdn.jsdelivr.net/npm/@europeana/map@0.0.4-map.2/dist/europeana-map.app.js"
       >
         <!-- prevent eslint closing this -->
       </script>
       <link
         rel="preload"
         as="style"
-        href="http://localhost:4173/europeana-map.css"
+        href="https://cdn.jsdelivr.net/npm/@europeana/map@0.0.4-map.2/dist/europeana-map.css"
       >
       <link
         rel="stylesheet"
-        href="http://localhost:4173/europeana-map.css"
+        href="https://cdn.jsdelivr.net/npm/@europeana/map@0.0.4-map.2/dist/europeana-map.css"
       >
     </client-only>
   </div>
