@@ -103,6 +103,11 @@ export default {
   */
   publicRuntimeConfig: {
     app: {
+      api: {
+        cors: {
+          origin: [process.env.PORTAL_BASE_URL].concat(process.env.APP_API_CORS_ORIGIN?.split(',')).filter(Boolean)
+        }
+      },
       // TODO: rename env vars to prefix w/ APP_, except feature toggles
       baseUrl: process.env.PORTAL_BASE_URL,
       cacheControl: cacheControlConfig(),
@@ -114,7 +119,7 @@ export default {
       },
       feedback: {
         cors: {
-          origin: [process.env.PORTAL_BASE_URL].concat(process.env.APP_FEEDBACK_CORS_ORIGIN?.split(',')).filter((origin) => !!origin)
+          origin: [process.env.PORTAL_BASE_URL].concat(process.env.APP_FEEDBACK_CORS_ORIGIN?.split(',')).filter(Boolean)
         }
       },
       galleries: {

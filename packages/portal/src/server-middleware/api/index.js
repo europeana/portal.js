@@ -26,6 +26,9 @@ export const createApiExpressApp = (context = {}, app) => {
   app.disable('x-powered-by'); // Security: do not disclose technology fingerprints
   app.use(express.json());
   app.use(logging);
+  app.use(cors({
+    origin: config.app?.api?.cors?.origin
+  }));
 
   pg.config = config.postgres;
   keycloak.config = config.auth?.strategies?.keycloak;
@@ -40,41 +43,43 @@ export const createApiExpressApp = (context = {}, app) => {
     next();
   });
 
-  app.get('/debug/memory-usage', debugMemoryUsage);
-
+  // /cache
   const cacheHandler = cache(config.redis);
   app.get('/cache', cacheHandler);
   app.get('/cache/*', cacheHandler);
 
+  // /collections
+  app.post('/collections/retrieve', createCollectionsRetrieveEndpoint(context));
+  app.get('/collections/organisations/geo', createCollectionsOrganisationsGeoEndpoint(config.redis));
+  app.get('/collections/*', createCollectionsIndexEndpoint(config.redis));
+
+  // /debug
+  app.get('/debug/memory-usage', debugMemoryUsage);
+
+  // /events
   app.use('/events', events);
 
-  const feedbackCorsOptions = {
+  // /jira-service-desk
+  const feedbackCorsMiddleware = cors({
     origin: forbiddenUnlessOriginAllowed(config.app?.feedback?.cors?.origin)
-  };
+  });
   app.options('/jira-service-desk/feedback',
-    cors(feedbackCorsOptions),
+    cors(feedbackCorsMiddleware),
     (req, res) => res.sendStatus(200)
   );
   app.post('/jira-service-desk/feedback',
-    cors(feedbackCorsOptions),
+    cors(feedbackCorsMiddleware),
     jiraServiceDeskFeedback(config.jira)
   );
-
   app.post('/jira-service-desk/galleries', jiraServiceDeskGalleries(config.jira));
 
+  // /version
   app.get('/version', version);
 
+  // /votes
   app.use('/votes', polls);
 
-  const collectionsRetrieveEndpoint = createCollectionsRetrieveEndpoint(context);
-  app.post('/collections/retrieve', collectionsRetrieveEndpoint);
-
-  const collectionsOrganisationsGeoEndpoint = createCollectionsOrganisationsGeoEndpoint(config.redis);
-  app.get('/collections/organisations/geo', collectionsOrganisationsGeoEndpoint);
-
-  const collectionsIndexEndpoint = createCollectionsIndexEndpoint(config.redis);
-  app.get('/collections/*', collectionsIndexEndpoint);
-
+  // [catch-all]
   app.all('/*', (req, res) => res.sendStatus(404));
   app.use(errorHandler);
 

@@ -21,7 +21,7 @@ export const errorHandler = (err, req, res, next) => {
 };
 
 export const forbiddenUnlessOriginAllowed = (origins) => (origin, callback) => {
-  if (origins.includes(origin)) {
+  if (origins?.includes(origin)) {
     callback(null, true);
   } else {
     callback(createHttpError(403, 'Origin not permitted'));
