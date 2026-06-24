@@ -6,22 +6,22 @@
         class="europeana-map"
         width="100vh"
         height="80vh"
-        data-url="https://www.europeana.eu/_api/collections/organisations/geo"
+        :data-url="EUROPEANA_MAP_GEO_JSON_URL"
       />
       <script
         type="module"
-        src="https://cdn.jsdelivr.net/npm/@europeana/map@0.0.4-map.2/dist/europeana-map.app.js"
+        :src="`${EUROPEANA_MAP_CDN_BASE_URL}/europeana-map.app.js`"
       >
         <!-- prevent eslint closing this -->
       </script>
       <link
         rel="preload"
         as="style"
-        href="https://cdn.jsdelivr.net/npm/@europeana/map@0.0.4-map.2/dist/europeana-map.css"
+        :href="`${EUROPEANA_MAP_CDN_BASE_URL}/europeana-map.css`"
       >
       <link
         rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/@europeana/map@0.0.4-map.2/dist/europeana-map.css"
+        :href="`${EUROPEANA_MAP_CDN_BASE_URL}/europeana-map.css`"
       >
     </client-only>
   </div>
@@ -29,7 +29,15 @@
 
 <script>
   export default {
-    name: 'EntityOrganisationsMap'
+    name: 'EntityOrganisationsMap',
+
+    data() {
+      return {
+        EUROPEANA_MAP_CDN_BASE_URL: 'https://cdn.jsdelivr.net/npm/@europeana/map@0.1.1-map.0/dist',
+        // EUROPEANA_MAP_CDN_BASE_URL: 'http://localhost:4173',
+        EUROPEANA_MAP_GEO_JSON_URL: `${this.$config.app.baseUrl}/_api/collections/organisations/geo`
+      };
+    }
   };
 </script>
 
