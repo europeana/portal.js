@@ -9,6 +9,6 @@
   },
   "main": "./src/index.js",
   "dependencies": {
-    "qs": "^6.10.1"
+    "qs": "^6.15.2"
   }
 }
