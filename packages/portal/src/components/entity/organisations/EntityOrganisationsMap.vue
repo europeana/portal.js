@@ -1,9 +1,19 @@
 <template>
   <div class="my-5">
     <client-only>
+      <div>
+        <b-form-checkbox
+          v-model="greyscale"
+          name="map-greyscale"
+          switch
+        >
+          Greyscale
+        </b-form-checkbox>
+      </div>
       <div
         id="europeana-map"
         class="europeana-map"
+        :class="{ 'greyscale': greyscale }"
         width="100vh"
         height="80vh"
         :data-url="EUROPEANA_MAP_GEO_JSON_URL"
@@ -35,7 +45,8 @@
       return {
         EUROPEANA_MAP_CDN_BASE_URL: 'https://cdn.jsdelivr.net/npm/@europeana/map@0.1.1-map.1/dist',
         // EUROPEANA_MAP_CDN_BASE_URL: 'http://localhost:4173',
-        EUROPEANA_MAP_GEO_JSON_URL: `${this.$config.app.baseUrl}/_api/collections/organisations/geo`
+        EUROPEANA_MAP_GEO_JSON_URL: `${this.$config.app.baseUrl}/_api/collections/organisations/geo`,
+        greyscale: false
       };
     }
   };
@@ -46,5 +57,9 @@
   width: 100%;
   height: 80vh;
   position: relative;
+
+  &.greyscale {
+    filter: grayscale(100%);
+  }
 }
 </style>
