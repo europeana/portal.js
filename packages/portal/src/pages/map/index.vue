@@ -11,6 +11,7 @@
 
 <script>
   import EntityOrganisationsMap from '@/components/entity/organisations/EntityOrganisationsMap';
+  import pageMetaMixin from '@/mixins/pageMeta';
 
   export default {
     name: 'MapIndexPage',
@@ -18,6 +19,21 @@
     components: {
       EntityOrganisationsMap,
       ErrorMessage: () => import('@/components/error/ErrorMessage')
+    },
+
+    mixins: [
+      pageMetaMixin
+    ],
+
+    computed: {
+      pageMeta() {
+        return {
+          title: 'Map'
+        };
+      },
+      heroImage() {
+        return this.post.primaryImageOfPage || null;
+      }
     },
 
     created() {
