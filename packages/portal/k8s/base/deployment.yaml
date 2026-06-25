@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: portal-js
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: portal-js
+  strategy:
+    rollingUpdate:
+      maxSurge: 50%
+      maxUnavailable: 50%
+    type: RollingUpdate
+  template:
+    spec:
+      containers:
+        - envFrom:
+            - configMapRef:
+                name: portal-js-env
+                optional: false
+            - secretRef:
+                name: portal-js-env
+                optional: false
+          image: europeana/portal.js:master
+          imagePullPolicy: Always
+          name: portal-js-web
+          ports:
+            - containerPort: 8080
+              name: 8080tcp
+              protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /_api/version
+              port: 8080
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: 200m
+              memory: 200Mi
+            requests:
+              cpu: 1m
+              memory: 100Mi
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30

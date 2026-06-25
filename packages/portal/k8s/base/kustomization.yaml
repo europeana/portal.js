@@ -1,0 +1,16 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- deployment.yaml
+- service.yaml
+- ingress.yaml
+- external-secret.yaml
+configMapGenerator:
+- name: portal-js-env
+  envs:
+  - config-map.env
+labels:
+  - pairs:
+      app: portal-js
+    includeSelectors: true
+    includeTemplates: true
