@@ -43,7 +43,7 @@ Europeana-scoped entities from the Entity API.
 
 Localised.
 
-#### `collections:organisations:map`
+#### `collections:organisations:geo`
 Retrieves and caches the hasGeo from organisation entities. The values are stored as geojson.
 
 #### `collections:places`
