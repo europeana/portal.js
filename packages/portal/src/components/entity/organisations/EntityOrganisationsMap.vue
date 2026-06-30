@@ -66,8 +66,6 @@
             style: this.mapStyle,
             url: this.EUROPEANA_MAP_GEO_JSON_URL
           });
-          const layer = this.europeanaMap.olMap.getLayers().getArray()[0].getLayers().getArray()[0].getSource().constructor.name;
-          console.log('layer', layer)
         });
     }
   };
