@@ -1,32 +1,11 @@
 <template>
   <div class="my-5">
-    <client-only>
-      <div
-        id="europeana-map"
-        class="europeana-map"
-        width="100vh"
-        height="80vh"
-      />
-      <link
-        rel="preload"
-        as="script"
-        :href="`${EUROPEANA_MAP_CDN_BASE_URL}/europeana-map.app.iife.js`"
-      >
-      <script
-        :src="`${EUROPEANA_MAP_CDN_BASE_URL}/europeana-map.app.iife.js`"
-      >
-        <!-- prevent eslint closing this -->
-      </script>
-      <link
-        rel="preload"
-        as="style"
-        :href="`${EUROPEANA_MAP_CDN_BASE_URL}/europeana-map.css`"
-      >
-      <link
-        rel="stylesheet"
-        :href="`${EUROPEANA_MAP_CDN_BASE_URL}/europeana-map.css`"
-      >
-    </client-only>
+    <div
+      id="europeana-map"
+      class="europeana-map"
+      width="100vh"
+      height="80vh"
+    />
   </div>
 </template>
 
@@ -42,6 +21,19 @@
         // EUROPEANA_MAP_CDN_BASE_URL: 'http://localhost:4173',
         EUROPEANA_MAP_GEO_JSON_URL: `${this.$config.app.baseUrl}/_api/collections/organisations/geo`,
         europeanaMap: null
+      };
+    },
+
+    head() {
+      return {
+        link: [
+          { rel: 'preload', as: 'script', href: `${this.EUROPEANA_MAP_CDN_BASE_URL}/europeana-map.app.iife.js` },
+          { rel: 'preload', as: 'style', href: `${this.EUROPEANA_MAP_CDN_BASE_URL}/europeana-map.css` },
+          { rel: 'stylesheet', href: `${this.EUROPEANA_MAP_CDN_BASE_URL}/europeana-map.css` }
+        ],
+        script: [
+          { src: `${this.EUROPEANA_MAP_CDN_BASE_URL}/europeana-map.app.iife.js` }
+        ]
       };
     },
 
