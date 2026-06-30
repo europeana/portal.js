@@ -65,16 +65,18 @@
 
     data() {
       return {
-        EUROPEANA_MAP_CDN_BASE_URL: 'https://cdn.jsdelivr.net/npm/@europeana/map@0.1.1-map.2/dist',
-        // EUROPEANA_MAP_CDN_BASE_URL: 'http://localhost:4173',
+        // EUROPEANA_MAP_CDN_BASE_URL: 'https://cdn.jsdelivr.net/npm/@europeana/map@0.1.1-map.2/dist',
+        EUROPEANA_MAP_CDN_BASE_URL: 'http://localhost:4173',
         EUROPEANA_MAP_GEO_JSON_URL: `${this.$config.app.baseUrl}/_api/collections/organisations/geo`,
         availableStyles: [
-          { name: 'OSM', value: null },
-          { name: 'Positron', value: 'https://tiles.openfreemap.org/styles/positron' },
-          { name: 'Bright', value: 'https://tiles.openfreemap.org/styles/bright' },
-          { name: 'Liberty', value: 'https://tiles.openfreemap.org/styles/liberty' },
-          { name: 'Dark', value: 'https://tiles.openfreemap.org/styles/dark' },
-          { name: 'Fiord', value: 'https://tiles.openfreemap.org/styles/fiord' }
+          { name: 'OpenStreetMap', value: null },
+          { name: 'OpenFreeMap - Bright', value: 'https://tiles.openfreemap.org/styles/bright' },
+          { name: 'OpenFreeMap - Dark', value: 'https://tiles.openfreemap.org/styles/dark' },
+          { name: 'OpenFreeMap - Fiord', value: 'https://tiles.openfreemap.org/styles/fiord' },
+          { name: 'OpenFreeMap - Liberty', value: 'https://tiles.openfreemap.org/styles/liberty' },
+          { name: 'OpenFreeMap - Positron', value: 'https://tiles.openfreemap.org/styles/positron' },
+          { name: 'VersaTiles - Colorful', value: 'https://tiles.versatiles.org/assets/styles/colorful/style.json' },
+          { name: 'VersaTiles - Europeana', value: require('@europeana/style/map/versatiles.json') }
         ],
         europeanaMap: null,
         greyscale: false
