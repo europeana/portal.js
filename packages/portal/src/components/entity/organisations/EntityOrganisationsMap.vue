@@ -1,36 +1,9 @@
 <template>
   <div class="my-5">
     <client-only>
-      <div class="m-2 d-inline-block">
-        <b-form-checkbox
-          v-model="greyscale"
-          name="map-greyscale"
-          switch
-        >
-          Greyscale
-        </b-form-checkbox>
-
-        <b-dropdown
-          variant="light"
-          toggle-class="text-decoration-none"
-        >
-          <template slot="button-content">
-            {{ selectedStyle.name }}
-          </template>
-
-          <b-dropdown-item
-            v-for="(style, index) in availableStyles"
-            :key="index"
-            :to="{ ...$route, query: { style: style.name } }"
-          >
-            {{ style.name }}
-          </b-dropdown-item>
-        </b-dropdown>
-      </div>
       <div
         id="europeana-map"
         class="europeana-map"
-        :class="{ 'greyscale': greyscale }"
         width="100vh"
         height="80vh"
       />
@@ -68,30 +41,21 @@
         EUROPEANA_MAP_CDN_BASE_URL: 'https://cdn.jsdelivr.net/npm/@europeana/map@0.1.1-map.2/dist',
         // EUROPEANA_MAP_CDN_BASE_URL: 'http://localhost:4173',
         EUROPEANA_MAP_GEO_JSON_URL: `${this.$config.app.baseUrl}/_api/collections/organisations/geo`,
-        availableStyles: [
-          { name: 'OpenStreetMap', value: null },
-          { name: 'OpenFreeMap - Bright', value: 'https://tiles.openfreemap.org/styles/bright' },
-          { name: 'OpenFreeMap - Dark', value: 'https://tiles.openfreemap.org/styles/dark' },
-          { name: 'OpenFreeMap - Fiord', value: 'https://tiles.openfreemap.org/styles/fiord' },
-          { name: 'OpenFreeMap - Liberty', value: 'https://tiles.openfreemap.org/styles/liberty' },
-          { name: 'OpenFreeMap - Positron', value: 'https://tiles.openfreemap.org/styles/positron' },
-          { name: 'VersaTiles - Colorful', value: 'https://tiles.versatiles.org/assets/styles/colorful/style.json' },
-          { name: 'VersaTiles - Europeana', value: require('@europeana/style/map/versatiles.json') }
-        ],
-        europeanaMap: null,
-        greyscale: false
+        europeanaMap: null
       };
     },
 
     computed: {
-      selectedStyle() {
-        return this.availableStyles.find((style) => style.name === this.$route.query.style) || this.availableStyles[0];
-      }
-    },
-
-    watch: {
-      selectedStyle() {
-        this.europeanaMap.set('style', this.selectedStyle.value);
+      mapStyle() {
+        if (this.$config.app.map?.style?.startsWith('https://')) {
+          return this.$config.app.map.style;
+        }
+        // TODO: load this from @europeana/style npm pkg via CDN once published,
+        //       i.e. remove this hard-coded exception then
+        if (this.$config.app.map?.style === '@europeana/style/map/versatiles.json')  {
+          return require('@europeana/style/map/versatiles.json');
+        }
+        return null;
       }
     },
 
@@ -99,9 +63,11 @@
       waitFor(() => window.EuropeanaMap, { name: 'EuropeanaMap' })
         .then(() => {
           this.europeanaMap = new window.EuropeanaMap('#europeana-map', {
-            style: this.selectedStyle.value,
+            style: this.mapStyle,
             url: this.EUROPEANA_MAP_GEO_JSON_URL
           });
+          const layer = this.europeanaMap.olMap.getLayers().getArray()[0].getLayers().getArray()[0].getSource().constructor.name;
+          console.log('layer', layer)
         });
     }
   };
@@ -112,9 +78,5 @@
   width: 100%;
   height: 80vh;
   position: relative;
-
-  &.greyscale {
-    filter: grayscale(100%);
-  }
 }
 </style>
