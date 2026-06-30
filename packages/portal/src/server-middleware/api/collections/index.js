@@ -10,7 +10,7 @@ export const fetchData = async(type, reqQuery, config = {}) => {
   const sortField = sortParts[0] || 'prefLabel';
   const sortDir = sortParts[1] || 'asc';
 
-  const key = `${lang}:collections:${type}`;
+  const key = lang ? `${lang}:collections:${type}` : `collections:${type}`;
   const data = await cached(key, config);
 
   let items = Array.from(data[key] || []);

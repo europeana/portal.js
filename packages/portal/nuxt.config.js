@@ -127,6 +127,9 @@ export default {
       },
       homeLandingPageSlug: process.env.APP_HOME_LANDING_PAGE_SLUG,
       internalLinkDomain: process.env.INTERNAL_LINK_DOMAIN,
+      map: {
+        style: process.env.APP_MAP_STYLE
+      },
       notificationBanner: process.env.APP_NOTIFICATION_BANNER,
       projectApiKeyFormUrl: process.env.PROJECT_API_KEY_FORM_URL,
       siteName: APP_SITE_NAME
@@ -576,6 +579,7 @@ export default {
       'ol/layer/Layer.js',
       'ol/layer/Tile.js',
       'ol/Map.js',
+      'ol/Overlay.js',
       'ol/proj.js',
       'ol/proj/epsg3857.js',
       'ol/proj/utm.js',
@@ -588,6 +592,7 @@ export default {
       'ol/render/Feature.js',
       'ol/reproj/DataTile.js',
       'ol/reproj/Tile.js',
+      'ol/source/Cluster.js',
       'ol/source/IIIF.js',
       'ol/source/ImageStatic.js',
       'ol/source/Source.js',
