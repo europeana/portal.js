@@ -5,7 +5,9 @@
     :error="$store.state.error.error"
   />
   <client-only v-else>
-    <EntityOrganisationsMap />
+    <EntityOrganisationsMap
+      :hash="true"
+    />
   </client-only>
 </template>
 
