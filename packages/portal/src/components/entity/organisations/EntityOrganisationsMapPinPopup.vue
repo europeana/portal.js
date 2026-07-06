@@ -1,7 +1,7 @@
 <template>
-  <div class="m-1 popup-content">
+  <b-card class="m-1 popup-content">
     PIN POPUP {{ id }}
-  </div>
+  </b-card>
 </template>
 
 <script>
@@ -11,26 +11,8 @@
     props: {
       id: {
         type: String,
-        required: true
+        default: ''
       }
-    },
-
-    data() {
-      return {};
-    },
-
-    // computed: {
-    //   property() {
-    //     return null;
-    //   }
-    // },
+    }
   };
 </script>
-
-<style lang="scss" scoped>
-@import '@europeana/style/scss/variables';
-
-.popup-content {
-  color: $blue;
-}
-</style>

@@ -6,14 +6,24 @@
       width="100vh"
       height="80vh"
     />
+    <EntityOrganisationsMapPinPopup
+      :id="clickedFeatureId"
+      ref="popover"
+    />
   </div>
 </template>
 
 <script>
   import waitFor from '@/utils/waitFor.js';
+  import EntityOrganisationsMapPinPopup from './EntityOrganisationsMapPinPopup.vue';
+  import Overlay from 'ol/Overlay.js';
 
   export default {
     name: 'EntityOrganisationsMap',
+
+    components: {
+      EntityOrganisationsMapPinPopup
+    },
 
     props: {
       hash: {
@@ -27,7 +37,9 @@
         EUROPEANA_MAP_CDN_BASE_URL: 'https://cdn.jsdelivr.net/npm/@europeana/map@0.1.2/dist',
         // EUROPEANA_MAP_CDN_BASE_URL: 'http://localhost:4173',
         EUROPEANA_MAP_GEO_JSON_URL: `${this.$config.app.baseUrl}/_api/collections/organisations/geo`,
-        europeanaMap: null
+        europeanaMap: null,
+        overlay: null,
+        clickedFeatureId: null
       };
     },
 
@@ -66,7 +78,35 @@
             style: this.mapStyle,
             url: this.EUROPEANA_MAP_GEO_JSON_URL
           });
+
+          // Create an overlay to anchor the popover to the map.
+          this.overlay = new Overlay({
+            element: this.$refs.popover.$el,
+            autoPan: {
+              animation: {
+                duration: 250
+              }
+            }
+          });
+          this.europeanaMap.olMap.addOverlay(this.overlay);
+
+          this.europeanaMap.olMap.on('click', this.handleClick);
         });
+    },
+
+    methods: {
+      handleClick(e) {
+        const clickedFeatures = this.europeanaMap.olMap.getFeaturesAtPixel(e.pixel);
+        const features = clickedFeatures[0]?.get('features');
+
+        if (features?.length === 1) {
+          this.clickedFeatureId = features[0].get('name');
+          const coordinates = features[0].getGeometry().flatCoordinates;
+          this.overlay.setPosition(coordinates);
+        }
+        // }
+        // });
+      }
     }
   };
 </script>
