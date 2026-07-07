@@ -4,18 +4,18 @@
   "metadata": {
     "license": "https://creativecommons.org/publicdomain/zero/1.0/"
   },
-  "glyphs": "https://tiles.versatiles.org/assets/glyphs/{fontstack}/{range}.pbf",
+  "glyphs": "https://map-test.eanadev.org/assets/glyphs/{fontstack}/{range}.pbf",
   "sprite": [
     {
       "id": "basics",
-      "url": "https://tiles.versatiles.org/assets/sprites/basics/sprites"
+      "url": "https://map-test.eanadev.org/assets/sprites/basics/sprites"
     }
   ],
   "sources": {
     "versatiles-shortbread": {
       "attribution": "© <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors",
       "tiles": [
-        "https://tiles.versatiles.org/tiles/osm/{z}/{x}/{y}"
+        "https://map-test.eanadev.org/tiles/osm/{z}/{x}/{y}"
       ],
       "type": "vector",
       "scheme": "xyz",
