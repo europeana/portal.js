@@ -16548,21 +16548,7 @@
         "pedestrian"
       ],
       "layout": {
-        "text-field": [
-          "coalesce",
-          [
-            "get",
-            "name"
-          ],
-          [
-            "get",
-            "name_en"
-          ],
-          [
-            "get",
-            "name_de"
-          ]
-        ],
+        "text-field": ["get", "name"],
         "text-font": [
           "open_sans_regular"
         ],
@@ -16601,21 +16587,7 @@
         "living_street"
       ],
       "layout": {
-        "text-field": [
-          "coalesce",
-          [
-            "get",
-            "name"
-          ],
-          [
-            "get",
-            "name_en"
-          ],
-          [
-            "get",
-            "name_de"
-          ]
-        ],
+        "text-field": ["get", "name"],
         "text-font": [
           "open_sans_regular"
         ],
@@ -16654,21 +16626,7 @@
         "residential"
       ],
       "layout": {
-        "text-field": [
-          "coalesce",
-          [
-            "get",
-            "name"
-          ],
-          [
-            "get",
-            "name_en"
-          ],
-          [
-            "get",
-            "name_de"
-          ]
-        ],
+        "text-field": ["get", "name"],
         "text-font": [
           "open_sans_regular"
         ],
@@ -16707,21 +16665,7 @@
         "unclassified"
       ],
       "layout": {
-        "text-field": [
-          "coalesce",
-          [
-            "get",
-            "name"
-          ],
-          [
-            "get",
-            "name_en"
-          ],
-          [
-            "get",
-            "name_de"
-          ]
-        ],
+        "text-field": ["get", "name"],
         "text-font": [
           "open_sans_regular"
         ],
@@ -16760,21 +16704,7 @@
         "tertiary"
       ],
       "layout": {
-        "text-field": [
-          "coalesce",
-          [
-            "get",
-            "name"
-          ],
-          [
-            "get",
-            "name_en"
-          ],
-          [
-            "get",
-            "name_de"
-          ]
-        ],
+        "text-field": ["get", "name"],
         "text-font": [
           "open_sans_regular"
         ],
@@ -16813,21 +16743,7 @@
         "secondary"
       ],
       "layout": {
-        "text-field": [
-          "coalesce",
-          [
-            "get",
-            "name"
-          ],
-          [
-            "get",
-            "name_en"
-          ],
-          [
-            "get",
-            "name_de"
-          ]
-        ],
+        "text-field": ["get", "name"],
         "text-font": [
           "open_sans_regular"
         ],
@@ -16866,21 +16782,7 @@
         "primary"
       ],
       "layout": {
-        "text-field": [
-          "coalesce",
-          [
-            "get",
-            "name"
-          ],
-          [
-            "get",
-            "name_en"
-          ],
-          [
-            "get",
-            "name_de"
-          ]
-        ],
+        "text-field": ["get", "name"],
         "text-font": [
           "open_sans_regular"
         ],
@@ -16919,21 +16821,7 @@
         "trunk"
       ],
       "layout": {
-        "text-field": [
-          "coalesce",
-          [
-            "get",
-            "name"
-          ],
-          [
-            "get",
-            "name_en"
-          ],
-          [
-            "get",
-            "name_de"
-          ]
-        ],
+        "text-field": ["get", "name"],
         "text-font": [
           "open_sans_regular"
         ],
@@ -16972,21 +16860,7 @@
         "track"
       ],
       "layout": {
-        "text-field": [
-          "coalesce",
-          [
-            "get",
-            "name"
-          ],
-          [
-            "get",
-            "name_en"
-          ],
-          [
-            "get",
-            "name_de"
-          ]
-        ],
+        "text-field": ["get", "name"],
         "text-font": [
           "open_sans_regular"
         ],
@@ -17025,21 +16899,7 @@
         "neighbourhood"
       ],
       "layout": {
-        "text-field": [
-          "coalesce",
-          [
-            "get",
-            "name"
-          ],
-          [
-            "get",
-            "name_en"
-          ],
-          [
-            "get",
-            "name_de"
-          ]
-        ],
+        "text-field": ["get", "name"],
         "symbol-sort-key": [
           "-",
           [
@@ -17084,21 +16944,7 @@
         "quarter"
       ],
       "layout": {
-        "text-field": [
-          "coalesce",
-          [
-            "get",
-            "name"
-          ],
-          [
-            "get",
-            "name_en"
-          ],
-          [
-            "get",
-            "name_de"
-          ]
-        ],
+        "text-field": ["get", "name"],
         "symbol-sort-key": [
           "-",
           [
@@ -17143,21 +16989,7 @@
         "suburb"
       ],
       "layout": {
-        "text-field": [
-          "coalesce",
-          [
-            "get",
-            "name"
-          ],
-          [
-            "get",
-            "name_en"
-          ],
-          [
-            "get",
-            "name_de"
-          ]
-        ],
+        "text-field": ["get", "name"],
         "symbol-sort-key": [
           "-",
           [
@@ -17206,21 +17038,7 @@
         "hamlet"
       ],
       "layout": {
-        "text-field": [
-          "coalesce",
-          [
-            "get",
-            "name"
-          ],
-          [
-            "get",
-            "name_en"
-          ],
-          [
-            "get",
-            "name_de"
-          ]
-        ],
+        "text-field": ["get", "name"],
         "symbol-sort-key": [
           "-",
           [
@@ -17268,21 +17086,7 @@
         "village"
       ],
       "layout": {
-        "text-field": [
-          "coalesce",
-          [
-            "get",
-            "name"
-          ],
-          [
-            "get",
-            "name_en"
-          ],
-          [
-            "get",
-            "name_de"
-          ]
-        ],
+        "text-field": ["get", "name"],
         "symbol-sort-key": [
           "-",
           [
@@ -17330,21 +17134,7 @@
         "town"
       ],
       "layout": {
-        "text-field": [
-          "coalesce",
-          [
-            "get",
-            "name"
-          ],
-          [
-            "get",
-            "name_en"
-          ],
-          [
-            "get",
-            "name_de"
-          ]
-        ],
+        "text-field": ["get", "name"],
         "symbol-sort-key": [
           "-",
           [
@@ -17393,21 +17183,7 @@
         "4"
       ],
       "layout": {
-        "text-field": [
-          "coalesce",
-          [
-            "get",
-            "name"
-          ],
-          [
-            "get",
-            "name_en"
-          ],
-          [
-            "get",
-            "name_de"
-          ]
-        ],
+        "text-field": ["get", "name"],
         "text-font": [
           "open_sans_regular"
         ],
@@ -17452,21 +17228,7 @@
         "city"
       ],
       "layout": {
-        "text-field": [
-          "coalesce",
-          [
-            "get",
-            "name"
-          ],
-          [
-            "get",
-            "name_en"
-          ],
-          [
-            "get",
-            "name_de"
-          ]
-        ],
+        "text-field": ["get", "name"],
         "symbol-sort-key": [
           "-",
           [
@@ -17514,21 +17276,7 @@
         "state_capital"
       ],
       "layout": {
-        "text-field": [
-          "coalesce",
-          [
-            "get",
-            "name"
-          ],
-          [
-            "get",
-            "name_en"
-          ],
-          [
-            "get",
-            "name_de"
-          ]
-        ],
+        "text-field": ["get", "name"],
         "symbol-sort-key": [
           "-",
           [
@@ -17576,21 +17324,7 @@
         "capital"
       ],
       "layout": {
-        "text-field": [
-          "coalesce",
-          [
-            "get",
-            "name"
-          ],
-          [
-            "get",
-            "name_en"
-          ],
-          [
-            "get",
-            "name_de"
-          ]
-        ],
+        "text-field": ["get", "name"],
         "symbol-sort-key": [
           "-",
           [
@@ -17647,21 +17381,7 @@
         ]
       ],
       "layout": {
-        "text-field": [
-          "coalesce",
-          [
-            "get",
-            "name"
-          ],
-          [
-            "get",
-            "name_en"
-          ],
-          [
-            "get",
-            "name_de"
-          ]
-        ],
+        "text-field": ["get", "name"],
         "text-font": [
           "open_sans_regular"
         ],
@@ -17720,21 +17440,7 @@
         ]
       ],
       "layout": {
-        "text-field": [
-          "coalesce",
-          [
-            "get",
-            "name"
-          ],
-          [
-            "get",
-            "name_en"
-          ],
-          [
-            "get",
-            "name_de"
-          ]
-        ],
+        "text-field": ["get", "name"],
         "text-font": [
           "open_sans_regular"
         ],
@@ -17788,21 +17494,7 @@
         ]
       ],
       "layout": {
-        "text-field": [
-          "coalesce",
-          [
-            "get",
-            "name"
-          ],
-          [
-            "get",
-            "name_en"
-          ],
-          [
-            "get",
-            "name_de"
-          ]
-        ],
+        "text-field": ["get", "name"],
         "text-font": [
           "open_sans_regular"
         ],
@@ -17993,21 +17685,7 @@
         "bus_stop"
       ],
       "layout": {
-        "text-field": [
-          "coalesce",
-          [
-            "get",
-            "name"
-          ],
-          [
-            "get",
-            "name_en"
-          ],
-          [
-            "get",
-            "name_de"
-          ]
-        ],
+        "text-field": ["get", "name"],
         "icon-size": {
           "stops": [
             [
@@ -18051,21 +17729,7 @@
         "tram_stop"
       ],
       "layout": {
-        "text-field": [
-          "coalesce",
-          [
-            "get",
-            "name"
-          ],
-          [
-            "get",
-            "name_en"
-          ],
-          [
-            "get",
-            "name_de"
-          ]
-        ],
+        "text-field": ["get", "name"],
         "icon-size": {
           "stops": [
             [
@@ -18118,21 +17782,7 @@
         ]
       ],
       "layout": {
-        "text-field": [
-          "coalesce",
-          [
-            "get",
-            "name"
-          ],
-          [
-            "get",
-            "name_en"
-          ],
-          [
-            "get",
-            "name_de"
-          ]
-        ],
+        "text-field": ["get", "name"],
         "icon-size": {
           "stops": [
             [
@@ -18185,21 +17835,7 @@
         ]
       ],
       "layout": {
-        "text-field": [
-          "coalesce",
-          [
-            "get",
-            "name"
-          ],
-          [
-            "get",
-            "name_en"
-          ],
-          [
-            "get",
-            "name_de"
-          ]
-        ],
+        "text-field": ["get", "name"],
         "icon-size": {
           "stops": [
             [
@@ -18253,21 +17889,7 @@
         ]
       ],
       "layout": {
-        "text-field": [
-          "coalesce",
-          [
-            "get",
-            "name"
-          ],
-          [
-            "get",
-            "name_en"
-          ],
-          [
-            "get",
-            "name_de"
-          ]
-        ],
+        "text-field": ["get", "name"],
         "icon-size": {
           "stops": [
             [
@@ -18318,21 +17940,7 @@
         ]
       ],
       "layout": {
-        "text-field": [
-          "coalesce",
-          [
-            "get",
-            "name"
-          ],
-          [
-            "get",
-            "name_en"
-          ],
-          [
-            "get",
-            "name_de"
-          ]
-        ],
+        "text-field": ["get", "name"],
         "icon-size": {
           "stops": [
             [
@@ -18383,21 +17991,7 @@
         ]
       ],
       "layout": {
-        "text-field": [
-          "coalesce",
-          [
-            "get",
-            "name"
-          ],
-          [
-            "get",
-            "name_en"
-          ],
-          [
-            "get",
-            "name_de"
-          ]
-        ],
+        "text-field": ["get", "name"],
         "icon-size": {
           "stops": [
             [
