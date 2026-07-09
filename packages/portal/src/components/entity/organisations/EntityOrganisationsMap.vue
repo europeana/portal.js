@@ -6,7 +6,7 @@
       width="100vh"
       height="80vh"
     />
-    <EntityOrganisationsMapPinPopup
+    <EntityOrganisationsMapPinPopover
       :id="clickedFeatureId"
       ref="popover"
     />
@@ -15,14 +15,13 @@
 
 <script>
   import waitFor from '@/utils/waitFor.js';
-  import EntityOrganisationsMapPinPopup from './EntityOrganisationsMapPinPopup.vue';
-  import Overlay from 'ol/Overlay.js';
+  import EntityOrganisationsMapPinPopover from './EntityOrganisationsMapPinPopover.vue';
 
   export default {
     name: 'EntityOrganisationsMap',
 
     components: {
-      EntityOrganisationsMapPinPopup
+      EntityOrganisationsMapPinPopover
     },
 
     props: {
@@ -34,8 +33,8 @@
 
     data() {
       return {
-        EUROPEANA_MAP_CDN_BASE_URL: 'https://cdn.jsdelivr.net/npm/@europeana/map@0.1.2/dist',
-        // EUROPEANA_MAP_CDN_BASE_URL: 'http://localhost:4173',
+        // EUROPEANA_MAP_CDN_BASE_URL: 'https://cdn.jsdelivr.net/npm/@europeana/map@0.1.2/dist',
+        EUROPEANA_MAP_CDN_BASE_URL: 'http://localhost:4173',
         EUROPEANA_MAP_GEO_JSON_URL: `${this.$config.app.baseUrl}/_api/collections/organisations/geo`,
         europeanaMap: null,
         overlay: null,
@@ -63,7 +62,7 @@
         }
         // TODO: load this from @europeana/style npm pkg via CDN once published,
         //       i.e. remove this hard-coded exception then
-        if (this.$config.app.map?.style === '@europeana/style/map/versatiles.json')  {
+        if (this.$config.app.map?.style === '@europeana/style/map/versatiles.json') {
           return require('@europeana/style/map/versatiles.json');
         }
         return null;
@@ -71,41 +70,24 @@
     },
 
     mounted() {
-      waitFor(() => window.EuropeanaMap, { name: 'EuropeanaMap' })
-        .then(() => {
-          this.europeanaMap = new window.EuropeanaMap('#europeana-map', {
-            hash: this.hash,
-            style: this.mapStyle,
-            url: this.EUROPEANA_MAP_GEO_JSON_URL
-          });
-
-          // Create an overlay to anchor the popover to the map.
-          this.overlay = new Overlay({
-            element: this.$refs.popover.$el,
-            autoPan: {
-              animation: {
-                duration: 250
-              }
-            }
-          });
-          this.europeanaMap.olMap.addOverlay(this.overlay);
-
-          this.europeanaMap.olMap.on('click', this.handleClick);
+      waitFor(() => window.EuropeanaMap, { name: 'EuropeanaMap' }).then(() => {
+        this.europeanaMap = new window.EuropeanaMap('#europeana-map', {
+          hash: this.hash,
+          pinPopover: this.$refs.popover.$el,
+          style: this.mapStyle,
+          url: this.EUROPEANA_MAP_GEO_JSON_URL
         });
+
+        // Listen to active (clicked) feature changes
+        this.europeanaMap.olMap.on('change:activefeature', this.handleActiveFeatureChange);
+      });
     },
 
     methods: {
-      handleClick(e) {
-        const clickedFeatures = this.europeanaMap.olMap.getFeaturesAtPixel(e.pixel);
-        const features = clickedFeatures[0]?.get('features');
-
-        if (features?.length === 1) {
-          this.clickedFeatureId = features[0].get('name');
-          const coordinates = features[0].getGeometry().flatCoordinates;
-          this.overlay.setPosition(coordinates);
+      handleActiveFeatureChange(e) {
+        if (e.activeFeatureName) {
+          this.clickedFeatureId = e.activeFeatureName;
         }
-        // }
-        // });
       }
     }
   };
