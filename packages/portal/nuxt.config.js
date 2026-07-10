@@ -203,6 +203,9 @@ export default {
       accessType: process.env.OAUTH_ACCESS_TYPE,
       grantType: process.env.OAUTH_GRANT_TYPE,
       tokenType: process.env.OAUTH_TOKEN_TYPE
+    },
+    protomaps: {
+      apiKey: process.env.PROTOMAPS_API_KEY
     }
   },
 

@@ -11,7 +11,7 @@
 
 <script>
   import waitFor from '@/utils/waitFor.js';
-  import versatilesMapStyleNativeLang from '@europeana/style/map/versatiles.json';
+  import protomapsStyle from '@europeana/style/map/protomaps.json';
 
   export default {
     name: 'EntityOrganisationsMap',
@@ -46,36 +46,14 @@
     },
 
     computed: {
-      versatilesMapStyleLocalised() {
-        return {
-          ...versatilesMapStyleNativeLang,
-          layers: versatilesMapStyleNativeLang.layers.map((layer) => {
-            if (layer.layout?.['text-field']) {
-              const textField = layer.layout?.['text-field'];
-              if (textField.length === 2 && textField[0] === 'get' && textField[1] === 'name') {
-                return {
-                  ...layer,
-                  layout: {
-                    ...layer.layout,
-                    'text-field': [
-                      'coalesce',
-                      ['get', `name_${this.$i18n.locale}`],
-                      ['get', 'name']
-                    ]
-                  }
-                };
-              }
-            }
-            return layer;
-          })
-        };
-      },
       mapStyle() {
         if (this.$config.app.map?.style?.startsWith('https://')) {
           return this.$config.app.map.style;
         }
-        if (this.$config.app.map?.style === 'versatiles')  {
-          return this.versatilesMapStyleLocalised;
+        if (this.$config.app.map?.style === 'protomaps' && this.$config.protomaps?.apiKey) {
+          const style = JSON.parse(JSON.stringify(protomapsStyle).replace(/"name:en"/g, `"name:${this.$i18n.locale}"`));
+          style.sources.protomaps.tiles[0] = `${style.sources.protomaps.tiles[0]}?key=${this.$config.protomaps.apiKey}`;
+          return style;
         }
         return null;
       }
