@@ -64,11 +64,11 @@ export const createApiExpressApp = (context = {}, app) => {
     origin: forbiddenUnlessOriginAllowed(config.app?.feedback?.cors?.origin)
   });
   app.options('/jira-service-desk/feedback',
-    cors(feedbackCorsMiddleware),
+    feedbackCorsMiddleware,
     (req, res) => res.sendStatus(200)
   );
   app.post('/jira-service-desk/feedback',
-    cors(feedbackCorsMiddleware),
+    feedbackCorsMiddleware,
     jiraServiceDeskFeedback(config.jira)
   );
   app.post('/jira-service-desk/galleries', jiraServiceDeskGalleries(config.jira));
