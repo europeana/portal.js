@@ -1,26 +1,38 @@
 <template>
   <b-card
-    class="m-1 popover-content"
+    class="popover-content"
   >
     <div
       v-if="resizedLogo"
       class="organisation-logo mb-2"
       :style="`background-image: url('${resizedLogo}')`"
     />
-    <b-card-title
-      v-if="title"
-      title-tag="h2"
-      :lang="langAttribute(title.code)"
-      data-qa="entity title"
+    <SmartLink :destination="entityRoute">
+      <b-card-title
+        v-if="title"
+        title-tag="h3"
+        class="mb-2"
+        :lang="langAttribute(title.code)"
+      >
+        {{ title.values[0] }}
+      </b-card-title>
+      <b-card-sub-title
+        v-if="subTitle"
+        :lang="langAttribute(subTitle.code)"
+        sub-title-tag="h4"
+      >
+        {{ subTitle.values[0] }}
+      </b-card-sub-title>
+    </SmartLink>
+    <b-card-text
+      v-if="location"
+      text-tag="div"
+      class="d-flex align-items-center mt-3 mb-2"
+      lang="en"
     >
-      {{ title.values[0] }}
-    </b-card-title>
-    <b-card-sub-title
-      v-if="subTitle"
-      :lang="langAttribute(subTitle.code)"
-    >
-      {{ subTitle.values[0] }}
-    </b-card-sub-title>
+      <span class="icon-location" />
+      {{ location }}
+    </b-card-text>
   </b-card>
 </template>
 
@@ -30,6 +42,8 @@
   import { langMapValueForLocale } from  '@europeana/i18n';
   import { organizationEntityNativeName, organizationEntityNonNativeEnglishName } from '@/utils/europeana/entities/organizations.js';
   import { getWikimediaThumbnailUrl } from '@/plugins/europeana/entity';
+  import { getLabelledSlug } from '@/plugins/europeana/utils.js';
+  import SmartLink from '@/components/generic/SmartLink';
 
   const FIELDS = [
     'id',
@@ -44,9 +58,14 @@
   export default {
     name: 'EntityOrganisationsMapPinPopover',
 
+    components: {
+      SmartLink
+    },
+
     mixins: [
       langAttributeMixin
     ],
+
     props: {
       id: {
         type: String,
@@ -61,6 +80,10 @@
     },
 
     computed: {
+      entityRoute() {
+        const slug = this.entity && getLabelledSlug(this.entity?.id, this.entity?.prefLabel?.en);
+        return slug && `/collections/organisation/${slug}`;
+      },
       title() {
         return langMapValueForLocale(organizationEntityNativeName(this.entity), this.$i18n.locale);
       },
@@ -73,7 +96,10 @@
           null;
       },
       resizedLogo() {
-        return getWikimediaThumbnailUrl(this.logo, 120);
+        return this.entity?.logo?.id && getWikimediaThumbnailUrl(this.entity.logo.id, 120);
+      },
+      location() {
+        return this.entity?.hasAddress && `${this.entity.hasAddress.locality}, ${this.entity.hasAddress.countryName}`;
       }
     },
 
@@ -97,11 +123,52 @@
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
 
+.card {
+  border: none;
+  box-shadow: $boxshadow;
+}
+
 ::v-deep .card-body {
-  max-width: 20rem;
+  max-width: 21.25rem;
+
+  .organisation-logo {
+    background-color: $white;
+  }
 
   .card-title {
     font-size: $font-size-medium;
+    font-weight: 600;
+  }
+
+  .card-subtitle {
+    font-size: $font-size-extrasmall;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-top: 0;
+  }
+
+  a {
+    display: block;
+    text-decoration: none;
+
+    &:hover {
+      .card-title,
+      .card-subtitle {
+        color: $blue !important;
+      }
+    }
+  }
+
+  .card-text {
+    color: $darkgrey;
+    font-size: $font-size-small;
+    font-weight: 600;
+
+    [class^='icon-'],
+    [class*=' icon-'] {
+      font-size: $font-size-large;
+      color: $black;
+    }
   }
 }
 </style>
