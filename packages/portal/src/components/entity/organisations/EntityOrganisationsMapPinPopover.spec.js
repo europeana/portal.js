@@ -18,7 +18,18 @@ const entity = {
   hasAddress: { locality: 'Amsterdam', countryName: 'The Netherlands' }
 };
 
+const itemResults = {
+  items: [
+    { id: '/123/abc', edmPreview: ['https://www.example.org/images/123/abc.jpeg'] },
+    { id: '/123/def', edmPreview: ['https://www.example.org/images/123/def.jpeg'] },
+    { id: '/123/ghi', edmPreview: ['https://www.example.org/images/123/ghi.jpeg'] },
+    { id: '/123/jkl', edmPreview: ['https://www.example.org/images/123/jkl.jpeg'] },
+    { id: '/123/mno', edmPreview: ['https://www.example.org/images/123/mno.jpeg'] }
+  ]
+};
+
 const fetchEntityStub = sinon.stub().resolves(entity);
+const searchRecordStub = sinon.stub().resolves(itemResults);
 const factory = (propsData = {}) => shallowMountNuxt(EntityOrganisationsMapPinPopover, {
   localVue,
   propsData,
@@ -26,6 +37,12 @@ const factory = (propsData = {}) => shallowMountNuxt(EntityOrganisationsMapPinPo
     $apis: {
       entity: {
         get: fetchEntityStub
+      },
+      record: {
+        search: searchRecordStub
+      },
+      thumbnail: {
+        edmPreview: (url) => url
       }
     },
     $i18n: {
@@ -67,6 +84,17 @@ describe('components/entity/organisations/EntityOrganisationsMapPinPopover', () 
       await wrapper.vm.fetch();
 
       expect(wrapper.find('.organisation-location').text()).toBe('Amsterdam, The Netherlands');
+    });
+
+    it('shows an image for each of the 5 items', async() => {
+      const wrapper = factory({ id });
+      await wrapper.vm.fetch();
+
+      const images = wrapper.findAll('b-img-stub');
+
+      images.wrappers.forEach((image, index) => {
+        expect(image.attributes('src')).toBe(itemResults.items[index].edmPreview[0]);
+      });
     });
   });
   describe('when id is changed', () => {
