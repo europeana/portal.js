@@ -38,7 +38,6 @@
         // EUROPEANA_MAP_CDN_BASE_URL: 'http://localhost:4173',
         EUROPEANA_MAP_GEO_JSON_URL: `${this.$config.app.baseUrl}/_api/collections/organisations/geo`,
         europeanaMap: null,
-        overlay: null,
         clickedFeatureId: null
       };
     },
