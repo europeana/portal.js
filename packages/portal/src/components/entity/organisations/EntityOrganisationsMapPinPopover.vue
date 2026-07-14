@@ -127,7 +127,7 @@
     },
 
     watch: {
-      async id() {
+      id() {
         this.entity = null;
         this.$fetch();
       }
