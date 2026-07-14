@@ -15,8 +15,12 @@ export default (params = {}, context = {}) => {
     ...params
   });
 
-  const nextPageOfEntityResults = (url) => axios.get(url)
-    .then((response) => response.data);
+  const nextPageOfEntityResults = (url) => {
+    const urlWithWskey = new URL(url);
+    urlWithWskey.searchParams.set('wskey', api.config.key);
+    return axios.get(urlWithWskey.toString())
+      .then((response) => response.data);
+  };
 
   const entityWithSlug = (entity) => ({
     ...entity,
@@ -31,7 +35,6 @@ export default (params = {}, context = {}) => {
     // the API allows 100 entities per request. Loop until all entities are retrieved.
     while (!Array.isArray(pageOfResults) || next) {
       const response = await (next ? nextPageOfEntityResults(next) : firstPageOfEntityResults(params));
-      // console.log('response', response)
       pageOfResults = (response.items || []).map(entityWithSlug);
       allResults = allResults.concat(pageOfResults);
       next = response.next;
