@@ -23,7 +23,7 @@ const apiResponse = {
         isShownBy: 'http://www.example.eu'
       }
     ],
-    next: 'https://api.example.org/entity/search?wskey=entityApiKey&query=*:*&scope=europeana&sort=id&pageSize=100&type=timespan&page=2'
+    next: 'https://api.example.org/entity/search?query=*:*&scope=europeana&sort=id&pageSize=100&type=timespan&page=2'
   },
   pageTwo: {
     items: [
@@ -97,11 +97,11 @@ describe('cachers/collections/index', () => {
     beforeEach(() => {
       nock(context.$config.europeana.apis.entity.url)
         .get('/search')
-        .query(query => query.type === ENTITY_TYPE && query.scope === ENTITY_SCOPE)
+        .query(query => query.type === ENTITY_TYPE && query.scope === ENTITY_SCOPE && query.wskey === 'entityApiKey')
         .reply(200, apiResponse.pageOne);
       nock(context.$config.europeana.apis.entity.url)
         .get('/search')
-        .query(query => query.type === ENTITY_TYPE && query.scope === ENTITY_SCOPE && query.page === '2')
+        .query(query => query.type === ENTITY_TYPE && query.scope === ENTITY_SCOPE && query.page === '2' && query.wskey === 'entityApiKey')
         .reply(200, apiResponse.pageTwo);
     });
 
