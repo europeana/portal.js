@@ -144,8 +144,8 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@europeana/style/scss/variables';
-  @import '@europeana/style/scss/transitions';
+@import '@europeana/style/scss/variables';
+@import '@europeana/style/scss/transitions';
 
 .card {
   border: none;
