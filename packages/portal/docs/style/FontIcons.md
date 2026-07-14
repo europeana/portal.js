@@ -281,6 +281,11 @@ Example:
           <td><span class="icon icon-linkedin" /></td>
         </tr>
         <tr>
+          <td>Location</td>
+          <td><code>icon-location</code></td>
+          <td><span class="icon icon-location" /></td>
+        </tr>
+        <tr>
           <td>Lock</td>
           <td><code>icon-lock</code></td>
           <td><span class="icon icon-lock" /></td>
