@@ -1,7 +1,15 @@
 <template>
   <b-card
-    class="popover-content"
+    class="m-sm-1 popover-content"
   >
+    <b-button
+      variant="dark-flat"
+      class="d-sm-none close-button position-absolute"
+      :aria-label="$t('actions.close')"
+      @click="closePopover"
+    >
+      <span class="icon-clear" />
+    </b-button>
     <div
       v-if="resizedLogo"
       class="organisation-logo mb-2"
@@ -105,6 +113,7 @@
 
     watch: {
       async id(newVal) {
+        this.entity = null;
         if (newVal) {
           const entity = await this.$apis.entity.get('organisation', this.id.split('/').pop());
 
@@ -115,7 +124,10 @@
 
     methods: {
       organizationEntityNativeName,
-      organizationEntityNonNativeEnglishName
+      organizationEntityNonNativeEnglishName,
+      closePopover() {
+        this.$emit('close');
+      }
     }
   };
 </script>
@@ -126,10 +138,27 @@
 .card {
   border: none;
   box-shadow: $boxshadow;
+
+  @media (max-width: ($bp-small - 1px)) {
+    border-bottom: 1px solid $lightgrey;
+    padding-right: 0.75rem;
+  }
 }
 
 ::v-deep .card-body {
   max-width: 21.25rem;
+
+  .close-button {
+    top: 0.75rem;
+    right: 0.75rem;
+    padding: 0.25rem;
+    line-height: 1;
+
+    span {
+      font-size: $font-size-base;
+      color: $darkgrey;
+    }
+  }
 
   .organisation-logo {
     background-color: $white;

@@ -9,6 +9,7 @@
     <EntityOrganisationsMapPinPopover
       :id="clickedFeatureId"
       ref="popover"
+      @close="handlePopoverClose"
     />
   </div>
 </template>
@@ -88,15 +89,30 @@
         if (e.activeFeatureName) {
           this.clickedFeatureId = e.activeFeatureName;
         }
+      },
+      handlePopoverClose() {
+        this.clickedFeatureId = null;
       }
     }
   };
 </script>
 
 <style lang="scss" scoped>
-.europeana-map {
-  width: 100%;
-  height: 80vh;
-  position: relative;
-}
+  @import '@europeana/style/scss/variables';
+
+  .europeana-map {
+    width: 100%;
+    height: 80vh;
+    position: relative;
+
+    ::v-deep .ol-overlay-container {
+      @media (max-width: ($bp-small - 1px)) {
+        transform: none !important;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 1;
+      }
+    }
+  }
 </style>
