@@ -44,7 +44,7 @@
         v-if="location"
         key="2"
         text-tag="div"
-        class="d-flex align-items-center mt-3 mb-2"
+        class="organisation-location d-flex align-items-center mt-3 mb-2"
         lang="en"
       >
         <span class="icon-location" />
@@ -66,11 +66,8 @@
   const FIELDS = [
     'id',
     'logo',
-    'note',
     'prefLabel',
-    'hasAddress',
-    'acronym',
-    'type'
+    'hasAddress'
   ];
 
   export default {
@@ -95,6 +92,14 @@
       return {
         entity: null
       };
+    },
+
+    async fetch() {
+      if (this.id) {
+        const entity = await this.$apis.entity.get('organisation', this.id.split('/').pop());
+
+        this.entity = pick(entity, FIELDS);
+      }
     },
 
     computed: {
@@ -122,13 +127,9 @@
     },
 
     watch: {
-      async id(newVal) {
+      async id() {
         this.entity = null;
-        if (newVal) {
-          const entity = await this.$apis.entity.get('organisation', this.id.split('/').pop());
-
-          this.entity = pick(entity, FIELDS);
-        }
+        this.$fetch();
       }
     },
 
