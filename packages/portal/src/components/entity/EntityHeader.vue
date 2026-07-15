@@ -184,7 +184,7 @@
         return this.hasDescription ? this.description.values[0] : '';
       },
       isOrganisationType() {
-        return this.entity.type === 'Organization';
+        return ['Organization', 'Aggregator'].includes(this.entity.type);
       },
       logo() {
         if (this.isOrganisationType && this.entity?.logo) {
