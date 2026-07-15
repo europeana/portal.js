@@ -14,11 +14,6 @@
       :section="contentCardSection"
       class="mb-5"
     />
-    <client-only
-      v-if="$features.organisationsMap && (key === 'collections/organisations/featured')"
-    >
-      <EntityOrganisationsMap />
-    </client-only>
   </div>
 </template>
 
@@ -47,8 +42,7 @@
     components: {
       ContentCardSection,
       BrowseInfoCardSection,
-      ItemTrendingItems,
-      EntityOrganisationsMap: () => import('@/components/entity/organisations/EntityOrganisationsMap')
+      ItemTrendingItems
     },
 
     props: {

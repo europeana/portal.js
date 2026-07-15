@@ -45,6 +45,9 @@ query BrowseLandingStaticPage(
           ... on PrimaryCallToAction {
             ...primaryCallToActionFields
           }
+          ... on MapSection {
+            ...mapSectionFields
+          }
         }
       }
     }
@@ -314,4 +317,11 @@ fragment imageCardFields on ImageCard {
   profile {
     ...imageDisplayProfileFields
   }
+}
+fragment mapSectionFields on MapSection {
+ name
+ moreButton {
+  url
+  text
+ }
 }
