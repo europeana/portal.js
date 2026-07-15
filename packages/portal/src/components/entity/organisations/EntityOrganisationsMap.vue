@@ -34,7 +34,7 @@
 
     data() {
       return {
-        EUROPEANA_MAP_CDN_BASE_URL: 'https://cdn.jsdelivr.net/npm/@europeana/map@0.1.6-protomaps.1/dist',
+        EUROPEANA_MAP_CDN_BASE_URL: 'https://cdn.jsdelivr.net/npm/@europeana/map@0.1.6-protomaps.2/dist',
         // EUROPEANA_MAP_CDN_BASE_URL: 'http://localhost:4173',
         EUROPEANA_MAP_GEO_JSON_URL: `${this.$config.app.baseUrl}/_api/collections/organisations/geo`,
         europeanaMap: null,
@@ -60,11 +60,10 @@
         const style = this.$config.app.map.style || 'versatiles';
         this.europeanaMap = new window.EuropeanaMap('#europeana-map', {
           hash: this.hash,
-          locale: this.$i18n.locale,
           pinPopover: this.$refs.popover.$el,
           style,
           styleOptions: style === 'protomaps' && {
-            apiKey: this.$config.protomaps.apiKey
+            locale: this.$i18n.locale
           },
           url: this.EUROPEANA_MAP_GEO_JSON_URL
         });
