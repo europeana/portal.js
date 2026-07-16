@@ -1,5 +1,5 @@
 <template>
-  <div class="my-5">
+  <div class="mb-5">
     <div
       id="europeana-map"
       class="europeana-map"
@@ -34,35 +34,37 @@
 
     data() {
       return {
-        EUROPEANA_MAP_CDN_BASE_URL: 'https://cdn.jsdelivr.net/npm/@europeana/map@0.1.6-protomaps.2/dist',
+        EUROPEANA_MAP_CDN_BASE_URL: 'https://cdn.jsdelivr.net/npm/@europeana/map@0.1.8-protomaps.0/dist',
         // EUROPEANA_MAP_CDN_BASE_URL: 'http://localhost:4173',
         EUROPEANA_MAP_GEO_JSON_URL: `${this.$config.app.baseUrl}/_api/collections/organisations/geo`,
         europeanaMap: null,
-        clickedFeatureId: null
+        clickedFeatureId: null,
+        style: this.$config.app.map.style || 'versatiles'
       };
     },
 
     head() {
       return {
         link: [
-          { rel: 'preload', as: 'script', href: `${this.EUROPEANA_MAP_CDN_BASE_URL}/europeana-map.app.iife.js` },
+          { rel: 'preload', as: 'script', href: 'https://cdn.jsdelivr.net/npm/vue@3.5.39/dist/vue.global.prod.js' },
+          { rel: 'preload', as: 'script', href: `${this.EUROPEANA_MAP_CDN_BASE_URL}/europeana-map.iife.js` },
           { rel: 'preload', as: 'style', href: `${this.EUROPEANA_MAP_CDN_BASE_URL}/europeana-map.css` },
           { rel: 'stylesheet', href: `${this.EUROPEANA_MAP_CDN_BASE_URL}/europeana-map.css` }
         ],
         script: [
-          { src: `${this.EUROPEANA_MAP_CDN_BASE_URL}/europeana-map.app.iife.js` }
+          { src: 'https://cdn.jsdelivr.net/npm/vue@3.5.39/dist/vue.global.prod.js' },
+          { src: `${this.EUROPEANA_MAP_CDN_BASE_URL}/europeana-map.iife.js` }
         ]
       };
     },
 
     mounted() {
       waitFor(() => window.EuropeanaMap, { name: 'EuropeanaMap' }).then(() => {
-        const style = this.$config.app.map.style || 'versatiles';
-        this.europeanaMap = new window.EuropeanaMap('#europeana-map', {
+        this.europeanaMap = new window.EuropeanaMap.EuropeanaMapWrapper('#europeana-map', {
           hash: this.hash,
           pinPopover: this.$refs.popover.$el,
-          style,
-          styleOptions: style === 'protomaps' && {
+          style: this.style,
+          styleOptions: this.style === 'protomaps' && {
             locale: this.$i18n.locale
           },
           url: this.EUROPEANA_MAP_GEO_JSON_URL

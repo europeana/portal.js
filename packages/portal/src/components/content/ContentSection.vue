@@ -71,6 +71,10 @@
     v-else-if="contentfulEntryHasContentType(section, 'ImageTextSlideGroup')"
     :section="section"
   />
+  <MapSection
+    v-else-if="$features.organisationsMap && contentfulEntryHasContentType(section, 'MapSection')"
+    :section="section"
+  />
 </template>
 
 <script>
@@ -90,6 +94,7 @@
       EmbedHTML: () => import('../embed/EmbedHTML'),
       ImageComparisonSlider: () => import('../image/ImageComparisonSlider'),
       ImageWithAttributionContainer: () => import('../image/ImageWithAttributionContainer'),
+      MapSection: () =>  import('../generic/MapSection'),
       StoryImageTextSlideScroller: () => import('../story/StoryImageTextSlideScroller')
     },
 
