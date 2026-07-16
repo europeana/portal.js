@@ -1,5 +1,5 @@
 <template>
-  <div class="mb-5">
+  <div class="my-5">
     <div
       id="europeana-map"
       class="europeana-map"
@@ -34,8 +34,8 @@
 
     data() {
       return {
-        // EUROPEANA_MAP_CDN_BASE_URL: 'https://cdn.jsdelivr.net/npm/@europeana/map@0.1.3/dist',
-        EUROPEANA_MAP_CDN_BASE_URL: 'http://localhost:4173',
+        EUROPEANA_MAP_CDN_BASE_URL: 'https://cdn.jsdelivr.net/npm/@europeana/map@0.1.5/dist',
+        // EUROPEANA_MAP_CDN_BASE_URL: 'http://localhost:4173',
         EUROPEANA_MAP_GEO_JSON_URL: `${this.$config.app.baseUrl}/_api/collections/organisations/geo`,
         europeanaMap: null,
         clickedFeatureId: null,
