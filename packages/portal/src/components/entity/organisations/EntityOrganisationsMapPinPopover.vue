@@ -67,6 +67,7 @@
             }"
             class="preview-item-link mx-2"
           >
+            <!-- TODO: add SR text - links should contain text -->
             <b-img
               :src="$apis.thumbnail.edmPreview(item.edmPreview?.[0], { size: 200 })"
               alt=""
