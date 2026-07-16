@@ -1,5 +1,5 @@
 <template>
-  <div class="my-5">
+  <div class="mb-5">
     <div
       id="europeana-map"
       class="europeana-map"
