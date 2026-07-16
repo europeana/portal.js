@@ -54,7 +54,9 @@
         v-if="items.length > 0"
         key="items"
       >
-        <!-- TODO: add heading -->
+        <h4 class="context-label mt-3 mb-1">
+          {{ $t('related.collection.preview') }}
+        </h4>
         <div class="d-flex mx-n2">
           <SmartLink
             v-for="item in items"
