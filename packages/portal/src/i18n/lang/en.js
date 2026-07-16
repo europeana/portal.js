@@ -140,7 +140,6 @@ export default {
     "country": "Country:",
     "creator": "Creator:",
     "date": "Date:",
-    "hide": "Hide attribution",
     "institution": "Institution:",
     "show": "Show attribution",
     "title": "Title:"
