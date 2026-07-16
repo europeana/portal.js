@@ -34,7 +34,7 @@
 
     data() {
       return {
-        EUROPEANA_MAP_CDN_BASE_URL: 'https://cdn.jsdelivr.net/npm/@europeana/map@0.1.5/dist',
+        EUROPEANA_MAP_CDN_BASE_URL: 'https://cdn.jsdelivr.net/npm/@europeana/map@0.1.7/dist',
         // EUROPEANA_MAP_CDN_BASE_URL: 'http://localhost:4173',
         EUROPEANA_MAP_GEO_JSON_URL: `${this.$config.app.baseUrl}/_api/collections/organisations/geo`,
         europeanaMap: null,
@@ -45,12 +45,14 @@
     head() {
       return {
         link: [
-          { rel: 'preload', as: 'script', href: `${this.EUROPEANA_MAP_CDN_BASE_URL}/europeana-map.app.iife.js` },
+          { rel: 'preload', as: 'script', href: 'https://cdn.jsdelivr.net/npm/vue@3.5.39/dist/vue.global.prod.js' },
+          { rel: 'preload', as: 'script', href: `${this.EUROPEANA_MAP_CDN_BASE_URL}/europeana-map.iife.js` },
           { rel: 'preload', as: 'style', href: `${this.EUROPEANA_MAP_CDN_BASE_URL}/europeana-map.css` },
           { rel: 'stylesheet', href: `${this.EUROPEANA_MAP_CDN_BASE_URL}/europeana-map.css` }
         ],
         script: [
-          { src: `${this.EUROPEANA_MAP_CDN_BASE_URL}/europeana-map.app.iife.js` }
+          { src: 'https://cdn.jsdelivr.net/npm/vue@3.5.39/dist/vue.global.prod.js' },
+          { src: `${this.EUROPEANA_MAP_CDN_BASE_URL}/europeana-map.iife.js` }
         ]
       };
     },
@@ -71,7 +73,7 @@
 
     mounted() {
       waitFor(() => window.EuropeanaMap, { name: 'EuropeanaMap' }).then(() => {
-        this.europeanaMap = new window.EuropeanaMap('#europeana-map', {
+        this.europeanaMap = new window.EuropeanaMap.EuropeanaMapWrapper('#europeana-map', {
           hash: this.hash,
           pinPopover: this.$refs.popover.$el,
           style: this.mapStyle,
