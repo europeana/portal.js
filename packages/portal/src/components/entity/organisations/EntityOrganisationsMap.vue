@@ -93,6 +93,7 @@
     mounted() {
       waitFor(() => window.EuropeanaMap, { name: 'EuropeanaMap' }).then(() => {
         this.europeanaMap = new window.EuropeanaMap.EuropeanaMapWrapper('#europeana-map', {
+          controls: this.controls,
           hash: this.hash,
           pinPopover: this.$refs.popover.$el,
           style: this.mapStyle,
