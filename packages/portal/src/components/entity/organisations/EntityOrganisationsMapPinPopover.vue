@@ -50,29 +50,32 @@
         <span class="icon-location" />
         {{ location }}
       </b-card-text>
-      <b-card-footer
+      <div
         v-if="items.length > 0"
         key="items"
       >
-        <SmartLink
-          v-for="item in items"
-          :key="item.id"
-          :destination="{
-            name: 'item-all',
-            params: { pathMatch: item.id.slice(1) }
-          }"
-        >
-          <b-img
-            :src="$apis.thumbnail.edmPreview(item.edmPreview?.[0], { size: 200 })"
-            alt=""
-            sizes="(max-width 1920px) 28w,
+        <!-- TODO: add heading -->
+        <div class="d-flex mx-n2">
+          <SmartLink
+            v-for="item in items"
+            :key="item.id"
+            :destination="{
+              name: 'item-all',
+              params: { pathMatch: item.id.slice(1) }
+            }"
+            class="preview-item-link mx-2"
+          >
+            <b-img
+              :src="$apis.thumbnail.edmPreview(item.edmPreview?.[0], { size: 200 })"
+              alt=""
+              sizes="(max-width 1920px) 28w,
             (max-width 2560) 45w,
             (min-width 2561) 67w"
-            rounded="circle"
-            class="mr-2"
-          />
-        </SmartLink>
-      </b-card-footer>
+              rounded="circle"
+            />
+          </SmartLink>
+        </div>
+      </div>
     </TransitionGroup>
   </b-card>
 </template>
@@ -248,5 +251,11 @@
 
 .fade-leave-active {
   transition: none;
+}
+
+.preview-item-link img {
+  width: 3rem;
+  height: 3rem;
+  object-fit: cover;
 }
 </style>
