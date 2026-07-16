@@ -34,11 +34,26 @@
 
     data() {
       return {
-        EUROPEANA_MAP_CDN_BASE_URL: 'https://cdn.jsdelivr.net/npm/@europeana/map@0.1.5/dist',
-        // EUROPEANA_MAP_CDN_BASE_URL: 'http://localhost:4173',
+        // EUROPEANA_MAP_CDN_BASE_URL: 'https://cdn.jsdelivr.net/npm/@europeana/map@0.1.3/dist',
+        EUROPEANA_MAP_CDN_BASE_URL: 'http://localhost:4173',
         EUROPEANA_MAP_GEO_JSON_URL: `${this.$config.app.baseUrl}/_api/collections/organisations/geo`,
         europeanaMap: null,
-        clickedFeatureId: null
+        clickedFeatureId: null,
+        controls: {
+          fullscreen: {
+            label: this.$t('media.controls.fullscreen'),
+            labelActive: this.$t('media.controls.exitFullscreen')
+          },
+          zoom: {
+            zoomInLabel: this.$t('media.controls.zoomIn'),
+            zoomOutLabel: this.$t('media.controls.zoomOut')
+          },
+          attribution: {
+            collapsible: true,
+            label: this.$t('attribution.show'),
+            collapseLabel: this.$t('attribution.hide')
+          }
+        }
       };
     },
 
@@ -70,17 +85,24 @@
     },
 
     mounted() {
-      waitFor(() => window.EuropeanaMap, { name: 'EuropeanaMap' }).then(() => {
-        this.europeanaMap = new window.EuropeanaMap('#europeana-map', {
-          hash: this.hash,
-          pinPopover: this.$refs.popover.$el,
-          style: this.mapStyle,
-          url: this.EUROPEANA_MAP_GEO_JSON_URL
-        });
+      waitFor(() => window.EuropeanaMap, { name: 'EuropeanaMap' })
+        .then(() => {
+          this.europeanaMap = new window.EuropeanaMap('#europeana-map', {
+            controls: this.controls,
+            hash: this.hash,
+            pinPopover: this.$refs.popover.$el,
+            style: this.mapStyle,
+            url: this.EUROPEANA_MAP_GEO_JSON_URL
+          });
 
-        // Listen to active (clicked) feature changes
-        this.europeanaMap.olMap.on('change:activefeature', this.handleActiveFeatureChange);
-      });
+          // Listen to active (clicked) feature changes
+          this.europeanaMap.olMap.on('change:activefeature', this.handleActiveFeatureChange);
+          // Remove title tooltips from controls
+          const controls = this.europeanaMap?.olMap.getControls().getArray();
+          controls.forEach((control) => {
+            control['button_']?.removeAttribute('title');
+          });
+        });
     },
 
     methods: {
@@ -111,6 +133,28 @@
         bottom: 0;
         left: 0;
         z-index: 1;
+      }
+    }
+
+    ::v-deep .ol-control {
+      background-color: transparent;
+
+      button {
+        border-radius: $border-radius-small;
+        box-shadow: $boxshadow;
+        transition: $standard-transition;
+
+        &:before {
+          background-color: $darkgrey; // colors the icon mask-img
+        }
+
+        &:hover:before {
+          background-color: $blue; // colors the icon mask-img
+        }
+      }
+
+      &.ol-attribution {
+        border-radius: $border-radius-small;
       }
     }
   }
