@@ -16,12 +16,12 @@
     >
       <div
         v-if="resizedLogo"
-        key="0"
+        key="logo"
         class="organisation-logo mb-2"
         :style="`background-image: url('${resizedLogo}')`"
       />
       <SmartLink
-        key="1"
+        key="title"
         :destination="entityRoute"
       >
         <b-card-title
@@ -42,7 +42,7 @@
       </SmartLink>
       <b-card-text
         v-if="location"
-        key="2"
+        key="location"
         text-tag="div"
         class="organisation-location d-flex align-items-center mt-3 mb-2"
         lang="en"
@@ -50,6 +50,35 @@
         <span class="icon-location" />
         {{ location }}
       </b-card-text>
+      <div
+        v-if="items.length > 0"
+        key="items"
+      >
+        <h4 class="context-label mt-3 mb-1">
+          {{ $t('related.collection.preview') }}
+        </h4>
+        <div class="d-flex mx-n2">
+          <SmartLink
+            v-for="item in items"
+            :key="item.id"
+            :destination="{
+              name: 'item-all',
+              params: { pathMatch: item.id.slice(1) }
+            }"
+            class="preview-item-link mx-2"
+          >
+            <!-- TODO: add SR text - links should contain text -->
+            <b-img
+              :src="$apis.thumbnail.edmPreview(item.edmPreview?.[0], { size: 200 })"
+              alt=""
+              sizes="(max-width 1920px) 28w,
+            (max-width 2560) 45w,
+            (min-width 2561) 67w"
+              rounded="circle"
+            />
+          </SmartLink>
+        </div>
+      </div>
     </TransitionGroup>
   </b-card>
 </template>
@@ -59,8 +88,9 @@
   import langAttributeMixin from '@/mixins/langAttribute';
   import { langMapValueForLocale } from  '@europeana/i18n';
   import { organizationEntityNativeName, organizationEntityNonNativeEnglishName } from '@/utils/europeana/entities/organizations.js';
-  import { getWikimediaThumbnailUrl } from '@/plugins/europeana/entity';
+  import { getEntityQuery, getWikimediaThumbnailUrl } from '@/plugins/europeana/entity.js';
   import { getLabelledSlug } from '@/plugins/europeana/utils.js';
+
   import SmartLink from '@/components/generic/SmartLink';
 
   const FIELDS = [
@@ -90,15 +120,27 @@
 
     data() {
       return {
-        entity: null
+        entity: null,
+        items: []
       };
     },
 
     async fetch() {
       if (this.id) {
-        const entity = await this.$apis.entity.get('organisation', this.id.split('/').pop());
+        const entityQuery = getEntityQuery(this.id);
+
+        const [entity, itemResults] = await Promise.all([
+          this.$apis.entity.get('organisation', this.id.split('/').pop()),
+          // TODO: duplicates what's in CollectionPage; extract to a util fn
+          this.$apis.record.search({
+            qf: [entityQuery],
+            query: entityQuery, // Triggering best bets.
+            rows: 5
+          })
+        ]);
 
         this.entity = pick(entity, FIELDS);
+        this.items = itemResults.items || [];
       }
     },
 
@@ -129,6 +171,7 @@
     watch: {
       id() {
         this.entity = null;
+        this.items = [];
         this.$fetch();
       }
     },
@@ -215,5 +258,11 @@
 
 .fade-leave-active {
   transition: none;
+}
+
+.preview-item-link img {
+  width: 3rem;
+  height: 3rem;
+  object-fit: cover;
 }
 </style>

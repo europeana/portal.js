@@ -33,7 +33,6 @@
         />
         <b-row v-else>
           <ItemPreviewInterface
-            data-qa="liked items"
             :items="results"
             :hits="hits"
             :loading="$fetchState.pending"

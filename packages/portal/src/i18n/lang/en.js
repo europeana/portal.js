@@ -1299,6 +1299,9 @@ export default {
     "categoryTags": {
       "title": "Discover related stories"
     },
+    "collection": {
+      "preview": "Collection preview"
+    },
     "collections": {
       "name": "Related collections",
       "title": "Discover related collections"
