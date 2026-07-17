@@ -9,8 +9,39 @@
     <EntityOrganisationsMapPinPopover
       :id="clickedFeatureId"
       ref="popover"
-      @close="handlePopoverClose"
+      @close="handleClosePopover"
     />
+    <link
+      rel="preload"
+      as="script"
+      href="https://cdn.jsdelivr.net/npm/vue@3.5.39/dist/vue.global.prod.js"
+    >
+    <link
+      rel="preload"
+      as="script"
+      :href="`${EUROPEANA_MAP_CDN_BASE_URL}/europeana-map.iife.js`"
+    >
+    <link
+      rel="preload"
+      as="style"
+      :href="`${EUROPEANA_MAP_CDN_BASE_URL}/europeana-map.css`"
+    >
+    <link
+      rel="stylesheet"
+      :href="`${EUROPEANA_MAP_CDN_BASE_URL}/europeana-map.css`"
+    >
+    <script
+      src="https://cdn.jsdelivr.net/npm/vue@3.5.39/dist/vue.global.prod.js"
+      defer
+    >
+      <!-- prevent eslint closing this -->
+    </script>
+    <script
+      :src="`${EUROPEANA_MAP_CDN_BASE_URL}/europeana-map.iife.js`"
+      async
+    >
+      <!-- prevent eslint closing this -->
+    </script>
   </div>
 </template>
 
@@ -42,21 +73,6 @@
       };
     },
 
-    head() {
-      return {
-        link: [
-          { rel: 'preload', as: 'script', href: 'https://cdn.jsdelivr.net/npm/vue@3.5.39/dist/vue.global.prod.js' },
-          { rel: 'preload', as: 'script', href: `${this.EUROPEANA_MAP_CDN_BASE_URL}/europeana-map.iife.js` },
-          { rel: 'preload', as: 'style', href: `${this.EUROPEANA_MAP_CDN_BASE_URL}/europeana-map.css` },
-          { rel: 'stylesheet', href: `${this.EUROPEANA_MAP_CDN_BASE_URL}/europeana-map.css` }
-        ],
-        script: [
-          { src: 'https://cdn.jsdelivr.net/npm/vue@3.5.39/dist/vue.global.prod.js' },
-          { src: `${this.EUROPEANA_MAP_CDN_BASE_URL}/europeana-map.iife.js` }
-        ]
-      };
-    },
-
     computed: {
       mapStyle() {
         if (this.$config.app.map?.style?.startsWith('https://')) {
@@ -72,7 +88,11 @@
     },
 
     mounted() {
-      waitFor(() => window.EuropeanaMap, { name: 'EuropeanaMap' }).then(() => {
+      waitFor(() => window.EuropeanaMap, { name: 'EuropeanaMap' }).then(this.handleLoadEuropeanaMap);
+    },
+
+    methods: {
+      handleLoadEuropeanaMap() {
         this.europeanaMap = new window.EuropeanaMap.EuropeanaMapWrapper('#europeana-map', {
           hash: this.hash,
           pinPopover: this.$refs.popover.$el,
@@ -81,17 +101,14 @@
         });
 
         // Listen to active (clicked) feature changes
-        this.europeanaMap.olMap.on('change:activefeature', this.handleActiveFeatureChange);
-      });
-    },
-
-    methods: {
-      handleActiveFeatureChange(e) {
+        this.europeanaMap.olMap.on('change:activefeature', this.handleChangeActiveFeature);
+      },
+      handleChangeActiveFeature(e) {
         if (e.activeFeatureName) {
           this.clickedFeatureId = e.activeFeatureName;
         }
       },
-      handlePopoverClose() {
+      handleClosePopover() {
         this.clickedFeatureId = null;
       }
     }
