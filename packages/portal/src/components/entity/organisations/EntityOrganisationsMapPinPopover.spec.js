@@ -97,12 +97,26 @@ describe('components/entity/organisations/EntityOrganisationsMapPinPopover', () 
       });
     });
   });
+
   describe('when id is changed', () => {
     it('fetches the entity', async() => {
       const wrapper = factory();
       await wrapper.setProps({ id });
 
       expect(fetchEntityStub.calledWith('organisation', '6')).toBe(true);
+    });
+
+    it('fetches the items', async() => {
+      const wrapper = factory();
+      await wrapper.setProps({ id });
+
+      expect(searchRecordStub.calledWith(
+        {
+          qf: ['foaf_organization:"http://data.europeana.eu/organization/6"'],
+          query: 'foaf_organization:"http://data.europeana.eu/organization/6"',
+          rows: 5
+        }
+      )).toBe(true);
     });
   });
 });
