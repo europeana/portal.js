@@ -9,7 +9,7 @@
     <EntityOrganisationsMapPinPopover
       :id="clickedFeatureId"
       ref="popover"
-      @close="handlePopoverClose"
+      @close="handleClosePopover"
     />
   </div>
 </template>
@@ -65,13 +65,13 @@
       return {
         link: [
           { rel: 'preload', as: 'script', href: 'https://cdn.jsdelivr.net/npm/vue@3.5.39/dist/vue.global.prod.js' },
-          { rel: 'preload', as: 'script', href: `${this.EUROPEANA_MAP_CDN_BASE_URL}/europeana-map.iife.js` },
+          // { rel: 'preload', as: 'script', href: `${this.EUROPEANA_MAP_CDN_BASE_URL}/europeana-map.iife.js` },
           { rel: 'preload', as: 'style', href: `${this.EUROPEANA_MAP_CDN_BASE_URL}/europeana-map.css` },
           { rel: 'stylesheet', href: `${this.EUROPEANA_MAP_CDN_BASE_URL}/europeana-map.css` }
         ],
         script: [
-          { src: 'https://cdn.jsdelivr.net/npm/vue@3.5.39/dist/vue.global.prod.js' },
-          { src: `${this.EUROPEANA_MAP_CDN_BASE_URL}/europeana-map.iife.js` }
+          { src: 'https://cdn.jsdelivr.net/npm/vue@3.5.39/dist/vue.global.prod.js' }
+          // { src: `${this.EUROPEANA_MAP_CDN_BASE_URL}/europeana-map.iife.js` }
         ]
       };
     },
@@ -81,8 +81,6 @@
         if (this.$config.app.map?.style?.startsWith('https://')) {
           return this.$config.app.map.style;
         }
-        // TODO: load this from @europeana/style npm pkg via CDN once published,
-        //       i.e. remove this hard-coded exception then
         if (this.$config.app.map?.style === '@europeana/style/map/versatiles.json') {
           return require('@europeana/style/map/versatiles.json');
         }
@@ -91,7 +89,21 @@
     },
 
     mounted() {
-      waitFor(() => window.EuropeanaMap, { name: 'EuropeanaMap' }).then(() => {
+      waitFor(() => window.Vue, { name: 'Vue' }).then(() => this.handleLoadVue);
+      waitFor(() => window.EuropeanaMap, { name: 'EuropeanaMap' }).then(this.handleLoadEuropeanaMap);
+    },
+
+    methods: {
+      // With vue and map scripts both in head script elements, there is a race condition as
+      // to which gets loaded first, resulting in "Vue is not defined" errors from the map
+      // script. This will only add the map script to the document head once Vue is loaded.
+      // TODO: make this work with script elements in the document head
+      handleLoadVue() {
+        const mapScript = document.createElement('script');
+        mapScript.setAttribute('src', `${this.EUROPEANA_MAP_CDN_BASE_URL}/europeana-map.iife.js`);
+        document.querySelector('head').append(mapScript);
+      },
+      handleLoadEuropeanaMap() {
         this.europeanaMap = new window.EuropeanaMap.EuropeanaMapWrapper('#europeana-map', {
           controls: this.controls,
           hash: this.hash,
@@ -101,17 +113,14 @@
         });
 
         // Listen to active (clicked) feature changes
-        this.europeanaMap.olMap.on('change:activefeature', this.handleActiveFeatureChange);
-      });
-    },
-
-    methods: {
-      handleActiveFeatureChange(e) {
+        this.europeanaMap.olMap.on('change:activefeature', this.handleChangeActiveFeature);
+      },
+      handleChangeActiveFeature(e) {
         if (e.activeFeatureName) {
           this.clickedFeatureId = e.activeFeatureName;
         }
       },
-      handlePopoverClose() {
+      handleClosePopover() {
         this.clickedFeatureId = null;
       }
     }
