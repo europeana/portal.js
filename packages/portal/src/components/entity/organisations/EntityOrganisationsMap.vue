@@ -70,7 +70,7 @@
     },
 
     mounted() {
-      waitFor(() => window.Vue, { name: 'Vue' }).then(() => this.handleLoadVue);
+      waitFor(() => window.Vue, { name: 'Vue' }).then(this.handleLoadVue);
       waitFor(() => window.EuropeanaMap, { name: 'EuropeanaMap' }).then(this.handleLoadEuropeanaMap);
     },
 
