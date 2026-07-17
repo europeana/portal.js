@@ -127,17 +127,20 @@
 
     async fetch() {
       if (this.id) {
-        const entity = await this.$apis.entity.get('organisation', this.id.split('/').pop());
-        this.entity = pick(entity, FIELDS);
+        const entityQuery = getEntityQuery(this.id);
 
-        // TODO: duplicates what's in CollectionPage; extract to a util fn
-        const entityQuery = getEntityQuery(this.entity.id);
-        const results = await this.$apis.record.search({
-          qf: [entityQuery],
-          query: entityQuery, // Triggering best bets.
-          rows: 5
-        });
-        this.items = results.items || [];
+        const [entity, itemResults] = await Promise.all([
+          this.$apis.entity.get('organisation', this.id.split('/').pop()),
+          // TODO: duplicates what's in CollectionPage; extract to a util fn
+          this.$apis.record.search({
+            qf: [entityQuery],
+            query: entityQuery, // Triggering best bets.
+            rows: 5
+          })
+        ]);
+
+        this.entity = pick(entity, FIELDS);
+        this.items = itemResults.items || [];
       }
     },
 
@@ -168,6 +171,7 @@
     watch: {
       id() {
         this.entity = null;
+        this.items = [];
         this.$fetch();
       }
     },
