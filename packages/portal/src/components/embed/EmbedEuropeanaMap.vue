@@ -18,10 +18,14 @@
       :json="json"
       :url="url"
     />
-    <slot
-      ref="popover"
-      name="popover"
-    />
+    <div
+      v-if="$slots.popover"
+      id="europeana-map-popover"
+    >
+      <slot
+        name="popover"
+      />
+    </div>
   </div>
 </template>
 
@@ -107,12 +111,12 @@
         this.europeanaMap = new window.EuropeanaMap.EuropeanaMapWrapper('#europeana-map', {
           hash: this.hash,
           json: this.json,
-          pinPopover: this.$refs.popover?.$el,
+          pinPopover: 'europeana-map-popover',
           style: this.mapStyle,
           url: this.url
         });
 
-        // Add map event listeners
+        // Emit map events
         for (const eventId in this.on) {
           this.europeanaMap.olMap.on(eventId, this.on[eventId]);
         }

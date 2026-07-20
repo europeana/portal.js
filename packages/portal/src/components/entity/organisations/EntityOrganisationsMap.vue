@@ -3,12 +3,15 @@
     <EmbedEuropeanaMap
       :hash="hash"
       :url="EUROPEANA_MAP_GEO_JSON_URL"
-      :on="{ 'change:activefeature': handleChangeActiveFeature }"
-    />
-    <EntityOrganisationsMapPinPopover
-      :id="clickedFeatureId"
-      @close="handleClosePopover"
-    />
+      :on="on"
+    >
+      <template #popover>
+        <EntityOrganisationsMapPinPopover
+          :entity-id="clickedFeatureId"
+          @close="handleClosePopover"
+        />
+      </template>
+    </EmbedEuropeanaMap>
   </div>
 </template>
 
@@ -34,7 +37,8 @@
     data() {
       return {
         EUROPEANA_MAP_GEO_JSON_URL: `${this.$config.app.baseUrl}/_api/collections/organisations/geo`,
-        clickedFeatureId: null
+        clickedFeatureId: null,
+        on: { 'change:activefeature': this.handleChangeActiveFeature }
       };
     },
 
