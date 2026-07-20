@@ -42,8 +42,6 @@
           type: 'FeatureCollection',
           features: [{
             type: 'Feature',
-            // TODO: add id? (for what?)
-            // id,
             geometry: {
               type: 'Point',
               coordinates: [
@@ -71,7 +69,6 @@
         return langMapValueForLocale(this.prefLabel, this.$i18n.locale);
       },
 
-      // TODO: l10n?
       formattedCoordinates() {
         const latitudeSymbol = this.latitude < 0 ? 'S' : 'N';
         const longitudeSymbol = this.longitude < 0 ? 'W' : 'E';
