@@ -151,10 +151,10 @@
       button {
         border-radius: $border-radius-small;
         box-shadow: $boxshadow;
-        transition: $standard-transition;
 
         &:before {
           background-color: $darkgrey; // colors the icon mask-img
+          transition: background-color $standard-transition;
         }
 
         &:hover:before {
