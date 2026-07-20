@@ -8,11 +8,11 @@ import EntityOrganisationsMapPinPopover from '@/components/entity/organisations/
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const id = 'http://data.europeana.eu/organization/6';
+const entityId = 'http://data.europeana.eu/organization/6';
 const englishName = 'University Library';
 const nativeName = 'Universiteitsbibliotheek';
 const entity = {
-  id,
+  id: entityId,
   logo: { id: 'https://www.example.eu/logo.svg' },
   prefLabel: { nl: nativeName, en: englishName },
   hasAddress: { locality: 'Amsterdam', countryName: 'The Netherlands' }
@@ -55,13 +55,13 @@ const factory = (propsData = {}) => shallowMountNuxt(EntityOrganisationsMapPinPo
 describe('components/entity/organisations/EntityOrganisationsMapPinPopover', () => {
   describe('template', () => {
     it('shows a close button on small screens', async() => {
-      const wrapper = factory({ id });
+      const wrapper = factory({ entityId });
       await wrapper.vm.fetch();
 
       expect(wrapper.find('.d-sm-none.close-button').exists()).toBe(true);
     });
     it('shows the organisation name in native and English locale', async() => {
-      const wrapper = factory({ id });
+      const wrapper = factory({ entityId });
       await wrapper.vm.fetch();
 
       expect(wrapper.find('b-card-title-stub').text()).toBe(nativeName);
@@ -69,7 +69,7 @@ describe('components/entity/organisations/EntityOrganisationsMapPinPopover', () 
     });
 
     it('shows a logo', async() => {
-      const wrapper = factory({ id });
+      const wrapper = factory({ entityId });
       await wrapper.vm.fetch();
 
       const logo = wrapper.find('.organisation-logo');
@@ -80,14 +80,14 @@ describe('components/entity/organisations/EntityOrganisationsMapPinPopover', () 
     });
 
     it('shows the location', async() => {
-      const wrapper = factory({ id });
+      const wrapper = factory({ entityId });
       await wrapper.vm.fetch();
 
       expect(wrapper.find('.organisation-location').text()).toBe('Amsterdam, The Netherlands');
     });
 
     it('shows an image for each of the 5 items', async() => {
-      const wrapper = factory({ id });
+      const wrapper = factory({ entityId });
       await wrapper.vm.fetch();
 
       const images = wrapper.findAll('b-img-stub');
@@ -98,17 +98,17 @@ describe('components/entity/organisations/EntityOrganisationsMapPinPopover', () 
     });
   });
 
-  describe('when id is changed', () => {
+  describe('when entityId is changed', () => {
     it('fetches the entity', async() => {
       const wrapper = factory();
-      await wrapper.setProps({ id });
+      await wrapper.setProps({ entityId });
 
       expect(fetchEntityStub.calledWith('organisation', '6')).toBe(true);
     });
 
     it('fetches the items', async() => {
       const wrapper = factory();
-      await wrapper.setProps({ id });
+      await wrapper.setProps({ entityId });
 
       expect(searchRecordStub.calledWith(
         {
