@@ -65,7 +65,7 @@
         },
         europeanaMap: null,
         vue3Loaded: false,
-        style: this.$config.app.map.style || 'versatiles'
+        style: this.$config.app?.map?.style || 'versatiles'
       };
     },
 
