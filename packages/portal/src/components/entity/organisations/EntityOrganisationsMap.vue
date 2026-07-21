@@ -1,5 +1,5 @@
 <template>
-  <div class="mb-5">
+  <div class="my-5">
     <div
       id="europeana-map"
       class="europeana-map"
@@ -20,7 +20,7 @@
   const VUE_3_CDN_BASE_URL = 'https://cdn.jsdelivr.net/npm/vue@3.5.39/dist';
   const VUE_3_SCRIPT_URL = `${VUE_3_CDN_BASE_URL}/vue.global.prod.js`;
 
-  const EUROPEANA_MAP_CDN_BASE_URL = 'https://cdn.jsdelivr.net/npm/@europeana/map@0.1.7/dist';
+  const EUROPEANA_MAP_CDN_BASE_URL = 'https://cdn.jsdelivr.net/npm/@europeana/map@0.1.8/dist';
   // const EUROPEANA_MAP_CDN_BASE_URL = 'http://localhost:4173';
   const EUROPEANA_MAP_SCRIPT_URL = `${EUROPEANA_MAP_CDN_BASE_URL}/europeana-map.iife.js`;
   const EUROPEANA_MAP_STYLE_URL = `${EUROPEANA_MAP_CDN_BASE_URL}/europeana-map.css`;
@@ -42,8 +42,27 @@
     data() {
       return {
         EUROPEANA_MAP_GEO_JSON_URL: `${this.$config.app.baseUrl}/_api/collections/organisations/geo`,
-        europeanaMap: null,
         clickedFeatureId: null,
+        controls: {
+          fullscreen: {
+            label: this.$t('media.controls.fullscreen'),
+            labelActive: this.$t('media.controls.exitFullscreen'),
+            tipLabel: ' ' // setting this to "" does not prevent title tooltip
+          },
+          zoom: {
+            zoomInLabel: this.$t('media.controls.zoomIn'),
+            zoomOutLabel: this.$t('media.controls.zoomOut'),
+            zoomInTipLabel: '',
+            zoomOutTipLabel: ''
+          },
+          attribution: {
+            collapsible: true,
+            label: this.$t('attribution.show'),
+            collapseLabel: this.$t('attribution.hide'),
+            tipLabel: ''
+          }
+        },
+        europeanaMap: null,
         vue3Loaded: false
       };
     },
@@ -90,6 +109,7 @@
       },
       handleLoadEuropeanaMap() {
         this.europeanaMap = new window.EuropeanaMap.EuropeanaMapWrapper('#europeana-map', {
+          controls: this.controls,
           hash: this.hash,
           pinPopover: this.$refs.popover.$el,
           style: this.mapStyle,
@@ -126,6 +146,28 @@
         bottom: 0;
         left: 0;
         z-index: 1;
+      }
+    }
+
+    ::v-deep .ol-control {
+      background-color: transparent;
+
+      button {
+        border-radius: $border-radius-small;
+        box-shadow: $boxshadow;
+
+        &:before {
+          background-color: $darkgrey; // colors the icon mask-img
+          transition: background-color $standard-transition;
+        }
+
+        &:hover:before {
+          background-color: $blue; // colors the icon mask-img
+        }
+      }
+
+      &.ol-attribution {
+        border-radius: $border-radius-small;
       }
     }
   }
