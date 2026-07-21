@@ -134,7 +134,7 @@
           controls: this.controls,
           hash: this.hash,
           json: this.json,
-          pinPopover: 'europeana-map-popover',
+          pinPopover: this.$slots.popover && 'europeana-map-popover',
           style: this.mapStyle,
           url: this.url
         });
