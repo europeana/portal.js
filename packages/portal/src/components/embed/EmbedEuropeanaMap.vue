@@ -2,13 +2,12 @@
   <div
     class="embed-map mb-5"
   >
-    <label
+    <div
       v-if="$slots.label"
-      for="europeana-map"
       class="p-3"
     >
       <slot name="label" />
-    </label>
+    </div>
     <div
       id="europeana-map"
       class="europeana-map"
