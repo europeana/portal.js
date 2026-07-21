@@ -22,7 +22,8 @@ const factory = () => shallowMountNuxt(MapSection, {
   },
   stubs: [
     'ClientOnly',
-    'SmartLink'
+    'SmartLink',
+    'EntityOrganisationsMap'
   ]
 });
 
