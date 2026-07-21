@@ -1,22 +1,30 @@
 <template>
-  <div class="mb-5">
+  <div class="my-5">
     <div
       id="europeana-map"
       class="europeana-map"
+      data-qa="europeana-map"
       width="100vh"
       height="80vh"
     />
     <EntityOrganisationsMapPinPopover
       :id="clickedFeatureId"
       ref="popover"
-      @close="handlePopoverClose"
+      @close="handleClosePopover"
     />
   </div>
 </template>
 
 <script>
-  import waitFor from '@/utils/waitFor.js';
   import EntityOrganisationsMapPinPopover from './EntityOrganisationsMapPinPopover.vue';
+
+  const VUE_3_CDN_BASE_URL = 'https://cdn.jsdelivr.net/npm/vue@3.5.39/dist';
+  const VUE_3_SCRIPT_URL = `${VUE_3_CDN_BASE_URL}/vue.global.prod.js`;
+
+  // const EUROPEANA_MAP_CDN_BASE_URL = 'https://cdn.jsdelivr.net/npm/@europeana/map@0.1.8/dist';
+  const EUROPEANA_MAP_CDN_BASE_URL = 'http://localhost:4173';
+  const EUROPEANA_MAP_SCRIPT_URL = `${EUROPEANA_MAP_CDN_BASE_URL}/europeana-map.iife.js`;
+  const EUROPEANA_MAP_STYLE_URL = `${EUROPEANA_MAP_CDN_BASE_URL}/europeana-map.css`;
 
   export default {
     name: 'EntityOrganisationsMap',
@@ -34,11 +42,29 @@
 
     data() {
       return {
-        EUROPEANA_MAP_CDN_BASE_URL: 'https://cdn.jsdelivr.net/npm/@europeana/map@0.1.8-protomaps.0/dist',
-        // EUROPEANA_MAP_CDN_BASE_URL: 'http://localhost:4173',
         EUROPEANA_MAP_GEO_JSON_URL: `${this.$config.app.baseUrl}/_api/collections/organisations/geo`,
-        europeanaMap: null,
         clickedFeatureId: null,
+        controls: {
+          fullscreen: {
+            label: this.$t('media.controls.fullscreen'),
+            labelActive: this.$t('media.controls.exitFullscreen'),
+            tipLabel: ' ' // setting this to "" does not prevent title tooltip
+          },
+          zoom: {
+            zoomInLabel: this.$t('media.controls.zoomIn'),
+            zoomOutLabel: this.$t('media.controls.zoomOut'),
+            zoomInTipLabel: '',
+            zoomOutTipLabel: ''
+          },
+          attribution: {
+            collapsible: true,
+            label: this.$t('attribution.show'),
+            collapseLabel: this.$t('attribution.hide'),
+            tipLabel: ''
+          }
+        },
+        europeanaMap: null,
+        vue3Loaded: false,
         style: this.$config.app.map.style || 'versatiles'
       };
     },
@@ -46,21 +72,34 @@
     head() {
       return {
         link: [
-          { rel: 'preload', as: 'script', href: 'https://cdn.jsdelivr.net/npm/vue@3.5.39/dist/vue.global.prod.js' },
-          { rel: 'preload', as: 'script', href: `${this.EUROPEANA_MAP_CDN_BASE_URL}/europeana-map.iife.js` },
-          { rel: 'preload', as: 'style', href: `${this.EUROPEANA_MAP_CDN_BASE_URL}/europeana-map.css` },
-          { rel: 'stylesheet', href: `${this.EUROPEANA_MAP_CDN_BASE_URL}/europeana-map.css` }
+          { rel: 'preload', as: 'script', href: VUE_3_SCRIPT_URL },
+          { rel: 'preload', as: 'script', href: EUROPEANA_MAP_SCRIPT_URL },
+          { rel: 'preload', as: 'style', href: EUROPEANA_MAP_STYLE_URL },
+          { hid: 'europeana-map-style', rel: 'stylesheet', href: EUROPEANA_MAP_STYLE_URL }
         ],
         script: [
-          { src: 'https://cdn.jsdelivr.net/npm/vue@3.5.39/dist/vue.global.prod.js' },
-          { src: `${this.EUROPEANA_MAP_CDN_BASE_URL}/europeana-map.iife.js` }
+          {
+            hid: 'vue3-script',
+            src: VUE_3_SCRIPT_URL,
+            callback: this.handleLoadVue3
+          },
+          {
+            hid: 'europeana-map-script',
+            src: EUROPEANA_MAP_SCRIPT_URL,
+            skip: !this.vue3Loaded,
+            callback: this.handleLoadEuropeanaMap
+          }
         ]
       };
     },
 
-    mounted() {
-      waitFor(() => window.EuropeanaMap, { name: 'EuropeanaMap' }).then(() => {
+    methods: {
+      handleLoadVue3() {
+        this.vue3Loaded = true;
+      },
+      handleLoadEuropeanaMap() {
         this.europeanaMap = new window.EuropeanaMap.EuropeanaMapWrapper('#europeana-map', {
+          controls: this.controls,
           hash: this.hash,
           pinPopover: this.$refs.popover.$el,
           style: this.style,
@@ -71,17 +110,14 @@
         });
 
         // Listen to active (clicked) feature changes
-        this.europeanaMap.olMap.on('change:activefeature', this.handleActiveFeatureChange);
-      });
-    },
-
-    methods: {
-      handleActiveFeatureChange(e) {
+        this.europeanaMap.olMap.on('change:activefeature', this.handleChangeActiveFeature);
+      },
+      handleChangeActiveFeature(e) {
         if (e.activeFeatureName) {
           this.clickedFeatureId = e.activeFeatureName;
         }
       },
-      handlePopoverClose() {
+      handleClosePopover() {
         this.clickedFeatureId = null;
       }
     }
@@ -103,6 +139,28 @@
         bottom: 0;
         left: 0;
         z-index: 1;
+      }
+    }
+
+    ::v-deep .ol-control {
+      background-color: transparent;
+
+      button {
+        border-radius: $border-radius-small;
+        box-shadow: $boxshadow;
+
+        &:before {
+          background-color: $darkgrey; // colors the icon mask-img
+          transition: background-color $standard-transition;
+        }
+
+        &:hover:before {
+          background-color: $blue; // colors the icon mask-img
+        }
+      }
+
+      &.ol-attribution {
+        border-radius: $border-radius-small;
       }
     }
   }

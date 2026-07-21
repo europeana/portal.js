@@ -303,7 +303,7 @@
 
     methods: {
       async fetchSet() {
-        const responses = await Promise.all([
+        const [setResponse, itemsResponse] = await Promise.all([
           this.$apis.set.get(this.setId),
           this.$apis.set.getItems(this.setId, {
             page: this.page,
@@ -312,8 +312,8 @@
         ]);
 
         this.set = {
-          ...responses[0],
-          items: responses[1]
+          ...setResponse,
+          items: itemsResponse
         };
       },
       async fetchEntity() {

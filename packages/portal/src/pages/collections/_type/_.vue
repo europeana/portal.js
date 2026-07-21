@@ -278,13 +278,13 @@
 
         const entityBestItemsSetId = searchResponse.items?.[0] || null;
         if (entityBestItemsSetId) {
-          const responses = await Promise.all([
+          const [setResponse, itemsResponse] = await Promise.all([
             this.$apis.set.get(entityBestItemsSetId),
             this.$apis.set.getItemIds(entityBestItemsSetId)
           ]);
           this.entityBestItemsSet = {
-            ...responses[0],
-            items: responses[1]
+            ...setResponse,
+            items: itemsResponse
           };
         } else {
           this.entityBestItemsSet = null;

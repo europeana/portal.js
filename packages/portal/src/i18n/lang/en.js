@@ -140,6 +140,7 @@ export default {
     "country": "Country:",
     "creator": "Creator:",
     "date": "Date:",
+    "hide": "Hide attribution",
     "institution": "Institution:",
     "show": "Show attribution",
     "title": "Title:"
@@ -1298,6 +1299,9 @@ export default {
   "related": {
     "categoryTags": {
       "title": "Discover related stories"
+    },
+    "collection": {
+      "preview": "Collection preview"
     },
     "collections": {
       "name": "Related collections",

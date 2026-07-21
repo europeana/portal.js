@@ -36,7 +36,8 @@
     name: 'MapSection',
 
     components: {
-      EntityOrganisationsMap: () => import('@/components/entity/organisations/EntityOrganisationsMap')
+      EntityOrganisationsMap: () => import('@/components/entity/organisations/EntityOrganisationsMap'),
+      SmartLink: () => import('./SmartLink.vue')
     },
 
     props: {
