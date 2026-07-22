@@ -72,10 +72,15 @@
             <h2>{{ $t('record.location') }}</h2>
           </template>
           <b-card-text
+            v-if="mappableLocation && showLocationMap"
             text-tag="div"
           >
+            <ItemLocationMap
+              v-if="$features.organisationsMap"
+              :location="mappableLocation"
+            />
             <EmbedMap
-              v-if="mappableLocation && showLocationMap"
+              v-else
               :pref-label="mappableLocation.prefLabel"
               :latitude="mappableLocation.latitude"
               :longitude="mappableLocation.longitude"
@@ -99,7 +104,8 @@
       BTab,
       BTabs,
       MetadataField,
-      EmbedMap: () => import('../embed/EmbedMap')
+      EmbedMap: () => import('@/components/embed/EmbedMap.vue'),
+      ItemLocationMap: () => import('@/components/item/ItemLocationMap.vue')
     },
 
     props: {

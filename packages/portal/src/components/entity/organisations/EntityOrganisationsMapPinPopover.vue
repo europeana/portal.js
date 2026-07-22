@@ -112,7 +112,7 @@
     ],
 
     props: {
-      id: {
+      entityId: {
         type: String,
         default: ''
       }
@@ -126,11 +126,11 @@
     },
 
     async fetch() {
-      if (this.id) {
-        const entityQuery = getEntityQuery(this.id);
+      if (this.entityId) {
+        const entityQuery = getEntityQuery(this.entityId);
 
         const [entity, itemResults] = await Promise.all([
-          this.$apis.entity.get('organisation', this.id.split('/').pop()),
+          this.$apis.entity.get('organisation', this.entityId.split('/').pop()),
           // TODO: duplicates what's in CollectionPage; extract to a util fn
           this.$apis.record.search({
             qf: [entityQuery],
@@ -169,7 +169,7 @@
     },
 
     watch: {
-      id() {
+      entityId() {
         this.entity = null;
         this.items = [];
         this.$fetch();
