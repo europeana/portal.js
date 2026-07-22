@@ -82,6 +82,12 @@
             label: this.$t('attribution.show'),
             collapseLabel: this.$t('attribution.hide'),
             tipLabel: ''
+          },
+          keyboardPanAndZoom: {
+            label: this.$t('map.keyboardPanAndZoom')
+          },
+          keyboardNavigatePins: {
+            label: this.$t('map.keyboardNavigatePins')
           }
         },
         europeanaMap: null,

@@ -1119,6 +1119,10 @@ export default {
   },
   "loading": "Loading",
   "loadingResults": "Loading results",
+  "map": {
+    "keyboardNavigatePins": "Use the arrow keys to navigate pins",
+    "keyboardPanAndZoom": "Use the +, - and arrow keys to zoom and pan around the map"
+  },
   "media": {
     "controls": {
       "exitFullscreen": "Exit full screen",
