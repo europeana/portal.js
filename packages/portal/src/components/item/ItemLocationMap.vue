@@ -14,8 +14,6 @@
 </template>
 
 <script>
-  // FIXME: zooming/dragging on the map is not working here
-
   import langAttributeMixin from '@/mixins/langAttribute';
   import { langMapValueForLocale } from '@europeana/i18n';
   import EmbedEuropeanaMap from '@/components/embed/EmbedEuropeanaMap.vue';
