@@ -1121,7 +1121,9 @@ export default {
   "loadingResults": "Loading results",
   "map": {
     "keyboardNavigatePins": "Use the arrow keys to navigate pins",
-    "keyboardPanAndZoom": "Use the +, - and arrow keys to zoom and pan around the map"
+    "keyboardPanAndZoom": "Use the +, - and arrow keys to zoom and pan around the map",
+    "togglePin": "Toggle pin",
+    "zoomInCluster": "Zoom in on cluster"
   },
   "media": {
     "controls": {

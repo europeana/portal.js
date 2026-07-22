@@ -87,7 +87,11 @@
             label: this.$t('map.keyboardPanAndZoom')
           },
           keyboardNavigatePins: {
-            label: this.$t('map.keyboardNavigatePins')
+            label: this.$t('map.keyboardNavigatePins'),
+            srLabel: {
+              multiple: this.$t('map.zoomInCluster'),
+              single: this.$t('map.togglePin')
+            }
           }
         },
         europeanaMap: null,
