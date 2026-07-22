@@ -44,7 +44,9 @@
 
     methods: {
       handleChangeActiveFeature(e) {
-        if (e.activeFeatureName) {
+        if (this.clickedFeatureId === e.activeFeatureName) {
+          this.handleClosePopover();
+        } else if (e.activeFeatureName) {
           this.clickedFeatureId = e.activeFeatureName;
         }
       },
