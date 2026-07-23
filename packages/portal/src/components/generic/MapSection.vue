@@ -32,6 +32,8 @@
 </template>
 
 <script>
+  import parallaxElement from '@/utils/parallaxElement.js';
+
   export default {
     name: 'MapSection',
 
@@ -45,6 +47,26 @@
         type: Object,
         required: true
       }
+    },
+
+    mounted() {
+      window.addEventListener('scroll', this.parallaxMap);
+    },
+
+    beforeDestroy() {
+      window.removeEventListener('scroll', this.parallaxMap);
+    },
+
+    methods: {
+      parallaxMap() {
+        parallaxElement('#europeana-map');
+      }
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  ::v-deep .embed-map {
+    overflow: hidden;
+  }
+</style>

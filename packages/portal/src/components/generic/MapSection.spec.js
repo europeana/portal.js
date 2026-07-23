@@ -1,5 +1,6 @@
 import { shallowMountNuxt } from '@test/utils.js';
 import MapSection from '@/components/generic/MapSection.vue';
+import sinon from 'sinon';
 
 const config = {
   app: {
@@ -53,5 +54,28 @@ describe('components/generic/MapSection', () => {
     const moreButton =  wrapper.find('.btn-outline-secondary');
 
     expect(moreButton.text()).toBe('view more');
+  });
+
+  describe('when the page is scrolled', () => {
+    it('sets a parallax effect on the map element', async() => {
+      const wrapper = factory();
+      sinon.spy(wrapper.vm, 'parallaxMap');
+
+      wrapper.vm.mounted();
+      window.dispatchEvent(new Event('scroll'));
+
+      expect(wrapper.vm.parallaxMap.called).toBe(true);
+    });
+  });
+
+  describe('beforeDestroy', () => {
+    it('removes the scroll event listener', () => {
+      sinon.spy(window, 'removeEventListener');
+      const wrapper = factory();
+
+      wrapper.vm.beforeDestroy();
+
+      expect(window.removeEventListener.calledWith('scroll', wrapper.vm.parallaxMap)).toBe(true);
+    });
   });
 });
