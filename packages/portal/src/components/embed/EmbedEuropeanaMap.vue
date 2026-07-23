@@ -37,6 +37,9 @@
   const EUROPEANA_MAP_SCRIPT_URL = `${EUROPEANA_MAP_CDN_BASE_URL}/europeana-map.iife.js`;
   const EUROPEANA_MAP_STYLE_URL = `${EUROPEANA_MAP_CDN_BASE_URL}/europeana-map.css`;
 
+  const EUROPEANA_MAP_STYLES_CDN_BASE_URL = 'https://cdn.jsdelivr.net/npm/@europeana/map-styles@0.1.13/dist';
+  const EUROPEANA_MAP_STYLES_DEFAULT_STYLE_JSON_URL = `${EUROPEANA_MAP_STYLES_CDN_BASE_URL}/versatiles/europeana-map-styles.versatiles.json`;
+
   export default {
     name: 'EmbedMap',
 
@@ -113,18 +116,6 @@
       };
     },
 
-    computed: {
-      mapStyle() {
-        if (this.$config.app.map?.style?.startsWith('https://')) {
-          return this.$config.app.map.style;
-        }
-        if (this.$config.app.map?.style === '@europeana/style/map/versatiles.json') {
-          return require('@europeana/style/map/versatiles.json');
-        }
-        return null;
-      }
-    },
-
     methods: {
       handleLoadVue3() {
         this.vue3Loaded = true;
@@ -135,7 +126,7 @@
           hash: this.hash,
           json: this.json,
           pinPopover: this.$slots.popover && 'europeana-map-popover',
-          style: this.mapStyle,
+          style: this.$config.app?.map?.style || EUROPEANA_MAP_STYLES_DEFAULT_STYLE_JSON_URL,
           url: this.url
         });
 
