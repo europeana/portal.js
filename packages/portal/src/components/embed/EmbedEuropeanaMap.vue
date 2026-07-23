@@ -1,6 +1,6 @@
 <template>
   <div
-    class="embed-map mb-5"
+    class="embed-map"
   >
     <div
       v-if="$slots.label"

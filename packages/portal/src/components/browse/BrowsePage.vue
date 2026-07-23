@@ -14,18 +14,32 @@
         button-variant="secondary"
         class="half-col"
       />
+    </b-container>
+    <template v-for="(section, index) in browseAndScrollifySections">
+      <b-container
+        v-if="Array.isArray(section)"
+        :key="index"
+        :class="layoutClass"
+      >
+        <ContentSection
+          v-for="(subSection, subIndex) in section"
+          :key="subIndex"
+          :section="subSection"
+        />
+      </b-container>
       <ContentSection
-        v-for="(section, index) in hasPartCollection.items"
+        v-else
         :key="index"
         :section="section"
       />
-    </b-container>
+    </template>
   </div>
 </template>
 
 <script>
   import ContentHeader from '../content/ContentHeader';
   import ContentSection from '../content/ContentSection';
+  import splitSections from '@/utils/contentful/splitSections';
 
   export default {
     components: {
@@ -51,6 +65,11 @@
       }
     },
 
+    data() {
+      return {
+        browseAndScrollifySections: splitSections(this.hasPartCollection.items, 'MapSection')
+      };
+    },
     computed: {
       layoutClass() {
         const cardGroupSections = this.hasPartCollection?.items.filter(section => section['__typename'] === 'CardGroup');
@@ -78,7 +97,6 @@
 
   .browse-page-4-col {
     @media (min-width: $bp-wqhd) {
-      width: fit-content;
       max-width: calc(4 * (#{$max-card-width} + #{$grid-gutter * 2}));
     }
 

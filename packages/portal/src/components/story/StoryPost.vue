@@ -138,6 +138,7 @@
   import ShareButton from '@/components/share/ShareButton.vue';
   import ContentSection from '@/components/content/ContentSection';
   import ViewCount from '@/components/generic/ViewCount.vue';
+  import splitSections from '@/utils/contentful/splitSections';
 
   export default {
     name: 'StoryPost',
@@ -230,28 +231,12 @@
 
     data() {
       return {
-        browseAndScrollifySections: this.splitSections(),
+        // split the sections into individual ImageTextSlideGroups, or arrays of
+        // other entry types
+        browseAndScrollifySections: splitSections(this.body.items, 'ImageTextSlideGroup'),
         // only show the hero when the hero image is larger than 1000px and the title is less than 80 characters and the subtitle is less than 140 characters.
         enableStoryHero: this.heroImage?.image?.width >= 1000 && this.englishTitleLength <= 80 && (this.englishSubtitleLength ? this.englishSubtitleLength <= 140 : true)
       };
-    },
-
-    methods: {
-      // split the sections into individual ImageTextSlideGroups, or arrays of
-      // other entry types
-      splitSections() {
-        return this.body.items.reduce((memo, item) => {
-          if (item['__typename'] === 'ImageTextSlideGroup') {
-            memo.push(item);
-          } else {
-            if (!Array.isArray(memo[memo.length - 1])) {
-              memo.push([]);
-            }
-            memo[memo.length - 1].push(item);
-          }
-          return memo;
-        }, []);
-      }
     }
   };
 </script>

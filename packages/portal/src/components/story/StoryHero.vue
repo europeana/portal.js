@@ -53,6 +53,7 @@
 <script>
   import ImageWithAttribution from '@/components/image/ImageWithAttribution';
   import { FULL_VIEWPORT_PRESETS_FOCUS_FACE } from '@/utils/contentful/imageCropPresets';
+  import parallaxElement from '@/utils/parallaxElement.js';
 
   export default {
     name: 'StoryHero',
@@ -100,18 +101,7 @@
 
     methods: {
       parallaxBackground() {
-        const heroBackgroundImageElement = document.querySelector('#hero-background-image img');
-        const heroBackgroundHeight = heroBackgroundImageElement?.clientHeight || 1;
-        const distanceHeroToViewportTop = heroBackgroundImageElement?.getBoundingClientRect().top;
-
-        if (heroBackgroundImageElement && distanceHeroToViewportTop < 0) {
-          const translate = (-distanceHeroToViewportTop / heroBackgroundHeight) * 75;
-          heroBackgroundImageElement.style.transform = `translateY(${translate}%)`;
-        }
-
-        if (heroBackgroundImageElement && distanceHeroToViewportTop > 0) {
-          heroBackgroundImageElement.style.transform = '';
-        }
+        parallaxElement('#hero-background-image img');
       }
     }
   };
