@@ -1,10 +1,10 @@
 <template>
   <section
     v-if="section"
-    class="browse-section row mb-5"
+    class="browse-section mb-5"
     data-qa="browse section"
   >
-    <div class="col-12 col-lg-6">
+    <b-container>
       <!-- This could be h2 instead of component, as it's static for now -->
       <component
         :is="'h2'"
@@ -13,12 +13,12 @@
       >
         {{ section.name }}
       </component>
-    </div>
-    <div class="col-12">
-      <!-- For now we only have the Organisation map usecase -->
-      <client-only>
-        <EntityOrganisationsMap />
-      </client-only>
+    </b-container>
+    <!-- For now we only have the Organisation map usecase -->
+    <client-only>
+      <EntityOrganisationsMap class="mb-4" />
+    </client-only>
+    <b-container>
       <SmartLink
         v-if="section.moreButton"
         :destination="section.moreButton.url"
@@ -27,7 +27,7 @@
       >
         {{ section.moreButton.text }}
       </SmartLink>
-    </div>
+    </b-container>
   </section>
 </template>
 
