@@ -31,6 +31,7 @@
   import langAttributeMixin from '@/mixins/langAttribute';
   import { langMapValueForLocale } from '@europeana/i18n';
 
+  // TODO: discard once EmbedEuropeanaMap is in use
   export default {
     name: 'EmbedMap',
 

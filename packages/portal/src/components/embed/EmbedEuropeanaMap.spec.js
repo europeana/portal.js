@@ -1,11 +1,11 @@
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '@test/utils.js';
 
-import EntityOrganisationsMap from '@/components/entity/organisations/EntityOrganisationsMap.vue';
+import EmbedEuropeanaMap from '@/components/embed/EmbedEuropeanaMap.vue';
 
 const localVue = createLocalVue();
 
-const factory = (propsData = {}) => shallowMountNuxt(EntityOrganisationsMap, {
+const factory = (propsData = {}) => shallowMountNuxt(EmbedEuropeanaMap, {
   localVue,
   propsData,
   mocks: {
@@ -18,7 +18,7 @@ const factory = (propsData = {}) => shallowMountNuxt(EntityOrganisationsMap, {
   }
 });
 
-describe('components/entity/organisations/EntityOrganisationsMap', () => {
+describe('components/embed/EmbedEuropeanaMap', () => {
   describe('head', () => {
     it('loads script for Vue 3', () => {
       const wrapper = factory();
@@ -58,7 +58,7 @@ describe('components/entity/organisations/EntityOrganisationsMap', () => {
     it('renders a map container', () => {
       const wrapper = factory();
 
-      const mapContainer = wrapper.find('[data-qa="europeana-map"]');
+      const mapContainer = wrapper.find('[data-qa="europeana map"]');
 
       expect(mapContainer.isVisible()).toBe(true);
     });
