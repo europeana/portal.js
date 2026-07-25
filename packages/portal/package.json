@@ -41,7 +41,7 @@
     "dotenv": "^10.0.0",
     "elastic-apm-node": "^3.24.0",
     "event-target-shim": "^6.0.2",
-    "express": "^4.21.2",
+    "express": "^4.22.2",
     "filesize": "^11.0.16",
     "graphql": "^16.11.0",
     "graphql-tag": "^2.12.6",
