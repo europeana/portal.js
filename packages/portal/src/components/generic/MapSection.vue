@@ -59,14 +59,18 @@
 
     methods: {
       parallaxMap() {
-        parallaxElement('#europeana-map');
+        parallaxElement('#europeana-map canvas');
       }
     }
   };
 </script>
 
 <style lang="scss" scoped>
+  @import '@europeana/style/scss/variables';
+
   ::v-deep .embed-map {
     overflow: hidden;
+    position: relative;
+    box-shadow: $boxshadow-small;
   }
 </style>
