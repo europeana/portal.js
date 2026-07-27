@@ -29,6 +29,8 @@
 </template>
 
 <script>
+  import { useEuropeanaMapStyle, EUROPEANA_MAP_STYLE_NAMES } from '@europeana/map-styles';
+
   const VUE_3_CDN_BASE_URL = 'https://cdn.jsdelivr.net/npm/vue@3.5.39/dist';
   const VUE_3_SCRIPT_URL = `${VUE_3_CDN_BASE_URL}/vue.global.prod.js`;
 
@@ -36,9 +38,6 @@
   // const EUROPEANA_MAP_CDN_BASE_URL = 'http://localhost:4173';
   const EUROPEANA_MAP_SCRIPT_URL = `${EUROPEANA_MAP_CDN_BASE_URL}/europeana-map.iife.js`;
   const EUROPEANA_MAP_STYLE_URL = `${EUROPEANA_MAP_CDN_BASE_URL}/europeana-map.css`;
-
-  const EUROPEANA_MAP_STYLES_CDN_BASE_URL = 'https://cdn.jsdelivr.net/npm/@europeana/map-styles@0.1.13/dist';
-  const EUROPEANA_MAP_STYLES_DEFAULT_STYLE_JSON_URL = `${EUROPEANA_MAP_STYLES_CDN_BASE_URL}/versatiles/europeana-map-styles.versatiles.json`;
 
   export default {
     name: 'EmbedMap',
@@ -121,12 +120,17 @@
         this.vue3Loaded = true;
       },
       handleLoadEuropeanaMap() {
+        let style;
+        if (EUROPEANA_MAP_STYLE_NAMES.includes(this.$config.app?.map?.style)) {
+          style = useEuropeanaMapStyle(this.$config.app.map.style, { locale: this.$features.localisedMap && this.$i18n.locale });
+        }
+
         this.europeanaMap = new window.EuropeanaMap.EuropeanaMapWrapper('#europeana-map', {
           controls: this.controls,
           hash: this.hash,
           json: this.json,
           pinPopover: this.$slots.popover && 'europeana-map-popover',
-          style: this.$config.app?.map?.style || EUROPEANA_MAP_STYLES_DEFAULT_STYLE_JSON_URL,
+          style,
           url: this.url
         });
 
