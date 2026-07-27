@@ -4,6 +4,7 @@
       :hash="hash"
       :url="EUROPEANA_MAP_GEO_JSON_URL"
       :on="on"
+      :zoom="1"
     >
       <template #popover>
         <EntityOrganisationsMapPinPopover
