@@ -2,6 +2,7 @@
   <div
     data-qa="browse page"
     class="page xxl-page"
+    :class="layoutClass"
   >
     <slot />
     <b-container
@@ -95,7 +96,7 @@
     }
   }
 
-  .browse-page-4-col {
+  .browse-page-4-col ::v-deep .container {
     @media (min-width: $bp-wqhd) {
       max-width: calc(4 * (#{$max-card-width} + #{$grid-gutter * 2}));
     }
@@ -103,7 +104,7 @@
     @media (min-width: $bp-4k) {
       max-width: calc(4 * (#{$max-card-width} + #{$grid-gutter-4k * 2}));
     }
-    ::v-deep .card:not(.mosaic-item) {
+    .card:not(.mosaic-item) {
 
       @media (min-width: ($bp-wqhd)) {
         flex: 0 0 calc(100% / 4 - #{$grid-gutter * 2});
