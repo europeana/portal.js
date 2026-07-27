@@ -59,7 +59,7 @@
 
     methods: {
       parallaxMap() {
-        parallaxElement('#europeana-map canvas');
+        parallaxElement('#europeana-map');
       }
     }
   };
