@@ -16,7 +16,7 @@
   "dependencies": {
     "@elastic/apm-rum-vue": "^1.3.1",
     "@europeana/i18n": "^2.33.0",
-    "@europeana/map-styles": "0.1.14-map-styles-cdn.2",
+    "@europeana/map-styles": "0.1.14-map-styles-cdn.3",
     "@europeana/vue-contentful-graphql": "^2.25.0",
     "@europeana/vue-router-query": "^2.25.0",
     "@europeana/vue-session": "^2.25.0",

@@ -553,7 +553,6 @@ export default {
     // Pure ESM needs to be transpiled to be used by Vue2
     transpile: [
       '@europeana/i18n',
-      '@europeana/map-styles',
       '@europeana/oembed',
       '@europeana/vue-contentful-graphql',
       '@europeana/vue-visible-on-scroll',
