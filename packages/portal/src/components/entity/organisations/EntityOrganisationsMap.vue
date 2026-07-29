@@ -1,9 +1,10 @@
 <template>
-  <div class="mb-5">
+  <div class="w-100">
     <EmbedEuropeanaMap
       :hash="hash"
       :url="EUROPEANA_MAP_GEO_JSON_URL"
       :on="on"
+      :zoom="1"
     >
       <template #popover>
         <EntityOrganisationsMapPinPopover

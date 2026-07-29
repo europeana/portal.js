@@ -2,6 +2,7 @@
   <div
     data-qa="browse page"
     class="page xxl-page"
+    :class="layoutClass"
   >
     <slot />
     <b-container
@@ -14,18 +15,32 @@
         button-variant="secondary"
         class="half-col"
       />
+    </b-container>
+    <template v-for="(section, index) in browseAndScrollifySections">
+      <b-container
+        v-if="Array.isArray(section)"
+        :key="index"
+        :class="layoutClass"
+      >
+        <ContentSection
+          v-for="(subSection, subIndex) in section"
+          :key="subIndex"
+          :section="subSection"
+        />
+      </b-container>
       <ContentSection
-        v-for="(section, index) in hasPartCollection.items"
+        v-else
         :key="index"
         :section="section"
       />
-    </b-container>
+    </template>
   </div>
 </template>
 
 <script>
   import ContentHeader from '../content/ContentHeader';
   import ContentSection from '../content/ContentSection';
+  import splitSections from '@/utils/contentful/splitSections';
 
   export default {
     components: {
@@ -51,6 +66,11 @@
       }
     },
 
+    data() {
+      return {
+        browseAndScrollifySections: splitSections(this.hasPartCollection.items, 'MapSection')
+      };
+    },
     computed: {
       layoutClass() {
         const cardGroupSections = this.hasPartCollection?.items.filter(section => section['__typename'] === 'CardGroup');
@@ -76,16 +96,15 @@
     }
   }
 
-  .browse-page-4-col {
+  .browse-page-4-col ::v-deep .container {
     @media (min-width: $bp-wqhd) {
-      width: fit-content;
       max-width: calc(4 * (#{$max-card-width} + #{$grid-gutter * 2}));
     }
 
     @media (min-width: $bp-4k) {
       max-width: calc(4 * (#{$max-card-width} + #{$grid-gutter-4k * 2}));
     }
-    ::v-deep .card:not(.mosaic-item) {
+    .card:not(.mosaic-item) {
 
       @media (min-width: ($bp-wqhd)) {
         flex: 0 0 calc(100% / 4 - #{$grid-gutter * 2});

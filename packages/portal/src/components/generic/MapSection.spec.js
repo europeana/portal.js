@@ -1,5 +1,8 @@
 import { shallowMountNuxt } from '@test/utils.js';
+import sinon from 'sinon';
+
 import MapSection from '@/components/generic/MapSection.vue';
+import * as parallaxElementComposable from '@/composables/parallaxElement.js';
 
 const config = {
   app: {
@@ -21,6 +24,7 @@ const factory = () => shallowMountNuxt(MapSection, {
     $config: config
   },
   stubs: [
+    'b-container',
     'ClientOnly',
     'SmartLink',
     'EntityOrganisationsMap'
@@ -52,5 +56,13 @@ describe('components/generic/MapSection', () => {
     const moreButton =  wrapper.find('.btn-outline-secondary');
 
     expect(moreButton.text()).toBe('view more');
+  });
+
+  it('applies parallax effect to the map element', () => {
+    sinon.spy(parallaxElementComposable, 'useParallaxElement');
+
+    factory();
+
+    expect(parallaxElementComposable.useParallaxElement.calledWith('#europeana-map')).toBe(true);
   });
 });

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="embed-map mb-5"
+    class="embed-map"
   >
     <div
       v-if="$slots.label"
@@ -43,6 +43,10 @@
     name: 'EmbedMap',
 
     props: {
+      centre: {
+        type: Array,
+        default: null
+      },
       hash: {
         type: Boolean,
         default: false
@@ -60,6 +64,10 @@
 
       url: {
         type: [String, URL],
+        default: null
+      },
+      zoom: {
+        type: Number,
         default: null
       }
     },
@@ -126,6 +134,8 @@
         }
 
         this.europeanaMap = new window.EuropeanaMap.EuropeanaMapWrapper('#europeana-map', {
+          centre: this.centre,
+          zoom: this.zoom,
           controls: this.controls,
           hash: this.hash,
           json: this.json,
