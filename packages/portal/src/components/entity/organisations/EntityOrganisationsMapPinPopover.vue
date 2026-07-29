@@ -5,7 +5,7 @@
   >
     <b-button
       variant="dark-flat"
-      class="d-sm-none close-button position-absolute"
+      class="close-button position-absolute"
       :aria-label="$t('actions.close')"
       @click="closePopover"
     >
@@ -208,6 +208,19 @@
     right: 0.75rem;
     padding: 0.25rem;
     line-height: 1;
+
+    @media (min-width: $bp-small) {
+      // only visible on focus for keyboard nav
+      &:not(:focus) {
+        clip: rect(0 0 0 0);
+        clip-path: inset(50%);
+        height: 1px;
+        overflow: hidden;
+        position: absolute;
+        white-space: nowrap;
+        width: 1px;
+      }
+    }
 
     span {
       font-size: $font-size-base;
