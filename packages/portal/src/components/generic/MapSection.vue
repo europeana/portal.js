@@ -32,7 +32,7 @@
 </template>
 
 <script>
-  import parallaxElement from '@/utils/parallaxElement.js';
+  import { useParallaxElement } from '@/composables/parallaxElement.js';
 
   export default {
     name: 'MapSection',
@@ -49,18 +49,8 @@
       }
     },
 
-    mounted() {
-      window.addEventListener('scroll', this.parallaxMap);
-    },
-
-    beforeDestroy() {
-      window.removeEventListener('scroll', this.parallaxMap);
-    },
-
-    methods: {
-      parallaxMap() {
-        parallaxElement('#europeana-map');
-      }
+    setup() {
+      useParallaxElement('#europeana-map');
     }
   };
 </script>

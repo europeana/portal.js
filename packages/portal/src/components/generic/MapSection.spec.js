@@ -1,6 +1,8 @@
 import { shallowMountNuxt } from '@test/utils.js';
-import MapSection from '@/components/generic/MapSection.vue';
 import sinon from 'sinon';
+
+import MapSection from '@/components/generic/MapSection.vue';
+import * as parallaxElementComposable from '@/composables/parallaxElement.js';
 
 const config = {
   app: {
@@ -56,26 +58,11 @@ describe('components/generic/MapSection', () => {
     expect(moreButton.text()).toBe('view more');
   });
 
-  describe('when the page is scrolled', () => {
-    it('sets a parallax effect on the map element', async() => {
-      const wrapper = factory();
-      sinon.spy(wrapper.vm, 'parallaxMap');
+  it('applies parallax effect to the map element', () => {
+    sinon.spy(parallaxElementComposable, 'useParallaxElement');
 
-      wrapper.vm.mounted();
-      window.dispatchEvent(new Event('scroll'));
+    factory();
 
-      expect(wrapper.vm.parallaxMap.called).toBe(true);
-    });
-  });
-
-  describe('beforeDestroy', () => {
-    it('removes the scroll event listener', () => {
-      sinon.spy(window, 'removeEventListener');
-      const wrapper = factory();
-
-      wrapper.vm.beforeDestroy();
-
-      expect(window.removeEventListener.calledWith('scroll', wrapper.vm.parallaxMap)).toBe(true);
-    });
+    expect(parallaxElementComposable.useParallaxElement.calledWith('#europeana-map')).toBe(true);
   });
 });

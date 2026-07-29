@@ -53,7 +53,7 @@
 <script>
   import ImageWithAttribution from '@/components/image/ImageWithAttribution';
   import { FULL_VIEWPORT_PRESETS_FOCUS_FACE } from '@/utils/contentful/imageCropPresets';
-  import parallaxElement from '@/utils/parallaxElement.js';
+  import { useParallaxElement } from '@/composables/parallaxElement.js';
 
   export default {
     name: 'StoryHero',
@@ -84,25 +84,15 @@
       }
     },
 
+    setup() {
+      useParallaxElement('#hero-background-image img');
+    },
+
     data() {
       return {
         FULL_VIEWPORT_PRESETS_FOCUS_FACE,
         heroImageAltText: this.heroImage.image?.description || ''
       };
-    },
-
-    mounted() {
-      window.addEventListener('scroll', this.parallaxBackground);
-    },
-
-    beforeDestroy() {
-      window.removeEventListener('scroll', this.parallaxBackground);
-    },
-
-    methods: {
-      parallaxBackground() {
-        parallaxElement('#hero-background-image img');
-      }
     }
   };
 </script>

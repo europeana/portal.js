@@ -1,8 +1,10 @@
 import { createLocalVue } from '@vue/test-utils';
 import { mountNuxt } from '@test/utils.js';
-import StoryHero from '@/components/story/StoryHero.vue';
 import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
+
+import StoryHero from '@/components/story/StoryHero.vue';
+import * as parallaxElementComposable from '@/composables/parallaxElement.js';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -20,28 +22,11 @@ const factory = (propsData = baseProps) => mountNuxt(StoryHero, {
 });
 
 describe('components/story/StoryHero', () => {
-  describe('when the page is scrolled', () => {
-    it('sets transform styles on the background', () => {
-      const wrapper = factory();
-      sinon.spy(wrapper.vm, 'parallaxBackground');
-      const heroBackgroundImageElement = document.querySelector('#hero-background-image img');
+  it('applies parallax effect to the hero background image', () => {
+    sinon.spy(parallaxElementComposable, 'useParallaxElement');
 
-      sinon.stub(heroBackgroundImageElement, 'getBoundingClientRect').returns({ top: -1 });
+    factory();
 
-      window.dispatchEvent(new Event('scroll'));
-
-      expect(heroBackgroundImageElement.style.transform).toEqual('translateY(75%)');
-    });
-  });
-
-  describe('beforeDestroy', () => {
-    it('removes the scroll event listener', () => {
-      sinon.spy(window, 'removeEventListener');
-      const wrapper = factory();
-
-      wrapper.vm.beforeDestroy();
-
-      expect(window.removeEventListener.calledWith('scroll', wrapper.vm.parallaxBackground)).toBe(true);
-    });
+    expect(parallaxElementComposable.useParallaxElement.calledWith('#hero-background-image img')).toBe(true);
   });
 });
