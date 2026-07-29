@@ -128,7 +128,7 @@ export default {
       homeLandingPageSlug: process.env.APP_HOME_LANDING_PAGE_SLUG,
       internalLinkDomain: process.env.INTERNAL_LINK_DOMAIN,
       map: {
-        style: process.env.APP_MAP_STYLE
+        style: process.env.APP_MAP_STYLE || 'versatiles'
       },
       notificationBanner: process.env.APP_NOTIFICATION_BANNER,
       projectApiKeyFormUrl: process.env.PROJECT_API_KEY_FORM_URL,
