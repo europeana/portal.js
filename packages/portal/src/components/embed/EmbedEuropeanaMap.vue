@@ -9,7 +9,7 @@
       <slot name="label" />
     </div>
     <div
-      id="europeana-map"
+      :id="mapContainerElementId"
       class="europeana-map"
       width="100vh"
       height="80vh"
@@ -19,7 +19,7 @@
     />
     <div
       v-if="$slots.popover"
-      id="europeana-map-popover"
+      :id="popoverElementId"
     >
       <slot
         name="popover"
@@ -55,6 +55,11 @@
       json: {
         type: String,
         default: null
+      },
+
+      mapElementId: {
+        type: String,
+        default: 'europeana-map'
       },
 
       on: {
@@ -105,6 +110,8 @@
           }
         },
         europeanaMap: null,
+        mapContainerElementId: `${this.mapElementId}-container`,
+        popoverElementId: `${this.mapElementId}-popover`,
         vue3Loaded: false
       };
     },
@@ -143,15 +150,16 @@
           style = useEuropeanaMapStyle(this.$config.app.map.style, { locale: this.$features.localisedMap && this.$i18n.locale });
         }
 
-        this.europeanaMap = new window.EuropeanaMap.EuropeanaMapWrapper('#europeana-map', {
+        this.europeanaMap = new window.EuropeanaMap.EuropeanaMapWrapper(`#${this.mapContainerElementId}`, {
           centre: this.centre,
-          zoom: this.zoom,
           controls: this.controls,
+          elementId: this.mapElementId,
           hash: this.hash,
           json: this.json,
-          pinPopover: this.$slots.popover && 'europeana-map-popover',
+          pinPopover: this.$slots.popover && this.popoverElementId,
           style,
-          url: this.url
+          url: this.url,
+          zoom: this.zoom
         });
 
         // Add event handlers

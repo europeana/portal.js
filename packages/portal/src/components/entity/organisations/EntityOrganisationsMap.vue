@@ -2,8 +2,9 @@
   <div class="w-100">
     <EmbedEuropeanaMap
       :hash="hash"
-      :url="EUROPEANA_MAP_GEO_JSON_URL"
+      :map-element-id="mapElementId"
       :on="on"
+      :url="EUROPEANA_MAP_GEO_JSON_URL"
       :zoom="1"
     >
       <template #popover>
@@ -32,6 +33,11 @@
       hash: {
         type: Boolean,
         default: false
+      },
+
+      mapElementId: {
+        type: String,
+        default: 'europeana-map'
       }
     },
 
