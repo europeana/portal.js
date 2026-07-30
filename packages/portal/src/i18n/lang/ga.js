@@ -140,6 +140,7 @@ export default {
     "country": "Tír:",
     "creator": "Cruthaitheoir:",
     "date": "Dáta:",
+    "hide": "Folaigh sannadh",
     "institution": "Institiúid:",
     "show": "Taispeáin sannadh",
     "title": "Teideal:"
@@ -1076,6 +1077,12 @@ export default {
   },
   "loading": "Ag luchtú",
   "loadingResults": "Torthaí á lódáil",
+  "map": {
+    "keyboardNavigatePins": "Úsáid na heochracha saighde chun nascleanúint a dhéanamh ar na bioráin",
+    "keyboardPanAndZoom": "Úsáid na heochracha +, - agus na heochracha saighde chun súmáil isteach agus amach agus chun gluaiseacht thart ar an léarscáil.",
+    "togglePin": "Scoránaigh biorán",
+    "zoomInCluster": "Súmáil isteach ar bhraisle"
+  },
   "media": {
     "controls": {
       "exitFullscreen": "Scoir scáileán iomlán",
@@ -1253,6 +1260,9 @@ export default {
     "categoryTags": {
       "title": "Faigh amach scéalta gaolmhara"
     },
+    "collection": {
+      "preview": "Réamhamharc bailiúcháin"
+    },
     "collections": {
       "name": "Bailiúcháin ghaolmhara",
       "title": "Faigh amach bailiúcháin ghaolmhara"
@@ -1335,9 +1345,6 @@ export default {
     },
     "results": {
       "limitWarning": "Ní thaispeántar torthaí breise mar ní léirítear ach an chéad 1000 toradh is ábhartha. Mura bhfuil a bhfuil uait aimsithe agat, smaoinigh ar do chuardach a bheachtú.",
-      "loginToSeeMore": "{login} chun tuilleadh torthaí a fheiceáil",
-      "loginToSeeMultilingualResults": "Logáil isteach chun cuardach a dhéanamh ar fud an bhailiúcháin ar fad, agus faigh torthaí nach bhfuil teoranta do theanga do théarma cuardaigh.",
-      "showingMultilingualResults": "Torthaí a thaispeáint ar fud an bhailiúcháin ar fad agus gach teanga.",
       "withinCollection": "{count} torthaí laistigh de {type} {collection}",
       "withinCollectionWithQuery": "{count} torthaí laistigh de {type} {collection} le haghaidh {query}",
       "withoutQuery": "{count} torthaí",

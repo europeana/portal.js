@@ -140,6 +140,7 @@ export default {
     "country": "Land:",
     "creator": "Oprettet af:",
     "date": "Dato:",
+    "hide": "Skjul kreditering",
     "institution": "Institution:",
     "show": "Vis tilskrivning",
     "title": "Titel:"
@@ -1076,6 +1077,12 @@ export default {
   },
   "loading": "Indlæser",
   "loadingResults": "Indlæser resultater",
+  "map": {
+    "keyboardNavigatePins": "Brug piletasterne til at navigere mellem knappenåle",
+    "keyboardPanAndZoom": "Brug tasterne +, - og piletasterne til at zoome og panorere på kortet",
+    "togglePin": "Slå nål til/fra",
+    "zoomInCluster": "Zoom ind på klyngen"
+  },
   "media": {
     "controls": {
       "exitFullscreen": "Afslut fuld skærm",
@@ -1253,6 +1260,9 @@ export default {
     "categoryTags": {
       "title": "Oplev relaterede historier"
     },
+    "collection": {
+      "preview": "Forhåndsvisning af samlingen"
+    },
     "collections": {
       "name": "Relaterede samlinger",
       "title": "Oplev relaterede samlinger"
@@ -1335,9 +1345,6 @@ export default {
     },
     "results": {
       "limitWarning": "Yderligere resultater vises ikke, da kun de første 1000 mest relevante resultater vises. Hvis du ikke har fundet det, du leder efter, kan du overveje at justere din søgning.",
-      "loginToSeeMore": "{login} for at se flere resultater",
-      "loginToSeeMultilingualResults": "Log ind for at søge på tværs af hele samlingen og få resultater, der ikke er begrænset til sproget i dit søgeord.",
-      "showingMultilingualResults": "Viser resultater på tværs af hele samlingen og alle sprog.",
       "withinCollection": "{count} resultater inden for {type} {collection}",
       "withinCollectionWithQuery": "{count} resultater inden for {type} {collection} for {query}",
       "withoutQuery": "{count} resultater",

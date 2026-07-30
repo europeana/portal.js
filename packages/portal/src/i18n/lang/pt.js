@@ -140,6 +140,7 @@ export default {
     "country": "País:",
     "creator": "Criador:",
     "date": "Date:",
+    "hide": "Ocultar atribuição",
     "institution": "Instituição:",
     "show": "Mostrar atribuição",
     "title": "Título:"
@@ -1076,6 +1077,12 @@ export default {
   },
   "loading": "A carregar",
   "loadingResults": "A carregar resultados",
+  "map": {
+    "keyboardNavigatePins": "Use as teclas de setas para navegar pelos pins",
+    "keyboardPanAndZoom": "Use as teclas +, - e as setas para ampliar e mover o mapa",
+    "togglePin": "Alternar fixação",
+    "zoomInCluster": "Aproximar no agrupamento"
+  },
   "media": {
     "controls": {
       "exitFullscreen": "Sair do ecrã inteiro",
@@ -1253,6 +1260,9 @@ export default {
     "categoryTags": {
       "title": "Descubra histórias relacionadas"
     },
+    "collection": {
+      "preview": "Pré-visualização da coleção"
+    },
     "collections": {
       "name": "Coleções relacionadas",
       "title": "Descubra coleções relacionadas"
@@ -1335,9 +1345,6 @@ export default {
     },
     "results": {
       "limitWarning": "Resultados adicionais não são mostrados como apenas os primeiros 1000 resultados mais relevantes são mostrados. Se não encontrou o que está a procurar, por favor, considere refinar a sua pesquisa.",
-      "loginToSeeMore": "{login} para ver mais resultados",
-      "loginToSeeMultilingualResults": "Faça login para pesquisar em toda a coleção e obter resultados não limitados ao idioma do seu termo de pesquisa.",
-      "showingMultilingualResults": "Mostrando resultados em toda a coleção e em todos os idiomas.",
       "withinCollection": "{count} resultados dentro do {type} {collection}",
       "withinCollectionWithQuery": "{count} resultados em {type} {collection} para {query}",
       "withoutQuery": "{count} resultados",

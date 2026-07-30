@@ -140,6 +140,7 @@ export default {
     "country": "Država:",
     "creator": "Stvorio/la:",
     "date": "Datum:",
+    "hide": "Sakrij atribuciju",
     "institution": "Institucija:",
     "show": "Prikaži atribuciju",
     "title": "Naslov:"
@@ -1076,6 +1077,12 @@ export default {
   },
   "loading": "Učitavanje",
   "loadingResults": "Učitavanje rezultata",
+  "map": {
+    "keyboardNavigatePins": "Koristite tipke sa strelicama za navigaciju po oznakama",
+    "keyboardPanAndZoom": "Upotrijebite tipke +, - i strelice za zumiranje i pomicanje po karti",
+    "togglePin": "Uključi/isključi pribadaču",
+    "zoomInCluster": "Povećajte prikaz klastera"
+  },
   "media": {
     "controls": {
       "exitFullscreen": "Izađi iz punog zaslona",
@@ -1253,6 +1260,9 @@ export default {
     "categoryTags": {
       "title": "Otkrijte povezane priče"
     },
+    "collection": {
+      "preview": "Pregled kolekcije"
+    },
     "collections": {
       "name": "Povezane zbirke",
       "title": "Otkrijte povezane zbirke"
@@ -1335,9 +1345,6 @@ export default {
     },
     "results": {
       "limitWarning": "Dodatni rezultati nisu prikazani jer je prikazano samo prvih 1000 najrelevantnijih rezultata. Ako niste pronašli ono što tražite, razmislite o suženju pretraživanja.",
-      "loginToSeeMore": "{login} da biste vidjeli više rezultata",
-      "loginToSeeMultilingualResults": "Prijavite se kako biste pretraživali cijelu zbirku i dobili rezultate koji nisu ograničeni na jezik vašeg pojma za pretraživanje.",
-      "showingMultilingualResults": "Prikaz rezultata kroz cijelu kolekciju i sve jezike.",
       "withinCollection": "{count} rezultata unutar {type} {collection}",
       "withinCollectionWithQuery": "{count} rezultata unutar {type} {collection} za {query}",
       "withoutQuery": "{count} rezultata",

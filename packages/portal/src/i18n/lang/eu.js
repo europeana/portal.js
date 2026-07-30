@@ -140,6 +140,7 @@ export default {
     "country": "Herrialdea:",
     "creator": "Sortzailea:",
     "date": "Data:",
+    "hide": "Ezkutatu atribuzio",
     "institution": "Erakundea:",
     "show": "Erakutsi atribuzioa",
     "title": "Izenburua:"
@@ -1076,6 +1077,12 @@ export default {
   },
   "loading": "Kargatzen",
   "loadingResults": "Emaitzak kargatzen",
+  "map": {
+    "keyboardNavigatePins": "Erabili gezi-teklak pinean zehar nabigatzeko",
+    "keyboardPanAndZoom": "Erabili +, - eta gezi-teklak mapan zoom-a egiteko eta mugitzeko",
+    "togglePin": "Txinga txandakatu",
+    "zoomInCluster": "Handitu klusterra"
+  },
   "media": {
     "controls": {
       "exitFullscreen": "Irten pantaila osotik",
@@ -1157,7 +1164,7 @@ export default {
     "geographicScope": "Esparru geografikoa",
     "heritageDomain": "Ondare motak",
     "nameAcronym": "Izenaren akronimoa",
-    "providesAudienceEngagementActivity": "Publikoaren parte-hartze jarduerak",
+    "providesAudienceEngagementActivity": "Ikusleen parte-hartze jarduerak",
     "providesCapacityBuildingActivity": "Gaitasunen eraikuntza",
     "providesSupportForDataActivity": "Datuen jarduerak",
     "providesSupportForMediaType": "Multimedia mota",
@@ -1253,6 +1260,9 @@ export default {
     "categoryTags": {
       "title": "Ezagutu erlazionatutako istorioak"
     },
+    "collection": {
+      "preview": "Bildumaren aurrebista"
+    },
     "collections": {
       "name": "Lotutako bildumak",
       "title": "Ezagutu erlazionatutako bildumak"
@@ -1335,9 +1345,6 @@ export default {
     },
     "results": {
       "limitWarning": "Emaitza gehigarriak ez dira erakusten lehen 1000 emaitza garrantzitsuenak bakarrik erakusten baitira. Ez baduzu aurkitu bilatzen ari zarena, kontuan hartu bilaketa hobetzea.",
-      "loginToSeeMore": "{login} emaitza gehiago ikusteko",
-      "loginToSeeMultilingualResults": "Hasi saioa bilduma osoan bilatzeko eta lortu emaitzak bilaketa-terminoaren hizkuntzara mugatu gabe.",
-      "showingMultilingualResults": "Bilduma osoan eta hizkuntza guztietan emaitzak erakusten.",
       "withinCollection": "{count} emaitza barruan {type} {collection}",
       "withinCollectionWithQuery": "{count} emaitza {type} {collection} barruan {query}",
       "withoutQuery": "{count} emaitza",

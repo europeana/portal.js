@@ -140,6 +140,7 @@ export default {
     "country": "Maa:",
     "creator": "Luoja:",
     "date": "Päivämäärä:",
+    "hide": "Piilota attribuutio",
     "institution": "kulttuuriperintölaitos:",
     "show": "Näytä attribuutio",
     "title": "Nimi:"
@@ -1076,6 +1077,12 @@ export default {
   },
   "loading": "Ladataan",
   "loadingResults": "Ladataan tuloksia",
+  "map": {
+    "keyboardNavigatePins": "Navigoi nastoja nuolinäppäimillä",
+    "keyboardPanAndZoom": "Käytä +, - ja nuolinäppäimiä kartan lähentämiseen ja siirtämiseen.",
+    "togglePin": "Vaihda kiinnitys",
+    "zoomInCluster": "Lähennä klusteria"
+  },
   "media": {
     "controls": {
       "exitFullscreen": "Poistu koko näytöstä",
@@ -1253,6 +1260,9 @@ export default {
     "categoryTags": {
       "title": "Tutustu aiheeseen liittyviin tarinoihin"
     },
+    "collection": {
+      "preview": "Kokoelman esikatselu"
+    },
     "collections": {
       "name": "Aiheeseen liittyvät kokoelmat",
       "title": "Tutustu aiheeseen liittyviin kokoelmiin"
@@ -1335,9 +1345,6 @@ export default {
     },
     "results": {
       "limitWarning": "Lisätuloksia ei näytetä, koska vain ensimmäiset 1000 osuvinta tulosta näytetään. Jos et löytänyt etsimääsi, harkitse hakusi tarkentamista.",
-      "loginToSeeMore": "{login} nähdäksesi lisää tuloksia",
-      "loginToSeeMultilingualResults": "Kirjaudu sisään tehdäksesi hakuja koko kokoelmasta ja saat tuloksia, jotka eivät rajoitu hakusanasi kieleen.",
-      "showingMultilingualResults": "Näytetään tulosta koko kokoelmasta ja kaikilla kielillä.",
       "withinCollection": "{count} tulokset sisällä {type} {collection}",
       "withinCollectionWithQuery": "{count} tulokset sisällä {type} {collection} for {query}",
       "withoutQuery": "{count} tulokset",

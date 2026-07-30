@@ -140,6 +140,7 @@ export default {
     "country": "Pays :",
     "creator": "Créateur :",
     "date": "Date :",
+    "hide": "Masquer l'attribution",
     "institution": "Institution :",
     "show": "Afficher l'attribution",
     "title": "Titre :"
@@ -1076,6 +1077,12 @@ export default {
   },
   "loading": "Chargement",
   "loadingResults": "Chargement des résultats",
+  "map": {
+    "keyboardNavigatePins": "Utilisez les touches fléchées pour parcourir les épingles",
+    "keyboardPanAndZoom": "Utilisez les touches +, - et les flèches pour zoomer et vous déplacer sur la carte",
+    "togglePin": "Basculer l’épingle",
+    "zoomInCluster": "Zoom sur le cluster"
+  },
   "media": {
     "controls": {
       "exitFullscreen": "Quitter le plein écran",
@@ -1253,6 +1260,9 @@ export default {
     "categoryTags": {
       "title": "Découvrez des histoires connexes"
     },
+    "collection": {
+      "preview": "Aperçu de la collection"
+    },
     "collections": {
       "name": "Collections connexes",
       "title": "Découvrez les collections connexes"
@@ -1335,9 +1345,6 @@ export default {
     },
     "results": {
       "limitWarning": "Les résultats supplémentaires ne sont pas affichés car seuls les 1000 premiers résultats les plus pertinents sont affichés. Si vous n'avez pas trouvé ce que vous cherchez, pensez à affiner votre recherche.",
-      "loginToSeeMore": "{login} pour voir plus de résultats",
-      "loginToSeeMultilingualResults": "Connectez-vous pour effectuer une recherche dans l'ensemble de la collection et obtenez des résultats qui ne se limitent pas à la langue de votre terme de recherche.",
-      "showingMultilingualResults": "Affichage des résultats sur l'ensemble de la collection et dans toutes les langues.",
       "withinCollection": "{count} résultats dans {type} {collection}",
       "withinCollectionWithQuery": "{count} résultats dans {type} {collection} pour {query}",
       "withoutQuery": "{count} résultats",

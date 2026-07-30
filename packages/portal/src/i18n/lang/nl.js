@@ -140,6 +140,7 @@ export default {
     "country": "Land:",
     "creator": "Maker:",
     "date": "Datum:",
+    "hide": "Verberg toeschrijving",
     "institution": "Instelling:",
     "show": "Toon toeschrijving",
     "title": "Titel:"
@@ -1076,6 +1077,12 @@ export default {
   },
   "loading": "Bezig met laden",
   "loadingResults": "Resultaten worden geladen",
+  "map": {
+    "keyboardNavigatePins": "Gebruik de pijltjestoetsen om door de pins te navigeren",
+    "keyboardPanAndZoom": "Gebruik de +-, en pijltjestoetsen om in en uit te zoomen en over de kaart te bewegen",
+    "togglePin": "Vastpinnen in-/uitschakelen",
+    "zoomInCluster": "Inzoomen op cluster"
+  },
   "media": {
     "controls": {
       "exitFullscreen": "Volledig scherm afsluiten",
@@ -1253,6 +1260,9 @@ export default {
     "categoryTags": {
       "title": "Ontdek gerelateerde verhalen"
     },
+    "collection": {
+      "preview": "Collectievoorbeeld"
+    },
     "collections": {
       "name": "Gerelateerde collecties",
       "title": "Ontdek gerelateerde collecties"
@@ -1335,9 +1345,6 @@ export default {
     },
     "results": {
       "limitWarning": "Aanvullende resultaten worden niet getoond, omdat alleen de eerste 1000 meest relevante resultaten worden getoond. Als u niet heeft gevonden wat u zocht, kunt u overwegen uw zoekopdracht te verfijnen.",
-      "loginToSeeMore": "{login} om meer resultaten te zien",
-      "loginToSeeMultilingualResults": "Log in om in de hele collectie te zoeken en krijg resultaten die niet beperkt zijn tot de taal van uw zoekterm.",
-      "showingMultilingualResults": "Resultaten weergeven voor de gehele collectie en alle talen.",
       "withinCollection": "{count} resultaten binnen {type} {collection}",
       "withinCollectionWithQuery": "{count} resultaten binnen {type} {collection} voor {query}",
       "withoutQuery": "{count} resultaten",

@@ -140,6 +140,7 @@ export default {
     "country": "Krajina:",
     "creator": "Autor:",
     "date": "Dátum:",
+    "hide": "Skryť uvedenie zdroja",
     "institution": "Inštitúcia:",
     "show": "Zobraziť atribút",
     "title": "Názov:"
@@ -1076,6 +1077,12 @@ export default {
   },
   "loading": "Načítava sa",
   "loadingResults": "Načítavajú sa výsledky",
+  "map": {
+    "keyboardNavigatePins": "Na navigáciu medzi špendlíkmi použite klávesy so šípkami",
+    "keyboardPanAndZoom": "Použite klávesy +, - a šípky na priblíženie a posúvanie mapy",
+    "togglePin": "Prepínať pripnutie",
+    "zoomInCluster": "Priblížiť na klaster"
+  },
   "media": {
     "controls": {
       "exitFullscreen": "Ukončiť celú obrazovku",
@@ -1253,6 +1260,9 @@ export default {
     "categoryTags": {
       "title": "Objavte súvisiace príbehy"
     },
+    "collection": {
+      "preview": "Náhľad kolekcie"
+    },
     "collections": {
       "name": "Súvisiace kolekcie",
       "title": "Objavte súvisiace kolekcie"
@@ -1335,9 +1345,6 @@ export default {
     },
     "results": {
       "limitWarning": "Ďalšie výsledky sa nezobrazujú, pretože je zobrazených iba prvých 1000 najrelevantnejších výsledkov. Ak ste nenašli to, čo ste hľadali, zvážte spresnenie vyhľadávania.",
-      "loginToSeeMore": "{login} pre zobrazenie viac výsledkov",
-      "loginToSeeMultilingualResults": "Prihláste sa a vyhľadávajte v celej zbierke a získajte výsledky, ktoré nie sú obmedzené na jazyk vyhľadávaného výrazu.",
-      "showingMultilingualResults": "Zobrazujú sa výsledky z celej kolekcie a vo všetkých jazykoch.",
       "withinCollection": "{count} výsledkov v rámci {type} {collection}",
       "withinCollectionWithQuery": "{count} výsledkov v rámci {type} {collection} pre {query}",
       "withoutQuery": "{count} výsledkov",

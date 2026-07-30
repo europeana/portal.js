@@ -140,6 +140,7 @@ export default {
     "country": "Țară:",
     "creator": "Creator:",
     "date": "Dată:",
+    "hide": "Ascunde atribuirea",
     "institution": "Instituție:",
     "show": "Arată atribuirea",
     "title": "Titlu:"
@@ -1076,6 +1077,12 @@ export default {
   },
   "loading": "Încărcare",
   "loadingResults": "Se încarcă rezultatele",
+  "map": {
+    "keyboardNavigatePins": "Folosiți tastele săgeată pentru a naviga între marcaje",
+    "keyboardPanAndZoom": "Folosiți tastele +, - și tastele săgeți pentru a mări/micșora și a vă deplasa pe hartă",
+    "togglePin": "Comută fixarea",
+    "zoomInCluster": "Mărește clusterul"
+  },
   "media": {
     "controls": {
       "exitFullscreen": "Ieșiți din ecranul complet",
@@ -1253,6 +1260,9 @@ export default {
     "categoryTags": {
       "title": "Descoperiți narațiuni conexe"
     },
+    "collection": {
+      "preview": "Previzualizare colecție"
+    },
     "collections": {
       "name": "Colecții conexe",
       "title": "Descoperiți colecții conexe"
@@ -1335,9 +1345,6 @@ export default {
     },
     "results": {
       "limitWarning": "Rezultate suplimentare nu sunt afișate, deoarece sunt afișate doar primele 1000 de rezultate cele mai relevante. Dacă nu ați găsit ceea ce căutați, vă rugăm să vă rafinați căutarea.",
-      "loginToSeeMore": "{login} pentru a vedea mai multe rezultate",
-      "loginToSeeMultilingualResults": "Conectați-vă pentru a căuta în întreaga colecție și pentru a obține rezultate care nu se limitează la limba termenului dvs. de căutare.",
-      "showingMultilingualResults": "Afișare rezultate din întreaga colecție și toate limbile.",
       "withinCollection": "{count} rezultate în cadrul {type} {collection}",
       "withinCollectionWithQuery": "{count} rezultate în {type} {collection} pentru {query}",
       "withoutQuery": "{count} rezultate",
