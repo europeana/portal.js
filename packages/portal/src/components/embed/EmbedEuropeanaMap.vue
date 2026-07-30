@@ -121,16 +121,16 @@
           { rel: 'preload', as: 'script', href: VUE_3_SCRIPT_URL },
           { rel: 'preload', as: 'script', href: EUROPEANA_MAP_SCRIPT_URL },
           { rel: 'preload', as: 'style', href: EUROPEANA_MAP_STYLE_URL },
-          { hid: 'europeana-map-style', rel: 'stylesheet', href: EUROPEANA_MAP_STYLE_URL }
+          { hid: `${this.mapElementId}-europeana-map-style`, rel: 'stylesheet', href: EUROPEANA_MAP_STYLE_URL }
         ],
         script: [
           {
-            hid: 'vue3-script',
+            hid: `${this.mapElementId}-vue3-script`,
             src: VUE_3_SCRIPT_URL,
             callback: this.handleLoadVue3
           },
           {
-            hid: 'europeana-map-script',
+            hid: `${this.mapElementId}-europeana-map-script`,
             src: EUROPEANA_MAP_SCRIPT_URL,
             skip: !this.vue3Loaded,
             callback: this.handleLoadEuropeanaMap
