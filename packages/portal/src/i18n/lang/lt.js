@@ -140,6 +140,7 @@ export default {
     "country": "Šalis:",
     "creator": "Autorius:",
     "date": "Data:",
+    "hide": "Slėpti priskyrimą",
     "institution": "Įstaiga:",
     "show": "Rodyti priskyrimą",
     "title": "Pavadinimas:"
@@ -1076,6 +1077,12 @@ export default {
   },
   "loading": "Įkeliama",
   "loadingResults": "Įkeliami rezultatai",
+  "map": {
+    "keyboardNavigatePins": "Naudokite rodyklių klavišus, kad naršytumėte po kaiščius",
+    "keyboardPanAndZoom": "Naudokite klavišus +, - ir rodyklių klavišus, kad priartintumėte ir judėtumėte po žemėlapį",
+    "togglePin": "Perjungti prisegimą",
+    "zoomInCluster": "Priartinti grupę"
+  },
   "media": {
     "controls": {
       "exitFullscreen": "Išeiti iš viso ekrano režimo",
@@ -1253,6 +1260,9 @@ export default {
     "categoryTags": {
       "title": "Atraskite susijusias istorijas"
     },
+    "collection": {
+      "preview": "Kolekcijos peržiūra"
+    },
     "collections": {
       "name": "Susijusios kolekcijos",
       "title": "Atraskite susijusias kolekcijas"
@@ -1335,9 +1345,6 @@ export default {
     },
     "results": {
       "limitWarning": "Papildomi rezultatai nerodomi, nes rodomi tik pirmieji 1000 aktualiausių rezultatų. Jei neradote to, ko ieškote, apsvarstykite galimybę patikslinti paiešką.",
-      "loginToSeeMore": "{login} kad pamatytumėte daugiau rezultatų",
-      "loginToSeeMultilingualResults": "Prisijunkite, kad galėtumėte ieškoti visoje kolekcijoje ir gauti rezultatus, neribotus jūsų paieškos termino kalba.",
-      "showingMultilingualResults": "Rodomi rezultatai iš visos kolekcijos ir visomis kalbomis.",
       "withinCollection": "{count} rezultatų pagal {type} {collection}",
       "withinCollectionWithQuery": "{count} rezultatų pagal {type} {collection} dėl {query}",
       "withoutQuery": "{count} rezultatai",

@@ -140,6 +140,7 @@ export default {
     "country": "Riik:",
     "creator": "Looja:",
     "date": "Kuupäev:",
+    "hide": "Peida omistamine",
     "institution": "Institutsioon:",
     "show": "Kuva atribuutika",
     "title": "Pealkiri:"
@@ -1076,6 +1077,12 @@ export default {
   },
   "loading": "Laadimine",
   "loadingResults": "Tulemuste laadimine",
+  "map": {
+    "keyboardNavigatePins": "Kasutage nuppude vahel liikumiseks nooleklahve",
+    "keyboardPanAndZoom": "Kasutage kaardil suurendamiseks ja liikumiseks klahve +, - ja nooleklahve.",
+    "togglePin": "Kinnituse sisse/välja lülitamine",
+    "zoomInCluster": "Suumi klastrile lähemale"
+  },
   "media": {
     "controls": {
       "exitFullscreen": "Välju täisekraanist",
@@ -1253,6 +1260,9 @@ export default {
     "categoryTags": {
       "title": "Avastage seotud lugusid"
     },
+    "collection": {
+      "preview": "Kollektsiooni eelvaade"
+    },
     "collections": {
       "name": "Seotud kollektsioonid",
       "title": "Avastage seotud kogud"
@@ -1335,9 +1345,6 @@ export default {
     },
     "results": {
       "limitWarning": "Täiendavaid tulemusi ei näidata, kuna näidatakse ainult esimesed 1000 kõige asjakohasemat tulemust. Kui te ei ole leidnud seda, mida otsite, palun täpsustage oma otsingut.",
-      "loginToSeeMore": "{login} , et näha rohkem tulemusi",
-      "loginToSeeMultilingualResults": "Logige sisse, et otsida kogu kollektsioonist ja saada tulemusi, mis ei piirdu teie otsingutermini keelega.",
-      "showingMultilingualResults": "Kuvatakse tulemusi kogu kogumiku ja kõigi keelte lõikes.",
       "withinCollection": "{count} tulemust jaotises {type} {collection}",
       "withinCollectionWithQuery": "{count} tulemust jaotises {type} {collection} jaoks {query}",
       "withoutQuery": "{count} tulemust",

@@ -140,6 +140,7 @@ export default {
     "country": "Země:",
     "creator": "Tvůrce:",
     "date": "Datum:",
+    "hide": "Skrýt uvedení zdroje",
     "institution": "Instituce:",
     "show": "Zobrazit atribuci",
     "title": "Název:"
@@ -1076,6 +1077,12 @@ export default {
   },
   "loading": "Načítání",
   "loadingResults": "Načítání výsledků",
+  "map": {
+    "keyboardNavigatePins": "K navigaci mezi piny použijte šipky",
+    "keyboardPanAndZoom": "Použijte klávesy +, - a šipky pro přiblížení a posun po mapě.",
+    "togglePin": "Přepnout připnutí",
+    "zoomInCluster": "Přiblížit shluk"
+  },
   "media": {
     "controls": {
       "exitFullscreen": "Ukončete celou obrazovku",
@@ -1253,6 +1260,9 @@ export default {
     "categoryTags": {
       "title": "Objevte související příběhy"
     },
+    "collection": {
+      "preview": "Náhled kolekce"
+    },
     "collections": {
       "name": "Související sbírky",
       "title": "Objevte související sbírky"
@@ -1335,9 +1345,6 @@ export default {
     },
     "results": {
       "limitWarning": "Další výsledky nejsou zobrazeny, protože je zobrazeno pouze prvních 1000 nejrelevantnějších výsledků. Pokud jste nenašli, co jste hledali, zvažte prosím upřesnění vyhledávání.",
-      "loginToSeeMore": "{login} zobrazíte další výsledky",
-      "loginToSeeMultilingualResults": "Přihlaste se, abyste mohli vyhledávat v celé kolekci a získejte výsledky, které nejsou omezeny na jazyk hledaného výrazu.",
-      "showingMultilingualResults": "Zobrazují se výsledky napříč celou sbírkou a ve všech jazycích.",
       "withinCollection": "{type} výsledků v rámci {count} {collection}",
       "withinCollectionWithQuery": "{count} výsledků v rámci {type} {collection} pro {query}",
       "withoutQuery": "{count} výsledků",

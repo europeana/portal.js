@@ -140,6 +140,7 @@ export default {
     "country": "Land:",
     "creator": "Skapare:",
     "date": "Datum:",
+    "hide": "Dölj attribution",
     "institution": "Institution:",
     "show": "Visa attribution",
     "title": "Titel:"
@@ -1076,6 +1077,12 @@ export default {
   },
   "loading": "Laddar",
   "loadingResults": "Hämtar resultat",
+  "map": {
+    "keyboardNavigatePins": "Använd piltangenterna för att navigera bland nålar",
+    "keyboardPanAndZoom": "Använd +, - och piltangenterna för att zooma och panorera på kartan",
+    "togglePin": "Växla fästning",
+    "zoomInCluster": "Zooma in på klustret"
+  },
   "media": {
     "controls": {
       "exitFullscreen": "Avsluta helskärm",
@@ -1253,6 +1260,9 @@ export default {
     "categoryTags": {
       "title": "Upptäck relaterade berättelser"
     },
+    "collection": {
+      "preview": "Förhandsvisning av samlingen"
+    },
     "collections": {
       "name": "Relaterade samlingar",
       "title": "Upptäck relaterade samlingar"
@@ -1335,9 +1345,6 @@ export default {
     },
     "results": {
       "limitWarning": "Ytterligare resultat visas inte eftersom endast de 1000 första mest relevanta resultaten visas. Om du inte har hittat det du letar efter kan du prova att förfina din sökning.",
-      "loginToSeeMore": "{login} för att se fler resultat",
-      "loginToSeeMultilingualResults": "Logga in för att söka i hela samlingen och få resultat som inte är begränsade till språket för din sökterm.",
-      "showingMultilingualResults": "Visar resultat över hela samlingen och alla språk.",
       "withinCollection": "{count} resultat inom {type} {collection}",
       "withinCollectionWithQuery": "{count} resultat inom {type} {collection} för {query}",
       "withoutQuery": "{count} resultat",

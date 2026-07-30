@@ -140,6 +140,7 @@ export default {
     "country": "Ország:",
     "creator": "Alkotó:",
     "date": "Dátum:",
+    "hide": "Szerzőmegjelölés elrejtése",
     "institution": "Intézmény:",
     "show": "Attribúció megjelenítése",
     "title": "Cím:"
@@ -1076,6 +1077,12 @@ export default {
   },
   "loading": "Betöltés",
   "loadingResults": "Találatok betöltése",
+  "map": {
+    "keyboardNavigatePins": "A gombostűk közötti navigáláshoz használja a nyíl billentyűket",
+    "keyboardPanAndZoom": "Használja a +, - és nyílbillentyűket a térkép nagyításához és mozgatásához",
+    "togglePin": "Gombostű be/ki",
+    "zoomInCluster": "Nagyítás a klaszterre"
+  },
   "media": {
     "controls": {
       "exitFullscreen": "Kilépés a teljes képernyős módból",
@@ -1253,6 +1260,9 @@ export default {
     "categoryTags": {
       "title": "Fedezz fel kapcsolódó történeteket"
     },
+    "collection": {
+      "preview": "Gyűjtemény előnézete"
+    },
     "collections": {
       "name": "Kapcsolódó gyűjtemények",
       "title": "Fedezz fel kapcsolódó gyűjteményeket"
@@ -1335,9 +1345,6 @@ export default {
     },
     "results": {
       "limitWarning": "A további találatok nem láthatóak, mivel csak az első 1000 legrelevánsabb találat jelenik meg. Ha nem találtad meg, amit keresel, fontold meg a keresés finomítását.",
-      "loginToSeeMore": "{login} további találatok megtekintéséhez",
-      "loginToSeeMultilingualResults": "Jelentkezz be, ha szeretnél a teljes gyűjteményben keresni, és nem korlátozni a találatokat a keresési kifejezés nyelvére.",
-      "showingMultilingualResults": "Eredmények megjelenítése a teljes gyűjteményben és az összes nyelven.",
       "withinCollection": "{count} találat ezzel kapcsolatban: {type}:{collection}",
       "withinCollectionWithQuery": "{count} találat ezzel kapcsolatban: {type}:{collection}, {query}",
       "withoutQuery": "{count} találat",
