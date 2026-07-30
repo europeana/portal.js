@@ -34,7 +34,7 @@
   const VUE_3_CDN_BASE_URL = 'https://cdn.jsdelivr.net/npm/vue@3.5.39/dist';
   const VUE_3_SCRIPT_URL = `${VUE_3_CDN_BASE_URL}/vue.global.prod.js`;
 
-  const EUROPEANA_MAP_CDN_BASE_URL = 'https://cdn.jsdelivr.net/npm/@europeana/map@0.1.9/dist';
+  const EUROPEANA_MAP_CDN_BASE_URL = 'https://cdn.jsdelivr.net/npm/@europeana/map@0.1.15/dist';
   // const EUROPEANA_MAP_CDN_BASE_URL = 'http://localhost:4173';
   const EUROPEANA_MAP_SCRIPT_URL = `${EUROPEANA_MAP_CDN_BASE_URL}/europeana-map.iife.js`;
   const EUROPEANA_MAP_STYLE_URL = `${EUROPEANA_MAP_CDN_BASE_URL}/europeana-map.css`;
@@ -109,7 +109,6 @@
             }
           }
         },
-        europeanaMap: null,
         mapContainerElementId: `${this.mapElementId}-container`,
         popoverElementId: `${this.mapElementId}-popover`,
         vue3Loaded: false
@@ -122,16 +121,16 @@
           { rel: 'preload', as: 'script', href: VUE_3_SCRIPT_URL },
           { rel: 'preload', as: 'script', href: EUROPEANA_MAP_SCRIPT_URL },
           { rel: 'preload', as: 'style', href: EUROPEANA_MAP_STYLE_URL },
-          { hid: `${this.mapElementId}-europeana-map-style`, rel: 'stylesheet', href: EUROPEANA_MAP_STYLE_URL }
+          { hid: 'europeana-map-style', rel: 'stylesheet', href: EUROPEANA_MAP_STYLE_URL }
         ],
         script: [
           {
-            hid: `${this.mapElementId}-vue3-script`,
+            hid: 'vue3-script',
             src: VUE_3_SCRIPT_URL,
             callback: this.handleLoadVue3
           },
           {
-            hid: `${this.mapElementId}-europeana-map-script`,
+            hid: 'europeana-map-script',
             src: EUROPEANA_MAP_SCRIPT_URL,
             skip: !this.vue3Loaded,
             callback: this.handleLoadEuropeanaMap
@@ -150,7 +149,9 @@
           style = useEuropeanaMapStyle(this.$config.app.map.style, { locale: this.$features.localisedMap && this.$i18n.locale });
         }
 
-        this.europeanaMap = new window.EuropeanaMap.EuropeanaMapWrapper(`#${this.mapContainerElementId}`, {
+        // WARNING: consider carefully before storing in data as it will be made reactive
+        //          by Vue which is costly on large complex objects
+        const europeanaMap = new window.EuropeanaMap.EuropeanaMapWrapper(`#${this.mapContainerElementId}`, {
           centre: this.centre,
           controls: this.controls,
           elementId: this.mapElementId,
@@ -164,7 +165,7 @@
 
         // Add event handlers
         for (const eventId in this.on) {
-          this.europeanaMap.olMap.on(eventId, this.on[eventId]);
+          europeanaMap.olMap.on(eventId, this.on[eventId]);
         }
       }
     }
