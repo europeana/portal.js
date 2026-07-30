@@ -54,11 +54,11 @@ const factory = (propsData = {}) => shallowMountNuxt(EntityOrganisationsMapPinPo
 
 describe('components/entity/organisations/EntityOrganisationsMapPinPopover', () => {
   describe('template', () => {
-    it('shows a close button on small screens', async() => {
+    it('renders a close button', async() => {
       const wrapper = factory({ entityId });
       await wrapper.vm.fetch();
 
-      expect(wrapper.find('.d-sm-none.close-button').exists()).toBe(true);
+      expect(wrapper.find('.close-button').exists()).toBe(true);
     });
     it('shows the organisation name in native and English locale', async() => {
       const wrapper = factory({ entityId });
