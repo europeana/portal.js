@@ -104,7 +104,6 @@
             }
           }
         },
-        europeanaMap: null,
         vue3Loaded: false
       };
     },
@@ -143,7 +142,9 @@
           style = useEuropeanaMapStyle(this.$config.app.map.style, { locale: this.$features.localisedMap && this.$i18n.locale });
         }
 
-        this.europeanaMap = new window.EuropeanaMap.EuropeanaMapWrapper('#europeana-map', {
+        // WARNING: consider carefully before storing in data as it will be made reactive
+        //          by Vue which is costly on large complex objects
+        const europeanaMap = new window.EuropeanaMap.EuropeanaMapWrapper('#europeana-map', {
           centre: this.centre,
           zoom: this.zoom,
           controls: this.controls,
@@ -156,7 +157,7 @@
 
         // Add event handlers
         for (const eventId in this.on) {
-          this.europeanaMap.olMap.on(eventId, this.on[eventId]);
+          europeanaMap.olMap.on(eventId, this.on[eventId]);
         }
       }
     }
