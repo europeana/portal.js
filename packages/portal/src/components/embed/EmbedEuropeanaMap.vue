@@ -176,9 +176,10 @@
   @import '@europeana/style/scss/variables';
 
   .embed-map {
-    .europeana-map {
+    ::v-deep .europeana-map {
       width: 100%;
       height: 80vh;
+      scroll-margin-top: 7em;
       position: relative;
 
       ::v-deep .ol-overlay-container {
