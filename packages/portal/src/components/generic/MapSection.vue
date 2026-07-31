@@ -16,7 +16,11 @@
     </b-container>
     <!-- For now we only have the Organisation map usecase -->
     <client-only>
-      <EntityOrganisationsMap class="mb-4" />
+      <EntityOrganisationsMap
+        :hash="true"
+        :map-element-id="mapElementId"
+        class="mb-4"
+      />
     </client-only>
     <b-container>
       <SmartLink
@@ -32,6 +36,8 @@
 </template>
 
 <script>
+  import kebabCase from 'lodash/kebabCase';
+
   import { useParallaxElement } from '@/composables/parallaxElement.js';
 
   export default {
@@ -51,6 +57,12 @@
 
     setup() {
       useParallaxElement('#europeana-map');
+    },
+
+    computed: {
+      mapElementId() {
+        return `${kebabCase(this.section.name)}-europeana-map`;
+      }
     }
   };
 </script>

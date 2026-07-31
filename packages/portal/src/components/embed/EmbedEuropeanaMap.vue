@@ -9,7 +9,7 @@
       <slot name="label" />
     </div>
     <div
-      id="europeana-map"
+      :id="mapContainerElementId"
       class="europeana-map"
       width="100vh"
       height="80vh"
@@ -19,7 +19,7 @@
     />
     <div
       v-if="$slots.popover"
-      id="europeana-map-popover"
+      :id="popoverElementId"
     >
       <slot
         name="popover"
@@ -34,7 +34,7 @@
   const VUE_3_CDN_BASE_URL = 'https://cdn.jsdelivr.net/npm/vue@3.5.39/dist';
   const VUE_3_SCRIPT_URL = `${VUE_3_CDN_BASE_URL}/vue.global.prod.js`;
 
-  const EUROPEANA_MAP_CDN_BASE_URL = 'https://cdn.jsdelivr.net/npm/@europeana/map@0.1.15/dist';
+  const EUROPEANA_MAP_CDN_BASE_URL = 'https://cdn.jsdelivr.net/npm/@europeana/map@0.1.16/dist';
   // const EUROPEANA_MAP_CDN_BASE_URL = 'http://localhost:4173';
   const EUROPEANA_MAP_SCRIPT_URL = `${EUROPEANA_MAP_CDN_BASE_URL}/europeana-map.iife.js`;
   const EUROPEANA_MAP_STYLE_URL = `${EUROPEANA_MAP_CDN_BASE_URL}/europeana-map.css`;
@@ -55,6 +55,11 @@
       json: {
         type: String,
         default: null
+      },
+
+      mapElementId: {
+        type: String,
+        default: 'europeana-map'
       },
 
       on: {
@@ -104,6 +109,8 @@
             }
           }
         },
+        mapContainerElementId: `${this.mapElementId}-container`,
+        popoverElementId: `${this.mapElementId}-popover`,
         vue3Loaded: false
       };
     },
@@ -114,16 +121,16 @@
           { rel: 'preload', as: 'script', href: VUE_3_SCRIPT_URL },
           { rel: 'preload', as: 'script', href: EUROPEANA_MAP_SCRIPT_URL },
           { rel: 'preload', as: 'style', href: EUROPEANA_MAP_STYLE_URL },
-          { hid: 'europeana-map-style', rel: 'stylesheet', href: EUROPEANA_MAP_STYLE_URL }
+          { hid: `${this.mapElementId}-europeana-map-style`, rel: 'stylesheet', href: EUROPEANA_MAP_STYLE_URL }
         ],
         script: [
           {
-            hid: 'vue3-script',
+            hid: `${this.mapElementId}-vue3-script`,
             src: VUE_3_SCRIPT_URL,
             callback: this.handleLoadVue3
           },
           {
-            hid: 'europeana-map-script',
+            hid: `${this.mapElementId}-europeana-map-script`,
             src: EUROPEANA_MAP_SCRIPT_URL,
             skip: !this.vue3Loaded,
             callback: this.handleLoadEuropeanaMap
@@ -144,15 +151,16 @@
 
         // WARNING: consider carefully before storing in data as it will be made reactive
         //          by Vue which is costly on large complex objects
-        const europeanaMap = new window.EuropeanaMap.EuropeanaMapWrapper('#europeana-map', {
+        const europeanaMap = new window.EuropeanaMap.EuropeanaMapWrapper(`#${this.mapContainerElementId}`, {
           centre: this.centre,
-          zoom: this.zoom,
           controls: this.controls,
+          elementId: this.mapElementId,
           hash: this.hash,
           json: this.json,
-          pinPopover: this.$slots.popover && 'europeana-map-popover',
+          pinPopover: this.$slots.popover && this.popoverElementId,
           style,
-          url: this.url
+          url: this.url,
+          zoom: this.zoom
         });
 
         // Add event handlers
