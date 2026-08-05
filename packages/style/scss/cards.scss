@@ -541,6 +541,56 @@
       margin-right: 0;
     }
   }
+
+  &.circle-card {
+    min-height: auto;
+    min-width: auto;
+    padding: 0;
+    box-shadow: none;
+    border-radius: 50%;
+    height: 3rem;
+    width: 3rem;
+    border: 1px solid transparent;
+
+    @media (min-width: $bp-xxxl) {
+      min-width: auto;
+    }
+
+    .card-img {
+      min-height: 3rem;
+      max-height: 3rem;
+      height: 3rem;
+      width: 3rem;
+      border-radius: 50%;
+
+      &.default-thumbnail {
+
+        [class^='icon-'],
+        [class*=' icon-'] {
+          font-size: 1.5rem;
+        }
+      }
+
+      img {
+        height: 3rem;
+      }
+    }
+
+    .card-body {
+      padding: 0;
+
+      .card-title {
+        height: 0;
+        overflow: hidden;
+      }
+
+      a .link-text {
+        display: inline-block;
+        height: 0;
+        overflow: hidden;
+      }
+    }
+  }
 }
 
 .xxl-page .card {

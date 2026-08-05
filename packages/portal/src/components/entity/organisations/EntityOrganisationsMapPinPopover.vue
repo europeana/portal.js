@@ -58,25 +58,13 @@
           {{ $t('related.collection.preview') }}
         </h4>
         <div class="d-flex mx-n2">
-          <SmartLink
+          <ItemPreviewCard
             v-for="item in items"
             :key="item.id"
-            :destination="{
-              name: 'item-all',
-              params: { pathMatch: item.id.slice(1) }
-            }"
-            class="preview-item-link mx-2"
-          >
-            <!-- TODO: add SR text - links should contain text -->
-            <b-img
-              :src="$apis.thumbnail.edmPreview(item.edmPreview?.[0], { size: 200 })"
-              alt=""
-              sizes="(max-width 1920px) 28w,
-            (max-width 2560) 45w,
-            (min-width 2561) 67w"
-              rounded="circle"
-            />
-          </SmartLink>
+            :item="item"
+            variant="circle"
+            class="mx-2 mb-0"
+          />
         </div>
       </div>
     </TransitionGroup>
@@ -91,6 +79,7 @@
   import { getEntityQuery, getWikimediaThumbnailUrl } from '@/plugins/europeana/entity.js';
   import { getLabelledSlug } from '@/plugins/europeana/utils.js';
 
+  import ItemPreviewCard from '@/components/item/ItemPreviewCard';
   import SmartLink from '@/components/generic/SmartLink';
 
   const FIELDS = [
@@ -104,6 +93,7 @@
     name: 'EntityOrganisationsMapPinPopover',
 
     components: {
+      ItemPreviewCard,
       SmartLink
     },
 
@@ -190,7 +180,7 @@
 @import '@europeana/style/scss/variables';
 @import '@europeana/style/scss/transitions';
 
-.card {
+.card:not(.circle-card) {
   border: none;
   box-shadow: $boxshadow;
 
@@ -271,11 +261,5 @@
 
 .fade-leave-active {
   transition: none;
-}
-
-.preview-item-link img {
-  width: 3rem;
-  height: 3rem;
-  object-fit: cover;
 }
 </style>
