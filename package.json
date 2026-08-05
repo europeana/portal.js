@@ -59,7 +59,7 @@
     "postcss-scss": "^4.0.5",
     "stylelint": "^14.1.0",
     "stylelint-config-recommended-scss": "^7.0.0",
-    "stylelint-config-recommended-vue": "^1.4.0",
+    "stylelint-config-recommended-vue": "1.6.1",
     "vue": "2.7.16"
   },
   "contributors": [
