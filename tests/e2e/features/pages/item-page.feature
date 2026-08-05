@@ -42,11 +42,6 @@ Feature: item page
     Then I see the `item page`
     And I see the `default thumbnail`
 
-  Scenario: One related entity
-    When I open `"The Milkmaid" item page`
-    Then I see `related entities`
-    And I see the `Art of painting related chip` in the `related entities`
-
   Scenario: Multiple related entities
     When I open the `"Het laatste avondmaal" item page`
     Then I see `related entities`

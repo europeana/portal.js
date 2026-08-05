@@ -1,6 +1,6 @@
 # Multi-stage image to build and run europeana/portal.js
 
-ARG node_version=22
+ARG node_version=24
 
 FROM node:${node_version}-alpine AS build
 
