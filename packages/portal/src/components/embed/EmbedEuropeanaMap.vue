@@ -176,7 +176,7 @@
   @import '@europeana/style/scss/variables';
 
   .embed-map {
-    ::v-deep .europeana-map {
+    .europeana-map {
       width: 100%;
       height: 80vh;
       scroll-margin-top: 7em;
