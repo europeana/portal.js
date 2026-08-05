@@ -68,20 +68,6 @@
   @import '@europeana/style/scss/variables';
 
   .europeana-map {
-    width: 100%;
-    height: 80vh;
-    position: relative;
-
-    ::v-deep .ol-overlay-container {
-      @media (max-width: ($bp-small - 1px)) {
-        transform: none !important;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        z-index: 1;
-      }
-    }
-
     ::v-deep .ol-control {
       background-color: transparent;
 
