@@ -31,6 +31,8 @@
 <script>
   import { useEuropeanaMapStyle, EUROPEANA_MAP_STYLE_NAMES } from '@europeana/map-styles';
 
+  import waitFor from '@/utils/waitFor.js';
+
   const VUE_3_CDN_BASE_URL = 'https://cdn.jsdelivr.net/npm/vue@3.5.39/dist';
   const VUE_3_SCRIPT_URL = `${VUE_3_CDN_BASE_URL}/vue.global.prod.js`;
 
@@ -149,6 +151,12 @@
           style = useEuropeanaMapStyle(this.$config.app.map.style, { locale: this.$features.localisedMap && this.$i18n.locale });
         }
 
+        let scrollTo = false;
+        // TODO: make this an exposed property of the EuropeanaMap instance?
+        if (window?.location?.hash?.includes(`em-id=${this.mapElementId}`)) {
+          scrollTo = waitFor(() => !document.querySelector('[data-qa="loading spinner container"]'), { name: 'No loading spinners' });
+        }
+
         // WARNING: consider carefully before storing in data as it will be made reactive
         //          by Vue which is costly on large complex objects
         const europeanaMap = new window.EuropeanaMap.EuropeanaMapWrapper(`#${this.mapContainerElementId}`, {
@@ -158,6 +166,7 @@
           hash: this.hash,
           json: this.json,
           pinPopover: this.$slots.popover && this.popoverElementId,
+          scrollTo,
           style,
           url: this.url,
           zoom: this.zoom

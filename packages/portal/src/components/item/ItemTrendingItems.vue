@@ -1,6 +1,9 @@
 <template>
+  <LoadingSpinner
+    v-if="$fetchState.pending"
+  />
   <section
-    v-if="items"
+    v-else-if="items"
     id="trending-items"
     class="trending-items browse-section row mb-5"
     data-qa="browse section"
@@ -12,7 +15,9 @@
         {{ $t('items.trending.headline') }}
       </h2>
     </div>
-    <div class="col-12">
+    <div
+      class="col-12"
+    >
       <ItemPreviewCardMosaic
         :items="items"
       />
@@ -25,12 +30,14 @@
   import dateFormat from 'dateformat';
   import { recordIdFromUrl } from '@/plugins/europeana/record.js';
   import ItemPreviewCardMosaic from '@/components/item/ItemPreviewCardMosaic';
+  import LoadingSpinner from '@/components/generic/LoadingSpinner.vue';
 
   export default {
     name: 'ItemTrendingItems',
 
     components: {
-      ItemPreviewCardMosaic
+      ItemPreviewCardMosaic,
+      LoadingSpinner
     },
 
     data() {

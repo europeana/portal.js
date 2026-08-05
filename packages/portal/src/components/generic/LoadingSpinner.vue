@@ -1,9 +1,10 @@
 <template>
   <component
     :is="tag"
-    v-if="visible"
+    data-qa="loading spinner container"
   >
     <span
+      v-if="visible"
       role="status"
       data-qa="loading spinner"
     >
