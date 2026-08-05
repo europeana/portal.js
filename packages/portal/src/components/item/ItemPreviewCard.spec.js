@@ -25,7 +25,7 @@ const factory = ({ mocks, parentComponent, propsData } = {}) => {
     mocks: {
       $apis: {
         thumbnail: {
-          edmPreview: (img) => img?.edmPreview?.[0],
+          edmPreview: sinon.spy(),
           generic: (id) => id
         }
       },
@@ -83,6 +83,20 @@ describe('components/item/ItemPreviewCard', () => {
       const wrapper = factory({ propsData: { item, variant: 'list' } });
 
       expect(wrapper.vm.type).toEqual(item.type);
+    });
+  });
+
+  describe('circle card', () => {
+    it('does not render texts', () => {
+      const wrapper = factory({ propsData: { item, variant: 'circle' } });
+
+      expect(wrapper.vm.texts).toBe(undefined);
+    });
+
+    it('fetches 200px thumbnail', () => {
+      const wrapper = factory({ propsData: { item, variant: 'circle' } });
+
+      expect(wrapper.vm.$apis.thumbnail.edmPreview.calledWith(item.edmPreview?.[0], { size: 200 })).toBe(true);
     });
   });
 
