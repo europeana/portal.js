@@ -6,7 +6,7 @@
 
 ## Requirements
 
-1. Node.js version 22, and npm
+1. Node.js version 24, and npm
 2. [Contentful](https://www.contentful.com/) CMS account
 3. Redis cache
 4. PostgreSQL database
