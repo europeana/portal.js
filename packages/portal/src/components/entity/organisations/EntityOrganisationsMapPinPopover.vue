@@ -164,7 +164,7 @@
         return this.entity?.logo?.id && getWikimediaThumbnailUrl(this.entity.logo.id, 120);
       },
       location() {
-        return this.entity?.hasAddress && `${this.entity.hasAddress.locality}, ${this.entity.hasAddress.countryName}`;
+        return [this.entity?.hasAddress?.locality, this.entity?.hasAddress?.countryName].filter(Boolean).join(', ');
       }
     },
 
