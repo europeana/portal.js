@@ -188,73 +188,93 @@
     border-bottom: 1px solid $lightgrey;
     padding-right: 0.75rem;
   }
-}
 
-::v-deep .card-body {
-  max-width: 21.25rem;
+  ::v-deep .card-body {
+    max-width: 21.25rem;
 
-  .close-button {
-    top: 0.75rem;
-    right: 0.75rem;
-    padding: 0.25rem;
-    line-height: 1;
+    @media (min-width: $bp-4k) {
+      max-width: calc(1.5 * 21.25rem);
+    }
 
-    @media (min-width: $bp-small) {
-      // only visible on focus for keyboard nav
-      &:not(:focus) {
-        clip: rect(0 0 0 0);
-        clip-path: inset(50%);
-        height: 1px;
-        overflow: hidden;
-        position: absolute;
-        white-space: nowrap;
-        width: 1px;
+    .close-button {
+      top: 0.75rem;
+      right: 0.75rem;
+      padding: 0.25rem;
+      line-height: 1;
+
+      @media (min-width: $bp-small) {
+        // only visible on focus for keyboard nav
+        &:not(:focus) {
+          clip: rect(0 0 0 0);
+          clip-path: inset(50%);
+          height: 1px;
+          overflow: hidden;
+          position: absolute;
+          white-space: nowrap;
+          width: 1px;
+        }
+      }
+
+      span {
+        font-size: $font-size-base;
+        color: $darkgrey;
       }
     }
 
-    span {
-      font-size: $font-size-base;
+    .organisation-logo {
+      background-color: $white;
+    }
+
+    .card-title {
+      font-size: $font-size-medium;
+      font-weight: 600;
+
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-medium-4k;
+      }
+    }
+
+    .card-subtitle {
+      font-size: $font-size-extrasmall;
+      font-weight: 600;
+      text-transform: uppercase;
+      margin-top: 0;
+
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-extrasmall-4k;
+      }
+    }
+
+    a {
+      display: block;
+      text-decoration: none;
+
+      &:hover {
+        .card-title,
+        .card-subtitle {
+          color: $blue !important;
+        }
+      }
+    }
+
+    .card-text {
       color: $darkgrey;
-    }
-  }
+      font-size: $font-size-small;
+      font-weight: 600;
 
-  .organisation-logo {
-    background-color: $white;
-  }
-
-  .card-title {
-    font-size: $font-size-medium;
-    font-weight: 600;
-  }
-
-  .card-subtitle {
-    font-size: $font-size-extrasmall;
-    font-weight: 600;
-    text-transform: uppercase;
-    margin-top: 0;
-  }
-
-  a {
-    display: block;
-    text-decoration: none;
-
-    &:hover {
-      .card-title,
-      .card-subtitle {
-        color: $blue !important;
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-small-4k;
       }
-    }
-  }
 
-  .card-text {
-    color: $darkgrey;
-    font-size: $font-size-small;
-    font-weight: 600;
+      [class^='icon-'],
+      [class*=' icon-'] {
+        font-size: $font-size-large;
+        color: $black;
 
-    [class^='icon-'],
-    [class*=' icon-'] {
-      font-size: $font-size-large;
-      color: $black;
+        @media (min-width: $bp-4k) {
+          font-size: $font-size-large-4k;
+        }
+      }
     }
   }
 }
