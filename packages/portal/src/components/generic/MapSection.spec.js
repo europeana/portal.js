@@ -13,7 +13,7 @@ const config = {
 const factory = () => shallowMountNuxt(MapSection, {
   propsData: {
     section: {
-      name: 'Title',
+      name: 'Places',
       moreButton: {
         link: '/destination',
         text: 'view more'
@@ -37,7 +37,7 @@ describe('components/generic/MapSection', () => {
 
     const title =  wrapper.find('.card-group-title');
 
-    expect(title.text()).toBe('Title');
+    expect(title.text()).toBe('Places');
   });
 
   it('renders a map in a client-only section', () => {
@@ -63,6 +63,6 @@ describe('components/generic/MapSection', () => {
 
     factory();
 
-    expect(parallaxElementComposable.useParallaxElement.calledWith('#europeana-map')).toBe(true);
+    expect(parallaxElementComposable.useParallaxElement.calledWith('#places-europeana-map')).toBe(true);
   });
 });

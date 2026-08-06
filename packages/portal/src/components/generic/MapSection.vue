@@ -36,6 +36,7 @@
 </template>
 
 <script>
+  import { computed } from 'vue';
   import kebabCase from 'lodash/kebabCase';
 
   import { useParallaxElement } from '@/composables/parallaxElement.js';
@@ -55,14 +56,14 @@
       }
     },
 
-    setup() {
-      useParallaxElement('#europeana-map');
-    },
+    setup(props) {
+      const mapElementId = computed(() => {
+        return `${kebabCase(props.section.name)}-europeana-map`;
+      });
 
-    computed: {
-      mapElementId() {
-        return `${kebabCase(this.section.name)}-europeana-map`;
-      }
+      useParallaxElement(`#${mapElementId.value}`);
+
+      return { mapElementId };
     }
   };
 </script>
