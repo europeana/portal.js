@@ -179,7 +179,6 @@
     .europeana-map {
       width: 100%;
       height: 80vh;
-      scroll-margin-top: 7em;
       position: relative;
 
       ::v-deep .ol-overlay-container {
@@ -189,6 +188,28 @@
           bottom: 0;
           left: 0;
           z-index: 1;
+        }
+      }
+
+      ::v-deep .ol-control {
+        background-color: transparent;
+
+        button {
+          border-radius: $border-radius-small;
+          box-shadow: $boxshadow;
+
+          &:before {
+            background-color: $darkgrey; // colors the icon mask-img
+            transition: background-color $standard-transition;
+          }
+
+          &:hover:before {
+            background-color: $blue; // colors the icon mask-img
+          }
+        }
+
+        &.ol-attribution {
+          border-radius: $border-radius-small;
         }
       }
     }
