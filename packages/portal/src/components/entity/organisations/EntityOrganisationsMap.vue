@@ -51,9 +51,10 @@
 
     methods: {
       handleChangeActiveFeature(e) {
+        // Close popover when already active
         if (this.clickedFeatureId === e.activeFeatureName) {
           this.handleClosePopover();
-        } else if (e.activeFeatureName) {
+        } else {
           this.clickedFeatureId = e.activeFeatureName;
         }
       },
