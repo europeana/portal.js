@@ -56,13 +56,19 @@
     },
 
     setup() {
-      useParallaxElement('#europeana-map');
+      const { setSelector } = useParallaxElement();
+
+      return { setParallaxElementSelector: setSelector };
     },
 
     computed: {
       mapElementId() {
         return `${kebabCase(this.section.name)}-europeana-map`;
       }
+    },
+
+    created() {
+      this.setParallaxElementSelector(`#${this.mapElementId}`);
     }
   };
 </script>

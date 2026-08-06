@@ -58,11 +58,16 @@ describe('components/generic/MapSection', () => {
     expect(moreButton.text()).toBe('view more');
   });
 
-  it('applies parallax effect to the map element', () => {
+  it('applies parallax effect to the map element and sets selector on created', () => {
     sinon.spy(parallaxElementComposable, 'useParallaxElement');
 
-    factory();
+    const wrapper = factory();
 
-    expect(parallaxElementComposable.useParallaxElement.calledWith('#europeana-map')).toBe(true);
+    wrapper.vm.setParallaxElementSelector = sinon.spy();
+
+    wrapper.vm.created();
+
+    expect(parallaxElementComposable.useParallaxElement.called).toBe(true);
+    expect(wrapper.vm.setParallaxElementSelector.calledWith('#title-europeana-map')).toBe(true);
   });
 });

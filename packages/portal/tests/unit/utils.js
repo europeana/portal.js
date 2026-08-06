@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import sinon from 'sinon';
 
 const NUXT_METHODS = [
-  'asyncData', 'head', 'beforeRouteEnter', 'beforeDestroy', 'watch', 'mounted', 'middleware', 'layout'
+  'asyncData', 'head', 'beforeRouteEnter', 'beforeDestroy', 'watch', 'mounted', 'middleware', 'layout', 'created'
 ];
 
 const injectNuxtMethods = (wrapper, pageOrComponent) => {
