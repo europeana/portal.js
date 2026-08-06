@@ -209,6 +209,7 @@
         }
 
         &.ol-attribution {
+          background-color: $white;
           border-radius: $border-radius-small;
         }
       }
