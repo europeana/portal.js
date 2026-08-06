@@ -1,7 +1,7 @@
 <template>
-  <!-- TODO: handle record API error -->
   <!-- render while fetching so a skeleton reserves space and prevents scroll side-effects -->
   <section
+    v-if="!$fetchState.error"
     id="trending-items"
     class="trending-items browse-section row mb-5"
     data-qa="browse section"
