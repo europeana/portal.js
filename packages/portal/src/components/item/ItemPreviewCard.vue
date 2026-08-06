@@ -54,7 +54,7 @@
       />
     </template>
     <template
-      v-else-if="variant !== 'list'"
+      v-else-if="!['list', 'circle'].includes(variant)"
       #image-overlay
     >
       <div
@@ -111,7 +111,7 @@
       },
       /**
        * Style variant to use
-       * @values default, entity, mini, mosaic, list
+       * @values default, entity, mini, mosaic, list, circle
        */
       variant: {
         type: String,
@@ -203,6 +203,10 @@
       },
 
       texts() {
+        if (this.variant === 'circle') {
+          return;
+        }
+
         const texts = [];
         if (this.variant === 'list') {
           if (!this.hitSelector && this.item.dcDescriptionLangAware) {
@@ -236,7 +240,8 @@
       },
 
       imageUrl() {
-        return this.$apis.thumbnail.edmPreview(this.item.edmPreview?.[0], { size: 400 });
+        const size = this.variant === 'circle' ? 200 : 400;
+        return this.$apis.thumbnail.edmPreview(this.item.edmPreview?.[0], { size });
       },
 
       subTitle() {
@@ -354,4 +359,10 @@
       `
     });
   ```
+  Variant "circle":
+  ```jsx
+  <ItemPreviewCard
+    variant="circle"
+    :item="itemPreviewCardData"
+  />
 </docs>

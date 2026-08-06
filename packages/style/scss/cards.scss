@@ -541,6 +541,69 @@
       margin-right: 0;
     }
   }
+
+  &.circle-card {
+    min-height: auto;
+    min-width: auto;
+    padding: 0;
+    box-shadow: none;
+    border-radius: 50%;
+    height: 3rem;
+    width: 3rem;
+    border: 1px solid transparent;
+
+    @media (min-width: $bp-xxxl) {
+      min-width: auto !important;
+      max-width: auto !important;
+    }
+
+    @media (min-width: $bp-4k) {
+      height: 4.5rem;
+      width: 4.5rem;
+    }
+
+    .card-img {
+      min-height: 3rem;
+      max-height: 3rem;
+      height: 3rem;
+      width: 3rem;
+      border-radius: 50%;
+
+      @media (min-width: $bp-4k) {
+        min-height: 4.5rem;
+        max-height: 4.5rem;
+        height: 4.5rem;
+        width: 4.5rem;
+      }
+
+      &.default-thumbnail {
+
+        [class^='icon-'],
+        [class*=' icon-'] {
+          font-size: 1.5rem;
+
+          @media (min-width: $bp-4k) {
+            font-size: 2.25rem;
+          }
+        }
+      }
+    }
+
+    .card-body {
+      padding: 0;
+
+      .card-title {
+        height: 0;
+        overflow: hidden;
+      }
+
+      a .link-text {
+        display: inline-block;
+        height: 0;
+        overflow: hidden;
+      }
+    }
+  }
 }
 
 .xxl-page .card {
