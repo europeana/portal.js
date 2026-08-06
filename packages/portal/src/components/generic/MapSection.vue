@@ -71,6 +71,12 @@
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
 
+  .mb-4 {
+    @media (min-width: $bp-4k) {
+      margin-bottom: 3rem !important;
+    }
+  }
+
   ::v-deep .europeana-map-container .europeana-map {
     scroll-margin-top: 7rem;
 

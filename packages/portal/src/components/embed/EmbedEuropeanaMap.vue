@@ -212,6 +212,43 @@
           background-color: $white;
           border-radius: $border-radius-small;
         }
+
+        @at-root .xxl-page & {
+          @media (min-width: $bp-4k) {
+            right: calc(1.5 * 1.25rem);
+
+            button {
+              width: calc(1.5 * 2.25rem);
+              height: calc(1.5 * 2.25rem);
+              padding: calc(1.5 * 0.25rem);
+              margin-bottom: 0.75rem;
+
+              &:before {
+                mask-size: calc(1.5 * 1.5rem);
+              }
+            }
+
+            &.ol-zoom {
+              bottom: calc(1.5 * 6.25rem);
+            }
+
+            &.ol-full-screen {
+              bottom: calc(1.5 * 3.5rem);
+            }
+
+            &.ol-attribution {
+              bottom: 1.5rem;
+
+              button {
+                margin-bottom: 0;
+              }
+
+              ul {
+                font-size: $font-size-extrasmall-4k;
+              }
+            }
+          }
+        }
       }
     }
 
