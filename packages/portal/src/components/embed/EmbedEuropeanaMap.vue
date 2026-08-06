@@ -10,7 +10,7 @@
     </div>
     <div
       :id="mapContainerElementId"
-      class="europeana-map"
+      class="europeana-map-container"
       width="100vh"
       height="80vh"
       data-qa="europeana map"
@@ -176,7 +176,7 @@
   @import '@europeana/style/scss/variables';
 
   .embed-map {
-    .europeana-map {
+    .europeana-map-container {
       width: 100%;
       height: 80vh;
       position: relative;
