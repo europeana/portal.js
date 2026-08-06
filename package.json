@@ -1,47 +1,34 @@
 {
   "name": "@europeana/portal.js-monorepo",
   "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
   "scripts": {
-    "analyze": "npm run -w packages/portal analyze",
-    "build": "npm run -w packages/portal build",
-    "cache": "npm run -w packages/portal cache",
-    "dev": "npm run -w packages/portal dev",
-    "lint:fix": "npm run lint -- --fix",
+    "analyze": "pnpm --filter @europeana/portal analyze",
+    "build": "pnpm --filter @europeana/portal build",
+    "cache": "pnpm --filter @europeana/portal cache",
+    "dev": "pnpm --filter @europeana/portal dev",
+    "lint:fix": "pnpm lint -- --fix",
     "lint": "eslint --no-fix --ignore-path .gitignore packages",
-    "start:inspect": "npm run -w packages/portal start:inspect",
-    "start": "npm run -w packages/portal start",
-    "styleguide": "npm run --prefix styleguide start",
-    "styleguide:build": "npm run --prefix styleguide build",
+    "start:inspect": "pnpm --filter @europeana/portal start:inspect",
+    "start": "pnpm --filter @europeana/portal start",
+    "styleguide": "pnpm --prefix styleguide start",
+    "styleguide:build": "pnpm --prefix styleguide build",
     "styleguide:ci": "npm --prefix styleguide ci",
     "styleguide:install": "npm --prefix styleguide install",
     "stylelint": "stylelint \"**/*.scss\" \"**/*.vue\" --config .stylelintrc.cjs",
-    "test:e2e": "npm run test:e2e:init && npm run test:e2e:run",
+    "test:e2e": "pnpm test:e2e:init && pnpm test:e2e:run",
     "test:e2e:init": "touch tests/e2e/docker/nightwatch/.env tests/e2e/docker/nightwatch-visual/.env",
     "test:e2e:run": "docker compose -f ./tests/e2e/docker/docker-compose.yml run --rm nightwatch-features",
-    "test:coverage": "npm run test:unit -- --coverage",
-    "test:coverage:ci": "npm run test:unit -- --coverage --maxWorkers 2",
+    "test:coverage": "pnpm test:unit -- --coverage",
+    "test:coverage:ci": "pnpm test:unit -- --coverage --maxWorkers 2",
     "test:stack:build": "docker compose -f ./tests/e2e/docker/docker-compose.yml build",
     "test:stack:down": "docker compose -f ./tests/e2e/docker/docker-compose.yml down",
-    "test:stack:rebuild": "docker compose -f ./tests/e2e/docker/docker-compose.yml down && npm run test:stack:build",
+    "test:stack:rebuild": "docker compose -f ./tests/e2e/docker/docker-compose.yml down && pnpm test:stack:build",
     "test:stack:start": "docker compose -f ./tests/e2e/docker/docker-compose.yml start app nginx chrome-en chrome-ja chrome-nl",
     "test:stack:stop": "docker compose -f ./tests/e2e/docker/docker-compose.yml stop app nginx chrome-en chrome-ja chrome-nl",
     "test:unit": "node --expose-gc --no-compilation-cache node_modules/jest/bin/jest.js --config jest.config.js",
     "test:visual": "touch tests/e2e/docker/nightwatch-visual/.env && docker compose -f ./tests/e2e/docker/docker-compose.yml run --rm nightwatch-visual",
-    "test": "npm run lint && npm run stylelint && npm run test:unit && npm run -w packages/portal test:size && npm run test:stack:rebuild && npm run test:e2e",
+    "test": "pnpm lint && pnpm stylelint && pnpm test:unit && pnpm --filter @europeana/portal test:size && pnpm test:stack:rebuild && pnpm test:e2e",
     "version": "node bin/sonar-project-version.js && git add sonar-project.properties"
-  },
-  "resolutions": {
-    "@europeana/contentful": "link:./packages/contentful",
-    "@europeana/i18n": "link:./packages/i18n",
-    "@europeana/portal": "link:./packages/portal",
-    "@europeana/style": "link:./packages/style",
-    "@europeana/vue-contentful-graphql": "link:./packages/vue-contentful-graphql",
-    "@europeana/vue-router-query": "link:./packages/vue-router-query",
-    "@europeana/vue-session": "link:./packages/vue-session",
-    "@europeana/vue-visible-on-scroll": "link:./packages/vue-visible-on-scroll"
   },
   "devDependencies": {
     "@babel/core": "^7.19.1",
@@ -70,7 +57,16 @@
     "Alan Sutherland <alan.sutherland@europeana.eu>"
   ],
   "engines": {
-    "node": "^24"
+    "node": "^24.0.0",
+    "pnpm": ">= 11.8.0"
+  },
+  "packageManager": "pnpm@11.8.0",
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "11.8.0",
+      "onFail": "download"
+    }
   },
   "keywords": [
     "code4lib"

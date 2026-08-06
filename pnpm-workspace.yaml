@@ -1,0 +1,8 @@
+packages:
+  - packages/**
+allowBuilds:
+  bootstrap-vue: true
+  core-js: true
+  nuxt: true
+  nx: true
+  spawn-sync: false
