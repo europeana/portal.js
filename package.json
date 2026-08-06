@@ -80,5 +80,8 @@
     "type": "git",
     "url": "https://github.com/europeana/portal.js.git"
   },
-  "type": "module"
+  "type": "module",
+  "overrides": {
+    "tar": "7.5.19"
+  }
 }
