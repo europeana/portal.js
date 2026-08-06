@@ -71,6 +71,14 @@
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
 
+  ::v-deep .europeana-map-container .europeana-map {
+    scroll-margin-top: 7rem;
+
+    @media (min-width: $bp-4k) {
+      scroll-margin-top: 10.5rem;
+    }
+  }
+
   ::v-deep .embed-map {
     overflow: hidden;
     position: relative;
