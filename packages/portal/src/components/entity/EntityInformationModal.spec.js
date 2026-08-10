@@ -79,7 +79,7 @@ describe('components/entity/EntityInformationModal', () => {
   it('shows a title', () => {
     const wrapper = factory(entityProps);
 
-    expect(wrapper.find('h5.modal-title').text()).toBe(englishName.values[0]);
+    expect(wrapper.find('h2.modal-title').text()).toBe(englishName.values[0]);
   });
 
   it('shows each info field with the corresponding label', () => {

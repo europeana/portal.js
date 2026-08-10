@@ -18,7 +18,9 @@
     </b-card-title>
     <b-card-sub-title
       v-if="subTitle"
+      sub-title-tag="h3"
       :lang="langAttribute(subTitle.code)"
+      class="context-label"
     >
       {{ subTitle.values[0] }}
     </b-card-sub-title>
@@ -277,17 +279,14 @@
   }
 
   .card-subtitle {
-    margin-top: 0.5rem;
+    line-height: 1.5;
+    margin-top: 0.325rem;
     margin-bottom: 0.375rem;
-    font-size: $font-size-extrasmall;
-    color: $darkgrey;
-    text-transform: uppercase;
 
     @at-root .xxl-page & {
       @media (min-width: $bp-4k) {
-        margin-top: 0.75rem;
+        margin-top: 0.65rem;
         margin-bottom: calc(1.5 * 0.375rem);
-        font-size: $font-size-extrasmall-4k;
       }
     }
   }

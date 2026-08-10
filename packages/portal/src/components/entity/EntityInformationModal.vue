@@ -4,6 +4,7 @@
     :static="modalStatic"
     hide-footer
     hide-header-close
+    title-tag="h2"
   >
     <template #modal-title>
       <span :lang="langAttribute(title.code)">
