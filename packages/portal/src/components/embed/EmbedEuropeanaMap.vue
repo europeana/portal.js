@@ -40,7 +40,7 @@
   const EUROPEANA_MAP_STYLE_URL = `${EUROPEANA_MAP_CDN_BASE_URL}/europeana-map.css`;
 
   export default {
-    name: 'EmbedMap',
+    name: 'EmbedEuropeanaMap',
 
     props: {
       centre: {

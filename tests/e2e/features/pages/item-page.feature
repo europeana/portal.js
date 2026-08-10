@@ -86,7 +86,7 @@ Feature: item page
     And  I click the `item snippet copy button`
     Then I see a `item snippet copied message`
 
-  Scenario: Location tab with map embed when dcterms:spatial has co-ordinates
+  Scenario: Location tab with Europeana map embed when dcterms:spatial has co-ordinates
     Given I am on the `search page`
     When I click the `show search button`
     And I enter "pl_wgs84_pos_lat:* pl_wgs84_pos_long:* proxy_dcterms_spatial:http\://data.europeana.eu*" in the `search box`
@@ -96,7 +96,7 @@ Feature: item page
     And I see an `item page`
     And I hover over the `metadata box`
     And I click the `location tab`
-    Then I see a `map embed`
+    Then I see a `europeana map`
 
   Scenario: No location tab when dcterms:spatial has no co-ordinates
     Given I am on the `search page`

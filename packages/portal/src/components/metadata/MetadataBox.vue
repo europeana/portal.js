@@ -76,14 +76,7 @@
             text-tag="div"
           >
             <ItemLocationMap
-              v-if="$features.organisationsMap"
               :location="mappableLocation"
-            />
-            <EmbedMap
-              v-else
-              :pref-label="mappableLocation.prefLabel"
-              :latitude="mappableLocation.latitude"
-              :longitude="mappableLocation.longitude"
             />
           </b-card-text>
         </b-tab>
@@ -104,7 +97,6 @@
       BTab,
       BTabs,
       MetadataField,
-      EmbedMap: () => import('@/components/embed/EmbedMap.vue'),
       ItemLocationMap: () => import('@/components/item/ItemLocationMap.vue')
     },
 
