@@ -637,10 +637,12 @@
 
     @media (min-width: $bp-xxxl) {
       column-count: 2;
+      column-width: 40rem; // wrap columns on text zoom
     }
 
     @media (min-width: $bp-4k) {
       column-gap: 4rem;
+      column-width: 60rem; // wrap columns on text zoom
     }
   }
 
