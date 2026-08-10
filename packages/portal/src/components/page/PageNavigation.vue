@@ -42,7 +42,7 @@
         return this.isAuthenticated ? [
           { url: '/account', text: this.$t('account.title'), dataQa: 'account link' },
           this.sidebarNav && { url: '/account/logout', to: '/account/logout', text: this.$t('account.linkLogout'), dataQa: 'log out link' }
-        ] : [
+        ].filter(Boolean) : [
           { url: '/account/login', to: { name: 'account-login', query: { redirect: this.$route.fullPath } }, text: this.$t('account.linkLoginJoin'), dataQa: 'log in link' }
         ];
       },
