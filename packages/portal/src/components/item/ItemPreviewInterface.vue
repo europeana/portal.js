@@ -87,6 +87,7 @@
     <ItemSelectToolbar
       v-if="itemMultiSelect"
       :user-can-edit-set="userEditableItems"
+      :active-set-item-ids="activeSetItemIds"
     />
   </section>
 </template>
@@ -201,6 +202,10 @@
         set(value) {
           this.$store.commit('search/setView', value);
         }
+      },
+
+      activeSetItemIds() {
+        return this.userEditableItems ? this.items.map((item) => item.id) : [];
       }
     },
 
