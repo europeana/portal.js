@@ -65,6 +65,10 @@
       userCanEditSet: {
         type: Boolean,
         default: false
+      },
+      activeSetItemIds: {
+        type: Array,
+        default: null
       }
     },
 
@@ -74,14 +78,11 @@
     },
 
     computed: {
-      activeSetItemIds() {
-        return this.$store.state.set.active?.items.map((item) => item.id) || [];
-      },
       selectionCount() {
         return this.selected?.length || 0;
       },
       someActiveSetItemsSelected() {
-        return this.selected?.some((item) => this.activeSetItemIds.includes(item));
+        return this.selected?.some((item) => this.activeSetItemIds?.includes(item));
       }
     }
   };
