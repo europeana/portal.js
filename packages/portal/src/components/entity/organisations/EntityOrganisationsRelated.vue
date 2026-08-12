@@ -9,7 +9,7 @@
       <EntityBadges
         :entity-uris="aggregatesFrom"
         :title="$t('organisations.providingInstitutions.title')"
-        class="mt-3 mt-lg-0"
+        class="mt-3 mt-xl-0"
         :transition="true"
         :limit="4"
         :total="aggregatesFrom?.length || 0"

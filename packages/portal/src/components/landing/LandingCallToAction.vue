@@ -1,7 +1,10 @@
 <template>
   <div
     class="landing-cta"
-    :class="{ 'bg-lightgrey': defaultBackground }"
+    :class="{
+      'bg-lightgrey': defaultBackground,
+      'bg-dark': backgroundImage?.profile
+    }"
   >
     <div
       v-if="backgroundImage"
@@ -11,7 +14,7 @@
       :style="imageCSSVars"
     />
     <b-container
-      :class="backgroundImage?.profile ? 'text-white' : ''"
+      :class="{ 'text-white': backgroundImage?.profile }"
     >
       <ContentPrimaryCallToAction
         :title="title"

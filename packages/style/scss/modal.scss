@@ -1,13 +1,13 @@
 .modal {
   .modal-dialog {
-    max-width: 560px;
+    max-width: min(100vw, pxToRem(560));
 
     @media (min-height: $bp-medium) {
       margin-top: 10rem;
     }
 
     @media (min-width: $bp-4k) {
-      max-width: calc(1.5 * 560px);
+      max-width: calc(1.5 * pxToRem(560));
     }
   }
 

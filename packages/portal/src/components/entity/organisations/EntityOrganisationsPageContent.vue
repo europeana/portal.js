@@ -32,13 +32,13 @@
         <template #row-details="rowDetails">
           <span
             v-if="rowDetails.entity.countryPrefLabel"
-            class="d-lg-none"
+            class="d-xl-none"
           >{{ rowDetails.entity.countryPrefLabel }}</span>
           <EntityBadges
             v-if="(rowDetails.entity.aggregatedVia?.length || 0) > 0"
             :related-collections="rowDetails.entity.aggregatedVia"
             :title="$t('pages.collections.table.aggregator')"
-            class="d-lg-none mt-3"
+            class="d-xl-none mt-3"
           />
         </template>md
       </EntityTable>
@@ -72,11 +72,11 @@
           <template #row-details="rowDetails">
             <span
               v-if="type.fields.includes('countryPrefLabel') && rowDetails.entity.countryPrefLabel"
-              class="d-lg-none"
+              class="d-xl-none"
             >{{ rowDetails.entity.countryPrefLabel }}</span>
             <span
               v-if="type.fields.includes('heritageDomain') && rowDetails.entity.heritageDomain"
-              class="d-lg-none"
+              class="d-xl-none"
             >{{ rowDetails.entity.heritageDomain }}</span>
             <EntityOrganisationsRelated
               :entity-id="rowDetails.entity.id"
