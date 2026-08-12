@@ -1,0 +1,30 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: test
+resources:
+- ../../base
+patches:
+- patch: |-
+    apiVersion: networking.k8s.io/v1
+    kind: Ingress
+    metadata:
+      annotations:
+        cert-manager.io/issuer: letsencrypt-production
+      name: portal-js
+- patch: |-
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: portal-js
+    spec:
+      template:
+        spec:
+          containers:
+            - name: portal-js-web
+              resources:
+                limits:
+                  cpu: 400m
+                  memory: 300Mi
+                requests:
+                  cpu: 50m
+                  memory: 100Mi
