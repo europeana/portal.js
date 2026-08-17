@@ -9,7 +9,8 @@ const redirects = {
   '/professionals': '/share-your-collections',
   '/rights/privacy-policy': '/rights/privacy-statement',
   '/rights/public-domain-charter': 'https://pro.europeana.eu/post/the-europeana-public-domain-charter',
-  '/share-your-data': '/share-your-collections'
+  '/share-your-data': '/share-your-collections',
+  '/themes/audio-visual-heritage': '/themes/audiovisual-heritage'
 };
 
 export default ({ redirect, route }) => {

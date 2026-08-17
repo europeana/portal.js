@@ -11,7 +11,7 @@ module.exports = function(migration) {
             in: [
               'archaeology',
               'art',
-              'audio-visual-heritage',
+              'audiovisual-heritage',
               'fashion',
               'industrial-heritage',
               'manuscripts',
