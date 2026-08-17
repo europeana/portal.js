@@ -392,6 +392,7 @@ export default {
       "options": {
         "archaeology": "Arkeologia",
         "art": "Taide",
+        "audiovisual": "Audiovisuaalinen perintö",
         "fashion": "Muoti",
         "industrial": "Teollisuusperintö",
         "manuscript": "Käsikirjoitukset",

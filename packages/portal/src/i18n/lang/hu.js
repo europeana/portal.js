@@ -392,6 +392,7 @@ export default {
       "options": {
         "archaeology": "Régészet",
         "art": "Művészet",
+        "audiovisual": "Audiovizuális örökség",
         "fashion": "Divat",
         "industrial": "Ipari örökség",
         "manuscript": "Kéziratok",

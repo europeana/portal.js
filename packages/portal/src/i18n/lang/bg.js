@@ -392,6 +392,7 @@ export default {
       "options": {
         "archaeology": "Археология",
         "art": "Изкуство",
+        "audiovisual": "Аудиовизуално наследство",
         "fashion": "Мода",
         "industrial": "Индустриално наследство",
         "manuscript": "Ръкописи",

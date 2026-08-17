@@ -392,6 +392,7 @@ export default {
       "options": {
         "archaeology": "Αρχαιολογία",
         "art": "Τέχνη",
+        "audiovisual": "Οπτικοακουστική Κληρονομιά",
         "fashion": "Μόδα",
         "industrial": "Βιομηχανική κληρονομιά",
         "manuscript": "Χειρόγραφα",

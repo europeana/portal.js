@@ -392,6 +392,7 @@ export default {
       "options": {
         "archaeology": "Archeologija",
         "art": "Menas",
+        "audiovisual": "Audiovizualinis paveldas",
         "fashion": "Mada",
         "industrial": "Pramoninis paveldas",
         "manuscript": "Rankraščiai",

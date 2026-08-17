@@ -392,6 +392,7 @@ export default {
       "options": {
         "archaeology": "Arkeologia",
         "art": "Artea",
+        "audiovisual": "Ikus-entzunezko ondarea",
         "fashion": "Moda",
         "industrial": "Industria ondarea",
         "manuscript": "Eskuizkribuak",

@@ -392,6 +392,7 @@ export default {
       "options": {
         "archaeology": "Arqueología",
         "art": "Arte",
+        "audiovisual": "Patrimonio audiovisual",
         "fashion": "Moda",
         "industrial": "Patrimonio industrial",
         "manuscript": "Manuscritos",

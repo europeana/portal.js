@@ -392,6 +392,7 @@ export default {
       "options": {
         "archaeology": "Arkeoloġija",
         "art": "Arti",
+        "audiovisual": "Wirt Awdjoviżiv",
         "fashion": "Moda",
         "industrial": "Wirt Industrijali",
         "manuscript": "Manuskritti",
