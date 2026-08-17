@@ -2,6 +2,7 @@
 const themes = [
   { id: 'archaeology', qf: 'archaeology' },
   { id: 'art', qf: 'art' },
+  { id: 'audio-visual-heritage', qf: 'audiovisual' },
   {
     id: 'fashion',
     qf: 'fashion',
