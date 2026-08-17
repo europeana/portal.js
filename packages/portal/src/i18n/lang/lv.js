@@ -392,6 +392,7 @@ export default {
       "options": {
         "archaeology": "Arheoloģija",
         "art": "Māksla",
+        "audiovisual": "Audiovizuālais mantojums",
         "fashion": "Mode",
         "industrial": "Rūpnieciskais mantojums",
         "manuscript": "Manuskripti",

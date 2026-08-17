@@ -392,6 +392,7 @@ export default {
       "options": {
         "archaeology": "Archeologie",
         "art": "Umění",
+        "audiovisual": "Audiovizuální dědictví",
         "fashion": "Móda",
         "industrial": "Průmyslové dědictví",
         "manuscript": "Rukopisy",

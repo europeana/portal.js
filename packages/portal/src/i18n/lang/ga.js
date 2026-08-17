@@ -392,6 +392,7 @@ export default {
       "options": {
         "archaeology": "Seandálaíocht",
         "art": "Ealaín",
+        "audiovisual": "Oidhreacht Closamhairc",
         "fashion": "Faisean",
         "industrial": "Oidhreacht thionsclaíoch",
         "manuscript": "Lámhscríbhinní",

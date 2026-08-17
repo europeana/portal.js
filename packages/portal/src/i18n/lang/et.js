@@ -392,6 +392,7 @@ export default {
       "options": {
         "archaeology": "Arheoloogia",
         "art": "Kunst",
+        "audiovisual": "Audiovisuaalne pärand",
         "fashion": "Mood",
         "industrial": "Tööstuspärand",
         "manuscript": "Käsikirjad",

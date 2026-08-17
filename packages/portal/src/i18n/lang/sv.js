@@ -392,6 +392,7 @@ export default {
       "options": {
         "archaeology": "Arkeologi",
         "art": "Konst",
+        "audiovisual": "Audiovisuellt kulturarv",
         "fashion": "Mode",
         "industrial": "Industriminne",
         "manuscript": "Manuskript",
