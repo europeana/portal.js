@@ -5,10 +5,11 @@ import sinon from 'sinon';
 import { keycloakPlugin } from '@/plugins/keycloak.js';
 
 describe('plugins/keycloak.js', () => {
-  beforeEach(() => {
+  beforeAll(() => {
     sinon.stub(axios, 'request');
   });
-  afterEach(sinon.restore);
+  afterEach(sinon.resetHistory);
+  afterAll(sinon.restore);
 
   describe('keycloakPlugin', () => {
     describe('redirectPath', () => {
@@ -78,6 +79,7 @@ describe('plugins/keycloak.js', () => {
         $auth: {
           loginWith: sinon.spy(),
           $storage: {
+            getUniversal: sinon.stub(),
             setUniversal: sinon.spy()
           }
         },
@@ -86,10 +88,38 @@ describe('plugins/keycloak.js', () => {
         }
       };
 
-      it('sets universal auth storage for redirect', () => {
-        keycloakPlugin(ctx).login();
+      describe('when universal auth storage for redirect is not yet set', () => {
+        it('sets it', () => {
+          keycloakPlugin({
+            ...ctx,
+            $auth: {
+              ...ctx.$auth,
+              $storage: {
+                ...ctx.$auth.$storage,
+                getUniversal: sinon.stub().withArgs('redirect').returns(null)
+              }
+            }
+          }).login();
 
-        expect(ctx.$auth.$storage.setUniversal.calledWith('redirect', '/account')).toBe(true);
+          expect(ctx.$auth.$storage.setUniversal.calledWith('redirect', '/account')).toBe(true);
+        });
+      });
+
+      describe('when universal auth storage for redirect is already set', () => {
+        it('does not set it', () => {
+          keycloakPlugin({
+            ...ctx,
+            $auth: {
+              ...ctx.$auth,
+              $storage: {
+                ...ctx.$auth.$storage,
+                getUniversal: sinon.stub().withArgs('redirect').returns('/en/account/api-keys')
+              }
+            }
+          }).login();
+
+          expect(ctx.$auth.$storage.setUniversal.calledWith('redirect', sinon.match.any)).toBe(false);
+        });
       });
 
       it('sets universal auth storage for logging in flag', () => {
