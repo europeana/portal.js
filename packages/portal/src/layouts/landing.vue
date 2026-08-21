@@ -40,12 +40,16 @@
   import ProvideCanonicalUrl from '@/components/provide/ProvideCanonicalUrl';
   import versions from '../../pkg-versions';
 
-  const configs = [
+  const configs = (ctx) => [
     {
       pages: 'apis',
       header: {
         logoSrc: require('@europeana/style/img/landing/apis-logo.svg'),
-        navigationLinks: [
+        navigationLinks: ctx.$features.newApiLandingPageNavLinks ? [
+          { url: '#what-you-can-do-with-the-ap-is', i18nPath: 'landing.apis.header.navigation.canDo' },
+          { url: '#built-with-our-ap-is', i18nPath: 'landing.apis.header.navigation.builtWith' },
+          { url: 'https://www.europeana.eu/en/account/api-keys', i18nPath: 'landing.apis.header.navigation.getKey' }
+        ] : [
           { url: '#europeana-ap-is-and-how-they-work-together', i18nPath: 'landing.apis.header.navigation.europeanaApis' },
           { url: '#try-it-out', i18nPath: 'landing.apis.header.navigation.apiDemo' },
           { url: '#find-inspiration', i18nPath: 'landing.apis.header.navigation.findInspiration' },
@@ -112,7 +116,7 @@
 
     computed: {
       config() {
-        return configs.find((config) => [].concat(config.pages).includes(this.pageIdentifier));
+        return configs({ $features: this.$features }).find((config) => [].concat(config.pages).includes(this.pageIdentifier));
       }
     }
   };
