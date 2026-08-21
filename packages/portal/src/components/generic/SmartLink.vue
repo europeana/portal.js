@@ -51,12 +51,6 @@
       }
     },
 
-    data() {
-      return {
-        internalDomain: this.$config?.app?.internalLinkDomain
-      };
-    },
-
     computed: {
       useRouterLink() {
         return !!this.path?.startsWith('/');
@@ -103,7 +97,7 @@
           return false;
         }
 
-        if (!this.internalDomain && typeof path === 'string') {
+        if (!this.$config?.app?.internalLinkDomains && typeof path === 'string') {
           return path.startsWith('http://') || path.startsWith('https://');
         }
 
@@ -113,7 +107,7 @@
         }
 
         const hostname = hostnamePattern.exec(path)[1];
-        return !hostname.endsWith(this.internalDomain);
+        return !this.$config?.app?.internalLinkDomains?.some((internalDomain) => hostname.endsWith(internalDomain));
       },
 
       isLinkToSearchablePage() {
