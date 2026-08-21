@@ -14,7 +14,9 @@ services:
       - pgadmin-data:/var/lib/pgadmin
       - ./docker/compose/pgadmin/servers.json:/pgadmin4/servers.json
   postgres:
-    image: postgres:17
+    build:
+      context: ./docker/compose/postgres
+    image: europeana/portal.js-postgres
     environment:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres-password}
     ports:
