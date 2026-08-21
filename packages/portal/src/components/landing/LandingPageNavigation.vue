@@ -12,7 +12,7 @@
         link-class="nav-link btn btn-light-flat"
         exact
       >
-        {{ link.text }}
+        {{ linkText(link) }}
       </SmartLink>
     </li>
   </b-navbar-nav>
@@ -32,6 +32,12 @@
       links: {
         type: Array,
         default: () => []
+      }
+    },
+
+    methods: {
+      linkText(link) {
+        return this.$te(link.i18nPath) ? this.$t(link.i18nPath) : link.text;
       }
     }
   };

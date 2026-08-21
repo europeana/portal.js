@@ -2,11 +2,11 @@
   <div :class="`link-group-${variant}`">
     <component
       :is="titleTag"
-      v-if="title"
+      v-if="titleText"
       class="group-title text-uppercase font-weight-bold"
       data-qa="link group title"
     >
-      {{ title }}
+      {{ titleText }}
     </component>
     <ul
       class="link-group-list m-0 p-0"
@@ -49,6 +49,8 @@
 <script>
   import SmartLink from './SmartLink';
 
+  // TODO: this is only used by PageFooter;
+  //       extend usage, move into that component, or rename, e.g. to PageFooterLinkGroup
   export default {
     name: 'LinkGroup',
 
@@ -61,9 +63,10 @@
        * Title of the link group
        */
       title: {
-        type: String,
-        default: ''
+        type: Object,
+        default: () => ({ i18nPath: null, text: '' })
       },
+
       /**
        * HTML tag element to use for the title
        */
@@ -89,12 +92,24 @@
         default: 'light'
       }
     },
+
     computed: {
       filteredLinks() {
         if (this.links.length === 0) {
           return false;
         }
-        return this.links.filter(link => link !== null);
+        return this.links
+          .filter(Boolean)
+          .map((link) => {
+            return {
+              ...link,
+              text: this.$te(link.i18nPath) ? this.$t(link.i18nPath) : link.text
+            };
+          });
+      },
+
+      titleText() {
+        return this.$te(this.title.i18nPath) ? this.$t(this.title.i18nPath) : this.title.text;
       }
     }
   };
