@@ -13,6 +13,7 @@
     <main
       id="landing-layout"
       role="main"
+      data-qa="landing page"
     >
       <ProvideCanonicalUrl>
         <nuxt
