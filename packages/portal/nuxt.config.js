@@ -126,7 +126,7 @@ export default {
         europeanaAccount: process.env.APP_GALLERIES_EUROPEANA_ACCOUNT || 'europeana'
       },
       homeLandingPageSlug: process.env.APP_HOME_LANDING_PAGE_SLUG,
-      internalLinkDomain: process.env.INTERNAL_LINK_DOMAIN,
+      internalLinkDomains: process.env.APP_INTERNAL_LINK_DOMAINS?.split(',').filter(Boolean),
       map: {
         style: process.env.APP_MAP_STYLE || 'versatiles'
       },
