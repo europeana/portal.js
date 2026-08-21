@@ -1,0 +1,8 @@
+BEGIN;
+
+  SET search_path TO events;
+
+  ALTER TABLE sessions
+    ALTER COLUMN activated_by TYPE web_element_event USING activated_by::web_element_event;
+
+COMMIT;

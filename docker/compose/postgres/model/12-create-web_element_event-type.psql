@@ -1,0 +1,7 @@
+BEGIN;
+
+  SET search_path TO events;
+
+  CREATE TYPE web_element_event AS ENUM ('drag', 'keydown', 'mousedown', 'mousemove', 'scroll', 'touchstart', 'wheel');
+
+COMMIT;
