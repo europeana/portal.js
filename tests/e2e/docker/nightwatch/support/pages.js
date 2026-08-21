@@ -6,6 +6,8 @@ const pages = {
   '"The Milkmaid" item page': `${url}/en/item/90402/SK_A_2344`,
   '"World War I" theme page': `${url}/en/search?qf=collection%3Aww1`,
   'account page': `${url}/en/account`,
+  'APIs landing page': `${url}/en/apis`,
+  'Black History Month landing page': `${url}/en/black-history-month`,
   'collections page': `${url}/en/collections`,
   'data space page': `${url}/en/dataspace-culturalheritage`,
   'English home page': `${url}/en`,
@@ -32,7 +34,7 @@ const pages = {
   'item page without isShownBy or hasView': `${url}/en/item/2051923/data_euscreenXL_102336`,
   'search page': `${url}/en/search`,
   'search page with a search query': `${url}/en/search?query=art`,
-  'share your collections page': `${url}/en/share-your-collections`,
+  'share your collections landing page': `${url}/en/share-your-collections`,
   'static page': `${url}/en/about-us`,
   'stories page': `${url}/en/stories`,
   'Swedish home page': `${url}/sv`,
@@ -40,7 +42,8 @@ const pages = {
   'times listing page': `${url}/en/collections/times`,
   'static page with linklist': `${url}/en/rights`,
   'story page': `${url}/en/stories/nilde-iotti`,
-  'user gallery page': `${url}/en/set/2`
+  'user gallery page': `${url}/en/set/2`,
+  'Women\'s History Month landing page': `${url}/en/womens-history-month`
 };
 
 module.exports = {
