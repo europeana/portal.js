@@ -1,0 +1,15 @@
+BEGIN;
+
+  SET search_path TO events;
+
+  -- NOTE: dropping a column does not free up the disk space it used,
+  -- it just hides it from operations
+  --
+  -- ref: https://www.postgresql.org/docs/15/sql-altertable.html#SQL-ALTERTABLE-NOTES
+  -- para starting "The DROP COLUMN form"
+  --
+  -- use pg_repack to reclaim the disk space
+  ALTER TABLE sessions
+    DROP COLUMN activated_by;
+
+COMMIT;

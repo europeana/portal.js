@@ -1,0 +1,23 @@
+BEGIN;
+
+  SET search_path TO events;
+
+  ALTER TABLE sessions
+    ADD COLUMN activated_by_id INT,
+    ADD CONSTRAINT fk_activated_by
+      FOREIGN KEY(activated_by_id)
+      REFERENCES web_element_event_types(id);
+  
+  UPDATE sessions
+    SET activated_by_id=event_type_id
+    FROM
+      (
+        SELECT
+          id event_type_id,
+          name event_type_name
+        FROM
+          web_element_event_types
+      )
+    WHERE activated_by=event_type_name;
+
+COMMIT;
