@@ -33,8 +33,8 @@
           >
             <LinkGroup
               class="social-links"
-              :title="$t('footer.findUsElsewhere')"
-              :links="social"
+              :title="social.name"
+              :links="social.links"
               variant="social"
             />
             <hr class="mt-4 mb-1 w-100 d-lg-none">
@@ -154,14 +154,14 @@
         type: Object,
         default() {
           return {
-            name: this.$t('footer.navigation.help'),
+            name: { i18nPath: 'footer.navigation.help' },
             links: [
-              { url: '/help', text: this.$t('footer.navigation.help') },
-              { url: '/rights', text: this.$t('footer.navigation.terms') },
-              { url: '/rights/privacy-statement', text: this.$t('footer.navigation.privacy') },
-              { url: '/rights/accessibility-policy', text: this.$t('footer.navigation.accessibility') },
-              { url: '/rights/cookies-policy', text: this.$t('footer.navigation.cookies') },
-              { url: '/faq', text: this.$t('footer.navigation.faq') }
+              { url: '/help', i18nPath: 'footer.navigation.help' },
+              { url: '/rights', i18nPath: 'footer.navigation.terms' },
+              { url: '/rights/privacy-statement', i18nPath: 'footer.navigation.privacy' },
+              { url: '/rights/accessibility-policy', i18nPath: 'footer.navigation.accessibility' },
+              { url: '/rights/cookies-policy', i18nPath: 'footer.navigation.cookies' },
+              { url: '/faq', i18nPath: 'footer.navigation.faq' }
             ]
           };
         }
@@ -170,12 +170,12 @@
         type: Object,
         default() {
           return {
-            name: this.$t('footer.navigation.MoreInfoLabel'),
+            name: { i18nPath: 'footer.navigation.MoreInfoLabel' },
             links: [
-              { url: '/about-us', text: this.$t('footer.navigation.about') },
-              { url: '#api-requests', text: this.$t('footer.navigation.seeApiRequests'), dataQa: 'API requests link' },
-              { url: '/account/api-keys', text: this.$t('footer.navigation.registerApiKey'), dataQa: 'API key registration link' },
-              { url: 'https://zfrmz.eu/q6ulfDs1ONYQ0tEz0vpS', text: this.$t('footer.navigation.subscribe') }
+              { url: '/about-us', i18nPath: 'footer.navigation.about' },
+              { url: '#api-requests', i18nPath: 'footer.navigation.seeApiRequests', dataQa: 'API requests link' },
+              { url: '/account/api-keys', i18nPath: 'footer.navigation.registerApiKey', dataQa: 'API key registration link' },
+              { url: 'https://zfrmz.eu/q6ulfDs1ONYQ0tEz0vpS', i18nPath: 'footer.navigation.subscribe' }
             ]
           };
         }
@@ -186,40 +186,43 @@
       return {
         ds4chLink: 'https://www.dataspace-culturalheritage.eu',
         ds4chLogoSrc: require('@europeana/style/img/DS4CH/logo.svg'),
-        social: [
-          {
-            text: 'Facebook',
-            url: 'https://www.facebook.com/Europeana',
-            icon: 'icon-facebook',
-            hideExternalIcon: true
-          },
-          {
-            text: 'Bluesky',
-            url: 'https://bsky.app/profile/europeana.bsky.social',
-            icon: 'icon-bsky',
-            hideExternalIcon: true
-          },
-          {
-            text: 'Pinterest',
-            url: 'https://www.pinterest.com/europeana',
-            icon: 'icon-pinterest',
-            hideExternalIcon: true
-          },
-          {
-            text: 'Instagram',
-            url: 'https://www.instagram.com/europeana_eu/',
-            icon: 'icon-instagram',
-            hideExternalIcon: true
-          },
-          {
-            text: 'LinkedIn',
-            url: 'https://www.linkedin.com/company/europeana',
-            icon: 'icon-linkedin',
-            hideExternalIcon: true
-          }
-        ],
+        social: {
+          name: { i18nPath: 'footer.findUsElsewhere' },
+          links: [
+            {
+              text: 'Facebook',
+              url: 'https://www.facebook.com/Europeana',
+              icon: 'icon-facebook',
+              hideExternalIcon: true
+            },
+            {
+              text: 'Bluesky',
+              url: 'https://bsky.app/profile/europeana.bsky.social',
+              icon: 'icon-bsky',
+              hideExternalIcon: true
+            },
+            {
+              text: 'Pinterest',
+              url: 'https://www.pinterest.com/europeana',
+              icon: 'icon-pinterest',
+              hideExternalIcon: true
+            },
+            {
+              text: 'Instagram',
+              url: 'https://www.instagram.com/europeana_eu/',
+              icon: 'icon-instagram',
+              hideExternalIcon: true
+            },
+            {
+              text: 'LinkedIn',
+              url: 'https://www.linkedin.com/company/europeana',
+              icon: 'icon-linkedin',
+              hideExternalIcon: true
+            }
+          ]
+        },
         supportingTechnicalPartners: {
-          name: this.$t('footer.navigation.supportingTechnicalPartners'),
+          name: { i18nPath: 'footer.navigation.supportingTechnicalPartners' },
           links: [
             { url: 'https://www.contentful.com', text: 'Powered by Contentful', image: require('@europeana/style/img/supporting-technical-partners/Contentful-logo.svg'), hideExternalIcon: true },
             { url: 'https://lokalise.com/', text: 'Lokalise', image: require('@europeana/style/img/supporting-technical-partners/Lokalise-logo.svg'), hideExternalIcon: true },

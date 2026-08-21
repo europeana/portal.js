@@ -17,7 +17,7 @@ const factory = (options = {}) => shallowMountNuxt(layout, {
     $features: {},
     ...options.mocks
   },
-  stubs: ['nuxt']
+  stubs: ['client-only', 'nuxt']
 });
 
 describe('layouts/landing.vue', () => {

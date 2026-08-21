@@ -5,45 +5,39 @@ import BootstrapVue from 'bootstrap-vue';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = ({ mocks = {}, provide = {} }) => shallowMount(LandingPageHeader, {
+const factory = ({ mocks = {}, propsData = {} } = {}) => shallowMount(LandingPageHeader, {
   localVue,
+  propsData,
   mocks: {
     $route: {},
     $t: (key) => key,
     ...mocks
-  },
-  provide: {
-    pageIdentifier: null,
-    ...provide
   }
 });
 
 describe('components/landing/LandingPageHeader', () => {
-  describe('when on the apis page', () => {
-    it('contains the top navigation', () => {
-      const wrapper = factory({ provide: { pageIdentifier: 'apis' } });
+  it('always renders a logo', () => {
+    const wrapper = factory();
 
-      const topNav = wrapper.find('[data-qa="top navigation"]');
+    const logo = wrapper.find('.logo');
 
-      expect(topNav.exists()).toBe(true);
-    });
+    expect(logo.isVisible()).toBe(true);
   });
 
-  describe('when on the black history month page', () => {
-    it('does not contain the top navigation', () => {
-      const wrapper = factory({ provide: { pageIdentifier: 'black-history-month' } });
+  it('renders supplied navigation links', () => {
+    const propsData = { navigationLinks: [{ url: '/about', text: 'About' }] };
+    const wrapper = factory({ propsData });
 
-      const topNav = wrapper.find('[data-qa="top navigation"]');
+    const topNav = wrapper.find('[data-qa="top navigation"]');
 
-      expect(topNav.exists()).toBe(false);
-    });
+    expect(topNav.isVisible()).toBe(true);
+  });
 
-    it('does contain a logo', () => {
-      const wrapper = factory({ provide: { pageIdentifier: 'black-history-month' } });
+  it('omits rendering navigation links if not supplied', () => {
+    const wrapper = factory();
 
-      const topNav = wrapper.find('.logo');
+    const topNav = wrapper.find('[data-qa="top navigation"]');
 
-      expect(topNav.exists()).toBe(true);
-    });
+    expect(topNav.exists()).toBe(false);
   });
 });
