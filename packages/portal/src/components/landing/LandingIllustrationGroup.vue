@@ -296,14 +296,14 @@
     color: $black;
     background: $lightgrey;
     border-radius: 50%;
-    top: calc(50% - 2rem);
+    --swiper-navigation-top-offset: calc(50% - 2rem);
 
     @media (max-width: ($bp-medium - 1px)) {
       display: none;
     }
 
     @media (min-width: $bp-large) {
-      top: calc(50% - 3rem);
+      --swiper-navigation-top-offset: calc(50% - 3rem);
     }
 
     ::v-deep svg {
@@ -320,7 +320,7 @@
     @media (min-width: $bp-4k) {
       height: 96px;
       width: 96px;
-      top: calc(50% - 5rem);
+      --swiper-navigation-top-offset: calc(50% - 5rem);
 
       ::v-deep svg {
         height: 2.5rem;
