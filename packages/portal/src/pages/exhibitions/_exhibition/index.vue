@@ -67,9 +67,10 @@
             cols="12"
             class="mt-3 col-lg-8"
           >
-            <LinkList
-              :items="chapterPagesToLinkListItems(hasPartCollection.items, identifier)"
-              :title="$t('exhibitions.chapters')"
+            <ExhibitionChapterLinkList
+              :chapters="hasPartCollection.items"
+              :exhibition-identifier="identifier"
+              :credits="credits"
             />
           </b-col>
         </b-row>
@@ -124,11 +125,11 @@
   import { BBreadcrumb } from 'bootstrap-vue';
   import ClientOnly from 'vue-client-only';
   import { marked } from 'marked';
+  import ExhibitionChapterLinkList from '@/components/exhibition/ExhibitionChapterLinkList.vue';
   import ShareSocialModal from '@/components/share/ShareSocialModal.vue';
   import ShareButton from '@/components/share/ShareButton.vue';
   import ViewCount from '@/components/generic/ViewCount.vue';
   import { useLogEvent } from '@/composables/logEvent.js';
-  import exhibitionChapters from '@/mixins/exhibitionChapters';
   import exhibitionLandingPageGraphql from '@/graphql/queries/exhibitionLandingPage.graphql';
   import pageMetaMixin from '@/mixins/pageMeta';
 
@@ -142,7 +143,7 @@
       EntityBadges: () => import('@/components/entity/EntityBadges'),
       ErrorMessage: () => import('@/components/error/ErrorMessage'),
       LoadingSpinner: () => import('@/components/generic/LoadingSpinner'),
-      LinkList: () => import('@/components/generic/LinkList'),
+      ExhibitionChapterLinkList,
       RelatedCategoryTags: () => import('@/components/related/RelatedCategoryTags'),
       ShareButton,
       ShareSocialModal,
@@ -150,7 +151,6 @@
       ViewCount
     },
     mixins: [
-      exhibitionChapters,
       pageMetaMixin
     ],
     inject: [
