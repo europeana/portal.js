@@ -222,7 +222,7 @@
       min-height: 31rem;
       box-shadow: $boxshadow-small;
 
-      @include white-cutout;
+      @include footer-cutout;
 
       .search-sidebar-backdrop {
         display: none;

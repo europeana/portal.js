@@ -396,10 +396,3 @@ input[type='checkbox']:focus-visible + label {
     }
   }
 }
-
-.white-page {
-  margin-top: -3rem;
-  position: relative;
-
-  @include white-cutout;
-}
