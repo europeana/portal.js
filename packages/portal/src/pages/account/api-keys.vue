@@ -118,13 +118,21 @@
                       @keyDisabled="handleDisableApiKey"
                     />
                   </template>
-                  <div
+                  <b-row
                     v-else
-                    v-html="parseMarkdown(namedSections.noProjectKeys)"
-                  />
-                  <div
-                    v-html="parseMarkdown(namedSections.newProjectKey)"
-                  />
+                  >
+                    <b-col
+                      xl="6"
+                      class="text-center text-sm-left mt-3 mt-sm-5 mb-sm-3"
+                    >
+                      <div
+                        v-html="parseMarkdown(namedSections.noProjectKeys)"
+                      />
+                      <div
+                        v-html="parseMarkdown(namedSections.newProjectKey)"
+                      />
+                    </b-col>
+                  </b-row>
                   <b-row>
                     <b-col>
                       <UserProjectApiKeyForm />
