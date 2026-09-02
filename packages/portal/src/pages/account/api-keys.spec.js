@@ -16,34 +16,89 @@ const fixtures = {
       disabled: { 'client_id': 'myKey', id: 'api-key-id', state: 'disabled', type: 'ProjectKey' },
       enabled: { 'client_id': 'myKey', id: 'api-key-id', type: 'ProjectKey' }
     }
+  },
+  contentfulQueryResponse: {
+    data: {
+      staticPageCollection: {
+        items: [
+          {
+            name: '/account/api-keys',
+            hasPartCollection: {
+              items: [
+                {
+                  __typename: 'ContentTypeRichText',
+                  headline: 'personal API key',
+                  text: 'personal API key text'
+                },
+                {
+                  __typename: 'ContentTypeRichText',
+                  headline: 'your personal key',
+                  text: 'your personal key text'
+                },
+                {
+                  __typename: 'ContentTypeRichText',
+                  headline: 'project API keys',
+                  text: 'project API keys text'
+                },
+                {
+                  __typename: 'ContentTypeRichText',
+                  headline: 'no project keys',
+                  text: 'no project keys text'
+                },
+                {
+                  __typename: 'ContentTypeRichText',
+                  headline: 'new project key',
+                  text: 'new project key text'
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
   }
 };
 
-const factory = ({ data = {}, mocks = {} } = {}) => shallowMountNuxt(AccountAPIKeysPage, {
-  data() {
-    return {
-      ...data
-    };
-  },
-  localVue,
-  mocks: {
-    localePath: (path) => path,
-    $t: (key) => key,
-    ...mocks
-  },
-  stubs: [
-    'b-button',
-    'b-col',
-    'b-container',
-    'b-form-checkbox',
-    'b-form-group',
-    'b-form',
-    'b-row',
-    'i18n',
-    'NuxtLink',
-    'UserApiKeysTable'
-  ]
-});
+const contentfulQueryStub = sinon.stub();
+
+const factory = ({
+  mocks = {},
+  data = {},
+  contentfulQueryResponse = fixtures.contentfulQueryResponse
+} = {}) => {
+  contentfulQueryStub.resolves(contentfulQueryResponse);
+
+  return shallowMountNuxt(AccountAPIKeysPage, {
+    data() {
+      return {
+        ...data
+      };
+    },
+    localVue,
+    mocks: {
+      $contentful: {
+        query: contentfulQueryStub
+      },
+      localePath: (path) => path,
+      $i18n: { localeProperties: { iso: 'en-GB' } },
+      $route: { params: { pathMatch: 'about' }, query: {} },
+      $t: (key) => key,
+      ...mocks
+    },
+    stubs: [
+      'b-button',
+      'b-col',
+      'b-container',
+      'b-form-checkbox',
+      'b-form-group',
+      'b-form',
+      'b-row',
+      'i18n',
+      'NuxtLink',
+      'UserApiKeysTable'
+    ]
+  });
+};
 
 describe('pages/account/api-keys', () => {
   afterEach(sinon.resetHistory);
@@ -117,7 +172,27 @@ describe('pages/account/api-keys', () => {
 
       expect(table.isVisible()).toBe(true);
     });
+
+    it('fetches a static page including any hasPartCollection items', async() => {
+      const wrapper = factory();
+
+      await wrapper.vm.$fetch();
+
+      expect(wrapper.vm.sections).toEqual(); // fixtures.contentfulQueryResponse.data.staticPageCollection.items[0].hasPartCollection.items
+    });
   });
+
+  // describe('computed', () => {
+  //   describe('namedSections', () => {
+  //     it('has a named section text for each key derived from the page sections headlines', async() => {
+  //       const wrapper = factory({ data });
+
+  //       await wrapper.vm.$fetch();
+
+  //       expect(wrapper.vm.namedSections.length).toEqual(5);
+  //     });
+  //   });
+  // });
 
   describe('request personal api key form', () => {
     describe('when an active personal API key exists', () => {

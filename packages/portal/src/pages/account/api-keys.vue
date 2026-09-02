@@ -103,31 +103,35 @@
                       />
                     </b-col>
                   </b-row>
-                  <template
-                    v-if="projectKeys.length > 0"
-                  >
-                    <div
-                      v-html="parseMarkdown(namedSections.yourProjectKeys)"
-                    />
-                    <UserApiKeysTable
-                      :api-keys="projectKeys"
-                      :is-disabled="isDisabled"
-                      type="project"
-                      class="mb-3 mb-sm-5"
-                      data-qa="project api keys table"
-                      @keyDisabled="handleDisableApiKey"
-                    />
-                  </template>
-                  <b-row
-                    v-else
-                  >
+                  <b-row>
                     <b-col
                       xl="6"
-                      class="text-center text-sm-left mt-3 mt-sm-5 mb-sm-3"
+                      class="text-center text-sm-left mt-3 mt-sm-3 mb-sm-3"
                     >
                       <div
+                        v-if="projectKeys.length > 0"
+                        v-html="parseMarkdown(namedSections.yourProjectKeys)"
+                      />
+                      <div
+                        v-else
                         v-html="parseMarkdown(namedSections.noProjectKeys)"
                       />
+                    </b-col>
+                  </b-row>
+                  <UserApiKeysTable
+                    v-if="projectKeys.length > 0"
+                    :api-keys="projectKeys"
+                    :is-disabled="isDisabled"
+                    type="project"
+                    class="mb-3 mb-sm-5"
+                    data-qa="project api keys table"
+                    @keyDisabled="handleDisableApiKey"
+                  />
+                  <b-row>
+                    <b-col
+                      xl="6"
+                      class="text-center text-sm-left mt-3 mt-sm-3 mb-sm-3"
+                    >
                       <div
                         v-html="parseMarkdown(namedSections.newProjectKey)"
                       />
@@ -188,8 +192,14 @@
 
     async fetch() {
       const apiKeys = await this.$apis.auth.getUserClients();
+
+      this.personalKeys = apiKeys
+        .filter((apiKey) => apiKey.type === 'PersonalKey');
+      this.projectKeys = apiKeys
+        .filter((apiKey) => apiKey.type === 'ProjectKey');
       try {
-        await this.fetchContentfulEntry();
+        const ctfEntry = await this.fetchContentfulEntry();
+        this.sections = ctfEntry?.hasPartCollection?.items;
       } catch (e) {
         if (e.message === 'Not Found') {
           this.$error(404, { scope: 'page' });
@@ -197,10 +207,6 @@
           throw (e);
         }
       }
-      this.personalKeys = apiKeys
-        .filter((apiKey) => apiKey.type === 'PersonalKey');
-      this.projectKeys = apiKeys
-        .filter((apiKey) => apiKey.type === 'ProjectKey');
     },
 
     computed: {
@@ -216,7 +222,7 @@
       namedSections() {
         return this.sections.reduce((memo, section) => {
           if (section['__typename'] === 'ContentTypeRichText') {
-            memo[camelCase(section.headline)] = section.text;
+            memo[camelCase(section.headlineEN)] = section.text;
           }
           return memo;
         }, {});
@@ -230,11 +236,9 @@
           locale: this.$i18n.localeProperties.iso,
           preview: this.$route.query.mode === 'preview'
         };
-
         const response = await this.$contentful.query(browseLandingStaticPageGraphql, variables);
-        const data = response.data;
-        if (data['staticPageCollection'].items[0]) {
-          this.sections = data['staticPageCollection']?.items[0]?.hasPartCollection?.items;
+        if (response?.data['staticPageCollection'].items[0]) {
+          return response?.data['staticPageCollection']?.items[0];
         } else {
           throw new Error('Not Found');
         }
