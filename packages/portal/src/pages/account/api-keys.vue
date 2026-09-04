@@ -188,7 +188,8 @@
         personalKeys: [],
         projectKeys: [],
         showConfirmDangerModal: false,
-        sections: []
+        sections: [],
+        title: null
       };
     },
 
@@ -217,7 +218,7 @@
 
       pageMeta() {
         return {
-          title: this.$t('apiKeys.title')
+          title: this.title
         };
       }
     },
@@ -231,9 +232,11 @@
         };
 
         const response = await this.$contentful.query(browseLandingStaticPageGraphql, variables);
+        const pageEntry = response?.data['staticPageCollection'].items[0];
 
-        if (response?.data['staticPageCollection'].items[0]) {
-          this.sections = this.namedSections(response?.data['staticPageCollection'].items[0]);
+        if (pageEntry) {
+          this.sections = this.namedSections(pageEntry);
+          this.title = pageEntry.name;
         } else {
           throw new Error('Not Found');
         }
