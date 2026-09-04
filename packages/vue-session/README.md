@@ -58,7 +58,9 @@ Available options:
 {
   monitor: {
     // document events to regard as user activity
-    events: ['drag', 'keydown', 'mousedown', 'mousemove', 'scroll', 'touchstart', 'wheel']
+    // NOTE: default events used to include scroll, but that was primarily triggered
+    //       by automated activity, i.e. bots, so has been removed
+    events: ['drag', 'keydown', 'mousedown', 'mousemove', 'touchstart', 'wheel']
     // number of seconds to pause monitoring after activity is observed, to
     // prevent constantly updating the session timestamp during periods of
     // sustained activity
