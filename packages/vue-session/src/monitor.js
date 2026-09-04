@@ -3,14 +3,14 @@
  */
 export default class Monitor {
   static DEFAULTS = {
-    events: ['drag', 'keydown', 'mousedown', 'mousemove', 'scroll', 'touchstart', 'wheel'],
+    events: ['drag', 'keydown', 'mousedown', 'mousemove', 'touchstart', 'wheel'],
     interval: 60 // in seconds
   };
 
   /**
    * @typedef {Object} MonitorOptions
    * @property {string[]} events Document events to listen to for activity.
-   *   Defaults to `['drag', 'keydown', 'mousedown', 'mousemove', 'scroll', 'touchstart', 'wheel']`.
+   *   Defaults to `['drag', 'keydown', 'mousedown', 'mousemove', 'touchstart', 'wheel']`.
    * @property {number} interval Number of seconds to pause event listeners
    *   after activity is detected before resuming them. Defaults to 60 seconds.
    */

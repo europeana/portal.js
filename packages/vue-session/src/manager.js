@@ -13,9 +13,9 @@ export default class Manager {
 
   /**
    * @param {Object} options Session management options
-   * @param {MonitorOptions} options.monitor Session activity monitor options, passed to
+   * @param {MonitorOptions} options.monitor Monitor options
    * @param {SessionOptions} options.session Session options
-   * @param {StorageOptions} options.storage Session storage options
+   * @param {StorageOptions} options.storage Storage options
    */
   constructor(options = {}) {
     this.options = options;

@@ -27,7 +27,7 @@ describe('Monitor', () => {
         const monitor = new Monitor(callback);
 
         expect(monitor.events).toEqual(
-          ['drag', 'keydown', 'mousedown', 'mousemove', 'scroll', 'touchstart', 'wheel']
+          ['drag', 'keydown', 'mousedown', 'mousemove', 'touchstart', 'wheel']
         );
       });
     });
