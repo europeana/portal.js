@@ -1,4 +1,5 @@
 <template>
+  <!-- eslint-disable vue/no-v-html -->
   <div
     class="xxl-page page api-keys-page mb-3 mb-sm-5"
   >
@@ -35,34 +36,25 @@
                       xl="6"
                       class="text-center text-sm-left mb-sm-3"
                     >
-                      <h2>{{ $t('apiKeys.sections.personalKeys.heading') }}</h2>
-                      <i18n
-                        path="apiKeys.sections.personalKeys.description"
-                        tag="p"
-                      >
-                        <template #howToLink>
-                          <a
-                            href="https://apis.europeana.eu/#europeana-ap-is-and-how-they-work-together"
-                            target="_blank"
-                          >
-                            {{ $t('apiKeys.sections.personalKeys.howToLinkText') }}
-                            <span class="icon-external-link" /><!-- This comment removes white space
-                            --><span class="sr-only">
-                              ({{ $t('newWindow') }})
-                            </span>
-                          </a>
-                        </template>
-                      </i18n>
+                      <div
+                        v-html="parseMarkdown(sections.personalApiKey)"
+                      />
                     </b-col>
                   </b-row>
-                  <UserApiKeysTable
+                  <template
                     v-if="personalKeys.length > 0"
-                    :api-keys="personalKeys"
-                    :is-disabled="isDisabled"
-                    class="mb-3 mb-sm-5"
-                    data-qa="personal api keys table"
-                    @keyDisabled="handleDisableApiKey"
-                  />
+                  >
+                    <div
+                      v-html="parseMarkdown(sections.yourPersonalKey)"
+                    />
+                    <UserApiKeysTable
+                      :api-keys="personalKeys"
+                      :is-disabled="isDisabled"
+                      class="mb-3 mb-sm-5"
+                      data-qa="personal api keys table"
+                      @keyDisabled="handleDisableApiKey"
+                    />
+                  </template>
                   <b-row v-if="noActivePersonalKeys">
                     <b-col xl="6">
                       <b-form
@@ -107,24 +99,24 @@
                       xl="6"
                       class="text-center text-sm-left mt-3 mt-sm-5 mb-sm-3"
                     >
-                      <h2>{{ $t('apiKeys.sections.projectKeys.heading') }}</h2>
-                      <i18n
-                        path="apiKeys.sections.projectKeys.description"
-                        tag="p"
-                      >
-                        <template #termsOfUseLink>
-                          <NuxtLink
-                            :to="localePath('/rights/terms-of-use#europeana-api')"
-                            target="_blank"
-                          >
-                            {{ $t('apiKeys.sections.termsOfUseLinkText') }}
-                            <span class="icon-external-link" /><!-- This comment removes white space
-                          --><span class="sr-only">
-                            ({{ $t('newWindow') }})
-                          </span>
-                          </NuxtLink>
-                        </template>
-                      </i18n>
+                      <div
+                        v-html="parseMarkdown(sections.projectApiKeys)"
+                      />
+                    </b-col>
+                  </b-row>
+                  <b-row>
+                    <b-col
+                      xl="6"
+                      class="text-center text-sm-left mt-3 mt-sm-3 mb-sm-3"
+                    >
+                      <div
+                        v-if="projectKeys.length > 0"
+                        v-html="parseMarkdown(sections.yourProjectKeys)"
+                      />
+                      <div
+                        v-else
+                        v-html="parseMarkdown(sections.noProjectKeys)"
+                      />
                     </b-col>
                   </b-row>
                   <UserApiKeysTable
@@ -136,6 +128,16 @@
                     data-qa="project api keys table"
                     @keyDisabled="handleDisableApiKey"
                   />
+                  <b-row>
+                    <b-col
+                      xl="6"
+                      class="text-center text-sm-left mt-3 mt-sm-3 mb-sm-3"
+                    >
+                      <div
+                        v-html="parseMarkdown(sections.newProjectKey)"
+                      />
+                    </b-col>
+                  </b-row>
                   <b-row>
                     <b-col>
                       <UserProjectApiKeyForm />
@@ -149,6 +151,7 @@
       </b-row>
     </b-container>
   </div>
+  <!-- eslint-enable vue/no-v-html -->
 </template>
 
 <script>
@@ -156,7 +159,10 @@
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import UserProjectApiKeyForm from '@/components/user/UserProjectApiKeyForm';
   import UserHeader from '@/components/user/UserHeader';
+  import browseLandingStaticPageGraphql from '@/graphql/queries/browseLandingStaticPage.graphql';
   import pageMetaMixin from '@/mixins/pageMeta';
+  import camelCase from 'lodash/camelCase';
+  import parseMarkdown from '@/utils/markdown/parse.js';
 
   export default {
     name: 'AccountAPIKeysPage',
@@ -181,16 +187,28 @@
         confirmPersonalKeyTermsOfUse: false,
         personalKeys: [],
         projectKeys: [],
-        showConfirmDangerModal: false
+        showConfirmDangerModal: false,
+        sections: [],
+        title: null
       };
     },
 
     async fetch() {
       const apiKeys = await this.$apis.auth.getUserClients();
+
       this.personalKeys = apiKeys
         .filter((apiKey) => apiKey.type === 'PersonalKey');
       this.projectKeys = apiKeys
         .filter((apiKey) => apiKey.type === 'ProjectKey');
+      try {
+        await this.fetchContentfulEntry();
+      } catch (e) {
+        if (e.message === 'Not Found') {
+          this.$error(404, { scope: 'page' });
+        } else {
+          throw (e);
+        }
+      }
     },
 
     computed: {
@@ -200,12 +218,37 @@
 
       pageMeta() {
         return {
-          title: this.$t('apiKeys.title')
+          title: this.title
         };
       }
     },
 
     methods: {
+      async fetchContentfulEntry() {
+        const variables = {
+          identifier: '/account/api-keys',
+          locale: this.$i18n.localeProperties.iso,
+          preview: this.$route.query.mode === 'preview'
+        };
+
+        const response = await this.$contentful.query(browseLandingStaticPageGraphql, variables);
+        const pageEntry = response?.data['staticPageCollection'].items[0];
+
+        if (pageEntry) {
+          this.sections = this.namedSections(pageEntry);
+          this.title = pageEntry.name;
+        } else {
+          throw new Error('Not Found');
+        }
+      },
+
+      namedSections(pageEntry) {
+        return Object.fromEntries(pageEntry?.hasPartCollection?.items
+          .filter((section) => section['__typename'] === 'ContentTypeRichText')
+          .map((section) => [camelCase(section.headline), section.text])
+        );
+      },
+
       handleDisableApiKey() {
         this.$fetch();
       },
@@ -221,7 +264,8 @@
 
       isDisabled(apiKey) {
         return apiKey?.state === 'disabled';
-      }
+      },
+      parseMarkdown
     }
   };
 </script>
