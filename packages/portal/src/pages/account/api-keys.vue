@@ -36,7 +36,7 @@
                       class="text-center text-sm-left mb-sm-3"
                     >
                       <div
-                        v-html="parseMarkdown(namedSections.personalApiKey)"
+                        v-html="parseMarkdown(sections.personalApiKey)"
                       />
                     </b-col>
                   </b-row>
@@ -44,7 +44,7 @@
                     v-if="personalKeys.length > 0"
                   >
                     <div
-                      v-html="parseMarkdown(namedSections.yourPersonalKey)"
+                      v-html="parseMarkdown(sections.yourPersonalKey)"
                     />
                     <UserApiKeysTable
                       :api-keys="personalKeys"
@@ -99,7 +99,7 @@
                       class="text-center text-sm-left mt-3 mt-sm-5 mb-sm-3"
                     >
                       <div
-                        v-html="parseMarkdown(namedSections.projectApiKeys)"
+                        v-html="parseMarkdown(sections.projectApiKeys)"
                       />
                     </b-col>
                   </b-row>
@@ -110,11 +110,11 @@
                     >
                       <div
                         v-if="projectKeys.length > 0"
-                        v-html="parseMarkdown(namedSections.yourProjectKeys)"
+                        v-html="parseMarkdown(sections.yourProjectKeys)"
                       />
                       <div
                         v-else
-                        v-html="parseMarkdown(namedSections.noProjectKeys)"
+                        v-html="parseMarkdown(sections.noProjectKeys)"
                       />
                     </b-col>
                   </b-row>
@@ -133,7 +133,7 @@
                       class="text-center text-sm-left mt-3 mt-sm-3 mb-sm-3"
                     >
                       <div
-                        v-html="parseMarkdown(namedSections.newProjectKey)"
+                        v-html="parseMarkdown(sections.newProjectKey)"
                       />
                     </b-col>
                   </b-row>
@@ -198,8 +198,7 @@
       this.projectKeys = apiKeys
         .filter((apiKey) => apiKey.type === 'ProjectKey');
       try {
-        const ctfEntry = await this.fetchContentfulEntry();
-        this.sections = ctfEntry?.hasPartCollection?.items;
+        await this.fetchContentfulEntry();
       } catch (e) {
         if (e.message === 'Not Found') {
           this.$error(404, { scope: 'page' });
@@ -218,14 +217,6 @@
         return {
           title: this.$t('apiKeys.title')
         };
-      },
-      namedSections() {
-        return this.sections.reduce((memo, section) => {
-          if (section['__typename'] === 'ContentTypeRichText') {
-            memo[camelCase(section.headline)] = section.text;
-          }
-          return memo;
-        }, {});
       }
     },
 
@@ -236,12 +227,21 @@
           locale: this.$i18n.localeProperties.iso,
           preview: this.$route.query.mode === 'preview'
         };
+
         const response = await this.$contentful.query(browseLandingStaticPageGraphql, variables);
+
         if (response?.data['staticPageCollection'].items[0]) {
-          return response?.data['staticPageCollection']?.items[0];
+          this.sections = this.namedSections(response?.data['staticPageCollection'].items[0]);
         } else {
           throw new Error('Not Found');
         }
+      },
+
+      namedSections(pageEntry) {
+        return Object.fromEntries(pageEntry?.hasPartCollection?.items
+          .filter((section) => section['__typename'] === 'ContentTypeRichText')
+          .map((section) => [camelCase(section.headline), section.text])
+        );
       },
 
       handleDisableApiKey() {

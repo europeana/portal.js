@@ -174,33 +174,24 @@ describe('pages/account/api-keys', () => {
       expect(table.isVisible()).toBe(true);
     });
 
-    it('fetches a static page including any hasPartCollection items', async() => {
+    it('fetches a static page from Contentful', async() => {
       const wrapper = factory({ mocks });
 
-      await wrapper.vm.fetch();
+      await wrapper.vm.$fetch();
 
-      const expected = fixtures.contentfulQueryResponse.data.staticPageCollection.items[0].hasPartCollection.items;
-
-      expect(wrapper.vm.sections).toContain(expected[0]);
-      expect(wrapper.vm.sections).toContain(expected[1]);
-      expect(wrapper.vm.sections).toContain(expected[2]);
-      expect(wrapper.vm.sections).toContain(expected[3]);
+      expect(contentfulQueryStub.called).toBe(true);
     });
-  });
 
-  describe('computed', () => {
-    describe('namedSections', () => {
-      it('has a named section text for each key derived from the page sections headlines', async() => {
-        const wrapper = factory();
+    it('stores a hash of rich text sections from Contentful response', async() => {
+      const wrapper = factory({ mocks });
 
-        await wrapper.vm.fetch();
+      await wrapper.vm.$fetch();
 
-        expect(wrapper.vm.namedSections.personalApiKey).toEqual('personal API key text');
-        expect(wrapper.vm.namedSections.yourPersonalKey).toEqual('your personal key text');
-        expect(wrapper.vm.namedSections.projectApiKeys).toEqual('project API keys text');
-        expect(wrapper.vm.namedSections.noProjectKeys).toEqual('no project keys text');
-        expect(wrapper.vm.namedSections.newProjectKey).toEqual('new project key text');
-      });
+      expect(wrapper.vm.sections.personalApiKey).toEqual('personal API key text');
+      expect(wrapper.vm.sections.yourPersonalKey).toEqual('your personal key text');
+      expect(wrapper.vm.sections.projectApiKeys).toEqual('project API keys text');
+      expect(wrapper.vm.sections.noProjectKeys).toEqual('no project keys text');
+      expect(wrapper.vm.sections.newProjectKey).toEqual('new project key text');
     });
   });
 
