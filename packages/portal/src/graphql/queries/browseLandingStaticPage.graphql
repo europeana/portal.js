@@ -180,7 +180,6 @@ query BrowseLandingStaticPage(
           __typename
           ... on ContentTypeRichText {
             headline
-            headlineEN
             text
           }
           ... on Embed {

@@ -26,27 +26,27 @@ const fixtures = {
             hasPartCollection: {
               items: [
                 {
-                  __typename: 'ContentTypeRichText',
+                  '__typename': 'ContentTypeRichText',
                   headline: 'personal API key',
                   text: 'personal API key text'
                 },
                 {
-                  __typename: 'ContentTypeRichText',
+                  '__typename': 'ContentTypeRichText',
                   headline: 'your personal key',
                   text: 'your personal key text'
                 },
                 {
-                  __typename: 'ContentTypeRichText',
+                  '__typename': 'ContentTypeRichText',
                   headline: 'project API keys',
                   text: 'project API keys text'
                 },
                 {
-                  __typename: 'ContentTypeRichText',
+                  '__typename': 'ContentTypeRichText',
                   headline: 'no project keys',
                   text: 'no project keys text'
                 },
                 {
-                  __typename: 'ContentTypeRichText',
+                  '__typename': 'ContentTypeRichText',
                   headline: 'new project key',
                   text: 'new project key text'
                 }
@@ -76,6 +76,7 @@ const factory = ({
     },
     localVue,
     mocks: {
+      $apis: { auth: { getUserClients: sinon.stub().resolves([]) } },
       $contentful: {
         query: contentfulQueryStub
       },
@@ -174,25 +175,34 @@ describe('pages/account/api-keys', () => {
     });
 
     it('fetches a static page including any hasPartCollection items', async() => {
-      const wrapper = factory();
+      const wrapper = factory({ mocks });
 
-      await wrapper.vm.$fetch();
+      await wrapper.vm.fetch();
 
-      expect(wrapper.vm.sections).toEqual(); // fixtures.contentfulQueryResponse.data.staticPageCollection.items[0].hasPartCollection.items
+      const expected = fixtures.contentfulQueryResponse.data.staticPageCollection.items[0].hasPartCollection.items;
+
+      expect(wrapper.vm.sections).toContain(expected[0]);
+      expect(wrapper.vm.sections).toContain(expected[1]);
+      expect(wrapper.vm.sections).toContain(expected[2]);
+      expect(wrapper.vm.sections).toContain(expected[3]);
     });
   });
 
-  // describe('computed', () => {
-  //   describe('namedSections', () => {
-  //     it('has a named section text for each key derived from the page sections headlines', async() => {
-  //       const wrapper = factory({ data });
+  describe('computed', () => {
+    describe('namedSections', () => {
+      it('has a named section text for each key derived from the page sections headlines', async() => {
+        const wrapper = factory();
 
-  //       await wrapper.vm.$fetch();
+        await wrapper.vm.fetch();
 
-  //       expect(wrapper.vm.namedSections.length).toEqual(5);
-  //     });
-  //   });
-  // });
+        expect(wrapper.vm.namedSections.personalApiKey).toEqual('personal API key text');
+        expect(wrapper.vm.namedSections.yourPersonalKey).toEqual('your personal key text');
+        expect(wrapper.vm.namedSections.projectApiKeys).toEqual('project API keys text');
+        expect(wrapper.vm.namedSections.noProjectKeys).toEqual('no project keys text');
+        expect(wrapper.vm.namedSections.newProjectKey).toEqual('new project key text');
+      });
+    });
+  });
 
   describe('request personal api key form', () => {
     describe('when an active personal API key exists', () => {

@@ -222,7 +222,7 @@
       namedSections() {
         return this.sections.reduce((memo, section) => {
           if (section['__typename'] === 'ContentTypeRichText') {
-            memo[camelCase(section.headlineEN)] = section.text;
+            memo[camelCase(section.headline)] = section.text;
           }
           return memo;
         }, {});
