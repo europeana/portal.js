@@ -1,4 +1,5 @@
 <template>
+  <!-- eslint-disable vue/no-v-html -->
   <div
     class="xxl-page page api-keys-page mb-3 mb-sm-5"
   >
@@ -150,6 +151,7 @@
       </b-row>
     </b-container>
   </div>
+  <!-- eslint-enable vue/no-v-html -->
 </template>
 
 <script>
