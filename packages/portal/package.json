@@ -1,6 +1,6 @@
 {
   "name": "@europeana/portal",
-  "version": "2.37.0",
+  "version": "2.37.1",
   "description": "Europeana Portal",
   "scripts": {
     "analyze": "nuxt build --analyze",
@@ -19,7 +19,7 @@
     "@europeana/map-styles": "0.1.14",
     "@europeana/vue-contentful-graphql": "^2.25.0",
     "@europeana/vue-router-query": "^2.25.0",
-    "@europeana/vue-session": "^2.25.0",
+    "@europeana/vue-session": "^2.37.1",
     "@europeana/vue-visible-on-scroll": "^2.25.0",
     "@nuxt/cli": "2.18.1",
     "@nuxt/core": "2.18.1",
