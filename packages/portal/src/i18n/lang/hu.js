@@ -107,14 +107,7 @@ export default {
         "create": {
           "button": "Személyes API-kulcs igénylése",
           "checkbox": "Megerősítem, hogy elolvastam és elfogadom az API-kulcsot {termsOfUseLink}."
-        },
-        "description": "Tanulja meg és próbálja ki, hogyan használhatja az API-kat a saját személyes API-kulcsával. Kérjük, ne ossza meg{howToLink}.",
-        "heading": "Személyes API-kulcs",
-        "howToLinkText": "Hogyan használja a kulcsát"
-      },
-      "projectKeys": {
-        "description": "Minden projekthez, amelyet létre szeretne hozni, biztosítunk egy dedikált kulcsot. A projektkulcsok magasabb limitekkel és egyéb speciális funkciókkal rendelkeznek – további információkat az API-kulcs {termsOfUseLink} oldalán talál. Ha szeretné módosítani a projektjével kapcsolatos információkat, kérjük, küldjön e-mailt az api@europeana.eu címre, és mi elvégezzük Ön helyett a változtatásokat.",
-        "heading": "Projekt API-kulcsok"
+        }
       },
       "termsOfUseLinkText": "felhasználási feltételek"
     },

@@ -107,14 +107,7 @@ export default {
         "create": {
           "button": "Solicitați o cheie API personală",
           "checkbox": "Confirm că am citit și accept cheia API {termsOfUseLink}."
-        },
-        "description": "Învață și testează cum să folosești API-urile cu propria ta cheie API personală. Te rugăm să nu o distribui. {howToLink}.",
-        "heading": "Cheie API personală",
-        "howToLinkText": "Cum să folosești cheia ta"
-      },
-      "projectKeys": {
-        "description": "Pentru fiecare proiect pe care trebuie să îl construiți, vă vom furniza o cheie dedicată. Cheile de proiect au limite mai mari și alte caracteristici speciale – citiți mai multe în cheia API {termsOfUseLink}. Dacă doriți să modificați informațiile despre proiectul dvs., vă rugăm să trimiteți un e-mail la api@europeana.eu, iar noi vom face modificările pentru dvs.",
-        "heading": "Chei API de proiect"
+        }
       },
       "termsOfUseLinkText": "termeni de utilizare"
     },

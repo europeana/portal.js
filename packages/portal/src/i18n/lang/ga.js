@@ -107,14 +107,7 @@ export default {
         "create": {
           "button": "Iarr eochair API pearsanta",
           "checkbox": "Dearbhaím go bhfuil na {termsOfUseLink} don eochair API léite agus glactha agam."
-        },
-        "description": "Foghlaim agus déan tástáil ar conas APIanna a úsáid le do eochair phearsanta API. Ná roinn í le do thoil. {howToLink}.",
-        "heading": "Eochair phearsanta API",
-        "howToLinkText": "Conas do eochair a úsáid"
-      },
-      "projectKeys": {
-        "description": "I gcás gach tionscadail a chaithfidh tú a thógáil, cuirfimid eochair thiomnaithe ar fáil duit. Tá teorainneacha níos airde agus gnéithe speisialta eile ag baint le heochracha tionscadail – léigh tuilleadh san eochair API {termsOfUseLink}. Más mian leat an fhaisnéis faoi do thionscadal a chur in eagar, seol ríomhphost chuig api@europeana.eu, agus déanfaimid na hathruithe duit.",
-        "heading": "Eochracha API tionscadail"
+        }
       },
       "termsOfUseLinkText": "téarmaí úsáide"
     },

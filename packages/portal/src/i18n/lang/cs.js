@@ -107,14 +107,7 @@ export default {
         "create": {
           "button": "Požádejte o osobní API klíč",
           "checkbox": "Potvrzuji, že jsem si přečetl(a) a přijímám {termsOfUseLink} pro klíč API."
-        },
-        "description": "Naučte se a vyzkoušejte, jak používat API pomocí svého osobního API klíče. Prosím, nesdílejte ho. {howToLink}.",
-        "heading": "Osobní API klíč",
-        "howToLinkText": "Jak používat svůj klíč"
-      },
-      "projectKeys": {
-        "description": "Pro každý projekt, který potřebujete vytvořit, vám poskytneme vyhrazený klíč. Projektové klíče mají vyšší limity a další speciální funkce — přečtěte si více v API klíči {termsOfUseLink}. Pokud byste chtěli upravit informace o svém projektu, zašlete prosím e-mail na adresu api@europeana.eu a my změny provedeme za vás.",
-        "heading": "Klíče API projektu"
+        }
       },
       "termsOfUseLinkText": "podmínky použití"
     },
