@@ -243,10 +243,9 @@
       },
 
       namedSections(pageEntry) {
-        return Object.fromEntries(pageEntry?.hasPartCollection?.items
+        return pageEntry?.hasPartCollection?.items
           .filter((section) => section['__typename'] === 'ContentTypeRichText')
-          .map((section) => [camelCase(section.headline), section.text])
-        );
+          .reduce((memo, section) => Object.assign(memo, { [camelCase(section.headline)]: section.text }), {});
       },
 
       handleDisableApiKey() {
