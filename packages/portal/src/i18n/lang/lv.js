@@ -107,14 +107,7 @@ export default {
         "create": {
           "button": "Pieprasīt personīgo API atslēgu",
           "checkbox": "Es apstiprinu, ka esmu izlasījis un pieņemu API atslēgas {termsOfUseLink}."
-        },
-        "description": "Uzziniet un pārbaudiet, kā izmantot API ar savu personīgo API atslēgu. Lūdzu, nedalieties ar to. {howToLink}.",
-        "heading": "Personīgā API atslēga",
-        "howToLinkText": "Kā lietot savu atslēgu"
-      },
-      "projectKeys": {
-        "description": "Katram projektam, kas jums jāveido, mēs nodrošināsim īpašu atslēgu. Projekta atslēgām ir augstāki ierobežojumi un citas īpašas funkcijas — vairāk lasiet API atslēgā {termsOfUseLink}. Ja vēlaties rediģēt informāciju par savu projektu, lūdzu, nosūtiet e-pastu uz api@europeana.eu, un mēs veiksim izmaiņas jūsu vietā.",
-        "heading": "Projekta API atslēgas"
+        }
       },
       "termsOfUseLinkText": "lietošanas noteikumi"
     },

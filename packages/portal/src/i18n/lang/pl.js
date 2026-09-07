@@ -107,14 +107,7 @@ export default {
         "create": {
           "button": "Poproś o osobisty klucz API",
           "checkbox": "Potwierdzam, że przeczytałem i akceptuję klucz API {termsOfUseLink}."
-        },
-        "description": "Dowiedz się i przetestuj, jak korzystać z API za pomocą własnego klucza API. Proszę, nie udostępniaj go. {howToLink}.",
-        "heading": "Osobisty klucz API",
-        "howToLinkText": "Jak używać swojego klucza"
-      },
-      "projectKeys": {
-        "description": "Do każdego projektu, który musisz zbudować, dostarczymy Ci dedykowany klucz. Klucze projektu mają wyższe limity i inne specjalne funkcje – przeczytaj więcej w kluczu API {termsOfUseLink}. Jeśli chcesz edytować informacje o swoim projekcie, wyślij wiadomość e-mail na adres api@europeana.eu, a my wprowadzimy zmiany za Ciebie.",
-        "heading": "Klucze API projektu"
+        }
       },
       "termsOfUseLinkText": "warunki użytkowania"
     },

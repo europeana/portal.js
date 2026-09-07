@@ -107,14 +107,7 @@ export default {
         "create": {
           "button": "Paprašyti asmeninio API rakto",
           "checkbox": "Patvirtinu, kad perskaičiau ir sutinku su API rakto {termsOfUseLink}."
-        },
-        "description": "Sužinokite ir išbandykite, kaip naudoti API su savo asmeniniu API raktu. Prašome juo nesidalinti. {howToLink}.",
-        "heading": "Asmeninis API raktas",
-        "howToLinkText": "Kaip naudoti savo raktą"
-      },
-      "projectKeys": {
-        "description": "Kiekvienam projektui, kurį jums reikia sukurti, suteiksime jums specialų raktą. Projekto raktai turi didesnes ribas ir kitas specialias funkcijas – daugiau skaitykite API rakte {termsOfUseLink}. Jei norite redaguoti informaciją apie savo projektą, siųskite el. laišką adresu api@europeana.eu ir mes atliksime pakeitimus už jus.",
-        "heading": "Projekto API raktai"
+        }
       },
       "termsOfUseLinkText": "naudojimo sąlygos"
     },

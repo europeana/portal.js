@@ -107,14 +107,7 @@ export default {
         "create": {
           "button": "Zatražite osobni API ključ",
           "checkbox": "Potvrđujem da sam pročitao i prihvaćam API ključ {termsOfUseLink}."
-        },
-        "description": "Naučite i isprobajte kako koristiti API-jeve sa svojim osobnim API ključem. Molimo, nemojte ga dijeliti. {howToLink}.",
-        "heading": "Osobni API ključ",
-        "howToLinkText": "Kako koristiti svoj ključ"
-      },
-      "projectKeys": {
-        "description": "Za svaki projekt koji trebate izraditi, dobit ćete namjenski ključ. Ključevi projekta imaju veće limite i druge posebne značajke — pročitajte više u API ključu{termsOfUseLink}. Ako želite urediti podatke o svom projektu, pošaljite e-poruku na api@europeana.eu i mi ćemo napraviti promjene za vas.",
-        "heading": "API ključevi projekta"
+        }
       },
       "termsOfUseLinkText": "uvjeti korištenja"
     },

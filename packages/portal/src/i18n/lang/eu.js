@@ -107,14 +107,7 @@ export default {
         "create": {
           "button": "Eskatu API gako pertsonala",
           "checkbox": "Baieztatzen dut API gakoa irakurri eta onartzen dudala {termsOfUseLink}."
-        },
-        "description": "Ikasi eta probatu APIak nola erabili zure API gako pertsonalarekin. Mesedez, ez partekatu. {howToLink}.",
-        "heading": "API gako pertsonala",
-        "howToLinkText": "Nola erabili zure gakoa"
-      },
-      "projectKeys": {
-        "description": "Eraiki behar duzun proiektu bakoitzerako, gako dedikatu bat emango dizugu. Proiektu-gakoek muga handiagoak eta beste ezaugarri berezi batzuk dituzte — irakurri gehiago API gakoaren {termsOfUseLink} atalean. Zure proiektuari buruzko informazioa editatu nahi baduzu, bidali mezu elektroniko bat helbide honetara: api@europeana.eu, eta guk egingo dizkizugu aldaketak.",
-        "heading": "Proiektuaren API gakoak"
+        }
       },
       "termsOfUseLinkText": "erabilera baldintzak"
     },

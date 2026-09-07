@@ -107,14 +107,7 @@ export default {
         "create": {
           "button": "Taotle isiklikku API võtit",
           "checkbox": "Kinnitan, et olen lugenud ja nõustun API võtme {termsOfUseLink}."
-        },
-        "description": "Õpi ja testi, kuidas API-sid kasutada oma isikliku API võtmega. Palun ära jaga seda. {howToLink}.",
-        "heading": "Isiklik API võti",
-        "howToLinkText": "Kuidas oma võtit kasutada"
-      },
-      "projectKeys": {
-        "description": "Iga projekti jaoks, mida peate ehitama, anname teile spetsiaalse võtme. Projektivõtmetel on kõrgemad limiidid ja muud erifunktsioonid – loe lähemalt API-võtmest {termsOfUseLink}. Kui soovite oma projekti teavet muuta, saatke palun e-kiri aadressile api@europeana.eu ja me teeme muudatused teie eest.",
-        "heading": "Projekti API võtmed"
+        }
       },
       "termsOfUseLinkText": "kasutustingimused"
     },
