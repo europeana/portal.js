@@ -2,10 +2,9 @@ import EuropeanaEntityApi from '../../../plugins/europeana/entity.js';
 import { reduceLangMapsForLocale } from '@europeana/i18n';
 
 const pickFields = (entity, fields) => {
-  return [].concat(fields).reduce((memo, field) => {
-    memo[field] = entity[field];
-    return memo;
-  }, {});
+  return [].concat(fields).reduce((memo, field) => Object.assign(memo, {
+    [field]: entity[field]
+  }), {});
 };
 
 export const fetchData = async(ids, options = {}, context = {}) => {

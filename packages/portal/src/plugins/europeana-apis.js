@@ -42,10 +42,9 @@ export const resetRuntimeConfig = ({ scope = 'public' }) => {
 
 export const nuxtRuntimeConfig = ({ scope = 'public' } = {}) => {
   if (!runtimeConfig[scope]) {
-    runtimeConfig[scope] = API_IDS.reduce((memo, id) => {
-      memo[id] = new EuropeanaApiEnvConfig(id, scope);
-      return memo;
-    }, {});
+    runtimeConfig[scope] = API_IDS.reduce((memo, id) => Object.assign(memo, {
+      [id]: new EuropeanaApiEnvConfig(id, scope)
+    }), {});
   }
   return runtimeConfig[scope];
 };

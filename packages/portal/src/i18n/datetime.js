@@ -13,7 +13,6 @@ const defaults = {
   }
 };
 
-export default isoCodes.reduce((memo, code) => {
-  memo[code] = defaults;
-  return memo;
-}, {});
+export default isoCodes.reduce((memo, code) => Object.assign(memo, {
+  [code]: defaults
+}), {});
