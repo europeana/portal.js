@@ -44,10 +44,11 @@ const createInstance = () => {
   };
 
   const createEntityItemsBestSet = async(entity) => {
-    const title = Object.entries(entity?.prefLabel || {}).reduce((memo, [lang, value]) => {
-      memo[lang] = Array.isArray(value) ? value[0] : value;
-      return memo;
-    }, {});
+    const title = Object
+      .entries(entity?.prefLabel || {})
+      .reduce((memo, [lang, value]) => Object.assign(memo, {
+        [lang]: Array.isArray(value) ? value[0] : value
+      }), {});
 
     const setBody = {
       type: ENTITY_ITEMS_BEST_SET,

@@ -136,15 +136,16 @@
         }
 
         return this.pictureSourceMediaResolutions.map((resolution) => {
-          const resolutionSizes = Object.keys(this.contentfulImageCropPresets).reduce((memo, key) => {
-            memo[key] = {
-              ...this.contentfulImageCropPresets[key],
-              w: this.contentfulImageCropPresets[key].w * resolution,
-              h: this.contentfulImageCropPresets[key].h * resolution,
-              q: this.quality
-            };
-            return memo;
-          }, {});
+          const resolutionSizes = Object
+            .keys(this.contentfulImageCropPresets)
+            .reduce((memo, key) => Object.assign(memo, {
+              [key]: {
+                ...this.contentfulImageCropPresets[key],
+                w: this.contentfulImageCropPresets[key].w * resolution,
+                h: this.contentfulImageCropPresets[key].h * resolution,
+                q: this.quality
+              }
+            }), {});
 
           return responsiveImageSrcset(
             { contentType: this.contentType, url: this.src },

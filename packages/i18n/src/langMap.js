@@ -31,15 +31,9 @@ const entityValue = (value, locale) => {
   return { code: '', values: [value.about], about: value.about };
 };
 
-const isoAlpha3Map = locales.reduce((memo, locale) => {
-  memo[locale.isoAlpha3] = locale.code;
-  return memo;
-}, {});
+const isoAlpha3Map = locales.reduce((memo, locale) => Object.assign(memo, { [locale.isoAlpha3]: locale.code }), {});
 
-const languageKeyMap = locales.reduce((memo, locale) => {
-  memo[locale.code] = [locale.code, locale.isoAlpha3, locale.iso];
-  return memo;
-}, {});
+const languageKeyMap = locales.reduce((memo, locale) => Object.assign(memo, { [locale.code]: [locale.code, locale.isoAlpha3, locale.iso] }), {});
 
 const localeFallbackKeys = undefinedLocaleCodes.concat(languageKeyMap.en);
 
