@@ -179,6 +179,7 @@ query BrowseLandingStaticPage(
         items {
           __typename
           ... on ContentTypeRichText {
+            headline
             text
           }
           ... on Embed {
