@@ -4,6 +4,10 @@
   "description": "Europeana website style assets",
   "license": "EUPL-1.2",
   "main": "scss/style.scss",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/europeana/portal.js"
+  },
   "files": [
     "fonts/**/*.{woff,woff2}",
     "img/**/*.{ico,svg,webp}",
