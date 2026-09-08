@@ -442,6 +442,8 @@
     z-index: 20;
     border-radius: 0;
     background-color: $white;
+    max-height: calc(100vh - 6.9rem);
+    overflow: auto;
   }
 
   .page-header-form {
