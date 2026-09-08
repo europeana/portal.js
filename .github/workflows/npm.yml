@@ -28,6 +28,4 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       -
         name: Publish to NPM
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
         run: npm -w packages/${{ matrix.package }} publish --access public
