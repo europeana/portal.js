@@ -1,0 +1,218 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+  name: portal-js
+spec:
+  rules:
+    - host: ${K8S_INGRESS_HOST}
+      http:
+        paths:
+          - backend:
+              service:
+                name: portal-js
+                port:
+                  number: 8080
+            path: /_api
+            pathType: Prefix
+          - backend:
+              service:
+                name: portal-js
+                port:
+                  number: 8080
+            path: /_nuxt
+            pathType: Prefix
+          - backend:
+              service:
+                name: portal-js
+                port:
+                  number: 8080
+            path: /portal
+            pathType: Prefix
+          - backend:
+              service:
+                name: portal-js
+                port:
+                  number: 8080
+            path: /bg
+            pathType: Prefix
+          - backend:
+              service:
+                name: portal-js
+                port:
+                  number: 8080
+            path: /cs
+            pathType: Prefix
+          - backend:
+              service:
+                name: portal-js
+                port:
+                  number: 8080
+            path: /da
+            pathType: Prefix
+          - backend:
+              service:
+                name: portal-js
+                port:
+                  number: 8080
+            path: /de
+            pathType: Prefix
+          - backend:
+              service:
+                name: portal-js
+                port:
+                  number: 8080
+            path: /el
+            pathType: Prefix
+          - backend:
+              service:
+                name: portal-js
+                port:
+                  number: 8080
+            path: /en
+            pathType: Prefix
+          - backend:
+              service:
+                name: portal-js
+                port:
+                  number: 8080
+            path: /es
+            pathType: Prefix
+          - backend:
+              service:
+                name: portal-js
+                port:
+                  number: 8080
+            path: /et
+            pathType: Prefix
+          - backend:
+              service:
+                name: portal-js
+                port:
+                  number: 8080
+            path: /eu
+            pathType: Prefix
+          - backend:
+              service:
+                name: portal-js
+                port:
+                  number: 8080
+            path: /fi
+            pathType: Prefix
+          - backend:
+              service:
+                name: portal-js
+                port:
+                  number: 8080
+            path: /fr
+            pathType: Prefix
+          - backend:
+              service:
+                name: portal-js
+                port:
+                  number: 8080
+            path: /ga
+            pathType: Prefix
+          - backend:
+              service:
+                name: portal-js
+                port:
+                  number: 8080
+            path: /hr
+            pathType: Prefix
+          - backend:
+              service:
+                name: portal-js
+                port:
+                  number: 8080
+            path: /hu
+            pathType: Prefix
+          - backend:
+              service:
+                name: portal-js
+                port:
+                  number: 8080
+            path: /it
+            pathType: Prefix
+          - backend:
+              service:
+                name: portal-js
+                port:
+                  number: 8080
+            path: /lt
+            pathType: Prefix
+          - backend:
+              service:
+                name: portal-js
+                port:
+                  number: 8080
+            path: /lv
+            pathType: Prefix
+          - backend:
+              service:
+                name: portal-js
+                port:
+                  number: 8080
+            path: /mt
+            pathType: Prefix
+          - backend:
+              service:
+                name: portal-js
+                port:
+                  number: 8080
+            path: /nl
+            pathType: Prefix
+          - backend:
+              service:
+                name: portal-js
+                port:
+                  number: 8080
+            path: /pl
+            pathType: Prefix
+          - backend:
+              service:
+                name: portal-js
+                port:
+                  number: 8080
+            path: /pt
+            pathType: Prefix
+          - backend:
+              service:
+                name: portal-js
+                port:
+                  number: 8080
+            path: /ro
+            pathType: Prefix
+          - backend:
+              service:
+                name: portal-js
+                port:
+                  number: 8080
+            path: /sk
+            pathType: Prefix
+          - backend:
+              service:
+                name: portal-js
+                port:
+                  number: 8080
+            path: /sl
+            pathType: Prefix
+          - backend:
+              service:
+                name: portal-js
+                port:
+                  number: 8080
+            path: /sv
+            pathType: Prefix
+          - backend:
+              service:
+                name: portal-js
+                port:
+                  number: 8080
+            path: /robots.txt
+            pathType: Prefix
+  tls:
+    - hosts:
+        - ${K8S_INGRESS_HOST}
+      secretName: ${K8S_INGRESS_TLS_SECRET_NAME}
