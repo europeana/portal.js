@@ -54,7 +54,7 @@ BEGIN;
       )
 
     select
-      o.object_id
+      o.id
     from
       objects o
       left join object_action_count oac on oac.object_id=o.id 
