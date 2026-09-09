@@ -37,19 +37,29 @@ BEGIN;
 
   -- deletes all objects now having no logged actions or history records
   delete from objects where id in (
+    with
+      object_action_count as (
+        select
+          a.object_id, count(a.id) action_count
+        from
+          actions a
+        group by object_id
+      ),
+      object_history_count as (
+        select
+          h.object_id, count(h.id) history_count
+        from
+          history h
+        group by object_id
+      )
+
     select
-      object_id
+      o.object_id
     from
-      (
-      select
-        o.id object_id, count(a.id) action_count, count(h.id) history_count
-      from
-        objects o
-        left join actions a on a.object_id=o.id
-        left join history h on h.object_id=o.id
-      group by o.id
-      ) object_link_count
-    where action_count=0 and history_count=0
+      objects o
+      left join object_action_count oac on oac.object_id=o.id 
+      left join object_history_count oah on oah.object_id=o.id
+    where oac.action_count is null and oah.history_count is null
   );
 
 COMMIT;
