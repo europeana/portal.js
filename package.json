@@ -80,5 +80,11 @@
     "type": "git",
     "url": "https://github.com/europeana/portal.js.git"
   },
-  "type": "module"
+  "type": "module",
+  "overrides": {
+    "axios": "1.8.2"
+  },
+  "dependencies": {
+    "axios": "^1.8.2"
+  }
 }
