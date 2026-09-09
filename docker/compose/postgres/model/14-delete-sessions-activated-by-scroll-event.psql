@@ -6,26 +6,21 @@ BEGIN;
   -- event and the only action in the session was a page view,
   -- which is very likely automated activity, i.e. bots
   delete from actions where id in (
-    select
-      a.id action_id
-    from 
-      actions a
-      inner join action_types at on a.action_type_id=at.id
-    where at.name='view' and a.session_id in
-    (
+    with session_action_count as (
       select
-        session_id
-      from (
-        select
-          s.id session_id, s.activated_by, count(a.id) action_count
-        from
-          sessions s
-          inner join actions a on s.id=a.session_id
-        where activated_by is not null
-        group by s.id
-      ) session_action_count
-      where action_count=1 and activated_by='scroll'
+        s.id session_id, count(a.id) action_count
+      from
+        sessions s
+        inner join actions a on s.id=a.session_id and s.activated_by='scroll'
+      group by s.id
     )
+	
+    select
+      count(*)
+    from
+      actions a
+      inner join action_types at on a.action_type_id=at.id and at.name='view'
+	    inner join session_action_count sac on a.session_id=sac.session_id and sac.action_count=1
   );
 
   -- deletes all sessions now having no logged actions
