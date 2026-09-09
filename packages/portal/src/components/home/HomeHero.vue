@@ -102,6 +102,51 @@
     padding-bottom: 128px; // save space for absolute positioned EULogo of height 64px, doubled for spacing around the logo
     overflow: hidden;
 
+    &.zoom-in {
+      background-size: 100%;
+      background-position: center;
+      animation: zoom-in 4s ease 1 forwards;
+    }
+
+    @keyframes zoom-in {
+      0% {
+        background-size: 100%;
+      }
+      100% {
+        background-size: 150%
+      }
+    }
+
+    &.zoom-out {
+      background-size: 150%;
+      background-position: center;
+      animation: zoom-out 4s ease 1 forwards;
+    }
+
+    @keyframes zoom-out {
+      0% {
+        background-size: 150%;
+      }
+      100% {
+        background-size: 100%
+      }
+    }
+
+    &.slide-left {
+      background-size: 125%;
+      background-position: bottom right;
+      animation: slide-left 4s ease 1 forwards;
+    }
+
+    @keyframes slide-left {
+      0% {
+        background-position: bottom right;
+      }
+      100% {
+        background-position: top left;
+      }
+    }
+
     @media (min-width: $bp-4k) {
       padding-bottom: calc(1.5 * 128px);
     }
