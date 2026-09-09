@@ -15,7 +15,7 @@ const toGeoJsonFeature = ({ id, lat, long }) => {
 };
 
 const data = async(context = {}) => {
-  const entityData = await baseData({ qf: 'type:Organization' }, context);
+  const entityData = await baseData({ type: 'Organization' }, context);
 
   return {
     type: 'FeatureCollection',
