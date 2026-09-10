@@ -1,4 +1,3 @@
-import exhibitionChapters from '@/mixins/exhibitionChapters';
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '@test/utils.js';
 import BootstrapVue from 'bootstrap-vue';
@@ -17,9 +16,6 @@ const heroImageExample = {
 
 const factory = (heroImage) => shallowMountNuxt(page, {
   localVue,
-  mixins: [
-    exhibitionChapters
-  ],
   data() {
     return {
       chapters: [],
