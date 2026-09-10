@@ -171,6 +171,7 @@
     'dcDuration',
     'dcFormat',
     'dcLanguage',
+    'dctermsTOC',
     'dctermsIsPartOf',
     'dcRelation',
     'dctermsReferences',
@@ -194,8 +195,7 @@
     'europeanaCollectionName',
     'timestampCreated',
     'timestampUpdate',
-    'keywords',
-    'dctermsTOC'
+    'keywords'
   ]);
 </script>
 
