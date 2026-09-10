@@ -60,6 +60,7 @@ BEGIN;
       left join object_action_count oac on oac.object_id=o.id 
       left join object_history_count oah on oah.object_id=o.id
     where oac.action_count is null and oah.history_count is null
+    order by o.id asc
   );
 
 COMMIT;
