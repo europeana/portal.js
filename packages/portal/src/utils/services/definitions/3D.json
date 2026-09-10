@@ -143,6 +143,15 @@
     "title": "The Cyprus Institute"
   },
   {
+    "name": "universityUtrecht",
+    "oembed": "https://voyager.hum.uu.nl/services/oembed",
+    "responsive": true,
+    "schemes": [
+      "https://voyager.hum.uu.nl/voyager/v059/voyager-explorer.html?root=models/*"
+    ],
+    "title": "University Utrecht"
+  },
+  {
     "name": "weave",
     "oembed": "https://weave-3dviewer.com/api/core/v1/oembed",
     "responsive": true,
