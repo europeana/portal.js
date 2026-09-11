@@ -26,10 +26,11 @@ describe('@/cachers/collections/institutions', () => {
   sinon.stub(baseCacher, 'default')
     .resolves(searchResponse);
 
-  it('fetches data with qf: "type:Organization"', async() => {
+  it('fetches data with qf: "type:Organization" and "type:Aggregator AND aggregatedVia:*"', async() => {
     await cacher.data(context);
 
     expect(baseCacher.default.calledWith({ qf: 'type:Organization' }, context)).toBe(true);
+    expect(baseCacher.default.calledWith({ qf: 'type:Aggregator AND aggregatedVia:*' }, context)).toBe(true);
   });
 
   it('picks specific fields', () => {
