@@ -18,8 +18,8 @@
             :key="index"
             :title="entry.name"
             :url="contentfulEntryUrl(entry)"
-            :image-url="entry.primaryImageOfPage ? entry.primaryImageOfPage.image.url : null"
-            :image-content-type="entry.primaryImageOfPage ? entry.primaryImageOfPage.image.contentType : null"
+            :image-url="entry.primaryImageOfPage?.image?.url || null"
+            :image-content-type="entry.primaryImageOfPage?.image?.contentType || null"
             :media-type="entry.primaryImageOfPage ? null : 'image'"
             variant="list"
           />
@@ -45,8 +45,8 @@
         :key="index"
         :title="entry.name"
         :url="contentfulEntryUrl(entry)"
-        :image-url="entry.primaryImageOfPage ? entry.primaryImageOfPage.image.url : null"
-        :image-content-type="entry.primaryImageOfPage ? entry.primaryImageOfPage.image.contentType : null"
+        :image-url="entry.primaryImageOfPage?.image?.url || null"
+        :image-content-type="entry.primaryImageOfPage?.image?.contentType || null"
         :media-type="entry.primaryImageOfPage ? null : 'image'"
       />
     </b-card-group>

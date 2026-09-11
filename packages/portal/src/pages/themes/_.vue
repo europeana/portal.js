@@ -30,14 +30,18 @@
         >
           <div
             v-show="mayShowSection('relatedTopics')"
+            class="mb-5"
           >
-            <EntityBadges
-              v-if="relatedTopics"
-              :title="relatedTopics.headline"
-              :entity-uris="relatedTopics.hasPart"
-              class="ml-4 mb-5"
-              @fetched="handleSectionFetched('relatedTopics')"
-            />
+            <template v-if="relatedTopics?.length">
+              <EntityBadges
+                v-for="(topics, index) in relatedTopics"
+                :key="index"
+                :title="topics.headline"
+                :entity-uris="topics.hasPart"
+                class="ml-4 mt-0 related-container"
+                @fetched="handleSectionFetched('relatedTopics')"
+              />
+            </template>
           </div>
         </transition>
         <transition
@@ -239,7 +243,7 @@
         return this.hasPartCollection?.items?.length && this.hasPartCollection.items.filter(section => !!section);
       },
       relatedTopics() {
-        return this.sections?.filter(section => section['__typename'] === 'TopicGroup')[0];
+        return this.sections?.filter(section => section['__typename'] === 'TopicGroup');
       },
       relatedPersons() {
         return this.sections?.filter(section => section['__typename'] === 'PersonGroup')[0];
