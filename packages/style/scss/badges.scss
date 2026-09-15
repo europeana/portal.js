@@ -108,12 +108,6 @@
     }
   }
 
-  &[href] {
-    &:hover {
-      background-color: $darkblue;
-    }
-  }
-
   &.img-chip {
     padding: 0.25rem 0.75rem 0.25rem calc(0.75rem + 28px);
 
@@ -154,6 +148,7 @@
     }
   }
 
+  a &,
   &[href] {
     &:hover {
       background-color: $innovationblue-dark;
@@ -190,6 +185,7 @@
     }
   }
 
+  a &,
   &[href],
   &.remove-button {
     &:hover {
@@ -202,6 +198,7 @@
   background-color: $lightgrey;
   color: $greyblack;
 
+  a &,
   &[href] {
 
     &:hover,
@@ -232,6 +229,7 @@
     }
   }
 
+  a &,
   &[href] {
 
     &:hover,
@@ -247,6 +245,7 @@
   color: $black;
   border: 1px solid $black;
 
+  a &,
   &[href] {
 
     &:hover,
@@ -282,20 +281,24 @@
     }
   }
 
-  &:hover,
-  &:focus {
-    color: $darkgrey;
-    background: $lightgrey !important;
-  }
-
-  &.active {
-    border: 0;
-    background-color: $lightblue;
-    box-shadow: 0;
+  a &,
+  &[href] {
 
     &:hover,
     &:focus {
-      background-color: $lightblue-dark !important;
+      color: $darkgrey;
+      background: $lightgrey !important;
+    }
+
+    &.active {
+      border: 0;
+      background-color: $lightblue;
+      box-shadow: 0;
+
+      &:hover,
+      &:focus {
+        background-color: $lightblue-dark !important;
+      }
     }
   }
 }
