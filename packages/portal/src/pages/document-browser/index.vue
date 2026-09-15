@@ -1,12 +1,13 @@
 <template>
-  <div class="contentful">
+  <div>
+    <h1>{{ url }}</h1>
     <p
       v-if="$fetchState.error"
     >
       {{ $fetchState.error.message }}
     </p>
-    <ol v-else>
-      <li
+    <b-list-group v-else>
+      <b-list-group-item
         v-if="!atRoot"
       >
         <nuxt-link
@@ -14,25 +15,33 @@
         >
           ..
         </nuxt-link>
-      </li>
-      <li
+      </b-list-group-item>
+      <b-list-group-item
         v-for="(item, index) in listing"
         :key="index"
       >
-        <nuxt-link
+        <template
           v-if="item.type === 'directory'"
-          :to="directoryLinkTo(item)"
         >
-          [{{ item.type }}] {{ item.name }}
-        </nuxt-link>
-        <a
+          📁
+          <nuxt-link
+            :to="directoryLinkTo(item)"
+          >
+            {{ item.name }}
+          </nuxt-link>
+        </template>
+        <template
           v-else
-          :href="`${baseURL}${url}${item.name}`"
         >
-          [{{ item.type }}] {{ item.name }}
-        </a>
-      </li>
-    </ol>
+          🗋
+          <a
+            :href="`${baseURL}${url}${item.name}`"
+          >
+            {{ item.name }}
+          </a>
+        </template>
+      </b-list-group-item>
+    </b-list-group>
   </div>
 </template>
 
@@ -41,8 +50,6 @@
 
   export default {
     name: 'DocumentBrowserPage',
-
-    // layout: 'minimal',
 
     data() {
       return {
