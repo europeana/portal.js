@@ -4,7 +4,7 @@
     :link-to="linkTo"
     :img="img"
     :type="type"
-    :badge-variant="badgeVariant"
+    badge-variant="primary-light"
     data-qa="removal chip"
     :click-event-handler="clickEventHandler"
   >
@@ -38,13 +38,6 @@
       type: {
         type: String,
         default: null
-      },
-      /**
-       * The variant used for the badge.
-       */
-      badgeVariant: {
-        type: String,
-        default: 'light'
       }
     },
 

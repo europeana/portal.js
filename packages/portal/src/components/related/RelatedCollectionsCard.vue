@@ -8,7 +8,6 @@
       <EntityBadges
         :related-collections="relatedCollections"
         :entity-uris="entityUris"
-        badge-variant="secondary"
         @entitiesFromUrisFetched="(collections) => $emit('entitiesFromUrisFetched', collections)"
       />
     </b-card>

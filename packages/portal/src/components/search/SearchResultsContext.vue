@@ -26,7 +26,6 @@
           :type="entity.type"
           data-qa="entity removal badge"
           class="mb-1 mx-1"
-          :badge-variant="badgeVariant"
         />
       </template>
       <template
@@ -38,7 +37,6 @@
           :link-to="queryRemovalLink"
           data-qa="query removal badge"
           class="mb-1 mx-1"
-          :badge-variant="badgeVariant"
         />
       </template>
     </i18n><!-- This comment removes white space which gets underlined
@@ -85,14 +83,6 @@
       query: {
         type: String,
         default: null
-      },
-
-      /**
-       * The variant used for the removal badges.
-       */
-      badgeVariant: {
-        type: String,
-        default: 'light'
       }
     },
 

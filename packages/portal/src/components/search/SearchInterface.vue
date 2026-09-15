@@ -49,7 +49,6 @@
               <SearchResultsContext
                 :total-results="totalResults"
                 :query="query"
-                badge-variant="primary-light"
                 class="mr-auto"
               />
             </template>
