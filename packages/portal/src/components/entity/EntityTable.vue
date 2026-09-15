@@ -17,7 +17,7 @@
       @submit.stop.prevent="() => {}"
     >
       <b-form-input
-        v-model="query"
+        v-model="tableQuery"
         role="searchbox"
         :placeholder="$t('pages.collections.table.searchPlaceholder')"
         :aria-label="$t('search.title')"
@@ -226,7 +226,7 @@
 
       return {
         collections: null,
-        query: this.$route?.query?.query || null,
+        tableQuery: this.$route?.query?.tableQuery || null,
         tableFields: fields.filter((field) => this.displayField(field.key)),
         typeSingular: this.type.slice(0, -1),
         totalResults: this.collections?.length || 0
@@ -312,8 +312,8 @@
     },
 
     watch: {
-      '$route.query.query'() {
-        this.query = this.$route.query.query;
+      '$route.query.tableQuery'() {
+        this.tableQuery = this.$route.query.tableQuery;
         this.$fetch();
       },
       '$route.query.page'() {
@@ -382,7 +382,7 @@
           lang: this.$i18n.locale,
           page: this.currentPage,
           pageSize: this.perPage,
-          query: this.query,
+          query: this.tableQuery,
           sort: this.sort.join(' ')
         };
 
@@ -408,7 +408,7 @@
         return `/collections/${this.typeSingular}/${slug}`;
       },
       onFiltered() {
-        this.updateRouteQuery({ query: this.query, page: 1 });
+        this.updateRouteQuery({ tableQuery: this.tableQuery, page: 1 });
       },
       updateRouteQuery(newQuery, method = 'push') {
         this.$router[method]({ ...this.$route, query: { ...this.$route.query, ...newQuery } });

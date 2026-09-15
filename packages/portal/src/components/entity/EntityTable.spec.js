@@ -18,7 +18,7 @@ const factory = (propsData = fixtures.propsData.organisations) => shallowMountNu
     $nuxt: { context: { $config: { redis: {} } } },
     $t: (key) => key,
     $i18n: { locale: 'en' },
-    $route: { query: { page: 1, query: null, sort: null } },
+    $route: { query: { page: 1, tableQuery: null, sort: null } },
     $router: { push: () => {} },
     localePath: () => '/'
   },
@@ -161,16 +161,16 @@ describe('components/entity/EntityTable', () => {
     it('filters the table on the query', async() => {
       const wrapper = factory();
 
-      wrapper.vm.$route.query.query = newQuery;
+      wrapper.vm.$route.query.tableQuery = newQuery;
       await wrapper.vm.$nextTick();
 
-      expect(wrapper.vm.query).toEqual(newQuery);
+      expect(wrapper.vm.tableQuery).toEqual(newQuery);
     });
     it('calls $fetch', async() => {
       const wrapper = factory();
       sinon.spy(wrapper.vm, '$fetch');
 
-      wrapper.vm.$route.query.query = newQuery;
+      wrapper.vm.$route.query.tableQuery = newQuery;
       await wrapper.vm.$nextTick();
 
       expect(wrapper.vm.$fetch.called).toBe(true);
@@ -225,10 +225,10 @@ describe('components/entity/EntityTable', () => {
       const wrapper = factory();
       sinon.spy(wrapper.vm, 'updateRouteQuery');
 
-      wrapper.vm.query = newQuery;
+      wrapper.vm.tableQuery = newQuery;
       wrapper.find('[data-qa="entity table filter"]').vm.$emit('change', newQuery);
 
-      expect(wrapper.vm.updateRouteQuery.calledWith({ query: newQuery, page: 1 })).toBe(true);
+      expect(wrapper.vm.updateRouteQuery.calledWith({ tableQuery: newQuery, page: 1 })).toBe(true);
     });
   });
 
