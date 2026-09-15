@@ -53,6 +53,7 @@
 
   import AlertMessage from '@/components/generic/AlertMessage';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
+  import pageMetaMixin from '@/mixins/pageMeta';
 
   export default {
     name: 'DocumentBrowserPage',
@@ -61,6 +62,10 @@
       AlertMessage,
       LoadingSpinner
     },
+
+    mixins: [
+      pageMetaMixin
+    ],
 
     data() {
       return {
@@ -79,15 +84,15 @@
       this.listing = response.data;
     },
 
-    head() {
-      return {
-        title: 'Document Browser'
-      };
-    },
-
     computed: {
       atRoot() {
         return !this.url || (this.url === '/');
+      },
+
+      pageMeta() {
+        return {
+          title: [this.url, 'Document Browser'].join(' | ')
+        };
       },
 
       upLinkTo() {
