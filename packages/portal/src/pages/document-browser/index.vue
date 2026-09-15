@@ -1,11 +1,14 @@
 <template>
   <div>
     <h1>{{ url }}</h1>
-    <p
-      v-if="$fetchState.error"
-    >
-      {{ $fetchState.error.message }}
-    </p>
+    <LoadingSpinner
+      v-if="$fetchState.pending"
+      class="text-center pb-4"
+    />
+    <AlertMessage
+      v-else-if="$fetchState.error"
+      :error="$fetchState.error.message"
+    />
     <b-list-group v-else>
       <b-list-group-item
         v-if="!atRoot"
@@ -48,8 +51,16 @@
 <script>
   import axios from 'axios';
 
+  import AlertMessage from '@/components/generic/AlertMessage';
+  import LoadingSpinner from '@/components/generic/LoadingSpinner';
+
   export default {
     name: 'DocumentBrowserPage',
+
+    components: {
+      AlertMessage,
+      LoadingSpinner
+    },
 
     data() {
       return {
