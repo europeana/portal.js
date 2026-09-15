@@ -33,7 +33,7 @@
         <template
           v-else
         >
-          🗋
+          📄
           <a
             :href="`${baseURL}${url}${item.name}`"
           >
