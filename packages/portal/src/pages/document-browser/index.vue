@@ -1,50 +1,54 @@
 <template>
-  <div>
-    <h1>{{ url }}</h1>
-    <LoadingSpinner
-      v-if="$fetchState.pending"
-      class="text-center pb-4"
-    />
-    <AlertMessage
-      v-else-if="$fetchState.error"
-      :error="$fetchState.error.message"
-    />
-    <b-list-group v-else>
-      <b-list-group-item
-        v-if="!atRoot"
-      >
-        <nuxt-link
-          :to="upLinkTo"
+  <div
+    class="xxl-page page mb-3 mb-sm-5"
+  >
+    <b-container fluid>
+      <h1>{{ url }}</h1>
+      <LoadingSpinner
+        v-if="$fetchState.pending"
+        class="text-center pb-4"
+      />
+      <AlertMessage
+        v-else-if="$fetchState.error"
+        :error="$fetchState.error.message"
+      />
+      <b-list-group v-else>
+        <b-list-group-item
+          v-if="!atRoot"
         >
-          ..
-        </nuxt-link>
-      </b-list-group-item>
-      <b-list-group-item
-        v-for="(item, index) in listing"
-        :key="index"
-      >
-        <template
-          v-if="item.type === 'directory'"
-        >
-          📁
           <nuxt-link
-            :to="directoryLinkTo(item)"
+            :to="upLinkTo"
           >
-            {{ item.name }}
+            ..
           </nuxt-link>
-        </template>
-        <template
-          v-else
+        </b-list-group-item>
+        <b-list-group-item
+          v-for="(item, index) in listing"
+          :key="index"
         >
-          📄
-          <a
-            :href="`${baseURL}${url}${item.name}`"
+          <template
+            v-if="item.type === 'directory'"
           >
-            {{ item.name }}
-          </a>
-        </template>
-      </b-list-group-item>
-    </b-list-group>
+            📁
+            <nuxt-link
+              :to="directoryLinkTo(item)"
+            >
+              {{ item.name }}
+            </nuxt-link>
+          </template>
+          <template
+            v-else
+          >
+            📄
+            <a
+              :href="`${baseURL}${url}${item.name}`"
+            >
+              {{ item.name }}
+            </a>
+          </template>
+        </b-list-group-item>
+      </b-list-group>
+    </b-container>
   </div>
 </template>
 
