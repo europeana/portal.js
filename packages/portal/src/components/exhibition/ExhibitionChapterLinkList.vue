@@ -22,8 +22,8 @@
         required: true
       },
       credits: {
-        type: String,
-        default: null
+        type: Boolean,
+        default: false
       },
       exhibitionIdentifier: {
         type: String,

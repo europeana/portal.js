@@ -68,7 +68,7 @@
               <ExhibitionChapterLinkList
                 :chapters="hasPartCollection.items"
                 :exhibition-identifier="identifier"
-                :credits="credits"
+                :credits="!!credits"
               />
             </b-col>
           </b-row>

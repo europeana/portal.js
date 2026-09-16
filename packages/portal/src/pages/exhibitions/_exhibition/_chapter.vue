@@ -76,7 +76,7 @@
               <ExhibitionChapterLinkList
                 :chapters="chapters"
                 :exhibition-identifier="exhibitionIdentifier"
-                :credits="credits"
+                :credits="!!credits"
               />
             </b-col>
           </b-row>
