@@ -228,6 +228,12 @@ Variant "outline-light":
     </b-badge>
     <b-badge
       variant="outline-light"
+      href="https://www.europeana.eu"
+    >
+      badge link
+    </b-badge>
+    <b-badge
+      variant="outline-light"
       pill
     >
       pill
