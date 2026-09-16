@@ -91,6 +91,7 @@ dist
 # IDE
 .idea
 .DS_Store
+.vscode
 
 # Storybook
 storybook-static

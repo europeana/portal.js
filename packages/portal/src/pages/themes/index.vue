@@ -25,7 +25,9 @@
       ContentHubPage
     },
 
-    mixins: [pageMetaMixin],
+    mixins: [
+      pageMetaMixin
+    ],
 
     data() {
       return {

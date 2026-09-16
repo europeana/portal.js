@@ -58,7 +58,7 @@
           <!-- eslint-enable vue/no-v-html -->
         </template>
         <MetadataOriginLabel
-          v-if="index === 0 || (translatedItemsEnabled && showAll)"
+          v-if="index === 0 || showAll"
           :translation-source="description.translationSource"
         />
         <hr
@@ -126,9 +126,6 @@
           return truncate(this.description.values[0], this.limitCharacters);
         }
         return false;
-      },
-      translatedItemsEnabled() {
-        return this.$features.translatedItems;
       }
     },
 

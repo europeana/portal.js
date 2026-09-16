@@ -1,9 +1,11 @@
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '@test/utils.js';
 import BootstrapVue from 'bootstrap-vue';
+import nock from 'nock';
 import sinon from 'sinon';
 
 import EntityBadges from '@/components/entity/EntityBadges.vue';
+import * as backendFetchModule from '@/utils/backendFetch.js';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -71,12 +73,34 @@ const factory = ({ propsData, mocks } = {}) => {
       $matomo: {
         trackEvent: sinon.spy()
       },
+      $nuxt: {
+        context: {}
+      },
       ...mocks
     }
   });
 };
 
 describe('components/related/EntityBadges', () => {
+  const backendFetch = sinon.stub(backendFetchModule, 'backendFetch');
+
+  beforeAll(() => {
+    nock.disableNetConnect();
+  });
+  beforeEach(() => {
+    backendFetch
+      .withArgs('collections/retrieve', sinon.match.array, sinon.match.object)
+      .resolves(relatedCollections);
+  });
+  afterEach(() => {
+    sinon.resetHistory();
+    sinon.resetBehavior();
+  });
+  afterAll(() => {
+    nock.enableNetConnect();
+    sinon.restore();
+  });
+
   describe('template', () => {
     describe('when related collections are present', () => {
       const data = { collections: relatedCollections };
@@ -94,6 +118,36 @@ describe('components/related/EntityBadges', () => {
 
         const chips = wrapper.findAll('linkbadge-stub');
         expect(chips.length).toBe(4);
+      });
+
+      describe('when a limit is set', () => {
+        it('shows the limited amount of badges and a view all button', async() => {
+          const limit = 2;
+          const wrapper = factory({ propsData: { limit } });
+          await wrapper.setData(data);
+
+          const chips = wrapper.findAll('linkbadge-stub');
+          const viewAllButton = wrapper.find('.view-all-button');
+
+          expect(chips.length).toBe(limit);
+          expect(viewAllButton.isVisible()).toBe(true);
+        });
+
+        describe('and the view all button is clicked', () => {
+          it('shows all badges and NO view all button', async() => {
+            const limit = 2;
+            const wrapper = factory({ propsData: { limit } });
+            await wrapper.setData(data);
+
+            await wrapper.find('.view-all-button').trigger('click');
+
+            const chips = wrapper.findAll('linkbadge-stub');
+            const viewAllButton = wrapper.find('.view-all-button');
+
+            expect(chips.length).toBe(4);
+            expect(viewAllButton.exists()).toBe(false);
+          });
+        });
       });
     });
 
@@ -128,14 +182,19 @@ describe('components/related/EntityBadges', () => {
       describe('but entity URIs are supplied', () => {
         const propsData = { entityUris };
 
-        it('fetches entities with editorial overrides', async() => {
+        it('fetches entities from backend', async() => {
           const wrapper = factory({ propsData });
-
-          wrapper.vm.$apis = { entity: { find: sinon.stub().resolves([]) } };
 
           await wrapper.vm.fetch();
 
-          expect(wrapper.vm.$apis.entity.find.calledWith(entityUris)).toBe(true);
+          expect(backendFetch.calledWith(
+            'collections/retrieve',
+            [
+              entityUris,
+              { fl: 'id,prefLabel,isShownBy,logo,type' }
+            ],
+            {}
+          )).toBe(true);
         });
       });
 

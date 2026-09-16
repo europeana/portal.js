@@ -16,29 +16,39 @@ const factory = ({ data = {}, propsData = {}, mocks = {} } = {}) => shallowMount
     return { ...data };
   },
   mocks: {
+    $apis: {
+      thumbnail: {
+        forWebResource: () => ({
+          large: '400px'
+        })
+      }
+    },
     $apm: {
       setCustomContext: sinon.spy()
     },
     $error(error) {
       throw error;
     },
+    $features: {},
     $route: { query: {} },
     $t: (key) => key,
+    localePath: (path) => path,
     ...mocks
   },
   provide: {
-    itemIsDeleted: false
+    itemIsDeleted: false,
+    subtitlingAnnotations: []
   },
   stubs: [
     'client-only',
     'EmbedGateway',
     'EmbedOEmbed',
-    'IIIFErrorMessage',
+    'MediaErrorMessage',
     'ItemMediaPaginationToolbar',
     'ItemMediaSidebarToggle',
     'ItemMediaSidebar',
     'ItemMediaThumbnails',
-    'MediaAudioVisualPlayer',
+    'MediaAudioVideoPlayer',
     'MediaImageViewer',
     'MediaImageViewerControls'
   ]
@@ -101,6 +111,38 @@ describe('components/item/ItemMediaPresentation', () => {
           const sidebarToggle = wrapper.find('itemmediasidebartoggle-stub');
 
           expect(sidebarToggle.isVisible()).toBe(true);
+        });
+      });
+
+      describe('or when there is a web resource with displayable metadata', () => {
+        it('is visible', () => {
+          stubItemMediaPresentationComposable({ resource: { edm: { dcTitle: 'depiction' } } });
+          const wrapper = factory();
+
+          const sidebarToggle = wrapper.find('itemmediasidebartoggle-stub');
+
+          expect(sidebarToggle.isVisible()).toBe(true);
+        });
+      });
+
+      describe('or when there is a manifest link', () => {
+        it('is visible', () => {
+          const wrapper = factory({ propsData: { uri: 'http://iiif.example.org/123/manifest' } });
+
+          const sidebarToggle = wrapper.find('itemmediasidebartoggle-stub');
+
+          expect(sidebarToggle.isVisible()).toBe(true);
+        });
+      });
+
+      describe('otherwise', () => {
+        it('is not rendered', () => {
+          stubItemMediaPresentationComposable({ resource: { edm: { about: 'https://www.example.org/image.jpeg' } } });
+          const wrapper = factory();
+
+          const sidebarToggle = wrapper.find('itemmediasidebartoggle-stub');
+
+          expect(sidebarToggle.exists()).toBe(false);
         });
       });
     });
@@ -272,7 +314,7 @@ describe('components/item/ItemMediaPresentation', () => {
           await wrapper.vm.fetch();
           await wrapper.vm.$nextTick();
 
-          const errorMessage = wrapper.find('iiiferrormessage-stub');
+          const errorMessage = wrapper.find('mediaerrormessage-stub');
 
           expect(errorMessage.isVisible()).toBe(true);
         });
@@ -300,7 +342,7 @@ describe('components/item/ItemMediaPresentation', () => {
           imageViewer.vm.$emit('error', imageError);
           await wrapper.vm.$nextTick();
 
-          const errorMessage = wrapper.find('iiiferrormessage-stub');
+          const errorMessage = wrapper.find('mediaerrormessage-stub');
 
           expect(errorMessage.isVisible()).toBe(true);
         });

@@ -116,6 +116,30 @@ describe('plugins/europeana/edm/Aggregation', () => {
         expect(displayableWebResources[2].about).toBe(hasView[1]);
         expect(displayableWebResources[3].about).toBe(hasView[2]);
       });
+
+      it('does NOT duplicate resources when the edmIsShownAt or edmIsShownBy is also a hasView', () => {
+        const edmIsShownAt = 'https://example.org/object.jpeg';
+        const edmIsShownBy = edmIsShownAt;
+        const isShownAt = 'https://example.org/other';
+        const hasView = ['https://example.org/hasView.jpeg', edmIsShownAt];
+        const edm = {
+          edmIsShownBy,
+          edmIsShownAt,
+          hasView,
+          webResources: [
+            { about: edmIsShownAt },
+            { about: hasView[0] },
+            { about: isShownAt }
+          ]
+        };
+
+        const displayableWebResources = new Aggregation(edm).displayableWebResources;
+
+        expect(displayableWebResources.length).toBe(2);
+        expect(displayableWebResources.find((wr) => wr.about === edmIsShownAt)).toBeTruthy();
+        expect(displayableWebResources.find((wr) => wr.about === edmIsShownBy)).toBeTruthy();
+        expect(displayableWebResources.find((wr) => wr.about === hasView[0])).toBeTruthy();
+      });
     });
 
     describe('iiifPresentationManifestWebResources', () => {
@@ -131,6 +155,34 @@ describe('plugins/europeana/edm/Aggregation', () => {
 
         expect(iiifPresentationManifestWebResources.length).toBe(1);
         expect(iiifPresentationManifestWebResources[0].rdfType).toBe('http://iiif.io/api/presentation/3#Manifest');
+      });
+      it('does not fail when webResources is undefined', () => {
+        const edm = {};
+
+        const iiifPresentationManifestWebResources = new Aggregation(edm).iiifPresentationManifestWebResources;
+
+        expect(iiifPresentationManifestWebResources.length).toBe(0);
+      });
+    });
+
+    describe('findWebResources', () => {
+      it('finds a web resource by uri', () => {
+        const about = 'https://example.org/other';
+        const edm = {
+          webResources: [
+            { about }
+          ]
+        };
+
+        const foundWebResource = new Aggregation(edm).findWebResource(about);
+
+        expect(foundWebResource.about).toEqual(about);
+      });
+      it('does not fail when webResources is undefined', () => {
+        const edm = {};
+
+        const foundWebResource = new Aggregation(edm).findWebResource('https://example.org/other');
+        expect(foundWebResource).toBe(undefined);
       });
     });
   });

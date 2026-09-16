@@ -30,11 +30,16 @@ on:
         required: false
         type: string
         description: URL of the oEmbed service for presenting media from this service
+      responsive:
+        required: false
+        type: boolean
+        description: For oEmbed services, whether the embedded HTML is responsive
 
 env:
   SERVICE_NAME: ${{ inputs.name }}
   SERVICE_OEMBED: ${{ inputs.oembed }}
   SERVICE_PURPOSE: ${{ inputs.purpose }}
+  SERVICE_RESPONSIVE: ${{ inputs.responsive }}
   SERVICE_SCHEMES: ${{ inputs.schemes }}
   SERVICE_TITLE: ${{ inputs.title }}
 
@@ -42,11 +47,11 @@ jobs:
   create-pull-request:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
         with:
-          node-version: 20
-          cache: 'npm'
+          node-version: 24
+          cache: "npm"
       -
         name: Add media embed service
         run: npm run -w packages/portal media-embed-service:add
@@ -56,7 +61,7 @@ jobs:
       -
         name: Create pull request
         id: cpr
-        uses: peter-evans/create-pull-request@v4
+        uses: peter-evans/create-pull-request@v8
         with:
           branch: ${{ env.PR_BRANCH }}
           commit-message: "feat: add ${{ inputs.name }} media embed service"

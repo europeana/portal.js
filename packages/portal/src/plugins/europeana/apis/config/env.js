@@ -6,6 +6,7 @@ export default class EuropeanaApiEnvConfig {
     this.scope = scope;
 
     this.key = this.keyFromEnv;
+    this.timeout = this.timeoutFromEnv;
     this.url = this.urlFromEnv;
     this.urlRewrite = this.urlRewriteFromEnv;
     this.version = this.versionFromEnv;
@@ -21,6 +22,11 @@ export default class EuropeanaApiEnvConfig {
   get keyFromEnv() {
     return this.env('key', { shared: false }) ||
       this.env('key', { shared: true });
+  }
+
+  get timeoutFromEnv() {
+    return this.env('timeout', { shared: false }) ||
+      this.env('timeout', { shared: true });
   }
 
   get urlFromEnv() {
@@ -46,6 +52,7 @@ export default class EuropeanaApiEnvConfig {
       key: this.key,
       id: this.id,
       scope: this.scope,
+      timeout: this.timeout,
       url: this.url,
       urlRewrite: this.urlRewrite,
       version: this.version

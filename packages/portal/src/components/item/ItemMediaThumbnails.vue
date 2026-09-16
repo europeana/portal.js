@@ -35,7 +35,7 @@
             :offset="pageNumber(index) - 1"
             class="d-flex-inline mr-3 mr-lg-auto"
             :class="{ 'selected': index === selectedIndex }"
-            :resource="resource.edm"
+            :resource="resource"
             :edm-type="edmType"
             :lazy="true"
           />
@@ -70,6 +70,9 @@
     },
 
     props: {
+      /**
+       * edm:type property of the parent item
+       */
       edmType: {
         type: String,
         default: null

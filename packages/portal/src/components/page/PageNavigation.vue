@@ -7,89 +7,28 @@
       v-for="(link, index) in links"
       :key="index"
       class="nav-item"
-      :class="sidebarNav ? 'sidebar-nav-item' : ''"
-    >
-      <SmartLink
-        v-b-toggle.menu
-        :destination="link.url"
-        link-class="nav-link"
-        exact
-      >
-        <span :class="renderIcon(link.url)" />
-        <span class="nav-link-text">
-          {{ link.text }}
-        </span>
-      </SmartLink>
-    </li>
-    <!-- sso links -->
-    <template v-if="isAuthenticated">
-      <li
-        v-if="!sidebarNav"
-        class="nav-item d-none d-lg-inline-block"
-      >
-        <SmartLink
-          v-b-toggle.menu
-          :destination="'/account'"
-          link-class="nav-link"
-          exact
-        >
-          <span class="label">
-            {{ $t('account.title') }}
-          </span>
-        </SmartLink>
-      </li>
-      <li
-        v-for="item in authLinks"
-        :key="item.url"
-        class="nav-item d-block"
-        :class="sidebarNav ? 'sidebar-nav-item' : 'd-lg-none'"
-      >
-        <b-link
-          v-b-toggle.menu
-          :to="item.to"
-          :href="item.href"
-          :target="null"
-          :data-qa="item.dataQa"
-          class="nav-link"
-        >
-          <span :class="renderIcon(item.url)" />
-          <span class="nav-link-text">
-            {{ item.text }}
-          </span>
-        </b-link>
-      </li>
-    </template>
-    <li
-      v-else
-      class="nav-item"
-      :class="sidebarNav ? 'sidebar-nav-item' : ''"
+      :class="{ 'sidebar-nav-item': sidebarNav }"
     >
       <b-link
         v-b-toggle.menu
-        data-qa="log in button"
-        class="nav-link"
-        :href="localePath({ name: 'account-login', query: { redirect: $route.fullPath } })"
+        :to="link.to || localePath(link.url)"
         :target="null"
-        @click.prevent="$keycloak.login()"
+        :data-qa="link.dataQa"
+        class="nav-link"
       >
-        <span :class="renderIcon('/account/login')" />
-        <span class="nav-link-text">
-          {{ $t('account.linkLoginJoin') }}
-        </span>
+        <span
+          v-if="sidebarNav"
+          :class="renderIcon(link.url)"
+        />
+        {{ link.text }}
       </b-link>
     </li>
   </b-navbar-nav>
 </template>
 
 <script>
-  import SmartLink from '../generic/SmartLink';
-
   export default {
     name: 'PageNavigation',
-
-    components: {
-      SmartLink
-    },
 
     props: {
       sidebarNav: {
@@ -100,9 +39,11 @@
 
     computed: {
       authLinks() {
-        return [
-          { to: this.localePath({ name: 'account' }), text: this.$t('account.title'), url: '/account', dataQa: 'likes and galleries button' },
-          { to: { name: 'account-logout' }, text: this.$t('account.linkLogout'), url: '/account/logout', dataQa: 'log out button' }
+        return this.isAuthenticated ? [
+          { url: '/account', text: this.$t('account.title'), dataQa: 'account link' },
+          this.sidebarNav && { url: '/account/logout', to: '/account/logout', text: this.$t('account.linkLogout'), dataQa: 'log out link' }
+        ].filter(Boolean) : [
+          { url: '/account/login', to: { name: 'account-login', query: { redirect: this.$route.fullPath } }, text: this.$t('account.linkLoginJoin'), dataQa: 'log in link' }
         ];
       },
       mainNavigation() {
@@ -115,14 +56,16 @@
       },
       sidebarNavigation() {
         return [
-          { url: '/europeana-classroom', text: this.$t('header.navigation.europeanaClassroom') },
+          { url: '/partners', text: this.$t('header.navigation.partners') },
+          { url: '/educators', text: this.$t('header.navigation.educators') },
+          { url: '/research', text: this.$t('header.navigation.research') },
           { url: '/about-us', text: this.$t('header.navigation.about') },
           { url: '/help', text: this.$t('header.navigation.help') },
           { url: '/feature-ideas', text: this.$t('header.navigation.featureIdeas') }
         ];
       },
       links() {
-        return this.mainNavigation.concat(this.sidebarNav ? this.sidebarNavigation : []);
+        return this.mainNavigation.concat(this.sidebarNav ? this.sidebarNavigation : []).concat(this.authLinks);
       },
       isAuthenticated() {
         return this.$store.state.auth.loggedIn;
@@ -150,8 +93,14 @@
         case ('/'):
           className = 'icon-home';
           break;
-        case ('/europeana-classroom'):
+        case ('/educators'):
           className = 'icon-school';
+          break;
+        case ('/partners'):
+          className = 'icon-partner';
+          break;
+        case ('/research'):
+          className = 'icon-academia';
           break;
         case ('/about-us'):
           className = 'icon-info';
@@ -190,7 +139,6 @@
       text-decoration: none;
       font-size: $font-size-base;
       display: flex;
-      align-items: center;
 
       @media (min-width: $bp-4k) {
         font-size: $font-size-base-4k;
@@ -315,12 +263,6 @@
           .nav-link-icon::before {
             color: $white;
           }
-        }
-
-        .nav-link-text {
-          overflow: hidden;
-          white-space: nowrap;
-          text-overflow: ellipsis;
         }
       }
     }

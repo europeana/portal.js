@@ -42,11 +42,6 @@ Feature: item page
     Then I see the `item page`
     And I see the `default thumbnail`
 
-  Scenario: One related entity
-    When I open `"The Milkmaid" item page`
-    Then I see `related entities`
-    And I see the `Art of painting related chip` in the `related entities`
-
   Scenario: Multiple related entities
     When I open the `"Het laatste avondmaal" item page`
     Then I see `related entities`
@@ -91,7 +86,7 @@ Feature: item page
     And  I click the `item snippet copy button`
     Then I see a `item snippet copied message`
 
-  Scenario: Location tab with map embed when dcterms:spatial has co-ordinates
+  Scenario: Location tab with Europeana map embed when dcterms:spatial has co-ordinates
     Given I am on the `search page`
     When I click the `show search button`
     And I enter "pl_wgs84_pos_lat:* pl_wgs84_pos_long:* proxy_dcterms_spatial:http\://data.europeana.eu*" in the `search box`
@@ -101,7 +96,7 @@ Feature: item page
     And I see an `item page`
     And I hover over the `metadata box`
     And I click the `location tab`
-    Then I see a `map embed`
+    Then I see a `europeana map`
 
   Scenario: No location tab when dcterms:spatial has no co-ordinates
     Given I am on the `search page`
@@ -118,6 +113,10 @@ Feature: item page
     When I open an `item page with IIIF annotations`
     Then I see an `item language selector`
     Then I see a `item language selector toggle text suggestion`
+
+  Scenario: Tombstone page for deleted item
+    When I open an `item page for a deleted item`
+    Then I see an `item tombstone page`
 
   @klaro-notice-not-dismissed
   @resized-browser

@@ -8,14 +8,18 @@ localVue.use(BootstrapVue);
 localVue.component('SmartLink', SmartLink);
 
 const factory = (links) => shallowMount(LinkGroup, {
+  localVue,
   propsData: {
-    title: 'Title text',
+    title: { text: 'Title text' },
     links: links || [
       { url: 'https://www.example.org', text: 'Example link' },
       { url: 'https://www.europeana.eu', text: 'Europeana link' }
     ]
   },
-  localVue
+  mocks: {
+    $t: (key) => key,
+    $te: () => false
+  }
 });
 
 describe('components/generic/LinkGroup', () => {

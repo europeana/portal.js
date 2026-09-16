@@ -14,7 +14,7 @@
       <SmartLink
         v-for="item in filteredLinkList"
         :key="item.identifier"
-        :style="item.background ? `background-image: url(${item.background})` : null"
+        :style="item.background ? `background-image: url('${item.background}')` : null"
         class="item w-100 text-left d-flex justify-content-start align-items-start"
         :destination="item.url"
         :data-qa="`link list ${item.identifier} item`"

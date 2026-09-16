@@ -90,29 +90,15 @@
       'visible-on-scroll': visibleOnScrollDirective
     },
 
-    inject: ['pageIdentifier'],
-
-    data() {
-      return {
-        apisPage: {
-          logoSrc: require('@europeana/style/img/landing/apis-logo.svg'),
-          navigationLinks: [
-            { url: '#europeana-ap-is-and-how-they-work-together', text: this.$t('landing.apis.header.navigation.europeanaApis') },
-            { url: '#try-it-out', text: this.$t('landing.apis.header.navigation.apiDemo') },
-            { url: '#find-inspiration', text: this.$t('landing.apis.header.navigation.findInspiration') },
-            { url: '#frequently-asked-questions-faq', text: this.$t('landing.apis.header.navigation.faq') }
-          ]
-        },
-        defaultLogoSrc: require('@europeana/style/img/logo.svg')
-      };
-    },
-
-    computed: {
-      logoSrc() {
-        return this.pageIdentifier === 'apis' ? this.apisPage.logoSrc : this.defaultLogoSrc;
+    props: {
+      logoSrc: {
+        type: String,
+        default: require('@europeana/style/img/logo.svg')
       },
-      navigationLinks() {
-        return this.pageIdentifier === 'apis' ? this.apisPage.navigationLinks : null;
+
+      navigationLinks: {
+        type: Array,
+        default: null
       }
     }
   };

@@ -1,4 +1,5 @@
 import nock from 'nock';
+import sinon from 'sinon';
 
 const cacher = require('@/cachers/items/recent');
 
@@ -24,89 +25,43 @@ const dataToCache = [
   { id: 'item4' }
 ];
 
-const config = {
-  europeana: {
-    apis: {
-      record: {
-        url: 'https://api.example.org/record',
-        key: 'recordApiKey'
-      }
+const searchStub = sinon.stub();
+searchStub.withArgs(sinon.match.has('query', '*:*')).resolves(apiResponses.datasets[0]);
+searchStub.withArgs(sinon.match.has('query', 'NOT edm_datasetName:("dataset1")')).resolves(apiResponses.datasets[1]);
+searchStub.withArgs(sinon.match.has('query', 'NOT edm_datasetName:("dataset1" OR "dataset2")')).resolves(apiResponses.datasets[2]);
+searchStub.withArgs(sinon.match.has('query', 'NOT edm_datasetName:("dataset1" OR "dataset2" OR "dataset3")')).resolves(apiResponses.datasets[3]);
+searchStub.withArgs(sinon.match.has('query', 'edm_datasetName:"dataset1"')).resolves(apiResponses.items[0]);
+searchStub.withArgs(sinon.match.has('query', 'edm_datasetName:"dataset2"')).resolves(apiResponses.items[1]);
+searchStub.withArgs(sinon.match.has('query', 'edm_datasetName:"dataset3"')).resolves(apiResponses.items[2]);
+searchStub.withArgs(sinon.match.has('query', 'edm_datasetName:"dataset4"')).resolves(apiResponses.items[3]);
+const context = {
+  $apis: {
+    record: {
+      search: searchStub
     }
   }
 };
 
 describe('cachers/items/recent', () => {
-  beforeEach(() => {
-    nock(config.europeana.apis.record.url)
-      .get('/search.json')
-      .query(query => (
-        query.query === '*:*' && query.sort === 'timestamp_update+desc' && query.qf === 'contentTier:4' && query.profile === 'standard'
-      ))
-      .reply(200, apiResponses.datasets[0]);
-
-    nock(config.europeana.apis.record.url)
-      .get('/search.json')
-      .query(query => (
-        query.query === 'NOT edm_datasetName:("dataset1")' && query.sort === 'timestamp_update+desc' && query.qf === 'contentTier:4' && query.profile === 'standard'
-      ))
-      .reply(200, apiResponses.datasets[1]);
-
-    nock(config.europeana.apis.record.url)
-      .get('/search.json')
-      .query(query => (
-        query.query === 'NOT edm_datasetName:("dataset1" OR "dataset2")' && query.sort === 'timestamp_update+desc' && query.qf === 'contentTier:4' && query.profile === 'standard'
-      ))
-      .reply(200, apiResponses.datasets[2]);
-
-    nock(config.europeana.apis.record.url)
-      .get('/search.json')
-      .query(query => (
-        query.query === 'NOT edm_datasetName:("dataset1" OR "dataset2" OR "dataset3")' && query.sort === 'timestamp_update+desc' && query.qf === 'contentTier:4' && query.profile === 'standard'
-      ))
-      .reply(200, apiResponses.datasets[3]);
-
-    nock(config.europeana.apis.record.url)
-      .get('/search.json')
-      .query(query => (
-        query.query === 'edm_datasetName:"dataset1"' && query.qf === 'contentTier:4' && query.profile === 'minimal'
-      ))
-      .reply(200, apiResponses.items[0]);
-
-    nock(config.europeana.apis.record.url)
-      .get('/search.json')
-      .query(query => (
-        query.query === 'edm_datasetName:"dataset2"' && query.qf === 'contentTier:4' && query.profile === 'minimal'
-      ))
-      .reply(200, apiResponses.items[1]);
-
-    nock(config.europeana.apis.record.url)
-      .get('/search.json')
-      .query(query => (
-        query.query === 'edm_datasetName:"dataset3"' && query.qf === 'contentTier:4' && query.profile === 'minimal'
-      ))
-      .reply(200, apiResponses.items[2]);
-
-    nock(config.europeana.apis.record.url)
-      .get('/search.json')
-      .query(query => (
-        query.query === 'edm_datasetName:"dataset4"' && query.qf === 'contentTier:4' && query.profile === 'minimal'
-      ))
-      .reply(200, apiResponses.items[3]);
+  beforeAll(() => {
+    nock.disableNetConnect();
   });
-
   afterEach(() => {
     nock.cleanAll();
+  });
+  afterAll(() => {
+    nock.enableNetConnect();
   });
 
   describe('.data', () => {
     it('queries Record API for 4 items from recently updated content tier 4 datasets', async() => {
-      await cacher.data(config);
+      await cacher.data(context);
 
-      expect(nock.isDone()).toBe(true);
+      expect(context.$apis.record.search.getCalls().length).toBe(8);
     });
 
     it('returns item metadata to cache', async() => {
-      const data = await cacher.data(config);
+      const data = await cacher.data(context);
 
       expect(data).toEqual(dataToCache);
     });

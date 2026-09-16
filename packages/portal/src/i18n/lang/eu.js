@@ -47,6 +47,7 @@ export default {
     "clearFilters": "Garbitu iragazkiak",
     "close": "itxi",
     "confirm": "Baieztatu",
+    "contact": "Kontaktua",
     "continue": "jarraitu",
     "depublish": "Argitalpena bertan behera utzi",
     "download": "Deskargatu",
@@ -80,6 +81,7 @@ export default {
     "transcribe": "Transkribatu",
     "transcribeNow": "Transkribatu orain",
     "unlike": "Ez gustatu",
+    "viewAll": "Ikusi guztiak {count}",
     "viewAt": "Ikusi hemen {link}",
     "viewDocument": "Dokumentua ikusi",
     "vote": "Bozkatu"
@@ -105,14 +107,7 @@ export default {
         "create": {
           "button": "Eskatu API gako pertsonala",
           "checkbox": "Baieztatzen dut API gakoa irakurri eta onartzen dudala {termsOfUseLink}."
-        },
-        "description": "Ikasi eta probatu APIak nola erabili zure API gako pertsonalarekin. Mesedez, ez partekatu. {howToLink}.",
-        "heading": "API gako pertsonala",
-        "howToLinkText": "Nola erabili zure gakoa"
-      },
-      "projectKeys": {
-        "description": "Eraiki behar duzun proiektu bakoitzerako, gako dedikatu bat emango dizugu. Proiektu-gakoek muga handiagoak eta beste ezaugarri berezi batzuk dituzte — irakurri gehiago API gakoaren {termsOfUseLink} atalean. Zure proiektuari buruzko informazioa editatu nahi baduzu, bidali mezu elektroniko bat helbide honetara: api@europeana.eu, eta guk egingo dizkizugu aldaketak.",
-        "heading": "Proiektuaren API gakoak"
+        }
       },
       "termsOfUseLinkText": "erabilera baldintzak"
     },
@@ -138,9 +133,27 @@ export default {
     "country": "Herrialdea:",
     "creator": "Sortzailea:",
     "date": "Data:",
+    "hide": "Ezkutatu atribuzio",
     "institution": "Erakundea:",
     "show": "Erakutsi atribuzioa",
     "title": "Izenburua:"
+  },
+  "audioVisualPlayer": {
+    "Captions": "Azpitituluak / itxitako azpitituluak",
+    "captions off": "Itzalita",
+    "captionsOption": "{language} azpititu",
+    "Exit Fullscreen": "Irten pantaila osotik",
+    "Fullscreen": "Pantaila osoa",
+    "Mute": "Mututu",
+    "Pause": "Pausatu",
+    "Play": "Erreproduzitu",
+    "Play Video": "Erreproduzitu bideoa",
+    "Replay": "Berriro erreproduzitu",
+    "Subtitles": "Azpitituluak / itxitako azpitituluak",
+    "subtitles off": "Itzalita",
+    "subtitlesOption": "{language} azpitituluak",
+    "Unmute": "Aktibatu soinua",
+    "Volume Level": "Bolumen maila"
   },
   "authored": {
     "by": "arabera",
@@ -149,14 +162,15 @@ export default {
   "automatedCardGroup": {
     "gallery": "Azken galeriak",
     "item": "Azken elementuak",
-    "organisation": "Erakundeak",
+    "organisation": "Erakunde hornitzailea",
     "place": "Lekuak",
     "theme": "Gaiak",
     "time": "Mendeak",
     "topic": "Gaiak"
   },
   "cardLabels": {
-    "organisation": "Antolaketa",
+    "aggregator": "Agregatzailea",
+    "organisation": "Erakundea:",
     "person": "Pertsona",
     "place": "Lekua",
     "theme": "Gaia",
@@ -316,13 +330,13 @@ export default {
       "description": "Errore ezezagun bat gertatu da.",
       "title": "Errore ezezaguna"
     },
-    "IIIFManifestFailure": {
-      "description": "Zoritxarrez, momentuz ezin da bistaratu Europeana-ri emandako multimedia-elementua. Mesedez, saiatu komunikabidea deskargatzen edo erakunde hornitzailearen webgunean elementua ikusten."
-    },
     "itemNotFound": {
       "description": "Hau arrazoi hauengatik izan daiteke: elementu hau ez da existitzen, edo; gure kalitate irizpideekin bat ez zetorrelako kaleratu zen, edo; eguneratu eta berriro argitaratu zen identifikatzaile esklusibo berri batekin, eta kasu horretan, saiatu berriro elementua aurkitzen.",
       "metaTitle": "Ez da aurkitu elementua",
       "title": "Oh ez! {newline} Ezin izan dugu elementu hau aurkitu."
+    },
+    "mediaFailure": {
+      "description": "Zoritxarrez, momentuz ezin da bistaratu Europeana-ri emandako multimedia-elementua. Mesedez, saiatu komunikabidea deskargatzen edo erakunde hornitzailearen webgunean elementua ikusten."
     },
     "noFeatureIdeas": {
       "description": "Begiratu berriro laster!",
@@ -371,6 +385,7 @@ export default {
       "options": {
         "archaeology": "Arkeologia",
         "art": "Artea",
+        "audiovisual": "Ikus-entzunezko ondarea",
         "fashion": "Moda",
         "industrial": "Industria ondarea",
         "manuscript": "Eskuizkribuak",
@@ -716,6 +731,14 @@ export default {
       "name": "Eskubideen adierazpena",
       "select": "Hautatu eskubideen adierazpenak"
     },
+    "sort": {
+      "name": "Ordenatu honen arabera",
+      "options": {
+        "proxy_dcterms_issued+asc": "Emisio-data (zaharrenetik hasita)",
+        "proxy_dcterms_issued+desc": "Jaulkitze-data (berrienetik zaharrenera)"
+      },
+      "select": "Hautatu emaitzak nola ordenatu"
+    },
     "TYPE": {
       "name": "Euskarri mota",
       "options": {
@@ -791,11 +814,52 @@ export default {
       "year": "Urtea"
     },
     "webResource": {
-      "about": "RDF buruz",
-      "dcDescription": "Deskribapena",
-      "ebucoreHasMimeType": "Ebucore MIME mota",
-      "edmRights": "Baliabide honetarako baimenen egoera",
-      "rdfAbout": "RDF"
+      "about": "Buruz",
+      "dctermsConformsTo": "Bat dator honekin",
+      "dcType": "Euskarri mota",
+      "ebucoreAudioChannelNumber": "Audio kanalak",
+      "ebucoreBitRate": "Bit-tasa (bps)",
+      "ebucoreDuration": "Iraupena",
+      "ebucoreFileByteSize": "Fitxategi-tamaina (byteak)",
+      "ebucoreFrameRate": "Fotograma-tasa (fps)",
+      "ebucoreHasMimeType": "MIME mota",
+      "ebucoreHeight": "Altuera (px)",
+      "ebucoreOrientation": "Orientazioa",
+      "ebucoreSampleRate": "Lagin-maiztasuna (Hz)",
+      "ebucoreSampleSize": "Lagin-tamaina (bitak)",
+      "ebucoreWidth": "Zabalera (px)",
+      "edmCodecName": "Kodek",
+      "edmComponentColor": "Osagaiaren kolorea",
+      "edmHasColorSpace": "Kolore-espazioa",
+      "edmIntendedUsage": "Aurreikusitako erabilera",
+      "edmPolygonCount": "Poligono kopurua",
+      "edmRights": "Komunikabide honen eskubideen adierazpena",
+      "edmSpatialResolution": "Bereizmen espaziala (dpi)",
+      "edmVertexCount": "Erpin kopurua",
+      "schemaDigitalSourceType": "Mundu errealarekin duen harremana"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Artea",
+      "creativity": "Sormena",
+      "curation": "Kudeaketa",
+      "design": "Diseinua",
+      "documentation": "Dokumentazioa",
+      "education": "Hezkuntza",
+      "exhibition": "Erakusketa",
+      "gaming": "Jokoak",
+      "infotainment": "Infotainment",
+      "knowledge": "Ezagutza",
+      "maintenance": "Mantentzea",
+      "research": "Ikerketa",
+      "restoration": "Rekonstrukzioa",
+      "tourism": "Turismoa"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Berreraikuntza",
+      "digitalCapture": "Errealitatearen kaptura",
+      "digitalCreation": "Jatorriz digitala"
     }
   },
   "filterResults": "Iragazi emaitzak",
@@ -836,10 +900,12 @@ export default {
     "navigation": {
       "about": "Guri buruz",
       "collections": "Bildumak",
-      "europeanaClassroom": "Irakasleentzat",
+      "educators": "Hezitzaileentzat",
       "featureIdeas": "Ezaugarrien ideiak",
       "help": "Laguntza",
       "home": "Etxea",
+      "partners": "Izan zaitez gure bazkide",
+      "research": "Akademia eta ikerketarako",
       "shareYourCollections": "Partekatu zure bildumak",
       "stories": "Istorioak"
     },
@@ -889,11 +955,10 @@ export default {
         "title": "Erabili nahiko genituzkeen zerbitzuak."
       },
       "consentNotice": {
-        "description": "Kaixo! Analitikarako eta segurtasunerako zerbitzu gehigarri batzuk gaitu al genituzke? Beti alda dezakezu zure baimena geroago edo ken dezakezu.",
-        "learnMore": "Utzidazu aukeratzen"
+        "description": "Mesedez, gai al genituzke segurtasun, analisi eta hirugarrenen edukirako zerbitzuak?",
+        "learnMore": "Kudeatu cookien ezarpenak"
       },
-      "decline": "Gaitzetsi egiten dut",
-      "ok": "ados",
+      "decline": "Ukatu",
       "purposes": {
         "2D": {
           "title": "2D euskarria"
@@ -946,6 +1011,10 @@ export default {
       "auth-strategy": {
         "description": "Saioa hasteko erabili beharreko baimen estrategia gogoratzen du.",
         "title": "Auth Estrategia"
+      },
+      "cloudflare": {
+        "description": "Segurtasun erronka arrakastaz gainditu dela gogoratzen du.",
+        "title": "Cloudflare"
       },
       "debugSettings": {
         "description": "API eskaerak arazteko laguntzen du",
@@ -1002,6 +1071,12 @@ export default {
   },
   "loading": "Kargatzen",
   "loadingResults": "Emaitzak kargatzen",
+  "map": {
+    "keyboardNavigatePins": "Erabili gezi-teklak pinean zehar nabigatzeko",
+    "keyboardPanAndZoom": "Erabili +, - eta gezi-teklak mapan zoom-a egiteko eta mugitzeko",
+    "togglePin": "Txinga txandakatu",
+    "zoomInCluster": "Handitu klusterra"
+  },
   "media": {
     "controls": {
       "exitFullscreen": "Irten pantaila osotik",
@@ -1024,6 +1099,8 @@ export default {
       "hide": "Ezkutatu alboko barra",
       "IIIFManifest": "IIIF Manifestua",
       "links": "Loturak",
+      "metadata": "Multimedia metadatuak",
+      "metadataInfo": "Une honetan ikusten ari zaren multimedia-edukiari buruzko informazioa.",
       "search": "Bilatu",
       "searchPlaceholder": "Sartu terminoak",
       "show": "Erakutsi alboko barra"
@@ -1078,15 +1155,41 @@ export default {
     "city": "Hiria",
     "country": "Herrialdea",
     "englishName": "Ingelesezko izena",
-    "nameAcronym": "Izenaren akronimoa"
+    "geographicScope": "Esparru geografikoa",
+    "heritageDomain": "Ondare motak",
+    "nameAcronym": "Izenaren akronimoa",
+    "providesAudienceEngagementActivity": "Ikusleen parte-hartze jarduerak",
+    "providesCapacityBuildingActivity": "Gaitasunen eraikuntza",
+    "providesSupportForDataActivity": "Datuen jarduerak",
+    "providesSupportForMediaType": "Multimedia mota",
+    "providingInstitutionsCount": "Hornitzaile erakundeen kopurua",
+    "recordCount": "Elementu kopurua"
+  },
+  "organisations": {
+    "aggregators": {
+      "description": "Aggregatoreek erakunde emaileekin lan egiten dute euren kultur ondare digitaleko elementuak Europeana.eu-n biltzeko eta argitaratzeko.",
+      "title": "Agregatzaileak"
+    },
+    "internationalAggregators": {
+      "description": "Domeinu- eta gai-agregatzaileek beren esparrua kultura-sektorearen arabera (hala nola museoa, artxiboa edo liburutegia) edo gaiaren eta temaren arabera (hala nola moda) definitzen dute. Europako hainbat herrialdetan kokatutako laguntzaileekin lan egiten dute.",
+      "title": "Domeinu eta gai-agregatzaileak"
+    },
+    "providingInstitutions": {
+      "description": "Europeana.eu-n beren ondare kultural digitaleko elementuak partekatzen dituzten museo, liburutegi, artxibo eta galeria zerrenda.",
+      "title": "Erakunde hornitzailea"
+    },
+    "regionalAggregators": {
+      "description": "Nazio eta eskualdeko agregatzaileek beren esparrua herrialde edo eskualde zehatz baten arabera definitzen dute. Herrialde edo eskualde horretan kokatutako laguntzaileekin lan egiten dute.",
+      "title": "Nazio eta eskualdeko agregatzaileak"
+    }
   },
   "pageHasLoaded": "kargatu du",
   "pageNumber": "Orrialde zenbakia",
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Arakatu kultur ondare digitalaren elementuak partekatzen dituzten erakundeak Europeana.eu.",
-        "title": "Erakundeak"
+        "description": "Arakatu Europeana.eu-n ondare kultural digitalaren elementuak partekatzen dituzten erakunde hornitzaileak.",
+        "title": "Erakunde hornitzailea"
       },
       "persons": {
         "title": "Pertsonak"
@@ -1095,7 +1198,9 @@ export default {
         "title": "Lekuak"
       },
       "table": {
+        "aggregator": "Agregatzailea",
         "country": "Herrialdea",
+        "domain": "Domeinua / Gaia",
         "items": "Elementuak",
         "name": "Izena",
         "searchPlaceholder": "Taula barruan bilatu",
@@ -1129,6 +1234,7 @@ export default {
       "pin": "Ainguratu elementua eskuragarri dauden Entitateetan"
     },
     "allMetaData": "Metadatu guztiak",
+    "allMetaDataInfo": "Informazioa elementuak guztiari buruz.",
     "clickToCopyEmbedCode": "Egin klik kapsulatzeko kodean kopiatzeko",
     "extendedInformation": "Informazio zabaldua",
     "goodToKnow": "Ondo dago jakitea",
@@ -1147,6 +1253,9 @@ export default {
   "related": {
     "categoryTags": {
       "title": "Ezagutu erlazionatutako istorioak"
+    },
+    "collection": {
+      "preview": "Bildumaren aurrebista"
     },
     "collections": {
       "name": "Lotutako bildumak",
@@ -1230,9 +1339,6 @@ export default {
     },
     "results": {
       "limitWarning": "Emaitza gehigarriak ez dira erakusten lehen 1000 emaitza garrantzitsuenak bakarrik erakusten baitira. Ez baduzu aurkitu bilatzen ari zarena, kontuan hartu bilaketa hobetzea.",
-      "loginToSeeMore": "{login} emaitza gehiago ikusteko",
-      "loginToSeeMultilingualResults": "Hasi saioa bilduma osoan bilatzeko eta lortu emaitzak bilaketa-terminoaren hizkuntzara mugatu gabe.",
-      "showingMultilingualResults": "Bilduma osoan eta hizkuntza guztietan emaitzak erakusten.",
       "withinCollection": "{count} emaitza barruan {type} {collection}",
       "withinCollectionWithQuery": "{count} emaitza {type} {collection} barruan {query}",
       "withoutQuery": "{count} emaitza",

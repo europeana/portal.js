@@ -18,44 +18,10 @@
       PageFooter
     },
 
-    data() {
-      return {
-        apisPage: {
-          moreInfo: {
-            name: this.$t('landing.apis.footer.name'),
-            links: [
-              { url: 'https://europeana.atlassian.net/wiki/external/MGU4MjI4ZjA2MmM0NDg3M2JjODQ2ZTZjYzBhZWNhZTg', text: this.$t('landing.apis.footer.navigation.apiDocumentation') },
-              { url: 'https://www.europeana.eu/account/api-keys', text: this.$t('landing.apis.footer.navigation.requestApiKey') },
-              { url: 'https://europeana.atlassian.net/wiki/spaces/EF/pages/2360508417/Europeana+API+FAQ', text: this.$t('footer.navigation.faq') },
-              { url: 'mailto:api@europeana.eu', text: this.$t('landing.apis.footer.navigation.contactUs') },
-              { url: 'https://www.europeana.eu/rights', text: this.$t('footer.navigation.terms') },
-              { url: 'https://www.europeana.eu/rights/privacy-statement', text: this.$t('footer.navigation.privacy') }
-            ]
-          }
-        },
-        bhmPage: {
-          moreInfo: {
-            name: this.$t('footer.navigation.MoreInfoLabel'),
-            links: [
-              { url: '/rights', text: this.$t('footer.navigation.terms') },
-              { url: '/rights/privacy-statement', text: this.$t('footer.navigation.privacy') },
-              { url: '/rights/accessibility-policy', text: this.$t('footer.navigation.accessibility') },
-              { url: '/rights/cookies-policy', text: this.$t('footer.navigation.cookies') }
-            ]
-          }
-        }
-      };
-    },
-
-    computed: {
-      moreInfo() {
-        if (this.pageIdentifier === 'apis') {
-          return this.apisPage.moreInfo;
-        } else if (this.pageIdentifier === 'black-history-month') {
-          return this.bhmPage.moreInfo;
-        } else {
-          return null;
-        }
+    props: {
+      moreInfo: {
+        type: Object,
+        default: null
       }
     }
   };
@@ -69,11 +35,6 @@
     .container {
       padding-top: 3.5rem;
       padding-bottom: 3.5rem;
-
-      @media (max-width: ($bp-medium)) {
-        padding-left: 2rem;
-        padding-right: 2rem;
-      }
 
       @media (min-width: $bp-large) {
         padding-top: 3.5rem;

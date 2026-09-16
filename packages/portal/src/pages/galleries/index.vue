@@ -45,7 +45,6 @@
       LoadingSpinner: () => import('@/components/generic/LoadingSpinner')
     },
     mixins: [pageMetaMixin],
-    middleware: 'sanitisePageQuery',
     setup() {
       const { scrollToSelector } = useScrollTo();
       return { scrollToSelector };

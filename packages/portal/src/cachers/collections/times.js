@@ -1,10 +1,10 @@
 import baseData from './index.js';
 
-const PICK = ['slug', 'prefLabel'];
+const PICK = ['id', 'slug', 'prefLabel'];
 const LOCALISE = 'prefLabel';
 const SORT = 'prefLabel';
 
-const data = (config = {}) => baseData({ type: 'timespan' }, config);
+const data = (context = {}) => baseData({ type: 'timespan' }, context);
 
 export {
   data,

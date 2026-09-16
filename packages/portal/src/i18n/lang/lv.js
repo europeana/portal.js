@@ -47,6 +47,7 @@ export default {
     "clearFilters": "Notīrīt filtrus",
     "close": "aizvērt",
     "confirm": "Apstiprināt",
+    "contact": "Kontakti",
     "continue": "turpināt",
     "depublish": "Depublicēt",
     "download": "Lejupielādēt",
@@ -80,6 +81,7 @@ export default {
     "transcribe": "Transkribēt",
     "transcribeNow": "Transkribēt tūlīt",
     "unlike": "Atcelt patiku",
+    "viewAll": "Skatīt visu {count}",
     "viewAt": "Skatīt vietnē {link}",
     "viewDocument": "Skatīt dokumentu",
     "vote": "Balsojums"
@@ -105,14 +107,7 @@ export default {
         "create": {
           "button": "Pieprasīt personīgo API atslēgu",
           "checkbox": "Es apstiprinu, ka esmu izlasījis un pieņemu API atslēgas {termsOfUseLink}."
-        },
-        "description": "Uzziniet un pārbaudiet, kā izmantot API ar savu personīgo API atslēgu. Lūdzu, nedalieties ar to. {howToLink}.",
-        "heading": "Personīgā API atslēga",
-        "howToLinkText": "Kā lietot savu atslēgu"
-      },
-      "projectKeys": {
-        "description": "Katram projektam, kas jums jāveido, mēs nodrošināsim īpašu atslēgu. Projekta atslēgām ir augstāki ierobežojumi un citas īpašas funkcijas — vairāk lasiet API atslēgā {termsOfUseLink}. Ja vēlaties rediģēt informāciju par savu projektu, lūdzu, nosūtiet e-pastu uz api@europeana.eu, un mēs veiksim izmaiņas jūsu vietā.",
-        "heading": "Projekta API atslēgas"
+        }
       },
       "termsOfUseLinkText": "lietošanas noteikumi"
     },
@@ -138,9 +133,27 @@ export default {
     "country": "Valsts",
     "creator": "Autors:",
     "date": "Datums",
+    "hide": "Slēpt attiecinājumu",
     "institution": "Iestāde:",
     "show": "Rādīt attiecinājumu",
     "title": "Nosaukums:"
+  },
+  "audioVisualPlayer": {
+    "Captions": "Subtitri / slēgtie titri",
+    "captions off": "Izslēgts",
+    "captionsOption": "{language} subtitri",
+    "Exit Fullscreen": "Iziet pilnekrāna režīmā",
+    "Fullscreen": "Pilnekrāna",
+    "Mute": "Izslēgt skaņu",
+    "Pause": "Pauze",
+    "Play": "Atskaņot",
+    "Play Video": "Atskaņot video",
+    "Replay": "Atkārtot",
+    "Subtitles": "Subtitri / slēgtie titri",
+    "subtitles off": "Izslēgts",
+    "subtitlesOption": "{language} subtitri",
+    "Unmute": "Ieslēgt skaņu",
+    "Volume Level": "Skaļuma līmenis"
   },
   "authored": {
     "by": "autors",
@@ -149,14 +162,15 @@ export default {
   "automatedCardGroup": {
     "gallery": "Jaunākās galerijas",
     "item": "Pēdējie digitālie objekti",
-    "organisation": "Organizācijas",
+    "organisation": "Piegādājošās iestādes",
     "place": "Vietas",
     "theme": "Tēmas",
     "time": "Gadsimtiem",
     "topic": "Tematikas"
   },
   "cardLabels": {
-    "organisation": "Organizācija",
+    "aggregator": "Agregators",
+    "organisation": "Iestāde",
     "person": "Persona",
     "place": "Vieta",
     "theme": "Tēma",
@@ -316,13 +330,13 @@ export default {
       "description": "Radās nezināma kļūda.",
       "title": "Nezināma kļūda"
     },
-    "IIIFManifestFailure": {
-      "description": "Diemžēl šobrīd nevar attēlot objekts mediju, kā tas ir nodrošināts Europeanai. Lūdzu, mēģiniet lejupielādēt mediju vai apskatiet digitālais objekts uz nodrošinošās iestādes piegādājošā iestāde vietnes."
-    },
     "itemNotFound": {
       "description": "Tam var būt šādi iemesli: šis digitālais objekts neeksistē vai; tas tika atcelts, jo tas neatbilda mūsu kvalitātes kritērijiem vai; tas tika atjaunināts un atkārtoti publicēts ar jaunu unikālu identifikatoru. Šādā gadījumā mēģiniet atrast digitālais objekts vēlreiz.",
       "metaTitle": "Digitālais objekts nav atrasts",
       "title": "Ak nē! {newline} Mēs nevarējām atrast šo digitālais objekts."
+    },
+    "mediaFailure": {
+      "description": "Diemžēl šobrīd nevar attēlot objekts mediju, kā tas ir nodrošināts Europeanai. Lūdzu, mēģiniet lejupielādēt mediju vai apskatiet digitālais objekts uz nodrošinošās iestādes piegādājošā iestāde vietnes."
     },
     "noFeatureIdeas": {
       "description": "Drīzumā pārbaudiet vēlreiz!",
@@ -371,6 +385,7 @@ export default {
       "options": {
         "archaeology": "Arheoloģija",
         "art": "Māksla",
+        "audiovisual": "Audiovizuālais mantojums",
         "fashion": "Mode",
         "industrial": "Rūpnieciskais mantojums",
         "manuscript": "Manuskripti",
@@ -716,6 +731,14 @@ export default {
       "name": "Tiesību statuss",
       "select": "Atlasit tiesību paziņojumus"
     },
+    "sort": {
+      "name": "Kārtot pēc",
+      "options": {
+        "proxy_dcterms_issued+asc": "Izdošanas datums (vecākais vispirms)",
+        "proxy_dcterms_issued+desc": "Izdošanas datums (jaunākie vispirms)"
+      },
+      "select": "Izvēlieties, kā kārtot rezultātus"
+    },
     "TYPE": {
       "name": "Līdzekļu veids",
       "options": {
@@ -791,11 +814,52 @@ export default {
       "year": "Gads"
     },
     "webResource": {
-      "about": "RDF Par",
-      "dcDescription": "Apraksts",
-      "ebucoreHasMimeType": "Ebucore MIME veids",
-      "edmRights": "Tiesību statuss par tiesībām saistībā ar šo multivides resursu",
-      "rdfAbout": "Par radiopeilētāju (RDF)"
+      "about": "Par",
+      "dctermsConformsTo": "Atbilst",
+      "dcType": "Mediju veids",
+      "ebucoreAudioChannelNumber": "Audio kanāli",
+      "ebucoreBitRate": "Bitu pārraides ātrums (bps)",
+      "ebucoreDuration": "Ilgums",
+      "ebucoreFileByteSize": "Faila izmērs (baiti)",
+      "ebucoreFrameRate": "Kadru nomaiņas ātrums (fps)",
+      "ebucoreHasMimeType": "MIME tips",
+      "ebucoreHeight": "Augstums (px)",
+      "ebucoreOrientation": "Orientācija",
+      "ebucoreSampleRate": "Diskretizācijas frekvence (Hz)",
+      "ebucoreSampleSize": "Parauga lielums (biti)",
+      "ebucoreWidth": "Platums (px)",
+      "edmCodecName": "Kodeks",
+      "edmComponentColor": "Komponenta krāsa",
+      "edmHasColorSpace": "Krāsu telpa",
+      "edmIntendedUsage": "Paredzētais lietojums",
+      "edmPolygonCount": "Poligonu skaits",
+      "edmRights": "Šī multivides satura tiesību paziņojums",
+      "edmSpatialResolution": "Telpiskā izšķirtspēja (dpi)",
+      "edmVertexCount": "Virsotņu skaits",
+      "schemaDigitalSourceType": "Saikne ar reālo pasauli"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Māksla",
+      "creativity": "Radošums",
+      "curation": "Kurācija",
+      "design": "Dizains",
+      "documentation": "Dokumentācija",
+      "education": "Izglītība",
+      "exhibition": "Izstāde",
+      "gaming": "Spēles",
+      "infotainment": "Infotainment",
+      "knowledge": "Zināšanas",
+      "maintenance": "Apkope",
+      "research": "Pētījumi",
+      "restoration": "Restaurācija",
+      "tourism": "Tūrisms"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Rekonstrukcija",
+      "digitalCapture": "Realitātes uztveršana",
+      "digitalCreation": "Digitāli dzimis"
     }
   },
   "filterResults": "Filtrēt rezultātus",
@@ -836,10 +900,12 @@ export default {
     "navigation": {
       "about": "Par Europeana",
       "collections": "Kolekcijas",
-      "europeanaClassroom": "Pedagogiem",
+      "educators": "Izglītotājiem",
       "featureIdeas": "Funkciju idejas",
       "help": "Palīdzība",
       "home": "Sākumlapa",
+      "partners": "Sadarbojieties ar mums",
+      "research": "Akadēmijai un pētniecībai",
       "shareYourCollections": "Kopīgojiet savas kolekcijas",
       "stories": "Stāsti"
     },
@@ -889,11 +955,10 @@ export default {
         "title": "Pakalpojumi, kurus mēs vēlētos izmantot."
       },
       "consentNotice": {
-        "description": "Sveiki! Vai mēs, lūdzu, varētu iespējot dažus papildu pakalpojumus analīzei un drošībai? Jūs vienmēr varat mainīt vai atsaukt savu piekrišanu vēlāk.",
-        "learnMore": "Ļaujiet man izvēlēties"
+        "description": "Vai varam, lūdzu, aktivizēt drošības, analītikas un trešās puses satura pakalpojumus?",
+        "learnMore": "Pārvaldīt sīkfailu iestatījumus"
       },
-      "decline": "Es noraidu",
-      "ok": "Labi",
+      "decline": "Noraidīt",
       "purposes": {
         "2D": {
           "title": "2D multivides"
@@ -946,6 +1011,10 @@ export default {
       "auth-strategy": {
         "description": "Atceras autorizācijas stratēģiju, kas jāizmanto, lai pieteiktos.",
         "title": "Auth stratēģija"
+      },
+      "cloudflare": {
+        "description": "Atceras, ka drošības pārbaude ir veiksmīgi nokārtota.",
+        "title": "Cloudflare"
       },
       "debugSettings": {
         "description": "Palīdz atkļūdot API pieprasījumus",
@@ -1002,6 +1071,12 @@ export default {
   },
   "loading": "Notiek ielāde",
   "loadingResults": "Notiek rezultātu ielāde",
+  "map": {
+    "keyboardNavigatePins": "Izmantojiet bulttaustiņus, lai pārvietotos starp spraudēm",
+    "keyboardPanAndZoom": "Izmantojiet taustiņus +, - un bulttaustiņus, lai tuvinātu un pārvietotos pa karti",
+    "togglePin": "Pārslēgt piespraušanu",
+    "zoomInCluster": "Tuvināt kopu"
+  },
   "media": {
     "controls": {
       "exitFullscreen": "Iziet pilnekrāna režīmā",
@@ -1024,6 +1099,8 @@ export default {
       "hide": "Paslēpt sānjoslu",
       "IIIFManifest": "IIIF manifests",
       "links": "Saites",
+      "metadata": "Multivides metadati",
+      "metadataInfo": "Informācija par mediju, ko pašlaik skatāties.",
       "search": "Meklēt",
       "searchPlaceholder": "Ievadiet terminus",
       "show": "Rādīt sānjoslu"
@@ -1078,15 +1155,41 @@ export default {
     "city": "Pilsēta",
     "country": "Valsts",
     "englishName": "Angliskais nosaukums",
-    "nameAcronym": "Vārda akronīms"
+    "geographicScope": "Ģeogrāfiskais tvērums",
+    "heritageDomain": "Mantojuma veidi",
+    "nameAcronym": "Vārda akronīms",
+    "providesAudienceEngagementActivity": "Auditorijas iesaistes aktivitātes",
+    "providesCapacityBuildingActivity": "Spēju veidošana",
+    "providesSupportForDataActivity": "Datu darbības",
+    "providesSupportForMediaType": "Multivides veids",
+    "providingInstitutionsCount": "Piedāvājošo iestāžu skaits",
+    "recordCount": "Digitālo objektu skaits"
+  },
+  "organisations": {
+    "aggregators": {
+      "description": "Agregatori sadarbojas ar sniedzējām institūcijām, lai apkopotu un publicētu to digitālos kultūras mantojuma objektus vietnē Europeana.eu.",
+      "title": "Agregatori"
+    },
+    "internationalAggregators": {
+      "description": "Domēnu un tematiskie agregatori definē savu darbības jomu pēc kultūras nozares (piemēram, muzeja, arhīva vai bibliotēkas) vai pēc tēmas (piemēram, modes). Tie sadarbojas ar datu sniedzējiem no dažādām Eiropas valstīm.",
+      "title": "Domēnu un tematiskie agregatori"
+    },
+    "providingInstitutions": {
+      "description": "Muzeju, bibliotēku, arhīvu un galeriju saraksts, kas kopīgo savus digitālos kultūras digitālie objekti vietnē Europeana.eu.",
+      "title": "Piedāvājošās iestādes"
+    },
+    "regionalAggregators": {
+      "description": "Nacionālie un reģionālie apkopotāji nosaka savu darbības jomu atbilstoši konkrētai valstij vai reģionam. Tie strādā ar līdzstrādniekiem, kas atrodas attiecīgajā valstī vai reģionā.",
+      "title": "Nacionālie un reģionālie agregatori"
+    }
   },
   "pageHasLoaded": "ir ielādēts",
   "pageNumber": "Lapas numurs",
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Izpētiet iestādes, kas dalās ar digitālajiem kultūras mantojuma objekti Europeana.eu.",
-        "title": "Lestādes"
+        "description": "Izpētiet sniedzēja institūcijas, kas kopīgo kultūras mantojuma digitālie objekti vietnē Europeana.eu.",
+        "title": "Piegādājošās iestādes"
       },
       "persons": {
         "title": "Personas"
@@ -1095,7 +1198,9 @@ export default {
         "title": "Vietas"
       },
       "table": {
+        "aggregator": "Agregators",
         "country": "Valsts",
+        "domain": "Domēns / Tēma",
         "items": "Digitālie objekti",
         "name": "Vārds",
         "searchPlaceholder": "Meklēt tabulā",
@@ -1129,6 +1234,7 @@ export default {
       "pin": "Piespraudiet digitālais objekts pieejamajām entītijām"
     },
     "allMetaData": "Visi metadati",
+    "allMetaDataInfo": "Informācija par visu digitālo objektu.",
     "clickToCopyEmbedCode": "Noklikšķiniet uz iegulšanas koda, lai to kopētu",
     "extendedInformation": "Paplašināta informācija",
     "goodToKnow": "Vērts zināt",
@@ -1147,6 +1253,9 @@ export default {
   "related": {
     "categoryTags": {
       "title": "Atklājiet saistītos stāstus"
+    },
+    "collection": {
+      "preview": "Kolekcijas priekšskatījums"
     },
     "collections": {
       "name": "Saistītās kolekcijas",
@@ -1230,9 +1339,6 @@ export default {
     },
     "results": {
       "limitWarning": "Papildu rezultāti netiek rādīti, jo tiek rādīti tikai pirmie 1000 visatbilstošākie rezultāti. Ja neatradāt to, ko meklējat, lūdzu, apsveriet iespēju uzlabot meklēšanu.",
-      "loginToSeeMore": "{login} lai redzētu vairāk rezultātu",
-      "loginToSeeMultilingualResults": "Piesakieties, lai meklētu visā kolekcijā un saņemiet rezultātus ne tikai jūsu meklēšanas vienuma valodā.",
-      "showingMultilingualResults": "Rāda rezultātus visā kolekcijā un visās valodās.",
       "withinCollection": "{count} rezultāti sadaļā {type} {collection}",
       "withinCollectionWithQuery": "{count} rezultāti sadaļā {type} {collection} par {query}",
       "withoutQuery": "{count} rezultāti",

@@ -47,6 +47,7 @@ export default {
     "clearFilters": "Izbriši filtre",
     "close": "zatvori",
     "confirm": "Potvrdi",
+    "contact": "Kontakt",
     "continue": "nastaviti",
     "depublish": "Depublish",
     "download": "Preuzmi",
@@ -80,6 +81,7 @@ export default {
     "transcribe": "Prepisati",
     "transcribeNow": "Prepišite sada",
     "unlike": "Ukloni lajk",
+    "viewAll": "Prikaži sve {count}",
     "viewAt": "Pogledajte na {link}",
     "viewDocument": "Pogledajte dokument",
     "vote": "Glasaj"
@@ -105,14 +107,7 @@ export default {
         "create": {
           "button": "Zatražite osobni API ključ",
           "checkbox": "Potvrđujem da sam pročitao i prihvaćam API ključ {termsOfUseLink}."
-        },
-        "description": "Naučite i isprobajte kako koristiti API-jeve sa svojim osobnim API ključem. Molimo, nemojte ga dijeliti. {howToLink}.",
-        "heading": "Osobni API ključ",
-        "howToLinkText": "Kako koristiti svoj ključ"
-      },
-      "projectKeys": {
-        "description": "Za svaki projekt koji trebate izraditi, dobit ćete namjenski ključ. Ključevi projekta imaju veće limite i druge posebne značajke — pročitajte više u API ključu{termsOfUseLink}. Ako želite urediti podatke o svom projektu, pošaljite e-poruku na api@europeana.eu i mi ćemo napraviti promjene za vas.",
-        "heading": "API ključevi projekta"
+        }
       },
       "termsOfUseLinkText": "uvjeti korištenja"
     },
@@ -138,9 +133,27 @@ export default {
     "country": "Država:",
     "creator": "Stvorio/la:",
     "date": "Datum:",
+    "hide": "Sakrij atribuciju",
     "institution": "Institucija:",
     "show": "Prikaži atribuciju",
     "title": "Naslov:"
+  },
+  "audioVisualPlayer": {
+    "Captions": "Titlovi / skriveni titlovi",
+    "captions off": "Isključeno",
+    "captionsOption": "{language} titlovi",
+    "Exit Fullscreen": "Izađi iz punog zaslona",
+    "Fullscreen": "Cijeli zaslon",
+    "Mute": "Isključi zvuk",
+    "Pause": "Pauza",
+    "Play": "Reproduciraj",
+    "Play Video": "Reproduciraj video",
+    "Replay": "Ponovi",
+    "Subtitles": "Titlovi / skriveni titlovi",
+    "subtitles off": "Isključeno",
+    "subtitlesOption": "{language} titlovi",
+    "Unmute": "Uključi zvuk",
+    "Volume Level": "Razina glasnoće"
   },
   "authored": {
     "by": "po",
@@ -149,14 +162,15 @@ export default {
   "automatedCardGroup": {
     "gallery": "Najnovije galerije",
     "item": "Nedavne predmeti",
-    "organisation": "Organizacije",
+    "organisation": "Institucije",
     "place": "Mjesta",
     "theme": "Teme",
     "time": "Stoljeća",
     "topic": "Sadržaj"
   },
   "cardLabels": {
-    "organisation": "Organizacija",
+    "aggregator": "Agregator",
+    "organisation": "Institucija",
     "person": "Osoba",
     "place": "Mjesto",
     "theme": "Tema",
@@ -316,13 +330,13 @@ export default {
       "description": "Dogodila se nepoznata pogreška.",
       "title": "Nepoznata pogreška"
     },
-    "IIIFManifestFailure": {
-      "description": "Nažalost, mediji predmet koji su dostavljeni Europeani trenutačno se ne mogu prikazati. Molimo pokušajte preuzeti medij ili pogledati predmet na web-mjestu institucije koja pruža podatke."
-    },
     "itemNotFound": {
       "description": "To može biti zbog sljedećih razloga: ova stavka ne postoji ili; povučeno je iz objave jer nije odgovaralo našim kriterijima kvalitete ili; ažuriran je i ponovno objavljen s novim jedinstvenim identifikatorom, u kojem slučaju ponovno pokušajte pronaći stavku.",
       "metaTitle": "Stavka nije pronađena",
       "title": "O ne! {newline} Nismo uspjeli pronaći ovu stavku."
+    },
+    "mediaFailure": {
+      "description": "Nažalost, mediji predmet koji su dostavljeni Europeani trenutačno se ne mogu prikazati. Molimo pokušajte preuzeti medij ili pogledati predmet na web-mjestu institucije koja pruža podatke."
     },
     "noFeatureIdeas": {
       "description": "Provjerite uskoro!",
@@ -371,6 +385,7 @@ export default {
       "options": {
         "archaeology": "Arheologija",
         "art": "Umjetnost",
+        "audiovisual": "Audiovizualna baština",
         "fashion": "Moda",
         "industrial": "Industrijska baština",
         "manuscript": "Rukopisi",
@@ -716,6 +731,14 @@ export default {
       "name": "Uvjeti korištenja",
       "select": "Odaberite izjave o pravima"
     },
+    "sort": {
+      "name": "Sortiraj po",
+      "options": {
+        "proxy_dcterms_issued+asc": "Datum izdavanja (najstariji prvo)",
+        "proxy_dcterms_issued+desc": "Datum izdavanja (noviji prvo)"
+      },
+      "select": "Odaberite način sortiranja rezultata"
+    },
     "TYPE": {
       "name": "Vrsta medija",
       "options": {
@@ -791,11 +814,52 @@ export default {
       "year": "Godina"
     },
     "webResource": {
-      "about": "O RDF",
-      "dcDescription": "Opis",
-      "ebucoreHasMimeType": "Ebucore MIME tip",
-      "edmRights": "Uvjeti korištenja za ovaj medijski resurs",
-      "rdfAbout": "RDF O"
+      "about": "O",
+      "dctermsConformsTo": "Sukladno s",
+      "dcType": "Vrsta medija",
+      "ebucoreAudioChannelNumber": "Audio kanali",
+      "ebucoreBitRate": "Brzina prijenosa (bps)",
+      "ebucoreDuration": "Trajanje",
+      "ebucoreFileByteSize": "Veličina datoteke (bajtovi)",
+      "ebucoreFrameRate": "Broj sličica u sekundi (fps)",
+      "ebucoreHasMimeType": "MIME tip",
+      "ebucoreHeight": "Visina (px)",
+      "ebucoreOrientation": "Orijentacija",
+      "ebucoreSampleRate": "Frekvencija uzorkovanja (Hz)",
+      "ebucoreSampleSize": "Veličina uzorka (bitovi)",
+      "ebucoreWidth": "Širina (px)",
+      "edmCodecName": "Kodek",
+      "edmComponentColor": "Boja komponente",
+      "edmHasColorSpace": "Prostor boja",
+      "edmIntendedUsage": "Namjena",
+      "edmPolygonCount": "Broj poligona",
+      "edmRights": "Izjava o pravima za ovaj medij",
+      "edmSpatialResolution": "Prostorna razlučivost (dpi)",
+      "edmVertexCount": "Broj vrhova",
+      "schemaDigitalSourceType": "Odnos sa stvarnim svijetom"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Umjetnost",
+      "creativity": "Kreativnost",
+      "curation": "Kuracija",
+      "design": "Dizajn",
+      "documentation": "Dokumentacija",
+      "education": "Obrazovanje",
+      "exhibition": "Izložba",
+      "gaming": "Igranje",
+      "infotainment": "Infotainment",
+      "knowledge": "Znanje",
+      "maintenance": "Održavanje",
+      "research": "Istraživanje",
+      "restoration": "Restauracija",
+      "tourism": "Turizam"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Rekonstrukcija",
+      "digitalCapture": "Snimanje stvarnosti",
+      "digitalCreation": "Izvorno digitalno"
     }
   },
   "filterResults": "Filtrirajte rezultate",
@@ -836,10 +900,12 @@ export default {
     "navigation": {
       "about": "O nama",
       "collections": "Zbirke",
-      "europeanaClassroom": "Za nastavnike",
+      "educators": "Za edukatore",
       "featureIdeas": "Ideje za značajke",
       "help": "Pomoć",
       "home": "Početna",
+      "partners": "Postanite naš partner",
+      "research": "Za akademsku zajednicu i istraživanje",
       "shareYourCollections": "Podijelite svoje zbirke",
       "stories": "Priče"
     },
@@ -889,11 +955,10 @@ export default {
         "title": "Usluge koje bismo željeli koristiti."
       },
       "consentNotice": {
-        "description": "Bok! Možemo li omogućiti neke dodatne usluge za analitiku i sigurnost? Svoj pristanak uvijek možete promijeniti ili povući kasnije.",
-        "learnMore": "Pusti me da izaberem"
+        "description": "Možemo li omogućiti usluge za sigurnost, analitiku i sadržaj treće strane?",
+        "learnMore": "Upravljaj postavkama kolačića"
       },
-      "decline": "Odbijam",
-      "ok": "u redu",
+      "decline": "Odbij",
       "purposes": {
         "2D": {
           "title": "2D mediji"
@@ -946,6 +1011,10 @@ export default {
       "auth-strategy": {
         "description": "Sjeća se strategije autorizacije za prijavu.",
         "title": "Auth strategija"
+      },
+      "cloudflare": {
+        "description": "Pamti da je sigurnosna provjera uspješno prošla.",
+        "title": "Cloudflare"
       },
       "debugSettings": {
         "description": "Pomaže u otklanjanju pogrešaka API zahtjeva",
@@ -1002,6 +1071,12 @@ export default {
   },
   "loading": "Učitavanje",
   "loadingResults": "Učitavanje rezultata",
+  "map": {
+    "keyboardNavigatePins": "Koristite tipke sa strelicama za navigaciju po oznakama",
+    "keyboardPanAndZoom": "Upotrijebite tipke +, - i strelice za zumiranje i pomicanje po karti",
+    "togglePin": "Uključi/isključi pribadaču",
+    "zoomInCluster": "Povećajte prikaz klastera"
+  },
   "media": {
     "controls": {
       "exitFullscreen": "Izađi iz punog zaslona",
@@ -1024,6 +1099,8 @@ export default {
       "hide": "Sakrij bočnu traku",
       "IIIFManifest": "IIIF Manifest",
       "links": "Linkovi",
+      "metadata": "Metapodaci medija",
+      "metadataInfo": "Informacije o mediju koji trenutno pregledavate.",
       "search": "Traži",
       "searchPlaceholder": "Unesite pojmove",
       "show": "Prikaži bočnu traku"
@@ -1078,14 +1155,40 @@ export default {
     "city": "Grad",
     "country": "Država",
     "englishName": "Engleski naziv",
-    "nameAcronym": "Akronim naziva"
+    "geographicScope": "Geografski opseg",
+    "heritageDomain": "Vrste baštine",
+    "nameAcronym": "Akronim naziva",
+    "providesAudienceEngagementActivity": "Aktivnosti za angažiranje publike",
+    "providesCapacityBuildingActivity": "Izgradnja kapaciteta",
+    "providesSupportForDataActivity": "Aktivnosti s podacima",
+    "providesSupportForMediaType": "Vrsta medija",
+    "providingInstitutionsCount": "Broj pružateljskih institucija",
+    "recordCount": "Broj predmeta"
+  },
+  "organisations": {
+    "aggregators": {
+      "description": "Agregatori surađuju s institucijama koje osiguravaju podatke kako bi prikupili i objavili njihove digitalne kulturne predmeti na Europeana.eu.",
+      "title": "Agregatori"
+    },
+    "internationalAggregators": {
+      "description": "Domenni i tematski agregatori određuju svoj opseg prema kulturnom sektoru (kao što su muzej, arhiv ili knjižnica) ili prema temi i motivu (kao što je moda). Oni surađuju s ustanovama i organizacijama iz različitih europskih zemalja.",
+      "title": "Domenni i tematski agregatori"
+    },
+    "providingInstitutions": {
+      "description": "Popis muzeja, knjižnica, arhiva i galerija koji dijele svoje digitalne kulturne predmeti na Europeana.eu.",
+      "title": "Pružateljske institucije"
+    },
+    "regionalAggregators": {
+      "description": "Nacionalni i regionalni agregatori definiraju svoj opseg prema određenoj državi ili regiji. Surađuju s doprinosnicima koji se nalaze unutar te države ili regije.",
+      "title": "Nacionalni i regionalni agregatori"
+    }
   },
   "pageHasLoaded": "se učitao",
   "pageNumber": "Broj stranice",
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Istražite institucije koje dijele predmete digitalne kulturne baštine na Europeana.eu.",
+        "description": "Istražite institucije pružatelje usluga koje dijele digitalne predmete kulturne baštine na Europeana.eu.",
         "title": "Institucije"
       },
       "persons": {
@@ -1095,7 +1198,9 @@ export default {
         "title": "Mjesta"
       },
       "table": {
+        "aggregator": "Agregator",
         "country": "Država",
+        "domain": "Domena / Tema",
         "items": "Predmeti",
         "name": "Ime",
         "searchPlaceholder": "Pretraživanje unutar tablice",
@@ -1129,6 +1234,7 @@ export default {
       "pin": "Prikvači predmet na dostupne entitete"
     },
     "allMetaData": "Svi meta podaci",
+    "allMetaDataInfo": "Informacije o cijelom predmeti.",
     "clickToCopyEmbedCode": "Kliknite na kôd za ugrađivanje kako biste ga kopirali.",
     "extendedInformation": "Proširene informacije",
     "goodToKnow": "Dobro je znati",
@@ -1147,6 +1253,9 @@ export default {
   "related": {
     "categoryTags": {
       "title": "Otkrijte povezane priče"
+    },
+    "collection": {
+      "preview": "Pregled kolekcije"
     },
     "collections": {
       "name": "Povezane zbirke",
@@ -1230,9 +1339,6 @@ export default {
     },
     "results": {
       "limitWarning": "Dodatni rezultati nisu prikazani jer je prikazano samo prvih 1000 najrelevantnijih rezultata. Ako niste pronašli ono što tražite, razmislite o suženju pretraživanja.",
-      "loginToSeeMore": "{login} da biste vidjeli više rezultata",
-      "loginToSeeMultilingualResults": "Prijavite se kako biste pretraživali cijelu zbirku i dobili rezultate koji nisu ograničeni na jezik vašeg pojma za pretraživanje.",
-      "showingMultilingualResults": "Prikaz rezultata kroz cijelu kolekciju i sve jezike.",
       "withinCollection": "{count} rezultata unutar {type} {collection}",
       "withinCollectionWithQuery": "{count} rezultata unutar {type} {collection} za {query}",
       "withoutQuery": "{count} rezultata",

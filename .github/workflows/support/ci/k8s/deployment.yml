@@ -29,6 +29,9 @@ spec:
         - configMapRef:
             name: portal-js-env
             optional: false
+        - secretRef:
+            name: portal-js-env
+            optional: false
         image: ${DOCKER_IMAGE_TAG}
         imagePullPolicy: Always
         name: portal-js-web

@@ -33,7 +33,6 @@
         />
         <b-row v-else>
           <ItemPreviewInterface
-            data-qa="liked items"
             :items="results"
             :hits="hits"
             :loading="$fetchState.pending"
@@ -49,7 +48,6 @@
             <template #heading>
               <SearchResultsContext
                 :total-results="totalResults"
-                :entity="$store.state.entity.entity"
                 :query="query"
                 badge-variant="primary-light"
                 class="mr-auto"
@@ -57,7 +55,7 @@
             </template>
             <template #search-options>
               <SearchMultilingualButton
-                v-if="multilingualSearchButtonEnabled"
+                v-if="translateSearchForCurrentLocale"
                 v-model="translate"
                 @input="handleMultilingualButtonInput"
               />
@@ -221,7 +219,7 @@
       this.translate = Boolean(
         this.$auth.loggedIn &&
           this.translateSearchForCurrentLocale &&
-          (!this.$features?.multilingualSearchButton || this.$route.query.translate || this.$cookies?.get('multilingualSearch'))
+          (this.$route.query.translate || this.$cookies?.get('multilingualSearch') === 'true')
       );
 
       // Remove cleared rules
@@ -332,10 +330,7 @@
         return this.$store.state.search.showSearchBar;
       },
       translateSearchForCurrentLocale() {
-        return this.$config?.app?.search?.translateLocales?.includes(this.$i18n.locale);
-      },
-      multilingualSearchButtonEnabled() {
-        return this.$features?.multilingualSearchButton && this.translateSearchForCurrentLocale;
+        return !['en', 'eu'].includes(this.$i18n.locale);
       }
     },
 
@@ -347,6 +342,7 @@
       '$route.query.qf': 'watchRouteQueryQf',
       '$route.query.query': 'handleSearchParamsChanged',
       '$route.query.reusability': 'handleSearchParamsChanged',
+      '$route.query.sort': 'handleSearchParamsChanged',
       '$route.query.translate': 'handleSearchParamsChanged'
     },
 

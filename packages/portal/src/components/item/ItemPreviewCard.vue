@@ -54,20 +54,13 @@
       />
     </template>
     <template
-      v-else-if="variant !== 'list'"
+      v-else-if="!['list', 'circle'].includes(variant)"
       #image-overlay
     >
       <div
         @click.stop=""
       >
-        <RecommendationButtons
-          v-if="enableAcceptRecommendation || enableRejectRecommendation"
-          :identifier="identifier"
-          :enable-accept-button="enableAcceptRecommendation"
-          :enable-reject-button="enableRejectRecommendation"
-        />
         <UserButtons
-          v-else
           :identifier="identifier"
           :show-pins="showPins"
           :show-move="showMove"
@@ -89,7 +82,6 @@
     components: {
       ContentCard,
       ItemSelectCheckbox: () => import('./ItemSelectCheckbox'),
-      RecommendationButtons: () => import('../recommendation/RecommendationButtons'),
       RightsStatement: () => import('../generic/RightsStatement'),
       UserButtons: () => import('../user/UserButtons')
     },
@@ -119,7 +111,7 @@
       },
       /**
        * Style variant to use
-       * @values default, entity, mini, mosaic, list
+       * @values default, entity, mini, mosaic, list, circle
        */
       variant: {
         type: String,
@@ -150,20 +142,6 @@
        * If `true`, remove button will be rendered
        */
       showRemove: {
-        type: Boolean,
-        default: false
-      },
-      /**
-       * If `true`, accept recommendation (thumb up) button will be rendered
-       */
-      enableAcceptRecommendation: {
-        type: Boolean,
-        default: false
-      },
-      /**
-       * If `true`, reject recommendation (thumb down) button will be rendered
-       */
-      enableRejectRecommendation: {
         type: Boolean,
         default: false
       },
@@ -225,6 +203,10 @@
       },
 
       texts() {
+        if (this.variant === 'circle') {
+          return;
+        }
+
         const texts = [];
         if (this.variant === 'list') {
           if (!this.hitSelector && this.item.dcDescriptionLangAware) {
@@ -258,7 +240,8 @@
       },
 
       imageUrl() {
-        return this.$apis.thumbnail.edmPreview(this.item.edmPreview?.[0], { size: 400 });
+        const size = this.variant === 'circle' ? 200 : 400;
+        return this.$apis.thumbnail.edmPreview(this.item.edmPreview?.[0], { size });
       },
 
       subTitle() {
@@ -297,14 +280,6 @@
   <ItemPreviewCard
     :item="itemPreviewCardData"
     :showPins="true"
-  />
-  ```
-  Variant "default" with accept and reject recommendations enabled:
-  ```jsx
-  <ItemPreviewCard
-    :item="itemPreviewCardData"
-    :enableAcceptRecommendation="true"
-    :enableRejectRecommendation="true"
   />
   ```
   Variant "default" in select state:
@@ -384,4 +359,10 @@
       `
     });
   ```
+  Variant "circle":
+  ```jsx
+  <ItemPreviewCard
+    variant="circle"
+    :item="itemPreviewCardData"
+  />
 </docs>

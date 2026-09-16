@@ -47,6 +47,7 @@ export default {
     "clearFilters": "Limpar filtros",
     "close": "fechar",
     "confirm": "Confirmar",
+    "contact": "Contacto",
     "continue": "continuar",
     "depublish": "Despublicar",
     "download": "Descarregar",
@@ -80,6 +81,7 @@ export default {
     "transcribe": "Transcrever",
     "transcribeNow": "Transcreva agora",
     "unlike": "Não gosto",
+    "viewAll": "Ver todos {count}",
     "viewAt": "Ver em {link}",
     "viewDocument": "Ver documento",
     "vote": "Voto"
@@ -105,14 +107,7 @@ export default {
         "create": {
           "button": "Solicitar uma chave API pessoal",
           "checkbox": "Confirmo que li e aceito a chave de API {termsOfUseLink}."
-        },
-        "description": "Aprenda e teste como usar APIs com sua própria chave de API pessoal. Por favor, não a compartilhe. {howToLink}.",
-        "heading": "Chave API pessoal",
-        "howToLinkText": "Como usar a sua chave"
-      },
-      "projectKeys": {
-        "description": "Para cada projeto que necessite de construir, fornecer-lhe-emos uma chave dedicada. As chaves de projeto têm limites mais elevados e outras caraterísticas especiais – leia mais na chave API {termsOfUseLink}. Se pretender editar as informações sobre o seu projeto, envie um e-mail para api@europeana.eu e faremos as alterações por si.",
-        "heading": "Chaves de API do projeto"
+        }
       },
       "termsOfUseLinkText": "termos de uso"
     },
@@ -138,9 +133,27 @@ export default {
     "country": "País:",
     "creator": "Criador:",
     "date": "Date:",
+    "hide": "Ocultar atribuição",
     "institution": "Instituição:",
     "show": "Mostrar atribuição",
     "title": "Título:"
+  },
+  "audioVisualPlayer": {
+    "Captions": "Legendas / legendas ocultas",
+    "captions off": "Desligado",
+    "captionsOption": "{language} legendas",
+    "Exit Fullscreen": "Sair do ecrã inteiro",
+    "Fullscreen": "Tela cheia",
+    "Mute": "Silenciar",
+    "Pause": "Pausa",
+    "Play": "Reproduzir",
+    "Play Video": "Reproduzir vídeo",
+    "Replay": "Repetição",
+    "Subtitles": "Legendas / legendas ocultas",
+    "subtitles off": "Desligado",
+    "subtitlesOption": "{language} legendas",
+    "Unmute": "Ativar som",
+    "Volume Level": "Nível de volume"
   },
   "authored": {
     "by": "por",
@@ -149,14 +162,15 @@ export default {
   "automatedCardGroup": {
     "gallery": "Últimas galerias",
     "item": "Itens recentes",
-    "organisation": "Organizações",
+    "organisation": "Instituições fornecedoras",
     "place": "Lugares",
     "theme": "Temas",
     "time": "Séculos",
     "topic": "Tópicos"
   },
   "cardLabels": {
-    "organisation": "Organização",
+    "aggregator": "Agregador",
+    "organisation": "Instituição",
     "person": "Pessoa",
     "place": "Lugar",
     "theme": "Tema",
@@ -316,13 +330,13 @@ export default {
       "description": "Ocorreu um erro desconhecido.",
       "title": "Erro desconhecido"
     },
-    "IIIFManifestFailure": {
-      "description": "Infelizmente, o item de mídia fornecido à Europeana não pode ser exibido no momento. Por favor, tente baixar a mídia ou visualizar o item no site da instituição fornecedora."
-    },
     "itemNotFound": {
       "description": "Isso pode ser devido aos seguintes motivos: este item não existe, ou; foi despublicado porque não atendeu aos nossos critérios de qualidade, ou; ele foi atualizado e republicado com um novo identificador exclusivo, nesse caso, tente encontrar o item novamente.",
       "metaTitle": "Item não encontrado",
       "title": "Oh não! {newline} Não foi possível encontrar este item."
+    },
+    "mediaFailure": {
+      "description": "Infelizmente, o item de mídia fornecido à Europeana não pode ser exibido no momento. Por favor, tente baixar a mídia ou visualizar o item no site da instituição fornecedora."
     },
     "noFeatureIdeas": {
       "description": "Volte em breve!",
@@ -371,6 +385,7 @@ export default {
       "options": {
         "archaeology": "Arqueologia",
         "art": "Arte",
+        "audiovisual": "Património Audiovisual",
         "fashion": "Moda",
         "industrial": "Património Industrial",
         "manuscript": "Manuscritos",
@@ -716,6 +731,14 @@ export default {
       "name": "Declaração de direitos",
       "select": "Selecionar declarações de direitos"
     },
+    "sort": {
+      "name": "Ordenar por",
+      "options": {
+        "proxy_dcterms_issued+asc": "Data de Emissão (mais antiga primeiro)",
+        "proxy_dcterms_issued+desc": "Data de emissão (mais recentes primeiro)"
+      },
+      "select": "Selecione como ordenar os resultados"
+    },
     "TYPE": {
       "name": "Tipo de media",
       "options": {
@@ -791,11 +814,52 @@ export default {
       "year": "Ano"
     },
     "webResource": {
-      "about": "RDF Acerca",
-      "dcDescription": "Descrição",
-      "ebucoreHasMimeType": "Ebucore Tipo MIME",
-      "edmRights": "Declaração de direitos para este recurso de média",
-      "rdfAbout": "RDF Acerca"
+      "about": "Sobre",
+      "dctermsConformsTo": "Em conformidade com",
+      "dcType": "Tipo de média",
+      "ebucoreAudioChannelNumber": "Canais de áudio",
+      "ebucoreBitRate": "Taxa de bits (bps)",
+      "ebucoreDuration": "Duração",
+      "ebucoreFileByteSize": "Tamanho do ficheiro (bytes)",
+      "ebucoreFrameRate": "Taxa de quadros (fps)",
+      "ebucoreHasMimeType": "Tipo MIME",
+      "ebucoreHeight": "Altura (px)",
+      "ebucoreOrientation": "Orientação",
+      "ebucoreSampleRate": "Taxa de amostragem (Hz)",
+      "ebucoreSampleSize": "Tamanho da amostra (bits)",
+      "ebucoreWidth": "Largura (px)",
+      "edmCodecName": "Codec",
+      "edmComponentColor": "Cor do componente",
+      "edmHasColorSpace": "Espaço de cor",
+      "edmIntendedUsage": "Utilização prevista",
+      "edmPolygonCount": "Contagem de polígonos",
+      "edmRights": "Declaração de direitos para este meio de comunicação",
+      "edmSpatialResolution": "Resolução espacial (dpi)",
+      "edmVertexCount": "Contagem de vértices",
+      "schemaDigitalSourceType": "Relação com o mundo real"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Arte",
+      "creativity": "Criatividade",
+      "curation": "Curadoria",
+      "design": "Design",
+      "documentation": "Documentação",
+      "education": "Educação",
+      "exhibition": "Exposição",
+      "gaming": "Gaming",
+      "infotainment": "Infotenimento",
+      "knowledge": "Conhecimento",
+      "maintenance": "Manutenção",
+      "research": "Pesquisa",
+      "restoration": "Restauração",
+      "tourism": "Turismo"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Reconstrução",
+      "digitalCapture": "Captura de realidade",
+      "digitalCreation": "Nascido digital"
     }
   },
   "filterResults": "Filtrar resultados",
@@ -836,10 +900,12 @@ export default {
     "navigation": {
       "about": "Acerca",
       "collections": "Coleções",
-      "europeanaClassroom": "Para professores",
+      "educators": "Para educadores",
       "featureIdeas": "Ideias de recursos",
       "help": "Ajuda",
       "home": "Início",
+      "partners": "Seja nosso parceiro",
+      "research": "Para o meio académico e a investigação",
       "shareYourCollections": "Partilhe as suas coleções",
       "stories": "Histórias"
     },
@@ -889,11 +955,10 @@ export default {
         "title": "Serviços que gostaríamos de usar."
       },
       "consentNotice": {
-        "description": "Olá! Podemos ativar alguns serviços adicionais para análise e segurança? Pode sempre alterar ou retirar o seu consentimento mais tarde.",
-        "learnMore": "Deixe-me escolher"
+        "description": "Podemos ativar serviços para segurança, análises e conteúdo de terceiros?",
+        "learnMore": "Gerir definições de cookies"
       },
-      "decline": "Eu recuso",
-      "ok": "OK",
+      "decline": "Recusar",
       "purposes": {
         "2D": {
           "title": "Mídia 2D"
@@ -946,6 +1011,10 @@ export default {
       "auth-strategy": {
         "description": "Lembra a estratégia de autorização a ser usada para fazer login.",
         "title": "Estratégia Auth"
+      },
+      "cloudflare": {
+        "description": "Lembra que o desafio de segurança foi concluído com êxito.",
+        "title": "Cloudflare"
       },
       "debugSettings": {
         "description": "Ajuda a depurar solicitações de API",
@@ -1002,6 +1071,12 @@ export default {
   },
   "loading": "A carregar",
   "loadingResults": "A carregar resultados",
+  "map": {
+    "keyboardNavigatePins": "Use as teclas de setas para navegar pelos pins",
+    "keyboardPanAndZoom": "Use as teclas +, - e as setas para ampliar e mover o mapa",
+    "togglePin": "Alternar fixação",
+    "zoomInCluster": "Aproximar no agrupamento"
+  },
   "media": {
     "controls": {
       "exitFullscreen": "Sair do ecrã inteiro",
@@ -1024,6 +1099,8 @@ export default {
       "hide": "Ocultar barra lateral",
       "IIIFManifest": "Manifesto IIIF",
       "links": "Links",
+      "metadata": "Metadados de mídia",
+      "metadataInfo": "Informações sobre o conteúdo multimédia que está a visualizar neste momento.",
       "search": "Procurar",
       "searchPlaceholder": "Insira os termos",
       "show": "Mostrar barra lateral"
@@ -1078,15 +1155,41 @@ export default {
     "city": "Cidade",
     "country": "País",
     "englishName": "Nome em inglês",
-    "nameAcronym": "Acrônimo do nome"
+    "geographicScope": "Âmbito geográfico",
+    "heritageDomain": "Tipos de património",
+    "nameAcronym": "Acrônimo do nome",
+    "providesAudienceEngagementActivity": "Atividades de envolvimento do público",
+    "providesCapacityBuildingActivity": "Capacitação",
+    "providesSupportForDataActivity": "Atividades de dados",
+    "providesSupportForMediaType": "Tipo de mídia",
+    "providingInstitutionsCount": "Número de instituições fornecedoras",
+    "recordCount": "Número de itens"
+  },
+  "organisations": {
+    "aggregators": {
+      "description": "Os agregadores trabalham com as instituições fornecedoras para recolher e publicar os seus itens de património cultural digital no Europeana.eu.",
+      "title": "Agregadores"
+    },
+    "internationalAggregators": {
+      "description": "Os agregadores de domínios e temáticos definem o seu âmbito por sector cultural (como museus, arquivos ou bibliotecas) ou por tópico e tema (como a moda). Trabalham com parceiros sediados em diferentes países europeus.",
+      "title": "Agregadores de domínio e temáticos"
+    },
+    "providingInstitutions": {
+      "description": "Uma lista de museus, bibliotecas, arquivos e galerias que partilham os seus itens de património cultural digital no Europeana.eu.",
+      "title": "Instituições fornecedoras"
+    },
+    "regionalAggregators": {
+      "description": "Os agregadores nacionais e regionais definem o seu âmbito por país ou região específicos. Trabalham com colaboradores situados nesse país ou região.",
+      "title": "Agregadores nacionais e regionais"
+    }
   },
   "pageHasLoaded": "carregou",
   "pageNumber": "Número de página",
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Explore as instituições que partilham itens do património cultural digital em Europeana.eu.",
-        "title": "Instituições"
+        "description": "Explore as instituições fornecedoras que partilham itens do património cultural digital em Europeana.eu.",
+        "title": "Instituições fornecedoras"
       },
       "persons": {
         "title": "Pessoas"
@@ -1095,7 +1198,9 @@ export default {
         "title": "Lugares"
       },
       "table": {
+        "aggregator": "Agregador",
         "country": "País",
+        "domain": "Domínio / Tema",
         "items": "Itens",
         "name": "Nome",
         "searchPlaceholder": "Pesquisar na tabela",
@@ -1129,6 +1234,7 @@ export default {
       "pin": "Pino item para Entidades disponíveis"
     },
     "allMetaData": "Todos os metadados",
+    "allMetaDataInfo": "Informação sobre todo este item.",
     "clickToCopyEmbedCode": "Clique no código de incorporação para o copiar",
     "extendedInformation": "Informação detalhada",
     "goodToKnow": "Bom saber",
@@ -1147,6 +1253,9 @@ export default {
   "related": {
     "categoryTags": {
       "title": "Descubra histórias relacionadas"
+    },
+    "collection": {
+      "preview": "Pré-visualização da coleção"
     },
     "collections": {
       "name": "Coleções relacionadas",
@@ -1230,9 +1339,6 @@ export default {
     },
     "results": {
       "limitWarning": "Resultados adicionais não são mostrados como apenas os primeiros 1000 resultados mais relevantes são mostrados. Se não encontrou o que está a procurar, por favor, considere refinar a sua pesquisa.",
-      "loginToSeeMore": "{login} para ver mais resultados",
-      "loginToSeeMultilingualResults": "Faça login para pesquisar em toda a coleção e obter resultados não limitados ao idioma do seu termo de pesquisa.",
-      "showingMultilingualResults": "Mostrando resultados em toda a coleção e em todos os idiomas.",
       "withinCollection": "{count} resultados dentro do {type} {collection}",
       "withinCollectionWithQuery": "{count} resultados em {type} {collection} para {query}",
       "withoutQuery": "{count} resultados",

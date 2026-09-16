@@ -21,18 +21,32 @@
             <MetadataField
               v-for="name in CORE_FIELDS"
               :key="name"
-              :metadata-language="metadataLanguage"
               :name="name"
               :field-data="metadata[name]"
               :label-id="`${name}-main-label`"
+              class="d-lg-flex"
             />
           </b-card-text>
         </b-tab>
         <b-tab
+          :button-id="allMetadataTabLinkId"
           :title-link-attributes="{'data-qa': 'all metadata tab'}"
+          title-link-class="d-flex"
+          @mouseleave.native="hideTooltips"
         >
           <template #title>
-            <h2>{{ $t('record.allMetaData') }}</h2>
+            <h2 class="d-inline-block">
+              {{ $t('record.allMetaData') }}
+            </h2>
+            <span
+              class="icon-info-outline ml-1"
+            />
+            <b-tooltip
+              :target="allMetadataTabLinkId"
+              placement="bottom"
+            >
+              {{ $t(`record.allMetaDataInfo`) }}
+            </b-tooltip>
           </template>
           <b-card-text
             text-tag="div"
@@ -40,10 +54,10 @@
             <MetadataField
               v-for="name in ALL_FIELDS"
               :key="name"
-              :metadata-language="metadataLanguage"
               :name="name"
               :field-data="metadata[name]"
               :label-id="`${name}-label`"
+              class="d-lg-flex"
             />
           </b-card-text>
         </b-tab>
@@ -58,13 +72,11 @@
             <h2>{{ $t('record.location') }}</h2>
           </template>
           <b-card-text
+            v-if="mappableLocation && showLocationMap"
             text-tag="div"
           >
-            <EmbedMap
-              v-if="mappableLocation && showLocationMap"
-              :pref-label="mappableLocation.prefLabel"
-              :latitude="mappableLocation.latitude"
-              :longitude="mappableLocation.longitude"
+            <ItemLocationMap
+              :location="mappableLocation"
             />
           </b-card-text>
         </b-tab>
@@ -76,6 +88,7 @@
 <script>
   import { BTab, BTabs } from 'bootstrap-vue';
   import MetadataField from './MetadataField';
+  import useHideTooltips from '@/composables/hideTooltips.js';
 
   export default {
     name: 'MetadataBox',
@@ -84,7 +97,7 @@
       BTab,
       BTabs,
       MetadataField,
-      EmbedMap: () => import('../embed/EmbedMap')
+      ItemLocationMap: () => import('@/components/item/ItemLocationMap.vue')
     },
 
     props: {
@@ -95,11 +108,14 @@
       location: {
         type: Object,
         default: null
-      },
-      metadataLanguage: {
-        type: String,
-        default: null
       }
+    },
+
+    setup() {
+      const allMetadataTabLinkId = 'all-metadata-tab-link';
+      const { hideTooltips } = useHideTooltips(allMetadataTabLinkId);
+
+      return { hideTooltips, allMetadataTabLinkId };
     },
 
     data() {
@@ -155,6 +171,7 @@
     'dcDuration',
     'dcFormat',
     'dcLanguage',
+    'dctermsTOC',
     'dctermsIsPartOf',
     'dcRelation',
     'dctermsReferences',
@@ -178,8 +195,7 @@
     'europeanaCollectionName',
     'timestampCreated',
     'timestampUpdate',
-    'keywords',
-    'dctermsTOC'
+    'keywords'
   ]);
 </script>
 
@@ -189,5 +205,13 @@
 
   .metadata-box-card {
     border: none;
+  }
+
+  #all-metadata-tab-link {
+    .icon-info-outline {
+      font-size: $font-size-base;
+      line-height: $font-size-small;
+      color: $darkgrey;
+    }
   }
 </style>

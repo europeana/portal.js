@@ -13,9 +13,9 @@ export default class Manager {
 
   /**
    * @param {Object} options Session management options
-   * @param {MonitorOptions} options.monitor Session activity monitor options, passed to
+   * @param {MonitorOptions} options.monitor Monitor options
    * @param {SessionOptions} options.session Session options
-   * @param {StorageOptions} options.storage Session storage options
+   * @param {StorageOptions} options.storage Storage options
    */
   constructor(options = {}) {
     this.options = options;
@@ -48,7 +48,7 @@ export default class Manager {
   }
 
   startMonitoring() {
-    this.#monitor = new Monitor(() => this.touch(), this.options.monitor);
+    this.#monitor = new Monitor((event) => this.touch(event), this.options.monitor);
   }
 
   stopMonitoring() {
@@ -58,12 +58,14 @@ export default class Manager {
   store() {
     this.#storage.data = {
       id: this.session.id,
+      activatedAt: this.session.activatedAt,
+      activatedBy: this.session.activatedBy,
       timestamp: this.session.timestamp
     };
   }
 
-  touch() {
-    this.session.touch();
+  touch(event) {
+    this.session.touch(event);
     this.store();
   }
 }

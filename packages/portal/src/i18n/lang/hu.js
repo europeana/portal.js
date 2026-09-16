@@ -47,6 +47,7 @@ export default {
     "clearFilters": "Szűrők törlése",
     "close": "bezárás",
     "confirm": "Megerősít",
+    "contact": "Kapcsolat",
     "continue": "folytatás",
     "depublish": "Közzététel visszavonása",
     "download": "Letöltés",
@@ -80,6 +81,7 @@ export default {
     "transcribe": "Átirat készítése",
     "transcribeNow": "Átirat készítése most",
     "unlike": "Nem tetszik",
+    "viewAll": "Összes megtekintése {count}",
     "viewAt": "Megtekintés a következő helyen: {link}",
     "viewDocument": "Dokumentum megtekintése",
     "vote": "Szavazás"
@@ -105,14 +107,7 @@ export default {
         "create": {
           "button": "Személyes API-kulcs igénylése",
           "checkbox": "Megerősítem, hogy elolvastam és elfogadom az API-kulcsot {termsOfUseLink}."
-        },
-        "description": "Tanulja meg és próbálja ki, hogyan használhatja az API-kat a saját személyes API-kulcsával. Kérjük, ne ossza meg{howToLink}.",
-        "heading": "Személyes API-kulcs",
-        "howToLinkText": "Hogyan használja a kulcsát"
-      },
-      "projectKeys": {
-        "description": "Minden projekthez, amelyet létre szeretne hozni, biztosítunk egy dedikált kulcsot. A projektkulcsok magasabb limitekkel és egyéb speciális funkciókkal rendelkeznek – további információkat az API-kulcs {termsOfUseLink} oldalán talál. Ha szeretné módosítani a projektjével kapcsolatos információkat, kérjük, küldjön e-mailt az api@europeana.eu címre, és mi elvégezzük Ön helyett a változtatásokat.",
-        "heading": "Projekt API-kulcsok"
+        }
       },
       "termsOfUseLinkText": "felhasználási feltételek"
     },
@@ -138,9 +133,27 @@ export default {
     "country": "Ország:",
     "creator": "Alkotó:",
     "date": "Dátum:",
+    "hide": "Szerzőmegjelölés elrejtése",
     "institution": "Intézmény:",
     "show": "Attribúció megjelenítése",
     "title": "Cím:"
+  },
+  "audioVisualPlayer": {
+    "Captions": "Feliratok / kódolt feliratok",
+    "captions off": "Kikapcsolva",
+    "captionsOption": "{language} feliratok",
+    "Exit Fullscreen": "Kilépés a teljes képernyős módból",
+    "Fullscreen": "Teljes képernyő",
+    "Mute": "Némítás",
+    "Pause": "Szünet",
+    "Play": "Lejátszás",
+    "Play Video": "Videó lejátszása",
+    "Replay": "Visszajátszás",
+    "Subtitles": "Feliratok / kódolt feliratok",
+    "subtitles off": "Kikapcsolva",
+    "subtitlesOption": "{language} feliratok",
+    "Unmute": "Némítás feloldása",
+    "Volume Level": "Hangerőszint"
   },
   "authored": {
     "by": "Szerző:",
@@ -149,14 +162,15 @@ export default {
   "automatedCardGroup": {
     "gallery": "Legújabb galériák",
     "item": "Legutóbbi elemek",
-    "organisation": "Szervezetek",
+    "organisation": "Szolgáltató intézmény",
     "place": "Helyek",
     "theme": "Témakörök",
     "time": "Évszázadok",
     "topic": "Témák"
   },
   "cardLabels": {
-    "organisation": "Szervezet",
+    "aggregator": "Aggregátor",
+    "organisation": "Intézmény",
     "person": "Személy",
     "place": "Hely",
     "theme": "Témakör",
@@ -316,13 +330,13 @@ export default {
       "description": "Ismeretlen hiba történt.",
       "title": "Ismeretlen hiba"
     },
-    "IIIFManifestFailure": {
-      "description": "Sajnos a Europeana számára biztosított média tárgy jelenleg nem lehet megjeleníteni. Kérjük, próbálja meg letölteni a médiát, vagy tekintse meg az tárgy a szolgáltató intézmény weboldalán."
-    },
     "itemNotFound": {
       "description": "Ennek a következő okai lehetnek: az elem nem létezik; vagy eltávolítottuk, mert nem felelt meg a minőségi követelményeknek; vagy frissítettük és új egyedi azonosítóval tettük közzé, ebben az esetben próbáld meg újra megkeresni az oldalon.",
       "metaTitle": "Az elem nem található",
       "title": "Jaj, ne! {newline} Ez az elem nem található."
+    },
+    "mediaFailure": {
+      "description": "Sajnos a Europeana számára biztosított média tárgy jelenleg nem lehet megjeleníteni. Kérjük, próbálja meg letölteni a médiát, vagy tekintse meg az tárgy a szolgáltató intézmény weboldalán."
     },
     "noFeatureIdeas": {
       "description": "Nézz vissza hamarosan!",
@@ -371,6 +385,7 @@ export default {
       "options": {
         "archaeology": "Régészet",
         "art": "Művészet",
+        "audiovisual": "Audiovizuális örökség",
         "fashion": "Divat",
         "industrial": "Ipari örökség",
         "manuscript": "Kéziratok",
@@ -716,6 +731,14 @@ export default {
       "name": "Szerzői jogok",
       "select": "Szerzői jogok kiválasztása"
     },
+    "sort": {
+      "name": "Rendezés",
+      "options": {
+        "proxy_dcterms_issued+asc": "Kibocsátás dátuma (a legrégebbitől elöl)",
+        "proxy_dcterms_issued+desc": "Kibocsátás dátuma (újak elöl)"
+      },
+      "select": "Válassza ki az eredmények rendezésének módját"
+    },
     "TYPE": {
       "name": "Adathordozó típusa",
       "options": {
@@ -791,11 +814,52 @@ export default {
       "year": "Év"
     },
     "webResource": {
-      "about": "RDF Névjegy",
-      "dcDescription": "Leírás",
-      "ebucoreHasMimeType": "Ebucore MIME típus",
-      "edmRights": "A médiaforrás szerzői jogai",
-      "rdfAbout": "RDF Névjegy"
+      "about": "Névjegy",
+      "dctermsConformsTo": "Megfelel",
+      "dcType": "Médiatípus",
+      "ebucoreAudioChannelNumber": "Hangcsatornák",
+      "ebucoreBitRate": "Bitráta (bps)",
+      "ebucoreDuration": "Időtartam",
+      "ebucoreFileByteSize": "Fájlméret (bájt)",
+      "ebucoreFrameRate": "Képkockasebesség (fps)",
+      "ebucoreHasMimeType": "MIME-típus",
+      "ebucoreHeight": "Magasság (px)",
+      "ebucoreOrientation": "Tájolás",
+      "ebucoreSampleRate": "Mintavételi frekvencia (Hz)",
+      "ebucoreSampleSize": "Minta mérete (bit)",
+      "ebucoreWidth": "Szélesség (px)",
+      "edmCodecName": "Kodek",
+      "edmComponentColor": "Komponens színe",
+      "edmHasColorSpace": "Színtér",
+      "edmIntendedUsage": "Tervezett felhasználás",
+      "edmPolygonCount": "Poligonok száma",
+      "edmRights": "Jognyilatkozat ehhez a médiához",
+      "edmSpatialResolution": "Térbeli felbontás (dpi)",
+      "edmVertexCount": "Csúcspontok száma",
+      "schemaDigitalSourceType": "Kapcsolat a való világgal"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Művészet",
+      "creativity": "Kreativitás",
+      "curation": "Kurátori munka",
+      "design": "Tervezés",
+      "documentation": "Dokumentáció",
+      "education": "Oktatás",
+      "exhibition": "Kiállítás",
+      "gaming": "Gaming",
+      "infotainment": "Infotainment",
+      "knowledge": "Tudás",
+      "maintenance": "Karbantartás",
+      "research": "Kutatás",
+      "restoration": "Helyreállítás",
+      "tourism": "Turizmus"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Rekonstrukció",
+      "digitalCapture": "Valóságrögzítés",
+      "digitalCreation": "Digitálisan született"
     }
   },
   "filterResults": "Találatok szűrése",
@@ -836,10 +900,12 @@ export default {
     "navigation": {
       "about": "Rólunk",
       "collections": "Gyűjtemények",
-      "europeanaClassroom": "Tanároknak",
+      "educators": "Oktatóknak",
       "featureIdeas": "Funkcióötletek",
       "help": "Súgó",
       "home": "Kezdőlap",
+      "partners": "Legyen a partnerünk",
+      "research": "Akadémikusok és kutatók számára",
       "shareYourCollections": "Ossza meg gyűjteményeit",
       "stories": "Történetek"
     },
@@ -889,11 +955,10 @@ export default {
         "title": "Szolgáltatások, amelyeket szeretnénk igénybe venni."
       },
       "consentNotice": {
-        "description": "Üdv! Engedélyezhetünk néhány további szolgáltatást az elemzés és a biztonság érdekében? Hozzájárulásodat később bármikor módosíthatod vagy visszavonhatod.",
-        "learnMore": "Testreszabás"
+        "description": "Engedélyezhetjük a biztonsági, analitikai és harmadik féltől származó tartalmakhoz kapcsolódó szolgáltatásokat?",
+        "learnMore": "Süti beállítások kezelése"
       },
-      "decline": "Elutasítom",
-      "ok": "Rendben",
+      "decline": "Elutasítás",
       "purposes": {
         "2D": {
           "title": "2D média"
@@ -946,6 +1011,10 @@ export default {
       "auth-strategy": {
         "description": "Emlékszik a bejelentkezéshez használandó engedélyezési stratégiára.",
         "title": "Auth stratégia"
+      },
+      "cloudflare": {
+        "description": "Megjegyzi, hogy a biztonsági ellenőrzés sikeresen lezajlott.",
+        "title": "Cloudflare"
       },
       "debugSettings": {
         "description": "Segít az API -kérelmek hibakeresésében",
@@ -1002,6 +1071,12 @@ export default {
   },
   "loading": "Betöltés",
   "loadingResults": "Találatok betöltése",
+  "map": {
+    "keyboardNavigatePins": "A gombostűk közötti navigáláshoz használja a nyíl billentyűket",
+    "keyboardPanAndZoom": "Használja a +, - és nyílbillentyűket a térkép nagyításához és mozgatásához",
+    "togglePin": "Gombostű be/ki",
+    "zoomInCluster": "Nagyítás a klaszterre"
+  },
   "media": {
     "controls": {
       "exitFullscreen": "Kilépés a teljes képernyős módból",
@@ -1024,6 +1099,8 @@ export default {
       "hide": "Oldalsáv elrejtése",
       "IIIFManifest": "IIIF Manifest",
       "links": "Linkek",
+      "metadata": "Média metaadatok",
+      "metadataInfo": "Információk a jelenleg megtekintett médiáról.",
       "search": "Keresés",
       "searchPlaceholder": "Kifejezések megadása",
       "show": "Oldalsáv megjelenítése"
@@ -1078,15 +1155,41 @@ export default {
     "city": "Város",
     "country": "Ország",
     "englishName": "Angol név",
-    "nameAcronym": "Név rövidítése"
+    "geographicScope": "Földrajzi hatókör",
+    "heritageDomain": "Örökségtípusok",
+    "nameAcronym": "Név rövidítése",
+    "providesAudienceEngagementActivity": "Közönségbevonó tevékenységek",
+    "providesCapacityBuildingActivity": "Kapacitásépítés",
+    "providesSupportForDataActivity": "Adattevékenységek",
+    "providesSupportForMediaType": "Médiatípus",
+    "providingInstitutionsCount": "Szolgáltató intézmények száma",
+    "recordCount": "Elemek száma"
+  },
+  "organisations": {
+    "aggregators": {
+      "description": "Az aggregátorok együttműködnek az adatszolgáltató intézményekkel, hogy összegyűjtsék és közzétegyék azok digitális kulturális örökségi elemeit az Europeana.eu oldalon.",
+      "title": "Aggregátorok"
+    },
+    "internationalAggregators": {
+      "description": "A tartományi és tematikus aggregátorok a kulturális ágazat (például múzeum, archívum vagy könyvtár) vagy téma (például divat) szerint határozzák meg a hatókörüket. Különböző európai országokban működő közreműködőkkel dolgoznak együtt.",
+      "title": "Tartományi és tematikus aggregátorok"
+    },
+    "providingInstitutions": {
+      "description": "Azon múzeumok, könyvtárak, archívumok és galériák listája, amelyek megosztják digitális kulturális elemek az Europeana.eu oldalon.",
+      "title": "Szolgáltató intézmények"
+    },
+    "regionalAggregators": {
+      "description": "A nemzeti és regionális aggregátorok országonként vagy régiónként határozzák meg hatókörüket. Az adott országban vagy régióban található közreműködőkkel dolgoznak.",
+      "title": "Országos és regionális aggregátorok"
+    }
   },
   "pageHasLoaded": "betöltődött",
   "pageNumber": "Oldalszám",
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Fedezd fel az intézményeket, amelyek digitális kulturális örökségi elemeket osztanak meg a Europeana.eu-n.",
-        "title": "Intézmények"
+        "description": "Fedezze fel a szolgáltató intézményeket, amelyek digitális kulturális örökségi elemeket tesznek közzé az Europeana.eu oldalon.",
+        "title": "Szolgáltató intézmény"
       },
       "persons": {
         "title": "Személyek"
@@ -1095,7 +1198,9 @@ export default {
         "title": "Helyek"
       },
       "table": {
+        "aggregator": "Aggregátor",
         "country": "Ország",
+        "domain": "Domain / Téma",
         "items": "Elemek",
         "name": "Név",
         "searchPlaceholder": "Keresés a táblázatban",
@@ -1129,6 +1234,7 @@ export default {
       "pin": "Az elem rögzítése az elérhető entitásokhoz."
     },
     "allMetaData": "Minden metaadat",
+    "allMetaDataInfo": "Információ a teljes elemről.",
     "clickToCopyEmbedCode": "Kattints a beágyazási kódra a másoláshoz",
     "extendedInformation": "Kiterjesztett információk",
     "goodToKnow": "Jó tudni",
@@ -1147,6 +1253,9 @@ export default {
   "related": {
     "categoryTags": {
       "title": "Fedezz fel kapcsolódó történeteket"
+    },
+    "collection": {
+      "preview": "Gyűjtemény előnézete"
     },
     "collections": {
       "name": "Kapcsolódó gyűjtemények",
@@ -1230,9 +1339,6 @@ export default {
     },
     "results": {
       "limitWarning": "A további találatok nem láthatóak, mivel csak az első 1000 legrelevánsabb találat jelenik meg. Ha nem találtad meg, amit keresel, fontold meg a keresés finomítását.",
-      "loginToSeeMore": "{login} további találatok megtekintéséhez",
-      "loginToSeeMultilingualResults": "Jelentkezz be, ha szeretnél a teljes gyűjteményben keresni, és nem korlátozni a találatokat a keresési kifejezés nyelvére.",
-      "showingMultilingualResults": "Eredmények megjelenítése a teljes gyűjteményben és az összes nyelven.",
       "withinCollection": "{count} találat ezzel kapcsolatban: {type}:{collection}",
       "withinCollectionWithQuery": "{count} találat ezzel kapcsolatban: {type}:{collection}, {query}",
       "withoutQuery": "{count} találat",

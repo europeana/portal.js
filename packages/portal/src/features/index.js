@@ -9,7 +9,6 @@ export const featureIsEnabled = (name) => {
 export const valueIsTruthy = (value) => Boolean(Number(value));
 
 export default () => featureToggles
-  .reduce((memo, featureToggle) => {
-    memo[featureToggle.name] = featureIsEnabled(featureToggle.name);
-    return memo;
-  }, {});
+  .reduce((memo, featureToggle) => Object.assign(memo, {
+    [featureToggle.name]: featureIsEnabled(featureToggle.name)
+  }), {});

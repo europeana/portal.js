@@ -22,10 +22,10 @@ describe('components/download/DownloadSuccessModal', () => {
     year: '1700',
     provider: 'Gamla Linköping',
     country: 'Sweden',
-    rights: 'CC0',
+    rightsStatement: 'http://creativecommons.org/licenses/by-sa/3.0/',
     url: '/en/item/565/S_GL_object_GL000004'
   };
-  const attributionSnippet = 'Fåtölj - 1700 - Gamla Linköping, Sweden - CC0.\n/en/item/565/S_GL_object_GL000004';
+  const attributionSnippet = 'Fåtölj - 1700 - Gamla Linköping, Sweden - CC BY-SA.\n/en/item/565/S_GL_object_GL000004';
 
   describe('template', () => {
     it('shows a formatted attribution snippet', () => {

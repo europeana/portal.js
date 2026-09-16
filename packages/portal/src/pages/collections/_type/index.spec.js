@@ -11,8 +11,10 @@ localVue.use(BootstrapVue);
 const factory = (options = {}) => shallowMountNuxt(collectionType, {
   localVue,
   mocks: {
+    $features: {},
     $fetchState: options.fetchState || {},
     $t: (key, args) => args ? `${key} ${args}` : key,
+    $te: () => false,
     $route: { params: { type: options.type } },
     $pageHeadTitle: key => key,
     $error: sinon.spy()

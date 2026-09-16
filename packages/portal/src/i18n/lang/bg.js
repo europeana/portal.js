@@ -47,6 +47,7 @@ export default {
     "clearFilters": "Изчисти филтрите",
     "close": "затвори",
     "confirm": "Потвърди",
+    "contact": "Контакт",
     "continue": "продължи",
     "depublish": "Депубликувай",
     "download": "Изтегляне",
@@ -80,6 +81,7 @@ export default {
     "transcribe": "Транскрибиране",
     "transcribeNow": "Транскрибирайте сега",
     "unlike": "Не харесвам",
+    "viewAll": "Вижте всички {count}",
     "viewAt": "Преглед на {link}",
     "viewDocument": "Преглед на документа",
     "vote": "Гласувайте"
@@ -105,14 +107,7 @@ export default {
         "create": {
           "button": "Поискайте личен API ключ",
           "checkbox": "Потвърждавам, че съм прочел/а и приемам ключа за API {termsOfUseLink}."
-        },
-        "description": "Научете и тествайте как да използвате API с вашия личен API ключ. Моля, не го споделяйте. {howToLink}.",
-        "heading": "Личен API ключ",
-        "howToLinkText": "Как да използвате своя ключ"
-      },
-      "projectKeys": {
-        "description": "За всеки проект, който трябва да изградите, ще ви предоставим специален ключ. Ключовете за проекти имат по-високи лимити и други специални функции — прочетете повече в API ключа {termsOfUseLink}. Ако желаете да редактирате информацията за вашия проект, изпратете имейл на api@europeana.eu и ние ще направим промените вместо вас.",
-        "heading": "Ключове за API на проекта"
+        }
       },
       "termsOfUseLinkText": "условия за ползване"
     },
@@ -138,9 +133,27 @@ export default {
     "country": "Държава:",
     "creator": "Създател:",
     "date": "Дата:",
+    "hide": "Скриване на авторството",
     "institution": "Институция:",
     "show": "Показване на атрибуция",
     "title": "Заглавие:"
+  },
+  "audioVisualPlayer": {
+    "Captions": "Субтитри / скрити надписи",
+    "captions off": "Изкл.",
+    "captionsOption": "{language} надписи",
+    "Exit Fullscreen": "Изход от цял екран",
+    "Fullscreen": "Цял екран",
+    "Mute": "Без звук",
+    "Pause": "Пауза",
+    "Play": "Пусни",
+    "Play Video": "Възпроизвеждане на видео",
+    "Replay": "Повторение",
+    "Subtitles": "Субтитри / скрити надписи",
+    "subtitles off": "Изкл.",
+    "subtitlesOption": "{language} субтитри",
+    "Unmute": "Включване на звука",
+    "Volume Level": "Ниво на звука"
   },
   "authored": {
     "by": "от",
@@ -149,14 +162,15 @@ export default {
   "automatedCardGroup": {
     "gallery": "Последни галерии",
     "item": "Скорошни обекта",
-    "organisation": "Организации",
+    "organisation": "Доставчици на данни",
     "place": "Места",
     "theme": "Теми",
     "time": "Векове",
     "topic": "Рубрика"
   },
   "cardLabels": {
-    "organisation": "Организация",
+    "aggregator": "Агрегатор",
+    "organisation": "Институция",
     "person": "човек",
     "place": "място",
     "theme": "Тема",
@@ -316,13 +330,13 @@ export default {
       "description": "Възникна неизвестна грешка.",
       "title": "Неизвестна грешка"
     },
-    "IIIFManifestFailure": {
-      "description": "За съжаление, предоставеният медиен обект за Europeana в момента не може да бъде показан. Моля, опитайте да изтеглите медията или разгледайте обекта на уебсайта на доставчика на данни."
-    },
     "itemNotFound": {
       "description": "Това може да се дължи на следните причини: този обект не съществува или; беше отменено публикуването му, защото не отговаряше на нашите критерии за качество, или; той беше актуализиран и публикуван отново с нов уникален идентификатор, в който случай опитайте да намерите обект отново.",
       "metaTitle": "Артикулът не е намерен",
       "title": "О, не! {newline} Не успяхме да намерим този обект."
+    },
+    "mediaFailure": {
+      "description": "За съжаление, предоставеният медиен обект за Europeana в момента не може да бъде показан. Моля, опитайте да изтеглите медията или разгледайте обекта на уебсайта на доставчика на данни."
     },
     "noFeatureIdeas": {
       "description": "Проверете отново скоро!",
@@ -371,6 +385,7 @@ export default {
       "options": {
         "archaeology": "Археология",
         "art": "Изкуство",
+        "audiovisual": "Аудиовизуално наследство",
         "fashion": "Мода",
         "industrial": "Индустриално наследство",
         "manuscript": "Ръкописи",
@@ -716,6 +731,14 @@ export default {
       "name": "Права за ползване",
       "select": "Изберете изявления за права"
     },
+    "sort": {
+      "name": "Сортиране по",
+      "options": {
+        "proxy_dcterms_issued+asc": "Дата на издаване (най-старите първи)",
+        "proxy_dcterms_issued+desc": "Дата на издаване (най-нови първи)"
+      },
+      "select": "Изберете как да сортирате резултатите"
+    },
     "TYPE": {
       "name": "Вид медия",
       "options": {
@@ -791,11 +814,52 @@ export default {
       "year": "Година"
     },
     "webResource": {
-      "about": "Относно RDF",
-      "dcDescription": "Описание",
-      "ebucoreHasMimeType": "Тип Ebucore MIME",
-      "edmRights": "Лиценз за този медиен ресурс",
-      "rdfAbout": "Относно RDF"
+      "about": "Относно",
+      "dctermsConformsTo": "Съответства на",
+      "dcType": "Вид медия",
+      "ebucoreAudioChannelNumber": "Аудио канали",
+      "ebucoreBitRate": "Битрейт (bps)",
+      "ebucoreDuration": "Продължителност",
+      "ebucoreFileByteSize": "Размер на файла (байтове)",
+      "ebucoreFrameRate": "Честота на кадрите (fps)",
+      "ebucoreHasMimeType": "MIME тип",
+      "ebucoreHeight": "Височина (px)",
+      "ebucoreOrientation": "Ориентация",
+      "ebucoreSampleRate": "Честота на дискретизация (Hz)",
+      "ebucoreSampleSize": "Размер на извадката (битове)",
+      "ebucoreWidth": "Ширина (px)",
+      "edmCodecName": "Кодек",
+      "edmComponentColor": "Цвят на компонента",
+      "edmHasColorSpace": "Цветово пространство",
+      "edmIntendedUsage": "Предназначена употреба",
+      "edmPolygonCount": "Брой полигони",
+      "edmRights": "Декларация за права за тази медия",
+      "edmSpatialResolution": "Пространствена разделителна способност (dpi)",
+      "edmVertexCount": "Брой върхове",
+      "schemaDigitalSourceType": "Връзка с реалния свят"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Изкуство",
+      "creativity": "Креативност",
+      "curation": "Куриране",
+      "design": "Дизайн",
+      "documentation": "Документация",
+      "education": "Образование",
+      "exhibition": "Изложба",
+      "gaming": "Гейминг",
+      "infotainment": "Инфотейнмънт",
+      "knowledge": "Знание",
+      "maintenance": "Поддръжка",
+      "research": "Изследване",
+      "restoration": "Възстановяване",
+      "tourism": "Туризъм"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Реконструкция",
+      "digitalCapture": "Заснемане на реалността",
+      "digitalCreation": "Родено в цифров вид"
     }
   },
   "filterResults": "Филтриране на резултати",
@@ -836,10 +900,12 @@ export default {
     "navigation": {
       "about": "За нас",
       "collections": "Колекции",
-      "europeanaClassroom": "За учители",
+      "educators": "За преподаватели",
       "featureIdeas": "Идеи за функции",
       "help": "Помощ",
       "home": "Начало",
+      "partners": "Партнирайте си с нас",
+      "research": "За академични среди и изследвания",
       "shareYourCollections": "Споделете вашите колекции",
       "stories": "Истории"
     },
@@ -889,11 +955,10 @@ export default {
         "title": "Услуги, които бихме искали да използваме."
       },
       "consentNotice": {
-        "description": "здрасти Можем ли да активираме някои допълнителни услуги за анализ и сигурност? Винаги можете да промените или оттеглите съгласието си по-късно.",
-        "learnMore": "Позволете ми да избера"
+        "description": "Можем ли да активираме услугите за сигурност, анализи и съдържание на трети страни?",
+        "learnMore": "Управление на настройките за бисквитки"
       },
-      "decline": "Отказвам",
-      "ok": "добре",
+      "decline": "Отказ",
       "purposes": {
         "2D": {
           "title": "2D медии"
@@ -946,6 +1011,10 @@ export default {
       "auth-strategy": {
         "description": "Спомня си стратегията за оторизация, която да се използва за влизане.",
         "title": "Стратегия за утвърждаване"
+      },
+      "cloudflare": {
+        "description": "Запомня, че проверката за сигурност е премината успешно.",
+        "title": "Cloudflare"
       },
       "debugSettings": {
         "description": "Помага за отстраняване на грешки в заявки на API",
@@ -1002,6 +1071,12 @@ export default {
   },
   "loading": "Зареждане",
   "loadingResults": "Зареждане на резултати",
+  "map": {
+    "keyboardNavigatePins": "Използвайте клавишите със стрелки за навигация между пиновете",
+    "keyboardPanAndZoom": "Използвайте бутоните +, - и стрелките, за да приближавате и се придвижвате по картата",
+    "togglePin": "Превключване на карфицата",
+    "zoomInCluster": "Увеличете мащаба на клъстера"
+  },
   "media": {
     "controls": {
       "exitFullscreen": "Изход от цял екран",
@@ -1024,6 +1099,8 @@ export default {
       "hide": "Скриване на страничната лента",
       "IIIFManifest": "IIIF Манифест",
       "links": "Връзки",
+      "metadata": "Метаданни на медията",
+      "metadataInfo": "Информация за медията, която в момента преглеждате.",
       "search": "Търсене",
       "searchPlaceholder": "Въведете термини",
       "show": "Показване на страничната лента"
@@ -1078,15 +1155,41 @@ export default {
     "city": "град",
     "country": "Държава:",
     "englishName": "английско име",
-    "nameAcronym": "Акроним на името"
+    "geographicScope": "Географски обхват",
+    "heritageDomain": "Видове наследство",
+    "nameAcronym": "Акроним на името",
+    "providesAudienceEngagementActivity": "Дейности за ангажиране на аудиторията",
+    "providesCapacityBuildingActivity": "Изграждане на капацитет",
+    "providesSupportForDataActivity": "Дейности с данни",
+    "providesSupportForMediaType": "Тип медия",
+    "providingInstitutionsCount": "Брой доставчици на данни",
+    "recordCount": "Брой обекти"
+  },
+  "organisations": {
+    "aggregators": {
+      "description": "Агрегаторите работят с предоставящите институции за събиране и публикуване на техните дигитални културни обекта в Europeana.eu.",
+      "title": "Агрегатори"
+    },
+    "internationalAggregators": {
+      "description": "Домейн и тематичните агрегатори определят обхвата си по културни сектори (например музей, архив или библиотека) или по теми и тематични области (например мода). Те работят със сътрудници, базирани в различни европейски държави.",
+      "title": "Домейн и тематични агрегатори"
+    },
+    "providingInstitutions": {
+      "description": "Списък с музеи, библиотеки, архиви и галерии, които споделят своите дигитални културни обекти в Europeana.eu.",
+      "title": "Предоставящи институции"
+    },
+    "regionalAggregators": {
+      "description": "Националните и регионалните агрегатори определят своя обхват според конкретна държава или регион. Те работят с участници, които се намират в рамките на тази държава или регион.",
+      "title": "Национални и регионални агрегатори"
+    }
   },
   "pageHasLoaded": "е зареден",
   "pageNumber": "Номер на страницата",
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Разгледайте институциите, които споделят обекта на цифровото културно наследство на Europeana.eu.",
-        "title": "институции"
+        "description": "Разгледайте институциите доставчици, които споделят обекти на дигиталното културно наследство в Europeana.eu.",
+        "title": "Доставчици на данни"
       },
       "persons": {
         "title": "Лица"
@@ -1095,7 +1198,9 @@ export default {
         "title": "Места"
       },
       "table": {
+        "aggregator": "Агрегатор",
         "country": "Държава:",
+        "domain": "Домейн / Тема",
         "items": "обекта",
         "name": "Име",
         "searchPlaceholder": "Търсене в таблицата",
@@ -1129,6 +1234,7 @@ export default {
       "pin": "Закачване на обект към налични същества"
     },
     "allMetaData": "Всички метаданни",
+    "allMetaDataInfo": "Информация за целия обекта.",
     "clickToCopyEmbedCode": "Кликнете върху кода за вграждане, за да го копирате.",
     "extendedInformation": "Разширена информация",
     "goodToKnow": "Добре е да се знае",
@@ -1147,6 +1253,9 @@ export default {
   "related": {
     "categoryTags": {
       "title": "Открийте свързани истории"
+    },
+    "collection": {
+      "preview": "Преглед на колекцията"
     },
     "collections": {
       "name": "Подобни колекции",
@@ -1230,9 +1339,6 @@ export default {
     },
     "results": {
       "limitWarning": "Допълнителни резултати не се показват, тъй като се показват само първите 1000 най-подходящи резултата. Ако не сте намерили това, което търсите, моля, помислете за прецизиране на търсенето.",
-      "loginToSeeMore": "{login} за да видите повече резултати",
-      "loginToSeeMultilingualResults": "Влезте, за да търсите в цялата колекция и да получите резултати, които не са ограничени до езика на вашата дума за търсене.",
-      "showingMultilingualResults": "Показване на резултати от цялата колекция и всички езици.",
       "withinCollection": "{count} резултати в рамките на {type} {collection}",
       "withinCollectionWithQuery": "{count} резултати в рамките на {type} {collection} за {query}",
       "withoutQuery": "{count} резултати",

@@ -1,5 +1,5 @@
 import { createLocalVue } from '@vue/test-utils';
-import { shallowMountNuxt } from '@test/utils.js';
+import { mountNuxt } from '@test/utils.js';
 import BootstrapVue from 'bootstrap-vue';
 import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup.vue';
 import sinon from 'sinon';
@@ -9,11 +9,9 @@ localVue.use(BootstrapVue);
 localVue.directive('masonry', {});
 localVue.directive('masonry-tile', {});
 
-const storeDispatch = sinon.spy();
-const storeIsPinnedGetter = sinon.stub();
 const redrawMasonry = sinon.spy();
 
-const factory = ({ propsData, mocks } = {}) => shallowMountNuxt(ItemPreviewCardGroup, {
+const factory = ({ propsData, mocks, provide, slots } = {}) => mountNuxt(ItemPreviewCardGroup, {
   localVue,
   propsData,
   mocks: {
@@ -26,12 +24,6 @@ const factory = ({ propsData, mocks } = {}) => shallowMountNuxt(ItemPreviewCardG
     },
     $route: { query: {} },
     $t: () => {},
-    $store: {
-      getters: {
-        'entity/isPinned': storeIsPinnedGetter
-      },
-      dispatch: storeDispatch
-    },
     $apis: {
       record: {
         mediaProxyUrl: () => 'proxied'
@@ -42,7 +34,10 @@ const factory = ({ propsData, mocks } = {}) => shallowMountNuxt(ItemPreviewCardG
       }
     },
     ...mocks
-  }
+  },
+  provide,
+  slots,
+  stubs: ['ItemPreviewCard']
 });
 
 const results = [
@@ -111,6 +106,39 @@ describe('components/item/ItemPreviewCardGroup', () => {
         const renderedResults = wrapper.findAll('[data-qa="item preview"]');
 
         expect(renderedResults.length).toBe(4);
+      });
+    });
+
+    describe('when there are related collections found', () => {
+      it('shows related collections', async() => {
+        const wrapper = factory({ provide: { 'relatedCollectionsHasResults': true },
+          slots: { 'related-collections': '<div class="related-collections"></div>' } });
+
+        expect(wrapper.find('.related-collections').isVisible()).toBe(true);
+      });
+    });
+    describe('when there are NO related collections found', () => {
+      it('does NOT show related collections', () => {
+        const wrapper = factory({ provide: { 'relatedCollectionsHasResults': false },
+          slots: { 'related-collections': '<div class="related-collections"></div>' } });
+
+        expect(wrapper.find('.related-collections').isVisible()).toBe(false);
+      });
+    });
+
+    describe('when there are related galleries found', () => {
+      it('shows related galleries', () => {
+        const wrapper = factory({ provide: { 'relatedGalleriesHasResults': true },
+          slots: { 'related-galleries': '<div class="related-galleries"></div>' } });
+
+        expect(wrapper.find('.related-galleries').isVisible()).toBe(true);
+      });
+
+      it('does NOT show related galleries', () => {
+        const wrapper = factory({ provide: { 'relatedGalleriesHasResults': false },
+          slots: { 'related-galleries': '<div class="related-galleries"></div>' } });
+
+        expect(wrapper.find('.related-galleries').isVisible()).toBe(false);
       });
     });
   });

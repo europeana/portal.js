@@ -2,6 +2,36 @@ import WebResource from '@/plugins/europeana/edm/WebResource';
 
 describe('plugins/europeana/edm/WebResource', () => {
   describe('WebResource', () => {
+    describe('constructor', () => {
+      it('deletes htmlAttributionSnippet', () => {
+        const edm = { htmlAttributionSnippet: 'html' };
+        const wr = new WebResource(edm);
+
+        expect(wr.htmlAttributionSnippet).toBeUndefined();
+      });
+
+      it('deletes textAttributionSnippet', () => {
+        const edm = { textAttributionSnippet: 'text' };
+        const wr = new WebResource(edm);
+
+        expect(wr.textAttributionSnippet).toBeUndefined();
+      });
+
+      it('converts ebucoreDuration to a Number', () => {
+        const edm = { ebucoreDuration: '165912' };
+        const wr = new WebResource(edm);
+
+        expect(wr.ebucoreDuration).toBe(165912);
+      });
+
+      it('divides ebucoreDuration > 24 hours by 1,000', () => {
+        const edm = { ebucoreDuration: '138411000' };
+        const wr = new WebResource(edm);
+
+        expect(wr.ebucoreDuration).toBe(138411);
+      });
+    });
+
     describe('.id', () => {
       it('is an alias for property `about`', () => {
         const edm = { about: '/123/abc' };
@@ -12,6 +42,18 @@ describe('plugins/europeana/edm/WebResource', () => {
     });
 
     describe('.edmType', () => {
+      it('is the value of edmType from data if supplied', () => {
+        const wr = new WebResource({ ebucoreHasMimeType: 'application/octet-stream', edmType: 'VIDEO' });
+
+        expect(wr.edmType).toBe('VIDEO');
+      });
+
+      it('is 3D if ebucoreHasMimeType starts with model/', () => {
+        const wr = new WebResource({ ebucoreHasMimeType: 'model/gltf-binary' });
+
+        expect(wr.edmType).toBe('3D');
+      });
+
       it('is IMAGE if ebucoreHasMimeType starts with image/', () => {
         const wr = new WebResource({ ebucoreHasMimeType: 'image/jpeg' });
 
@@ -196,6 +238,33 @@ describe('plugins/europeana/edm/WebResource', () => {
       });
     });
 
+    describe('.isDisplayable3DModel', () => {
+      const displayable3DModelMedia = [
+        { ebucoreHasMimeType: 'model/gltf-binary' }
+      ];
+      const nonDisplayable3DModelMedia = [
+        { ebucoreHasMimeType: 'model/somethingelse' },
+        { ebucoreHasMimeType: 'text/plain' },
+        { ebucoreHasMimeType: 'image/jpeg' }
+      ];
+
+      for (const media of displayable3DModelMedia) {
+        it(`is true for ${JSON.stringify(media)}`, () => {
+          const wr = new WebResource(media);
+
+          expect(wr.isDisplayable3DModel).toBe(true);
+        });
+      }
+
+      for (const media of nonDisplayable3DModelMedia) {
+        it(`is false for ${JSON.stringify(media)}`, () => {
+          const wr = new WebResource(media);
+
+          expect(wr.isDisplayable3DModel).toBe(false);
+        });
+      }
+    });
+
     describe('.isPlayableMedia', () => {
       const playableMedia = [
         { ebucoreHasMimeType: 'video/mp4', edmCodecName: 'h264' },
@@ -278,6 +347,60 @@ describe('plugins/europeana/edm/WebResource', () => {
           const wr = new WebResource(media);
 
           expect(wr.isRichMedia).toBe(true);
+        });
+      }
+    });
+
+    describe('.isDownloadable', () => {
+      const tests = [
+        {
+          title: 'when there is no rights statement',
+          data: { edmRights: undefined },
+          expectation: false
+        },
+        {
+          title: 'when the rights statement is for in copyright',
+          data: { edmRights: { def: ['http://rightsstatements.org/vocab/InC/1.0/'] } },
+          expectation: false
+        },
+        {
+          title: 'when the selected media is the isShownAt',
+          data: { edmRights: { def: ['http://creativecommons.org/licenses/by-sa/3.0/'] }, forEdmIsShownAt: true },
+          expectation: false
+        },
+        {
+          title: 'when there is no ebucoreHasMimeType',
+          data: { ebucoreHasMimeType: undefined, edmRights: { def: ['http://creativecommons.org/licenses/by-sa/3.0/'] }, forEdmIsShownAt: false },
+          expectation: false
+        },
+        {
+          title: 'when for oEmbed',
+          data: { about: 'https://weave-3dviewer.com/asset/1', ebucoreHasMimeType: 'text/html', edmRights: { def: ['http://creativecommons.org/licenses/by-sa/3.0/'] }, forEdmIsShownAt: false },
+          expectation: false
+        },
+        {
+          title: 'when for an HTML document',
+          data: { ebucoreHasMimeType: 'text/html' },
+          expectation: false
+        },
+        {
+          title: 'otherwise',
+          data: {
+            about: 'https://example.org/image.jpeg',
+            ebucoreHasMimeType: 'image/jpeg',
+            edmRights: { def: ['http://creativecommons.org/licenses/by-sa/3.0/'] },
+            forEdmIsShownAt: false
+          },
+          expectation: true
+        }
+      ];
+      for (const test of tests) {
+        describe(`${test.title}`, () => {
+          it(`is ${test.expectation}`, () => {
+            const wr = new WebResource(test.data);
+
+            expect(wr.isDownloadable).toBe(test.expectation);
+          });
         });
       }
     });

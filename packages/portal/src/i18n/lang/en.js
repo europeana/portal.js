@@ -47,6 +47,7 @@ export default {
     "clearFilters": "Clear filters",
     "close": "close",
     "confirm": "Confirm",
+    "contact": "Contact",
     "continue": "continue",
     "depublish": "Depublish",
     "download": "Download",
@@ -80,6 +81,7 @@ export default {
     "transcribe": "Transcribe",
     "transcribeNow": "Transcribe now",
     "unlike": "Unlike",
+    "viewAll": "View all {count}",
     "viewAt": "View at {link}",
     "viewDocument": "View document",
     "vote": "Vote"
@@ -105,14 +107,7 @@ export default {
         "create": {
           "button": "Request a personal API key",
           "checkbox": "I confirm that I have read and accept the API key {termsOfUseLink}."
-        },
-        "description": "Learn and test out how to use APIs with your own personal API key. Please do not share it. {howToLink}.",
-        "heading": "Personal API key",
-        "howToLinkText": "How to use your key"
-      },
-      "projectKeys": {
-        "description": "For every project you need to build, we’ll supply you with a dedicated key. Project keys have higher limits and other special features - read more in the API key {termsOfUseLink}. If you would like to edit the information about your project, please send an email to api@europeana.eu, and we will make the changes for you.",
-        "heading": "Project API keys"
+        }
       },
       "termsOfUseLinkText": "terms of use"
     },
@@ -138,9 +133,27 @@ export default {
     "country": "Country:",
     "creator": "Creator:",
     "date": "Date:",
+    "hide": "Hide attribution",
     "institution": "Institution:",
     "show": "Show attribution",
     "title": "Title:"
+  },
+  "audioVisualPlayer": {
+    "Captions": "Subtitles / closed captions",
+    "captions off": "Off",
+    "captionsOption": "{language} captions",
+    "Exit Fullscreen": "Exit full screen",
+    "Fullscreen": "Full screen",
+    "Mute": "Mute",
+    "Pause": "Pause",
+    "Play": "Play",
+    "Play Video": "Play video",
+    "Replay": "Replay",
+    "Subtitles": "Subtitles / closed captions",
+    "subtitles off": "Off",
+    "subtitlesOption": "{language} subtitles",
+    "Unmute": "Unmute",
+    "Volume Level": "Volume Level"
   },
   "authored": {
     "by": "by",
@@ -149,14 +162,15 @@ export default {
   "automatedCardGroup": {
     "gallery": "Latest galleries",
     "item": "Recent items",
-    "organisation": "Organisations",
+    "organisation": "Providing institutions",
     "place": "Places",
     "theme": "Themes",
     "time": "Centuries",
     "topic": "Topics"
   },
   "cardLabels": {
-    "organisation": "Organisation",
+    "aggregator": "Aggregator",
+    "organisation": "Institution",
     "person": "Person",
     "place": "Place",
     "theme": "Theme",
@@ -252,17 +266,6 @@ export default {
     "right": "Right"
   },
   "ds4ch": {
-    "broughtBy": "Brought to you by",
-    "footer": {
-      "disclaimerLine1": "The common European data space for cultural heritage is an initiative of the European Union, financed by the European Union’s Digital Europe Programme. The data space services, including this website, are operated by a consortium led by the Europeana Foundation under a service contract with the European Commission."
-    },
-    "header": {
-      "navigation": {
-        "about": "About the data space",
-        "explore": "Explore the data",
-        "partners": "Partners"
-      }
-    },
     "homeLinkAlt": "The common European data space for cultural heritage home"
   },
   "edmIsShownAtLinkAlt": "View at the provider's website",
@@ -330,13 +333,13 @@ export default {
       "description": "An unknown error occurred.",
       "title": "Unknown error"
     },
-    "IIIFManifestFailure": {
-      "description": "Unfortunately, the item media as provided to Europeana can not be displayed at the moment. Please try to download the media or view the item on the providing institution's website."
-    },
     "itemNotFound": {
       "description": "This could be due to the following reasons: this item doesn't exist, or; it was depublished because it did not match our quality criteria, or; it was updated and republished with a new unique identifier, in which case, try to find the item again.",
       "metaTitle": "Item not found",
       "title": "Oh no! {newline} We were not able to find this item."
+    },
+    "mediaFailure": {
+      "description": "Unfortunately, the item media as provided to Europeana can not be displayed at the moment. Please try to download the media or view the item on the providing institution's website."
     },
     "noFeatureIdeas": {
       "description": "Check back again soon!",
@@ -385,6 +388,7 @@ export default {
       "options": {
         "archaeology": "Archaeology",
         "art": "Art",
+        "audiovisual": "Audiovisual Heritage",
         "fashion": "Fashion",
         "industrial": "Industrial Heritage",
         "manuscript": "Manuscripts",
@@ -749,6 +753,14 @@ export default {
       },
       "select": "Select rights statements"
     },
+    "sort": {
+      "name": "Sort by",
+      "options": {
+        "proxy_dcterms_issued+asc": "Issue Date (oldest first)",
+        "proxy_dcterms_issued+desc": "Issue Date (newest first)"
+      },
+      "select": "Select how to sort the results"
+    },
     "TYPE": {
       "name": "Type of media",
       "options": {
@@ -824,11 +836,52 @@ export default {
       "year": "Year"
     },
     "webResource": {
-      "about": "RDF About",
-      "dcDescription": "Description",
-      "ebucoreHasMimeType": "Ebucore MIME Type",
-      "edmRights": "Rights statement for this media resource",
-      "rdfAbout": "RDF About"
+      "about": "About",
+      "dctermsConformsTo": "Conforms to",
+      "dcType": "Type of media",
+      "ebucoreAudioChannelNumber": "Audio channels",
+      "ebucoreBitRate": "Bitrate (bps)",
+      "ebucoreDuration": "Duration",
+      "ebucoreFileByteSize": "File size (bytes)",
+      "ebucoreFrameRate": "Frame rate (fps)",
+      "ebucoreHasMimeType": "MIME Type",
+      "ebucoreHeight": "Height (px)",
+      "ebucoreOrientation": "Orientation",
+      "ebucoreSampleRate": "Sample rate (Hz)",
+      "ebucoreSampleSize": "Sample size (bits)",
+      "ebucoreWidth": "Width (px)",
+      "edmCodecName": "Codec",
+      "edmComponentColor": "Component colour",
+      "edmHasColorSpace": "Colour space",
+      "edmIntendedUsage": "Intended usage",
+      "edmPolygonCount": "Polygon count",
+      "edmRights": "Rights statement for this media",
+      "edmSpatialResolution": "Spatial resolution (dpi)",
+      "edmVertexCount": "Vertex count",
+      "schemaDigitalSourceType": "Relation with the real world"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Art",
+      "creativity": "Creativity",
+      "curation": "Curation",
+      "design": "Design",
+      "documentation": "Documentation",
+      "education": "Education",
+      "exhibition": "Exhibition",
+      "gaming": "Gaming",
+      "infotainment": "Infotainment",
+      "knowledge": "Knowledge",
+      "maintenance": "Maintenance",
+      "research": "Research",
+      "restoration": "Restoration",
+      "tourism": "Tourism"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Reconstruction",
+      "digitalCapture": "Reality capture",
+      "digitalCreation": "Born digital"
     }
   },
   "filterResults": "Filter results",
@@ -870,10 +923,12 @@ export default {
     "navigation": {
       "about": "About",
       "collections": "Collections",
-      "europeanaClassroom": "For teachers",
+      "educators": "For educators",
       "featureIdeas": "Feature ideas",
       "help": "Help",
       "home": "Home",
+      "partners": "Partner with us",
+      "research": "For academia and research",
       "shareYourCollections": "Share your collections",
       "stories": "Stories"
     },
@@ -923,11 +978,10 @@ export default {
         "title": "Services we would like to use."
       },
       "consentNotice": {
-        "description": "Hi! Could we please enable some additional services for analytics and security? You can always change or withdraw your consent later.",
-        "learnMore": "Let me choose"
+        "description": "Could we please enable services for security, analytics and third-party content?",
+        "learnMore": "Manage cookie settings"
       },
-      "decline": "I decline",
-      "ok": "Okay",
+      "decline": "Decline",
       "purposes": {
         "2D": {
           "title": "2D media"
@@ -981,6 +1035,10 @@ export default {
         "description": "Remembers the authorization strategy to use to log in.",
         "title": "Auth Strategy"
       },
+      "cloudflare": {
+        "description": "Remembers security challenge has been passed successfully.",
+        "title": "Cloudflare"
+      },
       "debugSettings": {
         "description": "Helps debugging API requests",
         "title": "Debug toggle"
@@ -1030,9 +1088,12 @@ export default {
         "homeLinkAlt": "Europeana APIs home",
         "navigation": {
           "apiDemo": "API demo",
+          "builtWith": "Built with our APIs",
+          "canDo": "What you can do with the APIs",
           "europeanaApis": "Europeana APIs",
           "faq": "FAQ",
-          "findInspiration": "Find inspiration"
+          "findInspiration": "Find inspiration",
+          "getKey": "Get your free API key"
         }
       }
     },
@@ -1055,6 +1116,12 @@ export default {
   },
   "loading": "Loading",
   "loadingResults": "Loading results",
+  "map": {
+    "keyboardNavigatePins": "Use the arrow keys to navigate pins",
+    "keyboardPanAndZoom": "Use the +, - and arrow keys to zoom and pan around the map",
+    "togglePin": "Toggle pin",
+    "zoomInCluster": "Zoom in on cluster"
+  },
   "media": {
     "controls": {
       "exitFullscreen": "Exit full screen",
@@ -1077,6 +1144,8 @@ export default {
       "hide": "Hide sidebar",
       "IIIFManifest": "IIIF Manifest",
       "links": "Links",
+      "metadata": "Media metadata",
+      "metadataInfo": "Information about the media you are currently viewing.",
       "search": "Search",
       "searchPlaceholder": "Enter terms",
       "show": "Show sidebar"
@@ -1135,15 +1204,41 @@ export default {
     "city": "City",
     "country": "Country",
     "englishName": "English name",
-    "nameAcronym": "Name acronym"
+    "geographicScope": "Geographic scope",
+    "heritageDomain": "Types of heritage",
+    "nameAcronym": "Name acronym",
+    "providesAudienceEngagementActivity": "Audience engagment activities",
+    "providesCapacityBuildingActivity": "Capacity building",
+    "providesSupportForDataActivity": "Data activities",
+    "providesSupportForMediaType": "Media type",
+    "providingInstitutionsCount": "Number of providing institutions",
+    "recordCount": "Number of items"
+  },
+  "organisations": {
+    "aggregators": {
+      "description": "Aggregators work with providing institutions to gather and publish their digital cultural heritage items on Europeana.eu.",
+      "title": "Aggregators"
+    },
+    "internationalAggregators": {
+      "description": "Domain and thematic aggregators define their scope by cultural sector (such as museum, archive or library) or by topic and theme (such as fashion). They work with contributors based in different European countries.",
+      "title": "Domain and thematic aggregators"
+    },
+    "providingInstitutions": {
+      "description": "A list of museums, libraries, archives and galleries which share their digital cultural heritage items on Europeana.eu.",
+      "title": "Providing institutions"
+    },
+    "regionalAggregators": {
+      "description": "National and regional aggregators define their scope by specific country or region. They work with contributors situated within that country or region.",
+      "title": "National and regional aggregators"
+    }
   },
   "pageHasLoaded": "has loaded",
   "pageNumber": "Page number",
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Explore the institutions which share digital cultural heritage items on Europeana.eu.",
-        "title": "Institutions"
+        "description": "Explore the providing institutions which share digital cultural heritage items on Europeana.eu.",
+        "title": "Providing institutions"
       },
       "persons": {
         "title": "Persons"
@@ -1152,7 +1247,9 @@ export default {
         "title": "Places"
       },
       "table": {
+        "aggregator": "Aggregator",
         "country": "Country",
+        "domain": "Domain / Theme",
         "items": "Items",
         "name": "Name",
         "searchPlaceholder": "Search within table",
@@ -1186,6 +1283,7 @@ export default {
       "pin": "Pin item to available Entities"
     },
     "allMetaData": "All metadata",
+    "allMetaDataInfo": "Information about this entire item.",
     "clickToCopyEmbedCode": "Click on the embed code to copy it",
     "extendedInformation": "Extended information",
     "goodToKnow": "Good to know",
@@ -1204,6 +1302,9 @@ export default {
   "related": {
     "categoryTags": {
       "title": "Discover related stories"
+    },
+    "collection": {
+      "preview": "Collection preview"
     },
     "collections": {
       "name": "Related collections",
@@ -1287,9 +1388,6 @@ export default {
     },
     "results": {
       "limitWarning": "Additional results are not shown as only the first 1000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search.",
-      "loginToSeeMore": "{login} to see more results",
-      "loginToSeeMultilingualResults": "Log in to search across the entire collection, and get results not limited to the language of your search term.",
-      "showingMultilingualResults": "Showing results across the entire collection and all languages.",
       "withinCollection": "{count} results within {type} {collection}",
       "withinCollectionWithQuery": "{count} results within {type} {collection} for {query}",
       "withoutQuery": "{count} results",

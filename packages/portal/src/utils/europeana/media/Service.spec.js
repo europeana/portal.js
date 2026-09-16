@@ -24,7 +24,6 @@ describe('EuropeanaMediaService', () => {
         const service = EuropeanaMediaService.fromEDM(edm);
 
         expect(service).toEqual({
-          context: 'http://iiif.io/api/image/2/context.json',
           id: edm.about,
           profile: edm.doapImplements
         });

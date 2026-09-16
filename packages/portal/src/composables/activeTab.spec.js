@@ -1,33 +1,34 @@
 import sinon from 'sinon';
 import { createLocalVue, shallowMount } from '@vue/test-utils';
-import * as vueRouter from 'vue2-helpers/vue-router';
-import { reactive } from 'vue';
+import { computed, reactive } from 'vue';
 
+import * as vueRouter from './vueRouter.js';
 import useActiveTab from '@/composables/activeTab.js';
 
 const routerPushSpy = sinon.spy();
 const routerReplaceSpy = sinon.spy();
 
 const route = reactive({ hash: '#links' });
-sinon.stub(vueRouter, 'useRoute').returns(route);
-sinon.stub(vueRouter, 'useRouter').returns({
+const router = {
   push: routerPushSpy,
   replace: routerReplaceSpy
-});
+};
+sinon.stub(vueRouter, 'useRoute').returns(computed(() => route));
+sinon.stub(vueRouter, 'useRouter').returns(computed(() => router));
 
-const tabHashes = ['#annotations', '#search', '#links'];
+const tabIds = ['annotations', 'search', 'links'];
 
 const component = (options = {}) => ({
   template: `
     <div>
-      <span id="activeTabHash">{{ activeTabHash }}</span>
+      <span id="activeTabId">{{ activeTabId }}</span>
       <input id="activeTabIndex" v-model="activeTabIndex" />
     </div>
   `,
   setup() {
-    const { activeTabHash, activeTabIndex, watchTabIndex } = useActiveTab(tabHashes, options);
+    const { activeTabId, activeTabIndex, watchTabIndex } = useActiveTab(tabIds, options);
 
-    return { activeTabHash, activeTabIndex, watchTabIndex };
+    return { activeTabId, activeTabIndex, watchTabIndex };
   }
 });
 
@@ -46,15 +47,15 @@ describe('useActiveTab', () => {
   afterEach(sinon.resetHistory);
   afterAll(sinon.restore);
 
-  describe('activeTabHash', () => {
+  describe('activeTabId', () => {
     it('is computed from activeTabIndex', async() => {
       const wrapper = factory();
 
       wrapper.find('#activeTabIndex').setValue(1);
       await wrapper.vm.$nextTick();
 
-      const span = wrapper.find('#activeTabHash');
-      expect(span.text()).toBe('#search');
+      const span = wrapper.find('#activeTabId');
+      expect(span.text()).toBe('search');
     });
   });
 
@@ -89,14 +90,33 @@ describe('useActiveTab', () => {
       expect(routerReplaceSpy.calledWith({ hash: '#search' })).toBe(true);
     });
 
-    it('uses push instead of replace if supplied option replaceRoute: false', async() => {
-      const wrapper = factory({ replaceRoute: false });
-      wrapper.vm.watchTabIndex();
+    describe('when supplied option `query`', () => {
+      const options = { query: 'tab' };
 
-      wrapper.find('#activeTabIndex').setValue(1);
-      await wrapper.vm.$nextTick();
+      it('updates route query instead of hash', async() => {
+        const wrapper = factory(options);
+        wrapper.vm.watchTabIndex();
 
-      expect(routerPushSpy.calledWith({ hash: '#search' })).toBe(true);
+        wrapper.find('#activeTabIndex').setValue(1);
+        await wrapper.vm.$nextTick();
+
+        expect(routerReplaceSpy.calledWith({ hash: undefined, query: { tab: 'search' } })).toBe(true);
+      });
+    });
+
+    describe('when supplied option `replaceRoute: false`', () => {
+      const options = { replaceRoute: false };
+
+      it('uses push instead of replace if', async() => {
+        const wrapper = factory(options);
+        wrapper.vm.watchTabIndex();
+
+        wrapper.find('#activeTabIndex').setValue(1);
+        await wrapper.vm.$nextTick();
+
+        expect(routerPushSpy.calledWith({ hash: '#search' })).toBe(true);
+      });
     });
   });
 });
+

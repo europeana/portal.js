@@ -8,6 +8,8 @@
 const APP_SITE_NAME = 'Europeana';
 const APP_PKG_NAME = '@europeana/portal';
 
+import camelCase from 'lodash/camelCase.js';
+
 import versions from './pkg-versions.js';
 
 import { locales as i18nLocales } from '@europeana/i18n';
@@ -59,14 +61,56 @@ const postgresConfig = () => {
   return postgresOptions;
 };
 
+const cacheControlConfig = () => {
+  const config = {
+    enabled: featureIsEnabled('cacheControl'),
+    default: process.env.APP_CACHE_CONTROL_DEFAULT,
+    auth: process.env.APP_CACHE_CONTROL_AUTH || 'no-store',
+    contentful: process.env.APP_CACHE_CONTROL_CONTENTFUL
+  };
+
+  config.route = Object.keys(process.env).filter((key) => key.startsWith('APP_CACHE_CONTROL_ROUTE_')).reduce((memo, key) => {
+    const scope = camelCase(key.replace('APP_CACHE_CONTROL_ROUTE_', ''));
+    memo[scope] = process.env[key];
+    return memo;
+  }, {});
+
+  const contentfulRouteScopes = [
+    'exhibitionsExhibition',
+    'exhibitionsExhibitionChapter',
+    'exhibitionsExhibitionCredits',
+    'featureIdeas',
+    'index',
+    'slug',
+    'stories',
+    'storiesAll',
+    'themes',
+    'themesAll'
+  ];
+
+  for (const scope of contentfulRouteScopes) {
+    if (config.contentful && !config.route[scope]) {
+      config.route[scope] = config.contentful;
+    }
+  }
+
+  return config;
+};
+
 export default {
   /*
   ** Runtime config
   */
   publicRuntimeConfig: {
     app: {
+      api: {
+        cors: {
+          origin: [process.env.PORTAL_BASE_URL].concat(process.env.APP_API_CORS_ORIGIN?.split(',')).filter(Boolean)
+        }
+      },
       // TODO: rename env vars to prefix w/ APP_, except feature toggles
       baseUrl: process.env.PORTAL_BASE_URL,
+      cacheControl: cacheControlConfig(),
       debiasAssetId: process.env.APP_DEBIAS_ASSET_ID,
       featureNotification: {
         expiration: featureNotificationExpiration(process.env.APP_FEATURE_NOTIFICATION_EXPIRATION),
@@ -75,19 +119,19 @@ export default {
       },
       feedback: {
         cors: {
-          origin: [process.env.PORTAL_BASE_URL].concat(process.env.APP_FEEDBACK_CORS_ORIGIN?.split(',')).filter((origin) => !!origin)
+          origin: [process.env.PORTAL_BASE_URL].concat(process.env.APP_FEEDBACK_CORS_ORIGIN?.split(',')).filter(Boolean)
         }
       },
       galleries: {
         europeanaAccount: process.env.APP_GALLERIES_EUROPEANA_ACCOUNT || 'europeana'
       },
       homeLandingPageSlug: process.env.APP_HOME_LANDING_PAGE_SLUG,
-      internalLinkDomain: process.env.INTERNAL_LINK_DOMAIN,
+      internalLinkDomains: process.env.APP_INTERNAL_LINK_DOMAINS?.split(',').filter(Boolean),
+      map: {
+        style: process.env.APP_MAP_STYLE || 'versatiles'
+      },
       notificationBanner: process.env.APP_NOTIFICATION_BANNER,
       projectApiKeyFormUrl: process.env.PROJECT_API_KEY_FORM_URL,
-      search: {
-        translateLocales: (process.env.APP_SEARCH_TRANSLATE_LOCALES || '').split(',')
-      },
       siteName: APP_SITE_NAME
     },
     auth: {
@@ -131,7 +175,10 @@ export default {
       }
     },
     europeana: {
-      apis: europeanaApisRuntimeConfig({ scope: 'public' })
+      apis: europeanaApisRuntimeConfig({ scope: 'public' }),
+      oembed: {
+        providerUrl: process.env.EUROPEANA_OEMBED_PROVIDER_URL || 'https://oembed.europeana.eu'
+      }
     },
     features: features(),
     hotjar: {
@@ -299,10 +346,16 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '~/plugins/elastic-apm/plugin.server',
+    '~/plugins/cookieless-redirect.server',
+    '~/plugins/elastic-apm/plugin.client',
+    '~/plugins/cookies',
     '~/plugins/vue-router-query',
     '~/plugins/vue-matomo.client',
+    '~/plugins/i18n-cookie.client',
     '~/plugins/error',
     '~/plugins/keycloak',
+    '~/plugins/axios-logger',
     '~/plugins/axios-cache-interceptor.client',
     '~/plugins/axios.server',
     '~/plugins/vue-session.client',
@@ -314,8 +367,6 @@ export default {
   ],
 
   buildModules: [
-    '~/modules/axios-logger',
-    '~/modules/query-sanitiser',
     '@nuxtjs/axios',
     '@nuxtjs/auth'
   ],
@@ -324,9 +375,7 @@ export default {
   ** Nuxt.js modules
   */
   modules: [
-    '~/modules/elastic-apm',
     'bootstrap-vue/nuxt',
-    'cookie-universal-nuxt',
     // WARN: do not move this to buildModules, else custom transaction naming
     //       by elastic-apm module won't be applied.
     ['@nuxtjs/i18n', {
@@ -381,7 +430,10 @@ export default {
       }
     },
     defaultStrategy: 'keycloak',
-    plugins: ['~/plugins/europeana-apis', '~/plugins/user-likes.client']
+    plugins: [
+      '~/plugins/europeana-apis',
+      '~/plugins/liked-items.client'
+    ]
   },
 
   axios: {
@@ -404,29 +456,32 @@ export default {
 
   router: {
     middleware: [
-      'trailing-slash',
+      // Early middlewares to apply always
+      //
+      // Remove any cookies from SSRs so that intermediaries will consider
+      // eligible for caching
+      'no-ssr-cookies',
+      // Redirection-related middlewares next
+      //
+      // legacy portal redirects MUST go first as they may already include locale
+      // but not as first part of URL slug, e.g. /portal/en/search
       'legacy/index',
+      // localise next, so that any subsequent redirects are locale-specific
       'l10n',
+      // 301 redirects may proceed
+      'trailing-slash',
       'contentful-galleries',
       'set-galleries',
-      'redirects'
+      'redirects',
+      // cache-control last, just before page-specific middleware, so any redirects
+      // etc have already occurred if needed. let intermediaries make their own
+      // decisions what to do with earlier redirects. order is important. later
+      // rules will override earlier ones if they match.
+      'cache-control/default',
+      'cache-control/route',
+      'cache-control/auth'
     ],
     extendRoutes(routes) {
-      const nuxtCollectionsPersonsOrPlacesRouteIndex = routes.findIndex(route => route.name === 'collections-persons-or-places');
-      routes.splice(nuxtCollectionsPersonsOrPlacesRouteIndex, 1);
-
-      routes.push({
-        name: 'collections-persons',
-        path: '/collections/persons',
-        component: 'src/pages/collections/persons-or-places.vue'
-      });
-
-      routes.push({
-        name: 'collections-places',
-        path: '/collections/places',
-        component: 'src/pages/collections/persons-or-places.vue'
-      });
-
       routes.push({
         name: 'slug',
         path: '/*',
@@ -439,7 +494,7 @@ export default {
   serverMiddleware: [
     // We can't use /api as that's reserved on www.europeana.eu for (deprecated)
     // access to Europeana APIs.
-    { path: '/_api', handler: '~/server-middleware/api' },
+    { path: '/_api', handler: '~/server-middleware/api.js' },
     { path: '/robots.txt', handler: '~/server-middleware/robots.txt' },
     '~/server-middleware/logging',
     '~/server-middleware/referrer-policy',
@@ -505,35 +560,48 @@ export default {
       'color-parse',
       'color-rgba',
       'color-space',
+      'cookie',
       'dom7',
       'ol/Collection.js',
       'ol/color.js',
       'ol/control/Attribution.js',
       'ol/control/Control.js',
+      'ol/dom.js',
       'ol/extent.js',
       'ol/events.js',
       'ol/format/IIIFInfo.js',
       'ol/geom/flat/intersectsextent.js',
+      'ol/geom/flat/lineoffset.js',
       'ol/geom/LineString.js',
+      'ol/ImageTile.js',
       'ol/interaction/DragBox.js',
       'ol/layer/Image.js',
       'ol/layer/Layer.js',
       'ol/layer/Tile.js',
       'ol/Map.js',
+      'ol/Overlay.js',
       'ol/proj.js',
       'ol/proj/epsg3857.js',
       'ol/proj/utm.js',
+      'ol/render/canvas/Builder.js',
+      'ol/render/canvas/Executor.js',
+      'ol/render/canvas/Immediate.js',
       'ol/render/canvas/ZIndexContext.js',
+      'ol/renderer/canvas/TileLayer.js',
       'ol/renderer/canvas/VectorLayer.js',
       'ol/render/Feature.js',
       'ol/reproj/DataTile.js',
       'ol/reproj/Tile.js',
+      'ol/source/Cluster.js',
       'ol/source/IIIF.js',
       'ol/source/ImageStatic.js',
       'ol/source/Source.js',
       'ol/source/static.js',
+      'ol/source/TileImage.js',
       'ol/source/Vector.js',
+      'ol/source/Zoomify.js',
       'ol/structs/LRUCache.js',
+      'ol/style/IconImage.js',
       'ol/style/Style.js',
       'ol/style/RegularShape.js',
       'ol/View.js',
@@ -541,6 +609,14 @@ export default {
       'swiper',
       'vue-router-query'
     ]
+  },
+
+  vue: {
+    config: {
+      ignoredElements: [
+        'model-viewer'
+      ]
+    }
   },
 
   /*

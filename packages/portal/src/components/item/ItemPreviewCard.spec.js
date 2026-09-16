@@ -5,7 +5,6 @@ import ItemPreviewCard from '@/components/item/ItemPreviewCard.vue';
 import sinon from 'sinon';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
-const storeIsPinnedGetter = sinon.stub();
 
 const item = {
   id: '/123/abc',
@@ -26,7 +25,7 @@ const factory = ({ mocks, parentComponent, propsData } = {}) => {
     mocks: {
       $apis: {
         thumbnail: {
-          edmPreview: (img) => img?.edmPreview?.[0],
+          edmPreview: sinon.spy(),
           generic: (id) => id
         }
       },
@@ -38,11 +37,6 @@ const factory = ({ mocks, parentComponent, propsData } = {}) => {
       },
       $route: { query: {} },
       $t: () => {},
-      $store: {
-        getters: {
-          'entity/isPinned': storeIsPinnedGetter
-        }
-      },
       ...mocks
     },
     stubs: ['ContentCard', 'ItemSelectCheckbox', 'UserButtons']
@@ -89,6 +83,20 @@ describe('components/item/ItemPreviewCard', () => {
       const wrapper = factory({ propsData: { item, variant: 'list' } });
 
       expect(wrapper.vm.type).toEqual(item.type);
+    });
+  });
+
+  describe('circle card', () => {
+    it('does not render texts', () => {
+      const wrapper = factory({ propsData: { item, variant: 'circle' } });
+
+      expect(wrapper.vm.texts).toBe(undefined);
+    });
+
+    it('fetches 200px thumbnail', () => {
+      const wrapper = factory({ propsData: { item, variant: 'circle' } });
+
+      expect(wrapper.vm.$apis.thumbnail.edmPreview.calledWith(item.edmPreview?.[0], { size: 200 })).toBe(true);
     });
   });
 

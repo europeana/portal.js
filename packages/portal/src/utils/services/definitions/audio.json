@@ -32,6 +32,7 @@
   {
     "name": "soundArchivesOfTheCNRS",
     "oembed": "https://oembed.europeana.eu/",
+    "responsive": false,
     "schemes": [
       "http://archives.crem-cnrs.fr/archives/items/*/"
     ],
@@ -40,6 +41,7 @@
   {
     "name": "soundCloud",
     "oembed": "https://soundcloud.com/oembed",
+    "responsive": false,
     "schemes": [
       "http://soundcloud.com/*",
       "https://soundcloud.com/*",

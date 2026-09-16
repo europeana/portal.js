@@ -5,7 +5,7 @@ const LOCALISE = 'prefLabel';
 const SORT = 'prefLabel';
 const DAILY = 4;
 
-const data = (config = {}) => baseData({ type: 'place' }, config);
+const data = (context = {}) => baseData({ type: 'place' }, context);
 
 export {
   data,

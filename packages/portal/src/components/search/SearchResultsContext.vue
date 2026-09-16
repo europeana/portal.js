@@ -4,10 +4,6 @@
       :path="i18nPath"
       tag="h1"
       class="context-label"
-      :class="{
-        'mr-4': suggestLoginForMoreResults,
-        'mr-1': multilingualSearchTooltip
-      }"
       data-qa="context label"
     >
       <template #count>
@@ -46,36 +42,7 @@
         />
       </template>
     </i18n><!-- This comment removes white space which gets underlined
- -->
-    <template v-if="!$features.multilingualSearchButton">
-      <i18n
-        v-if="suggestLoginForMoreResults"
-        path="search.results.loginToSeeMore"
-        tag="span"
-        class="context-label mr-1"
-        data-qa="results more link"
-      >
-        <template #login>
-          <b-link
-            class="more-link"
-            :href="localePath({ name: 'account-login', query: { redirect: $route.fullPath } })"
-            :target="null"
-            @click.prevent="$keycloak.login()"
-          >
-            {{ $t('actions.login') }}
-          </b-link>
-        </template>
-      </i18n><!-- This comment removes white space which gets underlined
-  --><b-button
-        v-if="multilingualSearchTooltip"
-        v-b-tooltip.bottom
-        :title="multilingualSearchTooltip"
-        class="icon-info-outline p-0 tooltip-button"
-        variant="light-flat"
-        data-qa="results more tooltip"
-      />
-    </template>
-    <output
+ --><output
       class="visually-hidden"
       data-qa="results status message"
     >
@@ -87,7 +54,7 @@
 <script>
   import SearchRemovalChip from './SearchRemovalChip';
   import { entityParamsFromUri } from '@/plugins/europeana/entity';
-  import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
+  import { organizationEntityNativeName } from '@/utils/europeana/entities/organizations.js';
 
   export default {
     name: 'SearchResultsContext',
@@ -96,9 +63,12 @@
       SearchRemovalChip
     },
 
-    mixins: [
-      europeanaEntitiesOrganizationsMixin
-    ],
+    inject: {
+      entity: {
+        from: 'currentEntity',
+        default: null
+      }
+    },
 
     props: {
       /**
@@ -118,14 +88,6 @@
       },
 
       /**
-       * The entity theme/collection within which the search has been made.
-       */
-      entity: {
-        type: Object,
-        default: null
-      },
-
-      /**
        * The variant used for the removal badges.
        */
       badgeVariant: {
@@ -135,6 +97,9 @@
     },
 
     computed: {
+      isAggregator() {
+        return (this.entity?.aggregatesFrom?.length || 0) > 0;
+      },
       // TODO: it's not possible to pluralise these keys properly due to the
       // i18n component usage here. i18n-vue 9.x supports a :plural prop for
       // the updated i18n-t component. Depends on Vue 3.
@@ -172,7 +137,7 @@
         return this.hasEntity ? entityParamsFromUri(this.entity.id) : {};
       },
       entityType() {
-        return this.entityParams.type;
+        return this.isAggregator ? 'aggregator' : this.entityParams.type;
       },
       entityId() {
         return this.entityParams.id;
@@ -203,24 +168,11 @@
           reusability: this.$route?.query?.reusability,
           view: this.$route?.query?.view
         };
-      },
-      translateSearchForCurrentLocale() {
-        return this.$config?.app?.search?.translateLocales?.includes(this.$i18n.locale);
-      },
-      suggestLoginForMoreResults() {
-        return !this.$auth.loggedIn && this.translateSearchForCurrentLocale;
-      },
-      multilingualSearchTooltip() {
-        if (this.translateSearchForCurrentLocale) {
-          if (this.$auth.loggedIn) {
-            return this.$t('search.results.showingMultilingualResults');
-          } else {
-            return this.$t('search.results.loginToSeeMultilingualResults');
-          }
-        } else {
-          return null;
-        }
       }
+    },
+
+    methods: {
+      organizationEntityNativeName
     }
   };
 </script>

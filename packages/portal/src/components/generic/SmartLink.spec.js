@@ -19,16 +19,15 @@ const $store = {
 const localePath = () => '/';
 const localePathSpy = sinon.spy(localePath);
 
-const factory = (mocks) => {
+const factory = ({ mocks = {}, propsData = {} } = {}) => {
   return shallowMount(SmartLink, {
     localVue,
+    propsData,
     mocks: {
-      ...{
-        localePath: localePathSpy,
-        $store,
-        $t: () => {},
-        $config: { app: { internalLinkDomain: null } }
-      },
+      localePath: localePathSpy,
+      $store,
+      $t: (key) => key,
+      $config: { app: { internalLinkDomains: null } },
       ...mocks
     }
   });
@@ -43,29 +42,50 @@ describe('components/generic/SmartLink', () => {
       expect(wrapper.find('b-link-stub').attributes('href')).toBeDefined();
     });
 
-    it('determines if the URL is an external path or not', async() => {
-      const wrapper = factory();
+    describe('isExternalLink', () => {
+      const scenarios = [
+        {
+          internalLinkDomains: null,
+          destination: 'https://www.example.org/url-example',
+          expectation: true
+        },
+        {
+          internalLinkDomains: ['www.foo.com'],
+          destination: 'https://www.example.org/url-example',
+          expectation: true
+        },
+        {
+          internalLinkDomains: ['www.foo.com'],
+          destination: '/test',
+          expectation: false
+        },
+        {
+          internalLinkDomains: ['www.foo.com'],
+          destination: 'https://www.foo.com/test',
+          expectation: false
+        },
+        {
+          internalLinkDomains: ['www.foo.com'],
+          destination: 'https://pro.foo.com/test',
+          expectation: true
+        }
+      ];
 
-      await wrapper.setData({ internalDomain: null });
-      await wrapper.setProps({ destination: 'https://www.example.org/url-example' });
-      expect(wrapper.vm.isExternalLink).toBe(true);
+      for (const scenario of scenarios) {
+        describe(`when internalLinkDomains is ${scenario.internalLinkDomains} and destination is ${scenario.destination}`, () => {
+          it(`is ${scenario.expectation}`, () => {
+            const mocks = { $config: { app: { internalLinkDomains: scenario.internalLinkDomains } } };
+            const propsData = { destination: scenario.destination };
+            const wrapper = factory({ mocks, propsData });
 
-      await wrapper.setData({ internalDomain: 'www.foo.com' });
-      await wrapper.setProps({ destination: 'https://www.example.org/url-example' });
-      expect(wrapper.vm.isExternalLink).toBe(true);
-
-      await wrapper.setProps({ destination: '/test' });
-      expect(wrapper.vm.isExternalLink).toBe(false);
-
-      await wrapper.setProps({ destination: 'https://www.foo.com/test' });
-      expect(wrapper.vm.isExternalLink).toBe(false);
-
-      await wrapper.setProps({ destination: 'https://pro.foo.com/test' });
-      expect(wrapper.vm.isExternalLink).toBe(true);
+            expect(wrapper.vm.isExternalLink).toBe(scenario.expectation);
+          });
+        });
+      }
     });
 
     it('determines if the URL is a link to a searchable page', async() => {
-      const wrapper = factory({ localePath: (path) => `/en/${path.params.pathMatch}` });
+      const wrapper = factory({ mocks: { localePath: (path) => `/en/${path.params.pathMatch}` } });
 
       await wrapper.setProps({ destination: '/search' });
       expect(wrapper.vm.isLinkToSearchablePage).toBe(true);
@@ -216,9 +236,11 @@ describe('components/generic/SmartLink', () => {
 
   describe('logSearchLink', () => {
     describe('when loggable prop is set and link is to a search page', () => {
-      it('returns true', async() => {
-        const wrapper = factory({ localePath: (path) => `/en/${path.params.pathMatch}` });
-        await wrapper.setProps({ destination: '/search' });
+      it('returns true', () => {
+        const wrapper = factory({
+          mocks: { localePath: (path) => `/en/${path.params.pathMatch}` },
+          propsData: { destination: '/search' }
+        });
 
         expect(wrapper.vm.logSearchLink).toEqual(true);
       });
@@ -226,7 +248,7 @@ describe('components/generic/SmartLink', () => {
   });
 
   describe('setLoggableInteraction', () => {
-    it('sets the loggable interaction state', async() => {
+    it('sets the loggable interaction state', () => {
       const wrapper = factory();
 
       wrapper.vm.setLoggableInteraction();

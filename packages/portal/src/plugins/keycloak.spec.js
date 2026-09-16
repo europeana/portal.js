@@ -1,9 +1,16 @@
+import axios from 'axios';
 import merge from 'deepmerge';
 import sinon from 'sinon';
 
 import { keycloakPlugin } from '@/plugins/keycloak.js';
 
 describe('plugins/keycloak.js', () => {
+  beforeAll(() => {
+    sinon.stub(axios, 'request');
+  });
+  afterEach(sinon.resetHistory);
+  afterAll(sinon.restore);
+
   describe('keycloakPlugin', () => {
     describe('redirectPath', () => {
       describe('when there is no route', () => {
@@ -72,6 +79,7 @@ describe('plugins/keycloak.js', () => {
         $auth: {
           loginWith: sinon.spy(),
           $storage: {
+            getUniversal: sinon.stub(),
             setUniversal: sinon.spy()
           }
         },
@@ -80,10 +88,38 @@ describe('plugins/keycloak.js', () => {
         }
       };
 
-      it('sets universal auth storage for redirect', () => {
-        keycloakPlugin(ctx).login();
+      describe('when universal auth storage for redirect is not yet set', () => {
+        it('sets it', () => {
+          keycloakPlugin({
+            ...ctx,
+            $auth: {
+              ...ctx.$auth,
+              $storage: {
+                ...ctx.$auth.$storage,
+                getUniversal: sinon.stub().withArgs('redirect').returns(null)
+              }
+            }
+          }).login();
 
-        expect(ctx.$auth.$storage.setUniversal.calledWith('redirect', '/account')).toBe(true);
+          expect(ctx.$auth.$storage.setUniversal.calledWith('redirect', '/account')).toBe(true);
+        });
+      });
+
+      describe('when universal auth storage for redirect is already set', () => {
+        it('does not set it', () => {
+          keycloakPlugin({
+            ...ctx,
+            $auth: {
+              ...ctx.$auth,
+              $storage: {
+                ...ctx.$auth.$storage,
+                getUniversal: sinon.stub().withArgs('redirect').returns('/en/account/api-keys')
+              }
+            }
+          }).login();
+
+          expect(ctx.$auth.$storage.setUniversal.calledWith('redirect', sinon.match.any)).toBe(false);
+        });
       });
 
       it('sets universal auth storage for logging in flag', () => {
@@ -93,9 +129,9 @@ describe('plugins/keycloak.js', () => {
       });
 
       it('calls auth login with keycloak scheme and ui_locales param', () => {
-        keycloakPlugin(ctx).login();
+        keycloakPlugin(ctx).login({ replace: true });
 
-        expect(ctx.$auth.loginWith.calledWith('keycloak', { params: { 'ui_locales': ctx.i18n.locale } })).toBe(true);
+        expect(ctx.$auth.loginWith.calledWith('keycloak', { params: { 'ui_locales': ctx.i18n.locale }, replace: true })).toBe(true);
       });
     });
 
@@ -176,9 +212,6 @@ describe('plugins/keycloak.js', () => {
                 request: sinon.stub().resolves({
                   accessToken: 'new'
                 })
-              },
-              $axios: {
-                request: sinon.spy()
               }
             });
 
@@ -192,7 +225,7 @@ describe('plugins/keycloak.js', () => {
             it('retries the original request', async() => {
               await keycloakPlugin(ctx).error(mockError());
 
-              expect(ctx.$axios.request.called).toBe(true);
+              expect(axios.request.called).toBe(true);
             });
           });
 
@@ -202,9 +235,6 @@ describe('plugins/keycloak.js', () => {
                 getRefreshToken: () => 'token',
                 request: sinon.stub().throws(),
                 logout: sinon.spy()
-              },
-              $axios: {
-                request: sinon.spy()
               }
             });
 
@@ -217,7 +247,7 @@ describe('plugins/keycloak.js', () => {
             it('retries the original request without authorization', async() => {
               await keycloakPlugin(ctx).error(mockError());
 
-              expect(ctx.$axios.request.calledWith({ headers: {} })).toBe(true);
+              expect(axios.request.calledWith({ headers: {} })).toBe(true);
             });
           });
 

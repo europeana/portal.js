@@ -130,78 +130,68 @@
         :loading="$fetchState.pending"
         :per-page="perPage"
         :total="set.total"
-        :show-pins="setIsEntityBestItems && userIsEntityEditor"
+        :show-pins="true"
         :user-editable-items="userCanEditSet"
         @endItemDrag="repositionItem"
-      >
-        <template #footer>
-          <client-only>
-            <SetRecommendations
-              v-if="displayRecommendations"
-              :identifier="`/${setId}`"
-              :type="set.type"
-            />
-          </client-only>
-        </template>
-      </ItemPreviewInterface>
+      />
     </div>
   </div>
 </template>
 
 <script>
   import { langMapValueForLocale } from '@europeana/i18n';
-  import ClientOnly from 'vue-client-only';
+  import { computed } from 'vue';
   import ItemPreviewInterface from '@/components/item/ItemPreviewInterface';
   import ShareButton from '@/components/share/ShareButton.vue';
   import ShareSocialModal from '@/components/share/ShareSocialModal.vue';
+  import { usePinnedItems } from '@/composables/pinnedItems.js';
   import useScrollTo from '@/composables/scrollTo.js';
   import { useSelectedItems } from '@/composables/selectedItems.js';
-  import entityBestItemsSetMixin from '@/mixins/europeana/entities/entityBestItemsSet';
   import langAttributeMixin from '@/mixins/langAttribute';
   import pageMetaMixin from '@/mixins/pageMeta';
-  import redirectToMixin from '@/mixins/redirectTo';
+  import { redirectToPrefPath } from '@/utils/redirect/redirectToPrefPath.js';
 
   export default {
     name: 'GalleryPage',
     components: {
-      ClientOnly,
       ErrorMessage: () => import('@/components/error/ErrorMessage'),
       ItemPreviewInterface,
       LoadingSpinner: () => import('@/components/generic/LoadingSpinner'),
       SetFormModal: () => import('@/components/set/SetFormModal'),
       SetPublicationRequestWidget: () => import('@/components/set/SetPublicationRequestWidget'),
       SetPublishButton: () => import('@/components/set/SetPublishButton'),
-      SetRecommendations: () => import('@/components/set/SetRecommendations'),
       ShareButton,
       ShareSocialModal
 
     },
     mixins: [
-      entityBestItemsSetMixin,
       langAttributeMixin,
-      redirectToMixin,
       pageMetaMixin
     ],
+    provide() {
+      return {
+        currentSet: computed(() => this.set),
+        currentEntity: computed(() => this.entity),
+        fetchCurrentSet: this.fetchSet
+      };
+    },
     beforeRouteLeave(_to, _from, next) {
-      this.$store.commit('set/setActiveId', null);
-      this.$store.commit('set/setActiveParams', {});
-      this.$store.commit('set/setActive', null);
-      this.$store.commit('set/setActiveRecommendations', []);
-      this.$store.commit('entity/setPinned', []);
-      this.$store.commit('entity/setBestItemsSetId', null);
       this.clearSelectedItems();
       next();
     },
     setup() {
+      const { on: addPinEventListener, off: removePinEventListener } = usePinnedItems();
       const { scrollToSelector } = useScrollTo();
       const { clear: clearSelectedItems } = useSelectedItems();
-      return { clearSelectedItems, scrollToSelector };
+      return { addPinEventListener, clearSelectedItems, removePinEventListener, scrollToSelector };
     },
     data() {
       return {
         logoSrc: require('@europeana/style/img/logo.svg'),
         identifier: null,
         perPage: 48,
+        entity: null,
+        set: {},
         title: '',
         rawDescription: ''
       };
@@ -213,18 +203,15 @@
 
       try {
         this.validateRoute();
-        this.$store.commit('set/setActiveId', this.setId);
-        this.$store.commit('set/setActiveParams', {
-          page: this.page,
-          pageSize: this.perPage
-        });
-        await this.$store.dispatch('set/fetchActive');
-        this.redirectToPrefPath(this.setId, this.set.title.en);
 
-        if (this.setIsEntityBestItems && this.userIsEntityEditor) {
-          this.$store.commit('entity/setBestItemsSetId', this.setId);
-          this.storeEntityBestItemsSetPinnedItems(this.set);
-        }
+        await this.fetchSet();
+        await this.fetchEntity();
+
+        redirectToPrefPath(
+          this.setId,
+          this.set.title.en,
+          { route: this.$route, redirect: this.$nuxt.context.redirect }
+        );
       } catch (e) {
         this.$error(e, { scope: 'gallery' });
       }
@@ -240,9 +227,6 @@
           ogType: 'article',
           ogImage: this.shareMediaUrl
         };
-      },
-      set() {
-        return this.$store.state.set.active || {};
       },
       setId() {
         return this.$route.params.pathMatch.split('-')[0];
@@ -264,9 +248,6 @@
       userIsPublisher() {
         return this.$auth.userHasClientRole('usersets', 'publisher');
       },
-      userCanHandleRecommendations() {
-        return this.userIsOwner || (this.setIsEntityBestItems && this.userIsEntityEditor);
-      },
       userCanEditSet() {
         return this.userIsOwner || (this.userIsPublisher && this.set.visibility === 'published');
       },
@@ -280,19 +261,6 @@
       },
       setIsEntityBestItems() {
         return this.set.type === 'EntityBestItemsSet';
-      },
-      displayRecommendations() {
-        return this.enableRecommendations && this.$auth.loggedIn && this.userCanHandleRecommendations;
-      },
-      enableRecommendations() {
-        if (!this.$features.showSetRecommendations) {
-          return false;
-        }
-        if (this.setIsEntityBestItems) {
-          return this.$features.acceptEntityRecommendations ||
-            this.$features.rejectEntityRecommendations;
-        }
-        return true;
       },
       displayTitle() {
         return langMapValueForLocale(this.set.title, this.$i18n.locale);
@@ -312,15 +280,21 @@
     },
 
     watch: {
-      '$store.state.entity.pinned.length'() {
-        if (this.setIsEntityBestItems) {
-          this.$fetch();
-        }
-      },
       async '$route.query.page'() {
         await this.$fetch();
         this.clearSelectedItems();
       }
+    },
+
+    created() {
+      this.addPinEventListener('pin', this.$fetch);
+      this.addPinEventListener('unpin', this.$fetch);
+    },
+
+    beforeDestroy() {
+      this.clearSelectedItems();
+      this.removePinEventListener('pin', this.$fetch);
+      this.removePinEventListener('unpin', this.$fetch);
     },
 
     mounted() {
@@ -328,6 +302,30 @@
     },
 
     methods: {
+      async fetchSet() {
+        const [setResponse, itemsResponse] = await Promise.all([
+          this.$apis.set.get(this.setId),
+          this.$apis.set.getItems(this.setId, {
+            page: this.page,
+            pageSize: this.perPage
+          })
+        ]);
+
+        this.set = {
+          ...setResponse,
+          items: itemsResponse
+        };
+      },
+      async fetchEntity() {
+        if (!this.$auth.userHasClientRole('entities', 'editor') || (this.set.type !== 'EntityBestItemsSet')) {
+          this.entity = null;
+          return;
+        }
+
+        const response = await this.$apis.entity.retrieve(this.set.subject);
+        const entity = response[0];
+        this.entity = { id: entity.id };
+      },
       validateRoute() {
         if (!/^\d+(-.+)?$/.test(this.$route.params.pathMatch)) {
           this.$error(404, { scope: 'page' });
@@ -341,7 +339,7 @@
         } finally {
           // always re-fetch in case of failure e.g. write lock, so moved items
           // go back where they were
-          await this.$store.dispatch('set/fetchActive');
+          await this.fetchSet();
           this.$redrawVueMasonry?.();
         }
       }

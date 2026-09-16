@@ -58,10 +58,7 @@
       const response = await this.$apis.record.search(recordSearchParams);
       const facets = response?.facets || [];
       this.entityUris = facets
-        .reduce((memo, facet) => {
-          memo = memo.concat(facet.fields.map(entity => entity.label));
-          return memo;
-        }, [])
+        .reduce((memo, facet) => memo.concat(facet.fields.map((entity) => entity.label)), [])
         .filter(uri => {
           if (!uri.startsWith(EUROPEANA_DATA_URL)) {
             return false;

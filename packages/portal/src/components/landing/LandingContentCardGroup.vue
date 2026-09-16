@@ -2,13 +2,13 @@
   <div
     ref="landingContentCardGroup"
     class="landing-content-card-group"
-    :class="[variant, `landing-content-card-group-${parity}`]"
     data-qa="landing content card group"
   >
     <b-container>
       <ContentCardSection
         :section="section"
         :title-tag="titleTag"
+        more-button-class="btn-outline-primary mt-5"
       />
     </b-container>
   </div>
@@ -16,7 +16,6 @@
 
 <script>
   import { ref } from 'vue';
-  import useRefParity from '@/composables/refParity.js';
   import ContentCardSection from '../content/ContentCardSection';
 
   export default {
@@ -35,14 +34,6 @@
         default: null
       },
       /**
-       * Variant to define layout and style
-       * @values pro, ds4ch
-       */
-      variant: {
-        type: String,
-        default: 'pro'
-      },
-      /**
        * Heading title level to use. Override default for when used in subsection to keep correct heading structure.
        */
       titleTag: {
@@ -51,14 +42,9 @@
       }
     },
 
-    setup(props) {
+    setup() {
       const landingContentCardGroup = ref(null);
-      if (props.variant === 'ds4ch') {
-        const { parity } = useRefParity('landing-content-card-group', landingContentCardGroup);
-        return { parity, landingContentCardGroup };
-      } else {
-        return { parity: null, landingContentCardGroup };
-      }
+      return { landingContentCardGroup };
     },
 
     data() {
@@ -100,6 +86,10 @@
       @media (min-width: $bp-large) {
         margin-bottom: 3rem;
       }
+
+      @media (min-width: $bp-4k) {
+        max-width: $max-text-column-width-landing-4k !important;
+      }
     }
 
     ::v-deep h2.card-group-title {
@@ -112,99 +102,68 @@
 
     ::v-deep .card-deck {
       justify-content: center;
-    }
-  }
-</style>
-
-<!-- Only DS4CH styles after this line! -->
-<style lang="scss" scoped>
-  @import '@europeana/style/scss/DS4CH/variables';
-
-  .landing-content-card-group.ds4ch {
-    &.landing-content-card-group-odd {
-      background-color: $lightgrey;
-      margin-top: 0;
-      margin-bottom: 0;
-
-      padding-top: 3rem;
-      padding-bottom: 1.5rem;
-
-      @media (min-width: $bp-large) {
-        padding-top: 6rem;
-        padding-bottom: 4.5rem;
-      }
 
       @media (min-width: $bp-4k) {
-        padding-top: 15rem;
-        padding-bottom: 13.5rem;
+        max-width: calc(4 * (#{$max-card-width} + #{$grid-gutter-4k * 2}));
+        margin-left: auto;
+        margin-right: auto;
       }
     }
 
-    .container {
-      padding-left: 15px;
-      padding-right: 15px;
-    }
-
-    ::v-deep .col-lg-6 {
-      @media (min-width: $bp-4k) {
-        max-width: $max-text-column-width-landing-4k !important;
-        margin-bottom: 9rem;
+    ::v-deep .card-deck-4-cols .card {
+      @media (min-width: $bp-wqhd) {
+        flex-basis: calc(100% / 4 - #{$grid-gutter * 2})
       }
-    }
-
-    ::v-deep h2.card-group-title {
-      color: $black;
-    }
-
-    ::v-deep .text {
-      color: $black;
 
       @media (min-width: $bp-4k) {
-        font-size: 2.5rem;
-      }
-    }
-
-    ::v-deep .content-card {
-      @media (min-width: $bp-4k) {
-        min-height: 57rem;
-        border-radius: 0.5rem;
+        flex-basis: calc(100% / 4 - #{$grid-gutter-4k * 2});
       }
 
       .card-body {
         @media (min-width: $bp-4k) {
-          padding: 2.5rem;
+          padding: 2rem;
         }
       }
 
       .card-title {
         @media (min-width: $bp-4k) {
-          font-size: 3.125rem;
+          font-size: calc(2 * $font-size-base);
+        }
+      }
+
+      .card-subtitle {
+        @media (min-width: $bp-4k) {
+          font-size: calc(2 * $font-size-extrasmall);
         }
       }
 
       .card-text {
-        color: $black;
         @media (min-width: $bp-4k) {
-          font-size: 2.5rem;
-          line-height: 1.5;
-        }
-      }
-
-      .card-img {
-        @media (min-width: $bp-4k) {
-          max-height: 30.5rem;
-          border-radius: 0.5rem 0.5rem 0 0;
+          font-size: calc(2 * $font-size-small);
+          line-height: calc(2 * 1.1875rem);
         }
       }
     }
+  }
 
-    ::v-deep .card-deck-4-cols {
-      .card {
-        @media (min-width: $bp-4k) {
-          max-width: none;
-          flex: 0 0 calc(100% / 4 - 45px);
-        }
-      }
+  @at-root .landing-sub-section .landing-content-card-group {
+    margin-top: 0;
+  }
+
+  @at-root .bg-color-alternate > .landing-content-card-group {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 3rem;
+    padding-bottom: 1.5rem;
+
+    @media (min-width: $bp-large) {
+      padding-top: 6rem;
+      padding-bottom: 4.5rem;
+    }
+
+    @media (min-width: $bp-4k) {
+      padding-top: 15rem;
+      padding-bottom: 13.5rem;
     }
   }
 </style>

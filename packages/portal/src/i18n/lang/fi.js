@@ -47,6 +47,7 @@ export default {
     "clearFilters": "Tyhjennä suodattimet",
     "close": "sulje",
     "confirm": "Vahvista",
+    "contact": "Yhteystiedot",
     "continue": "jatka",
     "depublish": "Julkaisun peruuttaminen",
     "download": "Lataa",
@@ -80,6 +81,7 @@ export default {
     "transcribe": "Transkribeerida",
     "transcribeNow": "Transkriboi nyt",
     "unlike": "Älä tykkää",
+    "viewAll": "Näytä kaikki {count}",
     "viewAt": "Näytä osoitteessa {link}",
     "viewDocument": "Näytä asiakirja",
     "vote": "Äänestää"
@@ -105,14 +107,7 @@ export default {
         "create": {
           "button": "Pyydä henkilökohtainen API-avain",
           "checkbox": "Vahvistan, että olen lukenut ja hyväksyn API-avaimen {termsOfUseLink}."
-        },
-        "description": "Opi ja testaa, miten käyttää API:ta omalla henkilökohtaisella API-avaimellasi. Älä jaa sitä. {howToLink}.",
-        "heading": "Henkilökohtainen API-avain",
-        "howToLinkText": "Kuinka käyttää omaa avaintasi"
-      },
-      "projectKeys": {
-        "description": "Jokaista rakennettavaa projektia varten toimitamme sinulle oman avaimen. Projektiavaimilla on korkeammat rajat ja muita erityisominaisuuksia – lue lisää API-avaimesta {termsOfUseLink}. Jos haluat muokata projektisi tietoja, lähetä sähköpostia osoitteeseen api@europeana.eu, niin teemme muutokset puolestasi.",
-        "heading": "Projektin API-avaimet"
+        }
       },
       "termsOfUseLinkText": "käyttöehdot"
     },
@@ -138,9 +133,27 @@ export default {
     "country": "Maa:",
     "creator": "Luoja:",
     "date": "Päivämäärä:",
+    "hide": "Piilota attribuutio",
     "institution": "kulttuuriperintölaitos:",
     "show": "Näytä attribuutio",
     "title": "Nimi:"
+  },
+  "audioVisualPlayer": {
+    "Captions": "Tekstitykset / kuvitettu tekstitys",
+    "captions off": "Pois",
+    "captionsOption": "{language} kuvatekstit",
+    "Exit Fullscreen": "Poistu koko näytöstä",
+    "Fullscreen": "Koko näyttö",
+    "Mute": "Mykistä",
+    "Pause": "Tauko",
+    "Play": "Toista",
+    "Play Video": "Toista video",
+    "Replay": "Toista uudelleen",
+    "Subtitles": "Tekstitykset / kuvitettu tekstitys",
+    "subtitles off": "Pois",
+    "subtitlesOption": "{language} tekstitystä",
+    "Unmute": "Poista mykistys",
+    "Volume Level": "Äänenvoimakkuustaso"
   },
   "authored": {
     "by": "by",
@@ -149,14 +162,15 @@ export default {
   "automatedCardGroup": {
     "gallery": "Uusimmat galleriat",
     "item": "Viimeaikaiset aineistot",
-    "organisation": "Organisaatiot",
+    "organisation": "Aineiston tarjoajat",
     "place": "Paikat",
     "theme": "Teemat",
     "time": "Vuosisadat",
     "topic": "Aiheet"
   },
   "cardLabels": {
-    "organisation": "Organisaatio",
+    "aggregator": "Aggregaattori",
+    "organisation": "Instituutio",
     "person": "Henkilö",
     "place": "Paikka",
     "theme": "Teema",
@@ -316,13 +330,13 @@ export default {
       "description": "Tapahtui tuntematon virhe.",
       "title": "Tuntematon virhe"
     },
-    "IIIFManifestFailure": {
-      "description": "Valitettavasti Europeanaan toimitettua media aineisto ei voida näyttää tällä hetkellä. Yritä ladata media tai katso aineisto tarjoavan laitoksen verkkosivustolla."
-    },
     "itemNotFound": {
       "description": "Tämä voi johtua seuraavista syistä: tätä aineisto ei ole olemassa tai; se poistettiin, koska se ei vastannut laatukriteereitämme tai; se päivitettiin ja julkaistiin uudelleen uudella yksilöivällä tunnisteella. Yritä siinä tapauksessa löytää aineisto uudelleen.",
       "metaTitle": "Aineisto ei löydy",
       "title": "Voi ei! {newline} Emme löytäneet tätä aineisto."
+    },
+    "mediaFailure": {
+      "description": "Valitettavasti Europeanaan toimitettua media aineisto ei voida näyttää tällä hetkellä. Yritä ladata media tai katso aineisto tarjoavan laitoksen verkkosivustolla."
     },
     "noFeatureIdeas": {
       "description": "Tarkista pian uudelleen!",
@@ -371,6 +385,7 @@ export default {
       "options": {
         "archaeology": "Arkeologia",
         "art": "Taide",
+        "audiovisual": "Audiovisuaalinen perintö",
         "fashion": "Muoti",
         "industrial": "Teollisuusperintö",
         "manuscript": "Käsikirjoitukset",
@@ -716,6 +731,14 @@ export default {
       "name": "Käyttöoikeus",
       "select": "Valitse oikeuksia koskevat lausumat"
     },
+    "sort": {
+      "name": "Lajittele",
+      "options": {
+        "proxy_dcterms_issued+asc": "Julkaisupäivä (vanhimmasta alkaen)",
+        "proxy_dcterms_issued+desc": "Julkaisupäivä (uusin ensin)"
+      },
+      "select": "Valitse tulosten lajittelutapa"
+    },
     "TYPE": {
       "name": "Mediatyyppi",
       "options": {
@@ -791,11 +814,52 @@ export default {
       "year": "Vuosi"
     },
     "webResource": {
-      "about": "RDF-tiedot",
-      "dcDescription": "Kuvaus",
-      "ebucoreHasMimeType": "Ebucore MIME -tyyppi",
-      "edmRights": "Käyttöoikeus mediaresurssin lisenssi",
-      "rdfAbout": "RDF-tiedot"
+      "about": "Tietoja",
+      "dctermsConformsTo": "Noudattaa",
+      "dcType": "Mediatyyppi",
+      "ebucoreAudioChannelNumber": "Äänikanavat",
+      "ebucoreBitRate": "Bittinopeus (bps)",
+      "ebucoreDuration": "Kesto",
+      "ebucoreFileByteSize": "Tiedostokoko (tavua)",
+      "ebucoreFrameRate": "Kuvataajuus (fps)",
+      "ebucoreHasMimeType": "MIME-tyyppi",
+      "ebucoreHeight": "Korkeus (px)",
+      "ebucoreOrientation": "Suunta",
+      "ebucoreSampleRate": "Näytteenottotaajuus (Hz)",
+      "ebucoreSampleSize": "Näytteen koko (bittiä)",
+      "ebucoreWidth": "Leveys (px)",
+      "edmCodecName": "Koodekki",
+      "edmComponentColor": "Komponentin väri",
+      "edmHasColorSpace": "Väriavaruus",
+      "edmIntendedUsage": "Käyttötarkoitus",
+      "edmPolygonCount": "Polygonien määrä",
+      "edmRights": "Tämän median oikeudet",
+      "edmSpatialResolution": "Spatiaalinen erottelutarkkuus (dpi)",
+      "edmVertexCount": "Vertex-määrä",
+      "schemaDigitalSourceType": "Suhde todelliseen maailmaan"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Taide",
+      "creativity": "Luovuus",
+      "curation": "Kuratointi",
+      "design": "Muotoilu",
+      "documentation": "Dokumentaatio",
+      "education": "Koulutus",
+      "exhibition": "Näyttely",
+      "gaming": "Pelaaminen",
+      "infotainment": "Infotainment",
+      "knowledge": "Tieto",
+      "maintenance": "Huolto",
+      "research": "Tutkimus",
+      "restoration": "Restaurointi",
+      "tourism": "Matkailu"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Rekonstruktio",
+      "digitalCapture": "Todellisuuden tallennus",
+      "digitalCreation": "Syntynyt digitaalisena"
     }
   },
   "filterResults": "Suodata tulokset",
@@ -836,10 +900,12 @@ export default {
     "navigation": {
       "about": "Tietoa meistä",
       "collections": "Kokoelmat",
-      "europeanaClassroom": "Opettajille",
+      "educators": "Kasvattajille",
       "featureIdeas": "Ominaisuus Ideoita",
       "help": "Apua",
       "home": "Etusivu",
+      "partners": "Ryhdy kumppaniksemme",
+      "research": "Akateemiseen käyttöön ja tutkimukseen",
       "shareYourCollections": "Jaa kokoelmasi",
       "stories": "Tarinat"
     },
@@ -889,11 +955,10 @@ export default {
         "title": "Palvelut, joita haluaisimme käyttää."
       },
       "consentNotice": {
-        "description": "Hei! Voisimmeko ottaa käyttöön joitain lisäpalveluita analytiikkaa ja turvallisuutta varten? Voit aina muuttaa tai peruuttaa suostumuksesi myöhemmin.",
-        "learnMore": "Anna minun valita"
+        "description": "Voisimmeko ottaa käyttöön palvelut turvallisuutta, analytiikkaa ja kolmannen osapuolen sisältöä varten?",
+        "learnMore": "Hallitse evästeasetuksia"
       },
-      "decline": "kieltäydyn",
-      "ok": "Okei",
+      "decline": "Hylkää",
       "purposes": {
         "2D": {
           "title": "2D-media"
@@ -946,6 +1011,10 @@ export default {
       "auth-strategy": {
         "description": "Muistaa kirjautumisessa käytettävän valtuutusstrategian.",
         "title": "Auth-strategia"
+      },
+      "cloudflare": {
+        "description": "Muistaa, että turvahaaste on läpäisty onnistuneesti.",
+        "title": "Cloudflare"
       },
       "debugSettings": {
         "description": "Auttaa API-pyyntöjen virheenkorjausta",
@@ -1002,6 +1071,12 @@ export default {
   },
   "loading": "Ladataan",
   "loadingResults": "Ladataan tuloksia",
+  "map": {
+    "keyboardNavigatePins": "Navigoi nastoja nuolinäppäimillä",
+    "keyboardPanAndZoom": "Käytä +, - ja nuolinäppäimiä kartan lähentämiseen ja siirtämiseen.",
+    "togglePin": "Vaihda kiinnitys",
+    "zoomInCluster": "Lähennä klusteria"
+  },
   "media": {
     "controls": {
       "exitFullscreen": "Poistu koko näytöstä",
@@ -1024,6 +1099,8 @@ export default {
       "hide": "Piilota sivupalkki",
       "IIIFManifest": "IIIF manifesti",
       "links": "Linkit",
+      "metadata": "Median metatiedot",
+      "metadataInfo": "Teave hetkel vaadatava meedia kohta.",
       "search": "Hae",
       "searchPlaceholder": "Syötä ehdot",
       "show": "Näytä sivupalkki"
@@ -1078,15 +1155,41 @@ export default {
     "city": "Kaupunki",
     "country": "Maa",
     "englishName": "Englanninkielinen nimi",
-    "nameAcronym": "Nimen lyhenne"
+    "geographicScope": "Maantieteellinen soveltamisala",
+    "heritageDomain": "Perintötyypit",
+    "nameAcronym": "Nimen lyhenne",
+    "providesAudienceEngagementActivity": "Yleisön osallistamisaktiviteetit",
+    "providesCapacityBuildingActivity": "Kapasiteetin kehittäminen",
+    "providesSupportForDataActivity": "Datatoiminnot",
+    "providesSupportForMediaType": "Mediatyyppi",
+    "providingInstitutionsCount": "Tarjoavien laitosten määrä",
+    "recordCount": "Aineistojen määrä"
+  },
+  "organisations": {
+    "aggregators": {
+      "description": "Aggregaattorit tekevät yhteistyötä aineistoja toimittavien organisaatioiden kanssa kerätäkseen ja julkaistakseen niiden digitaaliset kulttuuriperinnön aineistot Europeana.eu-sivustolla.",
+      "title": "Aggregaattorit"
+    },
+    "internationalAggregators": {
+      "description": "Toimiala- ja temaattiset aggregaattorit määrittelevät toimialansa kulttuurisektorin (kuten museo, arkisto tai kirjasto) tai aiheen ja teeman (kuten muoti) mukaan. Ne tekevät yhteistyötä eri Euroopan maissa toimivien sisällöntuottajien kanssa.",
+      "title": "Toimiala- ja teema-aggregaattorit"
+    },
+    "providingInstitutions": {
+      "description": "Luettelo museoista, kirjastoista, arkistoista ja gallerioista, jotka jakavat digitaalisia kulttuuriperinnön aineistot Europeana.eu-sivustolla.",
+      "title": "Tarjoavat laitokset"
+    },
+    "regionalAggregators": {
+      "description": "Kansalliset ja alueelliset aggregaattorit määrittelevät toiminta-alueensa tietyn maan tai alueen mukaan. Ne tekevät yhteistyötä kyseisessä maassa tai alueella sijaitsevien sisällöntuottajien kanssa.",
+      "title": "Kansalliset ja alueelliset aggregaattorit"
+    }
   },
   "pageHasLoaded": "on ladattu",
   "pageNumber": "Sivunumero",
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Tutustu laitoksiin, jotka jakavat digitaalisia kulttuuriperintöaineistoja Europeana.eu:ssa.",
-        "title": "Toimielimet"
+        "description": "Tutustu tarjoaviin organisaatioihin, jotka jakavat digitaalisia kulttuuriperintöaineistoja Europeana.eu-palvelussa.",
+        "title": "Aineiston tarjoajat"
       },
       "persons": {
         "title": "Henkilöt"
@@ -1095,7 +1198,9 @@ export default {
         "title": "Paikat"
       },
       "table": {
+        "aggregator": "Aggregaattori",
         "country": "Maa",
+        "domain": "Verkkotunnus / Teema",
         "items": "Aineistot",
         "name": "Nimi",
         "searchPlaceholder": "Etsi taulukosta",
@@ -1129,6 +1234,7 @@ export default {
       "pin": "Kiinnitä aineisto käytettävissä oleviin Entiteetteihin"
     },
     "allMetaData": "Kaikki metatiedot",
+    "allMetaDataInfo": "Tietoja tästä koko aineistosta.",
     "clickToCopyEmbedCode": "Napsauta upotuskoodia kopioidaksesi sen",
     "extendedInformation": "Tarkemmat tiedot",
     "goodToKnow": "Hyvä tietää",
@@ -1147,6 +1253,9 @@ export default {
   "related": {
     "categoryTags": {
       "title": "Tutustu aiheeseen liittyviin tarinoihin"
+    },
+    "collection": {
+      "preview": "Kokoelman esikatselu"
     },
     "collections": {
       "name": "Aiheeseen liittyvät kokoelmat",
@@ -1230,9 +1339,6 @@ export default {
     },
     "results": {
       "limitWarning": "Lisätuloksia ei näytetä, koska vain ensimmäiset 1000 osuvinta tulosta näytetään. Jos et löytänyt etsimääsi, harkitse hakusi tarkentamista.",
-      "loginToSeeMore": "{login} nähdäksesi lisää tuloksia",
-      "loginToSeeMultilingualResults": "Kirjaudu sisään tehdäksesi hakuja koko kokoelmasta ja saat tuloksia, jotka eivät rajoitu hakusanasi kieleen.",
-      "showingMultilingualResults": "Näytetään tulosta koko kokoelmasta ja kaikilla kielillä.",
       "withinCollection": "{count} tulokset sisällä {type} {collection}",
       "withinCollectionWithQuery": "{count} tulokset sisällä {type} {collection} for {query}",
       "withoutQuery": "{count} tulokset",

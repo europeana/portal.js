@@ -1,6 +1,7 @@
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '@test/utils.js';
 import BootstrapVue from 'bootstrap-vue';
+import nock from 'nock';
 import sinon from 'sinon';
 
 import page from '@/pages/galleries/_';
@@ -10,9 +11,10 @@ const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
 const setApiRepositionItemStub = sinon.stub().resolves({});
+const setApiGetStub = sinon.stub().resolves({});
+const setApiGetItemsStub = sinon.stub().resolves([]);
+const entityApiRetrieveStub = sinon.stub().resolves([]);
 const clearSelectedItemsSpy = sinon.spy();
-const storeDispatch = sinon.stub().resolves({});
-const storeCommit = sinon.spy();
 
 const $i18n = {
   locale: 'en'
@@ -47,68 +49,80 @@ const defaultOptions = {
   fetchState: { pending: false }
 };
 
-const factory = (options = {}) => shallowMountNuxt(page, {
-  localVue,
-  mocks: {
-    $features: options.features || {},
-    $t: key => key,
-    $tc: key => key,
-    $i18n,
-    $auth: {
-      ...options.user || {},
-      userHasClientRole: options.userHasClientRoleStub || sinon.stub().returns(false)
+const factory = (options = {}) => {
+  setApiGetStub.resolves(options.set || {});
+
+  return shallowMountNuxt(page, {
+    localVue,
+    data() {
+      return {
+        set: options.set || {}
+      };
     },
-    $fetchState: options.fetchState || {},
-    $route: {
-      params: {
-        pathMatch: (options.set?.id || '111') + '-my-set'
+    mocks: {
+      $t: key => key,
+      $tc: key => key,
+      $i18n,
+      $auth: {
+        ...options.user || {},
+        userHasClientRole: options.userHasClientRoleStub || sinon.stub().returns(false)
       },
-      query: {}
-    },
-    $store: {
-      commit: storeCommit,
-      dispatch: storeDispatch,
-      getters: {},
-      state: {
-        set: { active: options.set || null }
-      }
-    },
-    $apis: {
-      set: {
-        repositionItem: setApiRepositionItemStub
+      $fetchState: options.fetchState || {},
+      $nuxt: { context: { redirect: sinon.spy() } },
+      $route: {
+        params: {
+          pathMatch: (options.set?.id || '111') + '-my-set'
+        },
+        query: {}
       },
-      thumbnail: {
-        edmPreview: () => ''
-      }
-    },
-    $error: sinon.spy(),
-    $config: {
-      app: {
-        galleries: {
-          europeanaAccount: 'europeana'
+      $apis: {
+        entity: {
+          retrieve: entityApiRetrieveStub
+        },
+        set: {
+          get: setApiGetStub,
+          getItems: setApiGetItemsStub,
+          repositionItem: setApiRepositionItemStub
+        },
+        thumbnail: {
+          edmPreview: () => ''
+        }
+      },
+      $error: sinon.spy(),
+      $config: {
+        app: {
+          galleries: {
+            europeanaAccount: 'europeana'
+          }
         }
       }
-    }
-  },
-  stubs: [
-    'ErrorMessage',
-    'LoadingSpinner',
-    'SetFormModal',
-    'SetPublicationRequestWidget',
-    'SetPublishButton',
-    'SetRecommendations'
-  ]
-});
+    },
+    stubs: [
+      'ErrorMessage',
+      'LoadingSpinner',
+      'SetFormModal',
+      'SetPublicationRequestWidget',
+      'SetPublishButton',
+      'SetRecommendations'
+    ]
+  });
+};
 
 describe('GalleryPage (Set)', () => {
   beforeAll(() => {
+    nock.disableNetConnect();
     sinon.stub(selectedItemsComposable, 'useSelectedItems')
       .returns({
         clear: clearSelectedItemsSpy
       });
   });
-  afterEach(sinon.resetHistory);
-  afterAll(sinon.resetBehavior);
+  afterEach(() => {
+    sinon.resetHistory();
+  });
+  afterAll(() => {
+    nock.enableNetConnect();
+    sinon.restore();
+  });
 
   describe('fetch', () => {
     it('validates the format of the Set ID', async() => {
@@ -119,35 +133,19 @@ describe('GalleryPage (Set)', () => {
       expect(wrapper.vm.$error.calledWith(404)).toBe(true);
     });
 
-    it('stores the active set ID', async() => {
-      const wrapper = factory(defaultOptions);
-
-      await wrapper.vm.fetch();
-
-      expect(storeCommit.calledWith('set/setActiveId', '123')).toBe(true);
-    });
-
-    it('stores the active set params', async() => {
-      const wrapper = factory(defaultOptions);
-
-      await wrapper.vm.fetch();
-
-      expect(storeCommit.calledWith('set/setActiveParams', { page: 1, pageSize: 48 })).toBe(true);
-    });
-
     it('fetches the active set', async() => {
       const wrapper = factory(defaultOptions);
 
       await wrapper.vm.fetch();
 
-      expect(storeDispatch.calledWith('set/fetchActive')).toBe(true);
+      expect(setApiGetStub.called).toBe(true);
     });
 
     describe('on errors', () => {
       it('calls $error', async() => {
         const unauthorisedError = { statusCode: 403, message: 'Unauthorised' };
         const wrapper = factory();
-        wrapper.vm.$store.dispatch = sinon.stub().throws(() => unauthorisedError);
+        wrapper.vm.$apis.set.get = sinon.stub().throws(() => unauthorisedError);
 
         await wrapper.vm.$fetch();
 
@@ -218,13 +216,14 @@ describe('GalleryPage (Set)', () => {
       });
     });
 
-    describe('when user is entity editor and set is a curated collection', () => {
-      const testSetEntityBestItems = { ...testSet1, type: 'EntityBestItemsSet' };
+    describe('when user is entity editor and set is an EntityBestItemsSet', () => {
+      const subject = ['http://data.europeana.eu/concept/789'];
+      const testSetEntityBestItems = { ...testSet1, type: 'EntityBestItemsSet', subject };
       const userHasClientRoleStub = sinon.stub().returns(false)
         .withArgs('entities', 'editor').returns(true)
         .withArgs('usersets', 'editor').returns(true);
 
-      it('gets the pinned items', async() => {
+      it('fetches the subject entity', async() => {
         const wrapper = factory({
           set: testSetEntityBestItems,
           user: { loggedIn: true },
@@ -233,23 +232,7 @@ describe('GalleryPage (Set)', () => {
 
         await wrapper.vm.fetch();
 
-        expect(storeCommit.calledWith('entity/setBestItemsSetId', testSetEntityBestItems.id)).toBe(true);
-        expect(storeCommit.calledWith('entity/setPinned', sinon.match.array)).toBe(true);
-      });
-
-      describe('when accept entity recommendations is enabled', () => {
-        it('renders the recommendations', () => {
-          const wrapper = factory({
-            set: testSetEntityBestItems,
-            user: { loggedIn: true },
-            userHasClientRoleStub,
-            features: { acceptEntityRecommendations: true, showSetRecommendations: true }
-          });
-
-          const recommendations = wrapper.find('setrecommendations-stub');
-
-          expect(recommendations.exists()).toBe(true);
-        });
+        expect(entityApiRetrieveStub.calledWith(subject)).toBe(true);
       });
     });
   });
@@ -286,8 +269,6 @@ describe('GalleryPage (Set)', () => {
 
       await wrapper.vm.$options.beforeRouteLeave.call(wrapper.vm, to, null, next);
 
-      expect(storeCommit.calledWith('set/setActive', null)).toBe(true);
-      expect(storeCommit.calledWith('set/setActiveRecommendations', [])).toBe(true);
       expect(clearSelectedItemsSpy.calledWith()).toBe(true);
       expect(next.called).toBe(true);
     });
@@ -306,12 +287,12 @@ describe('GalleryPage (Set)', () => {
         expect(setApiRepositionItemStub.calledWith(defaultOptions.set.id, itemId, position)).toBe(true);
       });
 
-      it('re-fetches the active set via the store', async() => {
+      it('re-fetches the active set via the API', async() => {
         const wrapper = factory(defaultOptions);
 
         await wrapper.vm.repositionItem({ itemId, position });
 
-        expect(storeDispatch.calledWith('set/fetchActive')).toBe(true);
+        expect(setApiGetStub.called).toBe(true);
       });
     });
   });

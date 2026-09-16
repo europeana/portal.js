@@ -12,7 +12,7 @@
     toaster="b-toaster-bottom-left"
   >
     <p>{{ $t(`newFeatureNotification.text.${name}`) }}</p>
-    <div class="d-flex justify-content-between align-items-start">
+    <div class="d-flex justify-content-between align-items-start flex-wrap">
       <b-button
         class="mr-2"
         variant="outline-primary"

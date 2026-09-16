@@ -87,12 +87,14 @@
 
     picture {
       display: flex;
+      width: 100%;
     }
 
     img {
       object-fit: cover;
       width: 100%;
       height: auto;
+      min-height: 100%;
     }
   }
 
@@ -126,18 +128,18 @@
     }
 
     .is-external-link {
-      display: flex;
-      align-items: center;
+      display: inline-flex;
 
-      span {
-        text-overflow: ellipsis;
+      .link-text {
         overflow: hidden;
-        white-space: nowrap;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+      }
 
-        &.icon-external-link {
-          flex-shrink: 0;
-          margin-left: 5px;
-        }
+      .icon-external-link {
+        margin-top: 0.25rem;
+        margin-left: 0.25rem;
       }
     }
   }
@@ -541,6 +543,69 @@
       margin-right: 0;
     }
   }
+
+  &.circle-card {
+    min-height: auto;
+    min-width: auto;
+    padding: 0;
+    box-shadow: none;
+    border-radius: 50%;
+    height: 3rem;
+    width: 3rem;
+    border: 1px solid transparent;
+
+    @media (min-width: $bp-xxxl) {
+      min-width: auto !important;
+      max-width: auto !important;
+    }
+
+    @media (min-width: $bp-4k) {
+      height: 4.5rem;
+      width: 4.5rem;
+    }
+
+    .card-img {
+      min-height: 3rem;
+      max-height: 3rem;
+      height: 3rem;
+      width: 3rem;
+      border-radius: 50%;
+
+      @media (min-width: $bp-4k) {
+        min-height: 4.5rem;
+        max-height: 4.5rem;
+        height: 4.5rem;
+        width: 4.5rem;
+      }
+
+      &.default-thumbnail {
+
+        [class^='icon-'],
+        [class*=' icon-'] {
+          font-size: 1.5rem;
+
+          @media (min-width: $bp-4k) {
+            font-size: 2.25rem;
+          }
+        }
+      }
+    }
+
+    .card-body {
+      padding: 0;
+
+      .card-title {
+        height: 0;
+        overflow: hidden;
+      }
+
+      a .link-text {
+        display: inline-block;
+        height: 0;
+        overflow: hidden;
+      }
+    }
+  }
 }
 
 .xxl-page .card {
@@ -574,10 +639,12 @@
 
     @media (min-width: $bp-xxxl) {
       column-count: 2;
+      column-width: 40rem; // wrap columns on text zoom
     }
 
     @media (min-width: $bp-4k) {
       column-gap: 4rem;
+      column-width: 60rem; // wrap columns on text zoom
     }
   }
 
@@ -611,7 +678,7 @@
   .related-results {
     padding-left: 1rem;
 
-    @media (min-width: $bp-xxxl) {
+    @media (min-width: $bp-4k) {
       margin-left: $grid-gutter;
     }
   }

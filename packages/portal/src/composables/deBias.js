@@ -12,10 +12,9 @@ const terms = computed(() => {
 });
 
 const definitions = computed(() => {
-  return annotations.value.reduce((memo, term) => {
-    memo[term.selector.exact] = term.definition;
-    return memo;
-  }, {});
+  return annotations.value.reduce((memo, term) => Object.assign(memo, {
+    [term.selector.exact]: term.definition
+  }), {});
 });
 
 const ids = computed(() => {

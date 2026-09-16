@@ -45,6 +45,9 @@ query BrowseLandingStaticPage(
           ... on PrimaryCallToAction {
             ...primaryCallToActionFields
           }
+          ... on MapSection {
+            ...mapSectionFields
+          }
         }
       }
     }
@@ -176,6 +179,7 @@ query BrowseLandingStaticPage(
         items {
           __typename
           ... on ContentTypeRichText {
+            headline
             text
           }
           ... on Embed {
@@ -223,6 +227,7 @@ fragment linkGroupFields on LinkGroup {
 }
 fragment cardGroupFields on CardGroup {
   headline
+  headlineEN: headline(locale: "en-GB")
   text
   hasPartCollection(limit: 28) {
     items {
@@ -299,29 +304,6 @@ fragment infoCardGroupFields on InfoCardGroup {
     ...illustrationFields
   }
 }
-fragment cardGroupFields on CardGroup {
-  headline
-  text
-  hasPartCollection(limit: 28) {
-    items {
-      __typename
-      ... on AutomatedEntityCard {
-        ...automatedEntityCardFields
-      }
-      ... on AutomatedRecordCard {
-        identifier
-        encoding
-      }
-      ... on CuratedCard {
-        ...curatedCardFields
-      }
-    }
-  }
-  moreButton {
-    url
-    text
-  }
-}
 fragment imageCardFields on ImageCard {
   name
   nameEN: name(locale: "en-GB")
@@ -336,4 +318,11 @@ fragment imageCardFields on ImageCard {
   profile {
     ...imageDisplayProfileFields
   }
+}
+fragment mapSectionFields on MapSection {
+ name
+ moreButton {
+  url
+  text
+ }
 }

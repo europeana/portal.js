@@ -70,7 +70,7 @@ export default ({ redirect, route, query, req, app }) => {
   // redirect e.g. /en/portal/about to /en/about
   if (pathStartsWithLocaleThenPortal(route.path)) {
     updateRoute({
-      status: 302,
+      status: 301,
       route: {
         path: route.path.slice(0, 3) + route.path.slice(10),
         query: {}

@@ -1,61 +1,60 @@
+import nock from 'nock';
+import sinon from 'sinon';
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '@test/utils.js';
-import sinon from 'sinon';
+import * as backendFetchModule from '@/utils/backendFetch.js';
 
 import LandingAutomatedCardGroup from '@/components/landing/LandingAutomatedCardGroup.vue';
 
 const localVue = createLocalVue();
 
-const DS4CH_NUMBERS = 'Data space numbers';
 const EUROPEANA_NUMBERS = 'Europeana numbers';
-const axiosGetStub = sinon.stub();
 
 const factory = (propsData) => shallowMountNuxt(LandingAutomatedCardGroup, {
   localVue,
   propsData,
   mocks: {
-    $axios: {
-      get: axiosGetStub
-    },
-    $config: { redis: {} },
     $i18n: { n: (num) => `${num}` },
+    $nuxt: { context: { $config: { redis: {} } } },
     $t: key => key
   },
   stubs: ['b-container', 'b-col']
 });
 
 describe('components/landing/LandingAutomatedCardGroup', () => {
+  const backendFetch = sinon.stub(backendFetchModule, 'backendFetch').resolves({});
+
+  beforeAll(() => {
+    nock.disableNetConnect();
+  });
+  afterEach(() => {
+    sinon.resetHistory();
+  });
+  afterAll(() => {
+    nock.enableNetConnect();
+    sinon.restore();
+  });
+
   describe('fetch()', () => {
     describe('when rendering on the client', () => {
       describe('for Europeana numbers', () => {
         const propsData = { genre: EUROPEANA_NUMBERS };
-        const axiosArgs = '/_api/cache?id=matomo/visits&id=items/type-counts&id=collections/organisations/count';
-        beforeEach(() => {
-          axiosGetStub.withArgs(axiosArgs).resolves({ data: 2000 });
-        });
-        afterEach(() => {
-          axiosGetStub.reset();
-        });
-        it('gets the data from the cache API endpoint', async() => {
-          const wrapper = factory(propsData);
-          await wrapper.vm.fetch();
-          expect(axiosGetStub.calledWith(axiosArgs)).toBe(true);
-        });
-      });
 
-      describe('for Data space numbers', () => {
-        const propsData = { genre: DS4CH_NUMBERS };
-        const axiosArgs = '/_api/cache?id=items/type-counts&id=dataspace/network-members&id=dataspace/data-providers&id=dataspace/hq-data&id=dataspace/api-requests';
-        beforeEach(() => {
-          axiosGetStub.withArgs(axiosArgs).resolves({ data: 2000 });
-        });
-        afterEach(() => {
-          axiosGetStub.reset();
-        });
-        it('gets the data from the cache API endpoint', async() => {
+        it('fetches cached data from the backend', async() => {
           const wrapper = factory(propsData);
           await wrapper.vm.fetch();
-          expect(axiosGetStub.calledWith(axiosArgs)).toBe(true);
+
+          expect(backendFetch.calledWith(
+            'cache',
+            [
+              [
+                'matomo/visits',
+                'items/type-counts',
+                'collections/organisations/count'
+              ]
+            ],
+            wrapper.vm.$nuxt.context
+          )).toBe(true);
         });
       });
     });

@@ -1,5 +1,5 @@
 import fs from 'fs';
-import lernaJson from '../lerna.json' assert { type: 'json' };
+import lernaJson from '../lerna.json' with { type: 'json' };
 
 const versionSonarProjectProperties = () => {
   const sonarProjectPropertiesFilePath = new URL('../sonar-project.properties', import.meta.url);

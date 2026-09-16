@@ -3,19 +3,21 @@
     v-if="isValidFieldData && hasValuesForLocale"
     :data-field-name="name"
     data-qa="metadata field"
-    class="metadata-row d-lg-flex"
+    class="metadata-row"
   >
     <h3
       v-if="labelled"
       :id="labelId"
       data-qa="label"
       class="m-0"
+      :class="{ 'mb-1': context === 'webResource' }"
     >
-      {{ $t(`fieldLabels.${context}.${name}`) }}
+      {{ displayLabel }}
     </h3>
     <ul
-      class="m-0 p-0 text-left text-lg-right list-unstyled"
+      class="m-0 p-0 text-left list-unstyled"
       :aria-labelledby="labelled && labelId"
+      :class="{ 'text-lg-right': context === 'default' }"
     >
       <MetadataOriginLabel :translation-source="fieldData.translationSource" />
       <template
@@ -58,13 +60,32 @@
           :key="index"
           :lang="langAttribute(langMappedValues.code)"
           data-qa="literal value"
+          :class="{ 'colour-swatch-list-item': isColourValue }"
         >
+          <template v-if="isColourValue">
+            <ColourSwatch
+              :hex-code="value"
+            />
+            <span>
+              {{ $t(`facets.COLOURPALETTE.options.${value}`) }}
+            </span>
+          </template>
           <SmartLink
-            v-if="fieldData.url"
+            v-else-if="fieldData.url"
             :destination="fieldData.url"
           >
-            {{ value }}
+            <span>{{ value }}</span>
           </SmartLink>
+          <template
+            v-else-if="isDurationValue"
+          >
+            {{ formatDuration(value) }}
+          </template>
+          <template
+            v-else-if="isNumberValue(value)"
+          >
+            {{ $i18n.n(value) }}
+          </template>
           <template
             v-else
           >
@@ -77,6 +98,7 @@
 </template>
 
 <script>
+  import camelCase from 'lodash/camelCase.js';
   import { langMapValueForLocale } from '@europeana/i18n';
   import ItemDebiasField from '../item/ItemDebiasField';
   import ItemEntityField from '../item/ItemEntityField';
@@ -89,6 +111,7 @@
     name: 'MetadataField',
 
     components: {
+      ColourSwatch: () => import('@/components/generic/ColourSwatch'),
       ItemDebiasField,
       ItemEntityField,
       MetadataOriginLabel,
@@ -100,21 +123,21 @@
       langAttributeMixin
     ],
 
-    inject: ['deBias'],
+    inject: ['deBias', 'metadataLanguage'],
 
     props: {
       name: {
         type: String,
         default: ''
       },
-      metadataLanguage: {
-        type: String,
-        default: null
-      },
       fieldData: {
-        type: [String, Object, Array],
+        type: [String, Object, Array, Number],
         default: null
       },
+      /**
+       * Context of the metadata
+       * @values default, webResource
+       */
       context: {
         type: String,
         default: 'default'
@@ -142,12 +165,42 @@
     },
 
     computed: {
+      nameWithoutContext() {
+        if (this.name.startsWith(this.context)) {
+          return camelCase(this.name.replace(this.context, ''));
+        }
+        return this.name;
+      },
+      displayLabel() {
+        if (this.$te(`fieldLabels.${this.context}.${this.nameWithoutContext}`)) {
+          return this.$t(`fieldLabels.${this.context}.${this.nameWithoutContext}`);
+        }
+
+        if (this.context !== 'default') {
+          if (this.$te(`fieldLabels.default.${this.nameWithoutContext}`)) {
+            return this.$t(`fieldLabels.default.${this.nameWithoutContext}`);
+          }
+        }
+
+        return this.name;
+      },
       displayValues() {
         const display = { ...this.langMappedValues };
 
         if (this.limitDisplayValues && (display.values.length > this.limit)) {
           display.values = display.values.slice(0, this.limit).concat('…');
         }
+
+        display.values = display.values.map((value) => {
+          if (value.startsWith?.('http://') || value.startsWith?.('https://')) {
+            const termId = camelCase(value.split('/').pop());
+            if (this.$te(`fieldValues.${this.name}.${termId}`)) {
+              return this.$t(`fieldValues.${this.name}.${termId}`);
+            }
+          }
+          return value;
+        });
+
         return display;
       },
 
@@ -166,7 +219,7 @@
       langMappedValues() {
         if (this.fieldData === null) {
           return null;
-        } else if (typeof (this.fieldData) === 'string') {
+        } else if (['string', 'number'].includes(typeof (this.fieldData))) {
           return { values: [this.fieldData], code: '' };
         } else if (Array.isArray(this.fieldData)) {
           return { values: this.fieldData, code: '' };
@@ -192,6 +245,33 @@
 
       isValidFieldData() {
         return !this.timestampIsUnixEpochValue && (this.name !== 'edmUgc');
+      },
+
+      isColourValue() {
+        return this.name === 'edmComponentColor';
+      },
+      isDurationValue() {
+        return this.name === 'ebucoreDuration';
+      }
+    },
+
+    methods: {
+      isNumberValue(value) {
+        return typeof value === 'number';
+      },
+      formatDuration(value) {
+        // format to (h)h:(m)m:ss first
+        const totalSeconds = value / 1000;
+        const hours = Math.floor(totalSeconds / 3600);
+        const remainingSeconds = totalSeconds % 3600;
+        const minutes = `${Math.floor(remainingSeconds / 60)}`.padStart(2, '0');
+        // Floor the seconds, removing extra miliseconds.
+        const seconds = `${Math.floor(remainingSeconds % 60)}`.padStart(2, '0');
+
+        // Removes leding zeros down to a single digit (same format as video.js player)
+        return `${hours}:${minutes}:${seconds}`
+          .replace(/^0:/, '') // when there are 0 hours remove the whole hour section
+          .replace(/^0/, ''); // when there are single digit minutes remove the 0 padding
       }
     }
   };
@@ -201,7 +281,7 @@
   @import '@europeana/style/scss/variables';
 
   .metadata-row {
-    border-bottom: 1px solid #e7e7e9;
+    border-bottom: 1px solid $lightbluemagenta;
     font-size: $font-size-small;
     padding: 1rem 0;
 
@@ -210,7 +290,7 @@
     }
 
     h3 {
-      font-size: inherit;
+      font-size: $font-size-small;
       line-height: 1.5;
     }
 
@@ -220,14 +300,27 @@
       li {
         display: inline;
 
-        &:not(:last-child)::after {
+        &.colour-swatch-list-item {
+          display: block;
+        }
+
+        &:not(:last-child):not(.colour-swatch-list-item)::after {
           content: ';';
           padding: 0 0.2rem;
         }
 
-        ::v-deep .icon-external-link {
-          vertical-align: initial;
-          font-size: 0.75rem;
+        .is-external-link {
+          display: inline-flex;
+          text-decoration: none;
+
+          span:first-child {
+            text-decoration: underline;
+          }
+
+          .icon-external-link {
+            line-height: 1.5;
+            margin-left: 0.25rem;
+          }
         }
       }
     }

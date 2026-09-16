@@ -31,15 +31,9 @@ const entityValue = (value, locale) => {
   return { code: '', values: [value.about], about: value.about };
 };
 
-const isoAlpha3Map = locales.reduce((memo, locale) => {
-  memo[locale.isoAlpha3] = locale.code;
-  return memo;
-}, {});
+const isoAlpha3Map = locales.reduce((memo, locale) => Object.assign(memo, { [locale.isoAlpha3]: locale.code }), {});
 
-const languageKeyMap = locales.reduce((memo, locale) => {
-  memo[locale.code] = [locale.code, locale.isoAlpha3, locale.iso];
-  return memo;
-}, {});
+const languageKeyMap = locales.reduce((memo, locale) => Object.assign(memo, { [locale.code]: [locale.code, locale.isoAlpha3, locale.iso] }), {});
 
 const localeFallbackKeys = undefinedLocaleCodes.concat(languageKeyMap.en);
 
@@ -230,6 +224,7 @@ export const reduceLangMapsForLocale = (value, locale, options = {}) => {
   if (Array.isArray(value)) {
     return value.map((val) => reduceLangMapsForLocale(val, locale, options));
   } else if (typeof value === 'object') {
+    // TODO: this behaviour is opaque as reduction has failed; improve
     if (Object.isFrozen(value)) {
       return value;
     } else if (isLangMap(value)) {

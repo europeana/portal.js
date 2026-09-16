@@ -4,8 +4,8 @@ import sinon from 'sinon';
 import middleware from '@/middleware/legacy';
 
 const rules = [
-  { from: '/fr/portal', to: '/fr', status: 302 },
-  { from: '/en/portal/about', to: '/en/about', status: 302 },
+  { from: '/fr/portal', to: '/fr', status: 301 },
+  { from: '/en/portal/about', to: '/en/about', status: 301 },
   { from: '/portal/en/about-us', to: '/en/about-us' },
   { from: '/portal/en/explore/colours.html', to: '/en/collections', status: 302 },
   { from: '/portal/en/explore/periods.html', to: '/en/collections', status: 302 },

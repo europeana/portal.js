@@ -47,6 +47,7 @@ export default {
     "clearFilters": "Glan scagairí",
     "close": "dún",
     "confirm": "Deimhnigh",
+    "contact": "Teagmháil",
     "continue": "Lean ar aghaidh",
     "depublish": "Dífhoilsiú",
     "download": "Íoslódáil",
@@ -80,6 +81,7 @@ export default {
     "transcribe": "Tras-scríobh",
     "transcribeNow": "Tras-scríobh anois",
     "unlike": "Ní maith liom",
+    "viewAll": "Féach ar gach {count}",
     "viewAt": "Féach ar ag {link}",
     "viewDocument": "Breathnaigh ar dhoiciméad",
     "vote": "Vóta"
@@ -105,14 +107,7 @@ export default {
         "create": {
           "button": "Iarr eochair API pearsanta",
           "checkbox": "Dearbhaím go bhfuil na {termsOfUseLink} don eochair API léite agus glactha agam."
-        },
-        "description": "Foghlaim agus déan tástáil ar conas APIanna a úsáid le do eochair phearsanta API. Ná roinn í le do thoil. {howToLink}.",
-        "heading": "Eochair phearsanta API",
-        "howToLinkText": "Conas do eochair a úsáid"
-      },
-      "projectKeys": {
-        "description": "I gcás gach tionscadail a chaithfidh tú a thógáil, cuirfimid eochair thiomnaithe ar fáil duit. Tá teorainneacha níos airde agus gnéithe speisialta eile ag baint le heochracha tionscadail – léigh tuilleadh san eochair API {termsOfUseLink}. Más mian leat an fhaisnéis faoi do thionscadal a chur in eagar, seol ríomhphost chuig api@europeana.eu, agus déanfaimid na hathruithe duit.",
-        "heading": "Eochracha API tionscadail"
+        }
       },
       "termsOfUseLinkText": "téarmaí úsáide"
     },
@@ -138,9 +133,27 @@ export default {
     "country": "Tír:",
     "creator": "Cruthaitheoir:",
     "date": "Dáta:",
+    "hide": "Folaigh sannadh",
     "institution": "Institiúid:",
     "show": "Taispeáin sannadh",
     "title": "Teideal:"
+  },
+  "audioVisualPlayer": {
+    "Captions": "Fotheidil / fotheidil dhúnta",
+    "captions off": "As",
+    "captionsOption": "{language} fotheideal",
+    "Exit Fullscreen": "Scoir scáileán iomlán",
+    "Fullscreen": "Scáileán iomlán",
+    "Mute": "Balbhaigh",
+    "Pause": "Sos",
+    "Play": "Seinn",
+    "Play Video": "Seinn físeán",
+    "Replay": "Athsheinm",
+    "Subtitles": "Fotheidil / fotheidil dhúnta",
+    "subtitles off": "As",
+    "subtitlesOption": "{language} fotheideal",
+    "Unmute": "Bain an balbhú",
+    "Volume Level": "Leibhéal Imleabhair"
   },
   "authored": {
     "by": "le",
@@ -149,14 +162,15 @@ export default {
   "automatedCardGroup": {
     "gallery": "Gailearaithe is déanaí",
     "item": "Míreanna le déanaí",
-    "organisation": "Eagraíochtaí",
+    "organisation": "Institiúidí soláthartha",
     "place": "Áiteanna",
     "theme": "Téamaí",
     "time": "Céadta",
     "topic": "Ábhair"
   },
   "cardLabels": {
-    "organisation": "Eagraíocht",
+    "aggregator": "Comhbhailitheoir",
+    "organisation": "Institiúid",
     "person": "Duine",
     "place": "Áit",
     "theme": "Téama",
@@ -316,13 +330,13 @@ export default {
       "description": "Tharla earráid anaithnid.",
       "title": "Earráid anaithnid"
     },
-    "IIIFManifestFailure": {
-      "description": "Ar an drochuair, ní féidir na meáin mhíreanna a chuirtear ar fáil do Europeana a thaispeáint faoi láthair. Déan iarracht na meáin a íoslódáil nó féachaint ar an mír ar shuíomh Gréasáin na hinstitiúide soláthair."
-    },
     "itemNotFound": {
       "description": "D'fhéadfadh sé seo a bheith mar gheall ar na cúiseanna seo a leanas: níl an mhír seo ann, nó; dífhoilsíodh é toisc nach raibh sé ag teacht lenár gcritéir cháilíochta, nó; Rinneadh é a nuashonrú agus a athfhoilsiú le haitheantóir uathúil nua, agus sa chás sin, déan iarracht an mhír a aimsiú arís.",
       "metaTitle": "Ní bhfuarthas an mhír",
       "title": "Ó níl! {newline} Ní rabhamar in ann an mhír seo a aimsiú."
+    },
+    "mediaFailure": {
+      "description": "Ar an drochuair, ní féidir na meáin mhíreanna a chuirtear ar fáil do Europeana a thaispeáint faoi láthair. Déan iarracht na meáin a íoslódáil nó féachaint ar an mír ar shuíomh Gréasáin na hinstitiúide soláthair."
     },
     "noFeatureIdeas": {
       "description": "Seiceáil ar ais arís go luath!",
@@ -371,6 +385,7 @@ export default {
       "options": {
         "archaeology": "Seandálaíocht",
         "art": "Ealaín",
+        "audiovisual": "Oidhreacht Closamhairc",
         "fashion": "Faisean",
         "industrial": "Oidhreacht thionsclaíoch",
         "manuscript": "Lámhscríbhinní",
@@ -716,6 +731,14 @@ export default {
       "name": "Ráiteas um chearta",
       "select": "Roghnaigh ráitis maidir le cearta"
     },
+    "sort": {
+      "name": "Sórtáil de réir",
+      "options": {
+        "proxy_dcterms_issued+asc": "Dáta Eisiúna (is sine ar dtús)",
+        "proxy_dcterms_issued+desc": "Dáta Eisiúna (an ceann is nuaí ar dtús)"
+      },
+      "select": "Roghnaigh conas na torthaí a shórtáil"
+    },
     "TYPE": {
       "name": "Cineál meán",
       "options": {
@@ -791,11 +814,52 @@ export default {
       "year": "Bliain"
     },
     "webResource": {
-      "about": "Maidir le RDF",
-      "dcDescription": "Tuairisc",
-      "ebucoreHasMimeType": "Cineál MIME Ebucore",
-      "edmRights": "Ráiteas um Chearta ceadúnas don acmhainn meán seo",
-      "rdfAbout": "Maidir le RDF"
+      "about": "Maidir le",
+      "dctermsConformsTo": "Comhlíonann",
+      "dcType": "Cineál meáin",
+      "ebucoreAudioChannelNumber": "Cainéil fuaime",
+      "ebucoreBitRate": "Ráta giotán (bps)",
+      "ebucoreDuration": "Fad",
+      "ebucoreFileByteSize": "Méid comhaid (bearta)",
+      "ebucoreFrameRate": "Ráta frámaí (fps)",
+      "ebucoreHasMimeType": "Cineál MIME",
+      "ebucoreHeight": "Airde (px)",
+      "ebucoreOrientation": "Treoshuíomh",
+      "ebucoreSampleRate": "Ráta samplála (Hz)",
+      "ebucoreSampleSize": "Méid na samplaí (giotáin)",
+      "ebucoreWidth": "Leithead (px)",
+      "edmCodecName": "Códec",
+      "edmComponentColor": "Dath comhpháirte",
+      "edmHasColorSpace": "Spás datha",
+      "edmIntendedUsage": "Úsáid beartaithe",
+      "edmPolygonCount": "Líon na bpolagán",
+      "edmRights": "Ráiteas cearta don mheán seo",
+      "edmSpatialResolution": "Taifeach spásúil (dpi)",
+      "edmVertexCount": "Líon na rinn",
+      "schemaDigitalSourceType": "Gaol leis an bhfíorshaol"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Ealaín",
+      "creativity": "Cruthaitheacht",
+      "curation": "Coimeádadh",
+      "design": "Dearadh",
+      "documentation": "Doiciméadú",
+      "education": "Oideachas",
+      "exhibition": "Taispeántas",
+      "gaming": "Cluichíocht",
+      "infotainment": "Infotainment",
+      "knowledge": "Eolas",
+      "maintenance": "Cothabháil",
+      "research": "Taighde",
+      "restoration": "Athchóiriú",
+      "tourism": "Turasóireacht"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Athchóiriú",
+      "digitalCapture": "Gabháil réaltachta",
+      "digitalCreation": "Rugadh go digiteach"
     }
   },
   "filterResults": "Scag torthaí",
@@ -836,10 +900,12 @@ export default {
     "navigation": {
       "about": "Maidir linn",
       "collections": "Bailiúcháin",
-      "europeanaClassroom": "Do mhúinteoirí",
+      "educators": "D'Oideachasóirí",
       "featureIdeas": "Smaointe gné",
       "help": "Cabhair",
       "home": "Baile",
+      "partners": "Bí i gcomhpháirt linn",
+      "research": "Do lucht acadúil agus taighde",
       "shareYourCollections": "Comhroinn do bhailiúcháin",
       "stories": "Scéalta"
     },
@@ -889,11 +955,10 @@ export default {
         "title": "Seirbhísí ba mhaith linn a úsáid."
       },
       "consentNotice": {
-        "description": "Haigh! An bhféadfaimis roinnt seirbhísí breise a chumasú le haghaidh anailíse agus slándála? Is féidir leat do thoiliú a athrú nó a tharraingt siar ar ball i gcónaí.",
-        "learnMore": "Lig dom a roghnú"
+        "description": "An bhféadfaimis seirbhísí a chumasú le haghaidh slándála, anailísíochtaí agus ábhar tríú páirtí?",
+        "learnMore": "Bainistigh socruithe fianán"
       },
-      "decline": "Meath mé",
-      "ok": "ceart go leor",
+      "decline": "Diúltaigh",
       "purposes": {
         "2D": {
           "title": "Meáin 2D"
@@ -946,6 +1011,10 @@ export default {
       "auth-strategy": {
         "description": "Is cuimhin leis an straitéis údaraithe a úsáid chun logáil isteach.",
         "title": "Straitéis Auth"
+      },
+      "cloudflare": {
+        "description": "Is cuimhin leis go bhfuil an dúshlán slándála curtha i gcrích go rathúil.",
+        "title": "Cloudflare"
       },
       "debugSettings": {
         "description": "Cuidíonn sé le hiarratais API a dhífhabhtú",
@@ -1002,6 +1071,12 @@ export default {
   },
   "loading": "Ag luchtú",
   "loadingResults": "Torthaí á lódáil",
+  "map": {
+    "keyboardNavigatePins": "Úsáid na heochracha saighde chun nascleanúint a dhéanamh ar na bioráin",
+    "keyboardPanAndZoom": "Úsáid na heochracha +, - agus na heochracha saighde chun súmáil isteach agus amach agus chun gluaiseacht thart ar an léarscáil.",
+    "togglePin": "Scoránaigh biorán",
+    "zoomInCluster": "Súmáil isteach ar bhraisle"
+  },
   "media": {
     "controls": {
       "exitFullscreen": "Scoir scáileán iomlán",
@@ -1024,6 +1099,8 @@ export default {
       "hide": "Folaigh bharra taoibh",
       "IIIFManifest": "Manifest IIIF",
       "links": "Naisc",
+      "metadata": "Meiteashonraí meáin",
+      "metadataInfo": "Faisnéis faoin meán atá á fhéachaint agat faoi láthair.",
       "search": "Cuardaigh",
       "searchPlaceholder": "Cuir isteach téarmaí",
       "show": "Taispeáin barra taoibh"
@@ -1078,15 +1155,41 @@ export default {
     "city": "Cathair",
     "country": "Tír",
     "englishName": "Ainm Béarla",
-    "nameAcronym": "Acrainm ainm"
+    "geographicScope": "Raon feidhme geografach",
+    "heritageDomain": "Cineálacha oidhreachta",
+    "nameAcronym": "Acrainm ainm",
+    "providesAudienceEngagementActivity": "Gníomhaíochtaí rannpháirtíochta lucht féachana",
+    "providesCapacityBuildingActivity": "Tógáil acmhainneachta",
+    "providesSupportForDataActivity": "Gníomhaíochtaí sonraí",
+    "providesSupportForMediaType": "Cineál meáin",
+    "providingInstitutionsCount": "Líon na n-institiúidí soláthair",
+    "recordCount": "Líon na míreanna"
+  },
+  "organisations": {
+    "aggregators": {
+      "description": "Oibríonn comhghréaqadóirí le hinstitiúidí soláthair chun a gcuid míreanna oidhreachta cultúrtha digiteacha a bhailiú agus a fhoilsiú ar Europeana.eu.",
+      "title": "Comhbhailitheoir"
+    },
+    "internationalAggregators": {
+      "description": "Sainmhíníonn comhiomlánaitheoirí fearainn agus comhiomlánaitheoirí téamacha a raon feidhme de réir earnáil chultúrtha (amhail músaem, cartlann nó leabharlann) nó de réir topaice agus téama (amhail faisean). Oibríonn siad le rannchuiditheoirí atá lonnaithe i dtíortha éagsúla na hEorpa.",
+      "title": "Comhiomlánaitheoirí fearainn agus téamacha"
+    },
+    "providingInstitutions": {
+      "description": "Liosta de mhúsaeim, leabharlanna, cartlanna agus dánlanna a roinneann a gcuid míreanna oidhreachta cultúrtha digití ar Europeana.eu.",
+      "title": "Institiúidí soláthair"
+    },
+    "regionalAggregators": {
+      "description": "Sainmhíníonn comhbhailitheoir náisiúnta agus réigiúnacha a raon feidhme de réir tíre nó réigiúin ar leith. Oibríonn siad le rannchuiditheoirí atá lonnaithe sa tír nó sa réigiún sin.",
+      "title": "Comhbhailitheoir náisiúnta agus réigiúnacha"
+    }
   },
   "pageHasLoaded": "luchtaithe",
   "pageNumber": "Uimhir an leathanaigh",
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Déan iniúchadh ar na hinstitiúidí a roinneann míreanna digiteacha oidhreachta cultúrtha ar Europeana.eu.",
-        "title": "Institiúidí"
+        "description": "Déan iniúchadh ar naInstitiúidí soláthartha a roinneann míreanna digiteacha oidhreachta cultúrtha ar Europeana.eu.",
+        "title": "Institiúidí soláthartha"
       },
       "persons": {
         "title": "Daoine"
@@ -1095,7 +1198,9 @@ export default {
         "title": "Áiteanna"
       },
       "table": {
+        "aggregator": "Comhbhailitheoir",
         "country": "Tír",
+        "domain": "Fearann / Téama",
         "items": "Míreanna",
         "name": "Ainm",
         "searchPlaceholder": "Cuardaigh laistigh den tábla",
@@ -1129,6 +1234,7 @@ export default {
       "pin": "PIN an mhír chuig na hEintitis atá ar fáil"
     },
     "allMetaData": "Gach meiteashonraí",
+    "allMetaDataInfo": "Eolas faoin mír seo ar fad.",
     "clickToCopyEmbedCode": "Cliceáil ar an gcód leabaithe chun é a chóipeáil.",
     "extendedInformation": "Faisnéis leathnaithe",
     "goodToKnow": "Maith a fhios",
@@ -1147,6 +1253,9 @@ export default {
   "related": {
     "categoryTags": {
       "title": "Faigh amach scéalta gaolmhara"
+    },
+    "collection": {
+      "preview": "Réamhamharc bailiúcháin"
     },
     "collections": {
       "name": "Bailiúcháin ghaolmhara",
@@ -1230,9 +1339,6 @@ export default {
     },
     "results": {
       "limitWarning": "Ní thaispeántar torthaí breise mar ní léirítear ach an chéad 1000 toradh is ábhartha. Mura bhfuil a bhfuil uait aimsithe agat, smaoinigh ar do chuardach a bheachtú.",
-      "loginToSeeMore": "{login} chun tuilleadh torthaí a fheiceáil",
-      "loginToSeeMultilingualResults": "Logáil isteach chun cuardach a dhéanamh ar fud an bhailiúcháin ar fad, agus faigh torthaí nach bhfuil teoranta do theanga do théarma cuardaigh.",
-      "showingMultilingualResults": "Torthaí a thaispeáint ar fud an bhailiúcháin ar fad agus gach teanga.",
       "withinCollection": "{count} torthaí laistigh de {type} {collection}",
       "withinCollectionWithQuery": "{count} torthaí laistigh de {type} {collection} le haghaidh {query}",
       "withoutQuery": "{count} torthaí",

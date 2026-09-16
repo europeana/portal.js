@@ -47,6 +47,7 @@ export default {
     "clearFilters": "Filters wissen",
     "close": "sluiten",
     "confirm": "Bevestigen",
+    "contact": "Contact",
     "continue": "doorgaan",
     "depublish": "Depubliceren",
     "download": "Download",
@@ -80,6 +81,7 @@ export default {
     "transcribe": "Transcriberen",
     "transcribeNow": "Nu transcriberen",
     "unlike": "Unlike",
+    "viewAll": "Alles bekijken {count}",
     "viewAt": "Bekijken op {link}",
     "viewDocument": "Document weergeven",
     "vote": "Stemmen"
@@ -105,14 +107,7 @@ export default {
         "create": {
           "button": "Vraag een persoonlijke API-sleutel aan",
           "checkbox": "Ik bevestig dat ik de API-sleutel {termsOfUseLink} heb gelezen en accepteer."
-        },
-        "description": "Leer en test hoe u API's kunt gebruiken met uw eigen persoonlijke API-sleutel. Deel deze niet met anderen. {howToLink}.",
-        "heading": "Persoonlijke API-sleutel",
-        "howToLinkText": "Hoe u uw sleutel gebruikt"
-      },
-      "projectKeys": {
-        "description": "Voor elk project dat u moet bouwen, voorzien wij u van een speciale sleutel. Projectsleutels hebben hogere limieten en andere speciale functies - lees meer in de API-sleutel {termsOfUseLink}. Als u de informatie over uw project wilt bewerken, stuur dan een e-mail naar api@europeana.eu, en wij zullen de wijzigingen voor u aanbrengen.",
-        "heading": "Project API-sleutels"
+        }
       },
       "termsOfUseLinkText": "gebruiksvoorwaarden"
     },
@@ -138,9 +133,27 @@ export default {
     "country": "Land:",
     "creator": "Maker:",
     "date": "Datum:",
+    "hide": "Verberg toeschrijving",
     "institution": "Instelling:",
     "show": "Toon toeschrijving",
     "title": "Titel:"
+  },
+  "audioVisualPlayer": {
+    "Captions": "Ondertiteling / gesloten ondertiteling",
+    "captions off": "Uit",
+    "captionsOption": "{language} bijschriften",
+    "Exit Fullscreen": "Volledig scherm afsluiten",
+    "Fullscreen": "Volledig scherm",
+    "Mute": "Dempen",
+    "Pause": "Pauze",
+    "Play": "Afspelen",
+    "Play Video": "Video afspelen",
+    "Replay": "Opnieuw afspelen",
+    "Subtitles": "Ondertiteling / gesloten ondertiteling",
+    "subtitles off": "Uit",
+    "subtitlesOption": "{language} ondertitels",
+    "Unmute": "Dempen opheffen",
+    "Volume Level": "Volumeniveau"
   },
   "authored": {
     "by": "door",
@@ -149,14 +162,15 @@ export default {
   "automatedCardGroup": {
     "gallery": "Nieuwste galerijen",
     "item": "Recente objecten",
-    "organisation": "Organisaties",
+    "organisation": "Deelnemende erfgoedorganisaties",
     "place": "Plaatsen",
     "theme": "Thema's",
     "time": "Eeuwen",
     "topic": "Onderwerpen"
   },
   "cardLabels": {
-    "organisation": "Organisatie",
+    "aggregator": "Aggregator",
+    "organisation": "Instelling",
     "person": "Persoon",
     "place": "Plaats",
     "theme": "Thema",
@@ -316,13 +330,13 @@ export default {
       "description": "Er is een onbekende fout opgetreden.",
       "title": "Onbekende fout"
     },
-    "IIIFManifestFailure": {
-      "description": "Helaas kan het object media zoals aangeleverd aan Europeana nu niet worden weergegeven. Probeer het te downloaden of bekijk het object op de website van de deelnemende erfgoedorganisatie."
-    },
     "itemNotFound": {
       "description": "Dit kan de volgende redenen hebben: dit item bestaat niet, of; het werd ongepubliceerd, omdat het niet voldeed aan onze kwaliteitscriteria, of; het is bijgewerkt en opnieuw gepubliceerd met een nieuwe unieke identificatie. Probeer in dat geval het item opnieuw te vinden.",
       "metaTitle": "Item niet gevonden",
       "title": "Oh nee! {newline} We hebben dit item niet kunnen vinden."
+    },
+    "mediaFailure": {
+      "description": "Helaas kan het object media zoals aangeleverd aan Europeana nu niet worden weergegeven. Probeer het te downloaden of bekijk het object op de website van de deelnemende erfgoedorganisatie."
     },
     "noFeatureIdeas": {
       "description": "Kom snel weer terug!",
@@ -371,6 +385,7 @@ export default {
       "options": {
         "archaeology": "Archeologie",
         "art": "Kunst",
+        "audiovisual": "Audiovisueel erfgoed",
         "fashion": "Mode",
         "industrial": "Industrieel erfgoed",
         "manuscript": "manuscripten",
@@ -716,6 +731,14 @@ export default {
       "name": "Rechtenstatus",
       "select": "Selecteer rechtenverklaringen"
     },
+    "sort": {
+      "name": "Sorteren op",
+      "options": {
+        "proxy_dcterms_issued+asc": "Uitgiftedatum (oudste eerst)",
+        "proxy_dcterms_issued+desc": "Uitgiftedatum (nieuwste eerst)"
+      },
+      "select": "Selecteer hoe de resultaten gesorteerd moeten worden."
+    },
     "TYPE": {
       "name": "Soort media",
       "options": {
@@ -791,11 +814,52 @@ export default {
       "year": "Jaar"
     },
     "webResource": {
-      "about": "RDF Over",
-      "dcDescription": "Omschrijving",
-      "ebucoreHasMimeType": "Ebucore MIME-type",
-      "edmRights": "Rechtenstatus voor deze mediabron",
-      "rdfAbout": "RDF Over"
+      "about": "Over",
+      "dctermsConformsTo": "Voldoet aan",
+      "dcType": "Soort media",
+      "ebucoreAudioChannelNumber": "Audiokanalen",
+      "ebucoreBitRate": "Bitrate (bps)",
+      "ebucoreDuration": "Duur",
+      "ebucoreFileByteSize": "Bestandsgrootte (bytes)",
+      "ebucoreFrameRate": "Framesnelheid (fps)",
+      "ebucoreHasMimeType": "MIME-type",
+      "ebucoreHeight": "Hoogte (px)",
+      "ebucoreOrientation": "Oriëntatie",
+      "ebucoreSampleRate": "Samplefrequentie (Hz)",
+      "ebucoreSampleSize": "Steekproefgrootte (bits)",
+      "ebucoreWidth": "Breedte (px)",
+      "edmCodecName": "Codec",
+      "edmComponentColor": "Component kleur",
+      "edmHasColorSpace": "Kleurruimte",
+      "edmIntendedUsage": "Beoogd gebruik",
+      "edmPolygonCount": "Aantal polygonen",
+      "edmRights": "Rechtenverklaring voor deze media",
+      "edmSpatialResolution": "Ruimtelijke resolutie (dpi)",
+      "edmVertexCount": "Aantal hoekpunten",
+      "schemaDigitalSourceType": "Relatie met de echte wereld"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Kunst",
+      "creativity": "Creativiteit",
+      "curation": "Curatie",
+      "design": "Ontwerp",
+      "documentation": "Documentatie",
+      "education": "Onderwijs",
+      "exhibition": "Tentoonstelling",
+      "gaming": "Gaming",
+      "infotainment": "Infotainment",
+      "knowledge": "Kennis",
+      "maintenance": "Onderhoud",
+      "research": "Onderzoek",
+      "restoration": "Restauratie",
+      "tourism": "Toerisme"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Reconstructie",
+      "digitalCapture": "Reality capture",
+      "digitalCreation": "Digitaal geboren"
     }
   },
   "filterResults": "Resultaten filteren",
@@ -836,10 +900,12 @@ export default {
     "navigation": {
       "about": "Over ons",
       "collections": "Collecties",
-      "europeanaClassroom": "Voor leraren",
+      "educators": "Voor docenten",
       "featureIdeas": "Ideeën voor functies",
       "help": "Help",
       "home": "Home",
+      "partners": "Word onze partner",
+      "research": "Voor de academische wereld en onderzoek",
       "shareYourCollections": "Deel uw collecties",
       "stories": "Verhalen"
     },
@@ -889,11 +955,10 @@ export default {
         "title": "Diensten waar we graag gebruik van willen maken."
       },
       "consentNotice": {
-        "description": "Hallo! Kunnen we alstublieft enkele aanvullende services inschakelen voor analyse en beveiliging? U kunt uw toestemming later altijd nog wijzigen of intrekken.",
-        "learnMore": "Laat me kiezen"
+        "description": "Kunnen we alstublieft services inschakelen voor beveiliging, analyse en inhoud van derden?",
+        "learnMore": "Cookie-instellingen beheren"
       },
-      "decline": "ik weiger",
-      "ok": "Oké",
+      "decline": "Weigeren",
       "purposes": {
         "2D": {
           "title": "2D media"
@@ -946,6 +1011,10 @@ export default {
       "auth-strategy": {
         "description": "Onthoudt de autorisatie strategie die moet worden gebruikt om in te loggen.",
         "title": "Auth-strategie"
+      },
+      "cloudflare": {
+        "description": "Onthoudt dat de beveiligingscontrole succesvol is doorlopen.",
+        "title": "Cloudflare"
       },
       "debugSettings": {
         "description": "Helpt bij het debuggen van API-verzoeken",
@@ -1002,6 +1071,12 @@ export default {
   },
   "loading": "Bezig met laden",
   "loadingResults": "Resultaten worden geladen",
+  "map": {
+    "keyboardNavigatePins": "Gebruik de pijltjestoetsen om door de pins te navigeren",
+    "keyboardPanAndZoom": "Gebruik de +-, en pijltjestoetsen om in en uit te zoomen en over de kaart te bewegen",
+    "togglePin": "Vastpinnen in-/uitschakelen",
+    "zoomInCluster": "Inzoomen op cluster"
+  },
   "media": {
     "controls": {
       "exitFullscreen": "Volledig scherm afsluiten",
@@ -1024,6 +1099,8 @@ export default {
       "hide": "Verberg zijbalk",
       "IIIFManifest": "IIIF Manifest",
       "links": "Links",
+      "metadata": "Media-metadata",
+      "metadataInfo": "Informatie over de media die u nu bekijkt.",
       "search": "Zoeken",
       "searchPlaceholder": "Voer termen in",
       "show": "Zijbalk weergeven"
@@ -1078,15 +1155,41 @@ export default {
     "city": "Stad",
     "country": "Land",
     "englishName": "Engelse naam",
-    "nameAcronym": "Naam acroniem"
+    "geographicScope": "Geografische reikwijdte",
+    "heritageDomain": "Soorten erfgoed",
+    "nameAcronym": "Naam acroniem",
+    "providesAudienceEngagementActivity": "Activiteiten voor publieksbetrokkenheid",
+    "providesCapacityBuildingActivity": "Capaciteitsopbouw",
+    "providesSupportForDataActivity": "Gegevensactiviteiten",
+    "providesSupportForMediaType": "Mediatype",
+    "providingInstitutionsCount": "Aantal aanbiedende instellingen",
+    "recordCount": "Aantal objecten"
+  },
+  "organisations": {
+    "aggregators": {
+      "description": "Aggregatoren werken samen met aanbiedende instellingen om hun digitale culturele erfgoed te verzamelen en te publiceren op Europeana.eu.",
+      "title": "Aggregators"
+    },
+    "internationalAggregators": {
+      "description": "Domein- en thematische aggregatoren bepalen hun reikwijdte op basis van culturele sector (zoals museum, archief of bibliotheek) of op basis van onderwerp en thema (zoals mode). Zij werken samen met aanbieders in verschillende Europese landen.",
+      "title": "Domein- en thematische aggregators"
+    },
+    "providingInstitutions": {
+      "description": "Een lijst van musea, bibliotheken, archieven en galerijen die hun digitale culturele erfgoedcollecties delen op Europeana.eu.",
+      "title": "Aanbiedende instellingen"
+    },
+    "regionalAggregators": {
+      "description": "Nationale en regionale aggregators definiëren hun werkgebied per specifiek land of regio. Ze werken samen met bijdragers die zich binnen dat land of die regio bevinden.",
+      "title": "Nationale en regionale aggregators"
+    }
   },
   "pageHasLoaded": "heeft geladen",
   "pageNumber": "Paginanummer",
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Ontdek de instellingen die digitale culturele erfgoed objecten delen op Europeana.eu.",
-        "title": "Instellingen"
+        "description": "Ontdek de deelnemende erfgoedorganisaties die digitale culturele erfgoed objecten delen op Europeana.eu.",
+        "title": "Deelnemende erfgoedorganisaties"
       },
       "persons": {
         "title": "Personen"
@@ -1095,7 +1198,9 @@ export default {
         "title": "Plaatsen"
       },
       "table": {
+        "aggregator": "Aggregator",
         "country": "Land",
+        "domain": "Domein / Thema",
         "items": "Objecten",
         "name": "Naam",
         "searchPlaceholder": "Zoeken binnen tabel",
@@ -1129,6 +1234,7 @@ export default {
       "pin": "Pin item aan beschikbare entiteiten"
     },
     "allMetaData": "Alle metadata",
+    "allMetaDataInfo": "Informatie over dit hele object.",
     "clickToCopyEmbedCode": "Klik op de insluitcode om deze te kopiëren",
     "extendedInformation": "Uitgebreide informatie",
     "goodToKnow": "Goed om te weten",
@@ -1147,6 +1253,9 @@ export default {
   "related": {
     "categoryTags": {
       "title": "Ontdek gerelateerde verhalen"
+    },
+    "collection": {
+      "preview": "Collectievoorbeeld"
     },
     "collections": {
       "name": "Gerelateerde collecties",
@@ -1230,9 +1339,6 @@ export default {
     },
     "results": {
       "limitWarning": "Aanvullende resultaten worden niet getoond, omdat alleen de eerste 1000 meest relevante resultaten worden getoond. Als u niet heeft gevonden wat u zocht, kunt u overwegen uw zoekopdracht te verfijnen.",
-      "loginToSeeMore": "{login} om meer resultaten te zien",
-      "loginToSeeMultilingualResults": "Log in om in de hele collectie te zoeken en krijg resultaten die niet beperkt zijn tot de taal van uw zoekterm.",
-      "showingMultilingualResults": "Resultaten weergeven voor de gehele collectie en alle talen.",
       "withinCollection": "{count} resultaten binnen {type} {collection}",
       "withinCollectionWithQuery": "{count} resultaten binnen {type} {collection} voor {query}",
       "withoutQuery": "{count} resultaten",

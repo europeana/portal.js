@@ -64,8 +64,8 @@
             :key="index"
             :title="entry.name"
             :url="contentfulEntryUrl(entry)"
-            :image-url="entry.primaryImageOfPage && entry.primaryImageOfPage.image.url"
-            :image-content-type="entry.primaryImageOfPage && entry.primaryImageOfPage.image.contentType"
+            :image-url="entry.primaryImageOfPage?.image?.url"
+            :image-content-type="entry.primaryImageOfPage?.image?.contentType"
           />
         </template>
       </b-card-group>

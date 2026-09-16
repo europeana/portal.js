@@ -24,6 +24,7 @@
   import themesGraphql from '@/graphql/queries/themes.graphql';
   import { getLabelledSlug } from '@/plugins/europeana/utils.js';
   import { daily } from '@/plugins/europeana/utils';
+  import { backendFetch } from '@/utils/backendFetch.js';
 
   const FEATURED_ORGANISATIONS = 'Featured organisations';
   const FEATURED_PLACES = 'Featured places';
@@ -191,16 +192,8 @@
 
     methods: {
       fetchCachedData() {
-        if (process.server) {
-          return import('@/server-middleware/api/cache/index.js')
-            .then(module => {
-              return module.cached(this.key, this.$config.redis)
-                .then((response) => response[this.key]);
-            });
-        } else {
-          return this.$axios.get(`/_api/cache/${this.key}`, { baseURL: window.location.origin })
-            .then((response) => response.data[this.key]);
-        }
+        return backendFetch('cache', [this.key], this.$nuxt.context)
+          .then((response) => response[this.key]);
       },
       async fetchContentfulData() {
         const variables = {

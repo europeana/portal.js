@@ -284,10 +284,24 @@ describe('components/search/SearchFilters', () => {
         });
       });
 
+      describe('enableSortFilter', () => {
+        it('is true', async() => {
+          const wrapper = factory({ propsData });
+          expect(wrapper.vm.enableSortFilter).toBe(true);
+        });
+      });
+
       describe('dateFilterField', () => {
         it('is "proxy_dcterms_issued"', async() => {
           const wrapper = factory({ propsData });
           expect(wrapper.vm.dateFilterField).toBe('proxy_dcterms_issued');
+        });
+      });
+
+      describe('sortFilterField', () => {
+        it('is "proxy_dcterms_issued"', async() => {
+          const wrapper = factory({ propsData });
+          expect(wrapper.vm.sortFilterField).toBe('proxy_dcterms_issued');
         });
       });
     });
@@ -364,14 +378,15 @@ describe('components/search/SearchFilters', () => {
             'collection:newspaper',
             'COUNTRY:"Netherlands"',
             'proxy_dcterms_issued:1871-12-12'
-          ]
+          ],
+          sort: 'proxy_dcterms_issued+asc'
         };
         const wrapper = factory({ searchStoreState: { userParams } });
         sinon.spy(wrapper.vm, 'rerouteSearch');
 
         wrapper.vm.resetFilters();
 
-        expect(wrapper.vm.rerouteSearch.calledWith({ page: 1, qf: null, reusability: null })).toBe(true);
+        expect(wrapper.vm.rerouteSearch.calledWith({ page: 1, qf: null, sort: null, reusability: null })).toBe(true);
       });
     });
 
@@ -596,6 +611,39 @@ describe('components/search/SearchFilters', () => {
 
             expect(updates.qf).not.toContain('contentTier:"3"');
           });
+        });
+      });
+    });
+
+    describe('changeSort', () => {
+      const initialSortValue = 'proxy_dcterms_issued%2Bdesc';
+      const propsData = {
+        userParams: {
+          qf: ['collection%3Anewspaper', 'TYPE:"TEXT"'],
+          sort: initialSortValue
+        }
+      };
+
+      describe('when changing the sort direction', () => {
+        const newSortValue = ['proxy_dcterms_issued%2Basc'];
+
+        it('triggers rerouting with the new search param', async() => {
+          const wrapper = factory({ propsData });
+          const searchRerouter = sinon.spy(wrapper.vm, 'rerouteSearch');
+
+          await wrapper.vm.changeSort('sort', newSortValue);
+
+          expect(searchRerouter.calledWith({ sort: newSortValue })).toBe(true);
+        });
+      });
+
+      describe('when called with unchanged values', () => {
+        it('does not trigger rerouting', async() => {
+          const wrapper = factory({ propsData });
+          const searchRerouter = sinon.spy(wrapper.vm, 'rerouteSearch');
+
+          await wrapper.vm.changeSort('sort', initialSortValue);
+          expect(searchRerouter.called).toBe(false);
         });
       });
     });

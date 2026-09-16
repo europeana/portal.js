@@ -1,6 +1,5 @@
 <template>
   <div
-    v-if="items.length"
     class="mosaic-container d-flex justify-content-between"
   >
     <div class="mosaic-column-1 d-flex flex-column">

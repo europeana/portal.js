@@ -148,6 +148,10 @@
     width: 100%;
     max-width: 100%;
 
+    @media (min-width: $bp-large) {
+      border-bottom: 1px solid $lightbluemagenta;
+    }
+
     .html-embed {
       display: block;
       position: relative;

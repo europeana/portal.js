@@ -36,10 +36,14 @@ table,
   }
 
   td {
-    line-height: 1.214;
-    padding: 1.125rem 1rem;
+    padding: 1.125rem 0.5rem;
     border-top: 1px solid $middlegrey;
     vertical-align: top;
+
+    @media (min-width: $bp-small) {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
 
     @at-root .xxl-page & {
       @media (min-width: $bp-4k) {
@@ -131,9 +135,5 @@ table,
         color: $black;
       }
     }
-  }
-
-  td {
-    line-height: 1em;
   }
 }

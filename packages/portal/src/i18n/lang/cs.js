@@ -47,6 +47,7 @@ export default {
     "clearFilters": "Vymazat filtry",
     "close": "zavřít",
     "confirm": "Potvrdit",
+    "contact": "Kontakt",
     "continue": "pokračovat",
     "depublish": "Zrušit publikování",
     "download": "Stáhnout",
@@ -80,6 +81,7 @@ export default {
     "transcribe": "Přepsat",
     "transcribeNow": "Přepište nyní",
     "unlike": "Nelíbí se mi",
+    "viewAll": "Zobrazit vše {count}",
     "viewAt": "Zobrazit na stránce{link}",
     "viewDocument": "Zobrazit dokument",
     "vote": "Hlasování"
@@ -105,14 +107,7 @@ export default {
         "create": {
           "button": "Požádejte o osobní API klíč",
           "checkbox": "Potvrzuji, že jsem si přečetl(a) a přijímám {termsOfUseLink} pro klíč API."
-        },
-        "description": "Naučte se a vyzkoušejte, jak používat API pomocí svého osobního API klíče. Prosím, nesdílejte ho. {howToLink}.",
-        "heading": "Osobní API klíč",
-        "howToLinkText": "Jak používat svůj klíč"
-      },
-      "projectKeys": {
-        "description": "Pro každý projekt, který potřebujete vytvořit, vám poskytneme vyhrazený klíč. Projektové klíče mají vyšší limity a další speciální funkce — přečtěte si více v API klíči {termsOfUseLink}. Pokud byste chtěli upravit informace o svém projektu, zašlete prosím e-mail na adresu api@europeana.eu a my změny provedeme za vás.",
-        "heading": "Klíče API projektu"
+        }
       },
       "termsOfUseLinkText": "podmínky použití"
     },
@@ -138,9 +133,27 @@ export default {
     "country": "Země:",
     "creator": "Tvůrce:",
     "date": "Datum:",
+    "hide": "Skrýt uvedení zdroje",
     "institution": "Instituce:",
     "show": "Zobrazit atribuci",
     "title": "Název:"
+  },
+  "audioVisualPlayer": {
+    "Captions": "Titulky / skryté titulky",
+    "captions off": "Vypnuto",
+    "captionsOption": "{language} titulky",
+    "Exit Fullscreen": "Ukončit celou obrazovku",
+    "Fullscreen": "Celá obrazovka",
+    "Mute": "Ztlumit",
+    "Pause": "Pauza",
+    "Play": "Přehrát",
+    "Play Video": "Přehrát video",
+    "Replay": "Přehrát znovu",
+    "Subtitles": "Titulky / skryté titulky",
+    "subtitles off": "Vypnuto",
+    "subtitlesOption": "{language} titulky",
+    "Unmute": "Zrušit ztlumení",
+    "Volume Level": "Úroveň hlasitosti"
   },
   "authored": {
     "by": "podle",
@@ -149,14 +162,15 @@ export default {
   "automatedCardGroup": {
     "gallery": "Nejnovější galerie",
     "item": "Poslední položky",
-    "organisation": "Organizace",
+    "organisation": "Poskytující instituce",
     "place": "Místa",
     "theme": "Témata",
     "time": "Století",
     "topic": "Tématy"
   },
   "cardLabels": {
-    "organisation": "Organizace",
+    "aggregator": "Agregátor",
+    "organisation": "Instituce",
     "person": "Osoba",
     "place": "Místo",
     "theme": "Téma",
@@ -316,13 +330,13 @@ export default {
       "description": "Došlo k neznámé chybě.",
       "title": "Neznámá chyba"
     },
-    "IIIFManifestFailure": {
-      "description": "Bohužel, položku médií, jak byla poskytnuta Europeana, nelze v tuto chvíli zobrazit. Zkuste prosím stáhnout média nebo si položku prohlédnout na webových stránkách poskytující instituce."
-    },
     "itemNotFound": {
       "description": "Může to být z následujících důvodů: tato položka neexistuje nebo; bylo zrušeno, protože neodpovídalo našim kritériím kvality, nebo; byla aktualizována a znovu publikována s novým jedinečným identifikátorem, v takovém případě zkuste položku znovu najít.",
       "metaTitle": "Položka nenalezena",
       "title": "Ach ne! {newline} Tuto položku se nám nepodařilo najít."
+    },
+    "mediaFailure": {
+      "description": "Bohužel, položku médií, jak byla poskytnuta Europeana, nelze v tuto chvíli zobrazit. Zkuste prosím stáhnout média nebo si položku prohlédnout na webových stránkách poskytující instituce."
     },
     "noFeatureIdeas": {
       "description": "Brzy se znovu podívejte!",
@@ -371,6 +385,7 @@ export default {
       "options": {
         "archaeology": "Archeologie",
         "art": "Umění",
+        "audiovisual": "Audiovizuální dědictví",
         "fashion": "Móda",
         "industrial": "Průmyslové dědictví",
         "manuscript": "Rukopisy",
@@ -716,6 +731,14 @@ export default {
       "name": "Výrok o právech",
       "select": "Vyberte prohlášení o právech"
     },
+    "sort": {
+      "name": "Seřadit podle",
+      "options": {
+        "proxy_dcterms_issued+asc": "Datum vydání (nejstarší první)",
+        "proxy_dcterms_issued+desc": "Datum vydání (od nejnovějšího)"
+      },
+      "select": "Vyberte, jak se mají výsledky řadit"
+    },
     "TYPE": {
       "name": "Druh média",
       "options": {
@@ -791,11 +814,52 @@ export default {
       "year": "Rok"
     },
     "webResource": {
-      "about": "RDF About",
-      "dcDescription": "Popis",
-      "ebucoreHasMimeType": "Ebucore typ MIME",
-      "edmRights": "Výrok o právech pro tento mediální zdrojvýrok o právech",
-      "rdfAbout": "RDF About"
+      "about": "O",
+      "dctermsConformsTo": "Odpovídá",
+      "dcType": "Typ média",
+      "ebucoreAudioChannelNumber": "Zvukové kanály",
+      "ebucoreBitRate": "Datový tok (bps)",
+      "ebucoreDuration": "Doba trvání",
+      "ebucoreFileByteSize": "Velikost souboru (bajty)",
+      "ebucoreFrameRate": "Snímková frekvence (fps)",
+      "ebucoreHasMimeType": "Typ MIME",
+      "ebucoreHeight": "Výška (px)",
+      "ebucoreOrientation": "Orientace",
+      "ebucoreSampleRate": "Vzorkovací frekvence (Hz)",
+      "ebucoreSampleSize": "Velikost vzorku (bity)",
+      "ebucoreWidth": "Šířka (px)",
+      "edmCodecName": "Kodek",
+      "edmComponentColor": "Barva komponenty",
+      "edmHasColorSpace": "Barevný prostor",
+      "edmIntendedUsage": "Zamýšlené použití",
+      "edmPolygonCount": "Počet polygonů",
+      "edmRights": "Prohlášení o právech k tomuto médiu",
+      "edmSpatialResolution": "Prostorové rozlišení (dpi)",
+      "edmVertexCount": "Počet vrcholů",
+      "schemaDigitalSourceType": "Vztah k reálnému světu"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Umění",
+      "creativity": "Kreativita",
+      "curation": "Kurátorství",
+      "design": "Design",
+      "documentation": "Dokumentace",
+      "education": "Vzdělání",
+      "exhibition": "Výstava",
+      "gaming": "Hraní",
+      "infotainment": "Infotainment",
+      "knowledge": "Znalosti",
+      "maintenance": "Údržba",
+      "research": "Výzkum",
+      "restoration": "Restaurování",
+      "tourism": "Cestovní ruch"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Rekonstrukce",
+      "digitalCapture": "Zachycení reality",
+      "digitalCreation": "Nativně digitální"
     }
   },
   "filterResults": "Filtrovat výsledky",
@@ -836,10 +900,12 @@ export default {
     "navigation": {
       "about": "O nás",
       "collections": "Sbírky",
-      "europeanaClassroom": "Pro učitele",
+      "educators": "Pro pedagogy",
       "featureIdeas": "Nápady na funkce",
       "help": "Pomoc",
       "home": "Domů",
+      "partners": "Staňte se naším partnerem",
+      "research": "Pro akademickou sféru a výzkum",
       "shareYourCollections": "Sdílejte své sbírky",
       "stories": "Příběhy"
     },
@@ -889,11 +955,10 @@ export default {
         "title": "Služby, které bychom rádi využili."
       },
       "consentNotice": {
-        "description": "Ahoj! Mohli bychom prosím povolit nějaké další služby pro analýzu a zabezpečení? Svůj souhlas můžete kdykoli změnit nebo odvolat.",
-        "learnMore": "Nech mě vybrat"
+        "description": "Můžeme prosím povolit služby pro zabezpečení, analytiku a obsah třetích stran?",
+        "learnMore": "Spravovat nastavení souborů cookie"
       },
-      "decline": "odmítám",
-      "ok": "dobře",
+      "decline": "Odmítám",
       "purposes": {
         "2D": {
           "title": "2D média"
@@ -946,6 +1011,10 @@ export default {
       "auth-strategy": {
         "description": "Pamatuje si strategii autorizace, která se má použít k přihlášení.",
         "title": "Strategie Auth"
+      },
+      "cloudflare": {
+        "description": "Pamatuje si, že bezpečnostní ověření bylo úspěšně splněno.",
+        "title": "Cloudflare"
       },
       "debugSettings": {
         "description": "Pomáhá ladit požadavky API",
@@ -1002,6 +1071,12 @@ export default {
   },
   "loading": "Načítání",
   "loadingResults": "Načítání výsledků",
+  "map": {
+    "keyboardNavigatePins": "K navigaci mezi piny použijte šipky",
+    "keyboardPanAndZoom": "Použijte klávesy +, - a šipky pro přiblížení a posun po mapě.",
+    "togglePin": "Přepnout připnutí",
+    "zoomInCluster": "Přiblížit shluk"
+  },
   "media": {
     "controls": {
       "exitFullscreen": "Ukončete celou obrazovku",
@@ -1024,6 +1099,8 @@ export default {
       "hide": "Skrýt postranní panel",
       "IIIFManifest": "IIIF Manifest",
       "links": "Odkazy",
+      "metadata": "Metadata médií",
+      "metadataInfo": "Informace o médiích, která si právě prohlížíte.",
       "search": "Vyhledat",
       "searchPlaceholder": "Zadejte podmínky",
       "show": "Zobrazit postranní panel"
@@ -1078,15 +1155,41 @@ export default {
     "city": "Město",
     "country": "Země",
     "englishName": "Anglický název",
-    "nameAcronym": "Zkratka jména"
+    "geographicScope": "Zeměpisná oblast působnosti",
+    "heritageDomain": "Typy dědictví",
+    "nameAcronym": "Zkratka jména",
+    "providesAudienceEngagementActivity": "Aktivity pro zapojení publika",
+    "providesCapacityBuildingActivity": "Budování kapacit",
+    "providesSupportForDataActivity": "Datové aktivity",
+    "providesSupportForMediaType": "Typ média",
+    "providingInstitutionsCount": "Počet poskytujících institucí",
+    "recordCount": "Počet položek"
+  },
+  "organisations": {
+    "aggregators": {
+      "description": "Agregátoři spolupracují s poskytujícími institucemi na shromažďování a zveřejňování jejich digitálních kulturních položky na Europeana.eu.",
+      "title": "Agregátory"
+    },
+    "internationalAggregators": {
+      "description": "Doménové a tematické agregátory vymezují svou působnost podle kulturního sektoru (například muzeum, archiv nebo knihovna) nebo podle tématu (například móda). Spolupracují s přispěvateli z různých evropských zemí.",
+      "title": "Doménové a tematické agregátory"
+    },
+    "providingInstitutions": {
+      "description": "Seznam muzeí, knihoven, archivů a galerií, které sdílejí své digitální kulturní položky na Europeana.eu.",
+      "title": "Poskytující instituce"
+    },
+    "regionalAggregators": {
+      "description": "Národní a regionální agregátoři vymezují svůj rozsah podle konkrétní země nebo regionu. Spolupracují s přispěvateli, kteří se nacházejí v dané zemi nebo regionu.",
+      "title": "Národní a regionální agregátoři"
+    }
   },
   "pageHasLoaded": "načteno",
   "pageNumber": "Číslo stránky",
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Prozkoumejte instituce, které sdílejí položky digitálního kulturního dědictví na Europeana.eu.",
-        "title": "Instituce"
+        "description": "Prozkoumejte poskytovatelské instituce, které sdílejí položky digitálního kulturního dědictví na Europeana.eu.",
+        "title": "Poskytující instituce"
       },
       "persons": {
         "title": "Osoby"
@@ -1095,7 +1198,9 @@ export default {
         "title": "Místa"
       },
       "table": {
+        "aggregator": "Agregátor",
         "country": "Země",
+        "domain": "Doména / Téma",
         "items": "Položky",
         "name": "Název",
         "searchPlaceholder": "Hledat v tabulce",
@@ -1129,6 +1234,7 @@ export default {
       "pin": "Připnout položku k dostupným entitám"
     },
     "allMetaData": "Všechna metadata",
+    "allMetaDataInfo": "Informace o celé této položce.",
     "clickToCopyEmbedCode": "Kliknutím na kód pro vložení jej zkopírujte",
     "extendedInformation": "Bližší informace",
     "goodToKnow": "Užitečné informace",
@@ -1147,6 +1253,9 @@ export default {
   "related": {
     "categoryTags": {
       "title": "Objevte související příběhy"
+    },
+    "collection": {
+      "preview": "Náhled kolekce"
     },
     "collections": {
       "name": "Související sbírky",
@@ -1230,9 +1339,6 @@ export default {
     },
     "results": {
       "limitWarning": "Další výsledky nejsou zobrazeny, protože je zobrazeno pouze prvních 1000 nejrelevantnějších výsledků. Pokud jste nenašli, co jste hledali, zvažte prosím upřesnění vyhledávání.",
-      "loginToSeeMore": "{login} zobrazíte další výsledky",
-      "loginToSeeMultilingualResults": "Přihlaste se, abyste mohli vyhledávat v celé kolekci a získejte výsledky, které nejsou omezeny na jazyk hledaného výrazu.",
-      "showingMultilingualResults": "Zobrazují se výsledky napříč celou sbírkou a ve všech jazycích.",
       "withinCollection": "{type} výsledků v rámci {count} {collection}",
       "withinCollectionWithQuery": "{count} výsledků v rámci {type} {collection} pro {query}",
       "withoutQuery": "{count} výsledků",

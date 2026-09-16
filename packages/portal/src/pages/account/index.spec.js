@@ -2,8 +2,8 @@ import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '@test/utils.js';
 import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
-import { reactive } from 'vue';
-import * as vue2RouterHelpers from 'vue2-helpers/vue-router';
+import { computed, reactive } from 'vue';
+import * as vueRouter from '@/composables/vueRouter.js';
 
 import page from '@/pages/account/index';
 import * as selectedItemsComposable from '@/composables/selectedItems.js';
@@ -12,17 +12,15 @@ const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
 const clearSelectedItemsSpy = sinon.spy();
-const storeDispatch = sinon.stub().resolves({});
 
 const factory = (options = {}) => {
-  sinon.stub(vue2RouterHelpers, 'useRoute').returns(reactive({ hash: options.hash || '' }));
+  sinon.stub(vueRouter, 'useRoute').returns(computed(() => reactive({ hash: options.hash || '' })));
 
   return shallowMountNuxt(page, {
     localVue,
     stubs: ['b-nav', 'b-nav-item', 'client-only'],
     mocks: {
       $t: key => key,
-      $tc: key => key,
       $auth: {
         userHasClientRole: options.userHasClientRoleStub || sinon.stub().returns(false),
         strategy: {
@@ -33,28 +31,7 @@ const factory = (options = {}) => {
           }
         }
       },
-      $config: { app: { baseUrl: 'https://www.example.eu' } },
-      $features: {},
-      $fetchState: options.fetchState || {},
-      $keycloak: { accountUrl: () => '/account' },
-      localePath: (path) => path,
-      $route: {},
-      $store: {
-        dispatch: storeDispatch,
-        getters: {},
-        state: {
-          auth: { loggedIn: true,
-            user: {
-              'preferred_username': 'username',
-              ...options.user
-            } },
-          set: {
-            creations: [],
-            curations: [],
-            likedItems: ['http://data.europeana.eu/set/123']
-          }
-        }
-      }
+      localePath: (path) => path
     }
   });
 };
@@ -68,24 +45,14 @@ describe('pages/account/index.vue', () => {
   });
   afterEach(() => {
     sinon.resetHistory();
-    vue2RouterHelpers.useRoute.restore?.();
+    vueRouter.useRoute.restore?.();
   });
   afterAll(sinon.restore);
 
-  describe('when visiting the account page', () => {
-    it('fetches the likes of the logged in user', () => {
-      const wrapper = factory();
+  it('sets the page meta title to the localised account title key', () => {
+    const wrapper = factory();
 
-      wrapper.vm.fetch();
-
-      expect(wrapper.vm.$store.dispatch.calledWith('set/fetchLikes')).toBe(true);
-    });
-
-    it('sets the page meta title to the localised account title key', () => {
-      const wrapper = factory();
-
-      expect(wrapper.vm.pageMeta.title).toBe('account.title');
-    });
+    expect(wrapper.vm.pageMeta.title).toBe('account.title');
   });
 
   describe('when the user has the editor role', () => {
@@ -139,20 +106,6 @@ describe('pages/account/index.vue', () => {
       const privateGalleries = wrapper.find('[data-qa="private sets"]');
 
       expect(privateGalleries.exists()).toBe(true);
-    });
-  });
-
-  describe('beforeRouteLeave', () => {
-    it('resets the active set, recommendations and selected items', async() => {
-      const wrapper = factory();
-      const to = { name: 'search__eu', fullPath: '/en/search', matched: [{ path: '/en/search' }] };
-
-      const next = sinon.stub();
-
-      await wrapper.vm.$options.beforeRouteLeave.call(wrapper.vm, to, null, next);
-
-      expect(clearSelectedItemsSpy.calledWith()).toBe(true);
-      expect(next.called).toBe(true);
     });
   });
 });

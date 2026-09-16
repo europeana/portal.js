@@ -127,22 +127,6 @@
       span {
         white-space: normal;
       }
-
-      .colour-palette {
-        border: 1px solid $whitegrey;
-        border-radius: 50%;
-        height: 1rem;
-        width: 1rem;
-        display: inline-block;
-        vertical-align: top;
-
-        @at-root .xxl-page & {
-          @media (min-width: $bp-4k) {
-            height: 1.5rem;
-            width: 1.5rem;
-          }
-        }
-      }
     }
 
     ul[role='group'] .dropdown-item {

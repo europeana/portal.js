@@ -1,6 +1,7 @@
 <template>
+  <!-- render while fetching so a skeleton reserves space and prevents scroll side-effects -->
   <section
-    v-if="items"
+    v-if="!$fetchState.error"
     id="trending-items"
     class="trending-items browse-section row mb-5"
     data-qa="browse section"
@@ -35,7 +36,8 @@
 
     data() {
       return {
-        items: null
+        // prevent ItemPreviewCardMosaic from breaking before fetch is done by setting items to empty array
+        items: []
       };
     },
 

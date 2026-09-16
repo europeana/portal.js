@@ -4,7 +4,7 @@ import services from './services.js';
 const servicesWithSchemes = services.filter((service) => service.schemes);
 
 for (const service of servicesWithSchemes) {
-  service.schemeRegExps = service.schemes.map((scheme) => {
+  service.schemeRegExps = service.schemes.concat(service.oembed).filter(Boolean).map((scheme) => {
     const escaped = escapeRegExp(scheme).replace(/\\\*/g, '.+');
     return new RegExp(escaped);
   });

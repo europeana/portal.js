@@ -275,27 +275,6 @@ describe('IndexPage', () => {
     });
   });
 
-  describe('when route is for DS4CH page', () => {
-    const $route = { params: { pathMatch: 'dataspace-culturalheritage' }, query: {} };
-
-    it('uses ds4ch layout', () => {
-      const wrapper = factory({ mocks: { $route } });
-
-      const layout = wrapper.vm.layout({ route: $route });
-
-      expect(layout).toBe('ds4ch');
-    });
-
-    it('sets pageMetaSuffixTitle to null', async() => {
-      const wrapper = factory({ mocks: { $route } });
-      await wrapper.vm.fetch();
-
-      const pageMetaSuffixTitle = wrapper.vm.pageMetaSuffixTitle;
-
-      expect(pageMetaSuffixTitle).toBeNull();
-    });
-  });
-
   describe('when route is for apis page', () => {
     const $route = { params: { pathMatch: 'apis' }, query: {} };
 

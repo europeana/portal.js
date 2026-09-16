@@ -1,118 +1,112 @@
 <template>
+  <LoadingSpinner
+    v-if="$fetchState.pending"
+    class="flex-md-row py-4 text-center"
+  />
+  <ErrorMessage
+    v-else-if="$fetchState.error"
+    data-qa="error message container"
+    :error="$fetchState.error"
+    class="pt-5"
+  />
   <div
-    data-qa="item page"
+    v-else
+    :data-qa="isDeleted ? 'item tombstone page' : 'item page'"
   >
-    <LoadingSpinner
-      v-if="$fetchState.pending"
-      class="flex-md-row py-4 text-center"
-    />
-    <ErrorMessage
-      v-else-if="$fetchState.error"
-      data-qa="error message container"
-      :error="$fetchState.error"
-      class="pt-5"
-    />
-    <template
-      v-else
+    <b-container
+      fluid
+      class="mb-3 px-0"
     >
-      <b-container
-        fluid
-        class="mb-3 px-0"
-      >
-        <ItemHero
-          :all-media-uris="allMediaUris"
-          :identifier="identifier"
-          :media="webResources"
-          :edm-rights="edmRights"
-          :edm-type="type"
-          :attribution-fields="attributionFields"
-          :link-for-contributing-annotation="linkForContributingAnnotation"
-          :entities="europeanaEntities"
-          :provider-url="isShownAt"
-          :iiif-presentation-manifest="iiifPresentationManifest"
-        />
-      </b-container>
-      <b-container
-        class="footer-margin"
-      >
-        <b-row class="mb-3 justify-content-center">
-          <b-col
-            cols="12"
-            class="col-lg-10"
-          >
-            <ItemSummaryInfo
-              :description="descriptionInCurrentLanguage"
-              :titles="titlesInCurrentLanguage"
-            />
-          </b-col>
-        </b-row>
-        <b-row
-          class="provider-row mb-3 justify-content-center"
+      <ItemHero
+        :identifier="identifier"
+        :media="webResources"
+        :services="services"
+        :edm-type="type"
+        :edm-rights="edmRights"
+        :attribution-fields="attributionFields"
+        :link-for-contributing-annotation="linkForContributingAnnotation"
+        :provider-url="isShownAt"
+        :iiif-presentation-manifest="iiifPresentationManifest"
+      />
+    </b-container>
+    <b-container
+      class="footer-margin"
+    >
+      <b-row class="mb-3 justify-content-center">
+        <b-col
+          cols="12"
+          class="col-lg-10"
         >
-          <b-col
-            cols="12"
-            class="col-lg-10"
-          >
-            <ItemDataProvider
-              :data-provider="!dataProviderEntityUri ? metadata.edmDataProvider : null"
-              :data-provider-entity="dataProviderEntity"
-              :metadata-language="metadataLanguage"
-              :is-shown-at="isShownAt"
-              :user-generated-content="metadata.edmUgc === 'true'"
-            />
-          </b-col>
-        </b-row>
-        <b-row class="mb-3 justify-content-center">
-          <b-col
-            cols="12"
-            class="col-lg-10 mt-3"
-          >
-            <MetadataBox
-              :metadata="fieldsAndKeywords"
-              :location="locationData"
-              :metadata-language="metadataLanguage"
-            />
-            <ItemLanguageSelector
-              v-if="translatedItemsEnabled"
-              :from-translation-error="fromTranslationError"
-              :translation-language="translationLanguage"
-            />
-          </b-col>
-        </b-row>
-        <client-only
-          v-if="relatedCollections.length > 0"
-        >
-          <b-row
-            class="justify-content-center"
-          >
-            <b-col
-              cols="12"
-              class="col-lg-10 mt-4"
-            >
-              <EntityBadges
-                :related-collections="relatedCollections"
-                data-qa="related entities"
-              />
-            </b-col>
-          </b-row>
-        </client-only>
-        <client-only>
-          <!--
-            NOTE: dcType/title does not make sense here, but leave it alone as
-                  eventually this will be deprecated and the Recommendation API
-                  used instead.
-            FIXME: ... but who knows when, so maybe fix here in the meantime
-          -->
-          <ItemRecommendations
-            :identifier="identifier"
-            :dc-type="metadata.dcTitle"
-            :dc-subject="metadata.dcSubject"
-            :dc-creator="metadata.dcCreator"
-            :edm-data-provider="dataProviderEntityLabel"
+          <ItemSummaryInfo
+            :description="descriptionInCurrentLanguage"
+            :titles="titlesInCurrentLanguage"
           />
-        </client-only>
-      </b-container>
-    </template>
+        </b-col>
+      </b-row>
+      <b-row
+        class="provider-row mb-3 justify-content-center"
+      >
+        <b-col
+          cols="12"
+          class="col-lg-10"
+        >
+          <ItemDataProvider
+            :data-provider="!dataProviderEntityUri ? metadata.edmDataProvider : null"
+            :data-provider-entity="dataProviderEntity"
+            :metadata-language="metadataLanguage"
+            :is-shown-at="isShownAt"
+            :user-generated-content="metadata.edmUgc === 'true'"
+          />
+        </b-col>
+      </b-row>
+      <b-row class="mb-3 justify-content-center">
+        <b-col
+          cols="12"
+          class="col-lg-10 mt-3"
+        >
+          <MetadataBox
+            :metadata="fieldsAndKeywords"
+            :location="locationData"
+          />
+          <ItemLanguageSelector
+            :from-translation-error="fromTranslationError"
+            :translation-language="translationLanguage"
+          />
+        </b-col>
+      </b-row>
+      <client-only
+        v-if="relatedCollections.length > 0"
+      >
+        <b-row
+          class="justify-content-center"
+        >
+          <b-col
+            cols="12"
+            class="col-lg-10 mt-4"
+          >
+            <EntityBadges
+              :related-collections="relatedCollections"
+              data-qa="related entities"
+            />
+          </b-col>
+        </b-row>
+      </client-only>
+      <client-only>
+        <!--
+          NOTE: dcType/title does not make sense here, but leave it alone as
+                eventually this will be deprecated and the Recommendation API
+                used instead.
+          FIXME: ... but who knows when, so maybe fix here in the meantime
+        -->
+        <ItemRecommendations
+          :identifier="identifier"
+          :dc-type="metadata.dcTitle"
+          :dc-subject="metadata.dcSubject"
+          :dc-creator="metadata.dcCreator"
+          :edm-data-provider="dataProviderEntityLabel"
+        />
+      </client-only>
+    </b-container>
   </div>
 </template>
 
@@ -129,7 +123,7 @@
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import MetadataBox, { ALL_FIELDS as METADATA_FIELDS } from '@/components/metadata/MetadataBox';
   const ALL_METADATA_FIELDS = [
-    'dcTitle', 'dctermsAlternative', 'dcDescription', 'edmIsShownBy', 'edmObject'
+    'dcTitle', 'dctermsAlternative', 'dcDescription', 'edmIsShownBy', 'edmLanguage', 'edmObject'
   ].concat(METADATA_FIELDS);
 
   import useDeBias from '@/composables/deBias.js';
@@ -141,9 +135,9 @@
   } from  '@europeana/i18n';
   import Item from '@/plugins/europeana/edm/Item.js';
   import WebResource from '@/plugins/europeana/edm/WebResource.js';
+  import { redirectToAltRoute } from '@/utils/redirect/redirectToAltRoute.js';
   import stringify from '@/utils/text/stringify.js';
   import pageMetaMixin from '@/mixins/pageMeta';
-  import redirectToMixin from '@/mixins/redirectTo';
 
   import waitFor from '@/utils/waitFor.js';
 
@@ -163,8 +157,7 @@
     },
 
     mixins: [
-      pageMetaMixin,
-      redirectToMixin
+      pageMetaMixin
     ],
 
     inject: ['canonicalUrl'],
@@ -175,9 +168,33 @@
         // in descendent components because the latter approach would not hydrate
         // the shared state of those refs after SSR, but provide/inject does
         deBias: computed(() => this.deBias),
-        itemIsDeleted: computed(() => this.isDeleted)
+        isProxyable: this.isProxyable,
+        itemIsDeleted: computed(() => this.isDeleted),
+        itemLanguage: computed(() => this.metadata.edmLanguage?.def?.[0]),
+        itemPinning: computed(() => ({
+          entities: this.europeanaEntities
+        })),
+        metadataLanguage: this.metadataLanguage,
+        textTrackAnnotations: computed(() => this.textTrackAnnotations)
       };
     },
+
+    middleware: [
+      // When entering a translated item page, but not logged-in,
+      // redirect to Keycloak to login, unless user just logged out in which case,
+      // redirect to page without translation.
+      ({ $auth, redirect, route }) => {
+        if (route.query.lang && !$auth.loggedIn) {
+          if ($auth.$storage.getUniversal('portalLoggingOut')) {
+            // just logged out: redirect to page w/o lang param
+            return redirectToAltRoute({ query: { lang: undefined } }, { redirect, route, status: 303 });
+          } else {
+            // not yet logged-in: redirect to login
+            return redirect(303, { name: 'account-login', query: { redirect: route.fullPath } });
+          }
+        }
+      }
+    ],
 
     setup() {
       const {
@@ -194,7 +211,6 @@
     data() {
       return {
         MAX_VALUES_PER_METADATA_FIELD: 10,
-        allMediaUris: [],
         annotations: [],
         cardGridClass: null,
         dataProviderEntity: null,
@@ -210,22 +226,19 @@
         media: [],
         metadata: {},
         ogImage: null,
+        proxyableMedia: [],
         relatedCollections: [],
+        services: [],
         type: null,
         useProxy: true
       };
     },
 
     async fetch() {
-      // When entering a translated item page, but not logged in, redirect to non-translated item page
-      if (this.$route.query.lang && !this.$auth.loggedIn) {
-        this.redirectToAltRoute({ query: { lang: undefined } });
-      } else {
-        await Promise.all([
-          this.fetchMetadata(),
-          this.fetchAnnotations()
-        ]);
-      }
+      await Promise.all([
+        this.fetchMetadata(),
+        this.fetchAnnotations()
+      ]);
     },
 
     head() {
@@ -241,7 +254,14 @@
         if (this.isDeleted) {
           return [new WebResource({ about: this.metadata.edmIsShownBy || this.metadata.edmObject }, this.identifier)];
         } else {
-          return this.media.map((item) => item instanceof WebResource ? item : new WebResource(item, this.identifier));
+          return this.media.map((item) => {
+            // TODO: include item-level edm:rights?
+            const wr = item instanceof WebResource ? item : new WebResource(item);
+            if (wr.dctermsIsFormatOf?.def) {
+              wr.dctermsIsFormatOf.def = wr.dctermsIsFormatOf.def.map((ifo) => ifo instanceof WebResource ? ifo : new WebResource(ifo));
+            }
+            return wr;
+          });
         }
       },
       pageMeta() {
@@ -316,6 +336,9 @@
       dataProviderEntityLabel() {
         return this.metadata.edmDataProvider?.def?.[0].prefLabel;
       },
+      textTrackAnnotations() {
+        return this.annotationsByMotivation('subtitling').concat(this.annotationsByMotivation('captioning'));
+      },
       taggingAnnotations() {
         return this.annotationsByMotivation('tagging');
       },
@@ -324,9 +347,6 @@
       },
       relatedEntityUris() {
         return this.europeanaEntityUris.filter((entityUri) => entityUri !== this.dataProviderEntityUri).slice(0, 5);
-      },
-      translatedItemsEnabled() {
-        return this.$features.translatedItems;
       },
       matomoOptions() {
         return {
@@ -337,7 +357,7 @@
         };
       },
       translatingMetadata() {
-        return !!(this.$features?.translatedItems && this.$route.query.lang && this.$auth.loggedIn);
+        return !!(this.$route.query.lang && this.$auth.loggedIn);
       },
       translationLanguage() {
         return this.translatingMetadata ? this.$route.query.lang : null;
@@ -358,13 +378,20 @@
 
     mounted() {
       this.fetchEntities();
-      if (!this.$fetchState.error && !this.$fetchState.pending) {
+      if (!this.$fetchState.error) {
         this.logEvent('view', `${ITEM_URL_PREFIX}${this.identifier}`, this.$session);
-        this.trackCustomDimensions();
+
+        if (!this.$fetchState.pending) {
+          this.trackCustomDimensions();
+        }
       }
     },
 
     methods: {
+      isProxyable(url) {
+        return this.proxyableMedia.includes(url);
+      },
+
       trackCustomDimensions() {
         waitFor(() => this.$matomo, this.$config.matomo.loadWait)
           .then(() => this.$matomo.trackPageView('item page custom dimensions', this.matomoOptions))
@@ -402,7 +429,7 @@
         const edm = data.object;
 
         if (this.identifier !== edm.about) {
-          return this.redirectToAltRoute({ params: { pathMatch: edm.about?.slice(1) } });
+          return redirectToAltRoute({ params: { pathMatch: edm.about?.slice(1) } }, { redirect: this.$nuxt.context.redirect, route: this.$route });
         }
 
         this.type = edm.type;
@@ -410,24 +437,43 @@
         const item = new Item(edm);
         this.isDeleted = item.isDeleted;
 
+        let displayableWebResources = item.providerAggregation.displayableWebResources;
+        // hack to prefer the model-viewer to an oEmbed
+        // TODO: remove when data modelling regards relevant media types as displayable
+        if (this.$features.modelViewer && this.$features.modelViewerReplacesOembed) {
+          displayableWebResources = displayableWebResources.map((wr) => {
+            if (wr.isOEmbed) {
+              const gltfWebResource = (wr.dctermsIsFormatOf?.def || [])
+                .find((dctermsIsFormatOfWebResource) => dctermsIsFormatOfWebResource.isDisplayable3DModel);
+              if (gltfWebResource) {
+                return gltfWebResource;
+              }
+            }
+
+            return wr;
+          });
+        }
+        this.media = displayableWebResources;
+
         // TODO: ideally, wouldn't store these as can be a large list if many WRs,
-        //       but relied on by ItemHero to know whether to proxy download urls or not.
+        //       but relied on by descendent components to know whether to proxy media or not.
         //       could we deduce that from whether iiif is in use or not, and if
         //       so, whether a europeana manifest?
         //       - not iiif: proxy
         //       - iiif, europeana: proxy
         //       - iiif, institution: don't proxy
-        this.allMediaUris = item.providerAggregation.displayableWebResources.map((wr) => wr.about);
+        this.proxyableMedia = (item.providerAggregation.webResources || []).map((wr) => wr.about)
+          .filter((wr) => wr.ebucoreMimeType !== 'application/dash+xml');
         this.iiifPresentationManifest = item.iiifPresentationManifest;
         this.isShownAt = item.providerAggregation.edmIsShownAt;
 
         this.ogImage = this.$apis.thumbnail.forWebResource(
-          new WebResource(item.providerAggregation.displayableWebResources[0], this.identifier)
+          new WebResource(displayableWebResources[0], this.identifier)
         ).large;
 
         const preconnects = [
           this.iiifPresentationManifest,
-          item.providerAggregation.displayableWebResources?.[(this.$route.query.page || 1) - 1]?.about
+          displayableWebResources?.[(this.$route.query.page || 1) - 1]?.about
         ].filter(Boolean);
         for (const preconnect of preconnects) {
           try {
@@ -441,25 +487,7 @@
 
         this.metadata = this.extractMetadata(edm);
 
-        this.media = item.providerAggregation.displayableWebResources.map((wr) => {
-          // don't keep WR-level rights statement if same as item-level
-          if (wr.webResourceEdmRights?.def?.[0] === this.metadata.edmRights.def[0]) {
-            delete wr.webResourceEdmRights;
-          }
-
-          // don't store the full web resources when using iiif as the manifest will be used,
-          // but WR-level rights statements still needed by ItemHero and not consistently
-          // obtainable from manifests coming from different sources
-          if (this.iiifPresentationManifest) {
-            for (const key in wr) {
-              if (!['about', 'webResourceEdmRights'].includes(key)) {
-                delete wr[key];
-              }
-            }
-          }
-
-          return wr;
-        });
+        this.services = item.services;
 
         process.client && this.trackCustomDimensions();
       },
@@ -620,7 +648,7 @@
         try {
           const annotations = await this.$apis.annotation.search({
             query: `target_record_id:"${this.identifier}"`,
-            qf: 'motivation:(highlighting OR linkForContributing OR tagging)',
+            qf: 'motivation:(highlighting OR linkForContributing OR tagging OR subtitling OR captioning)',
             profile: 'dereference'
           });
           this.parseDeBiasAnnotations(annotations, { fields: ALL_METADATA_FIELDS, lang: this.$i18n.locale });
@@ -630,7 +658,7 @@
             terms: this.deBiasTerms
           };
 
-          this.annotations = (annotations || []).filter((anno) => ['linkForContributing', 'tagging'].includes(anno.motivation));
+          this.annotations = (annotations || []).filter((anno) => ['captioning', 'linkForContributing', 'subtitling', 'tagging'].includes(anno.motivation));
         } catch {
           // don't let an Annotation API error bring the whole page down
           this.annotations = [];

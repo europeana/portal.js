@@ -7,7 +7,7 @@
       v-if="resizedLogo"
       class="organisation-logo mb-2"
       data-qa="entity logo"
-      :style="`background-image: url(${resizedLogo})`"
+      :style="`background-image: url('${resizedLogo}')`"
     />
     <b-card-title
       title-tag="h2"
@@ -18,7 +18,9 @@
     </b-card-title>
     <b-card-sub-title
       v-if="subTitle"
+      sub-title-tag="h3"
       :lang="langAttribute(subTitle.code)"
+      class="context-label"
     >
       {{ subTitle.values[0] }}
     </b-card-sub-title>
@@ -44,7 +46,7 @@
       </b-button>
     </b-card-text>
     <template
-      v-if="moreInfo"
+      v-if="isOrganisationType"
     >
       <b-button
         class="d-inline-flex align-items-center"
@@ -56,20 +58,31 @@
       </b-button>
       <EntityInformationModal
         :title="title"
-        :entity-info="moreInfo"
+        :sub-title="subTitle"
+        :entity="entity"
+        :english-name="organisationNonNativeEnglishName"
       />
     </template>
     <b-button
-      v-if="externalLink"
+      v-if="email"
       class="d-inline-flex align-items-center"
-      :href="externalLink"
+      data-qa="entity contact button"
+      :href="`mailto:${email}`"
+    >
+      <span class="icon-email pr-1" />
+      {{ $t('actions.contact') }}
+    </b-button>
+    <b-button
+      v-if="homepage"
+      class="d-inline-flex align-items-center"
+      :href="homepage"
       target="_blank"
     >
       <span class="icon-link pr-1" />
       {{ $t('website') }}
     </b-button>
     <ShareButton />
-    <ShareSocialModal :media-url="image ? image : logo" />
+    <ShareSocialModal :media-url="thumbnail ? thumbnail : logo" />
     <client-only>
       <template
         v-if="editable"
@@ -83,7 +96,7 @@
           {{ $t('actions.edit') }}
         </b-button>
         <EntityUpdateModal
-          :id="id"
+          :id="entity.id"
           :description="description && description.values[0] || null"
           @updated="$emit('updated')"
         />
@@ -99,6 +112,8 @@
   import { getWikimediaThumbnailUrl } from '@/plugins/europeana/entity';
   import ShareButton from '@/components/share/ShareButton';
   import ShareSocialModal from '@/components/share/ShareSocialModal';
+  import { langMapValueForLocale, uriRegex } from  '@europeana/i18n';
+  import { organizationEntityNonNativeEnglishName } from '@/utils/europeana/entities/organizations.js';
 
   export default {
     name: 'EntityHeader',
@@ -117,25 +132,18 @@
 
     props: {
       /**
+       * Entity
+       */
+      entity: {
+        type: Object,
+        required: true
+      },
+      /**
        * Title of the entity
        */
       title: {
         type: Object,
         required: true
-      },
-      /**
-       * URI of the entity
-       */
-      id: {
-        type: String,
-        required: true
-      },
-      /**
-       * Sub-title of the entity
-       */
-      subTitle: {
-        type: Object,
-        default: null
       },
       /**
        * Description of the entity as object with 'values' (array of strings) and 'code' two letter language code
@@ -145,46 +153,11 @@
         default: null
       },
       /**
-       * Logo image file path (currently only used for organisation entity)
-       */
-      logo: {
-        type: String,
-        default: null
-      },
-      /**
-       * Image file path for social media sharing
-       */
-      image: {
-        type: String,
-        default: null
-      },
-      /**
        * If 'true' enables the edit button and modal
        */
       editable: {
         type: Boolean,
         default: false
-      },
-      /**
-       * Website link (currently only used for organisation entity)
-       */
-      externalLink: {
-        type: String,
-        default: null
-      },
-      /**
-       * Proxy needed to update editable description
-       */
-      proxy: {
-        type: Object,
-        default: () => ({})
-      },
-      /**
-       * More entity data to show in modal (currently only used for organisation entity)
-       */
-      moreInfo: {
-        type: Array,
-        default: null
       }
     },
     data() {
@@ -195,6 +168,14 @@
     },
 
     computed: {
+      organisationNonNativeEnglishName() {
+        return this.organizationEntityNonNativeEnglishName(this.entity);
+      },
+      subTitle() {
+        return this.organisationNonNativeEnglishName ?
+          langMapValueForLocale(this.organisationNonNativeEnglishName, this.$i18n.locale) :
+          null;
+      },
       truncatedDescription() {
         return truncate(this.fullDescription, this.limitCharacters);
       },
@@ -204,11 +185,38 @@
       fullDescription() {
         return this.hasDescription ? this.description.values[0] : '';
       },
+      isOrganisationType() {
+        return ['Organization', 'Aggregator'].includes(this.entity.type);
+      },
+      logo() {
+        if (this.isOrganisationType && this.entity?.logo) {
+          return this.entity.logo.id;
+        }
+        return null;
+      },
       resizedLogo() {
-        return getWikimediaThumbnailUrl(this.logo, 72);
+        return getWikimediaThumbnailUrl(this.logo, 120);
+      },
+      email() {
+        if (this.isOrganisationType) {
+          return this.entity?.mbox;
+        }
+        return null;
+      },
+      thumbnail() {
+        return this.$apis.entity.imageUrl(this.entity);
+      },
+      homepage() {
+        if (this.isOrganisationType &&
+          this.entity?.homepage &&
+          uriRegex.test(this.entity.homepage)) {
+          return this.entity.homepage;
+        }
+        return null;
       }
     },
     methods: {
+      organizationEntityNonNativeEnglishName,
       toggleMoreDescription() {
         this.showAll = !this.showAll;
         this.$nextTick(() => {
@@ -271,17 +279,14 @@
   }
 
   .card-subtitle {
-    margin-top: 0.5rem;
+    line-height: 1.5;
+    margin-top: 0.325rem;
     margin-bottom: 0.375rem;
-    font-size: $font-size-extrasmall;
-    color: $darkgrey;
-    text-transform: uppercase;
 
     @at-root .xxl-page & {
       @media (min-width: $bp-4k) {
-        margin-top: 0.75rem;
+        margin-top: 0.65rem;
         margin-bottom: calc(1.5 * 0.375rem);
-        font-size: $font-size-extrasmall-4k;
       }
     }
   }
@@ -291,7 +296,6 @@
   ```jsx
     <div style="background-color: #ededed; margin: -16px; padding: 16px;">
       <EntityHeader
-        id="http://data.europeana.eu/concept/190"
         :description="{ values: [
           'Discover inspiring art, artists and stories in the digitised collections of European museums, galleries,\
            libraries and archives. Explore paintings, drawings, engravings and sculpture from cultural heritage institutions\
@@ -300,14 +304,46 @@
            across Europe.'
         ] }"
         :title="{ values: ['Title'] }"
-        logo="https://cdn.jsdelivr.net/npm/@europeana/portal@1.62.2/.nuxt/dist/client/img/logo.e9d9080.svg"
+        :entity="{
+          id: 'http://data.europeana.eu/concept/190',
+          logo: { id: 'https://cdn.jsdelivr.net/npm/@europeana/portal@1.62.2/.nuxt/dist/client/img/logo.e9d9080.svg' },
+          homepage: 'https://www.europeana.eu'
+        }"
+      />
+    </div>
+  ```
+  Aggregator entity header
+  ```jsx
+    <div style="background-color: #ededed; margin: -16px; padding: 16px;">
+      <EntityHeader
+        :description="{ values: [
+          'Discover inspiring art, artists and stories in the digitised collections of European museums, galleries,\
+           libraries and archives. Explore paintings, drawings, engravings and sculpture from cultural heritage institutions\
+           across Europe. Discover inspiring art, artists and stories in the digitised collections of European museums, galleries,\
+           libraries and archives. Explore paintings, drawings, engravings and sculpture from cultural heritage institutions\
+           across Europe.'
+        ] }"
+        :title="{ values: ['Aggregator titel oorspronkelijke taal'] }"
+        :entity="{
+          id: 'http://data.europeana.eu/organization/190',
+          logo: { id: 'https://cdn.jsdelivr.net/npm/@europeana/portal@1.62.2/.nuxt/dist/client/img/logo.e9d9080.svg' },
+          homepage: 'https://www.europeana.eu',
+          mbox: 'info@aggregator.eu',
+          prefLabel: { en: 'Aggregator title in English', nl: 'Aggregator titel oorspronkelijke taal' },
+          type: 'Organization',
+          acronym: ['ABC'],
+          hasAddress: { countryName: 'The Netherlands', locality: 'The Hague' },
+          homepage: 'https://www.example.eu',
+          heritageDomain: 'Scientific heritage',
+          providesSupportForMediaType: ['Image', 'Video'],
+          geographicScope: 'International',
+          providesSupportForDataActivity: ['Copyright support','Content storage'],
+          providesCapacityBuildingActivity: ['One-to-one support', 'Webinars / workshops'],
+          providesAudienceEngagementActivity: ['Social media engagement', 'Digital curation'],
+          isAggregatedBy: { recordCount: 20000 },
+          aggregatesFrom: ['http://data.europeana.eu/organization/100', 'http://data.europeana.eu/organization/101',]
+        }"
         :editable="true"
-        externalLink="https://www.europeana.eu"
-        :moreInfo="[{ label: 'website', value: 'https://www.europeana.eu' },
-          { label: 'Country', value: 'The Netherlands' },
-          { label: 'Acronym', value: 'EF' },
-          { label: 'city', value: 'The Hague' }
-        ]"
       />
     </div>
   ```

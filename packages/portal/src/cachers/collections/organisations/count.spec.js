@@ -1,15 +1,19 @@
 import * as cacher from '@/cachers/collections/organisations/count.js';
-import * as baseCacher from '@/cachers/collections/index.js';
 import sinon from 'sinon';
 
 describe('@/cachers/collections/organisations/count', () => {
+  afterEach(sinon.resetHistory);
   it('counts entities with type: organization', () => {
-    sinon.stub(baseCacher, 'countEntities');
+    const context = { $apis: { entity: { search: sinon.stub().resolves({}) } } };
 
-    cacher.data();
+    cacher.data(context);
 
-    expect(baseCacher.countEntities.calledWith({ type: 'organization' }, {})).toBe(true);
-    sinon.resetHistory();
+    expect(context.$apis.entity.search.calledWith({
+      query: '*:*',
+      scope: 'europeana',
+      pageSize: 0,
+      type: 'organization'
+    })).toBe(true);
   });
 
   it('picks nothing', () => {

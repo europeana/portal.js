@@ -47,6 +47,7 @@ export default {
     "clearFilters": "Ryd filtre",
     "close": "luk",
     "confirm": "Bekræft",
+    "contact": "Kontakt",
     "continue": "fortsæt",
     "depublish": "Depublicer",
     "download": "Hent",
@@ -80,6 +81,7 @@ export default {
     "transcribe": "Transskriber",
     "transcribeNow": "Transskriber nu",
     "unlike": "Fjern like",
+    "viewAll": "Se alle {count}",
     "viewAt": "Se på {link}",
     "viewDocument": "Se dokument",
     "vote": "Stemme"
@@ -105,14 +107,7 @@ export default {
         "create": {
           "button": "Anmod om en personlig API-nøgle",
           "checkbox": "Jeg bekræfter, at jeg har læst og accepterer API-nøglen {termsOfUseLink}."
-        },
-        "description": "Lær og test, hvordan du bruger API'er med din personlige API-nøgle. Del den venligst ikke. {howToLink}.",
-        "heading": "Personlig API-nøgle",
-        "howToLinkText": "Sådan bruger du din nøgle"
-      },
-      "projectKeys": {
-        "description": "For hvert projekt, du skal bygge, giver vi dig en dedikeret nøgle. Projektnøgler har højere grænser og andre særlige funktioner – læs mere i API-nøglen {termsOfUseLink}. Hvis du ønsker at redigere oplysningerne om dit projekt, bedes du sende en e-mail til api@europeana.eu, så foretager vi ændringerne for dig.",
-        "heading": "Projekt-API-nøgler"
+        }
       },
       "termsOfUseLinkText": "vilkår for brug"
     },
@@ -138,9 +133,27 @@ export default {
     "country": "Land:",
     "creator": "Oprettet af:",
     "date": "Dato:",
+    "hide": "Skjul kreditering",
     "institution": "Institution:",
     "show": "Vis tilskrivning",
     "title": "Titel:"
+  },
+  "audioVisualPlayer": {
+    "Captions": "Undertekster / skjulte undertekster",
+    "captions off": "Fra",
+    "captionsOption": "{language} billedtekster",
+    "Exit Fullscreen": "Afslut fuld skærm",
+    "Fullscreen": "Fuld skærm",
+    "Mute": "Slå lyd fra",
+    "Pause": "Pause",
+    "Play": "Afspil",
+    "Play Video": "Afspil video",
+    "Replay": "Afspil igen",
+    "Subtitles": "Undertekster / skjulte undertekster",
+    "subtitles off": "Fra",
+    "subtitlesOption": "{language} undertekster",
+    "Unmute": "Slå lyd til",
+    "Volume Level": "Lydstyrkeniveau"
   },
   "authored": {
     "by": "ved",
@@ -149,14 +162,15 @@ export default {
   "automatedCardGroup": {
     "gallery": "Seneste gallerier",
     "item": "Seneste genstande",
-    "organisation": "Organisationer",
+    "organisation": "Ejerinstitutioner",
     "place": "Steder",
     "theme": "Temaer",
     "time": "Århundreder",
     "topic": "Emner"
   },
   "cardLabels": {
-    "organisation": "Organisation",
+    "aggregator": "Aggregator",
+    "organisation": "Institution",
     "person": "Person",
     "place": "Sted",
     "theme": "Tema",
@@ -316,13 +330,13 @@ export default {
       "description": "Der opstod en ukendt fejl.",
       "title": "Ukendt fejl"
     },
-    "IIIFManifestFailure": {
-      "description": "Desværre kan det medie genstand, der er leveret til Europeana, ikke vises i øjeblikket. Prøv venligst at downloade mediet genstand eller se emnet på den ejerinstiution hjemmeside."
-    },
     "itemNotFound": {
       "description": "Dette kan skyldes følgende årsager: denne vare findes ikke, eller; den blev offentliggjort, fordi den ikke opfyldte vores kvalitetskriterier, eller; den blev opdateret og genudgivet med en ny unik identifikator, i hvilket tilfælde prøv at finde varen igen.",
       "metaTitle": "Varen blev ikke fundet",
       "title": "Åh nej! {newline} Vi kunne ikke finde denne vare."
+    },
+    "mediaFailure": {
+      "description": "Desværre kan det medie genstand, der er leveret til Europeana, ikke vises i øjeblikket. Prøv venligst at downloade mediet genstand eller se emnet på den ejerinstiution hjemmeside."
     },
     "noFeatureIdeas": {
       "description": "Kom snart tilbage igen!",
@@ -371,6 +385,7 @@ export default {
       "options": {
         "archaeology": "Arkæologi",
         "art": "Kunst",
+        "audiovisual": "Audiovisuel kulturarv",
         "fashion": "Mode",
         "industrial": "Industriel kulturarv",
         "manuscript": "Manuskripter",
@@ -716,6 +731,14 @@ export default {
       "name": "Rettigheder",
       "select": "Vælg rettighedserklæringer"
     },
+    "sort": {
+      "name": "Sorter efter",
+      "options": {
+        "proxy_dcterms_issued+asc": "Udstedelsesdato (ældste først)",
+        "proxy_dcterms_issued+desc": "Udstedelsesdato (nyeste først)"
+      },
+      "select": "Vælg hvordan resultaterne skal sorteres"
+    },
     "TYPE": {
       "name": "Medietype",
       "options": {
@@ -791,11 +814,52 @@ export default {
       "year": "År"
     },
     "webResource": {
-      "about": "RDF Om",
-      "dcDescription": "Beskrivelse",
-      "ebucoreHasMimeType": "Ebucore MIME-type",
-      "edmRights": "Rettigheder til denne medieressource",
-      "rdfAbout": "RDF Om"
+      "about": "Om",
+      "dctermsConformsTo": "Overholder",
+      "dcType": "Medietype",
+      "ebucoreAudioChannelNumber": "Lydkanaler",
+      "ebucoreBitRate": "Bithastighed (bps)",
+      "ebucoreDuration": "Varighed",
+      "ebucoreFileByteSize": "Filstørrelse (byte)",
+      "ebucoreFrameRate": "Billedhastighed (fps)",
+      "ebucoreHasMimeType": "MIME-type",
+      "ebucoreHeight": "Højde (px)",
+      "ebucoreOrientation": "Orientering",
+      "ebucoreSampleRate": "Samplingfrekvens (Hz)",
+      "ebucoreSampleSize": "Sample-størrelse (bits)",
+      "ebucoreWidth": "Bredde (px)",
+      "edmCodecName": "Codec",
+      "edmComponentColor": "Komponentfarve",
+      "edmHasColorSpace": "Farverum",
+      "edmIntendedUsage": "Tilsigtet anvendelse",
+      "edmPolygonCount": "Antal polygoner",
+      "edmRights": "Rettighedserklæring for dette medie",
+      "edmSpatialResolution": "Rumlig opløsning (dpi)",
+      "edmVertexCount": "Antal hjørner",
+      "schemaDigitalSourceType": "Forholdet til den virkelige verden"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Kunst",
+      "creativity": "Kreativitet",
+      "curation": "Kuratering",
+      "design": "Design",
+      "documentation": "Dokumentation",
+      "education": "Uddannelse",
+      "exhibition": "Udstilling",
+      "gaming": "Gaming",
+      "infotainment": "Infotainment",
+      "knowledge": "Viden",
+      "maintenance": "Vedligeholdelse",
+      "research": "Forskning",
+      "restoration": "Restaurering",
+      "tourism": "Turisme"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Rekonstruktion",
+      "digitalCapture": "Reality capture",
+      "digitalCreation": "Født digitalt"
     }
   },
   "filterResults": "Filtrer resultater",
@@ -836,10 +900,12 @@ export default {
     "navigation": {
       "about": "Om",
       "collections": "Samlinger",
-      "europeanaClassroom": "Til lærere",
+      "educators": "For undervisere",
       "featureIdeas": "Funktionsideer",
       "help": "Hjælp",
       "home": "Hjem",
+      "partners": "Bliv partner med os",
+      "research": "For akademi og forskning",
       "shareYourCollections": "Del dine samlinger",
       "stories": "Historier"
     },
@@ -889,11 +955,10 @@ export default {
         "title": "Tjenester, vi gerne vil bruge."
       },
       "consentNotice": {
-        "description": "Hej! Kan vi venligst aktivere nogle yderligere tjenester til analyse og sikkerhed? Du kan altid ændre eller trække dit samtykke tilbage senere.",
-        "learnMore": "Lad mig vælge"
+        "description": "Kan vi venligst aktivere tjenester til sikkerhed, analyse og tredjepartsindhold?",
+        "learnMore": "Administrer cookie-indstillinger"
       },
-      "decline": "Jeg afviser",
-      "ok": "Okay",
+      "decline": "Afvis",
       "purposes": {
         "2D": {
           "title": "2D-medier"
@@ -946,6 +1011,10 @@ export default {
       "auth-strategy": {
         "description": "Husker autorisationsstrategien, der skal bruges til at logge ind.",
         "title": "Auth-strategi"
+      },
+      "cloudflare": {
+        "description": "Husker, at sikkerhedskontrollen blev bestået.",
+        "title": "Cloudflare"
       },
       "debugSettings": {
         "description": "Hjælper med fejlfinding af API -anmodninger",
@@ -1002,6 +1071,12 @@ export default {
   },
   "loading": "Indlæser",
   "loadingResults": "Indlæser resultater",
+  "map": {
+    "keyboardNavigatePins": "Brug piletasterne til at navigere mellem knappenåle",
+    "keyboardPanAndZoom": "Brug tasterne +, - og piletasterne til at zoome og panorere på kortet",
+    "togglePin": "Slå nål til/fra",
+    "zoomInCluster": "Zoom ind på klyngen"
+  },
   "media": {
     "controls": {
       "exitFullscreen": "Afslut fuld skærm",
@@ -1024,6 +1099,8 @@ export default {
       "hide": "Skjul sidebjælke",
       "IIIFManifest": "IIIF Manifest",
       "links": "Links",
+      "metadata": "Mediemetadata",
+      "metadataInfo": "Oplysninger om de medier, du ser i øjeblikket.",
       "search": "Søg",
       "searchPlaceholder": "Indtast vilkår",
       "show": "Vis sidebjælke"
@@ -1078,15 +1155,41 @@ export default {
     "city": "By",
     "country": "Land",
     "englishName": "Engelsk navn",
-    "nameAcronym": "Navn akronym"
+    "geographicScope": "Geografisk rækkevidde",
+    "heritageDomain": "Typer af kulturarv",
+    "nameAcronym": "Navn akronym",
+    "providesAudienceEngagementActivity": "Aktiviteter til publikumsinddragelse",
+    "providesCapacityBuildingActivity": "Kapacitetsopbygning",
+    "providesSupportForDataActivity": "Dataaktiviteter",
+    "providesSupportForMediaType": "Medietype",
+    "providingInstitutionsCount": "Antal udbydende institutioner",
+    "recordCount": "Antal genstande"
+  },
+  "organisations": {
+    "aggregators": {
+      "description": "Aggregatorer arbejder sammen med de leverende institutioner om at indsamle og offentliggøre deres digitale kulturelle genstande på Europeana.eu.",
+      "title": "Aggregatorer"
+    },
+    "internationalAggregators": {
+      "description": "Domæne- og tematiske aggregatorer definerer deres omfang efter kultursektor (f.eks. museum, arkiv eller bibliotek) eller efter emne og tema (f.eks. mode). De samarbejder med bidragydere fra forskellige europæiske lande.",
+      "title": "Domæne- og tematiske aggregatorer"
+    },
+    "providingInstitutions": {
+      "description": "En liste over museer, biblioteker, arkiver og gallerier, der deler deres digitale kulturelle genstande på Europeana.eu.",
+      "title": "Udbydende institutioner"
+    },
+    "regionalAggregators": {
+      "description": "Nationale og regionale aggregatorer definerer deres omfang ud fra et bestemt land eller en bestemt region. De samarbejder med bidragydere, der befinder sig i det pågældende land eller den pågældende region.",
+      "title": "Nationale og regionale aggregatorer"
+    }
   },
   "pageHasLoaded": "har indlæst",
   "pageNumber": "Side nummer",
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Udforsk de institutioner, der deler digitale kulturarvsgenstande på Europeana.eu.",
-        "title": "Institutioner"
+        "description": "Udforsk de ejerinstitutioner, der deler digitale kulturarvsgenstande på Europeana.eu.",
+        "title": "Ejerinstitutioner"
       },
       "persons": {
         "title": "Personer"
@@ -1095,7 +1198,9 @@ export default {
         "title": "Steder"
       },
       "table": {
+        "aggregator": "Aggregator",
         "country": "Land",
+        "domain": "Domæne / Tema",
         "items": "Genstande",
         "name": "Navn",
         "searchPlaceholder": "Søg i tabel",
@@ -1129,6 +1234,7 @@ export default {
       "pin": "Fastgør element til tilgængelige enheder"
     },
     "allMetaData": "Alle metadata",
+    "allMetaDataInfo": "Information om hele genstande.",
     "clickToCopyEmbedCode": "Klik på indlejringskoden for at kopiere den",
     "extendedInformation": "Udvidede oplysninger",
     "goodToKnow": "Værd at vide",
@@ -1147,6 +1253,9 @@ export default {
   "related": {
     "categoryTags": {
       "title": "Oplev relaterede historier"
+    },
+    "collection": {
+      "preview": "Forhåndsvisning af samlingen"
     },
     "collections": {
       "name": "Relaterede samlinger",
@@ -1230,9 +1339,6 @@ export default {
     },
     "results": {
       "limitWarning": "Yderligere resultater vises ikke, da kun de første 1000 mest relevante resultater vises. Hvis du ikke har fundet det, du leder efter, kan du overveje at justere din søgning.",
-      "loginToSeeMore": "{login} for at se flere resultater",
-      "loginToSeeMultilingualResults": "Log ind for at søge på tværs af hele samlingen og få resultater, der ikke er begrænset til sproget i dit søgeord.",
-      "showingMultilingualResults": "Viser resultater på tværs af hele samlingen og alle sprog.",
       "withinCollection": "{count} resultater inden for {type} {collection}",
       "withinCollectionWithQuery": "{count} resultater inden for {type} {collection} for {query}",
       "withoutQuery": "{count} resultater",

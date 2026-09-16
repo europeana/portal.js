@@ -11,31 +11,29 @@
       </b-col>
     </b-row>
     <b-form
+      v-if="searchable"
       class="search-form position-relative"
       inline
       @submit.stop.prevent="() => {}"
     >
       <b-form-input
-        v-model="filter"
+        v-model="tableQuery"
         role="searchbox"
         :placeholder="$t('pages.collections.table.searchPlaceholder')"
         :aria-label="$t('search.title')"
         data-qa="entity table filter"
+        @change="onFiltered"
       />
     </b-form>
     <b-table
-      id="entity-table"
-      :fields="fields"
+      :id="id"
+      :fields="tableFields"
       :items="collections"
       :sort-by.sync="sortBy"
       :sort-desc.sync="sortDesc"
-      :busy="$fetchState.pending"
-      :filter="filter"
-      :current-page="currentPage"
-      :per-page="perPage"
+      :tbody-tr-attr="(item) => ({ id: rowId(item.numericId) })"
       striped
       class="borderless"
-      @filtered="onFiltered"
     >
       <template #table-busy>
         <div class="text-center my-2">
@@ -49,7 +47,7 @@
         <SmartLink
           :destination="entityRoute(data.item.slug)"
         >
-          <template v-if="type === 'organisations'">
+          <template v-if="isOrganisationsType">
             <strong :lang="langAttribute(data.item.prefLabelLang)">{{ data.item.prefLabel }}</strong>
             <span
               v-if="data.item.altLabel"
@@ -67,7 +65,6 @@
         </SmartLink>
       </template>
       <template
-        v-if="type === 'organisations'"
         #cell(recordCount)="data"
       >
         <span>
@@ -75,14 +72,22 @@
         </span>
       </template>
       <template
-        v-if="type === 'organisations'"
+        #cell(aggregator)="data"
+      >
+        <EntityBadges
+          v-if="(data.item.aggregatedVia?.length || 0) > 0"
+          :related-collections="data.item.aggregatedVia"
+          :show-title="false"
+        />
+      </template>
+      <template
         #cell(showDetails)="row"
       >
         <b-button
           class="button-toggle button-icon-only icon-chevron"
           :class="{'show': row.detailsShowing}"
           variant="light-flat"
-          @click="row.toggleDetails"
+          @click="handleClickRow(row)"
         >
           <span class="visually-hidden">
             {{ $t('pages.collections.table.showMoreData', { entity: row.item.prefLabel }) }}
@@ -90,13 +95,16 @@
         </b-button>
       </template>
       <template
-        v-if="type === 'organisations'"
         #row-details="row"
       >
-        <span>{{ row.item.countryPrefLabel }}</span>
+        <slot
+          name="row-details"
+          :entity="row.item"
+        />
       </template>
     </b-table>
     <PaginationNavInput
+      v-if="perPage"
       :total-results="totalResults"
       :per-page="perPage"
       aria-controls="entity-table"
@@ -107,18 +115,19 @@
 
 <script>
   import { BTable } from 'bootstrap-vue';
+
   import LoadingSpinner from '../generic/LoadingSpinner';
   import PaginationNavInput from '@/components/generic/PaginationNavInput';
   import SmartLink from '../generic/SmartLink';
-  import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
   import langAttributeMixin from '@/mixins/langAttribute';
-  import { langMapValueForLocale } from '@europeana/i18n';
+  import { backendFetch } from '@/utils/backendFetch.js';
 
   export default {
     name: 'EntityTable',
 
     components: {
       AlertMessage: () => import('@/components/generic/AlertMessage'),
+      EntityBadges: () => import('./EntityBadges'),
       BTable,
       LoadingSpinner,
       PaginationNavInput,
@@ -126,78 +135,144 @@
     },
 
     mixins: [
-      europeanaEntitiesOrganizationsMixin,
       langAttributeMixin
     ],
 
     props: {
+      /**
+       * the type of entity, human-friendly, plural
+       * @values organisations, topics, times
+       */
       type: {
         type: String,
         required: true
+      },
+      /**
+       * sub-type of entity, e.g. "aggregators"
+       */
+      subType: {
+        type: String,
+        default: null
+      },
+      /**
+       * id to differentiate multiple tables
+       */
+      tableId: {
+        type: String,
+        default: null
+      },
+      fields: {
+        type: Array,
+        default: () => ['prefLabel']
+      },
+      /**
+       * function to filter the entities to display from those received from the backend
+       */
+      filter: {
+        type: Function,
+        default: null
+      },
+      searchable: {
+        type: Boolean,
+        default: true
+      },
+      alwaysShowRowDetailsToggles: {
+        type: Boolean,
+        default: false
+      },
+      perPage: {
+        type: Number,
+        default: 40
       }
     },
 
     data() {
+      const fields = [
+        {
+          key: 'prefLabel',
+          sortable: true,
+          label: this.$t('pages.collections.table.name'),
+          class: 'table-name-cell'
+        },
+        {
+          key: 'countryPrefLabel',
+          sortable: true,
+          label: this.$t('pages.collections.table.country'),
+          class: 'text-center d-none d-xl-table-cell'
+        },
+        {
+          key: 'aggregator',
+          sortable: false,
+          label: this.$t('pages.collections.table.aggregator'),
+          class: 'text-center d-none d-xl-table-cell'
+        },
+        {
+          key: 'heritageDomain',
+          sortable: false,
+          label: this.$t('pages.collections.table.domain'),
+          class: 'text-center d-none d-xl-table-cell'
+        },
+        {
+          key: 'recordCount',
+          sortable: true,
+          label: this.$t('pages.collections.table.items'),
+          class: 'table-count-cell text-right'
+        },
+        {
+          key: 'showDetails',
+          class: `table-toggle-cell ${this.alwaysShowRowDetailsToggles ? '' : 'd-xl-none'}`
+        }
+      ];
+
       return {
         collections: null,
-        filter: this.$route?.query?.filter || null,
-        fields: [
-          {
-            key: 'prefLabel',
-            sortable: true,
-            label: this.$t('pages.collections.table.name'),
-            class: 'table-name-cell'
-          },
-          this.type === 'organisations' && {
-            key: 'countryPrefLabel',
-            sortable: true,
-            label: this.$t('pages.collections.table.country'),
-            class: 'text-center d-none d-md-table-cell'
-          },
-          this.type === 'organisations' && {
-            key: 'recordCount',
-            sortable: true,
-            label: this.$t('pages.collections.table.items'),
-            class: 'text-right'
-          },
-          this.type === 'organisations' && {
-            key: 'showDetails',
-            class: 'table-toggle-cell d-md-none'
-          }
-        ],
+        tableQuery: this.$route?.query?.tableQuery || null,
+        tableFields: fields.filter((field) => this.displayField(field.key)),
         typeSingular: this.type.slice(0, -1),
-        totalResults: this.collections?.length || 0,
-        perPage: 40
+        totalResults: this.collections?.length || 0
       };
     },
 
     async fetch() {
-      try {
-        const response = await this.$axios.get(this.apiEndpoint, { baseURL: window.location.origin });
-        let collections = response.data[this.cacheKey];
-        if (this.type === 'organisations') {
-          collections = collections.map(this.organisationData);
-          this.collections = collections; // Do not freeze as _showDetails prop needs to be reactive for toggling the details display on small screens
-        } else {
-          this.collections = collections.map(Object.freeze);
-        }
-      } catch (e) {
-        // TODO: set fetch state error from message
-        console.error({ statusCode: 500, message: e.toString() });
+      const data = await this.fetchData();
+
+      this.totalResults  = data.total;
+      let collections = data.items;
+
+      if (this.filter) {
+        // TODO: this should preferably happen on the BFF
+        collections = collections.filter(this.filter);
       }
+
+      collections = collections.map((collection) => {
+        collection.numericId = collection.id.split('/').pop();
+        collection['_showDetails'] = this.isCollectionFocused(collection);
+
+        return collection;
+      });
+
+      if (this.type === 'organisations') {
+        let aggregators;
+        if (this.fields.includes('aggregator')) {
+          aggregators = await this.fetchAggregatorData(collections);
+        }
+
+        collections = collections.map((org) => this.organisationData(org, aggregators));
+      }
+
+      this.collections = collections;
+      this.scrollToFocusedCollection();
     },
 
-    fetchOnServer: false,
-
     computed: {
-      apiEndpoint() {
-        return `/_api/cache/${this.cacheKey}`;
-      },
-      cacheKey() {
-        return `${this.$i18n.locale}/collections/${this.type}`;
+      id() {
+        return this.tableId ? `entity-table-${this.tableId}` : 'entity-table';
       },
       currentPage() {
         return Number(this.$route?.query?.page) || 1;
+      },
+      sortQuery() {
+        return this.tableId ? `${this.tableId}-sort` : 'sort';
       },
       sortBy: {
         get() {
@@ -218,48 +293,125 @@
       },
       sort: {
         get() {
-          return this.$route?.query?.sort?.split(' ') || [null, null];
+          return this.$route?.query?.[this.sortQuery]?.split(' ') || ['prefLabel', 'asc'];
         },
         set({ sortBy, sortDesc }) {
-          this.updateRouteQuery({ sort: `${sortBy} ${sortDesc ? 'desc' : 'asc'}` });
+          const newRouteQuery = { [this.sortQuery]: `${sortBy} ${sortDesc ? 'desc' : 'asc'}` };
+          if (this.perPage) {
+            newRouteQuery.page = 1;
+          }
+          this.updateRouteQuery(newRouteQuery);
         }
+      },
+      aggregatorType() {
+        return this.subType === 'aggregators';
+      },
+      isOrganisationsType() {
+        return this.type === 'organisations';
       }
     },
 
     watch: {
-      '$route.query.filter'() {
-        this.filter = this.$route.query.filter;
-        this.updateRouteQuery({ page: 1 });
+      '$route.query.tableQuery'() {
+        this.tableQuery = this.$route.query.tableQuery;
+        this.$fetch();
       },
-      'collections.length'() {
-        this.totalResults  = this.collections.length;
+      '$route.query.page'() {
+        this.$fetch();
+      },
+      '$route.query.tab'() {
+        this.$fetch();
+      },
+      '$route.query.sort'() {
+        this.$fetch();
       }
     },
 
+    mounted() {
+      this.scrollToFocusedCollection();
+    },
+
     methods: {
-      organisationData(org) {
-        const nativeName = this.organizationEntityNativeName({ ...org, type: 'Organization' });
-        const nativeNameLangMapValue = langMapValueForLocale(nativeName, this.$i18n.locale);
-        const englishName = this.organizationEntityNonNativeEnglishName({ ...org, type: 'Organization' });
-        const englishNameLangMapValue = englishName && langMapValueForLocale(englishName, this.$i18n.locale);
+      isCollectionFocused(collection) {
+        return collection.numericId === this.$route.query.show;
+      },
+      findFocusedCollection() {
+        return this.collections?.find(this.isCollectionFocused);
+      },
+      scrollToFocusedCollection() {
+        if (!process.client) {
+          return;
+        }
+
+        const focusedCollection = this.findFocusedCollection();
+        if (process.client && focusedCollection) {
+          this.$nextTick(() => {
+            const rowElement = document.querySelector(this.rowSelector(focusedCollection.numericId));
+            rowElement?.scrollIntoView({ behavior: 'smooth' });
+          });
+        }
+      },
+      handleClickRow(row) {
+        row.item['_showDetails'] = !row.item['_showDetails'];
+        this.updateRouteQuery({ show: row.item['_showDetails'] ? row.item.numericId : undefined }, 'replace');
+      },
+      rowId(entityNumericId) {
+        return `${this.id}-${entityNumericId}`;
+      },
+      rowSelector(entityNumericId) {
+        return `#${this.rowId(entityNumericId)}`;
+      },
+      displayField(key) {
+        return this.fields.includes(key);
+      },
+      // TODO: this would preferably be handled by the fetchData BFF
+      fetchAggregatorData(organisations) {
+        const ids = organisations.map((org) => org.aggregatedVia).flat().filter(Boolean);
+        const params = {
+          fl: 'id,prefLabel,logo,type'
+        };
+
+        return backendFetch('collections/retrieve', [ids, params], this.$nuxt.context);
+      },
+      fetchData() {
+        let fetchType = this.type;
+        if (this.subType) {
+          fetchType = `${fetchType}/${this.subType}`;
+        }
+        const params = {
+          lang: this.$i18n.locale,
+          page: this.currentPage,
+          pageSize: this.perPage,
+          query: this.tableQuery,
+          sort: this.sort.join(' ')
+        };
+
+        return backendFetch('collections', [fetchType, params], this.$nuxt.context);
+      },
+      organisationData(org, aggregators) {
+        const nativeName = Object.values(org.prefLabel)[0];
+        const nativeNameLang = Object.keys(org.prefLabel)[0];
+        const englishName = org.altLabel && Object.values(org.altLabel)[0];
+        const englishNameLang = org.altLabel && Object.keys(org.altLabel)[0];
 
         return {
           ...org,
-          prefLabel: nativeNameLangMapValue.values[0],
-          prefLabelLang: nativeNameLangMapValue.code,
-          altLabel: englishNameLangMapValue?.values[0],
-          altLabelLang: englishNameLangMapValue?.code
+          prefLabel: nativeName,
+          prefLabelLang: nativeNameLang,
+          altLabel: englishName,
+          altLabelLang: englishNameLang,
+          ...org.heritageDomain && { heritageDomain: org.heritageDomain.join(', ') },
+          ...org.aggregatedVia && { aggregatedVia: org.aggregatedVia.map((aggId) => (aggregators || []).find((agg) => agg.id === aggId)).filter(Boolean) }
         };
       },
       entityRoute(slug) {
         return `/collections/${this.typeSingular}/${slug}`;
       },
-      onFiltered(filteredItems) {
-        this.totalResults = filteredItems.length;
-        this.updateRouteQuery({ filter: this.filter });
+      onFiltered() {
+        this.updateRouteQuery({ tableQuery: this.tableQuery, page: 1 });
       },
-      updateRouteQuery(newQuery) {
-        this.$router.push({ ...this.$route, query: { ...this.$route.query, ...newQuery } });
+      updateRouteQuery(newQuery, method = 'push') {
+        this.$router[method]({ ...this.$route, query: { ...this.$route.query, ...newQuery } });
       }
     }
   };
@@ -269,6 +421,7 @@
   @import '@europeana/style/scss/variables';
   @import '@europeana/style/scss/icon-font';
   @import '@europeana/style/scss/table';
+  @import '@europeana/style/scss/transitions';
 
   .entity-table {
 
@@ -278,6 +431,10 @@
       @media (min-width: $bp-medium) {
         margin-bottom: 2rem;
       }
+    }
+
+    tr {
+      scroll-margin-top: 4rem;
     }
 
     td.table-name-cell {
@@ -296,6 +453,22 @@
 
       &.show::before {
         transform: rotateX(180deg);
+      }
+    }
+
+    .b-table-details td {
+      max-width: calc(100vw - 6rem);
+    }
+
+    td.text-center .badges-wrapper {
+      justify-content: center;
+
+      @media (min-width: $bp-extralarge) {
+        max-width: 12rem;
+      }
+
+      @media (min-width: $bp-xxl) {
+        max-width: 16rem;
       }
     }
   }

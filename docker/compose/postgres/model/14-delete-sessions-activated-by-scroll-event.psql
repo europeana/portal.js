@@ -1,0 +1,66 @@
+BEGIN;
+
+  SET search_path TO events;
+
+  -- deletes all actions where the session was activated by the scroll
+  -- event and the only action in the session was a page view,
+  -- which is very likely automated activity, i.e. bots
+  delete from actions where id in (
+    with session_action_count as (
+      select
+        s.id session_id, count(a.id) action_count
+      from
+        sessions s
+        inner join actions a on s.id=a.session_id and s.activated_by='scroll'
+      group by s.id
+    )
+	
+    select
+      count(*)
+    from
+      actions a
+      inner join action_types at on a.action_type_id=at.id and at.name='view'
+	    inner join session_action_count sac on a.session_id=sac.session_id and sac.action_count=1
+  );
+
+  -- deletes all sessions now having no logged actions
+  delete from sessions where id in (
+    select session_id from 
+      (
+        select s.id session_id, count(a.id) action_count
+        from sessions s
+        left join actions a on s.id=a.session_id
+        group by s.id
+      ) session_actions
+    where action_count = 0
+  );
+
+  -- deletes all objects now having no logged actions or history records
+  delete from objects where id in (
+    with
+      object_action_count as (
+        select
+          a.object_id, count(a.id) action_count
+        from
+          actions a
+        group by object_id
+      ),
+      object_history_count as (
+        select
+          h.object_id, count(h.id) history_count
+        from
+          history h
+        group by object_id
+      )
+
+    select
+      o.id
+    from
+      objects o
+      left join object_action_count oac on oac.object_id=o.id 
+      left join object_history_count oah on oah.object_id=o.id
+    where oac.action_count is null and oah.history_count is null
+    order by o.id asc
+  );
+
+COMMIT;

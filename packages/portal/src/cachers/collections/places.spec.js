@@ -13,7 +13,7 @@ describe('@/cachers/collections/places', () => {
   });
 
   it('picks slug and prefLabel', () => {
-    expect(cacher.PICK).toEqual(['slug', 'prefLabel']);
+    expect(cacher.PICK).toEqual(['id', 'slug', 'prefLabel']);
   });
 
   it('localises prefLabel', () => {

@@ -156,6 +156,39 @@ const fixtures = {
   }
 };
 
+const annotations = [
+  {
+    motivation: 'linkForContributing',
+    body: 'https://transcribation.europeana.eu'
+  },
+  {
+    motivation: 'transcribing',
+    body: {
+      type: 'FullTextResource',
+      value: 'This is the full transcription!',
+      language: 'en'
+    }
+  },
+  {
+    motivation: 'tagging',
+    body: {
+      type: 'Concept',
+      prefLabel: {
+        en: 'tag',
+        fr: 'tag FR'
+      }
+    }
+  },
+  {
+    motivation: 'subtitling',
+    body: {}
+  },
+  {
+    motivation: 'captioning',
+    body: {}
+  }
+];
+
 const entityFindStub = sinon.stub();
 const logEventSpy = sinon.spy();
 const redirectSpy = sinon.spy();
@@ -170,8 +203,7 @@ const factory = ({ data = {}, mocks = {} } = {}) => shallowMountNuxt(page, {
   mixins: [
     {
       methods: {
-        logEvent: logEventSpy,
-        redirectToAltRoute: redirectSpy
+        logEvent: logEventSpy
       }
     }
   ],
@@ -206,6 +238,7 @@ const factory = ({ data = {}, mocks = {} } = {}) => shallowMountNuxt(page, {
       }
     },
     $fetchState: {},
+    $nuxt: { context: { redirect: redirectSpy } },
     $waitForMatomo: () => Promise.resolve(),
     $matomo: {
       trackPageView: sinon.spy()
@@ -230,72 +263,114 @@ const factory = ({ data = {}, mocks = {} } = {}) => shallowMountNuxt(page, {
 describe('pages/item/_.vue', () => {
   afterEach(sinon.resetHistory);
 
+  describe('middleware', () => {
+    describe('lang query param handler', () => {
+      describe('when the page is requested with a lang route query param', () => {
+        describe('and the user is logged in', () => {
+          const mocks = {
+            $auth: { loggedIn: true },
+            redirect: sinon.spy(),
+            route: fixtures.route.translating.$route
+          };
+
+          it('does not redirect', () => {
+            const wrapper = factory();
+
+            wrapper.vm.middleware[0](mocks);
+
+            expect(mocks.redirect.called).toBe(false);
+          });
+        });
+
+        describe('and the user is not logged in', () => {
+          describe('because they just logged out', () => {
+            const mocks = {
+              $auth: { loggedIn: false, $storage: { getUniversal: sinon.stub().withArgs('portalLoggingOut').returns(true) } },
+              redirect: sinon.spy(),
+              route: fixtures.route.translating.$route
+            };
+
+            it('redirects to the non-translated item page', () => {
+              const wrapper = factory();
+
+              wrapper.vm.middleware[0](mocks);
+
+              expect(mocks.redirect.calledWith(303,
+                {
+                  hash: '',
+                  name: '',
+                  params: { pathMatch: '123/abc' },
+                  query: { lang: undefined },
+                  replace: true
+                }
+              )).toBe(true);
+            });
+          });
+
+          describe('because they did not login yet', () => {
+            const mocks = {
+              $auth: { loggedIn: false, $storage: { getUniversal: sinon.stub().withArgs('portalLoggingOut').returns(undefined) } },
+              redirect: sinon.spy(),
+              route: fixtures.route.translating.$route
+            };
+
+            it('redirects to login first', () => {
+              const wrapper = factory();
+
+              wrapper.vm.middleware[0](mocks);
+
+              expect(mocks.redirect.calledWith(303,
+                {
+                  name: 'account-login',
+                  query: { redirect: '/en/item/123/abc' }
+                }
+              )).toBe(true);
+            });
+          });
+        });
+      });
+    });
+  });
+
   describe('fetch', () => {
-    describe('when the page is loaded without a lang route query param', () => {
-      it('gets a record from the API for the ID in the route params pathMatch', async() => {
-        const wrapper = factory();
+    it('gets a record from the API for the ID in the route params pathMatch', async() => {
+      const wrapper = factory();
+
+      await wrapper.vm.fetch();
+
+      expect(wrapper.vm.$apis.record.get.calledWith('/123/abc')).toBe(true);
+    });
+
+    describe('when the page is requested with a lang route query param', () => {
+      const mocks = {
+        ...fixtures.auth.loggedIn,
+        ...fixtures.route.translating
+      };
+
+      it('gets a record from the API for the ID in the params pathMatch, with translate and lang profiles', async() => {
+        const wrapper = factory({ mocks });
 
         await wrapper.vm.fetch();
 
-        expect(wrapper.vm.$apis.record.get.calledWith('/123/abc')).toBe(true);
-      });
-    });
-
-    describe('when the page is loaded with a lang route query param', () => {
-      describe('and the user is not logged in', () => {
-        const mocks = {
-          ...fixtures.auth.notLoggedIn,
-          ...fixtures.route.translating
-        };
-
-        it('redirects to the non-translated item page', async() => {
-          const wrapper = factory({ mocks });
-
-          await wrapper.vm.fetch();
-
-          expect(redirectSpy.calledWith({ query: { lang: undefined } })).toBe(true);
-        });
-
-        it('does not fetch metadata with translate profile', async() => {
-          const wrapper = factory({ mocks });
-
-          await wrapper.vm.fetch();
-
-          expect(wrapper.vm.$apis.record.get.calledWith('/123/abc', { locale: 'en', metadataLanguage: 'fr' })).toBe(false);
-        });
+        expect(wrapper.vm.$apis.record.get.calledWith('/123/abc', { lang: 'de', profile: 'translate' })).toBe(true);
       });
 
-      describe('and the user is logged in', () => {
-        const mocks = {
-          ...fixtures.auth.loggedIn,
-          ...fixtures.route.translating
-        };
+      describe('but the API responds with a translation quota error', () => {
+        const error = createHttpError(502, 'Translation quota error', {
+          response: { data: { code: '502-TS' } }
+        });
 
-        it('gets a record from the API for the ID in the params pathMatch, with translate and lang profiles', async() => {
+        it('refetches the record without translation', async() => {
           const wrapper = factory({ mocks });
+
+          wrapper.vm.$apis.record.get.withArgs('/123/abc', { lang: 'de', profile: 'translate' }).rejects(error);
+          wrapper.vm.$apis.record.get.withArgs('/123/abc').resolves(apiResponse());
 
           await wrapper.vm.fetch();
 
+          expect(wrapper.vm.$apis.record.get.getCalls().length).toBe(2);
           expect(wrapper.vm.$apis.record.get.calledWith('/123/abc', { lang: 'de', profile: 'translate' })).toBe(true);
-        });
-
-        describe('but the API responds with a translation quota error', () => {
-          const error = createHttpError(502, 'Translation quota error', {
-            response: { data: { code: '502-TS' } }
-          });
-
-          it('refetches the record without translation', async() => {
-            const wrapper = factory({ mocks });
-
-            wrapper.vm.$apis.record.get.withArgs('/123/abc', { lang: 'de', profile: 'translate' }).rejects(error);
-            wrapper.vm.$apis.record.get.withArgs('/123/abc').resolves(apiResponse());
-
-            await wrapper.vm.fetch();
-
-            expect(wrapper.vm.$apis.record.get.getCalls().length).toBe(2);
-            expect(wrapper.vm.$apis.record.get.calledWith('/123/abc', { lang: 'de', profile: 'translate' })).toBe(true);
-            expect(wrapper.vm.$apis.record.get.calledWith('/123/abc')).toBe(true);
-          });
+          expect(wrapper.vm.$apis.record.get.calledWith('/123/abc')).toBe(true);
         });
       });
     });
@@ -307,7 +382,7 @@ describe('pages/item/_.vue', () => {
 
       expect(wrapper.vm.$apis.annotation.search.calledWith({
         query: 'target_record_id:"/123/abc"',
-        qf: 'motivation:(highlighting OR linkForContributing OR tagging)',
+        qf: 'motivation:(highlighting OR linkForContributing OR tagging OR subtitling OR captioning)',
         profile: 'dereference'
       })).toBe(true);
     });
@@ -327,7 +402,16 @@ describe('pages/item/_.vue', () => {
 
         await wrapper.vm.fetch();
 
-        expect(redirectSpy.calledWith({ params: { pathMatch: apiResponse().object.about.slice(1) } })).toBe(true);
+        expect(redirectSpy.calledWith(
+          302,
+          {
+            hash: '',
+            name: '',
+            params: { pathMatch: '123/abc' },
+            query: {},
+            replace: true
+          }
+        )).toBe(true);
       });
     });
 
@@ -517,6 +601,60 @@ describe('pages/item/_.vue', () => {
           expect(wrapper.vm.headLinkPreconnect.includes('https://iiif.example.org')).toBe(true);
         });
       });
+
+      describe('when model viewer and model viewer replaces oembed feature toggles are on', () => {
+        describe('and there is a displayable oembed web resource', () => {
+          it('replaces the oembed as displayable with the isFormatOf web resource', async() => {
+            const wrapper = factory({ mocks: { $features: {
+              modelViewer: true,
+              modelViewerReplacesOembed: true
+            } } });
+
+            const modelId = '3Dmodel';
+            const response = apiResponse();
+            response.object.aggregations[0].hasView = ['https://sketchfab.com/models/3D-oembed'],
+            response.object.aggregations[0].webResources.push({
+              about: 'https://sketchfab.com/models/3D-oembed',
+              dctermsIsFormatOf: { def: [modelId] }
+            },
+            {
+              about: modelId,
+              ebucoreHasMimeType: 'model/gltf-binary'
+            });
+            wrapper.vm.$apis.record.get.resolves(response);
+
+            await wrapper.vm.fetch();
+
+            expect(wrapper.vm.media.length).toEqual(2);
+            expect(wrapper.vm.media[1].about).toEqual(modelId);
+          });
+          describe('when there is no isFormatOf', () => {
+            it('does not replace the oembed web resource', async() => {
+              const wrapper = factory({ mocks: { $features: {
+                modelViewer: true,
+                modelViewerReplacesOembed: true
+              } } });
+
+              const oembedId = 'https://sketchfab.com/models/3D-oembed';
+              const response = apiResponse();
+              response.object.aggregations[0].hasView = ['https://sketchfab.com/models/3D-oembed'],
+              response.object.aggregations[0].webResources.push({
+                about: oembedId
+              },
+              {
+                about: '3Dmodel',
+                ebucoreHasMimeType: 'model/gltf-binary'
+              });
+              wrapper.vm.$apis.record.get.resolves(response);
+
+              await wrapper.vm.fetch();
+
+              expect(wrapper.vm.media.length).toEqual(2);
+              expect(wrapper.vm.media[1].about).toEqual(oembedId);
+            });
+          });
+        });
+      });
     });
 
     describe('on errors', () => {
@@ -674,64 +812,35 @@ describe('pages/item/_.vue', () => {
     });
 
     describe('annotationsByMotivation', () => {
-      const annotations = [
-        {
-          motivation: 'linkForContributing',
-          body: 'https://transcribation.europeana.eu'
-        },
-        {
-          motivation: 'transcribing',
-          body: {
-            type: 'FullTextResource',
-            value: 'This is the full transcription!',
-            language: 'en'
-          }
-        },
-        {
-          motivation: 'tagging',
-          body: {
-            type: 'Concept',
-            prefLabel: {
-              en: 'tag',
-              fr: 'tag FR'
-            }
-          }
-        }
-      ];
+      const itHandlesAnnotationMotivation = (motivation) => {
+        describe(`when asking for ${motivation}`, () => {
+          it(`has a ${motivation} motivation`, async() => {
+            const wrapper = await factory();
+            await wrapper.setData({ annotations });
 
-      describe('when asking for linkForContributing', () => {
-        it('has a linkForContributing motivation', async() => {
-          const wrapper = await factory();
-          await wrapper.setData({ annotations });
+            const linkForContributing = wrapper.vm.annotationsByMotivation(motivation);
 
-          const linkForContributing = wrapper.vm.annotationsByMotivation('linkForContributing');
-
-          expect(linkForContributing[0].motivation).toBe('linkForContributing');
-          expect(linkForContributing.length).toBe(1);
+            expect(linkForContributing[0].motivation).toBe(motivation);
+            expect(linkForContributing.length).toBe(1);
+          });
         });
-      });
+      };
 
-      describe('when asking for tagging annotations', () => {
-        it('has a tagging motivation', async() => {
+      itHandlesAnnotationMotivation('linkForContributing');
+      itHandlesAnnotationMotivation('tagging');
+      itHandlesAnnotationMotivation('transcribing');
+      itHandlesAnnotationMotivation('subtitling');
+      itHandlesAnnotationMotivation('captioning');
+
+      describe('when annotations is undefined', () => {
+        it('returns an empty array', async() => {
           const wrapper = await factory();
-          await wrapper.setData({ annotations });
+          await wrapper.setData({ annotations: undefined });
 
           const taggingAnnotations = wrapper.vm.annotationsByMotivation('tagging');
 
-          expect(taggingAnnotations[0].motivation).toBe('tagging');
-          expect(taggingAnnotations.length).toBe(1);
-        });
-      });
-
-      describe('when asking for transcribing annotations', () => {
-        it('has a transcribing motivation', async() => {
-          const wrapper = await factory();
-          await wrapper.setData({ annotations });
-
-          const taggingAnnotations = wrapper.vm.annotationsByMotivation('transcribing');
-
-          expect(taggingAnnotations[0].motivation).toBe('transcribing');
-          expect(taggingAnnotations.length).toBe(1);
+          expect(taggingAnnotations).toEqual([]);
+          expect(taggingAnnotations.length).toBe(0);
         });
       });
     });
@@ -918,6 +1027,19 @@ describe('pages/item/_.vue', () => {
         expect(matomoOptions.dimension2).toBe('Data Provider');
         expect(matomoOptions.dimension3).toBe('Provider');
         expect(matomoOptions.dimension4).toBe('http://rightsstatements.org/vocab/InC/1.0/');
+      });
+    });
+
+    describe('textTrackAnnotations', () => {
+      it('returns both subtitling and captioning annotations', async() => {
+        const wrapper = factory();
+        await wrapper.setData({ annotations });
+
+        const textTrackAnnotations = wrapper.vm.textTrackAnnotations;
+
+        expect(textTrackAnnotations.length).toBe(2);
+        expect(textTrackAnnotations[0].motivation).toBe('subtitling');
+        expect(textTrackAnnotations[1].motivation).toBe('captioning');
       });
     });
   });

@@ -301,7 +301,7 @@ _Used in the 'add item to gallery' modal_
     </b-button>
     <b-button
       variant="overlay"
-      :style="`background-image: url(${thumbnails[10]});`"
+      :style="`background-image: url('${thumbnails[10]}');`"
       class="p-3 mb-3 text-left"
     >
       <span>Label overlay button with image</span>

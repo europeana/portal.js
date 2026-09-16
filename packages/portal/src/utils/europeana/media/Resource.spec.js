@@ -13,8 +13,13 @@ describe('EuropeanaMediaResource', () => {
             'https://iiif.example.org/image.jpeg'
           ]
         };
+        const services = [
+          {
+            about: edm.svcsHasService[0]
+          }
+        ];
 
-        const resource = EuropeanaMediaResource.fromEDM(edm);
+        const resource = EuropeanaMediaResource.fromEDM(edm, services);
 
         expect(resource).toEqual({
           id: edm.about,
@@ -57,6 +62,106 @@ describe('EuropeanaMediaResource', () => {
             id: 'https://iiif.example.org/image.jpeg'
           },
           width: 500
+        });
+      });
+    });
+  });
+
+  describe('Instance getters', () => {
+    describe('EuropeanaMediaResource.prototype.isIIIFImageService', () => {
+      describe('when the resource has a service with type "ImageService2"', () => {
+        const data = {
+          service: {
+            type: 'ImageService2'
+          }
+        };
+
+        it('is `true`', () => {
+          const resource = new EuropeanaMediaResource(data);
+
+          const isIIIFImageService = resource.isIIIFImageService;
+
+          expect(isIIIFImageService).toBe(true);
+        });
+      });
+
+      describe('when the resource has a service with type "ImageService3"', () => {
+        const data = {
+          service: {
+            type: 'ImageService3'
+          }
+        };
+
+        it('is `true`', () => {
+          const resource = new EuropeanaMediaResource(data);
+
+          const isIIIFImageService = resource.isIIIFImageService;
+
+          expect(isIIIFImageService).toBe(true);
+        });
+      });
+
+      describe('when the resource has a service profile starting with "http://iiif.io/api/image"', () => {
+        const data = {
+          service: {
+            profile: 'http://iiif.io/api/image/'
+          }
+        };
+
+        it('is `true`', () => {
+          const resource = new EuropeanaMediaResource(data);
+
+          const isIIIFImageService = resource.isIIIFImageService;
+
+          expect(isIIIFImageService).toBe(true);
+        });
+      });
+
+      describe('when the resource has a service context starting with "http://iiif.io/api/image"', () => {
+        const data = {
+          service: {
+            context: 'http://iiif.io/api/image/'
+          }
+        };
+
+        it('is `true`', () => {
+          const resource = new EuropeanaMediaResource(data);
+
+          const isIIIFImageService = resource.isIIIFImageService;
+
+          expect(isIIIFImageService).toBe(true);
+        });
+      });
+
+      describe('when the resource has a service dctermsConformsTo starting with "http://iiif.io/api/image"', () => {
+        const data = {
+          service: {
+            dctermsConformsTo: 'http://iiif.io/api/image/'
+          }
+        };
+
+        it('is `true`', () => {
+          const resource = new EuropeanaMediaResource(data);
+
+          const isIIIFImageService = resource.isIIIFImageService;
+
+          expect(isIIIFImageService).toBe(true);
+        });
+      });
+
+      describe('when the resource has another type of service', () => {
+        const data = {
+          service: {
+            dctermsConformsTo: 'https://oembed.com/'
+          }
+        };
+
+        it('is `false`', () => {
+          const resource = new EuropeanaMediaResource(data);
+
+          const isIIIFImageService = resource.isIIIFImageService;
+
+          expect(isIIIFImageService).toBe(false);
         });
       });
     });

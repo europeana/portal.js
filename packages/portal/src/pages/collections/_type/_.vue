@@ -12,10 +12,10 @@
       v-else
     >
       <SearchInterface
-        v-if="!$fetchState.pending"
+        v-if="!$fetchState.pending && !redirecting"
         :route="route"
         :show-content-tier-toggle="false"
-        :show-pins="userIsEntitiesEditor && userIsSetsEditor"
+        :show-pins="true"
         :default-params="searchOverrides"
       >
         <template
@@ -24,17 +24,11 @@
         >
           <EntityHeader
             v-show="!hasUserQuery"
-            :id="entity && entity.id"
             :description="description"
             :title="title"
-            :sub-title="subTitle"
-            :logo="logo"
-            :image="thumbnail"
             :editable="editable"
-            :external-link="homepage"
-            :proxy="proxy"
-            :more-info="moreInfo"
-            @updated="proxyUpdated"
+            :entity="entity"
+            @updated="handleUpdated"
           />
         </template>
         <template
@@ -70,19 +64,41 @@
 </template>
 
 <script>
+  import { computed } from 'vue';
   import pick from 'lodash/pick';
   import ClientOnly from 'vue-client-only';
 
   import SearchInterface from '@/components/search/SearchInterface';
-  import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
+  import { organizationEntityNativeName } from '@/utils/europeana/entities/organizations.js';
   import pageMetaMixin from '@/mixins/pageMeta';
-  import entityBestItemsSetMixin from '@/mixins/europeana/entities/entityBestItemsSet';
-  import redirectToMixin from '@/mixins/redirectTo';
+  import { redirectToPrefPath } from '@/utils/redirect/redirectToPrefPath.js';
 
   import {
     getEntityTypeApi, getEntityUri, getEntityQuery, normalizeEntityId
   } from '@/plugins/europeana/entity';
-  import { langMapValueForLocale, uriRegex } from  '@europeana/i18n';
+  import { langMapValueForLocale } from  '@europeana/i18n';
+
+  const FIELDS = [
+    'id',
+    'logo',
+    'note',
+    'description',
+    'homepage',
+    'prefLabel',
+    'isShownBy',
+    'hasAddress',
+    'acronym',
+    'type',
+    'mbox',
+    'heritageDomain',
+    'providesSupportForMediaType',
+    'geographicScope',
+    'providesSupportForDataActivity',
+    'providesCapacityBuildingActivity',
+    'providesAudienceEngagementActivity',
+    'aggregatesFrom',
+    'isAggregatedBy'
+  ];
 
   export default {
     name: 'CollectionPage',
@@ -97,35 +113,36 @@
     },
 
     mixins: [
-      entityBestItemsSetMixin,
-      europeanaEntitiesOrganizationsMixin,
-      pageMetaMixin,
-      redirectToMixin
+      pageMetaMixin
     ],
+
+    provide() {
+      return {
+        currentEntity: computed(() => this.entity),
+        currentSet: computed(() => this.entityBestItemsSet),
+        relatedCollectionsHasResults: computed(() => !!this.relatedCollections?.length)
+      };
+    },
 
     beforeRouteLeave(to, from, next) {
       if (to.matched[0].path !== `/${this.$i18n.locale}/search`) {
         this.$store.commit('search/setShowSearchBar', false);
       }
       this.$store.commit('entity/setId', null); // needed to re-enable auto-suggest in header
-      this.$store.commit('entity/setEntity', null); // needed for best bets handling
-      this.$store.commit('entity/setBestItemsSetId', null);
-      this.$store.commit('entity/setPinned', []);
       next();
     },
 
-    middleware: [
-      'sanitisePageQuery'
-    ],
-
     data() {
       return {
-        proxy: null,
+        entity: null,
+        entityBestItemsSet: null,
+        redirecting: false,
         relatedCollections: null
       };
     },
 
     async fetch() {
+      this.redirecting = false;
       if (!this.isRouteValid) {
         return this.$error(404, { scope: 'page' });
       }
@@ -136,24 +153,26 @@
       if (entityUri !== this.$store.state.entity.id) {
         // TODO: group as a reset action on the store?
         this.$store.commit('entity/setId', null);
-        this.$store.commit('entity/setEntity', null);
-        this.$store.commit('entity/setPinned', null);
         this.$store.commit('entity/setEditable', false);
-        this.$store.commit('entity/setBestItemsSetId', null);
       }
       this.$store.commit('entity/setId', entityUri);
 
       try {
         const entity = await this.$apis.entity.get(this.collectionType, this.$route.params.pathMatch);
 
-        this.$store.commit('entity/setEntity', pick(entity, [
-          'id', 'logo', 'note', 'description', 'homepage', 'prefLabel', 'isShownBy', 'hasAddress', 'acronym', 'type'
-        ]));
+        this.entity = pick(entity, FIELDS);
         this.$store.commit('search/setCollectionLabel', this.title.values[0]);
 
-        this.userIsEntitiesEditor && await this.setBestItems();
+        await this.fetchEntityBestItemsSet();
 
-        return this.redirectToPrefPath(this.entity.id, this.entity.prefLabel.en);
+        // TODO: don't do this on SSRs, it's too expensive. instead just update
+        //       window.location when mounted, and set Content-Location response
+        //       header, and canonical urls to include the prefLabel
+        this.redirecting = redirectToPrefPath(
+          this.entity.id,
+          this.entity.prefLabel.en,
+          { route: this.$route, redirect: this.$nuxt.context.redirect }
+        );
       } catch (e) {
         this.$error(e, { scope: 'page' });
       }
@@ -171,9 +190,6 @@
           ogType: 'article'
         };
       },
-      entity() {
-        return this.$store.state.entity.entity;
-      },
       searchOverrides() {
         const defaultParams = {};
 
@@ -188,17 +204,8 @@
       entityId() {
         return normalizeEntityId(this.$route.params.pathMatch);
       },
-      contextLabel() {
-        return this.$t(`cardLabels.${this.collectionType}`);
-      },
       collectionType() {
         return this.$route.params.type;
-      },
-      logo() {
-        if (this.collectionType === 'organisation' && this.entity?.logo) {
-          return this.entity.logo.id;
-        }
-        return null;
       },
       description() {
         let description = null;
@@ -214,14 +221,6 @@
       descriptionText() {
         return ((this.description?.values?.length || 0) >= 1) ? this.description.values[0] : null;
       },
-      homepage() {
-        if (this.collectionType === 'organisation' &&
-          this.entity?.homepage &&
-          uriRegex.test(this.entity.homepage)) {
-          return this.entity.homepage;
-        }
-        return null;
-      },
       editable() {
         return this.entity &&
           this.userIsEntitiesEditor &&
@@ -229,9 +228,6 @@
       },
       userIsEntitiesEditor() {
         return this.$auth.userHasClientRole('entities', 'editor');
-      },
-      userIsSetsEditor() {
-        return this.$auth.userHasClientRole('usersets', 'editor');
       },
       route() {
         return {
@@ -255,63 +251,44 @@
 
         return title;
       },
-      subTitle() {
-        return this.organisationNonNativeEnglishName ?
-          langMapValueForLocale(this.organisationNonNativeEnglishName, this.$i18n.locale) :
-          null;
-      },
       hasUserQuery() {
         return this.$route.query.query &&  this.$route.query.query !== '';
       },
-      thumbnail() {
-        return this.$apis.entity.imageUrl(this.entity);
-      },
       organisationNativeName() {
         return this.organizationEntityNativeName(this.entity);
-      },
-      organisationNonNativeEnglishName() {
-        return this.organizationEntityNonNativeEnglishName(this.entity);
-      },
-      moreInfo() {
-        if (!this.entity || this.collectionType !== 'organisation') {
-          return null;
-        }
-
-        const labelledMoreInfo = [];
-
-        if (this.organisationNonNativeEnglishName) {
-          labelledMoreInfo.push({
-            label: this.$t('organisation.englishName'),
-            value: Object.values(this.organisationNonNativeEnglishName)[0],
-            lang: Object.keys(this.organisationNonNativeEnglishName)[0]
-          });
-        }
-        if (this.entity?.acronym)  {
-          const langMapValue = langMapValueForLocale(this.entity.acronym, this.$i18n.locale);
-          labelledMoreInfo.push({ label: this.$t('organisation.nameAcronym'), value: langMapValue.values[0], lang: langMapValue.code });
-        }
-        // TODO: Update to use API country field?
-        if (this.entity?.hasAddress?.countryName)  {
-          labelledMoreInfo.push({ label: this.$t('organisation.country'), value: this.entity.hasAddress.countryName });
-        }
-        if (this.entity?.hasAddress?.locality)  {
-          labelledMoreInfo.push({ label: this.$t('organisation.city'), value: this.entity.hasAddress.locality });
-        }
-        if (this.homepage)  {
-          labelledMoreInfo.push({ label: this.$t('website'), value: this.homepage });
-        }
-
-        return labelledMoreInfo;
       }
     },
+
     methods: {
+      organizationEntityNativeName,
       handleEntityRelatedCollectionsFetched(relatedCollections) {
         this.relatedCollections = relatedCollections;
       },
-      async setBestItems() {
-        const entityBestItemsSetId = await this.findEntityBestItemsSet(this.entity.id);
-        this.$store.commit('entity/setBestItemsSetId', entityBestItemsSetId);
-        await this.fetchEntityBestItemsSetPinnedItems(entityBestItemsSetId);
+      async fetchEntityBestItemsSet() {
+        if (!this.userIsEntitiesEditor) {
+          this.entityBestItemsSet = null;
+          return;
+        }
+
+        const searchResponse = await this.$apis.set.search({
+          profile: 'items',
+          query: 'type:EntityBestItemsSet',
+          qf: `subject:${this.entity.id}`
+        });
+
+        const entityBestItemsSetId = searchResponse.items?.[0] || null;
+        if (entityBestItemsSetId) {
+          const [setResponse, itemsResponse] = await Promise.all([
+            this.$apis.set.get(entityBestItemsSetId),
+            this.$apis.set.getItemIds(entityBestItemsSetId)
+          ]);
+          this.entityBestItemsSet = {
+            ...setResponse,
+            items: itemsResponse
+          };
+        } else {
+          this.entityBestItemsSet = null;
+        }
       },
       titleFallback(title) {
         return {
@@ -319,7 +296,7 @@
           code: null
         };
       },
-      proxyUpdated() {
+      handleUpdated() {
         this.$fetch();
       }
     }

@@ -8,11 +8,13 @@ const factory = (propsData = {}) => shallowMount(ItemMediaSidebar, {
   attachTo: document.body,
   propsData,
   mocks: {
+    $features: { isFormatOfMediaMetadata: true },
     $n: (num) => num,
     $t: (key) => key,
     $tc: (key, count) => `${key} ${count}`
   },
-  stubs: ['b-link', 'b-tooltip', 'MediaAnnotationList', 'MediaAnnotationSearch']
+  directives: { 'b-tooltip': () => {} },
+  stubs: ['b-link', 'b-button', 'b-tooltip', 'MediaAnnotationList', 'MediaAnnotationSearch', 'MediaMetadataCollapseList']
 });
 
 describe('components/item/ItemMediaSidebar', () => {
@@ -52,6 +54,28 @@ describe('components/item/ItemMediaSidebar', () => {
         const linksTab = wrapper.find('[data-qa="item media sidebar links"]');
 
         expect(linksTab.exists()).toBe(true);
+      });
+    });
+
+    describe('when there is a web resource', () => {
+      it('has a tab for media metadata', () => {
+        const wrapper = factory({ webResource: {} });
+
+        const metadataTab = wrapper.find('[data-qa="item media sidebar metadata"]');
+
+        expect(metadataTab.exists()).toBe(true);
+      });
+    });
+
+    describe('when there is downloadable media', () => {
+      it('has a collapsed metadata list', () => {
+        const wrapper = factory({ webResource: {
+          dctermsIsFormatOf: { def: [{ isDownloadable: true }] }
+        } });
+
+        const list = wrapper.find('mediametadatacollapselist-stub');
+
+        expect(list.exists()).toBe(true);
       });
     });
   });

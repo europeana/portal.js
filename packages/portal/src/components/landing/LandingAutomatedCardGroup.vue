@@ -1,7 +1,6 @@
 <template>
   <div
     class="landing-automated-card-group"
-    :class="variant"
   >
     <b-col class="col-lg-8 px-0 text-center mx-auto">
       <h3
@@ -20,7 +19,7 @@
         :key="index"
         :info="item.info"
         :label="item.label"
-        :variant="cardVariant"
+        variant="dark"
       />
     </div>
   </div>
@@ -28,9 +27,10 @@
 
 <script>
   import camelCase from 'lodash/camelCase.js';
-  import InfoCard from '@/components/generic/InfoCard';
 
-  const DS4CH_NUMBERS = 'Data space numbers';
+  import InfoCard from '@/components/generic/InfoCard';
+  import { backendFetch } from '@/utils/backendFetch.js';
+
   const EUROPEANA_NUMBERS = 'Europeana numbers';
 
   export default {
@@ -54,14 +54,6 @@
       staticItems: {
         type: Array,
         default: () => []
-      },
-      /**
-       * Variant to define layout and style
-       * @values pro, ds4ch
-       */
-      variant: {
-        type: String,
-        default: 'pro'
       }
     },
     data() {
@@ -70,15 +62,7 @@
         title: null,
         entries: []
       };
-      if (this.genre === DS4CH_NUMBERS) {
-        data.keys = [
-          'items/type-counts',
-          'dataspace/network-members',
-          'dataspace/data-providers',
-          'dataspace/hq-data',
-          'dataspace/api-requests'
-        ];
-      } else if (this.genre === EUROPEANA_NUMBERS) {
+      if (this.genre === EUROPEANA_NUMBERS) {
         data.keys = ['matomo/visits', 'items/type-counts', 'collections/organisations/count'];
         data.title = this.$t('landing.europeanaNumbers');
       }
@@ -117,25 +101,11 @@
         }
 
         return items || [];
-      },
-      cardVariant() {
-        return this.variant === 'pro' ? 'dark' : 'default';
       }
     },
     methods: {
       fetchCachedData() {
-        if (process.server) {
-          return import('@/server-middleware/api/cache/index.js')
-            .then(module => {
-              return module.cached(this.keys, this.$config.redis)
-                .then((response) => response);
-            });
-        } else {
-          const queryIds = `?id=${this.keys.join('&id=')}`;
-
-          return this.$axios.get(`/_api/cache${queryIds}`, { baseURL: window.location.origin })
-            .then((response) => response.data);
-        }
+        return backendFetch('cache', [this.keys], this.$nuxt.context);
       },
       roundedNumber(number) {
         const precision = 2;
@@ -230,24 +200,6 @@
     }
   }
 
-</style>
-
-<!-- Only DS4CH styles after this line! -->
-<style lang="scss" scoped>
-  @import '@europeana/style/scss/DS4CH/variables';
-
-  .landing-automated-card-group.ds4ch {
-    ::v-deep .info-card {
-      .card-title {
-        @extend %title-2;
-        color: $black;
-      }
-
-      .card-text {
-        @extend %title-5;
-      }
-    }
-  }
 </style>
 
 <docs lang="md">

@@ -1,5 +1,5 @@
 import { createLocalVue } from '@vue/test-utils';
-import { mountNuxt } from '@test/utils.js';
+import { shallowMountNuxt } from '@test/utils.js';
 import nock from 'nock';
 
 import BootstrapVue from 'bootstrap-vue';
@@ -21,7 +21,7 @@ const createContainer = (tag = 'div') => {
 };
 
 const factory = ({ propsData = {} }) => {
-  return mountNuxt(ViewCount, {
+  return shallowMountNuxt(ViewCount, {
     attachTo: createContainer(),
     localVue,
     propsData,
@@ -33,8 +33,7 @@ const factory = ({ propsData = {} }) => {
       },
       $n: (num) => num,
       $t: (key) => key,
-      $tc: (key, count) => `${key} ${count}`,
-      $features: { storiesViewCounts: true }
+      $tc: (key, count) => `${key} ${count}`
     }
   });
 };

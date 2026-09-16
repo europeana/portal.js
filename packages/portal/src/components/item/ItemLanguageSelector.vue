@@ -3,6 +3,7 @@
     <b-dropdown
       data-qa="item language selector"
       :disabled="fromTranslationError"
+      lazy
     >
       <template #button-content>
         <span
@@ -49,7 +50,6 @@
         class="multilingual-dropdown-item"
         :to="translateParams(locale.code)"
         :data-qa="`item language option ${locale.code}`"
-        @click="login"
       >
         {{ locale.name }}
       </b-dropdown-item>
@@ -101,11 +101,6 @@
           query.lang = language;
         }
         return { path: this.$route.path, query };
-      },
-      login() {
-        if (!this.$auth.loggedIn) {
-          this.$keycloak.login();
-        }
       }
     }
   };

@@ -53,6 +53,7 @@
 <script>
   import ImageWithAttribution from '@/components/image/ImageWithAttribution';
   import { FULL_VIEWPORT_PRESETS_FOCUS_FACE } from '@/utils/contentful/imageCropPresets';
+  import { useParallaxElement } from '@/composables/parallaxElement.js';
 
   export default {
     name: 'StoryHero',
@@ -83,36 +84,15 @@
       }
     },
 
+    setup() {
+      useParallaxElement('#hero-background-image img');
+    },
+
     data() {
       return {
         FULL_VIEWPORT_PRESETS_FOCUS_FACE,
         heroImageAltText: this.heroImage.image?.description || ''
       };
-    },
-
-    mounted() {
-      window.addEventListener('scroll', this.parallaxBackground);
-    },
-
-    beforeDestroy() {
-      window.removeEventListener('scroll', this.parallaxBackground);
-    },
-
-    methods: {
-      parallaxBackground() {
-        const heroBackgroundImageElement = document.querySelector('#hero-background-image img');
-        const heroBackgroundHeight = heroBackgroundImageElement?.clientHeight || 1;
-        const distanceHeroToViewportTop = heroBackgroundImageElement?.getBoundingClientRect().top;
-
-        if (heroBackgroundImageElement && distanceHeroToViewportTop < 0) {
-          const translate = (-distanceHeroToViewportTop / heroBackgroundHeight) * 75;
-          heroBackgroundImageElement.style.transform = `translateY(${translate}%)`;
-        }
-
-        if (heroBackgroundImageElement && distanceHeroToViewportTop > 0) {
-          heroBackgroundImageElement.style.transform = '';
-        }
-      }
     }
   };
 </script>

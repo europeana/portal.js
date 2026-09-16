@@ -8,7 +8,8 @@ const FILE_PATHS = {
   ],
   githubWorkflows: [
     '../.github/workflows/ci.yml',
-    '../.github/workflows/lokalise.yml',
+    '../.github/workflows/lokalise-pull.yml',
+    '../.github/workflows/media-embed-service-add.yml',
     '../.github/workflows/npm.yml'
   ],
   nvmRc: '../.nvmrc',
@@ -54,7 +55,7 @@ const replaceVersionInFile = (filePaths, patternOrGenerator, replacement) => {
 };
 
 const updateNvmRc = (version) => {
-  replaceVersionInFile(FILE_PATHS.nvmRc, /^[0-9]+$/, version);
+  replaceVersionInFile(FILE_PATHS.nvmRc, /^[0-9]+/, version);
 };
 
 const updateDockerfiles = (version) => {

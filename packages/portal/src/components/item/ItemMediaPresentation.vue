@@ -33,6 +33,7 @@
                 :annotation-list="hasAnnotations"
                 :annotation-search="hasAnnotations && hasSearchService"
                 :manifest-uri="uri"
+                :web-resource="hasWebResourceMetadataToDisplay && webResource"
                 :show="showSidebar"
                 @keydown.escape.native="showSidebar = false"
               />
@@ -42,9 +43,8 @@
                 @toggleSidebar="toggleSidebar"
               />
             </template>
-            <IIIFErrorMessage
+            <MediaErrorMessage
               v-if="$fetchState.error || mediaError"
-              :provider-url="providerUrl"
             />
             <MediaImageViewer
               v-else-if="viewableImageResource && !displayThumbnail"
@@ -53,38 +53,53 @@
               :width="resource.width"
               :height="resource.height"
               :service="resource.service"
-              @error="handleImageError"
+              @error="handleMediaError"
             >
               <MediaImageViewerControls
                 :fullscreen="fullscreen"
                 @toggleFullscreen="toggleFullscreen"
               />
             </MediaImageViewer>
-            <MediaAudioVisualPlayer
+            <template
               v-else-if="resource?.edm?.isPlayableMedia"
-              :url="resource.id"
-              :format="resource.format"
+            >
+              <MediaAudioVideoPlayer
+                :url="resource.id"
+                :format="resource.format"
+                :item-id="itemId"
+                class="media-viewer-content"
+                :poster="thumbnailForPoster"
+                :offset="page - 1"
+                :text-tracks="textTracks"
+                :resource="resource"
+                @error="handleMediaError"
+                @warn="handleMediaWarn"
+              />
+            </template>
+            <Media3DViewer
+              v-else-if="$features.modelViewer && resource?.edm?.isDisplayable3DModel"
+              :url="resource.id || resource.edm?.about"
               :item-id="itemId"
-              class="media-viewer-content"
+              :poster="thumbnailForPoster"
             />
             <EmbedGateway
-              v-else-if="resource?.edm?.isOEmbed"
+              v-else-if="resource?.isOEmbed || resource?.edm?.isOEmbed"
               class="media-viewer-content"
-              :media="resource?.edm"
+              :media="resource"
               :url="resource.id"
             >
               <EmbedOEmbed
                 :url="resource.id"
+                :service="resource.isOEmbed"
               />
             </EmbedGateway>
             <template
               v-else-if="displayThumbnail"
             >
-              <!-- TODO: mv into own component, e.g. ItemMediaPreview? -->
               <MediaCardImage
                 :offset="page - 1"
                 data-qa="item media thumbnail"
-                :media="resource?.edm"
+                :resource="resource"
                 :lazy="false"
                 :edm-type="edmType"
                 :linkable="!itemIsDeleted && !viewableImageResource"
@@ -142,9 +157,13 @@
 </template>
 
 <script>
+  import { inject } from 'vue';
+
   import LoadingSpinner from '../generic/LoadingSpinner.vue';
   import MediaCardImage from '../media/MediaCardImage.vue';
   import useItemMediaPresentation from '@/composables/itemMediaPresentation.js';
+  import { useItemMediaTextTracks } from '@/composables/itemMediaTextTracks.js';
+  import { FIELDS as WEB_RESOURCE_METADATA_DISPLAY_FIELDS } from '@/components/media/MediaMetadataList.vue';
 
   export class ItemMediaPresentationError extends Error {
     constructor(message) {
@@ -159,13 +178,14 @@
     components: {
       EmbedGateway: () => import('../embed/EmbedGateway.vue'),
       EmbedOEmbed: () => import('../embed/EmbedOEmbed.vue'),
-      IIIFErrorMessage: () => import('../iiif/IIIFErrorMessage.vue'),
+      MediaErrorMessage: () => import('../media/MediaErrorMessage.vue'),
       ItemMediaPaginationToolbar: () => import('./ItemMediaPaginationToolbar.vue'),
       ItemMediaSidebar: () => import('./ItemMediaSidebar.vue'),
       ItemMediaSidebarToggle: () => import('./ItemMediaSidebarToggle.vue'),
       ItemMediaThumbnails: () => import('./ItemMediaThumbnails.vue'),
       LoadingSpinner,
-      MediaAudioVisualPlayer: () => import('../media/MediaAudioVisualPlayer.vue'),
+      Media3DViewer: () => import('../media/Media3DViewer.vue'),
+      MediaAudioVideoPlayer: () => import('../media/MediaAudioVideoPlayer.vue'),
       MediaCardImage,
       MediaImageViewer: () => import('../media/MediaImageViewer.vue'),
       MediaImageViewerControls: () => import('../media/MediaImageViewerControls.vue')
@@ -180,6 +200,11 @@
       },
 
       webResources: {
+        type: Array,
+        default: null
+      },
+
+      services: {
         type: Array,
         default: null
       },
@@ -207,6 +232,8 @@
         return;
       }
 
+      const textTrackAnnotations = inject('textTrackAnnotations', []);
+
       const {
         activeAnnotation,
         clear: clearMediaPresentationState,
@@ -220,6 +247,10 @@
         setPresentationFromWebResources
       } = useItemMediaPresentation();
 
+      const {
+        textTracks
+      } = useItemMediaTextTracks(textTrackAnnotations, resource);
+
       return {
         activeAnnotation,
         clearMediaPresentationState,
@@ -230,7 +261,8 @@
         resource,
         resourceCount,
         setPage,
-        setPresentationFromWebResources
+        setPresentationFromWebResources,
+        textTracks
       };
     },
 
@@ -261,7 +293,7 @@
           error = e;
         }
       } else if (this.webResources) {
-        this.setPresentationFromWebResources(this.webResources);
+        this.setPresentationFromWebResources(this.webResources, this.services);
       } else {
         error = new ItemMediaPresentationError('No manifest URI or web resources for presentation');
       }
@@ -271,8 +303,8 @@
 
       this.showSidebar = (
         (this.hasAnnotations && (window?.innerWidth >= 768)) &&
-        (!this.$route.hash || ['#annotations', '#search', '#links'].includes(this.$route.hash))
-      ) || ['#annotations', '#search', '#links'].includes(this.$route.hash);
+        (!this.$route.hash || ['#annotations', '#search', '#links', '#metadata'].includes(this.$route.hash))
+      ) || ['#annotations', '#search', '#links', '#metadata'].includes(this.$route.hash);
 
       if (error) {
         this.$error(error);
@@ -282,14 +314,18 @@
     fetchOnServer: false,
 
     computed: {
+      webResource() {
+        return this.webResources?.find((wr) => wr.about === this.resource?.id) || this.resource?.edm || null;
+      },
+
       displayThumbnail() {
         if (this.hasAnnotations) {
           return false;
         } else if (this.viewableImageResource) {
           return !this.resource.service && (this.resource?.edm?.imageSize === 'extra_large') && !this.thumbnailInteractedWith;
         } else {
-          return !(
-            this.resource?.edm?.isPlayableMedia || this.resource?.edm?.isOEmbed
+          return this.resource?.edm && !(
+            this.resource?.edm?.isPlayableMedia || this.resource?.isOEmbed || this.resource?.edm?.isOEmbed
           );
         }
       },
@@ -298,8 +334,15 @@
         return !!this.uri;
       },
 
+      hasWebResourceMetadataToDisplay() {
+        const wrs = [this.resource?.edm].concat(
+          this.resource?.edm?.dctermsIsFormatOf?.def?.filter((wr) => wr.isDownloadable)
+        ).filter(Boolean);
+        return WEB_RESOURCE_METADATA_DISPLAY_FIELDS.some((field) => wrs.some((wr) => wr[field] !== undefined));
+      },
+
       sidebarHasContent() {
-        return this.hasAnnotations || this.hasSearchService || this.hasManifest;
+        return this.hasAnnotations || this.hasSearchService || this.hasWebResourceMetadataToDisplay || this.hasManifest;
       },
 
       multiplePages() {
@@ -316,6 +359,10 @@
 
       addSidebarToggleMaxWidth() {
         return !this.viewableImageResource && this.sidebarHasContent;
+      },
+
+      thumbnailForPoster() {
+        return this.$apis.thumbnail.forWebResource(this.resource.edm).large;
       }
     },
 
@@ -348,7 +395,11 @@
         });
       },
 
-      handleImageError(error) {
+      handleMediaWarn(error) {
+        this.$error(error);
+      },
+
+      handleMediaError(error) {
         this.mediaError = error;
         this.$error(error);
       },
@@ -443,6 +494,7 @@
   .media-viewer-inner-wrapper {
     @include media-viewer-height;
     background-color: $black;
+    border-bottom: 1px solid $lightbluemagenta;
 
     @media (max-width: ($bp-large - 1px)) {
       position: relative;

@@ -1,18 +1,9 @@
 <template>
   <div
     class="landing-page xxl-page"
-    :class="`${variant}-page`"
     data-qa="landing page"
   >
-    <DS4CHLandingHero
-      v-if="variant === 'ds4ch'"
-      :headline="headline"
-      :text="text"
-      :cta="cta"
-      :hero-image="primaryImageOfPage"
-    />
     <LandingHero
-      v-else
       :headline="headline"
       :text="text"
       :cta="cta"
@@ -20,23 +11,21 @@
       :hero-image="primaryImageOfPage"
     />
     <div
-      v-for="(section, index) in sections"
+      v-for="(section, index) in sectionsWithClasses"
       :id="sectionId(section)"
       :key="index"
       class="scroll-margin-top"
-      :class="getClasses(section)"
+      :class="section.classes"
     >
       <LandingContentCardGroup
         v-if="contentfulEntryHasContentType(section, 'CardGroup')"
         :section="section"
-        :variant="variant"
       />
       <LandingIllustrationGroup
         v-else-if="contentfulEntryHasContentType(section, 'IllustrationGroup')"
         :title="section.name"
         :text="section.text"
         :illustrations="section.hasPartCollection && section.hasPartCollection.items"
-        :variant="variant"
       />
       <LandingInfoCardGroup
         v-else-if="contentfulEntryHasContentType(section, 'InfoCardGroup')"
@@ -44,7 +33,6 @@
         :text="section.text"
         :info-cards="section.hasPartCollection && section.hasPartCollection.items"
         :link="section.link"
-        :variant="variant"
         :background-image="section.image"
       />
       <b-container
@@ -53,7 +41,6 @@
       >
         <LandingImageCard
           :card="section"
-          :variant="variant"
         />
       </b-container>
 
@@ -69,7 +56,6 @@
         :title="section.name"
         :text="section.text"
         :sections="section.hasPartCollection && section.hasPartCollection.items"
-        :variant="variant"
       />
       <LandingEmbed
         v-else-if="contentfulEntryHasContentType(section, 'EmbedSection')"
@@ -85,16 +71,15 @@
         :text="section.text"
         :link="section.relatedLink"
         :background-image="section.image"
-        :variant="variant"
       />
     </div>
   </div>
 </template>
 
 <script>
-  import kebabCase from 'lodash/kebabCase';
   import LandingHero from './LandingHero';
   import contentfulEntryHasContentType from '@/utils/contentful/entryHasContentType.js';
+  import sectionId from '@/utils/contentful/sectionId.js';
 
   export default {
     name: 'LandingPage',
@@ -108,8 +93,7 @@
       LandingImageCard: () => import('./LandingImageCard'),
       LandingImageCardGroup: () => import('./LandingImageCardGroup'),
       LandingSubSection: () => import('./LandingSubSection'),
-      LandingEmbed: () => import('./LandingEmbed'),
-      DS4CHLandingHero: () => import('../DS4CH/DS4CHLandingHero')
+      LandingEmbed: () => import('./LandingEmbed')
     },
 
     props: {
@@ -136,33 +120,59 @@
       primaryImageOfPage: {
         type: Object,
         default: null
-      },
-      /**
-       * Variant to define layout and style
-       * @values pro, ds4ch
-       */
-      variant: {
-        type: String,
-        default: 'pro'
+      }
+    },
+
+    computed: {
+      sectionsWithClasses() {
+        // reduce instead of map to be able to access the previous modified section and read the added class
+        return this.sections.reduce(this.addClassesToSections, []);
       }
     },
 
     methods: {
       contentfulEntryHasContentType,
+      sectionId,
 
-      getClasses(section) {
+      isSubSectionOrCardGroup(section) {
+        return this.contentfulEntryHasContentType(section, 'LandingSubSection') || this.contentfulEntryHasContentType(section, 'CardGroup');
+      },
+
+      addClassesToSections(memo, section, index) {
+        const sectionBackground = section.profile?.background || section.image?.profile?.background;
         const classes = [];
-        if (section.profile?.background) {
-          classes.push(`bg-color-${section.profile.background}`);
-        }
+
         if (this.contentfulEntryHasContentType(section, 'ImageCard')) {
           classes.push('image-card-container-wrapper');
         }
-        return classes;
-      },
+        if (sectionBackground) {
+          // image card group with highlight profile only highlights the header of the secion; skip background class
+          if (!(this.contentfulEntryHasContentType(section, 'ImageCardGroup') && sectionBackground === 'highlight')) {
+            classes.push(`bg-color-${sectionBackground}`);
+          }
+        }
 
-      sectionId(section) {
-        return kebabCase(section.nameEN);
+        // add alternate background to landing sub section and card group when preceding section has no background
+        if (this.isSubSectionOrCardGroup(section)) {
+          const prev = memo[index - 1];
+
+          // subsequent card group follows background style of preceding card group
+          const subsequentCardGroup = this.contentfulEntryHasContentType(section, 'CardGroup') && this.contentfulEntryHasContentType(prev, 'CardGroup');
+          const prevSectionHasBackgroundClass = prev?.classes?.some(c => c === 'bg-color-alternate' ||  c === 'bg-color-highlight');
+          const prevSectionHasBackground = index === 0 || prevSectionHasBackgroundClass;
+
+          if ((subsequentCardGroup && prevSectionHasBackground) ||
+            (!subsequentCardGroup && !prevSectionHasBackground)) {
+            classes.push('bg-color-alternate');
+          }
+        }
+
+        memo.push({
+          ...section,
+          classes
+        });
+
+        return memo;
       }
     }
   };
@@ -175,7 +185,6 @@
 
   .landing-page {
     margin-top: -$page-header-height;
-    border-bottom: 1px solid transparent; // fix for when any margin of the last component on the page causes grey bg to display
 
     @media (min-width: $bp-4k) {
       margin-top: -$page-header-height-4k;
@@ -189,39 +198,24 @@
       }
     }
 
-    &.pro-page {
-      > div:last-child {
-        .bg-color-alternate,
-        .bg-lightgrey {
-          @include white-cutout;
+    > div:last-child {
+      &.bg-color-alternate,
+      .bg-color-alternate,
+      .bg-lightgrey {
+        @include footer-cutout($lightgrey);
+      }
 
-          &:after {
-            border-top-color: $lightgrey;
-            z-index: 1;
-          }
-        }
+      &.bg-color-highlight,
+      .bg-color-highlight,
+      .bg-dark {
+        @include footer-cutout($blue);
+      }
+
+      &.bg-color-alternate,
+      &.bg-color-highlight {
+        position: relative;
       }
     }
   }
 </style>
 
-<!-- Only DS4CH styles after this line! -->
-<style lang="scss">
-  @import '@europeana/style/scss/DS4CH/style';
-
-  .landing-page.ds4ch-page {
-    margin-top: 0;
-
-    &:after {
-      content: none;
-    }
-
-    .image-card-container {
-      @media (min-width: $bp-large) {
-        max-width: none;
-        padding-left: 0;
-        padding-right: 0;
-      }
-    }
-  }
-</style>

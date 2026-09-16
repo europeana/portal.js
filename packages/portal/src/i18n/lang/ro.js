@@ -47,6 +47,7 @@ export default {
     "clearFilters": "Ștergeți filtrele",
     "close": "închidere",
     "confirm": "Confirmă",
+    "contact": "Contact",
     "continue": "continua",
     "depublish": "Depublicați",
     "download": "Descarcă",
@@ -80,6 +81,7 @@ export default {
     "transcribe": "Transcrie",
     "transcribeNow": "Transcrie acum",
     "unlike": "Nu îmi place",
+    "viewAll": "Vezi toate {count}",
     "viewAt": "Vizualizați pe {link}",
     "viewDocument": "Vizualizare document",
     "vote": "Vot"
@@ -105,14 +107,7 @@ export default {
         "create": {
           "button": "Solicitați o cheie API personală",
           "checkbox": "Confirm că am citit și accept cheia API {termsOfUseLink}."
-        },
-        "description": "Învață și testează cum să folosești API-urile cu propria ta cheie API personală. Te rugăm să nu o distribui. {howToLink}.",
-        "heading": "Cheie API personală",
-        "howToLinkText": "Cum să folosești cheia ta"
-      },
-      "projectKeys": {
-        "description": "Pentru fiecare proiect pe care trebuie să îl construiți, vă vom furniza o cheie dedicată. Cheile de proiect au limite mai mari și alte caracteristici speciale – citiți mai multe în cheia API {termsOfUseLink}. Dacă doriți să modificați informațiile despre proiectul dvs., vă rugăm să trimiteți un e-mail la api@europeana.eu, iar noi vom face modificările pentru dvs.",
-        "heading": "Chei API de proiect"
+        }
       },
       "termsOfUseLinkText": "termeni de utilizare"
     },
@@ -138,9 +133,27 @@ export default {
     "country": "Țară:",
     "creator": "Creator:",
     "date": "Dată:",
+    "hide": "Ascunde atribuirea",
     "institution": "Instituție:",
     "show": "Arată atribuirea",
     "title": "Titlu:"
+  },
+  "audioVisualPlayer": {
+    "Captions": "Subtitrări / subtitrări închise",
+    "captions off": "Oprit",
+    "captionsOption": "{language} subtitrări",
+    "Exit Fullscreen": "Ieșiți din ecranul complet",
+    "Fullscreen": "Ecran complet",
+    "Mute": "Mut",
+    "Pause": "Pauză",
+    "Play": "Redă",
+    "Play Video": "Redare video",
+    "Replay": "Reluare",
+    "Subtitles": "Subtitrări / subtitrări închise",
+    "subtitles off": "Oprit",
+    "subtitlesOption": "{language} subtitrări",
+    "Unmute": "Pornește sunetul",
+    "Volume Level": "Nivelul volumului"
   },
   "authored": {
     "by": "de",
@@ -149,14 +162,15 @@ export default {
   "automatedCardGroup": {
     "gallery": "Ultimele galerii",
     "item": "Resurse culturale recente",
-    "organisation": "Organizații",
+    "organisation": "Instituții furnizoare",
     "place": "Locuri",
     "theme": "Teme",
     "time": "Secole",
     "topic": "Subiecte"
   },
   "cardLabels": {
-    "organisation": "Organizare",
+    "aggregator": "Agregator",
+    "organisation": "Instituție",
     "person": "Persoană",
     "place": "Loc",
     "theme": "Temă",
@@ -316,13 +330,13 @@ export default {
       "description": "A apărut o eroare necunoscută.",
       "title": "Eroare necunoscută"
     },
-    "IIIFManifestFailure": {
-      "description": "Din păcate, resursă culturală media furnizat Europeana nu poate fi afișat în acest moment. Încercați să descărcați media sau să vizualizați resursă culturală pe site-ul instituției furnizoare."
-    },
     "itemNotFound": {
       "description": "Acest lucru se poate datora următoarelor motive: acest resursă culturală nu există sau; a fost anulat pentru că nu corespundea criteriilor noastre de calitate, sau; a fost actualizat și republicat cu un nou identificator unic, caz în care, încercați să găsiți resursă culturală din nou.",
       "metaTitle": "Resursă culturală nu a fost găsit",
       "title": "Oh nu! {newline} Nu am putut găsi acest resursă culturală."
+    },
+    "mediaFailure": {
+      "description": "Din păcate, resursă culturală media furnizat Europeana nu poate fi afișat în acest moment. Încercați să descărcați media sau să vizualizați resursă culturală pe site-ul instituției furnizoare."
     },
     "noFeatureIdeas": {
       "description": "Reveniți în curând!",
@@ -371,6 +385,7 @@ export default {
       "options": {
         "archaeology": "Arheologie",
         "art": "Artă",
+        "audiovisual": "Patrimoniu audiovizual",
         "fashion": "Modă",
         "industrial": "Patrimoniu industrial",
         "manuscript": "Manuscrise",
@@ -716,6 +731,14 @@ export default {
       "name": "Declarație de drepturi",
       "select": "Selectați declarațiile de drepturi"
     },
+    "sort": {
+      "name": "Sortează după",
+      "options": {
+        "proxy_dcterms_issued+asc": "Data emiterii (de la cea mai veche)",
+        "proxy_dcterms_issued+desc": "Data emiterii (cele mai noi primele)"
+      },
+      "select": "Selectați modul de sortare a rezultatelor"
+    },
     "TYPE": {
       "name": "Tip de media",
       "options": {
@@ -791,11 +814,52 @@ export default {
       "year": "An"
     },
     "webResource": {
-      "about": "Despre RDF",
-      "dcDescription": "Descriere",
-      "ebucoreHasMimeType": "Tip Ebucore MIME",
-      "edmRights": "Mențiunea privind drepturile intelectuale pentru această resursă media",
-      "rdfAbout": "Despre RDF"
+      "about": "Despre",
+      "dctermsConformsTo": "Conform cu",
+      "dcType": "Tip de media",
+      "ebucoreAudioChannelNumber": "Canale audio",
+      "ebucoreBitRate": "Rată de biți (bps)",
+      "ebucoreDuration": "Durată",
+      "ebucoreFileByteSize": "Dimensiune fișier (octeți)",
+      "ebucoreFrameRate": "Rată de cadre (fps)",
+      "ebucoreHasMimeType": "Tip MIME",
+      "ebucoreHeight": "Înălțime (px)",
+      "ebucoreOrientation": "Orientare",
+      "ebucoreSampleRate": "Rată de eșantionare (Hz)",
+      "ebucoreSampleSize": "Dimensiunea eșantionului (biți)",
+      "ebucoreWidth": "Lățime (px)",
+      "edmCodecName": "Codec",
+      "edmComponentColor": "Culoarea componentei",
+      "edmHasColorSpace": "Spațiu de culoare",
+      "edmIntendedUsage": "Utilizare prevăzută",
+      "edmPolygonCount": "Număr de poligoane",
+      "edmRights": "Declarație de drepturi pentru acest media",
+      "edmSpatialResolution": "Rezoluție spațială (dpi)",
+      "edmVertexCount": "Număr de vârfuri",
+      "schemaDigitalSourceType": "Relația cu lumea reală"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Artă",
+      "creativity": "Creativitate",
+      "curation": "Curatoriere",
+      "design": "Design",
+      "documentation": "Documentare",
+      "education": "Educație",
+      "exhibition": "Expoziţie",
+      "gaming": "Gaming",
+      "infotainment": "Infotainment",
+      "knowledge": "Cunoștințe",
+      "maintenance": "Mentenanță",
+      "research": "Cercetare",
+      "restoration": "Restaurare",
+      "tourism": "Turism"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Reconstrucție",
+      "digitalCapture": "Captare a realității",
+      "digitalCreation": "Născut digital"
     }
   },
   "filterResults": "Filtrați rezultatele",
@@ -836,10 +900,12 @@ export default {
     "navigation": {
       "about": "Despre",
       "collections": "Colecții",
-      "europeanaClassroom": "Pentru profesori",
+      "educators": "Pentru educatori",
       "featureIdeas": "Idei de caracteristici",
       "help": "Help",
       "home": "Acasă",
+      "partners": "Parteneriat cu noi",
+      "research": "Pentru mediul academic și cercetare",
       "shareYourCollections": "Partajați colecțiile dvs.",
       "stories": "Narațiuni"
     },
@@ -889,11 +955,10 @@ export default {
         "title": "Servicii pe care am dori să le folosim."
       },
       "consentNotice": {
-        "description": "Bună! Putem activa unele servicii suplimentare pentru analiză și securitate? Puteți oricând să vă schimbați sau să vă retrageți consimțământul ulterior.",
-        "learnMore": "Lasa-ma sa aleg"
+        "description": "Putem, vă rugăm, să activăm serviciile pentru securitate, analiză și conținut de la terți?",
+        "learnMore": "Gestionează setările cookie"
       },
-      "decline": "Refuz",
-      "ok": "Bine",
+      "decline": "Respinge",
       "purposes": {
         "2D": {
           "title": "Media 2D"
@@ -946,6 +1011,10 @@ export default {
       "auth-strategy": {
         "description": "Reține strategia de autorizare de utilizat pentru a vă conecta.",
         "title": "Strategia Auth"
+      },
+      "cloudflare": {
+        "description": "Își amintește că testul de securitate a fost trecut cu succes.",
+        "title": "Cloudflare"
       },
       "debugSettings": {
         "description": "Ajută la depanarea cererilor API",
@@ -1002,6 +1071,12 @@ export default {
   },
   "loading": "Încărcare",
   "loadingResults": "Se încarcă rezultatele",
+  "map": {
+    "keyboardNavigatePins": "Folosiți tastele săgeată pentru a naviga între marcaje",
+    "keyboardPanAndZoom": "Folosiți tastele +, - și tastele săgeți pentru a mări/micșora și a vă deplasa pe hartă",
+    "togglePin": "Comută fixarea",
+    "zoomInCluster": "Mărește clusterul"
+  },
   "media": {
     "controls": {
       "exitFullscreen": "Ieșiți din ecranul complet",
@@ -1024,6 +1099,8 @@ export default {
       "hide": "Ascunde bara laterală",
       "IIIFManifest": "IIIF Manifest",
       "links": "Linkuri",
+      "metadata": "Metadate media",
+      "metadataInfo": "Informații despre conținutul media pe care îl vizualizați în prezent.",
       "search": "Căutare",
       "searchPlaceholder": "Introduceți termeni",
       "show": "Afișați bara laterală"
@@ -1078,15 +1155,41 @@ export default {
     "city": "Oraș",
     "country": "Țara",
     "englishName": "Nume englezesc",
-    "nameAcronym": "Acronim de nume"
+    "geographicScope": "Arie de aplicare geografică",
+    "heritageDomain": "Tipuri de patrimoniu",
+    "nameAcronym": "Acronim de nume",
+    "providesAudienceEngagementActivity": "Activități de implicare a publicului",
+    "providesCapacityBuildingActivity": "Consolidarea capacităților",
+    "providesSupportForDataActivity": "Activități privind datele",
+    "providesSupportForMediaType": "Tip media",
+    "providingInstitutionsCount": "Numărul instituțiilor furnizoare",
+    "recordCount": "Numărul de resurse culturale"
+  },
+  "organisations": {
+    "aggregators": {
+      "description": "Agregatorii colaborează cu instituțiile furnizoare pentru a colecta și publica obiectele lor de patrimoniu cultural digital pe Europeana.eu.",
+      "title": "Agregatori"
+    },
+    "internationalAggregators": {
+      "description": "Agregatorii de domeniu și tematici își definesc aria de acoperire în funcție de sectorul cultural (precum muzeele, arhivele sau bibliotecile) sau de subiect și temă (precum moda). Ei colaborează cu furnizorii de date din diferite țări europene.",
+      "title": "Agregatori de domenii și tematici"
+    },
+    "providingInstitutions": {
+      "description": "O listă de muzee, biblioteci, arhive și galerii care își partajează resurse culturale digitale pe Europeana.eu.",
+      "title": "Instituții furnizoare"
+    },
+    "regionalAggregators": {
+      "description": "Agregatorii naționali și regionali își definesc aria de acoperire în funcție de o anumită țară sau regiune. Ei colaborează cu contributori aflați în acea țară sau regiune.",
+      "title": "Agregatori naționali și regionali"
+    }
   },
   "pageHasLoaded": "a încărcat",
   "pageNumber": "Numărul paginii",
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Explorați instituțiile care partajează resurse culturale din patrimoniul cultural digital pe Europeana.eu.",
-        "title": "Instituții"
+        "description": "Explorați instituțiile furnizoare care partajează resurse din patrimoniul cultural digital pe Europeana.eu.",
+        "title": "Instituții furnizoare"
       },
       "persons": {
         "title": "Persoane"
@@ -1095,7 +1198,9 @@ export default {
         "title": "Locuri"
       },
       "table": {
+        "aggregator": "Agregator",
         "country": "Țara",
+        "domain": "Domeniu / Temă",
         "items": "Resurse culturale",
         "name": "Nume",
         "searchPlaceholder": "Căutați în tabel",
@@ -1129,6 +1234,7 @@ export default {
       "pin": "Fixați resursă culturală la entitățile disponibile"
     },
     "allMetaData": "Toate metadatele",
+    "allMetaDataInfo": "Informații despre întreaga resursă culturală.",
     "clickToCopyEmbedCode": "Faceți clic pe codul de încorporare pentru a-l copia",
     "extendedInformation": "Informații extinse",
     "goodToKnow": "Bine de știut",
@@ -1147,6 +1253,9 @@ export default {
   "related": {
     "categoryTags": {
       "title": "Descoperiți narațiuni conexe"
+    },
+    "collection": {
+      "preview": "Previzualizare colecție"
     },
     "collections": {
       "name": "Colecții conexe",
@@ -1230,9 +1339,6 @@ export default {
     },
     "results": {
       "limitWarning": "Rezultate suplimentare nu sunt afișate, deoarece sunt afișate doar primele 1000 de rezultate cele mai relevante. Dacă nu ați găsit ceea ce căutați, vă rugăm să vă rafinați căutarea.",
-      "loginToSeeMore": "{login} pentru a vedea mai multe rezultate",
-      "loginToSeeMultilingualResults": "Conectați-vă pentru a căuta în întreaga colecție și pentru a obține rezultate care nu se limitează la limba termenului dvs. de căutare.",
-      "showingMultilingualResults": "Afișare rezultate din întreaga colecție și toate limbile.",
       "withinCollection": "{count} rezultate în cadrul {type} {collection}",
       "withinCollectionWithQuery": "{count} rezultate în {type} {collection} pentru {query}",
       "withoutQuery": "{count} rezultate",

@@ -30,6 +30,11 @@ Example:
           <td><span class="icon icon-3d-bold" /></td>
         </tr>
         <tr>
+          <td>Academia</td>
+          <td><code>icon-academia</code></td>
+          <td><span class="icon icon-academia" /></td>
+        </tr>
+        <tr>
           <td>Accept</td>
           <td><code>icon-accept</code></td>
           <td><span class="icon icon-accept" /></td>
@@ -110,6 +115,11 @@ Example:
           <td><span class="icon icon-click" /></td>
         </tr>
         <tr>
+          <td>Closedcaption</td>
+          <td><code>icon-closedcaption</code></td>
+          <td><span class="icon icon-closedcaption" /></td>
+        </tr>
+        <tr>
           <td>Collections</td>
           <td><code>icon-collections</code></td>
           <td><span class="icon icon-collections" /></td>
@@ -134,6 +144,12 @@ Example:
           <td><code>icon-edit</code></td>
           <td><span class="icon icon-edit" /></td>
         </tr>
+        <tr>
+          <td>Email</td>
+          <td><code>icon-email</code></td>
+          <td><span class="icon icon-email" /></td>
+        </tr>
+        <tr>
         <tr>
           <td>Enrichment</td>
           <td><code>icon-enrichment</code></td>
@@ -265,6 +281,11 @@ Example:
           <td><span class="icon icon-linkedin" /></td>
         </tr>
         <tr>
+          <td>Location</td>
+          <td><code>icon-location</code></td>
+          <td><span class="icon icon-location" /></td>
+        </tr>
+        <tr>
           <td>Lock</td>
           <td><code>icon-lock</code></td>
           <td><span class="icon icon-lock" /></td>
@@ -283,6 +304,11 @@ Example:
           <td>Menu</td>
           <td><code>icon-menu</code></td>
           <td><span class="icon icon-menu" /></td>
+        </tr>
+        <tr>
+          <td>Metadata</td>
+          <td><code>icon-metadata</code></td>
+          <td><span class="icon icon-metadata" /></td>
         </tr>
         <tr>
           <td>Move xy</td>
@@ -305,6 +331,11 @@ Example:
           <td><span class="icon icon-pages" /></td>
         </tr>
         <tr>
+          <td>Partner</td>
+          <td><code>icon-partner</code></td>
+          <td><span class="icon icon-partner" /></td>
+        </tr> 
+        <tr>
           <td>Pinterest</td>
           <td><code>icon-pinterest</code></td>
           <td><span class="icon icon-pinterest" /></td>
@@ -318,6 +349,11 @@ Example:
           <td>Pin outlined</td>
           <td><code>icon-pin-outlined</code></td>
           <td><span class="icon icon-pin-outlined" /></td>
+        </tr>
+        <tr>
+          <td>Play</td>
+          <td><code>icon-play</code></td>
+          <td><span class="icon icon-play" /></td>
         </tr>
         <tr>
           <td>Quote</td>
@@ -405,6 +441,11 @@ Example:
           <td><span class="icon icon-stories" /></td>
         </tr>
         <tr>
+          <td>Subtitles</td>
+          <td><code>icon-subtitles</code></td>
+          <td><span class="icon icon-subtitles" /></td>
+        </tr>
+        <tr>
           <td>Tag</td>
           <td><code>icon-ic-tag</code></td>
           <td><span class="icon icon-ic-tag" /></td>
@@ -488,6 +529,16 @@ Example:
           <td>View mosaic</td>
           <td><code>icon-view-mosaic</code></td>
           <td><span class="icon icon-view-mosaic" /></td>
+        </tr>
+        <tr>
+          <td>Volume off</td>
+          <td><code>icon-volume-off</code></td>
+          <td><span class="icon icon-volume-off" /></td>
+        </tr>
+        <tr>
+          <td>Volume on</td>
+          <td><code>icon-volume-on</code></td>
+          <td><span class="icon icon-volume-on" /></td>
         </tr>
         <tr>
           <td>Zoom in</td>

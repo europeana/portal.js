@@ -43,6 +43,19 @@
             @dateFilter="dateFilterSelected"
           />
           <SearchFacetDropdown
+            v-if="enableSortFilter"
+            key="sort"
+            name="sort"
+            type="radio"
+            :selected="userParams.sort ? [userParams.sort] : []"
+            :static-fields="sortFilter.staticFields"
+            :search="false"
+            :aria-label="sortFilterField"
+            :api-params="apiParams"
+            :api-options="apiOptions"
+            @changed="changeSort"
+          />
+          <SearchFacetDropdown
             v-for="facet in defaultFilterableFacets"
             :key="facet.name"
             :name="facet.name"
@@ -184,6 +197,7 @@
           'proxy_dc_format.en',
           'proxy_dcterms_medium.en'
         ],
+        SORT_FILTER: 'SORT',
         showAdditionalFilters: false
       };
     },
@@ -198,7 +212,9 @@
         if (this.userParams?.reusability) {
           filters['REUSABILITY'] = this.userParams.reusability.split(',');
         }
-
+        if (this.userParams?.sort) {
+          filters[this.SORT_FILTER] = this.userParams.sort?.split(',');
+        }
         return filters;
       },
       resettableFilters() {
@@ -211,6 +227,9 @@
         }
         if (this.enableDateFilter && this.filters[this.dateFilterField]) {
           filters.push(this.dateFilterField);
+        }
+        if (this.enableSortFilter && this.sort?.length > 0) {
+          filters.push(this.SORT_FILTER);
         }
 
         return filters;
@@ -279,6 +298,9 @@
       view() {
         return this.userParams.view;
       },
+      sort() {
+        return this.userParams.sort;
+      },
       page() {
         // This causes double jumps on pagination when using the > arrow, for some reason
         // return this.userParams.page;
@@ -302,6 +324,15 @@
         const range = rangeFromQueryParam(dateFilterValue[0]);
 
         return range ? { ...range, specific: false } : { start: dateFilterValue[0], end: null, specific: true };
+      },
+      enableSortFilter() {
+        return !!this.theme?.filters?.sort;
+      },
+      sortFilterField() {
+        return this.theme?.filters?.sort?.field || null;
+      },
+      sortFilter() {
+        return { staticFields: [`${this.sortFilterField}+asc`, `${this.sortFilterField}+desc`] };
       },
       hasResettableFilters() {
         return this.resettableFilters.length > 0;
@@ -349,7 +380,6 @@
       },
       queryUpdatesForFacetChanges(selected = {}) {
         const filters = { ...this.filters };
-
         for (const name in selected) {
           filters[name] = selected[name];
         }
@@ -357,9 +387,15 @@
         // Remove collection-specific filters when collection is changed
         if (Object.prototype.hasOwnProperty.call(selected, this.COLLECTION_FACET_NAME) || !this.collection) {
           for (const name in filters) {
-            if (name !== this.COLLECTION_FACET_NAME && !this.DEFAULT_FACET_NAMES.concat(this.ADDITIONAL_FACET_NAMES).includes(name)) {
+            if (name !== this.COLLECTION_FACET_NAME && name !== this.SORT_FILTER && !this.DEFAULT_FACET_NAMES.concat(this.ADDITIONAL_FACET_NAMES).includes(name)) {
               filters[name] = [];
             }
+          }
+          // removes sort from query when the target theme does not support it.
+          // TODO: Should this remove sort only for unsupported sort fields specifically?
+          // Should sort always be removed on collection switch? Then just remove the exception in the condition above.
+          if (!themes.find((theme) => theme.qf === filters[this.COLLECTION_FACET_NAME])?.filters?.sort) {
+            filters[this.SORT_FILTER] = undefined;
           }
         }
 
@@ -382,6 +418,9 @@
           if (name === 'REUSABILITY') {
             // `reusability` has its own API parameter and can not be queried in `qf`
             queryUpdates.reusability = (filters[name]?.length || 0) > 0 ? filters[name].join(',') : null;
+          } else if (name === this.SORT_FILTER) {
+            // `sort` has its own API parameter and can not be queried in `qf`
+            queryUpdates.sort = filters[name];
           } else {
             // Everything else goes in `qf`
             queryUpdates.qf = queryUpdates.qf.concat(this.queryUpdatesForFilter(name, filters[name]));
@@ -407,6 +446,13 @@
           this.$matomo?.trackEvent('Filters', 'Reusability filter selected', queryUpdates.reusability);
         }
       },
+      changeSort(name, selected) {
+        if (isEqual(this.sort, selected)) {
+          return;
+        }
+
+        this.rerouteSearch({ sort: selected });
+      },
       updateCurrentSearchQuery(updates = {}) {
         const current = {
           boost: this.boost,
@@ -415,6 +461,7 @@
           qf: this.qf,
           query: this.query,
           reusability: this.reusability,
+          sort: this.sort,
           view: this.view
         };
 
@@ -433,6 +480,7 @@
         this.rerouteSearch({
           page: 1,
           qf: null,
+          sort: null,
           reusability: null
         });
       },

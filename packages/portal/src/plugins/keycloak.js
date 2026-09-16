@@ -1,5 +1,7 @@
+import axios from 'axios';
+
 // @see https://github.com/nuxt-community/auth-module/blob/v4.9.1/lib/schemes/oauth2.js#L157-L201
-const refreshAccessToken = async({ $auth, $axios, redirect, route }, requestConfig) => {
+const refreshAccessToken = async({ $auth, redirect, route }, requestConfig) => {
   let refreshAccessTokenResponse;
   try {
     refreshAccessTokenResponse = await $auth.request(refreshAccessTokenRequestOptions($auth));
@@ -8,7 +10,7 @@ const refreshAccessToken = async({ $auth, $axios, redirect, route }, requestConf
     $auth.logout();
     delete requestConfig.headers['Authorization'];
     delete requestConfig.headers['authorization'];
-    return $axios.request(requestConfig);
+    return axios.request(requestConfig);
   }
 
   if (!updateAccessToken($auth, requestConfig, refreshAccessTokenResponse)) {
@@ -19,7 +21,7 @@ const refreshAccessToken = async({ $auth, $axios, redirect, route }, requestConf
   updateRefreshToken($auth, refreshAccessTokenResponse);
 
   // Retry request with new access token
-  return $axios.request(requestConfig);
+  return axios.request(requestConfig);
 };
 
 const updateRefreshToken = ($auth, refreshAccessTokenResponse) => {
@@ -59,9 +61,7 @@ const updateAccessToken = ($auth, requestConfig, refreshAccessTokenResponse) => 
   $auth.strategy._setToken(newAccessToken); // eslint-disable-line no-underscore-dangle
 
   delete requestConfig.headers['Authorization'];
-  delete requestConfig.headers['authorization'];
-  // TODO: use axios instead of $axios, and set new Authorization header here
-  //       from newAccessToken?
+  requestConfig.headers.authorization = newAccessToken;
 
   return newAccessToken;
 };
@@ -87,11 +87,11 @@ const refreshAccessTokenRequestOptions = ($auth) => {
   };
 };
 
-const keycloakUnauthorizedResponseErrorHandler = ({ $auth, $axios, redirect, route }, error) => {
+const keycloakUnauthorizedResponseErrorHandler = ({ $auth, redirect, route }, error) => {
   if ($auth.getRefreshToken($auth.strategy.name)) {
     // User has previously logged in, and we have a refresh token, e.g.
     // access token has expired
-    return refreshAccessToken({ $auth, $axios, redirect, route }, error.config);
+    return refreshAccessToken({ $auth, redirect, route }, error.config);
   } else {
     // User has not already logged in, or we have no refresh token:
     // redirect to OIDC login URL
@@ -127,10 +127,12 @@ export const keycloakPlugin = (ctx) => {
     return keycloakAccountUrl.toString();
   };
 
-  const login = ({ redirect } = {}) => {
-    ctx.$auth.$storage.setUniversal('redirect', redirect || redirectPath());
+  const login = ({ redirect, replace } = {}) => {
+    if (!ctx.$auth.$storage.getUniversal('redirect')) {
+      ctx.$auth.$storage.setUniversal('redirect', redirect || redirectPath());
+    }
     ctx.$auth.$storage.setUniversal('portalLoggingIn', true);
-    ctx.$auth.loginWith('keycloak', { params: { 'ui_locales': ctx.i18n.locale } });
+    ctx.$auth.loginWith('keycloak', { params: { 'ui_locales': ctx.i18n.locale }, replace });
   };
 
   const error = (err) => {

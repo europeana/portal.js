@@ -1,3 +1,7 @@
+import dateFormat from 'dateformat';
+
+import EuropeanaRecordApi from '../../plugins/europeana/record.js';
+
 const PICK = ['dataProvider', 'dcCreatorLangAware', 'dcTitleLangAware', 'edmPreview', 'id'];
 // TODO: We can't let the cacher localise in advance because the item preview card
 // expects to handle it. Consider refactoring that automated card group to
@@ -5,67 +9,62 @@ const PICK = ['dataProvider', 'dcCreatorLangAware', 'dcTitleLangAware', 'edmPrev
 // const LOCALISE = ['dcCreatorLangAware', 'dcTitleLangAware'];
 const LOCALISE = false;
 
-import dateFormat from 'dateformat';
-import { createEuropeanaApiClient } from '../utils.js';
+const data = (context = {}) => {
+  const api = context.$apis?.record || new EuropeanaRecordApi(context);
 
-let axiosClient;
-let randomSortSeed;
+  const randomSortSeed = dateFormat(new Date(), 'isoDate');
 
-const recentlyUpdatedContentTier4Dataset = async(exclude = []) => {
-  let query = '*:*';
-  if (exclude.length > 0) {
-    const excludedDatasets = exclude.map(e => `"${e}"`).join(' OR ');
-    query = `NOT edm_datasetName:(${excludedDatasets})`;
-  }
+  const recentlyUpdatedContentTier4Dataset = async(exclude = []) => {
+    let query = '*:*';
+    if (exclude.length > 0) {
+      const excludedDatasets = exclude.map(e => `"${e}"`).join(' OR ');
+      query = `NOT edm_datasetName:(${excludedDatasets})`;
+    }
 
-  const response = await axiosClient.get('/search.json', {
-    params: {
+    const response = await api.search({
       profile: 'standard',
       query,
       qf: 'contentTier:4',
       rows: 1,
       sort: 'timestamp_update+desc'
     }
-  });
-  return response.data.items?.[0]?.edmDatasetName;
-};
+    );
 
-const recentlyUpdatedContentTier4ItemFromDataset = async(dataset) => {
-  const query = `edm_datasetName:"${dataset}"`;
-  const params = {
-    profile: 'minimal',
-    query,
-    qf: 'contentTier:4',
-    rows: 1,
-    sort: `timestamp_update+desc,random_${randomSortSeed}+asc`
+    return response.items?.[0]?.edmDatasetName;
   };
-  const response = await axiosClient.get('/search.json', { params });
-  return response.data.items[0];
-};
 
-const recentlyUpdatedContentTier4Items = async() => {
-  const datasets = [];
-  const items = [];
-  let moreDatasets = true;
+  const recentlyUpdatedContentTier4ItemFromDataset = async(dataset) => {
+    const query = `edm_datasetName:"${dataset}"`;
+    const params = {
+      profile: 'minimal',
+      query,
+      qf: 'contentTier:4',
+      rows: 1,
+      sort: `timestamp_update+desc,random_${randomSortSeed}+asc`
+    };
+    const response = await api.search(params);
+    return response.items[0];
+  };
 
-  while (moreDatasets && (items.length < 4)) {
-    const dataset = await recentlyUpdatedContentTier4Dataset(datasets);
-    if (dataset) {
-      datasets.push(dataset);
+  const recentlyUpdatedContentTier4Items = async() => {
+    const datasets = [];
+    const items = [];
+    let moreDatasets = true;
 
-      const item = await recentlyUpdatedContentTier4ItemFromDataset(dataset);
-      items.push(item);
-    } else {
-      moreDatasets = false;
+    while (moreDatasets && (items.length < 4)) {
+      const dataset = await recentlyUpdatedContentTier4Dataset(datasets);
+      if (dataset) {
+        datasets.push(dataset);
+
+        const item = await recentlyUpdatedContentTier4ItemFromDataset(dataset);
+        items.push(item);
+      } else {
+        moreDatasets = false;
+      }
     }
-  }
 
-  return items;
-};
-
-const data = (config = {}) => {
-  axiosClient = createEuropeanaApiClient(config.europeana?.apis?.record);
-  randomSortSeed = dateFormat(new Date(), 'isoDate');
+    return items;
+  };
 
   return recentlyUpdatedContentTier4Items();
 };

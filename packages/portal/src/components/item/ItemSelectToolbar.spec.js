@@ -10,8 +10,9 @@ localVue.use(BootstrapVue);
 
 const clearSelectedItemsSpy = sinon.spy();
 const useSelectedItemsStub = sinon.stub(selectedItemsComposable, 'useSelectedItems');
+const activeSetItemIds = ['123/abc', '456/def'];
 
-const factory = ({ propsData = {}, mocks = {}, selectedItems = [], store = {} } = {}) => {
+const factory = ({ propsData = {}, mocks = {}, selectedItems = [] } = {}) => {
   useSelectedItemsStub.returns({
     clear: clearSelectedItemsSpy,
     selected: selectedItems
@@ -24,13 +25,6 @@ const factory = ({ propsData = {}, mocks = {}, selectedItems = [], store = {} } 
     localVue,
     mocks: {
       $features: { itemMultiSelect: true },
-      $store: {
-        commit: sinon.spy(),
-        state: {
-          set: {}
-        },
-        ...store
-      },
       $t: (key) => key,
       $tc: (key, count) => `${count} ${key}`,
       ...mocks
@@ -75,16 +69,9 @@ describe('components/item/ItemSelectToolbar', () => {
 
   describe('when items are selected', () => {
     const selectedItems = ['123/abc', '456/def'];
-    const store = {
-      state: {
-        set: {
-          active: { items: [{ id: '123/abc' }] }
-        }
-      }
-    };
 
     it('shows the deselect selected button', () => {
-      const wrapper = factory({ selectedItems, store });
+      const wrapper = factory({ selectedItems });
 
       const deselectSelectedButton = wrapper.find('.deselect-selected-button');
 
@@ -92,7 +79,7 @@ describe('components/item/ItemSelectToolbar', () => {
     });
 
     it('shows the add and like buttons', () => {
-      const wrapper = factory({ selectedItems, store });
+      const wrapper = factory({ selectedItems });
 
       const addButton = wrapper.find('itemaddbutton-stub');
       const likeButton = wrapper.find('itemlikebutton-stub');
@@ -106,9 +93,8 @@ describe('components/item/ItemSelectToolbar', () => {
         describe('and the selected items are in the active set', () => {
           it('renders the remove button', () => {
             const wrapper = factory({
-              propsData: { userCanEditSet: true },
-              selectedItems,
-              store
+              propsData: { userCanEditSet: true, activeSetItemIds },
+              selectedItems
             });
 
             const removeButton = wrapper.find('itemremovebutton-stub');
@@ -122,9 +108,8 @@ describe('components/item/ItemSelectToolbar', () => {
 
           it('does not render the remove button', () => {
             const wrapper = factory({
-              propsData: { userCanEditSet: true },
-              selectedItems,
-              store
+              propsData: { userCanEditSet: true, activeSetItemIds },
+              selectedItems
             });
 
             const removeButton = wrapper.find('itemremovebutton-stub');
@@ -136,7 +121,7 @@ describe('components/item/ItemSelectToolbar', () => {
 
       describe('when the user does not have rights to edit the set', () => {
         it('does not render the remove button', () => {
-          const wrapper = factory({ propsData: { userCanEditSet: false }, selectedItems, store });
+          const wrapper = factory({ propsData: { userCanEditSet: false, activeSetItemIds }, selectedItems });
 
           const removeButton = wrapper.find('itemremovebutton-stub');
 
@@ -148,7 +133,7 @@ describe('components/item/ItemSelectToolbar', () => {
     describe('deselect selected button', () => {
       describe('on click', () => {
         it('clears the selected items', () => {
-          const wrapper = factory({ selectedItems, store });
+          const wrapper = factory({ selectedItems });
 
           const deselectButton = wrapper.find('.deselect-selected-button');
           deselectButton.trigger('click');

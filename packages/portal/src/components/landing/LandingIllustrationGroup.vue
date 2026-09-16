@@ -1,7 +1,6 @@
 <template>
   <b-container
     class="landing-illustration-group"
-    :class="variant"
   >
     <b-col class="header col-lg-8 text-center mx-auto px-0">
       <component :is="titleTag">
@@ -110,14 +109,6 @@
       illustrations: {
         type: Array,
         default: () => []
-      },
-      /**
-       * Variant to define layout and style
-       * @values pro, ds4ch
-       */
-      variant: {
-        type: String,
-        default: 'pro'
       }
     },
 
@@ -182,8 +173,6 @@
   .container {
     margin-top: 3rem;
     margin-bottom: 3rem;
-    padding-left: 0;
-    padding-right: 0;
 
     @media (min-width: $bp-large) {
       margin-top: 6rem;
@@ -200,6 +189,10 @@
 
     @media (min-width: $bp-xxl) {
       max-width: $max-text-column-width;
+    }
+
+    @media (min-width: $bp-4k) {
+      max-width: $max-text-column-width-landing-4k;
     }
 
     .text {
@@ -298,44 +291,41 @@
 
   .swiper-button-prev,
   .swiper-button-next {
-    display: none;
     height: 48px;
     width: 48px;
     color: $black;
     background: $lightgrey;
     border-radius: 50%;
-    top: calc(50% - 2rem);
+    --swiper-navigation-top-offset: calc(50% - 2rem);
 
-    @media (min-width: $bp-medium) {
-      display: flex;
+    @media (max-width: ($bp-medium - 1px)) {
+      display: none;
     }
 
     @media (min-width: $bp-large) {
-      top: calc(50% - 3rem);
+      --swiper-navigation-top-offset: calc(50% - 3rem);
     }
 
-    &:after {
-      font-size: 1.25rem;
-      font-weight: 700;
+    ::v-deep svg {
+      height: 1.25rem;
+      overflow: visible;
+      padding-left: 2px;
+
+      path {
+        stroke-width: 1;
+        stroke: $black;
+      }
     }
 
     @media (min-width: $bp-4k) {
       height: 96px;
       width: 96px;
-      top: calc(50% - 5rem);
+      --swiper-navigation-top-offset: calc(50% - 5rem);
 
-      &:after {
-        font-size: 2.5rem;
+      ::v-deep svg {
+        height: 2.5rem;
       }
     }
-  }
-
-  .swiper-button-prev::after {
-    padding-right: 2px;
-  }
-
-  .swiper-button-next::after {
-    padding-left: 2px;
   }
 
   .swiper-pagination {
@@ -374,99 +364,6 @@
 
     &-active {
       background-color: $black;
-    }
-  }
-</style>
-
-<!-- Only DS4CH styles after this line! -->
-<style lang="scss" scoped>
-  @import '@europeana/style/scss/DS4CH/variables';
-  @import '@europeana/style/scss/responsive-background-image';
-  .landing-illustration-group.ds4ch {
-    @media (min-width: $bp-4k) {
-      margin-top: 15rem;
-      margin-bottom: 15rem;
-    }
-
-    .header {
-      @media (min-width: $bp-4k) {
-        max-width: $max-text-column-width-landing-4k !important;
-        padding-bottom: 5rem;
-      }
-    }
-
-    h2 {
-      @media (min-width: $bp-4k) {
-        margin-bottom: 2rem;
-      }
-    }
-
-    .text {
-      color: $black;
-
-      @media (min-width: $bp-4k) {
-        font-size: 2.5rem;
-        margin-bottom: 3.125rem;
-      }
-    }
-
-    $swiper-slide-width-height-ds4ch-4k: 340px;
-    $swiper-pagination-height-ds4ch-4k: 126px;
-
-    .swiper-container-wrapper {
-      @media (min-width: $bp-4k) {
-        height: $swiper-slide-width-height-ds4ch-4k;
-
-        &.paginated {
-          height: calc($swiper-slide-width-height-ds4ch-4k + $swiper-pagination-height-ds4ch-4k);
-        }
-      }
-    }
-    .swiper-container {
-
-      .image-wrapper {
-        @media (min-width: $bp-4k) {
-          width: $swiper-slide-width-height-ds4ch-4k;
-          height: $swiper-slide-width-height-ds4ch-4k;
-        }
-      }
-    }
-
-    .swiper-button-prev,
-    .swiper-button-next {
-      @media (min-width: $bp-4k) {
-        height: 128px;
-        width: 128px;
-
-        &:after {
-          font-size: 3.5rem;
-        }
-      }
-    }
-
-    .swiper-pagination {
-      @media (min-width: $bp-4k) {
-        margin-top: 4rem;
-      }
-    }
-
-    ::v-deep .swiper-pagination-bullet {
-      border: 2px solid $black;
-
-      @media (min-width: $bp-4k) {
-        height: 32px;
-        width: 32px;
-        border: 4px solid $black;
-        margin-right: 12px;
-
-        &:last-child {
-          margin-right: 0;
-        }
-      }
-
-      &-active {
-        background-color: $black;
-      }
     }
   }
 </style>

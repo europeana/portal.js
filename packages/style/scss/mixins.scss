@@ -1,6 +1,6 @@
-@mixin white-cutout {
+@mixin footer-cutout ($color: $white) {
   &::after {
-    border-top: 221px solid $white;
+    border-top: 221px solid $color;
     border-left: 115px solid transparent;
     content: '';
     display: block;

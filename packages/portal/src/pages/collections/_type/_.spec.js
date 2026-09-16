@@ -1,6 +1,7 @@
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '@test/utils.js';
 import BootstrapVue from 'bootstrap-vue';
+import nock from 'nock';
 import sinon from 'sinon';
 
 import collection from '@/pages/collections/_type/_';
@@ -9,19 +10,13 @@ const localVue = createLocalVue();
 localVue.directive('masonry-tile', {});
 localVue.use(BootstrapVue);
 
+const redirectSpy = sinon.spy();
+
 const organisationEntity = {
   entity: {
     id: 'http://data.europeana.eu/organization/01234567890',
-    logo: { id: 'http://commons.wikimedia.org/wiki/Special:FilePath/Albertina%20Logo.svg' },
     prefLabel: { en: 'English name', nl: 'Dutch name' },
-    homepage: 'https://www.example-organisation.eu',
-    hasAddress: {
-      countryName: 'The Netherlands',
-      locality: 'The Hague'
-    },
-    description: { en: ['example of an organisation description'] },
-    acronym: { en: 'ABC' },
-    type: 'Organization'
+    description: { en: ['example of an organisation description'] }
   },
   type: 'organisation',
   pathMatch: '01234567890-organisation'
@@ -53,21 +48,29 @@ const agentEntity = {
 
 const factory = (options = {}) => shallowMountNuxt(collection, {
   localVue,
+  data() {
+    return {
+      entity: options.entity
+    };
+  },
   mocks: {
     $auth: {
       userHasClientRole: options.userHasClientRoleStub || sinon.stub().returns(false)
     },
     $fetchState: {},
     $t: (key, args) => args ? `${key} ${args}` : key,
-    $route: { query: options.query || '', params: { type: options.type, pathMatch: options.pathMatch } },
+    $route: {
+      query: options.query || '',
+      params: { type: options.type, pathMatch: options.pathMatch }
+    },
     $apis: {
       entity: {
-        get: options.get || sinon.stub().resolves({}),
-        facets: sinon.stub().resolves([]),
-        imageUrl: sinon.spy()
+        get: options.get || sinon.stub().resolves(options.entity)
       },
-      entityManagement: {
-        get: sinon.stub().resolves({})
+      set: {
+        get: sinon.stub().resolves({}),
+        getItemIds: sinon.stub().resolves([]),
+        search: sinon.stub().resolves({})
       }
     },
     $i18n: {
@@ -82,19 +85,18 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
         }
       }
     },
+    $nuxt: {
+      context: {
+        redirect: redirectSpy
+      }
+    },
     $store: {
       state: {
-        entity: {
-          entity: options.entity
-        },
+        entity: {},
         search: {
           view: 'grid'
         }
       },
-      getters: {
-        'entity/curatedEntity': sinon.stub().returns(null)
-      },
-      dispatch: sinon.spy(),
       commit: sinon.spy()
     },
     ...options.mocks
@@ -106,13 +108,29 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
     'ErrorMessage': true,
     'RelatedEditorial': true,
     'SearchInterface': {
-      template: '<div><slot /><slot name="card-group-related-collections" /><slot name="after-results" /></div>'
+      template: `
+        <div>
+          <slot />
+          <slot name="card-group-header" />
+          <slot name="card-group-related-collections" />
+          <slot name="after-results" />
+        </div>
+      `
     }
   }
 });
 
 describe('pages/collections/_type/_', () => {
-  afterEach(sinon.resetHistory);
+  beforeAll(() => {
+    nock.disableNetConnect();
+  });
+  afterEach(() => {
+    sinon.resetHistory();
+  });
+  afterAll(() => {
+    nock.enableNetConnect();
+    sinon.restore();
+  });
 
   describe('fetch', () => {
     describe('when entity type in route is invalid', () => {
@@ -192,18 +210,46 @@ describe('pages/collections/_type/_', () => {
     });
 
     describe('when user is entities editor', () => {
-      it('finds and stores the collection\'s pinned items', async() => {
+      it('searches for the EntityBestItemsSet', async() => {
         const setId = 'http://data.europeana.eu/set/123';
         const userHasClientRoleStub = sinon.stub().withArgs('entities', 'editor').returns(true);
         const wrapper = factory({ ...topicEntity, userHasClientRoleStub });
-        sinon.stub(wrapper.vm, 'findEntityBestItemsSet').resolves(setId);
-        sinon.stub(wrapper.vm, 'fetchEntityBestItemsSetPinnedItems');
+        wrapper.vm.$apis.set.search.resolves({ items: [setId] });
 
         await wrapper.vm.fetch();
 
-        expect(wrapper.vm.findEntityBestItemsSet.calledWith(topicEntity.entity.id)).toBe(true);
-        expect(wrapper.vm.$store.commit.calledWith('entity/setBestItemsSetId', setId)).toBe(true);
-        expect(wrapper.vm.fetchEntityBestItemsSetPinnedItems.calledWith(setId)).toBe(true);
+        expect(wrapper.vm.$apis.set.search.calledWith({
+          profile: 'items',
+          query: 'type:EntityBestItemsSet',
+          qf: `subject:${topicEntity.entity.id}`
+        })).toBe(true);
+      });
+
+      describe('when one is found', () => {
+        it('also fetches the full set', async() => {
+          const setId = 'http://data.europeana.eu/set/123';
+          const userHasClientRoleStub = sinon.stub().withArgs('entities', 'editor').returns(true);
+          const wrapper = factory({ ...topicEntity, userHasClientRoleStub });
+          wrapper.vm.$apis.set.search.resolves({ items: [setId] });
+
+          await wrapper.vm.fetch();
+
+          expect(wrapper.vm.$apis.set.get.calledWith(setId)).toBe(true);
+          expect(wrapper.vm.$apis.set.getItemIds.calledWith(setId)).toBe(true);
+        });
+      });
+
+      describe('when none is found', () => {
+        it('does not try to fetch the full set', async() => {
+          const userHasClientRoleStub = sinon.stub().withArgs('entities', 'editor').returns(true);
+          const wrapper = factory({ ...topicEntity, userHasClientRoleStub });
+          wrapper.vm.$apis.set.search.resolves({ items: [] });
+
+          await wrapper.vm.fetch();
+
+          expect(wrapper.vm.$apis.set.get.called).toBe(false);
+          expect(wrapper.vm.$apis.set.getItemIds.called).toBe(false);
+        });
       });
     });
   });
@@ -217,7 +263,6 @@ describe('pages/collections/_type/_', () => {
 
       await wrapper.vm.$options.beforeRouteLeave.call(wrapper.vm, to, null, next);
 
-      expect(wrapper.vm.$store.commit.calledWith('entity/setEntity', null)).toBe(true);
       expect(wrapper.vm.$store.commit.calledWith('entity/setId', null)).toBe(true);
       expect(next.called).toBe(true);
     });
@@ -284,30 +329,12 @@ describe('pages/collections/_type/_', () => {
       });
     });
 
-    describe('contextLabel', () => {
-      it('returns the label for an organisation', () => {
-        const wrapper = factory(organisationEntity);
-
-        const contextLabel = wrapper.vm.contextLabel;
-        expect(contextLabel).toBe('cardLabels.organisation');
-      });
-    });
-
     describe('collectionType', () => {
       it('returns the collection type', () => {
         const wrapper = factory(organisationEntity);
 
         const collectionType = wrapper.vm.collectionType;
         expect(collectionType).toBe('organisation');
-      });
-    });
-
-    describe('logo', () => {
-      it('returns a logo on organisation pages', () => {
-        const wrapper = factory(organisationEntity);
-
-        const logo = wrapper.vm.logo;
-        expect(logo).toBe(organisationEntity.entity.logo.id);
       });
     });
 
@@ -337,16 +364,6 @@ describe('pages/collections/_type/_', () => {
       });
     });
 
-    describe('subTitle', () => {
-      it('uses the English prefLabel for an organisation, if non-native', () => {
-        const wrapper = factory(organisationEntity);
-
-        const subTitle = wrapper.vm.subTitle.values[0];
-
-        expect(subTitle).toBe(organisationEntity.entity.prefLabel.en);
-      });
-    });
-
     describe('description', () => {
       it('uses the entity note, if present', () => {
         const wrapper = factory(topicEntity);
@@ -364,63 +381,55 @@ describe('pages/collections/_type/_', () => {
         expect(description).toEqual(organisationEntity.entity.description.en);
       });
     });
-
-    describe('homepage', () => {
-      it('returns a homepage on organisation pages', () => {
-        const wrapper = factory(organisationEntity);
-
-        const homepage = wrapper.vm.homepage;
-        expect(homepage).toBe(organisationEntity.entity.homepage);
-      });
-    });
-
-    describe('thumbnail', () => {
-      it('returns a thumbnail when available', () => {
-        const wrapper = factory(topicEntity);
-
-        wrapper.vm.thumbnail;
-        expect(wrapper.vm.$apis.entity.imageUrl.called).toBe(true);
-      });
-    });
-    describe('moreInfo', () => {
-      it('returns an array with more entity data on organisation pages', () => {
-        const wrapper = factory(organisationEntity);
-
-        const moreInfo = wrapper.vm.moreInfo;
-        expect(moreInfo[0].value).toBe(organisationEntity.entity.prefLabel.en);
-        expect(moreInfo[1].value).toBe(organisationEntity.entity.acronym.en);
-        expect(moreInfo[2].value).toBe(organisationEntity.entity.hasAddress.countryName);
-        expect(moreInfo[3].value).toBe(organisationEntity.entity.hasAddress.locality);
-        expect(moreInfo[4].value).toBe(organisationEntity.entity.homepage);
-      });
-    });
   });
 
   describe('redirecting for slug labels', () => {
     describe('when entity has an English prefLabel', () => {
-      it('uses the english prefLabel', async() => {
+      describe('and path matches it', () => {
+        it('does not redirect', async() => {
+          const wrapper = factory(topicEntity);
+
+          await wrapper.vm.fetch();
+
+          expect(redirectSpy.called).toBe(false);
+        });
+      });
+
+      describe('and path does not match it', () => {
+        it('redirects to use english prefLabel in path', async() => {
+          const wrapper = factory({ ...topicEntity, pathMatch: '01234567890' });
+
+          await wrapper.vm.fetch();
+
+          expect(redirectSpy.calledWith(302,
+            {
+              hash: '',
+              name: '',
+              params: { type: 'topic', pathMatch: '01234567890-topic' },
+              query: {},
+              replace: true
+            })
+          ).toBe(true);
+        });
+      });
+    });
+  });
+
+  describe('event handling', () => {
+    describe('when EntityUpdateModal emits updated event', () => {
+      it('triggers $fetch', () => {
         const wrapper = factory(topicEntity);
+        sinon.spy(wrapper.vm, '$fetch');
 
-        sinon.spy(wrapper.vm, 'redirectToPrefPath');
+        const entityHeaderStub = wrapper.find('entityheader-stub');
+        entityHeaderStub.vm.$emit('updated');
 
-        await wrapper.vm.fetch();
-        expect(wrapper.vm.redirectToPrefPath.calledWith('http://data.europeana.eu/concept/01234567890', 'Topic')).toBe(true);
+        expect(wrapper.vm.$fetch.called).toBe(true);
       });
     });
   });
 
   describe('methods', () => {
-    describe('proxyUpdated', () => {
-      it('triggers $fetch', () => {
-        const wrapper = factory(topicEntity);
-        sinon.spy(wrapper.vm, '$fetch');
-
-        wrapper.vm.proxyUpdated();
-
-        expect(wrapper.vm.$fetch.called).toBe(true);
-      });
-    });
-
     describe('handleEntityRelatedCollectionsCardFetched', () => {
       it('is triggered by entitiesFromUrisFetched event on related entities component', () => {
         const wrapper = factory(topicEntity);

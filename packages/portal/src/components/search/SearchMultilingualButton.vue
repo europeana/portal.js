@@ -20,7 +20,13 @@
         }"
       />
     </b-button>
+    <NewFeatureTooltip
+      :tooltip-target-id="buttonId"
+      @disabled="newFeatureTooltipEnabled = false"
+      @enabled="newFeatureTooltipEnabled = true"
+    />
     <b-tooltip
+      v-if="!newFeatureTooltipEnabled"
       placement="bottom"
       :show.sync="showTooltip"
       :target="buttonId"
@@ -36,6 +42,10 @@
 
   export default {
     name: 'SearchMultilingualButton',
+
+    components: {
+      NewFeatureTooltip: () => import('@/components/generic/NewFeatureTooltip')
+    },
 
     props: {
       value: {
@@ -54,6 +64,8 @@
       return {
         // Use custom showTooltip instead of hideTooltips composable for touch devices that keep the tooltip open when value is changed
         showTooltip: false,
+        // TODO: clean up when new feature tooltip expires
+        newFeatureTooltipEnabled: false,
         touchTapCount: 0,
         touchTap: false
       };

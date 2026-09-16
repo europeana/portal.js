@@ -66,6 +66,18 @@ export default class Aggregation extends Base {
     const edmObjectWebResource = this.webResources?.find((wr) => wr.about === data.edmObject);
 
     for (const wr of (this.webResources || [])) {
+      // web resources inherit rights of aggregation if they don't have their own
+      if (!wr.edmRights?.def?.[0]) {
+        wr.edmRights = this.edmRights;
+      }
+
+      // dereference isFormatOf links
+      if (wr.dctermsIsFormatOf?.def) {
+        wr.dctermsIsFormatOf.def = wr.dctermsIsFormatOf.def.map((isFormatOf) => {
+          return (this.webResources || []).find((wr) => wr.about === isFormatOf);
+        });
+      }
+
       wr.forEdmIsShownAt = wr.about === data.edmIsShownAt;
       if ([data.edmIsShownBy, data.edmIsShownAt].includes(wr.about) && edmObjectWebResource) {
         // set the wr preview to a copy of edmObjectWebResource to prevent circular reference
@@ -80,20 +92,31 @@ export default class Aggregation extends Base {
 
   get displayableWebResources() {
     if (!this.#displayableWebResources) {
-      const uris = [].concat(this.hasView || []);
+      // prevent duplicates, e.g. isShownBy also being hasView
+      const uris = new Set();
 
       if (this.edmIsShownBy) {
-        uris.unshift(this.edmIsShownBy);
+        uris.add(this.edmIsShownBy);
       } else if (this.edmIsShownAt) {
-        uris.unshift(this.edmIsShownAt);
+        uris.add(this.edmIsShownAt);
       }
 
-      const wrs = uris.map((uri) => (this.webResources || []).find((wr) => wr.about === uri));
+      if (this.hasView) {
+        for (const view of this.hasView) {
+          uris.add(view);
+        }
+      }
+
+      const wrs = [...uris].map((uri) => this.findWebResource(uri));
 
       // Sort by isNextInSequence property if present
       this.#displayableWebResources = sortByIsNextInSequence(wrs);
     }
 
     return this.#displayableWebResources;
+  }
+
+  findWebResource(uri) {
+    return (this.webResources || []).find((wr) => wr.about === uri);
   }
 }

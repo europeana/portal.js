@@ -119,6 +119,45 @@ describe('EuropeanaApi', () => {
     }
   });
 
+  describe('timeout', () => {
+    it('sets it from the config if present', () => {
+      const configTimeout = 1000;
+      const context = {
+        $config: {
+          europeana: {
+            apis: {
+              test: {
+                timeout: configTimeout
+              }
+            }
+          }
+        }
+      };
+      const api = new EuropeanaTestApi(context);
+
+      const timeout = api.timeout;
+
+      expect(timeout).toBe(configTimeout);
+    });
+
+    it('defaults to 10 seconds', () => {
+      const context = {
+        $config: {
+          europeana: {
+            apis: {
+              test: {}
+            }
+          }
+        }
+      };
+      const api = new EuropeanaTestApi(context);
+
+      const timeout = api.timeout;
+
+      expect(timeout).toBe(10000);
+    });
+  });
+
   describe('createAxios', () => {
     it('uses app.$axiosLogger from context as request interceptor', () => {
       const $axiosLogger = (requestConfig) => requestConfig;

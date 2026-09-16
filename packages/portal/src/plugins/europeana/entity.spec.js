@@ -270,10 +270,10 @@ describe('plugins/europeana/entity', () => {
           }
         };
 
-        it('uses it at 28px size', () => {
+        it('uses it at 40px size', () => {
           const imageUrl = (new api).imageUrl(entity);
 
-          expect(imageUrl).toBe('https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Europeana_logo_2015_basic.svg/28px-Europeana_logo_2015_basic.svg.png');
+          expect(imageUrl).toBe('https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Europeana_logo_2015_basic.svg/40px-Europeana_logo_2015_basic.svg.png');
         });
       });
 
@@ -475,19 +475,9 @@ describe('plugins/europeana/entity', () => {
         scope: 'europeana'
       };
 
-      it('returns a list of concept entities', async() => {
+      it('returns the response data', async() => {
         const response = await (new api).search(eParams, 'topic');
-        expect(response.entities.length).toBe(conceptEntitiesResponse.items.length);
-      });
-
-      it('returns the total number of entities', async() => {
-        const response = await (new api).search(eParams, 'topic');
-        expect(response.total).toBe(conceptEntitiesResponse.partOf.total);
-      });
-
-      it('returns a thumbnail for each entity', async() => {
-        const response = await (new api).search(eParams, 'topic');
-        expect(response.entities[0].isShownBy.thumbnail).toBe(conceptEntitiesResponse.items[0].isShownBy.thumbnail);
+        expect(response).toEqual(conceptEntitiesResponse);
       });
     });
   });

@@ -60,13 +60,6 @@
     }
   }
 
-  .container {
-    @media (max-width: $bp-small) {
-      padding-right: 2rem;
-      padding-left: 2rem;
-    }
-  }
-
   .bg-color-alternate {
     background-color: $lightgrey;
   }

@@ -169,6 +169,10 @@
       font-weight: 500;
       color: $darkgrey;
 
+      @media (min-width: $bp-4k) {
+        margin-bottom: 2rem !important;
+      }
+
       ::v-deep p:last-child {
         margin-bottom: 0;
       }

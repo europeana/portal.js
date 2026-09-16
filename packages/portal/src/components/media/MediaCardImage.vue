@@ -4,13 +4,13 @@
     class="media-card-image"
   >
     <b-link
-      v-if="linkable && imageLink && thumbnails.large && !media.forEdmIsShownAt"
+      v-if="linkable && imageLink && thumbnails.large && !resource.edm.forEdmIsShownAt"
       :href="imageLink"
       target="_blank"
     >
       <MediaDefaultThumbnail
         v-if="showDefaultThumbnail"
-        :media-type="edmTypeWithFallback"
+        :media-type="resource.edm.edmType || edmType"
         :offset="offset"
       />
       <component
@@ -35,7 +35,7 @@
     >
       <MediaDefaultThumbnail
         v-if="showDefaultThumbnail"
-        :media-type="edmTypeWithFallback"
+        :media-type="resource.edm.edmType || edmType"
         :offset="offset"
       />
       <component
@@ -54,13 +54,14 @@
 </template>
 
 <script>
-  import WebResource from '@/plugins/europeana/edm/WebResource.js';
+  import EuropeanaMediaResource from '@/utils/europeana/media/Resource.js';
   import {
     LARGE_WIDTH as LARGE_THUMBNAIL_WIDTH,
     SMALL_WIDTH as SMALL_THUMBNAIL_WIDTH
   } from '@/plugins/europeana/thumbnail.js';
 
   export default {
+    // TODO: rename to ItemMediaPreview?
     name: 'MediaCardImage',
 
     components: {
@@ -68,10 +69,8 @@
     },
 
     props: {
-      media: {
-        // TODO: refactor to only receive EuropeanaMediaResource, once legacy
-        //       media presentation is gone
-        type: WebResource,
+      resource: {
+        type: EuropeanaMediaResource,
         default: null
       },
       lazy: {
@@ -82,6 +81,9 @@
         type: String,
         default: ''
       },
+      /**
+       * edm:type property of the parent item
+       */
       edmType: {
         type: String,
         default: null
@@ -108,41 +110,37 @@
 
     computed: {
       imageLink() {
-        return this.$apis.record.mediaProxyUrl(this.media.about, this.europeanaIdentifier, { disposition: 'inline' });
+        return this.$apis.record.mediaProxyUrl(this.resource.id, this.europeanaIdentifier, { disposition: 'inline' });
       },
       thumbnails() {
-        if (this.media.svcsHasService) {
-          // TODO: assess impact of this outside of new ItemMediaPresentation component
-          const serviceId = this.media.svcsHasService.id || this.media.svcsHasService.about || this.media.svcsHasService;
+        if (this.resource.isIIIFImageService) {
           return {
-            large: `${serviceId}/full/${LARGE_THUMBNAIL_WIDTH},/0/default.jpg`,
-            small: `${serviceId}/full/${SMALL_THUMBNAIL_WIDTH},/0/default.jpg`
+            large: `${this.resource.service.id}/full/${LARGE_THUMBNAIL_WIDTH},/0/default.jpg`,
+            small: `${this.resource.service.id}/full/${SMALL_THUMBNAIL_WIDTH},/0/default.jpg`
           };
         } else {
-          return this.$apis.thumbnail.forWebResource(this.media);
+          // NOTE: need to use resource.edm for the edm:object handling on edm:isShownAt/edm:isShownBy
+          return this.$apis.thumbnail.forWebResource(this.resource.edm);
         }
       },
       thumbnailSrc() {
         return this.thumbnails[this.thumbnailSize];
       },
       thumbnailWidth() {
-        if (!this.media.ebucoreWidth) {
+        if (!this.resource.width) {
           return null;
         }
         const thumbnailMaxSize = this.thumbnailSize === 'large' ? LARGE_THUMBNAIL_WIDTH : SMALL_THUMBNAIL_WIDTH;
-        if (this.media.ebucoreWidth < thumbnailMaxSize) {
-          return this.media.ebucoreWidth;
+        if (this.resource.width < thumbnailMaxSize) {
+          return this.resource.width;
         }
         return thumbnailMaxSize;
       },
       thumbnailHeight() {
-        if (!this.media.ebucoreHeight || !this.thumbnailWidth) {
+        if (!this.resource.height || !this.thumbnailWidth) {
           return null;
         }
-        return (this.media.ebucoreHeight / this.media.ebucoreWidth) * this.thumbnailWidth;
-      },
-      edmTypeWithFallback() {
-        return this.media.edmType || this.edmType;
+        return (this.resource.height / this.resource.width) * this.thumbnailWidth;
       }
     },
 

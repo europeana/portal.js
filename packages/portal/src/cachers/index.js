@@ -5,11 +5,15 @@ import { codes as localeCodes } from '@europeana/i18n';
 
 const CACHE_KEY_PREFIX = '@europeana:portal.js';
 const runtimeConfig = defu(nuxtConfig.privateRuntimeConfig, nuxtConfig.publicRuntimeConfig);
+const nuxtContext = { $config: runtimeConfig };
 
 const cacherNames = [
   'collections:organisations',
+  'collections:organisations:aggregators',
   'collections:organisations:count',
   'collections:organisations:featured',
+  'collections:organisations:geo',
+  'collections:organisations:institutions',
   'collections:places',
   'collections:places:featured',
   'collections:times',
@@ -48,9 +52,9 @@ const namespaceCacheKey = (cacherName, locale) => {
 
 const runSetCacher = async(cacherName) => {
   console.log(cacherName);
-
   const cacher = await cacherModule(cacherName);
-  let rawData = await cacher.data(runtimeConfig, localeCodes);
+
+  let rawData = await cacher.data(nuxtContext, localeCodes);
   let langAwareData;
 
   if (cacher.LOCALISE) {

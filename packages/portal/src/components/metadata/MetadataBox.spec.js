@@ -13,6 +13,8 @@ const factory = (propsData) => shallowMount(MetadataBox, {
     $t: (key) => key,
     $i18n: {
       locale: 'en'
+    },
+    $features: {
     }
   },
   stubs: ['MapEmbed']

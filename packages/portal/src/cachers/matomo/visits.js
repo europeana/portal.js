@@ -3,17 +3,19 @@ import axios from 'axios';
 const LOCALISE = false;
 const PICK = false;
 
-const data = async(config = {}) => {
+const data = async(context = {}) => {
+  const config = context.$config?.matomo || {};
+
   const response = await axios.get('/', {
-    baseURL: config.matomo.host,
+    baseURL: config.host,
     params: {
       date: 'last30',
       format: 'JSON',
-      idSite: config.matomo.siteId,
+      idSite: config.siteId,
       method: 'VisitsSummary.get',
       module: 'API',
       period: 'day',
-      'token_auth': config.matomo.authToken
+      'token_auth': config.authToken
     }
   });
 

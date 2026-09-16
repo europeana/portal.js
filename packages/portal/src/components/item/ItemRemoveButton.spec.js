@@ -8,11 +8,18 @@ const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
 const setApiDeleteItemsStub = sinon.stub().resolves({});
+const fetchCurrentSetSpy = sinon.spy();
 
 const factory = (propsData) => shallowMount(ItemRemoveButton, {
   localVue,
   directives: { 'b-tooltip': () => {} },
   propsData,
+  provide: {
+    currentSet: {
+      id: 'set-1'
+    },
+    fetchCurrentSet: fetchCurrentSetSpy
+  },
   mocks: {
     $apis: {
       set: {
@@ -20,16 +27,6 @@ const factory = (propsData) => shallowMount(ItemRemoveButton, {
       }
     },
     $i18n: { locale: 'en' },
-    $store: {
-      state: {
-        set: {
-          active: {
-            id: 'set-1'
-          }
-        }
-      },
-      dispatch: sinon.spy()
-    },
     $t: key => key,
     $tc: (key) => key
   },
@@ -69,7 +66,7 @@ describe('ItemRemoveButton', () => {
     await confirmRemovalModal.vm.$emit('confirm');
 
     expect(setApiDeleteItemsStub.calledWith('set-1', 'item-1')).toBe(true);
-    expect(wrapper.vm.$store.dispatch.calledWith('set/fetchActive')).toBe(true);
+    expect(fetchCurrentSetSpy.calledWith()).toBe(true);
     expect(wrapper.vm.makeToast.calledWith('set.notifications.itemsRemoved.1')).toBe(true);
   });
 

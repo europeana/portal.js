@@ -47,6 +47,7 @@ export default {
     "clearFilters": "Καθαρισμός φίλτρων",
     "close": "κλείσιμο",
     "confirm": "Επιβεβαιώνω",
+    "contact": "Επικοινωνία",
     "continue": "Συνέχεια",
     "depublish": "Αναδημοσίευση",
     "download": "Μεταφόρτωση",
@@ -80,6 +81,7 @@ export default {
     "transcribe": "Μεταγραφή",
     "transcribeNow": "Μεταγραφή τώρα",
     "unlike": "Δεν μου αρέσει",
+    "viewAll": "Προβολή όλων των {count}",
     "viewAt": "Προβολή στο {link}",
     "viewDocument": "Προβολή εγγράφου",
     "vote": "Ψήφος"
@@ -105,14 +107,7 @@ export default {
         "create": {
           "button": "Ζητήστε ένα προσωπικό κλειδί API",
           "checkbox": "Επιβεβαιώνω ότι έχω διαβάσει και αποδέχομαι το κλειδί API {termsOfUseLink}."
-        },
-        "description": "Μάθετε και δοκιμάστε πώς να χρησιμοποιείτε τα API με το προσωπικό σας κλειδί API. Μην το κοινοποιείτε. {howToLink}.",
-        "heading": "Προσωπικό κλειδί API",
-        "howToLinkText": "Πώς να χρησιμοποιήσετε το κλειδί σας"
-      },
-      "projectKeys": {
-        "description": "Για κάθε έργο που πρέπει να δημιουργήσετε, θα σας παρέχουμε ένα ειδικό κλειδί. Τα κλειδιά έργου έχουν υψηλότερα όρια και άλλα ειδικά χαρακτηριστικά – διαβάστε περισσότερα στο κλειδί API {termsOfUseLink}. Εάν θέλετε να επεξεργαστείτε τις πληροφορίες σχετικά με το έργο σας, στείλτε ένα email στο api@europeana.eu και θα κάνουμε τις αλλαγές για εσάς.",
-        "heading": "Κλειδιά API έργου"
+        }
       },
       "termsOfUseLinkText": "όροι χρήσης"
     },
@@ -138,9 +133,27 @@ export default {
     "country": "Χώρα:",
     "creator": "Δημιουργός:",
     "date": "Ημερομηνία:",
+    "hide": "Απόκρυψη αναφοράς δημιουργού",
     "institution": "Ίδρυμα:",
     "show": "Εμφάνιση απόδοσης",
     "title": "Τίτλος:"
+  },
+  "audioVisualPlayer": {
+    "Captions": "Υπότιτλοι / κλειστές λεζάντες",
+    "captions off": "Απενεργοποίηση",
+    "captionsOption": "{language} λεζάντες",
+    "Exit Fullscreen": "Έξοδος από πλήρη οθόνη",
+    "Fullscreen": "Πλήρης οθόνη",
+    "Mute": "Σίγαση",
+    "Pause": "Παύση",
+    "Play": "Αναπαραγωγή",
+    "Play Video": "Αναπαραγωγή βίντεο",
+    "Replay": "Επανάληψη",
+    "Subtitles": "Υπότιτλοι / κλειστές λεζάντες",
+    "subtitles off": "Απενεργοποίηση",
+    "subtitlesOption": "{language} υπότιτλοι",
+    "Unmute": "Διακοπή σίγασης",
+    "Volume Level": "Επίπεδο έντασης ήχου"
   },
   "authored": {
     "by": "με",
@@ -149,14 +162,15 @@ export default {
   "automatedCardGroup": {
     "gallery": "Τελευταίες γκαλερί",
     "item": "Πρόσφατα τεκμήριο",
-    "organisation": "Οργανισμοί",
+    "organisation": "Φορείς προέλευσης",
     "place": "Μέρη",
     "theme": "Κατηγορίες",
     "time": "Αιώνες",
     "topic": "Θέματα"
   },
   "cardLabels": {
-    "organisation": "Οργάνωση",
+    "aggregator": "Συσσωρευτής",
+    "organisation": "Ίδρυμα",
     "person": "Πρόσωπο",
     "place": "Θέση",
     "theme": "Θέμα",
@@ -316,13 +330,13 @@ export default {
       "description": "Συνέβη ένα άγνωστο σφάλμα.",
       "title": "Αγνωστο σφάλμα"
     },
-    "IIIFManifestFailure": {
-      "description": "Δυστυχώς, τα μέσα που παρέχονται στην Europeana δεν μπορούν να εμφανιστούν αυτήν τη στιγμή. Παρακαλώ δοκιμάστε να κατεβάσετε το τεκμήριο ή να προβάλετε το στοιχείο στον ιστότοπο του φορέα προέλευσης."
-    },
     "itemNotFound": {
       "description": "Αυτό μπορεί να οφείλεται στους ακόλουθους λόγους: το τεκμήριο δεν υπάρχει ή καταργήθηκε επειδή δεν πληρούσε τα ποιοτικά μας κριτήρια, ή ενημερώθηκε και αναδημοσιεύτηκε με ένα νέο μοναδικό αναγνωριστικό, οπότε προσπαθήστε να βρείτε ξανά το τεκμήριο.",
       "metaTitle": "Τεκμήριο δεν βρέθηκε",
       "title": "Ωχ, όχι! {newline} Δεν μπορέσαμε να βρούμε αυτό το τεκμήριο."
+    },
+    "mediaFailure": {
+      "description": "Δυστυχώς, τα μέσα που παρέχονται στην Europeana δεν μπορούν να εμφανιστούν αυτήν τη στιγμή. Παρακαλώ δοκιμάστε να κατεβάσετε το τεκμήριο ή να προβάλετε το στοιχείο στον ιστότοπο του φορέα προέλευσης."
     },
     "noFeatureIdeas": {
       "description": "Ελέγξτε ξανά σύντομα!",
@@ -371,6 +385,7 @@ export default {
       "options": {
         "archaeology": "Αρχαιολογία",
         "art": "Τέχνη",
+        "audiovisual": "Οπτικοακουστική Κληρονομιά",
         "fashion": "Μόδα",
         "industrial": "Βιομηχανική κληρονομιά",
         "manuscript": "Χειρόγραφα",
@@ -716,6 +731,14 @@ export default {
       "name": "Δικαιώματα",
       "select": "Επιλέξτε δηλώσεις πνευματικής ιδιοκτησίας"
     },
+    "sort": {
+      "name": "Ταξινόμηση κατά",
+      "options": {
+        "proxy_dcterms_issued+asc": "Ημερομηνία έκδοσης (παλαιότερες πρώτα)",
+        "proxy_dcterms_issued+desc": "Ημερομηνία έκδοσης (πρώτα η νεότερη)"
+      },
+      "select": "Επιλέξτε πώς θα ταξινομήσετε τα αποτελέσματα"
+    },
     "TYPE": {
       "name": "Τύπος μέσων",
       "options": {
@@ -791,11 +814,52 @@ export default {
       "year": "Έτος"
     },
     "webResource": {
-      "about": "RDF σχετικά με",
-      "dcDescription": "Περιγραφή",
-      "ebucoreHasMimeType": "Τύπος Ebucore MIME",
-      "edmRights": "Δικαιώματα χρήσης για αυτό το πολυμέσο",
-      "rdfAbout": "RDF Σχετικά με"
+      "about": "Σχετικά",
+      "dctermsConformsTo": "Συμμορφώνεται με",
+      "dcType": "Τύπος μέσου",
+      "ebucoreAudioChannelNumber": "Κανάλια ήχου",
+      "ebucoreBitRate": "Ρυθμός μετάδοσης bit (bps)",
+      "ebucoreDuration": "Διάρκεια",
+      "ebucoreFileByteSize": "Μέγεθος αρχείου (bytes)",
+      "ebucoreFrameRate": "Ρυθμός καρέ (fps)",
+      "ebucoreHasMimeType": "Τύπος MIME",
+      "ebucoreHeight": "Ύψος (px)",
+      "ebucoreOrientation": "Προσανατολισμός",
+      "ebucoreSampleRate": "Ρυθμός δειγματοληψίας (Hz)",
+      "ebucoreSampleSize": "Μέγεθος δείγματος (bits)",
+      "ebucoreWidth": "Πλάτος (px)",
+      "edmCodecName": "Κωδικοποιητής",
+      "edmComponentColor": "Χρώμα εξαρτήματος",
+      "edmHasColorSpace": "Χρωματικός χώρος",
+      "edmIntendedUsage": "Προβλεπόμενη χρήση",
+      "edmPolygonCount": "Αριθμός πολυγώνων",
+      "edmRights": "Δήλωση δικαιωμάτων για αυτό το μέσο",
+      "edmSpatialResolution": "Χωρική ανάλυση (dpi)",
+      "edmVertexCount": "Αριθμός κορυφών",
+      "schemaDigitalSourceType": "Σχέση με τον πραγματικό κόσμο"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Τέχνη",
+      "creativity": "Δημιουργικότητα",
+      "curation": "Επιμέλεια",
+      "design": "Σχεδιασμός",
+      "documentation": "Τεκμηρίωση",
+      "education": "Εκπαίδευση",
+      "exhibition": "Έκθεση",
+      "gaming": "Γκέιμινγκ",
+      "infotainment": "Ψυχαγωγία και ενημέρωση",
+      "knowledge": "Γνώση",
+      "maintenance": "Συντήρηση",
+      "research": "Έρευνα",
+      "restoration": "Αποκατάσταση",
+      "tourism": "Τουρισμός"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Ανακατασκευή",
+      "digitalCapture": "Αποτύπωση πραγματικότητας",
+      "digitalCreation": "Εγγενώς ψηφιακό"
     }
   },
   "filterResults": "Αποτελέσματα φίλτρου",
@@ -836,10 +900,12 @@ export default {
     "navigation": {
       "about": "Σχετικά",
       "collections": "Συλλογές",
-      "europeanaClassroom": "Για εκπαιδευτικούς",
+      "educators": "Για εκπαιδευτικούς",
       "featureIdeas": "Ιδέες χαρακτηριστικών",
       "help": "Βοήθεια",
       "home": "Αρχική",
+      "partners": "Συνεργαστείτε μαζί μας",
+      "research": "Για τον ακαδημαϊκό χώρο και την έρευνα",
       "shareYourCollections": "Μοιραστείτε τις συλλογές σας",
       "stories": "Ιστορίες"
     },
@@ -889,11 +955,10 @@ export default {
         "title": "Υπηρεσίες που θα θέλαμε να χρησιμοποιήσουμε."
       },
       "consentNotice": {
-        "description": "Γεια! Θα μπορούσαμε να ενεργοποιήσουμε κάποιες πρόσθετες υπηρεσίες για αναλυτικά στοιχεία και ασφάλεια; Μπορείτε πάντα να αλλάξετε ή να αποσύρετε τη συγκατάθεσή σας αργότερα.",
-        "learnMore": "Άσε με να διαλέξω"
+        "description": "Θα μπορούσαμε παρακαλώ να ενεργοποιήσουμε τις υπηρεσίες για ασφάλεια, αναλυτικά στοιχεία και περιεχόμενο τρίτων;",
+        "learnMore": "Διαχείριση ρυθμίσεων cookie"
       },
-      "decline": "ΑΡΝΟΥΜΑΙ",
-      "ok": "ΕΝΤΑΞΕΙ",
+      "decline": "Απόρριψη",
       "purposes": {
         "2D": {
           "title": "2D μέσα"
@@ -946,6 +1011,10 @@ export default {
       "auth-strategy": {
         "description": "Θυμάται τη στρατηγική εξουσιοδότησης που πρέπει να χρησιμοποιήσετε για να συνδεθείτε.",
         "title": "Στρατηγική Auth"
+      },
+      "cloudflare": {
+        "description": "Θυμάται ότι η πρόκληση ασφαλείας ολοκληρώθηκε με επιτυχία.",
+        "title": "Cloudflare"
       },
       "debugSettings": {
         "description": "Βοηθά στην αποσφαλμάτωση αιτημάτων API",
@@ -1002,6 +1071,12 @@ export default {
   },
   "loading": "Φόρτωση",
   "loadingResults": "Φόρτωση αποτελεσμάτων",
+  "map": {
+    "keyboardNavigatePins": "Χρησιμοποιήστε τα πλήκτρα με τα βέλη για να πλοηγηθείτε στις πινέζες",
+    "keyboardPanAndZoom": "Χρησιμοποιήστε τα πλήκτρα +, - και τα βέλη για να κάνετε ζουμ και να μετακινηθείτε στον χάρτη",
+    "togglePin": "Εναλλαγή καρφίτσας",
+    "zoomInCluster": "Εστίαση σε σύμπλεγμα"
+  },
   "media": {
     "controls": {
       "exitFullscreen": "Έξοδος από πλήρη οθόνη",
@@ -1024,6 +1099,8 @@ export default {
       "hide": "Απόκρυψη πλαϊνής γραμμής",
       "IIIFManifest": "IIIF Μανιφέστο",
       "links": "Σύνδεσμοι",
+      "metadata": "Μεταδεδομένα πολυμέσων",
+      "metadataInfo": "Πληροφορίες για το μέσο που προβάλλετε αυτή τη στιγμή.",
       "search": "Αναζήτηση",
       "searchPlaceholder": "Εισάγετε όρους",
       "show": "Εμφάνιση πλαϊνής γραμμής"
@@ -1078,15 +1155,41 @@ export default {
     "city": "Πόλη",
     "country": "Χώρα",
     "englishName": "Αγγλικό όνομα",
-    "nameAcronym": "Ακρωνύμιο ονόματος"
+    "geographicScope": "Γεωγραφικό πεδίο εφαρμογής",
+    "heritageDomain": "Είδη κληρονομιάς",
+    "nameAcronym": "Ακρωνύμιο ονόματος",
+    "providesAudienceEngagementActivity": "Δραστηριότητες εμπλοκής κοινού",
+    "providesCapacityBuildingActivity": "Ανάπτυξη ικανοτήτων",
+    "providesSupportForDataActivity": "Δραστηριότητες δεδομένων",
+    "providesSupportForMediaType": "Τύπος μέσου",
+    "providingInstitutionsCount": "Αριθμός φορέων παροχής",
+    "recordCount": "Αριθμός τεκμηρίων"
+  },
+  "organisations": {
+    "aggregators": {
+      "description": "Οι συσσωρευτές συνεργάζονται με τους φορείς παροχής για τη συλλογή και τη δημοσίευση των ψηφιακών πολιτιστικών τους τεκμηρίων στο Europeana.eu.",
+      "title": "Συγκεντρωτές"
+    },
+    "internationalAggregators": {
+      "description": "Οι συσσωρευτές τομέων και θεματικών περιοχών ορίζουν το πεδίο δράσης τους ανά πολιτιστικό τομέα (όπως μουσεία, αρχεία ή βιβλιοθήκες) ή ανά θέμα (όπως η μόδα). Συνεργάζονται με παρόχους δεδομένων από διάφορες ευρωπαϊκές χώρες.",
+      "title": "Συσσωρευτές τομέων και θεματικών περιοχών"
+    },
+    "providingInstitutions": {
+      "description": "Λίστα με μουσεία, βιβλιοθήκες, αρχεία και γκαλερί που μοιράζονται ψηφιακά πολιτιστικά τεκμήρια στο Europeana.eu.",
+      "title": "Φορείς παροχής"
+    },
+    "regionalAggregators": {
+      "description": "Οι εθνικοί και περιφερειακοί συσσωρευτές ορίζουν το πεδίο εφαρμογής τους ανά συγκεκριμένη χώρα ή περιοχή. Συνεργάζονται με συνεισφέροντες που βρίσκονται εντός αυτής της χώρας ή περιοχής.",
+      "title": "Εθνικοί και περιφερειακοί συσσωρευτές"
+    }
   },
   "pageHasLoaded": "έχει φορτωθεί",
   "pageNumber": "Αριθμός σελίδας",
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Εξερευνήστε τους θεσμούς που μοιράζονται ψηφιακά τεκμήρια πολιτιστικής κληρονομιάς στο Europeana.eu.",
-        "title": "Ιδρύματα"
+        "description": "Ανακαλύψτε τους παρόχους οργανισμούς που μοιράζονται ψηφιακά πολιτιστικά τεκμήρια στο Europeana.eu.",
+        "title": "Φορείς προέλευσης"
       },
       "persons": {
         "title": "Άτομα"
@@ -1095,7 +1198,9 @@ export default {
         "title": "Μέρη"
       },
       "table": {
+        "aggregator": "Συσσωρευτής",
         "country": "Χώρα",
+        "domain": "Τομέας / Θέμα",
         "items": "Τεκμήρια",
         "name": "Ονομα",
         "searchPlaceholder": "Αναζήτηση εντός του πίνακα",
@@ -1129,6 +1234,7 @@ export default {
       "pin": "Καρφιτσώστε το τεκμήριο σε διαθέσιμες Οντότητες."
     },
     "allMetaData": "Όλα τα μεταδεδομένα",
+    "allMetaDataInfo": "Πληροφορίες για το σύνολο του τεκμηρίου.",
     "clickToCopyEmbedCode": "Κάντε κλικ στον κώδικα ενσωμάτωσης για να τον αντιγράψετε",
     "extendedInformation": "Εκτεταμένες πληροφορίες",
     "goodToKnow": "Χρήσιμες πληροφορίες",
@@ -1147,6 +1253,9 @@ export default {
   "related": {
     "categoryTags": {
       "title": "Ανακαλύψτε σχετικές ιστορίες"
+    },
+    "collection": {
+      "preview": "Προεπισκόπηση συλλογής"
     },
     "collections": {
       "name": "Σχετικές συλλογών",
@@ -1230,9 +1339,6 @@ export default {
     },
     "results": {
       "limitWarning": "Δεν εμφανίζονται πρόσθετα αποτελέσματα καθώς εμφανίζονται μόνο τα πρώτα 1000 πιο σχετικά αποτελέσματα. Εάν δεν έχετε βρει αυτό που ψάχνετε, εξετάστε το ενδεχόμενο να βελτιώσετε την αναζήτησή σας.",
-      "loginToSeeMore": "{login} για να δείτε περισσότερα αποτελέσματα",
-      "loginToSeeMultilingualResults": "Συνδεθείτε για αναζήτηση σε ολόκληρη τη συλλογή και λάβετε αποτελέσματα που δεν περιορίζονται στη γλώσσα του όρου αναζήτησής σας.",
-      "showingMultilingualResults": "Εμφάνιση αποτελεσμάτων σε ολόκληρη τη συλλογή και σε όλες τις γλώσσες.",
       "withinCollection": "{count} αποτελέσματα εντός {type} {collection}",
       "withinCollectionWithQuery": "{count} αποτελέσματα εντός {type} {collection} για {query}",
       "withoutQuery": "{count} αποτελέσματα",

@@ -47,6 +47,7 @@ export default {
     "clearFilters": "Filter löschen",
     "close": "schließen",
     "confirm": "Bestätigen",
+    "contact": "Kontakt",
     "continue": "Fortfahren",
     "depublish": "Veröffentlichung aufheben",
     "download": "Herunterladen",
@@ -80,6 +81,7 @@ export default {
     "transcribe": "Transkribieren",
     "transcribeNow": "Jetzt transkribieren",
     "unlike": "Unlike",
+    "viewAll": "Alle anzeigen {count}",
     "viewAt": "Ansicht unter {link}",
     "viewDocument": "Dokument anzeigen",
     "vote": "Abstimmen"
@@ -105,14 +107,7 @@ export default {
         "create": {
           "button": "Persönlichen API-Schlüssel anfordern",
           "checkbox": "Ich bestätige, dass ich den API-Schlüssel {termsOfUseLink} gelesen und akzeptiert habe."
-        },
-        "description": "Lernen und testen Sie, wie Sie APIs mit Ihrem persönlichen API-Schlüssel verwenden können. Bitte teilen Sie ihn nicht. {howToLink}.",
-        "heading": "Persönlicher API-Schlüssel",
-        "howToLinkText": "So verwenden Sie Ihren Schlüssel"
-      },
-      "projectKeys": {
-        "description": "Für jedes Projekt, das Sie erstellen müssen, stellen wir Ihnen einen dedizierten Schlüssel zur Verfügung. Projektschlüssel haben höhere Limits und weitere Besonderheiten – lesen Sie mehr im API-Schlüssel {termsOfUseLink}. Wenn Sie die Informationen zu Ihrem Projekt bearbeiten möchten, senden Sie bitte eine E-Mail an api@europeana.eu, und wir werden die Änderungen für Sie vornehmen.",
-        "heading": "Projekt-API-Schlüssel"
+        }
       },
       "termsOfUseLinkText": "Nutzungsbedingungen"
     },
@@ -138,9 +133,27 @@ export default {
     "country": "Land:",
     "creator": "Urheber:",
     "date": "Datum:",
+    "hide": "Zuschreibung ausblenden",
     "institution": "Institution:",
     "show": "Namensnennung anzeigen",
     "title": "Titel:"
+  },
+  "audioVisualPlayer": {
+    "Captions": "Untertitel / geschlossene Untertitel",
+    "captions off": "Aus",
+    "captionsOption": "{language} bildunterschriften",
+    "Exit Fullscreen": "Vollbild beenden",
+    "Fullscreen": "Vollbild",
+    "Mute": "Stumm",
+    "Pause": "Pause",
+    "Play": "Spielen",
+    "Play Video": "Video abspielen",
+    "Replay": "Wiederholung",
+    "Subtitles": "Untertitel / geschlossene Untertitel",
+    "subtitles off": "Aus",
+    "subtitlesOption": "{language} Untertitel",
+    "Unmute": "Stummschaltung aufheben",
+    "Volume Level": "Lautstärkepegel"
   },
   "authored": {
     "by": "von",
@@ -149,14 +162,15 @@ export default {
   "automatedCardGroup": {
     "gallery": "Neueste Galerien",
     "item": "Aktuelle Objekte",
-    "organisation": "Organisationen",
+    "organisation": "Datenpartner",
     "place": "Orte",
     "theme": "Themenbereiche",
     "time": "Jahrhunderte",
     "topic": "Themen"
   },
   "cardLabels": {
-    "organisation": "Organisation",
+    "aggregator": "Aggregator",
+    "organisation": "Institution",
     "person": "Person",
     "place": "Ort",
     "theme": "Thema",
@@ -316,13 +330,13 @@ export default {
       "description": "Ein unbekannter Fehler ist aufgetreten.",
       "title": "Unbekannter Fehler"
     },
-    "IIIFManifestFailure": {
-      "description": "Leider können die Objektmedien, wie sie Europeana zur Verfügung gestellt wurden, derzeit nicht angezeigt werden. Bitte versuchen Sie, die Medien herunterzuladen oder sich das Objekt auf der Website des Datenpartners anzusehen."
-    },
     "itemNotFound": {
       "description": "Dies kann folgende Gründe haben: Dieses Objekt existiert nicht oder; es wurde depubliziert, weil es nicht unseren Qualitätskriterien entsprach, oder; Es wurde aktualisiert und mit einer neuen eindeutigen Kennung erneut veröffentlicht. Versuchen Sie in diesem Fall, das Objekt erneut zu finden.",
       "metaTitle": "Objekt nicht gefunden",
       "title": "Oh nein! {newline} Wir konnten dies Objekt nicht finden."
+    },
+    "mediaFailure": {
+      "description": "Leider können die Objektmedien, wie sie Europeana zur Verfügung gestellt wurden, derzeit nicht angezeigt werden. Bitte versuchen Sie, die Medien herunterzuladen oder sich das Objekt auf der Website des Datenpartners anzusehen."
     },
     "noFeatureIdeas": {
       "description": "Schauen Sie bald wieder vorbei!",
@@ -371,6 +385,7 @@ export default {
       "options": {
         "archaeology": "Archäologie",
         "art": "Kunst",
+        "audiovisual": "Audiovisuelles Erbe",
         "fashion": "Mode",
         "industrial": "Industrielles Erbe",
         "manuscript": "Manuskripte",
@@ -716,6 +731,14 @@ export default {
       "name": "Rechte",
       "select": "Rechtehinweise"
     },
+    "sort": {
+      "name": "Sortieren nach",
+      "options": {
+        "proxy_dcterms_issued+asc": "Ausgabedatum (ältestes zuerst)",
+        "proxy_dcterms_issued+desc": "Ausgabedatum (neueste zuerst)"
+      },
+      "select": "Wählen Sie aus, wie die Ergebnisse sortiert werden sollen."
+    },
     "TYPE": {
       "name": "Art des Mediums",
       "options": {
@@ -791,11 +814,52 @@ export default {
       "year": "Jahr"
     },
     "webResource": {
-      "about": "RDF Über",
-      "dcDescription": "Beschreibung",
-      "ebucoreHasMimeType": "Ebucore MIME-Typ",
-      "edmRights": "Rechtehinweise für diese Medienressource",
-      "rdfAbout": "RDF Über"
+      "about": "Über",
+      "dctermsConformsTo": "Entspricht",
+      "dcType": "Medientyp",
+      "ebucoreAudioChannelNumber": "Audiokanäle",
+      "ebucoreBitRate": "Bitrate (bps)",
+      "ebucoreDuration": "Dauer",
+      "ebucoreFileByteSize": "Dateigröße (Bytes)",
+      "ebucoreFrameRate": "Bildrate (fps)",
+      "ebucoreHasMimeType": "MIME-Typ",
+      "ebucoreHeight": "Höhe (px)",
+      "ebucoreOrientation": "Ausrichtung",
+      "ebucoreSampleRate": "Abtastrate (Hz)",
+      "ebucoreSampleSize": "Abtastgröße (Bit)",
+      "ebucoreWidth": "Breite (px)",
+      "edmCodecName": "Codec",
+      "edmComponentColor": "Komponentenfarbe",
+      "edmHasColorSpace": "Farbraum",
+      "edmIntendedUsage": "Verwendungszweck",
+      "edmPolygonCount": "Polygonanzahl",
+      "edmRights": "Rechteerklärung für dieses Medium",
+      "edmSpatialResolution": "Räumliche Auflösung (dpi)",
+      "edmVertexCount": "Anzahl der Vertices",
+      "schemaDigitalSourceType": "Beziehung zur realen Welt"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Kunst",
+      "creativity": "Kreativität",
+      "curation": "Kuratierung",
+      "design": "Design",
+      "documentation": "Dokumentation",
+      "education": "Bildung",
+      "exhibition": "Ausstellung",
+      "gaming": "Gaming",
+      "infotainment": "Infotainment",
+      "knowledge": "Wissen",
+      "maintenance": "Wartung",
+      "research": "Forschung",
+      "restoration": "Wiederherstellung",
+      "tourism": "Tourismus"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Rekonstruktion",
+      "digitalCapture": "Realitätserfassung",
+      "digitalCreation": "Digital geboren"
     }
   },
   "filterResults": "Filter Ergebnisse",
@@ -836,10 +900,12 @@ export default {
     "navigation": {
       "about": "Über (uns)",
       "collections": "Sammlungen",
-      "europeanaClassroom": "Für Lehrende",
+      "educators": "Für Lehrende",
       "featureIdeas": "Funktionsideen",
       "help": "Hilfe",
       "home": "Startseite",
+      "partners": "Werden Sie unser Partner",
+      "research": "Für Wissenschaft und Forschung",
       "shareYourCollections": "Teilen Sie Ihre Sammlungen",
       "stories": "Geschichten"
     },
@@ -889,11 +955,10 @@ export default {
         "title": "Dienste, die wir gerne nutzen würden."
       },
       "consentNotice": {
-        "description": "Hallo! Könnten wir bitte einige zusätzliche Dienste für Analyse und Sicherheit aktivieren? Sie können Ihre Einwilligung später jederzeit ändern oder widerrufen.",
-        "learnMore": "Lass mich aussuchen"
+        "description": "Können wir bitte Dienste für Sicherheit, Analysen und Inhalte von Drittanbietern aktivieren?",
+        "learnMore": "Cookie-Einstellungen verwalten"
       },
-      "decline": "Ich lehne ab",
-      "ok": "Okay",
+      "decline": "Ablehnen",
       "purposes": {
         "2D": {
           "title": "2D-Medien"
@@ -946,6 +1011,10 @@ export default {
       "auth-strategy": {
         "description": "Erinnert an die Berechtigungsstrategie, die für die Anmeldung verwendet werden soll.",
         "title": "Auth-Strategie"
+      },
+      "cloudflare": {
+        "description": "Merkt sich, dass die Sicherheitsabfrage erfolgreich bestanden wurde.",
+        "title": "Cloudflare"
       },
       "debugSettings": {
         "description": "Hilft beim Debuggen von API-Anfragen",
@@ -1002,6 +1071,12 @@ export default {
   },
   "loading": "Laden",
   "loadingResults": "Ergebnisse werden geladen",
+  "map": {
+    "keyboardNavigatePins": "Verwende die Pfeiltasten, um zwischen den Markierungen zu navigieren",
+    "keyboardPanAndZoom": "Nutzen Sie die Tasten +, - und die Pfeiltasten zum Zoomen und Verschieben der Karte",
+    "togglePin": "Anheften umschalten",
+    "zoomInCluster": "Auf Cluster heranzoomen"
+  },
   "media": {
     "controls": {
       "exitFullscreen": "Vollbild beenden",
@@ -1024,6 +1099,8 @@ export default {
       "hide": "Seitenleiste ausblenden",
       "IIIFManifest": "IIIF-Manifest",
       "links": "Links",
+      "metadata": "Medien-Metadaten",
+      "metadataInfo": "Informationen über die Medien, die Sie gerade ansehen.",
       "search": "Suche",
       "searchPlaceholder": "Begriffe eingeben",
       "show": "Seitenleiste anzeigen"
@@ -1078,15 +1155,41 @@ export default {
     "city": "Stadt",
     "country": "Land",
     "englishName": "Englischer Name",
-    "nameAcronym": "Name Akronym"
+    "geographicScope": "Geografischer Geltungsbereich",
+    "heritageDomain": "Arten des Erbes",
+    "nameAcronym": "Name Akronym",
+    "providesAudienceEngagementActivity": "Aktivitäten zur Einbindung des Publikums",
+    "providesCapacityBuildingActivity": "Kapazitätsaufbau",
+    "providesSupportForDataActivity": "Datenaktivitäten",
+    "providesSupportForMediaType": "Medientyp",
+    "providingInstitutionsCount": "Anzahl der Datenpartner",
+    "recordCount": "Anzahl der Objekte"
+  },
+  "organisations": {
+    "aggregators": {
+      "description": "Aggregatoren arbeiten mit den bereitstellenden Institutionen zusammen, um deren digitale kulturelle Objekte auf Europeana.eu zu sammeln und zu veröffentlichen.",
+      "title": "Aggregatoren"
+    },
+    "internationalAggregators": {
+      "description": "Domänen- und Themenaggregatoren definieren ihren Geltungsbereich nach Kultursektor (z. B. Museum, Archiv oder Bibliothek) oder nach Thema (z. B. Mode). Sie arbeiten mit Beiträgern aus verschiedenen europäischen Ländern zusammen.",
+      "title": "Domänen- und Themenaggregatoren"
+    },
+    "providingInstitutions": {
+      "description": "Eine Liste der Museen, Bibliotheken, Archive und Galerien, die ihr digitales Kulturerbe auf Europeana.eu zur Verfügung stellen.",
+      "title": "Datenpartner"
+    },
+    "regionalAggregators": {
+      "description": "Nationale und regionale Aggregatoren definieren ihren Tätigkeitsbereich nach einem bestimmten Land oder einer bestimmten Region. Sie arbeiten mit Anbietern in diesem Land oder dieser Region zusammen.",
+      "title": "Nationale und regionale Aggregatoren"
+    }
   },
   "pageHasLoaded": "hat geladen",
   "pageNumber": "Seitennummer",
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Erkunden Sie die Institutionen, die digitale Kulturerbe-Objekte auf Europeana.eu teilen.",
-        "title": "Institutionen"
+        "description": "Entdecken Sie die bereitstellenden Institutionen, die digitale Kulturerbe-Objekte auf Europeana.eu teilen.",
+        "title": "Datenpartner"
       },
       "persons": {
         "title": "Personen"
@@ -1095,7 +1198,9 @@ export default {
         "title": "Orte"
       },
       "table": {
+        "aggregator": "Aggregator",
         "country": "Land",
+        "domain": "Domäne / Thema",
         "items": "Objekte",
         "name": "Name",
         "searchPlaceholder": "Suche innerhalb der Tabelle",
@@ -1129,6 +1234,7 @@ export default {
       "pin": "Objekt an verfügbare Entitäten anheften"
     },
     "allMetaData": "Alle Metadaten",
+    "allMetaDataInfo": "Informationen zu diesem gesamten Objekt.",
     "clickToCopyEmbedCode": "Klicken Sie auf den Einbettungscode, um ihn zu kopieren",
     "extendedInformation": "Erweiterte Informationen",
     "goodToKnow": "Gut zu wissen",
@@ -1147,6 +1253,9 @@ export default {
   "related": {
     "categoryTags": {
       "title": "Entdecken Sie verwandte Geschichten"
+    },
+    "collection": {
+      "preview": "Vorschau der Sammlung"
     },
     "collections": {
       "name": "Verwandte Sammlungen",
@@ -1230,9 +1339,6 @@ export default {
     },
     "results": {
       "limitWarning": "Zusätzliche Ergebnisse werden nicht angezeigt, da nur die ersten 1000 relevantesten Ergebnisse angezeigt werden. Wenn Sie nicht gefunden haben, wonach Sie suchen, verfeinern Sie bitte Ihre Suche.",
-      "loginToSeeMore": "{login} um mehr Ergebnisse zu sehen",
-      "loginToSeeMultilingualResults": "Melden Sie sich an, um die gesamte Sammlung zu durchsuchen, und erhalten Sie Ergebnisse, die nicht auf die Sprache Ihres Suchbegriffs beschränkt sind.",
-      "showingMultilingualResults": "Anzeige der Ergebnisse für die gesamte Sammlung und alle Sprachen.",
       "withinCollection": "{count} Ergebnisse innerhalb von {type} {collection}",
       "withinCollectionWithQuery": "{count} Ergebnisse innerhalb von {type} {collection} für {query}",
       "withoutQuery": "{count} Ergebnisse",

@@ -28,6 +28,7 @@
 </template>
 
 <script>
+  import { rightsNameAndIcon } from '@/utils/europeana/rightsStatement';
   import stringify from '@/utils/text/stringify.js';
   import ShareSnippet from '@/components/share/ShareSnippet';
 
@@ -59,7 +60,7 @@
         type: String,
         default: null
       },
-      rights: {
+      rightsStatement: {
         type: String,
         required: true
       },
@@ -83,7 +84,7 @@
           this.titleCreator,
           this.yearString,
           this.providerCountry,
-          this.rights
+          rightsNameAndIcon(this.rightsStatement).name
         ]
           .filter(value => value) // remove empty
           .join(' - ') // output as a string

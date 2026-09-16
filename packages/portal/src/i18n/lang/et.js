@@ -47,6 +47,7 @@ export default {
     "clearFilters": "Tühjenda filtrid",
     "close": "Sulge",
     "confirm": "Kinnita",
+    "contact": "Kontakt",
     "continue": "jätka",
     "depublish": "Tühista avaldamine",
     "download": "Lae alla",
@@ -80,6 +81,7 @@ export default {
     "transcribe": "Transkribeeri",
     "transcribeNow": "Transkribeeri nüüd",
     "unlike": "Ei meeldi",
+    "viewAll": "Vaata kõiki {count}",
     "viewAt": "Kuva saidil {link}",
     "viewDocument": "Vaadake dokumenti",
     "vote": "Hääletage"
@@ -105,14 +107,7 @@ export default {
         "create": {
           "button": "Taotle isiklikku API võtit",
           "checkbox": "Kinnitan, et olen lugenud ja nõustun API võtme {termsOfUseLink}."
-        },
-        "description": "Õpi ja testi, kuidas API-sid kasutada oma isikliku API võtmega. Palun ära jaga seda. {howToLink}.",
-        "heading": "Isiklik API võti",
-        "howToLinkText": "Kuidas oma võtit kasutada"
-      },
-      "projectKeys": {
-        "description": "Iga projekti jaoks, mida peate ehitama, anname teile spetsiaalse võtme. Projektivõtmetel on kõrgemad limiidid ja muud erifunktsioonid – loe lähemalt API-võtmest {termsOfUseLink}. Kui soovite oma projekti teavet muuta, saatke palun e-kiri aadressile api@europeana.eu ja me teeme muudatused teie eest.",
-        "heading": "Projekti API võtmed"
+        }
       },
       "termsOfUseLinkText": "kasutustingimused"
     },
@@ -138,9 +133,27 @@ export default {
     "country": "Riik:",
     "creator": "Looja:",
     "date": "Kuupäev:",
+    "hide": "Peida omistamine",
     "institution": "Institutsioon:",
     "show": "Kuva atribuutika",
     "title": "Pealkiri:"
+  },
+  "audioVisualPlayer": {
+    "Captions": "Subtiitrid / pealelugemine kuulmispuudega vaatajatele",
+    "captions off": "Väljas",
+    "captionsOption": "{language} subtiitrid",
+    "Exit Fullscreen": "Välju täisekraanist",
+    "Fullscreen": "Täisekraan",
+    "Mute": "Vaigista",
+    "Pause": "Paus",
+    "Play": "Esita",
+    "Play Video": "Esita video",
+    "Replay": "Esita uuesti",
+    "Subtitles": "Subtiitrid / pealelugemine kuulmispuudega vaatajatele",
+    "subtitles off": "Väljas",
+    "subtitlesOption": "{language} subtiitrid",
+    "Unmute": "Eemalda vaigistus",
+    "Volume Level": "Helitugevuse tase"
   },
   "authored": {
     "by": "poolt",
@@ -149,14 +162,15 @@ export default {
   "automatedCardGroup": {
     "gallery": "Viimased galeriid",
     "item": "Hiljutised üksused",
-    "organisation": "Organisatsioonid",
+    "organisation": "Pakkuja institutsioon",
     "place": "Kohad",
     "theme": "Teemad",
     "time": "Sajandeid",
     "topic": "Teemad"
   },
   "cardLabels": {
-    "organisation": "Organisatsioon",
+    "aggregator": "Agregaator",
+    "organisation": "Institutsioon",
     "person": "Isik",
     "place": "Koht",
     "theme": "Teema",
@@ -316,13 +330,13 @@ export default {
       "description": "Ilmnes tundmatu viga.",
       "title": "Tundmatu viga"
     },
-    "IIIFManifestFailure": {
-      "description": "Kahjuks ei saa Europeanale pakutavaid andmekandjaid praegu kuvada. Palun proovige meedia alla laadida või vaadake üksust edastava asutuse veebisaidil."
-    },
     "itemNotFound": {
       "description": "Selle põhjuseks võivad olla järgmised põhjused: seda üksust pole olemas või; see tühistati, kuna see ei vastanud meie kvaliteedikriteeriumidele või; seda värskendati ja avaldati uuesti uue kordumatu identifikaatoriga. Sel juhul proovige üksust uuesti leida.",
       "metaTitle": "Üksust ei leitud",
       "title": "Oh ei! {newline} Me ei leidnud seda üksust."
+    },
+    "mediaFailure": {
+      "description": "Kahjuks ei saa Europeanale pakutavaid andmekandjaid praegu kuvada. Palun proovige meedia alla laadida või vaadake üksust edastava asutuse veebisaidil."
     },
     "noFeatureIdeas": {
       "description": "Kontrollige varsti uuesti!",
@@ -371,6 +385,7 @@ export default {
       "options": {
         "archaeology": "Arheoloogia",
         "art": "Kunst",
+        "audiovisual": "Audiovisuaalne pärand",
         "fashion": "Mood",
         "industrial": "Tööstuspärand",
         "manuscript": "Käsikirjad",
@@ -716,6 +731,14 @@ export default {
       "name": "Õiguste deklaratsioon",
       "select": "Valige õiguste avaldused"
     },
+    "sort": {
+      "name": "Sorteeri",
+      "options": {
+        "proxy_dcterms_issued+asc": "Väljastamise kuupäev (vanimad eespool)",
+        "proxy_dcterms_issued+desc": "Väljastamise kuupäev (uusimad eespool)"
+      },
+      "select": "Vali, kuidas tulemusi sortida"
+    },
     "TYPE": {
       "name": "Meediumitüüp",
       "options": {
@@ -791,11 +814,52 @@ export default {
       "year": "Aasta"
     },
     "webResource": {
-      "about": "RDF kohta",
-      "dcDescription": "Kirjeldus",
-      "ebucoreHasMimeType": "Ebucore MIME tüüp",
-      "edmRights": "Selle meediaressursi õiguste avaldus",
-      "rdfAbout": "RDF kohta"
+      "about": "Kohta",
+      "dctermsConformsTo": "Vastab",
+      "dcType": "Meedia tüüp",
+      "ebucoreAudioChannelNumber": "Helikanalid",
+      "ebucoreBitRate": "Bitikiirus (bps)",
+      "ebucoreDuration": "Kestus",
+      "ebucoreFileByteSize": "Faili suurus (baidid)",
+      "ebucoreFrameRate": "Kaadrisagedus (fps)",
+      "ebucoreHasMimeType": "MIME tüüp",
+      "ebucoreHeight": "Kõrgus (px)",
+      "ebucoreOrientation": "Orientatsioon",
+      "ebucoreSampleRate": "Diskreetimissagedus (Hz)",
+      "ebucoreSampleSize": "Valimi suurus (bits)",
+      "ebucoreWidth": "Laius (px)",
+      "edmCodecName": "Koodek",
+      "edmComponentColor": "Komponendi värv",
+      "edmHasColorSpace": "Värviruum",
+      "edmIntendedUsage": "Kavandatud kasutus",
+      "edmPolygonCount": "Polügoonide arv",
+      "edmRights": "Selle meedia õiguste avaldus",
+      "edmSpatialResolution": "Ruumiline eraldusvõime (dpi)",
+      "edmVertexCount": "Tippude arv",
+      "schemaDigitalSourceType": "Seos reaalse maailmaga"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Kunst",
+      "creativity": "Loovus",
+      "curation": "Kureerimine",
+      "design": "Disain",
+      "documentation": "Dokumentatsioon",
+      "education": "Haridus",
+      "exhibition": "Näitus",
+      "gaming": "Mängimine",
+      "infotainment": "Infotainment",
+      "knowledge": "Teadmised",
+      "maintenance": "Hooldus",
+      "research": "Uuringud",
+      "restoration": "Taastamine",
+      "tourism": "Turism"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Rekonstruktsioon",
+      "digitalCapture": "Reaalsuse jäädvustamine",
+      "digitalCreation": "Algselt digivormingus loodud"
     }
   },
   "filterResults": "Filtreeri tulemusi",
@@ -836,10 +900,12 @@ export default {
     "navigation": {
       "about": "Meist",
       "collections": "Kogud",
-      "europeanaClassroom": "Õpetajate jaoks",
+      "educators": "Haridustöötajatele",
       "featureIdeas": "Funktsiooni ideed",
       "help": "Abimaterjal",
       "home": "Avaleht",
+      "partners": "Tee meiega koostööd",
+      "research": "Akadeemilisele ja teadustööle",
       "shareYourCollections": "Jaga oma kogusid",
       "stories": "Lood"
     },
@@ -889,11 +955,10 @@ export default {
         "title": "Teenused, mida sooviksime kasutada."
       },
       "consentNotice": {
-        "description": "Tere! Kas saaksime lubada analüüsi ja turvalisuse jaoks mõned lisateenused? Saate oma nõusolekut hiljem alati muuta või tagasi võtta.",
-        "learnMore": "Las ma valin"
+        "description": "Kas me saaksime palun lubada teenused turvalisuse, analüütika ja kolmanda osapoole sisu jaoks?",
+        "learnMore": "Halda küpsiste seadeid"
       },
-      "decline": "ma keeldun",
-      "ok": "Okei",
+      "decline": "Keeldu",
       "purposes": {
         "2D": {
           "title": "2D meedia"
@@ -946,6 +1011,10 @@ export default {
       "auth-strategy": {
         "description": "Mäletab sisselogimiseks kasutatava autoriseerimisstrateegia.",
         "title": "Auth strateegia"
+      },
+      "cloudflare": {
+        "description": "Mäletab, et turvakontroll on edukalt läbitud.",
+        "title": "Cloudflare"
       },
       "debugSettings": {
         "description": "Aitab siluda API taotlusi",
@@ -1002,6 +1071,12 @@ export default {
   },
   "loading": "Laadimine",
   "loadingResults": "Tulemuste laadimine",
+  "map": {
+    "keyboardNavigatePins": "Kasutage nuppude vahel liikumiseks nooleklahve",
+    "keyboardPanAndZoom": "Kasutage kaardil suurendamiseks ja liikumiseks klahve +, - ja nooleklahve.",
+    "togglePin": "Kinnituse sisse/välja lülitamine",
+    "zoomInCluster": "Suumi klastrile lähemale"
+  },
   "media": {
     "controls": {
       "exitFullscreen": "Välju täisekraanist",
@@ -1024,6 +1099,8 @@ export default {
       "hide": "Peida külgriba",
       "IIIFManifest": "IIIF Manifest",
       "links": "Lingid",
+      "metadata": "Meedia metaandmed",
+      "metadataInfo": "Teave praegu vaadatava meedia kohta.",
       "search": "Otsing",
       "searchPlaceholder": "Sisestage tingimused",
       "show": "Kuva külgriba"
@@ -1078,15 +1155,41 @@ export default {
     "city": "Linn",
     "country": "Riik",
     "englishName": "Ingliskeelne nimi",
-    "nameAcronym": "Nime akronüüm"
+    "geographicScope": "Geograafiline ulatus",
+    "heritageDomain": "Pärandi liigid",
+    "nameAcronym": "Nime akronüüm",
+    "providesAudienceEngagementActivity": "Publiku kaasamise tegevused",
+    "providesCapacityBuildingActivity": "Suutlikkuse suurendamine",
+    "providesSupportForDataActivity": "Andmetegevused",
+    "providesSupportForMediaType": "Meediumitüüp",
+    "providingInstitutionsCount": "Pakkujate institutsioonide arv",
+    "recordCount": "Üksuste arv"
+  },
+  "organisations": {
+    "aggregators": {
+      "description": "Agregaatorid teevad koostööd andmeid esitavate asutustega, et koguda ja avaldada nende digitaalseid kultuuripärandi üksuseid saidil Europeana.eu.",
+      "title": "Agregaatorid"
+    },
+    "internationalAggregators": {
+      "description": "Domeeni- ja temaatilised agregaatorid määratlevad oma ulatuse kultuurisektori (nt muuseum, arhiiv või raamatukogu) või teema järgi (nt mood). Nad teevad koostööd eri Euroopa riikides asuvate kaastöötajatega.",
+      "title": "Domeeni- ja temaatilised koondajad"
+    },
+    "providingInstitutions": {
+      "description": "Nimekiri muuseumidest, raamatukogudest, arhiividest ja galeriidest, kes jagavad oma digitaalseid kultuuri üksused saidil Europeana.eu.",
+      "title": "Pakkuja institutsioon"
+    },
+    "regionalAggregators": {
+      "description": "Riiklikud ja piirkondlikud koondajad määratlevad oma tegevusala konkreetse riigi või piirkonna järgi. Nad teevad koostööd selles riigis või piirkonnas asuvate kaastöötajatega.",
+      "title": "Riiklikud ja piirkondlikud koondajad"
+    }
   },
   "pageHasLoaded": "on laaditud",
   "pageNumber": "Lehekülje number",
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Uurige asutusi, mis jagavad digitaalse kultuuripärandi objekte Europeana.eu-s.",
-        "title": "Institutsioonid"
+        "description": "Avasta asutusi, mis jagavad portaalis Europeana.eu digitaalseid kultuuripärandi üksusi.",
+        "title": "Pakkuja institutsioon"
       },
       "persons": {
         "title": "Isikud"
@@ -1095,7 +1198,9 @@ export default {
         "title": "Kohad"
       },
       "table": {
+        "aggregator": "Agregaator",
         "country": "Riik",
+        "domain": "Domeen / Teema",
         "items": "Üksused",
         "name": "Nimi",
         "searchPlaceholder": "Otsige tabelist",
@@ -1129,6 +1234,7 @@ export default {
       "pin": "Kinnitage üksus saadaolevatele olemitega"
     },
     "allMetaData": "Kogu metateave",
+    "allMetaDataInfo": "Teave selle kogu üksuse kohta.",
     "clickToCopyEmbedCode": "Selle kopeerimiseks klõpsake manustuskoodil",
     "extendedInformation": "Täiendav teave",
     "goodToKnow": "Hea teada",
@@ -1147,6 +1253,9 @@ export default {
   "related": {
     "categoryTags": {
       "title": "Avastage seotud lugusid"
+    },
+    "collection": {
+      "preview": "Kollektsiooni eelvaade"
     },
     "collections": {
       "name": "Seotud kollektsioonid",
@@ -1230,9 +1339,6 @@ export default {
     },
     "results": {
       "limitWarning": "Täiendavaid tulemusi ei näidata, kuna näidatakse ainult esimesed 1000 kõige asjakohasemat tulemust. Kui te ei ole leidnud seda, mida otsite, palun täpsustage oma otsingut.",
-      "loginToSeeMore": "{login} , et näha rohkem tulemusi",
-      "loginToSeeMultilingualResults": "Logige sisse, et otsida kogu kollektsioonist ja saada tulemusi, mis ei piirdu teie otsingutermini keelega.",
-      "showingMultilingualResults": "Kuvatakse tulemusi kogu kogumiku ja kõigi keelte lõikes.",
       "withinCollection": "{count} tulemust jaotises {type} {collection}",
       "withinCollectionWithQuery": "{count} tulemust jaotises {type} {collection} jaoks {query}",
       "withoutQuery": "{count} tulemust",

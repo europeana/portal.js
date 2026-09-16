@@ -47,6 +47,7 @@ export default {
     "clearFilters": "Rensa filter",
     "close": "stäng",
     "confirm": "Bekräfta",
+    "contact": "Kontakt",
     "continue": "Fortsätt",
     "depublish": "Avpublicera",
     "download": "Ladda ner",
@@ -80,6 +81,7 @@ export default {
     "transcribe": "Transkribera",
     "transcribeNow": "Transkribera nu",
     "unlike": "Ogilla",
+    "viewAll": "Visa alla {count}",
     "viewAt": "Visa på {link}",
     "viewDocument": "Visa dokument",
     "vote": "Rösta"
@@ -105,14 +107,7 @@ export default {
         "create": {
           "button": "Begär en personlig API-nyckel",
           "checkbox": "Jag bekräftar att jag har läst och accepterar API-nyckeln {termsOfUseLink}."
-        },
-        "description": "Lär dig och testa hur du använder API:er med din personliga API-nyckel. Dela den inte, tack. {howToLink}.",
-        "heading": "Personlig API-nyckel",
-        "howToLinkText": "Hur du använder din nyckel"
-      },
-      "projectKeys": {
-        "description": "För varje projekt du behöver bygga förser vi dig med en dedikerad nyckel. Projektnycklar har högre gränser och andra specialfunktioner – läs mer i API-nyckeln {termsOfUseLink}. Om du vill redigera informationen om ditt projekt kan du skicka ett e-postmeddelande till api@europeana.eu, så gör vi ändringarna åt dig.",
-        "heading": "Projektets API-nycklar"
+        }
       },
       "termsOfUseLinkText": "användarvillkor"
     },
@@ -138,9 +133,27 @@ export default {
     "country": "Land:",
     "creator": "Skapare:",
     "date": "Datum:",
+    "hide": "Dölj attribution",
     "institution": "Institution:",
     "show": "Visa attribution",
     "title": "Titel:"
+  },
+  "audioVisualPlayer": {
+    "Captions": "Undertexter / textning för hörselskadade",
+    "captions off": "Av",
+    "captionsOption": "{language} bildtexter",
+    "Exit Fullscreen": "Avsluta helskärm",
+    "Fullscreen": "Helskärm",
+    "Mute": "Ljud av",
+    "Pause": "Paus",
+    "Play": "Spela",
+    "Play Video": "Spela upp video",
+    "Replay": "Spela om",
+    "Subtitles": "Undertexter / textning för hörselskadade",
+    "subtitles off": "Av",
+    "subtitlesOption": "{language} undertexter",
+    "Unmute": "Slå på ljud",
+    "Volume Level": "Volymnivå"
   },
   "authored": {
     "by": "av",
@@ -149,14 +162,15 @@ export default {
   "automatedCardGroup": {
     "gallery": "Senaste gallerier",
     "item": "Senaste objekt",
-    "organisation": "Organisationer",
+    "organisation": "Tillhandahållande institutioner",
     "place": "Platser",
     "theme": "Teman",
     "time": "Århundraden",
     "topic": "Ämnen"
   },
   "cardLabels": {
-    "organisation": "Organisation",
+    "aggregator": "Aggregator",
+    "organisation": "Institution",
     "person": "Person",
     "place": "Plats",
     "theme": "Tema",
@@ -316,13 +330,13 @@ export default {
       "description": "Ett okänt fel uppstod.",
       "title": "Okänt fel"
     },
-    "IIIFManifestFailure": {
-      "description": "Tyvärr kan inte det medieobjekt som tillhandahållits till Europeana visas för tillfället. Försök att ladda ner mediaobjektet eller visa objektet på den tillhandahållande institutionens webbplats."
-    },
     "itemNotFound": {
       "description": "Detta kan bero på följande orsaker: det här objektet finns inte, eller; den reduplicerades eftersom den inte matchade våra kvalitetskriterier, eller; den uppdaterades och publicerades på nytt med en ny unik identifierare. Försök i så fall att hitta objektet igen.",
       "metaTitle": "Objektet hittades inte",
       "title": "Åh nej! {newline} Vi kunde inte hitta det här objektet."
+    },
+    "mediaFailure": {
+      "description": "Tyvärr kan inte det medieobjekt som tillhandahållits till Europeana visas för tillfället. Försök att ladda ner mediaobjektet eller visa objektet på den tillhandahållande institutionens webbplats."
     },
     "noFeatureIdeas": {
       "description": "Kom tillbaka snart igen!",
@@ -371,6 +385,7 @@ export default {
       "options": {
         "archaeology": "Arkeologi",
         "art": "Konst",
+        "audiovisual": "Audiovisuellt kulturarv",
         "fashion": "Mode",
         "industrial": "Industriminne",
         "manuscript": "Manuskript",
@@ -716,6 +731,14 @@ export default {
       "name": "Rättighetsförklaring",
       "select": "Välj rättighetsutlåtanden"
     },
+    "sort": {
+      "name": "Sortera efter",
+      "options": {
+        "proxy_dcterms_issued+asc": "Utfärdandedatum (äldst först)",
+        "proxy_dcterms_issued+desc": "Utfärdandedatum (nyast först)"
+      },
+      "select": "Välj hur resultaten ska sorteras"
+    },
     "TYPE": {
       "name": "Typ av media",
       "options": {
@@ -791,17 +814,58 @@ export default {
       "year": "År"
     },
     "webResource": {
-      "about": "RDF Om",
-      "dcDescription": "Beskrivning",
-      "ebucoreHasMimeType": "Ebucore MIME-typ",
-      "edmRights": "Rättighetsmärkning för denna medieresurs",
-      "rdfAbout": "RDF Om"
+      "about": "Om",
+      "dctermsConformsTo": "Överensstämmer med",
+      "dcType": "Typ av media",
+      "ebucoreAudioChannelNumber": "Ljudkanaler",
+      "ebucoreBitRate": "Bithastighet (bps)",
+      "ebucoreDuration": "Varaktighet",
+      "ebucoreFileByteSize": "Filstorlek (byte)",
+      "ebucoreFrameRate": "Bildfrekvens (fps)",
+      "ebucoreHasMimeType": "MIME-typ",
+      "ebucoreHeight": "Höjd (px)",
+      "ebucoreOrientation": "Orientering",
+      "ebucoreSampleRate": "Samplingsfrekvens (Hz)",
+      "ebucoreSampleSize": "Samplingsstorlek (bitar)",
+      "ebucoreWidth": "Bredd (px)",
+      "edmCodecName": "Codec",
+      "edmComponentColor": "Komponentfärg",
+      "edmHasColorSpace": "Färgrymd",
+      "edmIntendedUsage": "Avsedd användning",
+      "edmPolygonCount": "Polygonantal",
+      "edmRights": "Rättighetsbeskrivning för denna media",
+      "edmSpatialResolution": "Spatial upplösning (dpi)",
+      "edmVertexCount": "Antal hörnpunkter",
+      "schemaDigitalSourceType": "Relation till den verkliga världen"
+    }
+  },
+  "fieldValues": {
+    "edmIntendedUsage": {
+      "art": "Konst",
+      "creativity": "Kreativitet",
+      "curation": "Kuratering",
+      "design": "Design",
+      "documentation": "Dokumentation",
+      "education": "Utbildning",
+      "exhibition": "Utställning",
+      "gaming": "Gaming",
+      "infotainment": "Infotainment",
+      "knowledge": "Kunskap",
+      "maintenance": "Underhåll",
+      "research": "Forskning",
+      "restoration": "Restaurering",
+      "tourism": "Turism"
+    },
+    "schemaDigitalSourceType": {
+      "dataDrivenMedia": "Rekonstruktion",
+      "digitalCapture": "Verklighetsfångst",
+      "digitalCreation": "Född digital"
     }
   },
   "filterResults": "Filtrera resultat",
   "footer": {
     "customiseWebsiteLanguage": "Anpassa webbplatsens språk",
-    "findUsElsewhere": "Hitta oss någon annanstans",
+    "findUsElsewhere": "Vi finns också på",
     "footer": "Sidfot",
     "imageDescription": "Finansieras av Europeiska unionen",
     "navigation": {
@@ -815,11 +879,11 @@ export default {
       "registerApiKey": "Registrera dig för en API-nyckel",
       "seeApiRequests": "Se förfrågningar till Europeana API:er",
       "subscribe": "Prenumerera på vårt nyhetsbrev",
-      "supportingTechnicalPartners": "Stödja tekniska partners",
+      "supportingTechnicalPartners": "Våra tekniska partners",
       "terms": "Villkor och policyer"
     },
     "ourMission": "Vårt uppdrag",
-    "ourMissionQuote": "Europeana stöttar kulturarvssektorn i den digitala omvandlingen. Vi utvecklar expertis, verktyg och grundprinciper för att gynna digital förändring och uppmuntra partnerskap som främjar innovation."
+    "ourMissionQuote": "Europeana stöttar kulturarvssektorn i den digitala omställningen. Vi utvecklar expertis, verktyg och grundprinciper för att gynna digital förändring och uppmuntra partnerskap som främjar innovation."
   },
   "galleries": {
     "description": "Utforska våra gallerier",
@@ -836,10 +900,12 @@ export default {
     "navigation": {
       "about": "Om",
       "collections": "Samlingar",
-      "europeanaClassroom": "För lärare",
+      "educators": "För pedagoger",
       "featureIdeas": "Idéer för funktioner",
       "help": "Hjälp",
       "home": "Hem",
+      "partners": "Samarbeta med oss",
+      "research": "För akademi och forskning",
       "shareYourCollections": "Dela dina samlingar",
       "stories": "Berättelser"
     },
@@ -854,7 +920,7 @@ export default {
   },
   "homeLinkAlt": "Europeana hem",
   "homePage": {
-    "discoverEditorial": "Senaste berättelserna",
+    "discoverEditorial": "De senaste berättelserna",
     "storiesCTA": "Se alla berättelser",
     "subHeadline": "Sök, spara och dela konst, böcker, filmer och musik från tusentals kulturinstitutioner",
     "themesTitle": "Utforska efter tema",
@@ -889,11 +955,10 @@ export default {
         "title": "Tjänster som vi skulle vilja använda."
       },
       "consentNotice": {
-        "description": "Hej! Kan vi aktivera några ytterligare tjänster för analys och säkerhet? Du kan alltid ändra eller återkalla ditt samtycke senare.",
-        "learnMore": "Låt mig välja"
+        "description": "Kan vi aktivera tjänster för säkerhet, analys och tredjepartsinnehåll?",
+        "learnMore": "Hantera cookieinställningar"
       },
-      "decline": "jag avböjer",
-      "ok": "Okej",
+      "decline": "Neka",
       "purposes": {
         "2D": {
           "title": "2D-media"
@@ -946,6 +1011,10 @@ export default {
       "auth-strategy": {
         "description": "Kommer ihåg den auktoriserings strategi som ska användas för att logga in.",
         "title": "Auth-strategi"
+      },
+      "cloudflare": {
+        "description": "Påminner om att säkerhetsutmaningen har klarats av framgångsrikt.",
+        "title": "Cloudflare"
       },
       "debugSettings": {
         "description": "Hjälper till att felsöka API -begäranden",
@@ -1002,6 +1071,12 @@ export default {
   },
   "loading": "Laddar",
   "loadingResults": "Hämtar resultat",
+  "map": {
+    "keyboardNavigatePins": "Använd piltangenterna för att navigera bland nålar",
+    "keyboardPanAndZoom": "Använd +, - och piltangenterna för att zooma och panorera på kartan",
+    "togglePin": "Växla fästning",
+    "zoomInCluster": "Zooma in på klustret"
+  },
   "media": {
     "controls": {
       "exitFullscreen": "Avsluta helskärm",
@@ -1024,6 +1099,8 @@ export default {
       "hide": "Dölj sidofältet",
       "IIIFManifest": "IIIF Manifest",
       "links": "Länkar",
+      "metadata": "Mediametadata",
+      "metadataInfo": "Information om det media som visas just nu.",
       "search": "Sök",
       "searchPlaceholder": "Ange villkor",
       "show": "Visa sidofältet"
@@ -1078,15 +1155,41 @@ export default {
     "city": "Stad",
     "country": "Land",
     "englishName": "Engelskt namn",
-    "nameAcronym": "Namn akronym"
+    "geographicScope": "Geografisk omfattning",
+    "heritageDomain": "Typer av kulturarv",
+    "nameAcronym": "Namn akronym",
+    "providesAudienceEngagementActivity": "Aktiviteter för publikengagemang",
+    "providesCapacityBuildingActivity": "Kapacitetsuppbyggnad",
+    "providesSupportForDataActivity": "Dataaktiviteter",
+    "providesSupportForMediaType": "Medietyp",
+    "providingInstitutionsCount": "Antal tillhandahållande institutioner",
+    "recordCount": "Antal objekt"
+  },
+  "organisations": {
+    "aggregators": {
+      "description": "Aggregatorer samarbetar med tillhandahållande institutioner för att samla in och publicera deras digitala kulturarvsobjekt på Europeana.eu.",
+      "title": "Aggregatorer"
+    },
+    "internationalAggregators": {
+      "description": "Domän- och tematiska aggregatorer definierar sitt omfång utifrån kultursektor (till exempel museer, arkiv eller bibliotek) eller utifrån ämne (till exempel mode). De samarbetar med datapartner från olika europeiska länder.",
+      "title": "Domän- och tematiska aggregatorer"
+    },
+    "providingInstitutions": {
+      "description": "En lista över museer, bibliotek, arkiv och gallerier som delar sina digitala kulturella objekt på Europeana.eu.",
+      "title": "Tillhandahållande institutioner"
+    },
+    "regionalAggregators": {
+      "description": "Nationella och regionala aggregatorer definierar sitt omfång utifrån ett specifikt land eller en specifik region. De samarbetar med bidragsgivare som befinner sig inom det landet eller den regionen.",
+      "title": "Nationella och regionala aggregatorer"
+    }
   },
   "pageHasLoaded": "har laddats",
   "pageNumber": "Sidonummer",
   "pages": {
     "collections": {
       "organisations": {
-        "description": "Utforska de institutioner som delar digitala kulturarvsobjekt på Europeana.eu.",
-        "title": "institutioner"
+        "description": "Utforska de tillhandahållande institutioner som delar digitala kulturarvsobjekt på Europeana.eu.",
+        "title": "Tillhandahållande institutioner"
       },
       "persons": {
         "title": "Personer"
@@ -1095,7 +1198,9 @@ export default {
         "title": "Platser"
       },
       "table": {
+        "aggregator": "Aggregator",
         "country": "Land",
+        "domain": "Domän / Tema",
         "items": "Objekt",
         "name": "Namn",
         "searchPlaceholder": "Sök inom tabell",
@@ -1129,6 +1234,7 @@ export default {
       "pin": "Fäst objekt på tillgängliga entiteter"
     },
     "allMetaData": "Alla metadata",
+    "allMetaDataInfo": "Information om hela objektet.",
     "clickToCopyEmbedCode": "Klicka på inbäddningskoden för att kopiera den",
     "extendedInformation": "Utökad information",
     "goodToKnow": "Bra att veta",
@@ -1147,6 +1253,9 @@ export default {
   "related": {
     "categoryTags": {
       "title": "Upptäck relaterade berättelser"
+    },
+    "collection": {
+      "preview": "Förhandsvisning av samlingen"
     },
     "collections": {
       "name": "Relaterade samlingar",
@@ -1230,9 +1339,6 @@ export default {
     },
     "results": {
       "limitWarning": "Ytterligare resultat visas inte eftersom endast de 1000 första mest relevanta resultaten visas. Om du inte har hittat det du letar efter kan du prova att förfina din sökning.",
-      "loginToSeeMore": "{login} för att se fler resultat",
-      "loginToSeeMultilingualResults": "Logga in för att söka i hela samlingen och få resultat som inte är begränsade till språket för din sökterm.",
-      "showingMultilingualResults": "Visar resultat över hela samlingen och alla språk.",
       "withinCollection": "{count} resultat inom {type} {collection}",
       "withinCollectionWithQuery": "{count} resultat inom {type} {collection} för {query}",
       "withoutQuery": "{count} resultat",
