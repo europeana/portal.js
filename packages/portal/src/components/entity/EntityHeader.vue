@@ -11,7 +11,7 @@
     />
     <b-card-title
       title-tag="h2"
-      :lang="langAttribute(title.code)"
+      :lang="langAttribute(title.code, $i18n.locale)"
       data-qa="entity title"
     >
       {{ title.values[0] }}
@@ -19,7 +19,7 @@
     <b-card-sub-title
       v-if="subTitle"
       sub-title-tag="h3"
-      :lang="langAttribute(subTitle.code)"
+      :lang="langAttribute(subTitle.code, $i18n.locale)"
       class="context-label"
     >
       {{ subTitle.values[0] }}
@@ -31,7 +31,7 @@
     >
       <p
         data-qa="entity description"
-        :lang="langAttribute(description.code)"
+        :lang="langAttribute(description.code, $i18n.locale)"
       >
         {{ showAll ? fullDescription : truncatedDescription }}
       </p>
@@ -107,7 +107,7 @@
 
 <script>
   import ClientOnly from 'vue-client-only';
-  import langAttributeMixin from '@/mixins/langAttribute';
+  import { langAttribute } from '@/utils/langAttribute.js';
   import truncate from '@/utils/text/truncate.js';
   import { getWikimediaThumbnailUrl } from '@/plugins/europeana/entity';
   import ShareButton from '@/components/share/ShareButton';
@@ -125,10 +125,6 @@
       EntityUpdateModal: () => import('@/components/entity/EntityUpdateModal'),
       EntityInformationModal: () => import('@/components/entity/EntityInformationModal')
     },
-
-    mixins: [
-      langAttributeMixin
-    ],
 
     props: {
       /**
@@ -160,6 +156,7 @@
         default: false
       }
     },
+
     data() {
       return {
         limitCharacters: 255,
@@ -216,6 +213,7 @@
       }
     },
     methods: {
+      langAttribute,
       organizationEntityNonNativeEnglishName,
       toggleMoreDescription() {
         this.showAll = !this.showAll;

@@ -1,10 +1,8 @@
-import { createLocalVue, mount } from '@vue/test-utils';
-import BootstrapVue from 'bootstrap-vue';
+import { createLocalVue, shallowMount } from '@vue/test-utils';
 
 import StoriesFeaturedCard from '@/components/stories/StoriesFeaturedCard.vue';
 
 const localVue = createLocalVue();
-localVue.use(BootstrapVue);
 
 const basePropsData = {
   featuredStory: {
@@ -17,7 +15,7 @@ const basePropsData = {
   }
 };
 
-const factory = (propsData = basePropsData) => mount(StoriesFeaturedCard, {
+const factory = (propsData = basePropsData) => shallowMount(StoriesFeaturedCard, {
   localVue,
   propsData
 });
@@ -31,7 +29,7 @@ describe('StoriesFeaturedCard.vue', () => {
   it('uses the primary image of the story page', () => {
     const wrapper = factory();
 
-    const cardImage = wrapper.find('img');
-    expect(cardImage.attributes('src')).toBe('https://www.example.com/primaryImageOfPage.jpg');
+    const cardImage = wrapper.find('contentcard-stub');
+    expect(cardImage.attributes('imageurl')).toBe('https://www.example.com/primaryImageOfPage.jpg');
   });
 });

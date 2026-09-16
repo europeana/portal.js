@@ -18,7 +18,7 @@
     >
       <span
         class="mr-auto"
-        :lang="langAttribute(entityDisplayLabel(entity).code)"
+        :lang="langAttribute(entityDisplayLabel(entity).code, $i18n.locale)"
       >
         {{ entityDisplayLabel(entity).values[0] }}
       </span>
@@ -74,15 +74,11 @@
   import pick from 'lodash/pick.js';
 
   import { usePinnedItems } from '@/composables/pinnedItems.js';
-  import langAttributeMixin from '@/mixins/langAttribute';
+  import { langAttribute } from '@/utils/langAttribute.js';
   import { langMapValueForLocale } from '@europeana/i18n';
 
   export default {
     name: 'ItemPinModal',
-
-    mixins: [
-      langAttributeMixin
-    ],
 
     props: {
       /**
@@ -169,6 +165,8 @@
     },
 
     methods: {
+      langAttribute,
+
       async fetchData() {
         if (this.fetched) {
           return;

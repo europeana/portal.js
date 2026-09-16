@@ -28,13 +28,13 @@
           v-if="title"
           title-tag="h3"
           class="mb-2"
-          :lang="langAttribute(title.code)"
+          :lang="langAttribute(title.code, $i18n.locale)"
         >
           {{ title.values[0] }}
         </b-card-title>
         <b-card-sub-title
           v-if="subTitle"
-          :lang="langAttribute(subTitle.code)"
+          :lang="langAttribute(subTitle.code, $i18n.locale)"
           sub-title-tag="h4"
         >
           {{ subTitle.values[0] }}
@@ -73,7 +73,7 @@
 
 <script>
   import pick from 'lodash/pick';
-  import langAttributeMixin from '@/mixins/langAttribute';
+  import { langAttribute } from '@/utils/langAttribute.js';
   import { langMapValueForLocale } from  '@europeana/i18n';
   import { organizationEntityNativeName, organizationEntityNonNativeEnglishName } from '@/utils/europeana/entities/organizations.js';
   import { getEntityQuery, getWikimediaThumbnailUrl } from '@/plugins/europeana/entity.js';
@@ -96,10 +96,6 @@
       ItemPreviewCard,
       SmartLink
     },
-
-    mixins: [
-      langAttributeMixin
-    ],
 
     props: {
       entityId: {
@@ -169,6 +165,7 @@
     methods: {
       organizationEntityNativeName,
       organizationEntityNonNativeEnglishName,
+      langAttribute,
       closePopover() {
         this.$emit('close');
       }

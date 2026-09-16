@@ -1,9 +1,7 @@
-import { createLocalVue, mount } from '@vue/test-utils';
-import BootstrapVue from 'bootstrap-vue';
+import { createLocalVue, shallowMount } from '@vue/test-utils';
 import ContentCardSection from '@/components/content/ContentCardSection.vue';
 
 const localVue = createLocalVue();
-localVue.use(BootstrapVue);
 
 const $store = {
   state: {
@@ -27,7 +25,7 @@ const dummySection = {
   }
 };
 
-const factory = (section) => mount(ContentCardSection, {
+const factory = (section) => shallowMount(ContentCardSection, {
   attachTo: document.body,
   localVue,
   propsData: {
@@ -38,7 +36,10 @@ const factory = (section) => mount(ContentCardSection, {
     $t: () => {},
     localePath: () => '/',
     $store
-  }
+  },
+  stubs: [
+    'b-card-group'
+  ]
 });
 
 describe('components/content/ContentCardSection', () => {
@@ -58,7 +59,7 @@ describe('components/content/ContentCardSection', () => {
 
       const cardGroup = wrapper.find('[data-qa="section group"]');
 
-      expect(cardGroup.findAll('[data-qa="content card"]').length).toBe(2);
+      expect(cardGroup.findAll('browsecontentcard-stub').length).toBe(2);
     });
 
     it('does not display depublished or deleted cards', async() => {
@@ -72,17 +73,18 @@ describe('components/content/ContentCardSection', () => {
         }
       };
       const wrapper = factory(dummySectionPlusNull);
-
       const cardGroup = wrapper.find('[data-qa="section group"]');
-      expect(cardGroup.findAll('[data-qa="content card"]').length).toBe(2);
+
+      expect(cardGroup.findAll('browsecontentcard-stub').length).toBe(2);
     });
 
     it('displays a button', async() => {
       const wrapper = factory();
 
       const moreButton = wrapper.find('[data-qa="section more button"]');
+
       expect(moreButton.text()).toContain('Show more art');
-      expect(moreButton.attributes('href')).toBe('http://europeana.eu');
+      expect(moreButton.attributes('destination')).toBe('http://europeana.eu');
     });
 
     it('displays mini cards if a section is exclusively people', async() => {

@@ -40,7 +40,7 @@
       >
         <span
           v-if="displayTitle"
-          :lang="langAttribute(displayTitle.code)"
+          :lang="langAttribute(displayTitle.code, $i18n.locale)"
         >
           {{ truncate(displayTitle.value, 90) }}
         </span>
@@ -62,7 +62,7 @@
             v-if="displayTitle"
             title-tag="div"
             data-qa="card title"
-            :lang="langAttribute(displayTitle.code)"
+            :lang="langAttribute(displayTitle.code, $i18n.locale)"
           >
             <component
               :is="url ? 'SmartLink' : 'div'"
@@ -88,7 +88,7 @@
             <b-card-text
               v-for="(text, index) in displayTexts"
               :key="index"
-              :lang="langAttribute(text.code)"
+              :lang="langAttribute(text.code, $i18n.locale)"
               text-tag="div"
             >
               <!-- eslint-disable vue/no-v-html -->
@@ -115,7 +115,7 @@
 <script>
   import ClientOnly from 'vue-client-only';
   import SmartLink from '../generic/SmartLink';
-  import langAttributeMixin from '@/mixins/langAttribute';
+  import { langAttribute } from '@/utils/langAttribute.js';
   import stripMarkdown from '@/utils/markdown/strip.js';
   import truncate from '@/utils/text/truncate.js';
   import { langMapValueForLocale } from '@europeana/i18n';
@@ -131,10 +131,6 @@
       MediaDefaultThumbnail: () => import('@/components/media/MediaDefaultThumbnail'),
       ImageOptimised: () => import('@/components/image/ImageOptimised')
     },
-
-    mixins: [
-      langAttributeMixin
-    ],
 
     props: {
       /**
@@ -408,6 +404,8 @@
     },
 
     methods: {
+      langAttribute,
+
       truncate,
 
       cardText(values) {

@@ -39,7 +39,7 @@
           <!-- eslint-disable vue/no-v-html -->
           <ItemDebiasField
             v-if="!!deBias.terms.dcDescription"
-            :lang="langAttribute(description.code)"
+            :lang="langAttribute(description.code, $i18n.locale)"
             class="description-text-paragraph"
             name="dcDescription"
             :text="(showAll ? value : truncatedDescription)"
@@ -51,7 +51,7 @@
           </ItemDebiasField>
           <p
             v-else
-            :lang="langAttribute(description.code)"
+            :lang="langAttribute(description.code, $i18n.locale)"
             class="description-text-paragraph"
             v-html="convertNewLine(showAll ? value : truncatedDescription)"
           />
@@ -81,7 +81,7 @@
 <script>
   import MetadataOriginLabel from '../metadata/MetadataOriginLabel';
   import ItemDebiasField from './ItemDebiasField';
-  import langAttributeMixin from '@/mixins/langAttribute';
+  import { langAttribute } from '@/utils/langAttribute.js';
   import truncate from '@/utils/text/truncate.js';
 
   export default {
@@ -91,10 +91,6 @@
       ItemDebiasField,
       MetadataOriginLabel
     },
-
-    mixins: [
-      langAttributeMixin
-    ],
 
     inject: ['deBias'],
 
@@ -130,6 +126,7 @@
     },
 
     methods: {
+      langAttribute,
       /**
        * Convert new lines to <br/>
        * @param {string} val text value
