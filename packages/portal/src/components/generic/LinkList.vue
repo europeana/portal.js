@@ -45,10 +45,7 @@
 
     computed: {
       filteredLinkList() {
-        if (!this.items) {
-          return false;
-        }
-        return this.items.filter(listItem => listItem !== null);
+        return this.items.filter(Boolean);
       }
     }
   };

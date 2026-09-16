@@ -32,35 +32,34 @@
     },
 
     computed: {
-      creditsChapter() {
+      chapterLinkListItems() {
+        return this.chapters.map((chapter) => ({
+          background: this.optimisedBackgroundImageUrl(chapter),
+          identifier: chapter.identifier,
+          text: chapter.name,
+          url: {
+            name: 'exhibitions-exhibition-chapter',
+            params: {
+              exhibition: this.exhibitionIdentifier, chapter: chapter.identifier
+            }
+          }
+        }));
+      },
+      creditsLinkListItem() {
         if (!this.credits) {
           return null;
         }
         return {
-          name: this.$t('exhibitions.credits'),
-          identifier: 'credits'
+          identifier: 'credits',
+          text: this.$t('exhibitions.credits'),
+          url: {
+            name: 'exhibitions-exhibition-credits',
+            params: { exhibition: this.exhibitionIdentifier }
+          }
         };
       },
       linkListItems() {
-        return this.chapters
-          .concat(this.creditsChapter || [])
-          .filter(Boolean)
-          .map((chapter) => {
-            chapter.url = chapter.identifier === 'credits' ?
-              {
-                name: 'exhibitions-exhibition-credits',
-                params: { exhibition: this.exhibitionIdentifier }
-              } :
-              {
-                name: 'exhibitions-exhibition-chapter',
-                params: {
-                  exhibition: this.exhibitionIdentifier, chapter: chapter.identifier
-                }
-              };
-            chapter.background = this.optimisedBackgroundImageUrl(chapter);
-            chapter.text = chapter.name;
-            return chapter;
-          });
+        return this.chapterLinkListItems.concat(this.creditsLinkListItem).filter(Boolean);
       }
     },
 
