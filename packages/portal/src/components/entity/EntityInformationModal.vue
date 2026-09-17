@@ -7,7 +7,7 @@
     title-tag="h2"
   >
     <template #modal-title>
-      <span :lang="langAttribute(title.code)">
+      <span :lang="langAttribute(title.code, $i18n.locale)">
         {{ title.values[0] }}
       </span>
     </template>
@@ -23,7 +23,7 @@
         </span>
         <span
           class="semibold"
-          :lang="langAttribute(info.lang)"
+          :lang="langAttribute(info.lang, $i18n.locale)"
         >
           <b-link
             v-if="isUrl(info.value)"
@@ -64,7 +64,7 @@
 </template>
 
 <script>
-  import langAttributeMixin from '@/mixins/langAttribute';
+  import { langAttribute } from '@/utils/langAttribute.js';
   import { isLangMap, langMapValueForLocale } from '@europeana/i18n';
 
   export default {
@@ -73,8 +73,6 @@
     components: {
       EntityBadges: () => import('./EntityBadges')
     },
-
-    mixins: [langAttributeMixin],
 
     props: {
       modalStatic: {
@@ -161,6 +159,7 @@
     },
 
     methods: {
+      langAttribute,
       isUrl(value) {
         return /^https?:\/\//.test(value);
       }

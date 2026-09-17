@@ -27,7 +27,7 @@
           <span
             v-else
             data-qa="data provider name"
-            :lang="langAttribute(namePrefLanguage)"
+            :lang="langAttribute(namePrefLanguage, $i18n.locale)"
           >
             {{ displayName }}
           </span>
@@ -51,7 +51,7 @@
   import collectionLinkGenMixin from '@/mixins/collectionLinkGen';
   import { collectionTitle } from '@/utils/europeana/entities/entityLinks';
   import itemPrefLanguage from '@/mixins/europeana/item/itemPrefLanguage';
-  import langAttributeMixin from '@/mixins/langAttribute';
+  import { langAttribute } from '@/utils/langAttribute.js';
 
   import LinkBadge from '../generic/LinkBadge';
 
@@ -64,7 +64,6 @@
     },
     mixins: [
       itemPrefLanguage,
-      langAttributeMixin,
       collectionLinkGenMixin
     ],
     props: {
@@ -104,6 +103,7 @@
 
     methods: {
       collectionTitle,
+      langAttribute,
       isEntityUri(uri) {
         return isEntityUri(uri);
       },

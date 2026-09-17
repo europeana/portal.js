@@ -48,10 +48,10 @@
           :destination="entityRoute(data.item.slug)"
         >
           <template v-if="isOrganisationsType">
-            <strong :lang="langAttribute(data.item.prefLabelLang)">{{ data.item.prefLabel }}</strong>
+            <strong :lang="langAttribute(data.item.prefLabelLang, $i18n.locale)">{{ data.item.prefLabel }}</strong>
             <span
               v-if="data.item.altLabel"
-              :lang="langAttribute(data.item.altLabelLang)"
+              :lang="langAttribute(data.item.altLabelLang, $i18n.locale)"
               class="subtitle"
             >
               {{ data.item.altLabel }}
@@ -119,7 +119,7 @@
   import LoadingSpinner from '../generic/LoadingSpinner';
   import PaginationNavInput from '@/components/generic/PaginationNavInput';
   import SmartLink from '../generic/SmartLink';
-  import langAttributeMixin from '@/mixins/langAttribute';
+  import { langAttribute } from '@/utils/langAttribute.js';
   import { backendFetch } from '@/utils/backendFetch.js';
 
   export default {
@@ -133,10 +133,6 @@
       PaginationNavInput,
       SmartLink
     },
-
-    mixins: [
-      langAttributeMixin
-    ],
 
     props: {
       /**
@@ -332,6 +328,7 @@
     },
 
     methods: {
+      langAttribute,
       isCollectionFocused(collection) {
         return collection.numericId === this.$route.query.show;
       },

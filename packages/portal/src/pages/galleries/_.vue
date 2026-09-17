@@ -22,13 +22,13 @@
               {{ $tc('galleries.galleries', 1) }}
             </div>
             <h1
-              :lang="langAttribute(displayTitle.code)"
+              :lang="langAttribute(displayTitle.code, $i18n.locale)"
             >
               {{ displayTitle.values[0] }}
             </h1>
             <p
               class="usergallery-description mb-3 w-75"
-              :lang="langAttribute(displayDescription.code)"
+              :lang="langAttribute(displayDescription.code, $i18n.locale)"
             >
               {{ displayDescription.values[0] }}
             </p>
@@ -147,7 +147,7 @@
   import { usePinnedItems } from '@/composables/pinnedItems.js';
   import useScrollTo from '@/composables/scrollTo.js';
   import { useSelectedItems } from '@/composables/selectedItems.js';
-  import langAttributeMixin from '@/mixins/langAttribute';
+  import { langAttribute } from '@/utils/langAttribute.js';
   import pageMetaMixin from '@/mixins/pageMeta';
   import { redirectToPrefPath } from '@/utils/redirect/redirectToPrefPath.js';
 
@@ -165,7 +165,6 @@
 
     },
     mixins: [
-      langAttributeMixin,
       pageMetaMixin
     ],
     provide() {
@@ -302,6 +301,7 @@
     },
 
     methods: {
+      langAttribute,
       async fetchSet() {
         const [setResponse, itemsResponse] = await Promise.all([
           this.$apis.set.get(this.setId),

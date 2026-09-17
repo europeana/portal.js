@@ -29,7 +29,7 @@
           <li
             v-for="(nestedValue, nestedIndex) of value.values"
             :key="index + '_' + nestedIndex"
-            :lang="langAttribute(value.code)"
+            :lang="langAttribute(value.code, $i18n.locale)"
             :data-qa="fieldData.url ? 'entity link' : 'entity value'"
           >
             <SmartLink
@@ -51,14 +51,14 @@
           :data-value="value"
           :name="name"
           :text="value"
-          :lang="langAttribute(langMappedValues.code)"
+          :lang="langAttribute(langMappedValues.code, $i18n.locale)"
           tag="li"
           data-qa="de-bias term"
         />
         <li
           v-else
           :key="index"
-          :lang="langAttribute(langMappedValues.code)"
+          :lang="langAttribute(langMappedValues.code, $i18n.locale)"
           data-qa="literal value"
           :class="{ 'colour-swatch-list-item': isColourValue }"
         >
@@ -105,7 +105,7 @@
   import MetadataOriginLabel from './MetadataOriginLabel';
   import SmartLink from '../generic/SmartLink';
   import itemPrefLanguageMixin from '@/mixins/europeana/item/itemPrefLanguage';
-  import langAttributeMixin from '@/mixins/langAttribute';
+  import { langAttribute } from '@/utils/langAttribute.js';
 
   export default {
     name: 'MetadataField',
@@ -119,8 +119,7 @@
     },
 
     mixins: [
-      itemPrefLanguageMixin,
-      langAttributeMixin
+      itemPrefLanguageMixin
     ],
 
     inject: ['deBias', 'metadataLanguage'],
@@ -256,6 +255,7 @@
     },
 
     methods: {
+      langAttribute,
       isNumberValue(value) {
         return typeof value === 'number';
       },

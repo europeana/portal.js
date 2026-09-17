@@ -4,7 +4,7 @@
   >
     <template #label>
       <span
-        :lang="langAttribute(localisedLabel.code)"
+        :lang="langAttribute(localisedLabel.code, $i18n.locale)"
       >
         {{ localisedLabel.values[0] }}
       </span>
@@ -14,7 +14,7 @@
 </template>
 
 <script>
-  import langAttributeMixin from '@/mixins/langAttribute';
+  import { langAttribute } from '@/utils/langAttribute.js';
   import { langMapValueForLocale } from '@europeana/i18n';
   import EmbedEuropeanaMap from '@/components/embed/EmbedEuropeanaMap.vue';
 
@@ -24,8 +24,6 @@
     components: {
       EmbedEuropeanaMap
     },
-
-    mixins: [langAttributeMixin],
 
     props: {
       location: {
@@ -72,6 +70,10 @@
         const longitudeSymbol = this.longitude < 0 ? 'W' : 'E';
         return `${this.latitude}° ${latitudeSymbol} ${this.longitude}° ${longitudeSymbol}`;
       }
+    },
+
+    methods: {
+      langAttribute
     }
   };
 </script>
