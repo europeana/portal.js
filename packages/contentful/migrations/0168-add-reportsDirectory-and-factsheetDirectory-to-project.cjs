@@ -14,7 +14,7 @@ module.exports = function(migration) {
 
   project
     .createField('reportsDirectory')
-    .name('Text')
+    .name('Reports Directory')
     .type('Symbol')
     .localized(false)
     .required(false)
@@ -26,7 +26,7 @@ module.exports = function(migration) {
 
   project
     .createField('factsheetDirectory')
-    .name('Text')
+    .name('Factsheet Directory')
     .type('Symbol')
     .localized(false)
     .required(false)
