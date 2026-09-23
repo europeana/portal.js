@@ -13,8 +13,8 @@ module.exports = function(migration) {
   const project = migration.editContentType('project');
 
   project
-    .createField('reportsDirectory')
-    .name('Reports Directory')
+    .createField('reportsLink')
+    .name('Reports Link')
     .type('Symbol')
     .localized(false)
     .required(false)
@@ -22,11 +22,11 @@ module.exports = function(migration) {
     .disabled(false)
     .omitted(false);
 
-  project.changeFieldControl('reportsDirectory', 'app', process.env.DOCUMENT_LINKER_APP_ID, { url: process.env.DOCUMENT_LINKER_FILESERVER_URL });
+  project.changeFieldControl('reportsLink', 'app', process.env.DOCUMENT_LINKER_APP_ID, { url: process.env.DOCUMENT_LINKER_FILESERVER_URL });
 
   project
-    .createField('factsheetDirectory')
-    .name('Factsheet Directory')
+    .createField('factsheetLink')
+    .name('Factsheet Link')
     .type('Symbol')
     .localized(false)
     .required(false)
@@ -34,5 +34,5 @@ module.exports = function(migration) {
     .disabled(false)
     .omitted(false);
 
-  project.changeFieldControl('factsheetDirectory', 'app', process.env.DOCUMENT_LINKER_APP_ID, { url: process.env.DOCUMENT_LINKER_FILESERVER_URL });
+  project.changeFieldControl('factsheetLink', 'app', process.env.DOCUMENT_LINKER_APP_ID, { url: process.env.DOCUMENT_LINKER_FILESERVER_URL });
 };
