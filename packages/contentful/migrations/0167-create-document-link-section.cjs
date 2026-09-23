@@ -10,15 +10,15 @@ module.exports = function(migration) {
     process.exit(1);
   }
 
-  const documentSection = migration
-    .createContentType('documentSection')
-    .name('Document Section')
+  const documentLinkSection = migration
+    .createContentType('documentLinkSection')
+    .name('Document Link Section')
     .description(
       'Section'
     )
     .displayField('identifier');
 
-  documentSection
+  documentLinkSection
     .createField('identifier')
     .name('Name')
     .type('Symbol')
@@ -32,7 +32,7 @@ module.exports = function(migration) {
     .disabled(false)
     .omitted(false);
 
-  documentSection
+  documentLinkSection
     .createField('headline')
     .name('Label')
     .type('Symbol')
@@ -42,9 +42,9 @@ module.exports = function(migration) {
     .disabled(false)
     .omitted(false);
 
-  documentSection
-    .createField('target')
-    .name('Target')
+  documentLinkSection
+    .createField('link')
+    .name('Link')
     .type('Symbol')
     .localized(false)
     .required(true)
@@ -52,7 +52,7 @@ module.exports = function(migration) {
     .disabled(false)
     .omitted(false);
 
-  documentSection.changeFieldControl(
+  documentLinkSection.changeFieldControl(
     'identifier',
     'builtin',
     'singleLine',
@@ -61,7 +61,7 @@ module.exports = function(migration) {
     }
   );
 
-  documentSection.changeFieldControl('target', 'app', process.env.DOCUMENT_LINKER_APP_ID, { url: process.env.DOCUMENT_LINKER_FILESERVER_URL });
+  documentLinkSection.changeFieldControl('link', 'app', process.env.DOCUMENT_LINKER_APP_ID, { url: process.env.DOCUMENT_LINKER_FILESERVER_URL });
 
   const blogPosting = migration.editContentType('blogPosting');
 
@@ -70,7 +70,7 @@ module.exports = function(migration) {
       type: 'Link',
       validations: [
         {
-          linkContentType: ['cardGroup', 'documentSection', 'embed', 'imageComparison', 'imageWithAttribution', 'link', 'richText']
+          linkContentType: ['cardGroup', 'documentLinkSection', 'embed', 'imageComparison', 'imageWithAttribution', 'link', 'richText']
         }
       ],
       linkType: 'Entry'
