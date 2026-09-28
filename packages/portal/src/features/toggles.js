@@ -5,6 +5,5 @@ export default [
   { name: 'mockTrendingItems' },
   { name: 'modelViewer' },
   { name: 'modelViewerReplacesOembed' },
-  { name: 'newApiLandingPageNavLinks' },
   { name: 'organisationsMap' }
 ];

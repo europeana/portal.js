@@ -1087,12 +1087,8 @@ export default {
       "header": {
         "homeLinkAlt": "Europeana APIs home",
         "navigation": {
-          "apiDemo": "API demo",
           "builtWith": "Built with our APIs",
           "canDo": "What you can do with the APIs",
-          "europeanaApis": "Europeana APIs",
-          "faq": "FAQ",
-          "findInspiration": "Find inspiration",
           "getKey": "Get your free API key"
         }
       }
