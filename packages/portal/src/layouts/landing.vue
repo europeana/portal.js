@@ -111,7 +111,7 @@
 
     computed: {
       config() {
-        return configs({ $features: this.$features }).find((config) => [].concat(config.pages).includes(this.pageIdentifier));
+        return configs().find((config) => [].concat(config.pages).includes(this.pageIdentifier));
       }
     }
   };
