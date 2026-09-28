@@ -40,20 +40,15 @@
   import ProvideCanonicalUrl from '@/components/provide/ProvideCanonicalUrl';
   import versions from '../../pkg-versions';
 
-  const configs = (ctx) => [
+  const configs = () => [
     {
       pages: 'apis',
       header: {
         logoSrc: require('@europeana/style/img/landing/apis-logo.svg'),
-        navigationLinks: ctx.$features.newApiLandingPageNavLinks ? [
+        navigationLinks: [
           { url: '#what-you-can-do-with-the-ap-is', i18nPath: 'landing.apis.header.navigation.canDo' },
           { url: '#built-with-our-ap-is', i18nPath: 'landing.apis.header.navigation.builtWith' },
-          { url: 'https://www.europeana.eu/en/account/api-keys', i18nPath: 'landing.apis.header.navigation.getKey' }
-        ] : [
-          { url: '#europeana-ap-is-and-how-they-work-together', i18nPath: 'landing.apis.header.navigation.europeanaApis' },
-          { url: '#try-it-out', i18nPath: 'landing.apis.header.navigation.apiDemo' },
-          { url: '#find-inspiration', i18nPath: 'landing.apis.header.navigation.findInspiration' },
-          { url: '#frequently-asked-questions-faq', i18nPath: 'landing.apis.header.navigation.faq' }
+          { url: 'https://www.europeana.eu/account/api-keys', i18nPath: 'landing.apis.header.navigation.getKey' }
         ]
       },
       footer: {
@@ -116,7 +111,7 @@
 
     computed: {
       config() {
-        return configs({ $features: this.$features }).find((config) => [].concat(config.pages).includes(this.pageIdentifier));
+        return configs().find((config) => [].concat(config.pages).includes(this.pageIdentifier));
       }
     }
   };
