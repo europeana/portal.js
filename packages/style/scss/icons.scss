@@ -101,6 +101,10 @@
   content: '\e924';
 }
 
+.icon-download-circle:before {
+  content: '\e97d';
+}
+
 .icon-edit::before {
   content: '\e94c';
 }
@@ -129,12 +133,16 @@
   content: '\e933';
 }
 
-.icon-file::before {
-  content: '\e94d';
+.icon-file:before {
+  content: '\e97b';
 }
 
 .icon-filter::before {
   content: '\e948';
+}
+
+.icon-folder:before {
+  content: '\e97c';
 }
 
 .icon-fullscreen:before {
