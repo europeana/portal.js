@@ -90,6 +90,7 @@
             dcDescriptionLangAware: { en: [dataset.description] },
             dcTitleLangAware: { en: [dataset.title] },
             rights: [dataset.license],
+            route: { name: 'datasets-all', params: { pathMatch: dataset['@id'] } },
             type: dataset.contentCategory
           };
         });
