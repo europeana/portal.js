@@ -254,7 +254,7 @@
         return this.sections?.filter((section) => section['__typename'] === 'TopicGroup');
       },
       relatedTopics() {
-        return this.relatedTopicsEntityGroups.length > 0 ? this.relatedTopicsEntityGroups : this.relatedTopicsTopicGroups;
+        return this.relatedTopicsEntityGroups?.length > 0 ? this.relatedTopicsEntityGroups : this.relatedTopicsTopicGroups;
       },
       relatedPersonsEntityGroup() {
         return this.sections?.find((section) => {
