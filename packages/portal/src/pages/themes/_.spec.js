@@ -24,8 +24,8 @@ const themePageContentfulResponse = () => ({
       },
       hasPartCollection: {
         items: [
-          { '__typename': 'TopicGroup' },
-          { '__typename': 'Personroup' },
+          { '__typename': 'EntityGroup', hasPart: ['http://data.europeana.eu/concept/1'] },
+          { '__typename': 'EntityGroup', hasPart: ['http://data.europeana.eu/agent/1'] },
           { '__typename': 'GalleryGroup' },
           { '__typename': 'PrimaryCallToAction' },
           { '__typename': 'CardGroup',
@@ -138,14 +138,26 @@ describe('pages/themes/_', () => {
   });
 
   describe('when there are multiple related topics sections', () => {
-    it('shows two related collections sections', async() => {
+    it('shows those sections as entity badges', async() => {
       const contentfulResponse = themePageContentfulResponse();
-      contentfulResponse.data.themePage.items[0].hasPartCollection.items.push({ '__typename': 'TopicGroup' });
+      contentfulResponse.data.themePage.items[0].hasPartCollection.items.push({ '__typename': 'EntityGroup', hasPart: ['http://data.europeana.eu/concept/2'] });
       const wrapper = factory({ contentfulResponse });
 
       await wrapper.vm.$fetch();
 
       expect(wrapper.findAll('entitybadges-stub').length).toBe(2);
+    });
+  });
+
+  describe('when there are multiple related persons sections', () => {
+    it('shows only the first, as an entity card group', async() => {
+      const contentfulResponse = themePageContentfulResponse();
+      contentfulResponse.data.themePage.items[0].hasPartCollection.items.push({ '__typename': 'EntityGroup', hasPart: ['http://data.europeana.eu/agent/2'] });
+      const wrapper = factory({ contentfulResponse });
+
+      await wrapper.vm.$fetch();
+
+      expect(wrapper.findAll('entitycardgroup-stub').length).toBe(1);
     });
   });
 });
