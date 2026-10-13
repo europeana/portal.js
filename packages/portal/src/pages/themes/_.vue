@@ -242,7 +242,7 @@
       sections() {
         return this.hasPartCollection?.items?.length && this.hasPartCollection.items.filter(section => !!section);
       },
-      relatedTopicsEntityGroups() {
+      relatedTopics() {
         return this.sections?.filter((section) => {
           if (section['__typename'] === 'EntityGroup') {
             return section.hasPart.every((part) => part?.includes?.('/concept/'));
@@ -250,25 +250,13 @@
           return false;
         });
       },
-      relatedTopicsTopicGroups() {
-        return this.sections?.filter((section) => section['__typename'] === 'TopicGroup');
-      },
-      relatedTopics() {
-        return this.relatedTopicsEntityGroups?.length > 0 ? this.relatedTopicsEntityGroups : this.relatedTopicsTopicGroups;
-      },
-      relatedPersonsEntityGroup() {
+      relatedPersons() {
         return this.sections?.find((section) => {
           if (section['__typename'] === 'EntityGroup') {
             return section.hasPart.every((part) => part?.includes?.('/agent/'));
           }
           return false;
         });
-      },
-      relatedPersonsPersonGroup() {
-        return this.sections?.find((section) => section['__typename'] === 'PersonGroup');
-      },
-      relatedPersons() {
-        return this.relatedPersonsEntityGroup || this.relatedPersonsPersonGroup;
       },
       relatedGalleries() {
         return this.sections?.find((section) => section['__typename'] === 'GalleryGroup');

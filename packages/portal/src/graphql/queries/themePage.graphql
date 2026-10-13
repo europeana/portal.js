@@ -25,14 +25,6 @@ query ThemePage($locale: String!, $identifier: String!, $preview: Boolean = fals
             headline
             hasPart
           }
-          ... on TopicGroup {
-            headline
-            hasPart
-          }
-          ... on PersonGroup {
-            headline
-            hasPart
-          }
           ... on GalleryGroup {
             headline
             hasPart
