@@ -242,20 +242,42 @@
       sections() {
         return this.hasPartCollection?.items?.length && this.hasPartCollection.items.filter(section => !!section);
       },
+      relatedTopicsEntityGroups() {
+        return this.sections?.filter((section) => {
+          if (section['__typename'] === 'EntityGroup') {
+            return section.hasPart.every((part) => part?.includes?.('/concept/'));
+          }
+          return false;
+        });
+      },
+      relatedTopicsTopicGroups() {
+        return this.sections?.filter((section) => section['__typename'] === 'TopicGroup');
+      },
       relatedTopics() {
-        return this.sections?.filter(section => section['__typename'] === 'TopicGroup');
+        return this.relatedTopicsEntityGroups?.length > 0 ? this.relatedTopicsEntityGroups : this.relatedTopicsTopicGroups;
+      },
+      relatedPersonsEntityGroup() {
+        return this.sections?.find((section) => {
+          if (section['__typename'] === 'EntityGroup') {
+            return section.hasPart.every((part) => part?.includes?.('/agent/'));
+          }
+          return false;
+        });
+      },
+      relatedPersonsPersonGroup() {
+        return this.sections?.find((section) => section['__typename'] === 'PersonGroup');
       },
       relatedPersons() {
-        return this.sections?.filter(section => section['__typename'] === 'PersonGroup')[0];
+        return this.relatedPersonsEntityGroup || this.relatedPersonsPersonGroup;
       },
       relatedGalleries() {
-        return this.sections?.filter(section => section['__typename'] === 'GalleryGroup')[0];
+        return this.sections?.find((section) => section['__typename'] === 'GalleryGroup');
       },
       callToAction() {
-        return this.sections?.filter(section => section['__typename'] === 'PrimaryCallToAction')[0];
+        return this.sections?.find((section) => section['__typename'] === 'PrimaryCallToAction');
       },
       curatedItems() {
-        return this.sections?.filter(section => section['__typename'] === 'CardGroup')[0];
+        return this.sections?.find((section) => section['__typename'] === 'CardGroup');
       },
       curatedItemsEncoding() {
         const items = this.curatedItems?.hasPartCollection?.items?.length && this.curatedItems.hasPartCollection.items.filter(item => !!item);

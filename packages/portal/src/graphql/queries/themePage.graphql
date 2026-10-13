@@ -21,6 +21,10 @@ query ThemePage($locale: String!, $identifier: String!, $preview: Boolean = fals
       hasPartCollection {
         items {
           __typename
+          ... on EntityGroup {
+            headline
+            hasPart
+          }
           ... on TopicGroup {
             headline
             hasPart
