@@ -1,6 +1,6 @@
 {
   "name": "@europeana/contentful",
-  "version": "2.39.3",
+  "version": "2.39.4",
   "description": "",
   "main": "index.js",
   "scripts": {
