@@ -291,6 +291,11 @@ Example:
           <td><span class="icon icon-linkedin" /></td>
         </tr>
         <tr>
+          <td>LinkedIn circle</td>
+          <td><code>icon-linkedin-circle</code></td>
+          <td><span class="icon icon-linkedin-circle" /></td>
+        </tr>
+        <tr>
           <td>Location</td>
           <td><code>icon-location</code></td>
           <td><span class="icon icon-location" /></td>
@@ -345,6 +350,11 @@ Example:
           <td><code>icon-partner</code></td>
           <td><span class="icon icon-partner" /></td>
         </tr> 
+        <tr>
+          <td>Person Placeholder</td>
+          <td><code>icon-person-placeholder</code></td>
+          <td><span class="icon icon-person-placeholder" /></td>
+        </tr>
         <tr>
           <td>Pinterest</td>
           <td><code>icon-pinterest</code></td>

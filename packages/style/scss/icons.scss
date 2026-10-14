@@ -221,6 +221,11 @@
   content: '\eaca';
 }
 
+.icon-linkedin-circle::before {
+  content: '\e97e';
+}
+
+
 .icon-location::before {
   content: '\e97a';
 }
@@ -263,6 +268,10 @@
 
 .icon-partner:before {
   content: '\e972';
+}
+
+.icon-person-placeholder:before {
+  content: '\e94d';
 }
 
 .icon-pinterest::before {
