@@ -1,9 +1,9 @@
 
 module.exports = function(migration) {
   const personGroup = migration.createContentType('personGroup')
-    .name('People Section')
+    .name('Person group')
     .description(
-      'Grouping of europeana person entriess.'
+      'Group of person entries.'
     )
     .displayField('identifier');
 
