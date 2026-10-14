@@ -1,6 +1,6 @@
 {
   "name": "@europeana/contentful",
-  "version": "2.39.2",
+  "version": "2.39.5",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -17,10 +17,10 @@
     "Leonie Peters <leonie.peters@europeana.eu>"
   ],
   "dependencies": {
-    "@europeana/portal": "^2.39.2",
+    "@europeana/portal": "^2.39.5",
     "axios": "^0.21.4",
     "chalk": "^2.4.1",
-    "contentful-cli": "^3.9.9",
+    "contentful-cli": "^4.0.11",
     "imurmurhash": "^0.1.4",
     "inquirer": "^8.0.0",
     "log-update": "^4.0.0"
