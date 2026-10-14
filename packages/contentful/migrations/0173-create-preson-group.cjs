@@ -1,13 +1,13 @@
 
 module.exports = function(migration) {
-  const contactGroup = migration.createContentType('contactGroup')
+  const personGroup = migration.createContentType('personGroup')
     .name('People Section')
     .description(
-      'Grouping of europeana contacts. Aggregates person entries.'
+      'Grouping of europeana person entriess.'
     )
     .displayField('identifier');
 
-  contactGroup
+  personGroup
     .createField('identifier')
     .name('Name')
     .type('Symbol')
@@ -21,7 +21,7 @@ module.exports = function(migration) {
     .disabled(false)
     .omitted(false);
 
-  contactGroup
+  personGroup
     .createField('headline')
     .name('Title')
     .type('Symbol')
@@ -31,7 +31,7 @@ module.exports = function(migration) {
     .disabled(false)
     .omitted(false);
 
-  contactGroup
+  personGroup
     .createField('hasPart')
     .name('People')
     .type('Array')
@@ -52,7 +52,7 @@ module.exports = function(migration) {
       linkType: 'Entry'
     });
 
-  contactGroup.changeFieldControl(
+  personGroup.changeFieldControl(
     'identifier',
     'builtin',
     'singleLine',
@@ -68,7 +68,7 @@ module.exports = function(migration) {
       type: 'Link',
       validations: [
         {
-          linkContentType: ['cardGroup', 'documentLinkSection', 'embed', 'imageComparison', 'imageWithAttribution', 'link', 'contactGroup', 'richText']
+          linkContentType: ['cardGroup', 'documentLinkSection', 'embed', 'imageComparison', 'imageWithAttribution', 'link', 'personGroup', 'richText']
         }
       ],
       linkType: 'Entry'
@@ -88,7 +88,7 @@ module.exports = function(migration) {
           'imageCardGroup',
           'infoCardGroup',
           'landingSubSection',
-          'contactGroup',
+          'personGroup',
           'primaryCallToAction',
           'testimonialCardGroup'
         ]
@@ -109,7 +109,7 @@ module.exports = function(migration) {
           'illustrationGroup',
           'infoCardGroup',
           'imageCard',
-          'contactGroup',
+          'personGroup',
           'testimonialCardGroup'
         ]
       }
