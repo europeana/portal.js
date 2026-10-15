@@ -42,6 +42,20 @@ describe('components/person/PersonCard', () => {
     });
   });
 
+  describe('when loading the image throws an error', () => {
+    it('renders a fallback image', async() => {
+      const wrapper = factory({ image: { url: 'invalid', width: 0, height: 0 } });
+
+      expect(wrapper.find('imageoptimised-stub').exists()).toBe(true);
+
+      wrapper.find('imageoptimised-stub').vm.$emit('error');
+      await wrapper.vm.$nextTick();
+
+      expect(wrapper.find('imageoptimised-stub').exists()).toBe(false);
+      expect(wrapper.find('.person-fallback-image').isVisible()).toBe(true);
+    });
+  });
+
   describe('when there is an email', () => {
     it('renders an e-mail button link', () => {
       const wrapper = factory({ email: 'info@example.eu' });

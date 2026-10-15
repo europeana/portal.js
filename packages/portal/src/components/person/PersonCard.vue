@@ -129,9 +129,8 @@
     },
 
     methods: {
-      // FIXME: actually handle broken image
       imageNotFound() {
-        this.imageError = false;
+        this.imageError = true;
       }
     }
   };
