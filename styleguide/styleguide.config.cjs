@@ -113,6 +113,7 @@ module.exports = async() => {
           'Item',
           'Landing',
           'Page',
+          'Person',
           'Related',
           'Search',
           'Set',
