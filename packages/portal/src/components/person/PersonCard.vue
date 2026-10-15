@@ -137,7 +137,7 @@
 </script>
 
 <style lang="scss" scoped>
-@import "@europeana/style/scss/variables";
+@import '@europeana/style/scss/variables';
 
 .person-card {
   --bp-4k-increment: 1.5;
@@ -173,7 +173,7 @@
 }
 
 .person-image {
-  :deep(img) {
+  ::v-deep img {
     width: 7.5rem;
     height: 7.5rem;
     margin-bottom: 0.875rem;
@@ -199,6 +199,15 @@
 
     @media (min-width: $bp-4k) {
       line-height: calc(var(--bp-4k-increment) * 1rem);
+    }
+
+    span {
+      background-color: $white;
+      line-height: 1rem;
+
+      @media (min-width: $bp-4k) {
+        line-height: calc(var(--bp-4k-increment) * 1rem);
+      }
     }
 
     &.email-btn {
@@ -241,15 +250,6 @@
           width: calc(var(--bp-4k-increment) * 1.25rem);
           height: calc(var(--bp-4k-increment) * 1.25rem);
         }
-      }
-    }
-
-    span {
-      background-color: $white;
-      line-height: 1rem;
-
-      @media (min-width: $bp-4k) {
-        line-height: calc(var(--bp-4k-increment) * 1rem);
       }
     }
   }
