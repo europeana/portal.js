@@ -122,7 +122,16 @@
       itemPrefLanguageMixin
     ],
 
-    inject: ['deBias', 'metadataLanguage'],
+    inject: {
+      deBias: {
+        from: 'deBias',
+        default: null
+      },
+      metadataLanguage: {
+        from: 'metadataLanguage',
+        default: null
+      }
+    },
 
     props: {
       name: {
@@ -204,7 +213,7 @@
       },
 
       isDeBiased() {
-        return !!this.deBias.terms[this.name];
+        return !!this.deBias?.terms?.[this.name];
       },
 
       limitDisplayValues() {

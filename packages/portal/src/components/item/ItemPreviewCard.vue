@@ -231,7 +231,7 @@
       },
 
       url() {
-        return {
+        return this.item.route || {
           hash: this.routeHash,
           name: 'item-all',
           params: { pathMatch: this.identifier.slice(1) },
