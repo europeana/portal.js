@@ -67,7 +67,9 @@ export default {
         width: 1197,
         height: 1440,
         contentType: 'image/jpeg'
-      }
+      },
+      name: 'Frida Kahlo',
+      role: 'painter'
     }
   ],
   thumbnails: [
