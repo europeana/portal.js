@@ -60,7 +60,7 @@ export default {
     type: 'IMAGE',
     rights: ['http://creativecommons.org/licenses/by-sa/3.0/']
   },
-  person: [
+  people: [
     {
       image: {
         url: 'https://images.ctfassets.net/i01duvb6kq77/6Vt46SoVI8pdRk6HA5w3Ju/3d7330ce71595fe07baec7f23f8eb170/Frida_Kahlo__by_Guillermo_Kahlo__cropped_.jpg',
@@ -69,7 +69,15 @@ export default {
         contentType: 'image/jpeg'
       },
       name: 'Frida Kahlo',
-      role: 'painter'
+      role: 'painter',
+      email: 'frida@example.org',
+      website: 'https://www.linkedin.com/frida'
+    },
+    {
+      name: 'Mr. E. Persoon',
+      role: 'Enigma',
+      email: 'mr.e@example.org',
+      website: 'https://www.linkedin.com/mr.e'
     }
   ],
   thumbnails: [

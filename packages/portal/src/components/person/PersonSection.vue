@@ -5,9 +5,12 @@
       v-if="title || description"
       class="row text-center mb-4 mb-4k-5"
     >
-      <h2 v-if="title">
+      <component
+        :is="titleTag"
+        v-if="title"
+      >
         {{ title }}
-      </h2>
+      </component>
       <!-- eslint-disable vue/no-v-html -->
       <div
         v-if="description"
@@ -28,11 +31,7 @@
         :name="person.name"
         :role="person.role"
         :email="person.email"
-        :linked-in="
-          /^http(s):\/\/www\.linkedin\.com/.test(person.website)
-            ? person.website
-            : null
-        "
+        :website="person.website"
         :lazy="true"
       />
     </div>
@@ -53,6 +52,13 @@
       title: {
         type: String,
         default: null
+      },
+      /**
+       * Heading title level to use. Override default for when used in subsection to keep correct heading structure.
+       */
+      titleTag: {
+        type: String,
+        default: 'h2'
       },
       /**
        * Description, displays under title.
@@ -82,7 +88,14 @@
   <PersonSection
     title="Person section"
     description="description with _markup_"
-    :people="[person[0],person[0],person[0],person[0],person[0],person[0],person[0]]"
+    :people="[people[0],people[0],people[0],people[0],people[0],people[0],people[0]]"
   />
 ```
+```jsx
+  <PersonSection
+    title="With h4 title override"
+    titleTag="h4"
+    description="description with _markup_"
+    :people="[people[0],people[0],people[0],people[0],people[0],people[0],people[0]]"
+  />
 </docs>

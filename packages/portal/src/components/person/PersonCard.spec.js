@@ -66,7 +66,7 @@ describe('components/person/PersonCard', () => {
 
   describe('when there is a LinkedIn url', () => {
     it('renders a LinkedIn button link', () => {
-      const wrapper = factory({ linkedIn: 'https://www.linkedin.com/profile' });
+      const wrapper = factory({ website: 'https://www.linkedin.com/profile' });
 
       expect(wrapper.find('.linkedin-btn').isVisible()).toBe(true);
     });
