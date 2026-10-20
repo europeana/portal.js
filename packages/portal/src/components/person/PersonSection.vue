@@ -8,9 +8,13 @@
       <h2 v-if="title">
         {{ title }}
       </h2>
-      <p v-if="description">
-        {{ parseMarkdown(description) }}
-      </p>
+      <!-- eslint-disable vue/no-v-html -->
+      <div
+        v-if="description"
+        class="text mb-3"
+        v-html="parseMarkdown(description)"
+      />
+      <!-- eslint-enable vue/no-v-html -->
     </div>
     <div
       class="row justify-content-center mt-4 mt-4k-5 g-4 g-4k-5 row-cols-1 row-cols-md-2 row-cols-lg-4"
