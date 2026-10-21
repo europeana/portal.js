@@ -32,6 +32,18 @@ module.exports = function(migration) {
     .omitted(false);
 
   personGroup
+    .createField('text')
+    .name('Description')
+    .type('Text')
+    .localized(true)
+    .required(false)
+    .validations([])
+    .disabled(false)
+    .omitted(false);
+
+  personGroup.changeFieldControl('text', 'builtin', 'markdown', {});
+
+  personGroup
     .createField('hasPart')
     .name('People')
     .type('Array')
