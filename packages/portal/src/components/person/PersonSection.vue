@@ -3,18 +3,19 @@
   <div class="container">
     <div
       v-if="title || description"
-      class="row text-center mb-4 mb-4k-5"
+      class="row mx-auto mb-4 mb-4k-5"
     >
       <component
         :is="titleTag"
         v-if="title"
+        class="title mx-auto col-12"
       >
         {{ title }}
       </component>
       <!-- eslint-disable vue/no-v-html -->
-      <div
+      <p
         v-if="description"
-        class="text mb-3"
+        class="text col-12 mb-3 mx-auto"
         v-html="parseMarkdown(description)"
       />
       <!-- eslint-enable vue/no-v-html -->
@@ -26,7 +27,7 @@
         v-for="(person, index) in people"
         :id="`person-${index}`"
         :key="index"
-        class="col"
+        class="col mb-5"
         :image="person.image"
         :name="person.name"
         :role="person.role"
@@ -83,11 +84,18 @@
   };
 </script>
 
+<style lang="scss" scoped>
+  @import '@europeana/style/scss/variables';
+  .text, .title {
+    text-align: center;
+  }
+</style>
+
 <docs lang="md">
 ```jsx
   <PersonSection
     title="Person section"
-    description="description with _markup_"
+    description="Description with _markup_."
     :people="[people[0],people[0],people[0],people[0],people[0],people[0],people[0]]"
   />
 ```
@@ -95,7 +103,7 @@
   <PersonSection
     title="With h4 title override"
     titleTag="h4"
-    description="description with _markup_"
+    description="Description with _markup_. This one also has a whole lot of __extra__ text. All of which results in the entire description taking up much more room and ultimately wrapping onto *__multiple lines__* on devices which are otherwise unable to fit the entire text onto a single line. This helps demonstrate what longer multi-line descriptions will look like."
     :people="[people[0],people[0],people[0],people[0],people[0],people[0],people[0]]"
   />
 </docs>

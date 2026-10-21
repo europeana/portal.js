@@ -211,6 +211,8 @@
 
 .buttons-overlay {
   top: 6.5rem;
+  left: 0;
+  right: 0;
 
   @media (min-width: $bp-4k) {
     top: calc(var(--bp-4k-increment) * 6.5rem);
