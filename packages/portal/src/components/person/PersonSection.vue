@@ -33,6 +33,7 @@
         :role="person.role"
         :email="person.email"
         :website="person.website"
+        :show-contact-buttons="showContactButtons"
         :lazy="true"
       />
     </div>
@@ -75,6 +76,13 @@
       people: {
         type: Array,
         required: true
+      },
+      /**
+       * Show or hide person contact buttons
+       */
+      showContactButtons: {
+        type: Boolean,
+        default: true
       }
     },
 
@@ -106,4 +114,14 @@
     description="Description with _markup_. This one also has a whole lot of __extra__ text. All of which results in the entire description taking up much more room and ultimately wrapping onto *__multiple lines__* on devices which are otherwise unable to fit the entire text onto a single line. This helps demonstrate what longer multi-line descriptions will look like."
     :people="[people[0],people[0],people[0],people[0],people[0],people[0],people[0]]"
   />
+```
+```jsx
+  <PersonSection
+    title="Without contact buttons"
+    titleTag="h4"
+    description="Description with _markup_."
+    :showContactButtons="false"
+    :people="[people[0],people[0],people[0],people[0],people[0],people[0],people[0]]"
+  />
+```
 </docs>
