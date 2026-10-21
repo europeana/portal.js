@@ -153,8 +153,7 @@
       },
       isLinkedInUrl(url) {
         return /^http(s):\/\/www\.linkedin\.com/.test(url);
-      },
-
+      }
     }
   };
 </script>
