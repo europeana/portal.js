@@ -18,7 +18,7 @@
       class="icon-person-placeholder person-fallback-image mx-auto"
     />
     <div
-      v-if="email || linkedIn"
+      v-if="renderButtons"
       class="buttons-overlay position-absolute w-100 mx-auto"
     >
       <SmartLink
@@ -34,10 +34,10 @@
         />
       </SmartLink>
       <SmartLink
-        v-if="linkedIn"
+        v-if="linkedInProfile"
         v-b-tooltip.top="linkedInLabel"
         class="btn btn-light-flat linkedin-btn"
-        :destination="linkedIn"
+        :destination="linkedInProfile"
         :hide-external-icon="true"
         :aria-label="linkedInLabel"
       >
@@ -102,9 +102,10 @@
         default: null
       },
       /**
-       * LinkedIn profile of the person
+       * Website link, if it is a LinkedIn URL
+       * it will display via an icon button.
        */
-      linkedIn: {
+      website: {
         type: String,
         default: null
       },
@@ -112,6 +113,13 @@
        * If `true`, image will be lazy-loaded
        */
       lazy: {
+        type: Boolean,
+        default: true
+      },
+      /**
+       * Show or hide person contact buttons
+       */
+      showContactButtons: {
         type: Boolean,
         default: true
       }
@@ -127,10 +135,24 @@
         linkedInLabel: this.$t('actions.linkedIn')
       };
     },
+    computed: {
+      linkedInProfile() {
+        return this.isLinkedInUrl(this.website) ? this.website : undefined;
+      },
+      contactDataExists() {
+        return this.email || this.linkedInProfile;
+      },
+      renderButtons() {
+        return this.showContactButtons && this.contactDataExists;
+      }
+    },
 
     methods: {
       imageNotFound() {
         this.imageError = true;
+      },
+      isLinkedInUrl(url) {
+        return /^http(s):\/\/www\.linkedin\.com/.test(url);
       }
     }
   };
@@ -188,6 +210,8 @@
 
 .buttons-overlay {
   top: 6.5rem;
+  left: 0;
+  right: 0;
 
   @media (min-width: $bp-4k) {
     top: calc(var(--bp-4k-increment) * 6.5rem);
@@ -275,49 +299,48 @@
 <docs lang="md">
 ```jsx
   <PersonCard
-    :image="person[0].image"
-    name="Frida Kahlo"
-    role="painter"
+    :image="people[0].image"
+    :name="people[0].name"
+    :role="people[0].role"
   />
 ```
 
 With buttons
 ```jsx
   <PersonCard
-    :image="person[0].image"
-    name="Frida Kahlo"
-    role="painter"
-    email="frida@example.org"
-    linked-in="https://www.linkedin.com/frida"
+    :image="people[0].image"
+    :name="people[0].name"
+    :role="people[0].role"
+    :email="people[0].email"
+    :website="people[0].website"
   />
 ```
 
 With email button
 ```jsx
   <PersonCard
-    :image="person[0].image"
-    name="Frida Kahlo"
-    role="painter"
-    email="frida@example.org"
+    :image="people[0].image"
+    :name="people[0].name"
+    :role="people[0].role"
+    :email="people[0].email"
   />
 ```
 
 With fallback image
 ```jsx
   <PersonCard
-    name="Frida Kahlo"
-    role="painter"
-
+    :name="people[1].name"
+    :role="people[1].role"
   />
 ```
 
 With fallback image and buttons
 ```jsx
   <PersonCard
-    name="Frida Kahlo"
-    role="painter"
-    email="frida@example.org"
-    linked-in="https://www.linkedin.com/frida"
+    :name="people[1].name"
+    :role="people[1].role"
+    :email="people[1].email"
+    :website="people[1].website"
   />
 ```
 </docs>
