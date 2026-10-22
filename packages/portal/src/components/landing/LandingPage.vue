@@ -101,7 +101,7 @@
       LandingImageCardGroup: () => import('./LandingImageCardGroup'),
       LandingSubSection: () => import('./LandingSubSection'),
       LandingEmbed: () => import('./LandingEmbed'),
-      PersonSection: () => import('@/components/Person/PersonSection')
+      PersonSection: () => import('@/components/person/PersonSection')
     },
 
     props: {

@@ -74,7 +74,7 @@
       LandingIllustrationGroup: () => import('@/components/landing/LandingIllustrationGroup'),
       LandingImageCard: () => import('@/components/landing/LandingImageCard'),
       LandingInfoCardGroup: () => import('@/components/landing/LandingInfoCardGroup'),
-      PersonSection: () => import('@/components/Person/PersonSection')
+      PersonSection: () => import('@/components/person/PersonSection')
     },
 
     props: {
