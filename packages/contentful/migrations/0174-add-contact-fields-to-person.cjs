@@ -1,15 +1,6 @@
 
 module.exports = function(migration) {
   const person = migration.editContentType('person');
-  person
-    .createField('affiliation')
-    .name('Organisation')
-    .type('Symbol')
-    .localized(true)
-    .required(false)
-    .validations([])
-    .disabled(false)
-    .omitted(false);
 
   person
     .createField('image')
@@ -86,11 +77,6 @@ module.exports = function(migration) {
     ])
     .disabled(false)
     .omitted(false);
-
-  person.changeFieldControl('affiliation', 'builtin', 'singleLine', {
-    helpText:
-      'The English value is the default value for all other locales. An English label must be provided as a fallback, otherwise the organisation will only show when using the language(s) where it is specified.',
-  });
 
   person.changeFieldControl('image', 'builtin', 'assetLinkEditor', {});
   person.changeFieldControl('email', 'builtin', 'singleLine', {});
