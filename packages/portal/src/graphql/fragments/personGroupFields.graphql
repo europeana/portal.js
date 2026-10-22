@@ -1,0 +1,19 @@
+#import "./imageFields.graphql"
+
+fragment personGroupFields on PersonGroup {
+  headline
+  text
+  hasPartCollection {
+    items {
+      ... on Person {
+        name
+        url
+        image {
+          ...imageFields
+        }
+        email
+        title
+      }
+    }
+  }
+}
