@@ -1,57 +1,18 @@
 #import "../fragments/automatedCardGroupFields.graphql"
 #import "../fragments/automatedEntityCardFields.graphql"
+#import "../fragments/cardGroupFields.graphql"
 #import "../fragments/curatedCardFields.graphql"
 #import "../fragments/illustrationFields.graphql"
 #import "../fragments/imageDisplayProfileFields.graphql"
 #import "../fragments/imageFields.graphql"
-#import "../fragments/imageWithAttributionFields.graphql"
 #import "../fragments/primaryCallToActionFields.graphql"
 
-query BrowseLandingStaticPage(
+query LandingPage(
   $identifier: String!
   $locale: String!
   $site: String = "www.europeana.eu"
   $preview: Boolean = false
 ) {
-  browsePageCollection(
-    preview: $preview
-    locale: $locale
-    where: {
-      identifier: $identifier
-      site: $site
-    }
-    limit: 1
-  ) {
-    items {
-      identifier
-      name
-      headline
-      description
-      image {
-        ...imageFields
-      }
-      hasPartCollection(limit: 20) {
-        items {
-          __typename
-          ... on CardGroup {
-            ...cardGroupFields
-          }
-          ... on AutomatedCardGroup {
-            ...automatedCardGroupFields
-          }
-          ... on ContentTypeRichText {
-            text
-          }
-          ... on PrimaryCallToAction {
-            ...primaryCallToActionFields
-          }
-          ... on MapSection {
-            ...mapSectionFields
-          }
-        }
-      }
-    }
-  }
   landingPageCollection(
     preview: $preview
     locale: $locale
@@ -157,98 +118,8 @@ query BrowseLandingStaticPage(
       }
     }
   }
-  staticPageCollection(
-    preview: $preview
-    locale: $locale
-    where: {
-      identifier: $identifier
-      site: $site
-    }
-    limit: 1
-  ) {
-    items {
-      identifier
-      name
-      description
-      automatedTranslation
-      image {
-        ...imageFields
-      }
-      hasPartCollection(limit: 40) {
-        total
-        items {
-          __typename
-          ... on ContentTypeRichText {
-            headline
-            text
-          }
-          ... on Embed {
-            embed
-          }
-          ... on ImageWithAttribution {
-            ...imageWithAttributionFields
-          }
-          ... on ImageComparison {
-            name
-            hasPartCollection(limit: 2) {
-              items {
-                ...imageWithAttributionFields
-              }
-            }
-          }
-          ... on AutomatedCardGroup {
-            ...automatedCardGroupFields
-          }
-          ... on Link {
-            url
-            text
-          }
-          ... on PrimaryCallToAction {
-            ...primaryCallToActionFields
-          }
-        }
-      }
-      relatedLinks {
-        ...linkGroupFields
-      }
-    }
-  }
 }
 
-fragment linkGroupFields on LinkGroup {
-  identifier
-  name
-  links: linksCollection(limit: 10) {
-    items {
-      text
-      url
-    }
-  }
-}
-fragment cardGroupFields on CardGroup {
-  headline
-  headlineEN: headline(locale: "en-GB")
-  text
-  hasPartCollection(limit: 28) {
-    items {
-      __typename
-      ... on AutomatedEntityCard {
-        ...automatedEntityCardFields
-      }
-      ... on AutomatedRecordCard {
-        identifier
-        encoding
-      }
-      ... on CuratedCard {
-        ...curatedCardFields
-      }
-    }
-  }
-  moreButton {
-    url
-    text
-  }
-}
 fragment landingPageImageWithAttributionFields on ImageWithAttribution {
   name
   nameEN: name(locale: "en-GB")
@@ -318,11 +189,4 @@ fragment imageCardFields on ImageCard {
   profile {
     ...imageDisplayProfileFields
   }
-}
-fragment mapSectionFields on MapSection {
- name
- moreButton {
-  url
-  text
- }
 }
