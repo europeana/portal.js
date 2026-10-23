@@ -11,6 +11,7 @@ const query = `query Page($url: String!) {
     }
   }
 }`;
+const minifiedQuery = 'query Page($url:String!){PageCollection(url:$url){items{name}}}';
 const ast = gql`${query}`;
 
 const config = {
@@ -55,7 +56,7 @@ describe('VueContentfulGraphql', () => {
   });
 
   describe('query', () => {
-    it('queries the Contentful GraphQL endpoint with supplied query and variables', async() => {
+    it('queries the Contentful GraphQL endpoint with supplied query (minified) and variables', async() => {
       const variables = { url: '/' };
 
       nock(config.graphQlOrigin, {
@@ -67,7 +68,7 @@ describe('VueContentfulGraphql', () => {
         .post(
           `/content/v1/spaces/${config.spaceId}/environments/${config.environmentId}`,
           {
-            query,
+            query: minifiedQuery,
             variables
           }
         )

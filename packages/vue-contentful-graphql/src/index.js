@@ -2,6 +2,7 @@
 
 import fetch from 'node-fetch';
 import { print as printGraphql } from 'graphql/language/printer.js';
+import { stripIgnoredCharacters } from 'graphql/utilities';
 
 const createQueryInstance = (config = {}) => {
   // TODO: rename graphQlOrigin config property to url
@@ -20,7 +21,7 @@ const createQueryInstance = (config = {}) => {
       ...variables
     }).toString();
 
-    const query = printGraphql(ast);
+    const query = stripIgnoredCharacters(printGraphql(ast));
     const body = JSON.stringify({
       query,
       variables
