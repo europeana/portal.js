@@ -72,6 +72,13 @@
         :link="section.relatedLink"
         :background-image="section.image"
       />
+      <!-- TODO: create a LandingPersonSection -->
+      <PersonSection
+        v-else-if="contentfulEntryHasContentType(section, 'PersonGroup')"
+        :title="section.headline"
+        :description="section.text"
+        :people="section.hasPartCollection?.items.filter(Boolean)"
+      />
     </div>
   </div>
 </template>
@@ -93,7 +100,8 @@
       LandingImageCard: () => import('./LandingImageCard'),
       LandingImageCardGroup: () => import('./LandingImageCardGroup'),
       LandingSubSection: () => import('./LandingSubSection'),
-      LandingEmbed: () => import('./LandingEmbed')
+      LandingEmbed: () => import('./LandingEmbed'),
+      PersonSection: () => import('@/components/person/PersonSection')
     },
 
     props: {

@@ -5,6 +5,7 @@
 #import "../fragments/imageDisplayProfileFields.graphql"
 #import "../fragments/imageFields.graphql"
 #import "../fragments/imageWithAttributionFields.graphql"
+#import "../fragments/personGroupFields.graphql"
 #import "../fragments/primaryCallToActionFields.graphql"
 
 query BrowseLandingStaticPage(
@@ -16,10 +17,7 @@ query BrowseLandingStaticPage(
   browsePageCollection(
     preview: $preview
     locale: $locale
-    where: {
-      identifier: $identifier
-      site: $site
-    }
+    where: { identifier: $identifier, site: $site }
     limit: 1
   ) {
     items {
@@ -55,10 +53,7 @@ query BrowseLandingStaticPage(
   landingPageCollection(
     preview: $preview
     locale: $locale
-    where: {
-      identifier: $identifier
-      site: $site
-    }
+    where: { identifier: $identifier, site: $site }
     limit: 1
   ) {
     items {
@@ -132,6 +127,9 @@ query BrowseLandingStaticPage(
                 ... on InfoCardGroup {
                   ...infoCardGroupFields
                 }
+                ... on PersonGroup {
+                  ...personGroupFields
+                }
               }
             }
           }
@@ -153,6 +151,9 @@ query BrowseLandingStaticPage(
           ... on PrimaryCallToAction {
             ...primaryCallToActionFields
           }
+          ... on PersonGroup {
+            ...personGroupFields
+          }
         }
       }
     }
@@ -160,10 +161,7 @@ query BrowseLandingStaticPage(
   staticPageCollection(
     preview: $preview
     locale: $locale
-    where: {
-      identifier: $identifier
-      site: $site
-    }
+    where: { identifier: $identifier, site: $site }
     limit: 1
   ) {
     items {
@@ -320,9 +318,9 @@ fragment imageCardFields on ImageCard {
   }
 }
 fragment mapSectionFields on MapSection {
- name
- moreButton {
-  url
-  text
- }
+  name
+  moreButton {
+    url
+    text
+  }
 }

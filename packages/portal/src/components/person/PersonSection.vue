@@ -1,6 +1,6 @@
 
 <template>
-  <div class="container">
+  <div>
     <div
       v-if="title || description"
       class="row mx-auto mb-4 mb-4k-5"
@@ -13,7 +13,7 @@
         {{ title }}
       </component>
       <!-- eslint-disable vue/no-v-html -->
-      <p
+      <div
         v-if="description"
         class="text col-12 mb-3 mx-auto"
         v-html="parseMarkdown(description)"
@@ -30,9 +30,9 @@
         class="col mb-5"
         :image="person.image"
         :name="person.name"
-        :role="person.role"
+        :role="person.title"
         :email="person.email"
-        :website="person.website"
+        :website="person.url"
         :show-contact-buttons="showContactButtons"
         :lazy="true"
       />
