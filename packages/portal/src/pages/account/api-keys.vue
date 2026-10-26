@@ -159,7 +159,7 @@
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import UserProjectApiKeyForm from '@/components/user/UserProjectApiKeyForm';
   import UserHeader from '@/components/user/UserHeader';
-  import browseLandingStaticPageGraphql from '@/graphql/queries/browseLandingStaticPage.graphql';
+  import staticPageGraphql from '@/graphql/queries/staticPage.graphql';
   import pageMetaMixin from '@/mixins/pageMeta';
   import camelCase from 'lodash/camelCase';
   import parseMarkdown from '@/utils/markdown/parse.js';
@@ -231,8 +231,8 @@
           preview: this.$route.query.mode === 'preview'
         };
 
-        const response = await this.$contentful.query(browseLandingStaticPageGraphql, variables);
-        const pageEntry = response?.data['staticPageCollection'].items[0];
+        const response = await this.$contentful.query(staticPageGraphql, variables);
+        const pageEntry = response?.data?.staticPageCollection?.items?.[0];
 
         if (pageEntry) {
           this.sections = this.namedSections(pageEntry);
