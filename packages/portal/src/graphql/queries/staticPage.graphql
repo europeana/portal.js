@@ -1,0 +1,81 @@
+#import "../fragments/automatedCardGroupFields.graphql"
+#import "../fragments/illustrationFields.graphql"
+#import "../fragments/imageDisplayProfileFields.graphql"
+#import "../fragments/imageFields.graphql"
+#import "../fragments/imageWithAttributionFields.graphql"
+#import "../fragments/primaryCallToActionFields.graphql"
+
+query StaticPage(
+  $identifier: String!
+  $locale: String!
+  $site: String = "www.europeana.eu"
+  $preview: Boolean = false
+) {
+  staticPageCollection(
+    preview: $preview
+    locale: $locale
+    where: {
+      identifier: $identifier
+      site: $site
+    }
+    limit: 1
+  ) {
+    items {
+      identifier
+      name
+      description
+      automatedTranslation
+      image {
+        ...imageFields
+      }
+      hasPartCollection(limit: 40) {
+        total
+        items {
+          __typename
+          ... on ContentTypeRichText {
+            headline
+            text
+          }
+          ... on Embed {
+            embed
+          }
+          ... on ImageWithAttribution {
+            ...imageWithAttributionFields
+          }
+          ... on ImageComparison {
+            name
+            hasPartCollection(limit: 2) {
+              items {
+                ...imageWithAttributionFields
+              }
+            }
+          }
+          ... on AutomatedCardGroup {
+            ...automatedCardGroupFields
+          }
+          ... on Link {
+            url
+            text
+          }
+          ... on PrimaryCallToAction {
+            ...primaryCallToActionFields
+          }
+        }
+      }
+      relatedLinks {
+        ...linkGroupFields
+      }
+    }
+  }
+}
+
+fragment linkGroupFields on LinkGroup {
+  identifier
+  name
+  links: linksCollection(limit: 10) {
+    items {
+      text
+      url
+    }
+  }
+}
