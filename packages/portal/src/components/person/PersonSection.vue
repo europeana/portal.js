@@ -23,10 +23,8 @@
     <div
       class="row justify-content-center row-cols-2 row-cols-md-3 row-cols-lg-5"
     >
-      <!-- TODO: remove ID? with multiple sections there will be duplicate ids -->
       <PersonCard
         v-for="(person, index) in people"
-        :id="`person-${index}`"
         :key="index"
         class="col mb-4"
         :image="person.image"
