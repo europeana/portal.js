@@ -49,11 +49,9 @@
           :text="section.text"
           :illustrations="section.hasPartCollection && section.hasPartCollection.items"
         />
-        <PersonSection
+        <LandingPersonSection
           v-else-if="contentfulEntryHasContentType(section, 'PersonGroup')"
-          :title="section.headline"
-          :description="section.text"
-          :people="section.hasPartCollection?.items.filter(Boolean)"
+          :section="section"
         />
       </div>
     </b-container>
@@ -74,7 +72,7 @@
       LandingIllustrationGroup: () => import('@/components/landing/LandingIllustrationGroup'),
       LandingImageCard: () => import('@/components/landing/LandingImageCard'),
       LandingInfoCardGroup: () => import('@/components/landing/LandingInfoCardGroup'),
-      PersonSection: () => import('@/components/person/PersonSection')
+      LandingPersonSection: () => import('@/components/landing/LandingPersonSection')
     },
 
     props: {
