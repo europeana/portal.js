@@ -26,7 +26,7 @@
   };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
 
   .person-section-container {
@@ -34,15 +34,9 @@
     margin-left: auto;
     margin-right: auto;
 
-    @media (min-width: $bp-medium) {
-    }
-
-    @media (min-width: $bp-large) {
-      max-width: 1250px;
-    }
-
-    @media (min-width: $bp-4k) {
-      max-width: 2500px;
+    ::v-deep .person-card,
+    ::v-deep .person-section {
+      --bp-4k-increment: 2;
     }
   }
 </style>

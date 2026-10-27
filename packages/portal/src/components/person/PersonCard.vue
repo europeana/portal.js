@@ -1,4 +1,3 @@
-
 <template>
   <div class="person-card text-center position-relative">
     <ImageOptimised
@@ -159,14 +158,14 @@
 </script>
 
 <style lang="scss" scoped>
-@import '@europeana/style/scss/variables';
+@import "@europeana/style/scss/variables";
 
 .person-card {
   --bp-4k-increment: 1.5;
 
   width: 10.25rem;
 
-  @media (min-width: $bp-medium) {
+  @media (min-width: $bp-extralarge) {
     width: 14.375rem;
   }
 
@@ -178,6 +177,7 @@
 .person-name {
   font-weight: 600;
   font-size: $font-size-base;
+  word-wrap: anywhere;
 
   @media (min-width: $bp-4k) {
     font-size: calc(var(--bp-4k-increment) * $font-size-base);
@@ -199,6 +199,7 @@
     width: 7.5rem;
     height: 7.5rem;
     margin-bottom: 0.875rem;
+    border-radius: 50%;
 
     @media (min-width: $bp-4k) {
       width: calc(var(--bp-4k-increment) * 7.5rem);
@@ -292,6 +293,9 @@
 
   @media (min-width: $bp-4k) {
     font-size: calc(var(--bp-4k-increment) * 5.5rem);
+    width: calc(var(--bp-4k-increment) * 7.5rem);
+    height: calc(var(--bp-4k-increment) * 7.5rem);
+    margin-bottom: calc(var(--bp-4k-increment) * 0.875rem);
   }
 }
 </style>

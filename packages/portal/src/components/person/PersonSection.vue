@@ -1,9 +1,9 @@
 
 <template>
-  <div>
+  <div class="person-section">
     <div
       v-if="title || description"
-      class="row mx-auto mb-4 mb-4k-5"
+      class="mx-auto mb-4 mb-lg-5"
     >
       <component
         :is="titleTag"
@@ -15,19 +15,20 @@
       <!-- eslint-disable vue/no-v-html -->
       <div
         v-if="description"
-        class="text col-12 mb-3 mx-auto"
+        class="text col-12 mx-auto pb-lg-3"
         v-html="parseMarkdown(description)"
       />
       <!-- eslint-enable vue/no-v-html -->
     </div>
     <div
-      class="row justify-content-center mt-4 mt-4k-5 g-4 g-4k-5 row-cols-1 row-cols-md-2 row-cols-lg-5"
+      class="row justify-content-center row-cols-2 row-cols-md-3 row-cols-lg-5"
     >
+      <!-- TODO: remove ID? with multiple sections there will be duplicate ids -->
       <PersonCard
         v-for="(person, index) in people"
         :id="`person-${index}`"
         :key="index"
-        class="col mb-5"
+        class="col mb-4"
         :image="person.image"
         :name="person.name"
         :role="person.title"
@@ -94,12 +95,37 @@
 
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
-  .text, .title {
+
+  .person-section {
+    --bp-4k-increment: 1.5;
+  }
+
+  .text,
+  .title {
     text-align: center;
     max-width: $max-text-column-width;
 
     @media (min-width: $bp-4k) {
       max-width: $max-text-column-width-landing-4k;
+    }
+  }
+
+  ::v-deep .row-cols-lg-5 > *  {
+    @media (min-width: $bp-xxxl) {
+      flex-basis: 16.667% !important;
+      max-width: 16.667% !important;
+    }
+  }
+
+  .mb-3 {
+    @media (min-width: $bp-4k) {
+      margin-bottom: calc(var(--bp-4k-increment) * 1rem) !important;
+    }
+  }
+
+  .mb-4 {
+    @media (min-width: $bp-4k) {
+      margin-bottom: calc(var(--bp-4k-increment) * 1.5rem) !important;
     }
   }
 </style>
