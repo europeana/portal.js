@@ -108,7 +108,7 @@
     }
   }
 
-  ::v-deep .row-cols-lg-5 > *  {
+  ::v-deep .row-cols-lg-5 > * {
     @media (min-width: $bp-xxxl) {
       flex-basis: 16.667% !important;
       max-width: 16.667% !important;

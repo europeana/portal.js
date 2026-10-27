@@ -158,7 +158,7 @@
 </script>
 
 <style lang="scss" scoped>
-@import "@europeana/style/scss/variables";
+@import '@europeana/style/scss/variables';
 
 .person-card {
   --bp-4k-increment: 1.5;
