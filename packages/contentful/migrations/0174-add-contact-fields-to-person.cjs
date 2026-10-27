@@ -38,8 +38,45 @@ module.exports = function(migration) {
     .omitted(false);
 
   person
-    .createField('participationLevel')
-    .name('Contact participation')
+    .createField('country')
+    .name('Country')
+    .type('Symbol')
+    .localized(false)
+    .required(false)
+    .validations([])
+    .disabled(false)
+    .omitted(false);
+
+  person
+    .createField('communities')
+    .name('Communities')
+    .type('Array')
+    .localized(false)
+    .required(false)
+    .validations([])
+    .disabled(false)
+    .omitted(false)
+    .items({
+      type: 'Symbol',
+
+      validations: [
+        {
+          in: [
+            'EuropeanaTech',
+            'Research',
+            'Education',
+            'Impact',
+            'Communicators',
+            'Copyright',
+            'Climate'
+          ]
+        }
+      ]
+    });
+
+  person
+    .createField('participation')
+    .name('Participation')
     .type('Array')
     .localized(false)
     .required(false)
@@ -58,10 +95,10 @@ module.exports = function(migration) {
             'Management Board',
             'Advisory Board',
             'Supervisory Board',
-            'Aggregators Forum',
-          ],
-        },
-      ],
+            'Aggregators Forum'
+          ]
+        }
+      ]
     });
 
   person
@@ -81,6 +118,8 @@ module.exports = function(migration) {
   person.changeFieldControl('image', 'builtin', 'assetLinkEditor', {});
   person.changeFieldControl('email', 'builtin', 'singleLine', {});
   person.changeFieldControl('title', 'builtin', 'singleLine', {});
-  person.changeFieldControl('participationLevel', 'builtin', 'tagEditor', {});
+  person.changeFieldControl('country', 'builtin', 'singleLine', {});
+  person.changeFieldControl('communities', 'builtin', 'tagEditor', {});
+  person.changeFieldControl('participation', 'builtin', 'tagEditor', {});
   person.changeFieldControl('zohoId', 'builtin', 'singleLine', {});
 };
