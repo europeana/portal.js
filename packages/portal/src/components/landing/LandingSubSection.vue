@@ -52,6 +52,7 @@
         <LandingPersonSection
           v-else-if="contentfulEntryHasContentType(section, 'PersonGroup')"
           :section="section"
+          title-tag="h3"
         />
       </div>
     </b-container>
