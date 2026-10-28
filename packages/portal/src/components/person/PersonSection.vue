@@ -115,18 +115,6 @@
     }
   }
 
-  .section-header {
-    margin-bottom: 1.5rem;
-
-    @media (min-width: $bp-large) {
-      margin-bottom: 3rem;
-    }
-
-    @media (min-width: $bp-4k) {
-      margin-bottom: calc(var(--bp-4k-increment) * 3rem);
-    }
-  }
-
   .person-card {
     margin-bottom: 1.5rem;
 
