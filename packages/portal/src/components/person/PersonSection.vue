@@ -3,7 +3,7 @@
   <div class="person-section">
     <div
       v-if="title || description"
-      class="mx-auto mb-4 mb-lg-5"
+      class="section-header mx-auto"
     >
       <component
         :is="titleTag"
@@ -26,7 +26,7 @@
       <PersonCard
         v-for="(person, index) in people"
         :key="index"
-        class="col mb-4"
+        class="person-card col"
         :image="person.image"
         :name="person.name"
         :role="person.title"
@@ -110,20 +110,28 @@
 
   ::v-deep .row-cols-lg-5 > * {
     @media (min-width: $bp-xxxl) {
-      flex-basis: 16.667% !important;
-      max-width: 16.667% !important;
+      flex-basis: 16.667%;
+      max-width: 16.667%;
     }
   }
 
-  .mb-3 {
+  .section-header {
+    margin-bottom: 1.5rem;
+
+    @media (min-width: $bp-large) {
+      margin-bottom: 3rem;
+    }
+
     @media (min-width: $bp-4k) {
-      margin-bottom: calc(var(--bp-4k-increment) * 1rem) !important;
+      margin-bottom: calc(var(--bp-4k-increment) * 3rem);
     }
   }
 
-  .mb-4 {
+  .person-card {
+    margin-bottom: 1.5rem;
+
     @media (min-width: $bp-4k) {
-      margin-bottom: calc(var(--bp-4k-increment) * 1.5rem) !important;
+      margin-bottom: calc(var(--bp-4k-increment) * 1.5rem);
     }
   }
 </style>
