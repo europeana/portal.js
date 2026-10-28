@@ -33,7 +33,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@europeana/style/scss/variables';
+@import '@europeana/style/scss/variables';
 
 .person-section-container {
   margin-top: 1.5rem;
