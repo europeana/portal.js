@@ -36,6 +36,8 @@
 @import '@europeana/style/scss/variables';
 
 .person-section-container {
+  --bp-4k-increment: 2;
+
   margin-top: 1.5rem;
   margin-bottom: 3rem;
   margin-left: auto;
