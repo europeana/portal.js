@@ -1,0 +1,11 @@
+#import "./imageFields.graphql"
+
+fragment personFields on Person {
+  name
+  url
+  image {
+    ...imageFields
+  }
+  email
+  title
+}

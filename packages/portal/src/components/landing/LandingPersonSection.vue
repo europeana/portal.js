@@ -4,11 +4,14 @@
       :title="section.headline"
       :title-tag="titleTag"
       :description="section.text"
-      :people="section.hasPartCollection?.items.filter(Boolean)"
+      :people="people"
     />
   </b-container>
 </template>
 <script>
+  import peopleByGroupGraphql from '@/graphql/queries/peopleByGroup.graphql';
+  const LANDING_PAGE_PERSON_LIMIT = 4;
+
   export default {
     name: 'LandingPersonSection',
 
@@ -27,6 +30,31 @@
       titleTag: {
         type: String,
         default: 'h2'
+      }
+    },
+
+    data() {
+      return {
+        allPeopleBeyondLimit: null
+      };
+    },
+
+    async fetch() {
+      const variables = {
+        identifier: this.section.identifier,
+        locale: this.$i18n.localeProperties.iso,
+        preview: this.$route.query.mode === 'preview'
+      };
+
+      if (this.section.hasPartCollection.total > LANDING_PAGE_PERSON_LIMIT) {
+        const personGroupWithAllPeopleResponse = await this.$contentful.query(peopleByGroupGraphql, variables);
+        this.allPeopleBeyondLimit = personGroupWithAllPeopleResponse?.data?.personGroupCollection?.items?.[0]?.hasPartCollection?.items;
+      }
+    },
+
+    computed: {
+      people() {
+        return this.allPeopleBeyondLimit || this.section.hasPartCollection?.items.filter(Boolean);
       }
     }
   };

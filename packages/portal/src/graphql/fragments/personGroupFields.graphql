@@ -1,18 +1,14 @@
-#import "./imageFields.graphql"
+#import "./personFields.graphql"
 
 fragment personGroupFields on PersonGroup {
+  identifier
   headline
   text
   hasPartCollection(limit: 20) {
+    total
     items {
       ... on Person {
-        name
-        url
-        image {
-          ...imageFields
-        }
-        email
-        title
+        ...personFields
       }
     }
   }
