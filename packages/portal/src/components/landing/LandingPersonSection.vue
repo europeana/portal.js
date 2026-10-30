@@ -10,7 +10,6 @@
 </template>
 <script>
   import peopleByGroupGraphql from '@/graphql/queries/peopleByGroup.graphql';
-  const LANDING_PAGE_PERSON_LIMIT = 4;
 
   export default {
     name: 'LandingPersonSection',
@@ -35,26 +34,27 @@
 
     data() {
       return {
-        allPeopleBeyondLimit: null
+        allPeople: null
       };
     },
 
     async fetch() {
-      const variables = {
-        identifier: this.section.identifier,
-        locale: this.$i18n.localeProperties.iso,
-        preview: this.$route.query.mode === 'preview'
-      };
-
-      if (this.section.hasPartCollection.total > LANDING_PAGE_PERSON_LIMIT) {
-        const personGroupWithAllPeopleResponse = await this.$contentful.query(peopleByGroupGraphql, variables);
-        this.allPeopleBeyondLimit = personGroupWithAllPeopleResponse?.data?.personGroupCollection?.items?.[0]?.hasPartCollection?.items;
+      if (this.section.hasPartCollection.total > this.section.hasPartCollection.items.length) {
+        const variables = {
+          identifier: this.section.identifier,
+          locale: this.$i18n.localeProperties.iso,
+          preview: this.$route.query?.mode === 'preview',
+          skip: this.section.hasPartCollection.items.length
+        };
+        const additionalPeople = await this.$contentful.query(peopleByGroupGraphql, variables);
+        this.allPeople = this.section.hasPartCollection.items.concat(additionalPeople?.data?.personGroupCollection?.items?.[0]?.hasPartCollection?.items).filter(Boolean);
+        // TODO: error handling?
       }
     },
 
     computed: {
       people() {
-        return this.allPeopleBeyondLimit || this.section.hasPartCollection?.items.filter(Boolean);
+        return this.allPeople || this.section.hasPartCollection?.items.filter(Boolean);
       }
     }
   };

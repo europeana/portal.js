@@ -4,6 +4,7 @@ query PeopleByGroup(
   $identifier: String!
   $locale: String!
   $preview: Boolean = false
+  $skip: Int = 0
 ) {
   personGroupCollection(
     locale: $locale
@@ -12,7 +13,7 @@ query PeopleByGroup(
     where: { identifier: $identifier }
   ) {
     items {
-      hasPartCollection(limit: 100) {
+      hasPartCollection(limit: 100, skip: $skip) {
         items {
           ... on Person {
             ...personFields
