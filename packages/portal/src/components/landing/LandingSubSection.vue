@@ -49,6 +49,11 @@
           :text="section.text"
           :illustrations="section.hasPartCollection && section.hasPartCollection.items"
         />
+        <LandingPersonSection
+          v-else-if="contentfulEntryHasContentType(section, 'PersonGroup')"
+          :section="section"
+          title-tag="h3"
+        />
       </div>
     </b-container>
   </div>
@@ -67,7 +72,8 @@
       LandingAutomatedCardGroup: () => import('@/components/landing/LandingAutomatedCardGroup'),
       LandingIllustrationGroup: () => import('@/components/landing/LandingIllustrationGroup'),
       LandingImageCard: () => import('@/components/landing/LandingImageCard'),
-      LandingInfoCardGroup: () => import('@/components/landing/LandingInfoCardGroup')
+      LandingInfoCardGroup: () => import('@/components/landing/LandingInfoCardGroup'),
+      LandingPersonSection: () => import('@/components/landing/LandingPersonSection')
     },
 
     props: {
