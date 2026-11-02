@@ -22,7 +22,10 @@
     >
       <SmartLink
         v-if="email"
-        v-b-tooltip.top="emailLabel"
+        v-b-tooltip.top="{
+          title: emailLabel,
+          container: '#landing-tooltip-container'
+        }"
         class="btn btn-light-flat email-btn"
         :destination="`mailto:${email}`"
         :hide-external-icon="true"
@@ -34,7 +37,10 @@
       </SmartLink>
       <SmartLink
         v-if="linkedInProfile"
-        v-b-tooltip.top="linkedInLabel"
+        v-b-tooltip.top="{
+          title: linkedInLabel,
+          container: '#landing-tooltip-container'
+        }"
         class="btn btn-light-flat linkedin-btn"
         :destination="linkedInProfile"
         :hide-external-icon="true"

@@ -77,6 +77,7 @@
         :section="section"
       />
     </div>
+    <span id="landing-tooltip-container" />
   </div>
 </template>
 
