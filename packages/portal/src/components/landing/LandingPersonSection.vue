@@ -1,5 +1,8 @@
 <template>
-  <b-container class="person-section-container">
+  <b-container
+    v-if="!$fetchState.pending"
+    class="person-section-container"
+  >
     <PersonSection
       :title="section.headline"
       :title-tag="titleTag"
