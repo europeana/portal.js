@@ -10,12 +10,13 @@
 </template>
 <script>
   import peopleByGroupGraphql from '@/graphql/queries/peopleByGroup.graphql';
+  import PersonSection from '@/components/person/PersonSection';
 
   export default {
     name: 'LandingPersonSection',
 
     components: {
-      PersonSection: () => import('@/components/person/PersonSection')
+      PersonSection
     },
 
     props: {
@@ -34,7 +35,7 @@
 
     data() {
       return {
-        allPeople: null
+        people: this.section.hasPartCollection?.items.filter(Boolean)
       };
     },
 
@@ -46,15 +47,14 @@
           preview: this.$route.query?.mode === 'preview',
           skip: this.section.hasPartCollection.items.length
         };
-        const additionalPeople = await this.$contentful.query(peopleByGroupGraphql, variables);
-        this.allPeople = this.section.hasPartCollection.items.concat(additionalPeople?.data?.personGroupCollection?.items?.[0]?.hasPartCollection?.items).filter(Boolean);
-        // TODO: error handling?
-      }
-    },
 
-    computed: {
-      people() {
-        return this.allPeople || this.section.hasPartCollection?.items.filter(Boolean);
+        const additionalPeople = await this.$contentful.query(peopleByGroupGraphql, variables);
+
+        this.people = [
+          this.section.hasPartCollection?.items,
+          additionalPeople?.data?.personGroupCollection?.items?.[0]?.hasPartCollection?.items
+        ].flat().filter(Boolean);
+        // TODO: error handling?
       }
     }
   };
