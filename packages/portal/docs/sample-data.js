@@ -71,7 +71,37 @@ export default {
       name: 'Frida Kahlo',
       role: 'painter',
       email: 'frida@example.org',
-      website: 'https://www.linkedin.com/frida'
+      website: 'https://www.linkedin.com/frida',
+      country: 'Mexico',
+      community: ['Research', 'Education', 'Communicators', 'Impact']
+    },
+    {
+      image: {
+        url: 'https://images.ctfassets.net/i01duvb6kq77/4xU0k7hc4Q7Q5xTsddZt7F/a4b46b50fc289dec91ea16b9efe7380e/Alice_Guy.gif?w=120&h=120&fit=fill&f=face&r=100&q=80&fm=webp',
+        width: 1197,
+        height: 1440,
+        contentType: 'image/jpeg'
+      },
+      name: 'Alice Guy',
+      role: 'film director',
+      email: 'alice@example.org',
+      country: 'France',
+      community: ['Research']
+    },
+    {
+      image: {
+        url: 'https://images.ctfassets.net/i01duvb6kq77/4GU9NGEBv6B4JAijltSBU9/3dfcbf7a737e61ceb5a9aedf3f9153b6/FelixSalten.jpg?w=120&h=120&fit=fill&f=face&r=100&q=80&fm=webp',
+        width: 1197,
+        height: 1440,
+        contentType: 'image/jpeg'
+      },
+      name: 'Felix Salten',
+      role: 'author',
+      country: 'Austria'
+    },
+    {
+      name: 'Someone with averylongsurname',
+      email: 'someonewithaverylongsurname@example.org'
     },
     {
       name: 'Mr. E. Persoon',
