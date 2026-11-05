@@ -100,6 +100,10 @@ export default {
       country: 'Austria'
     },
     {
+      name: 'Someone with averylongsurname',
+      email: 'someonewithaverylongsurname@example.org'
+    },
+    {
       name: 'Mr. E. Persoon',
       role: 'Enigma',
       email: 'mr.e@example.org',

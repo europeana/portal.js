@@ -3,16 +3,18 @@
     <SmartLink
       v-if="email"
       :destination="`mailto:${email}`"
+      class="email-link text-decoration-none"
     >
-      <span class="icon-email" />
+      <span class="icon-email mr-1" />
       {{ email }}
     </SmartLink>
     <SmartLink
       v-if="linkedInProfile"
       :destination="linkedInProfile"
       :hide-external-icon="true"
+      class="linkedin-link text-decoration-none"
     >
-      <span class="icon-linkedin" />
+      <span class="icon-linkedin-circle mr-1" />
       LinkedIn
     </SmartLink>
   </div>

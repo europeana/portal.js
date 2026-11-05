@@ -2,7 +2,7 @@
   <div class="person-table">
     <table
       v-if="people.length"
-      class="table table-striped"
+      class="table table-striped borderless"
     >
       <thead>
         <tr>
@@ -17,10 +17,13 @@
         </tr>
       </thead>
       <tbody>
-        <template
-          v-for="(person, index) in people"
-        >
-          <tr :key="`row-${index}`">
+        <template v-for="(person, index) in people">
+          <tr
+            :key="`row-${index}`"
+            :class="{ 'details-open': person.showDetails }"
+            :aria-owns="`table-details-${index}`"
+            :aria-details="`table-details-${index}`"
+          >
             <td
               v-for="(field, fieldIndex) in fields"
               :key="fieldIndex"
@@ -30,15 +33,15 @@
                 {{ person.name }}
               </template>
               <template v-if="field.key === 'country'">
-                {{ person.country || '—' }}
+                {{ person.country || "—" }}
               </template>
-              <template v-if="field.key === 'community'">
-                {{ person.community?.join(", ") || '—' }}
-              </template>
+              <div v-if="field.key === 'community'">
+                {{ person.community?.join(", ") || "—" }}
+              </div>
               <template v-if="field.key === 'contact'">
                 <PersonContactLinks
                   v-if="person.email || person.website"
-                  class=" d-flex flex-column"
+                  class="d-flex flex-column"
                   :email="person.email"
                   :website="person.website"
                 />
@@ -46,7 +49,7 @@
               </template>
               <template v-if="field.key === 'showDetails'">
                 <button
-                  class="btn btn-light-flat"
+                  class="btn btn-light-flat button-icon-only"
                   @click="toggleDetails(person)"
                 >
                   <span class="icon-chevron" />
@@ -54,6 +57,14 @@
               </template>
             </td>
           </tr>
+          <!-- Hidden tr to fix striped table -->
+          <tr
+            v-if="person.showDetails"
+            :key="`row-details-hidden-${index}`"
+            tabindex="-1"
+            aria-hidden="true"
+            class="d-none"
+          />
           <Transition
             v-if="person.showDetails"
             :key="`row-details-${index}`"
@@ -61,19 +72,28 @@
             name="fade"
           >
             <tr
-              tabindex="-1"
-              class="table-details"
+              :id="`table-details-${index}`"
+              class="table-details d-lg-none"
             >
               <td
                 colspan="4"
+                class="pt-0"
               >
-                {{ person.community?.join(", ") || '—' }}
+                <div
+                  v-if="person.community"
+                  class="mb-3"
+                >
+                  {{ person.community?.join(", ") }}
+                </div>
                 <PersonContactLinks
                   v-if="person.email || person.website"
-                  class=" d-flex flex-column"
+                  class="d-flex flex-column"
                   :email="person.email"
                   :website="person.website"
                 />
+                <template v-if="!person.email && !person.website && !person.community">
+                  —
+                </template>
               </td>
             </tr>
           </Transition>
@@ -90,7 +110,6 @@
     name: 'PersonTable',
 
     components: {
-
       PersonContactLinks
     },
 
@@ -129,7 +148,7 @@
             class: 'table-toggle-cell d-lg-none'
           }
         ],
-        people: [...this.items].map(p => ({ ...p, showDetails: false }))
+        people: [...this.items].map((p) => ({ ...p, showDetails: false }))
       };
     },
 
@@ -142,16 +161,110 @@
 </script>
 
 <style lang="scss" scoped>
-@import "@europeana/style/scss/variables";
-@import "@europeana/style/scss/icon-font";
-@import "@europeana/style/scss/table";
+@import '@europeana/style/scss/variables';
+@import '@europeana/style/scss/icon-font';
+@import '@europeana/style/scss/table';
 @import '@europeana/style/scss/transitions';
+
+.person-table {
+  --bp-4k-increment: 1.5;
+
+  .table {
+
+    @media (min-width: $bp-4k) {
+      font-size: calc(var(--bp-4k-increment) * $font-size-small);
+    }
+
+    thead th {
+      @media (min-width: $bp-4k) {
+        padding: calc(var(--bp-4k-increment) * 1.125rem) calc(var(--bp-4k-increment) * 1rem);
+      }
+    }
+
+    td {
+      font-size: $font-size-base;
+
+      @media (min-width: $bp-4k) {
+        font-size: calc(var(--bp-4k-increment) * $font-size-base);
+        padding: calc(var(--bp-4k-increment) * 1.125rem) calc(var(--bp-4k-increment) * 1rem);
+      }
+    }
+  }
+
+  .table > tbody > tr.table-details > td {
+    border-top: none !important;
+  }
+  .table-name-cell {
+    font-weight: 600;
+    word-wrap: anywhere;
+  }
+
+  .table-toggle-cell {
+    width: 3.5rem;
+
+    @media (min-width: $bp-4k) {
+      width: calc(var(--bp-4k-increment) * 3.5rem);
+    }
+
+    .icon-chevron:before {
+      font-size: 0.5rem;
+      display: inline-block;
+
+      @media (min-width: $bp-4k) {
+        font-size: calc(var(--bp-4k-increment) * 0.5rem);
+      }
+    }
+  }
+
+  .details-open .table-toggle-cell .icon-chevron:before {
+    transform: rotateX(180deg);
+  }
+
+  ::v-deep .email-link {
+    margin-bottom: 0.25rem;
+    word-wrap: anywhere;
+
+    @media (min-width: $bp-4k) {
+      margin-bottom: calc(var(--bp-4k-increment) * 0.25rem);
+    }
+
+    .icon-email {
+      color: $darkgrey;
+    }
+  }
+
+  ::v-deep .linkedin-link {
+    color: #0A66C2;
+  }
+
+  ::v-deep .email-link,
+  ::v-deep .linkedin-link {
+    font-size: $font-size-small;
+    font-weight: 600;
+    display: flex;
+
+    @media (min-width: $bp-4k) {
+      font-size: calc(var(--bp-4k-increment) * $font-size-small);
+    }
+
+    .icon-email,
+    .icon-linkedin-circle {
+      font-size: 1.125rem;
+      line-height: 1.3125rem;
+
+      @media (min-width: $bp-4k) {
+        font-size: calc(var(--bp-4k-increment) * 1.125rem);
+        line-height: calc(var(--bp-4k-increment) * 1.3125rem);
+      }
+    }
+  }
+}
 </style>
 
 <docs lang="md">
-  ```jsx
-  <PersonTable
-    :items="people"
-  />
-  ```
+```jsx
+<PersonTable
+  :items="people"
+/>
+```
 </docs>
