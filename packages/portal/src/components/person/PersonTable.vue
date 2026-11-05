@@ -192,7 +192,7 @@
   }
 
   .table > tbody > tr.table-details > td {
-    border-top: none !important;
+    border-top: none;
   }
   .table-name-cell {
     font-weight: 600;
