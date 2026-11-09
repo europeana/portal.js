@@ -47,6 +47,14 @@ describe('pages/network/members', () => {
   afterEach(sinon.resetHistory);
   afterAll(sinon.restore);
 
+  it('renders breadcrumb navigation with a link back to the ENA page', async() => {
+    const wrapper = factory();
+
+    expect(wrapper.find('nav .breadcrumb').isVisible()).toBe(true);
+    expect(wrapper.findAll('nav .breadcrumb-item').at(0).text()).toEqual('pages.enaMembers.ena');
+    expect(wrapper.findAll('nav .breadcrumb-item').at(1).text()).toEqual('pages.enaMembers.directory');
+  });
+
   describe('fetch', () => {
     it('fetches the content from Contentful', async() => {
       const wrapper = factory({ contentfulResponse: fixtures });
