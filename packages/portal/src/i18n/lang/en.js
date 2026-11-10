@@ -1262,7 +1262,7 @@ export default {
     },
     "enaMembers": {
       "table": {
-        "community": "Community",
+        "communities": "Community",
         "contact": "Contact",
         "country": "Country",
         "name": "Name"
