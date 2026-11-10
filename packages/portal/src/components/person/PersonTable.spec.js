@@ -49,6 +49,14 @@ describe('components/content/PersonTable', () => {
     expect(wrapper.find('.table-contact-cell').isVisible()).toBe(true);
   });
 
+  describe('when perPage prop is set', () => {
+    it('renders pagination', () => {
+      const wrapper = factory();
+
+      expect(wrapper.find('paginationnavinput-stub').exists()).toBe(true);
+    });
+  });
+
   describe('when there are no people', () => {
     it('does not render a table', () => {
       const wrapper = factory({});
