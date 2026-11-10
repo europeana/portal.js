@@ -1259,6 +1259,14 @@ export default {
       "topics": {
         "title": "Topics"
       }
+    },
+    "enaMembers": {
+      "table": {
+        "communities": "Community",
+        "contact": "Contact",
+        "country": "Country",
+        "name": "Name"
+      }
     }
   },
   "pagination": {
