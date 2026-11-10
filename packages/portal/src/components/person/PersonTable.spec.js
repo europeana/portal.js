@@ -8,7 +8,7 @@ const testProps = {
     {
       name: 'Jane Doe',
       country: 'The Netherlands',
-      community: ['Research', 'Education', 'Communicators', 'Impact'],
+      communities: ['Research', 'Education', 'Communicators', 'Impact'],
       contact: {
         email: 'example@org.eu',
         url: 'https://www.linkedin.com/profile'
@@ -17,13 +17,13 @@ const testProps = {
     {
       name: 'John Doe',
       country: 'Belgium',
-      community: ['Research'],
+      communities: ['Research'],
       contact: { url: 'https://www.linkedin.com/profile' }
     },
     {
       name: 'Jane Doe',
       country: 'The Netherlands',
-      community: null,
+      communities: null,
       contact: { email: null, url: null }
     }
   ]
@@ -39,13 +39,13 @@ const factory = (propsData = testProps) =>
   });
 
 describe('components/content/PersonTable', () => {
-  it('displays a table with name, country, community and contact fields', () => {
+  it('displays a table with name, country, communities and contact fields', () => {
     const wrapper = factory();
 
     expect(wrapper.find('table').isVisible()).toBe(true);
     expect(wrapper.find('.table-name-cell').isVisible()).toBe(true);
     expect(wrapper.find('.table-country-cell').isVisible()).toBe(true);
-    expect(wrapper.find('.table-community-cell').isVisible()).toBe(true);
+    expect(wrapper.find('.table-communities-cell').isVisible()).toBe(true);
     expect(wrapper.find('.table-contact-cell').isVisible()).toBe(true);
   });
 
@@ -66,10 +66,10 @@ describe('components/content/PersonTable', () => {
   });
 
   describe('on small screens', () => {
-    it('displays community and contact fields in a row as details', () => {
+    it('displays communities and contact fields in a row as details', () => {
       const wrapper = factory();
 
-      expect(wrapper.find('.table-community-cell').classes()).toEqual(expect.arrayContaining(['d-none', 'd-lg-table-cell']));
+      expect(wrapper.find('.table-communities-cell').classes()).toEqual(expect.arrayContaining(['d-none', 'd-lg-table-cell']));
       expect(wrapper.find('.table-contact-cell').classes()).toEqual(expect.arrayContaining(['d-none', 'd-lg-table-cell']));
     });
   });
