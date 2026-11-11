@@ -37,6 +37,7 @@
               v-if="people"
               :items="people"
             />
+            Total {{ total }}
           </article>
         </b-col>
       </b-row>
@@ -71,6 +72,7 @@
         name: null,
         description: null,
         socialMediaImage: null,
+        total: null,
         people: null
       };
     },
@@ -91,7 +93,7 @@
         this.$contentful.query(staticPageGraphql, pageVariables),
         this.$contentful.query(peopleGraphql, peopleVariables)
       ]);
-
+      console.log(peopleResponse);
       const pageEntry = pageResponse?.data?.staticPageCollection?.items?.[0];
       if (pageEntry) {
         this.name = pageEntry.name;
@@ -102,7 +104,7 @@
       }
 
       this.people = peopleResponse?.data?.personCollection?.items;
-      // TODO: also set the total for pagination
+      this.total = peopleResponse?.data?.personCollection?.total;
       // TODO: re-fetch people when criteria (filter/pagination/search) change
     },
 

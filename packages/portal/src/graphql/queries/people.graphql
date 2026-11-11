@@ -11,7 +11,9 @@ query People(
     order: $order
     limit: $limit
     skip: $skip
+    where: { participation_contains_all: ["Network Association"] }
   ) {
+    total
     items {
        name
        country
