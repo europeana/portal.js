@@ -73,7 +73,7 @@ export default {
       email: 'frida@example.org',
       website: 'https://www.linkedin.com/frida',
       country: 'Mexico',
-      community: ['Research', 'Education', 'Communicators', 'Impact']
+      communities: ['Research', 'Education', 'Communicators', 'Impact']
     },
     {
       image: {
@@ -86,7 +86,7 @@ export default {
       role: 'film director',
       email: 'alice@example.org',
       country: 'France',
-      community: ['Research']
+      communities: ['Research']
     },
     {
       image: {

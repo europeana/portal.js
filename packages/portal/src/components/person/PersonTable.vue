@@ -35,8 +35,8 @@
               <template v-if="field.key === 'country'">
                 {{ person.country || "—" }}
               </template>
-              <div v-if="field.key === 'community'">
-                {{ person.community?.join(", ") || "—" }}
+              <div v-if="field.key === 'communities'">
+                {{ person.communities?.join(", ") || "—" }}
               </div>
               <template v-if="field.key === 'contact'">
                 <PersonContactLinks
@@ -80,10 +80,10 @@
                 class="pt-0"
               >
                 <div
-                  v-if="person.community"
+                  v-if="person.communities"
                   class="mb-3"
                 >
-                  {{ person.community?.join(", ") }}
+                  {{ person.communities?.join(", ") }}
                 </div>
                 <PersonContactLinks
                   v-if="person.email || person.website"
@@ -91,7 +91,7 @@
                   :email="person.email"
                   :website="person.website"
                 />
-                <template v-if="!person.email && !person.website && !person.community">
+                <template v-if="!person.email && !person.website && !person.communities">
                   —
                 </template>
               </td>
@@ -134,9 +134,9 @@
             class: 'table-country-cell'
           },
           {
-            key: 'community',
-            label: this.$t('pages.enaMembers.table.community'),
-            class: 'table-community-cell d-none d-lg-table-cell'
+            key: 'communities',
+            label: this.$t('pages.enaMembers.table.communities'),
+            class: 'table-communities-cell d-none d-lg-table-cell'
           },
           {
             key: 'contact',
