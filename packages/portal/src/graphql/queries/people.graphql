@@ -1,0 +1,23 @@
+query People(
+  $locale: String!
+  $preview: Boolean = false
+  $skip: Int = 0
+  $limit: Int = 20,
+  $order: [PersonOrder] = [name_ASC]
+) {
+  personCollection(
+    locale: $locale
+    preview: $preview
+    order: $order
+    limit: $limit
+    skip: $skip
+  ) {
+    items {
+       name
+       country
+       communities
+       email
+       url
+    }
+  }
+}

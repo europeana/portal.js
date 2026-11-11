@@ -86,10 +86,10 @@
                   {{ person.communities?.join(", ") }}
                 </div>
                 <PersonContactLinks
-                  v-if="person.email || person.website"
+                  v-if="person.email || person.url"
                   class="d-flex flex-column"
                   :email="person.email"
-                  :website="person.website"
+                  :website="person.url"
                 />
                 <template v-if="!person.email && !person.website && !person.communities">
                   —

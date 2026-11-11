@@ -33,6 +33,10 @@
               button-variant="secondary"
               class="half-col"
             />
+            <PersonTable
+              v-if="people"
+              :items="people"
+            />
           </article>
         </b-col>
       </b-row>
@@ -44,7 +48,9 @@
   import ContentHeader from '@/components/content/ContentHeader';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import staticPageGraphql from '@/graphql/queries/staticPage.graphql';
+  import peopleGraphql  from '@/graphql/queries/people.graphql';
   import pageMetaMixin from '@/mixins/pageMeta';
+  import PersonTable from '../../components/person/PersonTable.vue';
 
   export default {
     name: 'NetworkMembersPage',
@@ -52,7 +58,8 @@
     components: {
       AlertMessage: () => import('@/components/generic/AlertMessage'),
       ContentHeader,
-      LoadingSpinner
+      LoadingSpinner,
+      PersonTable
     },
 
     mixins: [
@@ -63,20 +70,29 @@
       return {
         name: null,
         description: null,
-        socialMediaImage: null
+        socialMediaImage: null,
+        people: null
       };
     },
 
     async fetch() {
-      const variables = {
+      const pageVariables = {
         identifier: 'network/members',
         locale: this.$i18n.localeProperties.iso,
         preview: this.$route.query.mode === 'preview'
       };
 
-      const response = await this.$contentful.query(staticPageGraphql, variables);
-      const pageEntry = response?.data?.staticPageCollection?.items?.[0];
+      const peopleVariables = {
+        locale: this.$i18n.localeProperties.iso,
+        preview: this.$route.query.mode === 'preview'
+      };
 
+      const [pageResponse, peopleResponse] = await Promise.all([
+        this.$contentful.query(staticPageGraphql, pageVariables),
+        this.$contentful.query(peopleGraphql, peopleVariables)
+      ]);
+
+      const pageEntry = pageResponse?.data?.staticPageCollection?.items?.[0];
       if (pageEntry) {
         this.name = pageEntry.name;
         this.description = pageEntry.description;
@@ -84,6 +100,10 @@
       } else {
         throw new Error('Not Found');
       }
+
+      this.people = peopleResponse?.data?.personCollection?.items;
+      // TODO: also set the total for pagination
+      // TODO: re-fetch people when criteria (filter/pagination/search) change
     },
 
     computed: {
