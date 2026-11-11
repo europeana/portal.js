@@ -4,6 +4,8 @@ query People(
   $skip: Int = 0
   $limit: Int = 20,
   $order: [PersonOrder] = [name_ASC]
+  $participation: [String] = []
+  $query: String = ""
 ) {
   personCollection(
     locale: $locale
@@ -11,7 +13,13 @@ query People(
     order: $order
     limit: $limit
     skip: $skip
-    where: { participation_contains_all: ["Network Association"] }
+    where: { AND: [
+      { participation_contains_all: $participation }
+      { OR: [
+        { name_contains: $query }
+        { email_contains: $query }
+      ]}
+    ]}
   ) {
     total
     items {

@@ -85,6 +85,8 @@
       };
 
       const peopleVariables = {
+        // query: '', names have partial matching, emails only work as whole tokens
+        participation: ['Network Association'],
         locale: this.$i18n.localeProperties.iso,
         preview: this.$route.query.mode === 'preview'
       };
@@ -93,7 +95,7 @@
         this.$contentful.query(staticPageGraphql, pageVariables),
         this.$contentful.query(peopleGraphql, peopleVariables)
       ]);
-      console.log(peopleResponse);
+
       const pageEntry = pageResponse?.data?.staticPageCollection?.items?.[0];
       if (pageEntry) {
         this.name = pageEntry.name;
