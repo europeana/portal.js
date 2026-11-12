@@ -135,7 +135,7 @@
        */
       perPage: {
         type: Number,
-        default: 40
+        default: 20
       },
       /**
        * id to differentiate multiple tables

@@ -3,7 +3,7 @@ import { shallowMountNuxt } from '@test/utils.js';
 import cloneDeep from 'lodash/cloneDeep.js';
 import sinon from 'sinon';
 
-import networMembersPage from '@/pages/network/members';
+import networkMembersPage from '@/pages/network/members';
 
 const localVue = createLocalVue();
 
@@ -37,13 +37,13 @@ const fixtures = {
         ]
       }
     }
-  },
+  }
 };
 
 const contentfulQueryStub = sinon.stub();
 
 const factory = ({ mocks = {} } = {}) => {
-  return shallowMountNuxt(networMembersPage, {
+  return shallowMountNuxt(networkMembersPage, {
     localVue,
     mocks: {
       $contentful: {
@@ -86,6 +86,8 @@ describe('pages/network/members', () => {
       })).toBe(true);
 
       expect(contentfulQueryStub.calledWith(sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'People'), {
+        participation: ['Network Association'],
+        skip: 0,
         locale: 'en-GB',
         preview: false
       })).toBe(true);

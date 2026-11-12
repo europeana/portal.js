@@ -5,7 +5,7 @@ query People(
   $limit: Int = 20,
   $order: [PersonOrder] = [name_ASC]
   $participation: [String] = []
-  $country: [String] = []
+  $country: String = ""
   $communities: [String] = []
   $query: String = ""
 ) {

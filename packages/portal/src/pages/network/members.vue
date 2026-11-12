@@ -36,8 +36,9 @@
             <PersonTable
               v-if="people"
               :items="people"
+              :total-results="total"
+              :per-page="perPage"
             />
-            Total {{ total }}
           </article>
         </b-col>
       </b-row>
@@ -52,6 +53,8 @@
   import peopleGraphql  from '@/graphql/queries/people.graphql';
   import pageMetaMixin from '@/mixins/pageMeta';
   import PersonTable from '../../components/person/PersonTable.vue';
+
+  const PER_PAGE = 20;
 
   export default {
     name: 'NetworkMembersPage',
@@ -72,6 +75,7 @@
         name: null,
         description: null,
         socialMediaImage: null,
+        fetchPage: true,
         total: null,
         people: null
       };
@@ -87,27 +91,30 @@
       const peopleVariables = {
         // query: '', names have partial matching, emails only work as whole tokens
         participation: ['Network Association'],
+        skip: this.skip,
         locale: this.$i18n.localeProperties.iso,
         preview: this.$route.query.mode === 'preview'
       };
 
-      const [pageResponse, peopleResponse] = await Promise.all([
-        this.$contentful.query(staticPageGraphql, pageVariables),
-        this.$contentful.query(peopleGraphql, peopleVariables)
+      const [peopleResponse, pageResponse] = await Promise.all([
+        this.$contentful.query(peopleGraphql, peopleVariables),
+        this.fetchPage ? this.$contentful.query(staticPageGraphql, pageVariables) : undefined
       ]);
 
-      const pageEntry = pageResponse?.data?.staticPageCollection?.items?.[0];
-      if (pageEntry) {
-        this.name = pageEntry.name;
-        this.description = pageEntry.description;
-        this.socialMediaImage = pageEntry.image;
-      } else {
-        throw new Error('Not Found');
+      if (this.fetchPage) {
+        const pageEntry = pageResponse?.data?.staticPageCollection?.items?.[0];
+        if (pageEntry) {
+          this.name = pageEntry.name;
+          this.description = pageEntry.description;
+          this.socialMediaImage = pageEntry.image;
+          this.fetchPage = false;
+        } else {
+          throw new Error('Not Found');
+        }
       }
 
       this.people = peopleResponse?.data?.personCollection?.items;
       this.total = peopleResponse?.data?.personCollection?.total;
-      // TODO: re-fetch people when criteria (filter/pagination/search) change
     },
 
     computed: {
@@ -118,6 +125,25 @@
           ogImage: this.socialMediaImage,
           ogImageAlt: this.socialMediaImage?.description
         };
+      },
+      skip() {
+        return ((this.$route.query.page || 1) - 1) * this.perPage;
+      },
+      perPage() {
+        return PER_PAGE;
+      }
+    },
+
+    watch: {
+      '$route.query.page': 'handleSearchParamsChanged'
+      // '$route.query.query': 'handleSearchParamsChanged',
+      // '$route.query.sort': 'handleSearchParamsChanged'
+    },
+
+    methods: {
+      handleSearchParamsChanged() {
+        // TODO: scroll to top?
+        this.$fetch();
       }
     }
   };
