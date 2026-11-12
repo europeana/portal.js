@@ -2,6 +2,7 @@
   <div class="person-table">
     <table
       v-if="people.length"
+      :id="tableId"
       class="table table-striped borderless"
     >
       <thead>
@@ -100,23 +101,55 @@
         </template>
       </tbody>
     </table>
+    <PaginationNavInput
+      v-if="perPage"
+      :total-results="totalResults"
+      :per-page="perPage"
+      :aria-controls="tableId"
+    />
   </div>
 </template>
 
 <script>
+  import PaginationNavInput from '@/components/generic/PaginationNavInput';
   import PersonContactLinks from '@/components/person/PersonContactLinks.vue';
 
   export default {
     name: 'PersonTable',
 
     components: {
+      PaginationNavInput,
       PersonContactLinks
     },
 
     props: {
+      /**
+       * Items (persons) to render in the table
+       */
       items: {
         type: Array,
         default: () => []
+      },
+      /**
+       * Number of items per page
+       */
+      perPage: {
+        type: Number,
+        default: 40
+      },
+      /**
+       * id to differentiate multiple tables
+       */
+      tableId: {
+        type: String,
+        default: 'person-table'
+      },
+      /**
+       * Total number of results
+       */
+      totalResults: {
+        type: Number,
+        default: 0
       }
     },
 
@@ -265,6 +298,14 @@
 ```jsx
 <PersonTable
   :items="people"
+/>
+```
+With pagination
+```jsx
+<PersonTable
+  :items="people"
+  :per-page="4"
+  :total-results="5"
 />
 ```
 </docs>
