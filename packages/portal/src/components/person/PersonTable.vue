@@ -1,5 +1,14 @@
 <template>
   <div class="person-table">
+    <!-- Add communities filter -->
+    <SearchDropdown
+      name="country"
+      type="checkbox"
+      :fields="countries"
+      :selected="selectedFilters.country"
+      :search="true"
+      @changed="changeFilter"
+    />
     <table
       v-if="people.length"
       class="table table-striped borderless"
@@ -104,19 +113,32 @@
 </template>
 
 <script>
-  import PersonContactLinks from '@/components/person/PersonContactLinks.vue';
+  import PersonContactLinks from '@/components/person/PersonContactLinks';
+  import SearchDropdown from '@/components/search/SearchDropdown';
 
   export default {
     name: 'PersonTable',
 
     components: {
-      PersonContactLinks
+      PersonContactLinks,
+      SearchDropdown
     },
 
     props: {
+      /**
+       * Items (persons) to render in the table
+       */
       items: {
         type: Array,
         default: () => []
+      },
+      /**
+       * Countries to list in the search filter dropdown
+       */
+      // TODO: prevent prop drilling
+      countries: {
+        type: Array,
+        default: null
       }
     },
 
@@ -148,13 +170,48 @@
             class: 'table-toggle-cell d-lg-none'
           }
         ],
+        selectedFilters: { country: [], community: [] },
         people: [...this.items].map((p) => ({ ...p, showDetails: false }))
       };
     },
-
+    // TODO: get translated country values
+    // TODO: watch route queries and set selectedFilters
     methods: {
       toggleDetails(person) {
         person.showDetails = !person.showDetails;
+      },
+      filterIsSetTo(name, value) {
+        return this.selectedFilters[name].includes(value);
+      },
+      setSelectedFilters(name, selected) {
+        this.selectedFilters[name] = selected;
+      },
+      retouteToFilteredPage() {
+        const joinedselectedFiltersForQuery = {};
+
+        for (const filter in this.selectedFilters) {
+          if (this.selectedFilters[filter].length) {
+            joinedselectedFiltersForQuery[filter] = this.selectedFilters[filter].join(',');
+          } else {
+            joinedselectedFiltersForQuery[filter] = [];
+          }
+        }
+
+        this.$router.push({
+          ...this.$route,
+          query: {
+            ...this.$route.query,
+            ...joinedselectedFiltersForQuery
+          }
+        });
+      },
+      changeFilter(name, selected) {
+        if (!this.selectedFilters[name] || this.filterIsSetTo(name, selected)) {
+          return;
+        }
+
+        this.setSelectedFilters(name, selected);
+        this.retouteToFilteredPage();
       }
     }
   };
@@ -265,6 +322,7 @@
 ```jsx
 <PersonTable
   :items="people"
+  :countries="['United Kingdom', 'The Netherlands']"
 />
 ```
 </docs>
