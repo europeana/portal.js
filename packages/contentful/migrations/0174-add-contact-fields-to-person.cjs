@@ -89,13 +89,16 @@ module.exports = function(migration) {
       validations: [
         {
           in: [
-            'Staff',
+            'Aggregators Forum',
+            'EAF Steering Group',
+            'EF Advisory Board',
+            'EF Board of Directors',
+            'EF Supervisory Board',
+            'ENA Management Board',
+            'ENA Members Council',
             'Network Association',
-            'Members Council',
-            'Management Board',
-            'Advisory Board',
-            'Supervisory Board',
-            'Aggregators Forum'
+            'Staff',
+            'Task Forces and Working Groups'
           ]
         }
       ]
