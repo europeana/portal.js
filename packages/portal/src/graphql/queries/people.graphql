@@ -17,7 +17,7 @@ query People(
     skip: $skip
     where: { AND: [
       { participation_contains_all: $participation }
-      { communities_contains_all: $country }
+      { country_contains: $country }
       { communities_contains_all: $communities }
       { OR: [
         { name_contains: $query }
