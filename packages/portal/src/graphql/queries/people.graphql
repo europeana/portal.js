@@ -5,6 +5,8 @@ query People(
   $limit: Int = 20,
   $order: [PersonOrder] = [name_ASC]
   $participation: [String] = []
+  $country: [String] = []
+  $communities: [String] = []
   $query: String = ""
 ) {
   personCollection(
@@ -15,6 +17,8 @@ query People(
     skip: $skip
     where: { AND: [
       { participation_contains_all: $participation }
+      { communities_contains_all: $country }
+      { communities_contains_all: $communities }
       { OR: [
         { name_contains: $query }
         { email_contains: $query }
