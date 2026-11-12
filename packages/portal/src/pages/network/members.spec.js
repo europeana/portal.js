@@ -93,6 +93,28 @@ describe('pages/network/members', () => {
       })).toBe(true);
     });
 
+    it('does not re-fetch the static page content on pagination', async() => {
+      const wrapper = factory();
+
+      wrapper.vm.fetchPage = false;
+      wrapper.vm.$route.query.page = 2;
+
+      await wrapper.vm.fetch();
+
+      expect(contentfulQueryStub.calledWith(sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'StaticPage'), {
+        identifier: 'network/members',
+        locale: 'en-GB',
+        preview: false
+      })).toBe(false);
+
+      expect(contentfulQueryStub.calledWith(sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'People'), {
+        participation: ['Network Association'],
+        skip: 20,
+        locale: 'en-GB',
+        preview: false
+      })).toBe(true);
+    });
+
     it('renders a content header with title, description and image for sharing', async() => {
       const wrapper = factory();
 
