@@ -1,0 +1,24 @@
+fragment cardGroupFields on CardGroup {
+  headline
+  headlineEN: headline(locale: "en-GB")
+  text
+  hasPartCollection(limit: 28) {
+    items {
+      __typename
+      ... on AutomatedEntityCard {
+        ...automatedEntityCardFields
+      }
+      ... on AutomatedRecordCard {
+        identifier
+        encoding
+      }
+      ... on CuratedCard {
+        ...curatedCardFields
+      }
+    }
+  }
+  moreButton {
+    url
+    text
+  }
+}

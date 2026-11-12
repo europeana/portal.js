@@ -1,8 +1,6 @@
 # Multi-stage image to build and run europeana/portal.js
 
-ARG node_version=24
-
-FROM node:${node_version}-alpine AS build
+FROM node:24-alpine@sha256:06d7adf3e0ef61a13f1d28682726366f97a15aa1888c934d3ecec86c33918b53 AS build
 
 ENV CHROMEDRIVER_SKIP_DOWNLOAD=true \
     GECKODRIVER_SKIP_DOWNLOAD=true \
@@ -33,7 +31,7 @@ RUN rm -rf packages/portal/src/lang
 RUN npm -w packages/portal ci --omit dev --omit peer
 
 
-FROM gcr.io/distroless/nodejs${node_version}-debian12
+FROM gcr.io/distroless/nodejs24-debian13@sha256:78f07ef1b5ea71ad7c055df15d0dd8997f2d288f9158623c4d4ae3d765b7d50d
 
 ENV PORT=8080 \
     HOST=0.0.0.0 \

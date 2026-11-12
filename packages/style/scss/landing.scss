@@ -58,6 +58,15 @@
         }
       }
     }
+
+    .tooltip.b-tooltip .tooltip-inner {
+      @media (min-width: $bp-4k) {
+        font-size: calc(2 * $font-size-small);
+        border-radius: calc(2 * $border-radius-small);
+        padding: 1rem;
+        max-width: min(100vw, pxToRem(400));
+      }
+    }
   }
 
   .bg-color-alternate {
@@ -91,6 +100,4 @@
       }
     }
   }
-
-
 }

@@ -46,7 +46,9 @@
 
 <script>
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
-  import browseLandingStaticPageGraphql from '@/graphql/queries/browseLandingStaticPage.graphql';
+  import browsePageGraphql from '@/graphql/queries/browsePage.graphql';
+  import landingPageGraphql from '@/graphql/queries/landingPage.graphql';
+  import staticPageGraphql from '@/graphql/queries/staticPage.graphql';
   import pageMetaMixin from '@/mixins/pageMeta';
 
   const identifierForRoute = (ctx) => ctx.route?.params?.pathMatch || ctx.$config?.app?.homeLandingPageSlug;
@@ -151,13 +153,20 @@
           preview: this.$route.query.mode === 'preview'
         };
 
-        const response = await this.$contentful.query(browseLandingStaticPageGraphql, variables);
-        const data = response.data;
-
-        const entryCollection = Object.keys(data).find((key) => (data[key]?.items?.length || 0) > 0);
-        if (entryCollection) {
-          this.page = data[entryCollection].items[0];
-          this[entryCollection.replace('Collection', '')] = true;
+        const [browsePageResponse, landingPageResponse, staticPageResponse] = await Promise.all([
+          this.$contentful.query(browsePageGraphql, variables),
+          this.$contentful.query(landingPageGraphql, variables),
+          this.$contentful.query(staticPageGraphql, variables)
+        ]);
+        if (browsePageResponse?.data?.browsePageCollection?.items?.[0]) {
+          this.page = browsePageResponse.data.browsePageCollection.items[0];
+          this.browsePage = true;
+        } else if (landingPageResponse?.data?.landingPageCollection?.items?.[0]) {
+          this.page = landingPageResponse.data.landingPageCollection.items[0];
+          this.landingPage = true;
+        } else if (staticPageResponse?.data?.staticPageCollection?.items?.[0]) {
+          this.page = staticPageResponse.data.staticPageCollection.items[0];
+          this.staticPage = true;
         } else {
           throw new Error('Not Found');
         }

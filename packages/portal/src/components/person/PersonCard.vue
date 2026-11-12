@@ -1,4 +1,3 @@
-
 <template>
   <div class="person-card text-center position-relative">
     <ImageOptimised
@@ -21,9 +20,13 @@
       v-if="renderButtons"
       class="buttons-overlay position-absolute w-100 mx-auto"
     >
+      <!-- TODO: use PersonContactLinks? -->
       <SmartLink
         v-if="email"
-        v-b-tooltip.top="emailLabel"
+        v-b-tooltip.top="{
+          title: emailLabel,
+          container: '#landing-tooltip-container'
+        }"
         class="btn btn-light-flat email-btn"
         :destination="`mailto:${email}`"
         :hide-external-icon="true"
@@ -35,7 +38,10 @@
       </SmartLink>
       <SmartLink
         v-if="linkedInProfile"
-        v-b-tooltip.top="linkedInLabel"
+        v-b-tooltip.top="{
+          title: linkedInLabel,
+          container: '#landing-tooltip-container'
+        }"
         class="btn btn-light-flat linkedin-btn"
         :destination="linkedInProfile"
         :hide-external-icon="true"
@@ -166,7 +172,7 @@
 
   width: 10.25rem;
 
-  @media (min-width: $bp-medium) {
+  @media (min-width: $bp-extralarge) {
     width: 14.375rem;
   }
 
@@ -178,6 +184,7 @@
 .person-name {
   font-weight: 600;
   font-size: $font-size-base;
+  word-wrap: anywhere;
 
   @media (min-width: $bp-4k) {
     font-size: calc(var(--bp-4k-increment) * $font-size-base);
@@ -199,6 +206,7 @@
     width: 7.5rem;
     height: 7.5rem;
     margin-bottom: 0.875rem;
+    border-radius: 50%;
 
     @media (min-width: $bp-4k) {
       width: calc(var(--bp-4k-increment) * 7.5rem);
@@ -292,6 +300,9 @@
 
   @media (min-width: $bp-4k) {
     font-size: calc(var(--bp-4k-increment) * 5.5rem);
+    width: calc(var(--bp-4k-increment) * 7.5rem);
+    height: calc(var(--bp-4k-increment) * 7.5rem);
+    margin-bottom: calc(var(--bp-4k-increment) * 0.875rem);
   }
 }
 </style>

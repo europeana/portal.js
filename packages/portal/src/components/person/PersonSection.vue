@@ -1,9 +1,9 @@
 
 <template>
-  <div class="container">
+  <div class="person-section">
     <div
       v-if="title || description"
-      class="row mx-auto mb-4 mb-4k-5"
+      class="section-header mx-auto"
     >
       <component
         :is="titleTag"
@@ -13,26 +13,25 @@
         {{ title }}
       </component>
       <!-- eslint-disable vue/no-v-html -->
-      <p
+      <div
         v-if="description"
-        class="text col-12 mb-3 mx-auto"
+        class="text col-12 mx-auto pb-lg-3"
         v-html="parseMarkdown(description)"
       />
       <!-- eslint-enable vue/no-v-html -->
     </div>
     <div
-      class="row justify-content-center mt-4 mt-4k-5 g-4 g-4k-5 row-cols-1 row-cols-md-2 row-cols-lg-4"
+      class="row justify-content-center row-cols-2 row-cols-md-3 row-cols-lg-5"
     >
       <PersonCard
         v-for="(person, index) in people"
-        :id="`person-${index}`"
         :key="index"
-        class="col mb-5"
+        class="person-card col"
         :image="person.image"
         :name="person.name"
-        :role="person.role"
+        :role="person.title"
         :email="person.email"
-        :website="person.website"
+        :website="person.url"
         :show-contact-buttons="showContactButtons"
         :lazy="true"
       />
@@ -94,8 +93,34 @@
 
 <style lang="scss" scoped>
   @import '@europeana/style/scss/variables';
-  .text, .title {
+
+  .person-section {
+    --bp-4k-increment: 1.5;
+  }
+
+  .text,
+  .title {
     text-align: center;
+    max-width: $max-text-column-width;
+
+    @media (min-width: $bp-4k) {
+      max-width: $max-text-column-width-landing-4k;
+    }
+  }
+
+  ::v-deep .row-cols-lg-5 > * {
+    @media (min-width: $bp-xxxl) {
+      flex-basis: 16.667%;
+      max-width: 16.667%;
+    }
+  }
+
+  .person-card {
+    margin-bottom: 1.5rem;
+
+    @media (min-width: $bp-4k) {
+      margin-bottom: calc(var(--bp-4k-increment) * 1.5rem);
+    }
   }
 </style>
 
