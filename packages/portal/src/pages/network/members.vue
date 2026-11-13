@@ -75,46 +75,18 @@
         name: null,
         description: null,
         socialMediaImage: null,
-        fetchPage: true,
+        pageFetched: false,
         total: null,
-        people: null
+        people: null,
+        perPage: PER_PAGE
       };
     },
 
     async fetch() {
-      const pageVariables = {
-        identifier: 'network/members',
-        locale: this.$i18n.localeProperties.iso,
-        preview: this.$route.query.mode === 'preview'
-      };
-
-      const peopleVariables = {
-        // query: '', names have partial matching, emails only work as whole tokens
-        participation: ['Network Association'],
-        skip: this.skip,
-        locale: this.$i18n.localeProperties.iso,
-        preview: this.$route.query.mode === 'preview'
-      };
-
-      const [peopleResponse, pageResponse] = await Promise.all([
-        this.$contentful.query(peopleGraphql, peopleVariables),
-        this.fetchPage ? this.$contentful.query(staticPageGraphql, pageVariables) : undefined
+      await Promise.all([
+        this.fetchPage(),
+        this.fetchPeople()
       ]);
-
-      if (this.fetchPage) {
-        const pageEntry = pageResponse?.data?.staticPageCollection?.items?.[0];
-        if (pageEntry) {
-          this.name = pageEntry.name;
-          this.description = pageEntry.description;
-          this.socialMediaImage = pageEntry.image;
-          this.fetchPage = false;
-        } else {
-          throw new Error('Not Found');
-        }
-      }
-
-      this.people = peopleResponse?.data?.personCollection?.items;
-      this.total = peopleResponse?.data?.personCollection?.total;
     },
 
     computed: {
@@ -128,19 +100,48 @@
       },
       skip() {
         return ((this.$route.query.page || 1) - 1) * this.perPage;
-      },
-      perPage() {
-        return PER_PAGE;
       }
     },
 
     watch: {
       '$route.query.page': 'handleSearchParamsChanged'
-      // '$route.query.query': 'handleSearchParamsChanged',
-      // '$route.query.sort': 'handleSearchParamsChanged'
+      // '$route.query.communities': 'handleSearchParamsChanged',
+      // '$route.query.country': 'handleSearchParamsChanged'
     },
 
     methods: {
+      async fetchPage() {
+        if (this.pageFetched) {
+          return;
+        }
+        const variables = {
+          identifier: 'network/members',
+          locale: this.$i18n.localeProperties.iso,
+          preview: this.$route.query.mode === 'preview'
+        };
+        const pageResponse = await this.$contentful.query(staticPageGraphql, variables);
+        const pageEntry = pageResponse?.data?.staticPageCollection?.items?.[0];
+        if (pageEntry) {
+          this.name = pageEntry.name;
+          this.description = pageEntry.description;
+          this.socialMediaImage = pageEntry.image;
+          this.pageFetched = true;
+        } else {
+          throw new Error('Not Found');
+        }
+      },
+      async fetchPeople() {
+        const variables = {
+          participation: ['Network Association'],
+          skip: this.skip,
+          locale: this.$i18n.localeProperties.iso,
+          preview: this.$route.query.mode === 'preview'
+        };
+        const peopleResponse = await this.$contentful.query(peopleGraphql, variables);
+
+        this.people = peopleResponse?.data?.personCollection?.items;
+        this.total = peopleResponse?.data?.personCollection?.total;
+      },
       handleSearchParamsChanged() {
         // TODO: scroll to top?
         this.$fetch();

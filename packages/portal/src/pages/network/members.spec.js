@@ -96,7 +96,7 @@ describe('pages/network/members', () => {
     it('does not re-fetch the static page content on pagination', async() => {
       const wrapper = factory();
 
-      wrapper.vm.fetchPage = false;
+      wrapper.vm.pageFetched = true;
       wrapper.vm.$route.query.page = 2;
 
       await wrapper.vm.fetch();
