@@ -127,7 +127,7 @@
           this.socialMediaImage = pageEntry.image;
           this.pageFetched = true;
         } else {
-          throw new Error('Not Found');
+          this.$error(404, { scope: 'page' });
         }
       },
       async fetchPeople() {
@@ -143,7 +143,6 @@
         this.total = peopleResponse?.data?.personCollection?.total;
       },
       handleSearchParamsChanged() {
-        // TODO: scroll to top?
         this.$fetch();
       }
     }
