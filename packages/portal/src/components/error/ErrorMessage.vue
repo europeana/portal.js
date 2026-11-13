@@ -56,7 +56,7 @@
 
     props: {
       error: {
-        type: Object,
+        type: [Object, Error],
         required: true
       },
       showMessage: {
