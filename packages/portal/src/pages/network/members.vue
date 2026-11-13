@@ -4,18 +4,12 @@
       v-if="$fetchState.pending"
       class="flex-md-row py-4 text-center"
     />
-    <b-container
+    <ErrorMessage
       v-else-if="$fetchState.error"
-      data-qa="alert message container"
-    >
-      <b-row class="flex-md-row py-4">
-        <b-col cols="12">
-          <AlertMessage
-            :error="$fetchState.error.message"
-          />
-        </b-col>
-      </b-row>
-    </b-container>
+      data-qa="error message container"
+      :error="$fetchState.error"
+      :show-message="false"
+    />
     <b-container
       v-else
     >
@@ -60,8 +54,8 @@
     name: 'NetworkMembersPage',
 
     components: {
-      AlertMessage: () => import('@/components/generic/AlertMessage'),
       ContentHeader,
+      ErrorMessage: () => import('@/components/error/ErrorMessage'),
       LoadingSpinner,
       PersonTable
     },

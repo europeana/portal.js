@@ -152,12 +152,12 @@ describe('pages/network/members', () => {
     });
 
     describe('when fetch errors', () => {
-      it('renders an alert message', () => {
+      it('renders an error page', () => {
         const wrapper = factory({ mocks: { $fetchState: { error: { message: 'Error message' } } } });
 
-        const alertMessage = wrapper.find('[data-qa="alert message container"]');
+        const errorContainer = wrapper.find('[data-qa="error message container"]');
 
-        expect(alertMessage.exists()).toBe(true);
+        expect(errorContainer.exists()).toBe(true);
       });
     });
   });
