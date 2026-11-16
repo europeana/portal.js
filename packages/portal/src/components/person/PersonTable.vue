@@ -1,6 +1,7 @@
 <template>
   <div class="person-table">
-    <!-- Add communities filter -->
+    <!-- TODO: move up to page level? -->
+    <!-- TODO: Add communities filter -->
     <SearchDropdown
       name="country"
       type="checkbox"
@@ -30,8 +31,8 @@
           <tr
             :key="`row-${index}`"
             :class="{ 'details-open': person.showDetails }"
-            :aria-owns="`table-details-${index}`"
-            :aria-details="`table-details-${index}`"
+            :aria-owns="person.showDetails ? `table-details-${index}` : null"
+            :aria-details="person.showDetails ? `table-details-${index}` : null"
           >
             <td
               v-for="(field, fieldIndex) in fields"
@@ -61,6 +62,7 @@
                   class="btn btn-light-flat button-icon-only"
                   @click="toggleDetails(person)"
                 >
+                  <!-- TODO: add SR text -->
                   <span class="icon-chevron" />
                 </button>
               </template>

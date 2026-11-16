@@ -22,33 +22,70 @@
       </li>
     </ul>
     <div class="dropdown search-filter-dropdown">
+      <!-- TODO: click outside should close dropdown -->
       <button
         class="btn dropdown-toggle btn-secondary btn-block"
         type="button"
-        :aria-expanded="showDropdown"
+        :aria-owns="showDropdown ? dropdownMenuId : null"
+        :aria-controls="showDropdown ? dropdownMenuId : null"
         @click="showDropdown = !showDropdown"
       >
         {{ placeholder || name }}
       </button>
-      <ul
+      <div
+        :id="dropdownMenuId"
         class="dropdown-menu"
-        :class="{show: showDropdown}"
+        :class="{ show: showDropdown }"
       >
-        <li
-          v-for="item in dropdownItems"
-          :key="item"
+        <form
+          v-if="searchable"
+          class="dropdown-form"
+          @submit.stop.prevent="() => {}"
         >
-          <button
-            class="dropdown-item"
-            :data-qa="`dropdown item ${item}`"
-            role="menuitem"
-            @click="selectOption(item)"
+          <div
+            class="form-group"
           >
-            {{ item }}
-          </button>
-        </li>
-      </ul>
-      <!-- TODO: add message when no options left -->
+            <div>
+              <input
+                ref="search-input"
+                v-model="dropdownSearchQuery"
+                type="text"
+                autocomplete="off"
+                :placeholder="$t('sideFilters.search')"
+                :aria-label="$t('sideFilters.search')"
+                class="form-control"
+                :aria-owns="showDropdown ? optionsId : null"
+                :aria-controls="showDropdown ? optionsId : null"
+              >
+              <span class="icon-search" />
+            </div>
+          </div>
+        </form>
+        <ul
+          v-if="fieldsFilteredToSearch.length > 0"
+          :id="optionsId"
+          class="list-unstyled mb-0"
+        >
+          <li
+            v-for="item in fieldsFilteredToSearch"
+            :key="item"
+          >
+            <button
+              class="dropdown-item"
+              :data-qa="`dropdown item ${item}`"
+              @click="selectOption(item)"
+            >
+              {{ item }}
+            </button>
+          </li>
+        </ul>
+        <div
+          v-else
+          class="px-2"
+        >
+          {{ $t('sideFilters.noOptions') }}
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -101,13 +138,47 @@
 
     data() {
       return {
+        dropdownSearchQuery: '',
         showDropdown: false
       };
     },
 
     computed: {
-      dropdownItems() {
+      searchable() {
+        return this.search && this.fields.length > 0;
+      },
+      nameNoSpaces() {
+        return this.name.replace(/\s/g, '-').toLowerCase();
+      },
+      dropdownMenuId() {
+        return `${this.nameNoSpaces}-dropdown-content`;
+      },
+      optionsId() {
+        return `${this.nameNoSpaces}-options`;
+      },
+      fieldsWithoutSelected() {
         return this.fields.filter((field) => !this.selected.includes(field));
+      },
+      fieldsFilteredToSearch() {
+        const criteria = this.trimmedDropdownSearchQuery;
+        const options = this.fieldsWithoutSelected;
+
+        return options.filter(option => {
+          const exactMatch = option.toLowerCase().indexOf(criteria) > -1;
+          return exactMatch;
+        });
+      },
+      trimmedDropdownSearchQuery() {
+        return this.dropdownSearchQuery.trim().toLowerCase();
+      }
+    },
+
+    watch: {
+      async showDropdown(newVal) {
+        if (newVal) {
+          await this.$nextTick();
+          this.searchable && this.setSearchFocus();
+        }
       }
     },
 
@@ -116,10 +187,12 @@
         this.$emit('changed', this.name, this.selected.filter((selection) => selection !== tag));
       },
       selectOption(option) {
-        // TODO: add and handle search
-        // this.searchFacet = '';
-
+        this.dropdownSearchQuery = '';
         this.$emit('changed', this.name, this.selected.concat(option));
+      },
+
+      setSearchFocus() {
+        this.$refs['search-input'].focus();
       }
     }
   };
@@ -137,6 +210,10 @@
     @media (min-width: $bp-4k) {
       width: calc(1.5 * pxToRem(288));
     }
+  }
+
+  .dropdown-form {
+    padding: 0.25rem 0.75rem;
   }
 </style>
 
