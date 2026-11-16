@@ -1,0 +1,32 @@
+query People(
+  $locale: String!
+  $preview: Boolean = false
+  $skip: Int = 0
+  $limit: Int = 20,
+  $order: [PersonOrder] = [name_ASC]
+  $participation: [String] = []
+  $country: String = ""
+  $communities: [String] = []
+) {
+  personCollection(
+    locale: $locale
+    preview: $preview
+    order: $order
+    limit: $limit
+    skip: $skip
+    where: { AND: [
+      { participation_contains_all: $participation }
+      { country_contains: $country }
+      { communities_contains_all: $communities }
+    ]}
+  ) {
+    total
+    items {
+       name
+       country
+       communities
+       email
+       url
+    }
+  }
+}
