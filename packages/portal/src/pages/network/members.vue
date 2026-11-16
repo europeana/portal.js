@@ -29,6 +29,7 @@
             />
             <PersonTable
               v-if="people"
+              id="members-table"
               :items="people"
               :total-results="total"
               :per-page="perPage"
@@ -47,6 +48,7 @@
   import peopleGraphql  from '@/graphql/queries/people.graphql';
   import pageMetaMixin from '@/mixins/pageMeta';
   import PersonTable from '../../components/person/PersonTable.vue';
+  import useScrollTo from '@/composables/scrollTo.js';
 
   const PER_PAGE = 20;
 
@@ -63,6 +65,11 @@
     mixins: [
       pageMetaMixin
     ],
+
+    setup() {
+      const { scrollToSelector } = useScrollTo();
+      return { scrollToSelector };
+    },
 
     data() {
       return {
@@ -137,6 +144,9 @@
         this.total = peopleResponse?.data?.personCollection?.total;
       },
       handleSearchParamsChanged() {
+        this.scrollToSelector('#members-table', {
+          behavior: 'smooth'
+        });
         this.$fetch();
       }
     }
