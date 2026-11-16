@@ -25,6 +25,17 @@ describe('components/search/SearchDropdown', () => {
     expect(wrapper.find('.dropdown-toggle').isVisible()).toBe(true);
   });
 
+  describe('when the dropdown toggle receives focus', () => {
+    it('opens the options and starts listening to clicks outside', async() => {
+      const wrapper = factory();
+
+      wrapper.find('.dropdown-toggle').trigger('focusin');
+
+      expect(wrapper.vm.showDropdown).toBe(true);
+      expect(wrapper.vm.clickOutsideConfig.isActive).toBe(true);
+    });
+  });
+
   describe('when an option in the dropdown is clicked', () => {
     it('emits the changed event with the selected option', async() => {
       const option = testProps.fields[0];
@@ -33,6 +44,18 @@ describe('components/search/SearchDropdown', () => {
       wrapper.find(`[data-qa="dropdown item ${option}"]`).trigger('click');
 
       expect(wrapper.emitted('changed')[0]).toEqual([testProps.name, [option]]);
+    });
+  });
+
+  describe('when user clicks outside the dropdown', () => {
+    it('hides the options', async() => {
+      const wrapper = factory();
+
+      await wrapper.setData({ showDropdown: true });
+      wrapper.vm.handleClickOutside();
+
+      expect(wrapper.vm.showDropdown).toBe(false);
+      expect(wrapper.vm.clickOutsideConfig.isActive).toBe(false);
     });
   });
   describe('when an option is selected', () => {
@@ -62,7 +85,7 @@ describe('components/search/SearchDropdown', () => {
       const wrapper = factory({ ...testProps, search: true });
       wrapper.vm.$refs['search-input'].focus = sinon.spy();
 
-      wrapper.vm.showDropdown = true;
+      await wrapper.setData({ showDropdown: true });
 
       expect(wrapper.find('.dropdown-form').isVisible()).toBe(true);
 

@@ -21,14 +21,16 @@
           >×</button></span>
       </li>
     </ul>
-    <div class="dropdown search-filter-dropdown">
-      <!-- TODO: click outside should close dropdown -->
+    <div
+      v-click-outside="clickOutsideConfig"
+      class="dropdown search-filter-dropdown"
+    >
       <button
         class="btn dropdown-toggle btn-secondary btn-block"
         type="button"
         :aria-owns="showDropdown ? dropdownMenuId : null"
         :aria-controls="showDropdown ? dropdownMenuId : null"
-        @click="showDropdown = !showDropdown"
+        @focusin="handleFocusin"
       >
         {{ placeholder || name }}
       </button>
@@ -91,8 +93,14 @@
 </template>
 
 <script>
+  import vClickOutside from 'v-click-outside';
+
   export default {
     name: 'SearchDropdown',
+
+    directives: {
+      clickOutside: vClickOutside.directive
+    },
 
     props: {
       /**
@@ -138,6 +146,13 @@
 
     data() {
       return {
+        // https://www.npmjs.com/package/v-click-outside
+        clickOutsideConfig: {
+          capture: true,
+          events: ['click', 'dblclick', 'focusin', 'touchstart'],
+          handler: this.handleClickOutside,
+          isActive: false
+        },
         dropdownSearchQuery: '',
         showDropdown: false
       };
@@ -187,12 +202,28 @@
         this.$emit('changed', this.name, this.selected.filter((selection) => selection !== tag));
       },
       selectOption(option) {
-        this.dropdownSearchQuery = '';
         this.$emit('changed', this.name, this.selected.concat(option));
+        this.handleClickOutside();
       },
-
       setSearchFocus() {
         this.$refs['search-input'].focus();
+      },
+      setClickOutsideConfigIsActive(isActive) {
+        // need to do this instead of just setting isActive due to
+        // https://github.com/ndelvalle/v-click-outside/issues/143
+        this.clickOutsideConfig = {
+          ...this.clickOutsideConfig,
+          isActive
+        };
+      },
+      handleFocusin() {
+        this.setClickOutsideConfigIsActive(true);
+        this.showDropdown = true;
+      },
+      handleClickOutside() {
+        this.setClickOutsideConfigIsActive(false);
+        this.showDropdown = false;
+        this.dropdownSearchQuery = '';
       }
     }
   };
