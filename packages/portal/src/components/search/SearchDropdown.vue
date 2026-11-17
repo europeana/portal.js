@@ -1,11 +1,11 @@
 <template>
   <div>
     <ul
-      v-if="selected.length"
+      v-if="selectedOptions.length"
       class="selected-tags pl-0 mb-1"
     >
       <li
-        v-for="tag in selected"
+        v-for="tag in selectedOptions"
         :key="tag"
         class="d-inline-block mw-100 mr-2 mb-2"
       >
@@ -72,13 +72,13 @@
             v-for="item in fieldsFilteredToSearch"
             :key="item"
           >
-            <button
+            <NuxtLink
               class="dropdown-item"
               :data-qa="`dropdown item ${item}`"
-              @click="selectOption(item)"
+              :to="filterToLink(item)"
             >
               {{ item }}
-            </button>
+            </NuxtLink>
           </li>
         </ul>
         <div
@@ -132,13 +132,6 @@
         default: false
       },
       /**
-       * Selected option(s)
-       */
-      selected: {
-        type: [Array, String],
-        default: () => []
-      },
-      /**
        * Type of input fields in dropdown, could be radio or checkbox
        *
        * @values radio, checkbox
@@ -177,7 +170,7 @@
         return `${this.nameNoSpaces}-options`;
       },
       fieldsWithoutSelected() {
-        return this.fields.filter((field) => !this.selected.includes(field));
+        return this.fields.filter((field) => !this.selectedOptions.includes(field));
       },
       fieldsFilteredToSearch() {
         const criteria = this.trimmedDropdownSearchQuery;
@@ -190,6 +183,12 @@
       },
       trimmedDropdownSearchQuery() {
         return this.dropdownSearchQuery.trim().toLowerCase();
+      },
+      activeQueryValue() {
+        return this.$route.query?.[this.name];
+      },
+      selectedOptions() {
+        return this.activeQueryValue?.split(',') || [];
       }
     },
 
@@ -199,18 +198,35 @@
           await this.$nextTick();
           this.searchable && this.setSearchFocus();
         }
-      }
+      },
+      activeQueryValue: 'handleClickOutside'
     },
 
     methods: {
-      removeOption(tag) {
-        const selectedOptions = this.type === 'radio' ? [] : this.selected.filter((selection) => selection !== tag);
-        this.$emit('changed', this.name, selectedOptions);
+      addNewSelectedOption(option) {
+        return this.type === 'radio' ? [option] : [...this.selectedOptions].concat(option);
       },
-      selectOption(option) {
-        const selectedOptions = this.type === 'radio' ? [option] : this.selected.concat(option);
-        this.$emit('changed', this.name, selectedOptions);
-        this.handleClickOutside();
+      removeSelectedOption(option) {
+        return this.type === 'radio' ? [] : [...this.selectedOptions].filter((selection) => selection !== option);
+      },
+      getNewRouteWithUpdatedQuery(options) {
+        const newRoute = {
+          ...this.$route,
+          query: {
+            ...this.$route.query,
+            [this.name]: options.join(',')
+          }
+        };
+        return newRoute;
+      },
+      filterToLink(option) {
+        const selectedOptions = this.addNewSelectedOption(option);
+        return this.getNewRouteWithUpdatedQuery(selectedOptions);
+      },
+      removeOption(option) {
+        const selectedOptions = this.removeSelectedOption(option);
+        const newRoute = this.getNewRouteWithUpdatedQuery(selectedOptions);
+        this.$router.push(newRoute);
       },
       setSearchFocus() {
         this.$refs['search-input'].focus();

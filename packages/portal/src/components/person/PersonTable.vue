@@ -8,8 +8,6 @@
       :fields="countries"
       :placeholder="$t('pages.enaMembers.table.allCountries')"
       :search="true"
-      :selected="selectedFilters.country"
-      @changed="changeFilter"
     />
     <table
       v-if="people.length"
@@ -202,57 +200,22 @@
             key: 'showDetails',
             class: 'table-toggle-cell d-lg-none'
           }
-        ],
-        selectedFilters: { country: [], community: [] },
-        people: [...this.items].map((p) => ({ ...p, showDetails: false }))
+        ]
       };
     },
 
-    watch: {
-      '$route.query.country': {
-        handler(newVal) {
-          this.setSelectedFilters('country', newVal?.split(',') || []);
-        },
-        immediate: true
+    computed: {
+      people() {
+        return [...this.items].map((p) => ({ ...p, showDetails: false }));
       }
     },
-    // TODO: get translated country values
+
     methods: {
       toggleDetails(person) {
         person.showDetails = !person.showDetails;
       },
       filterIsSetTo(name, value) {
         return this.selectedFilters[name].includes(value);
-      },
-      setSelectedFilters(name, selected) {
-        this.selectedFilters[name] = selected;
-      },
-      rerouteToFilteredPage() {
-        const joinedselectedFiltersForQuery = {};
-
-        for (const filter in this.selectedFilters) {
-          if (this.selectedFilters[filter].length) {
-            joinedselectedFiltersForQuery[filter] = this.selectedFilters[filter].join(',');
-          } else {
-            joinedselectedFiltersForQuery[filter] = [];
-          }
-        }
-
-        this.$router.push({
-          ...this.$route,
-          query: {
-            ...this.$route.query,
-            ...joinedselectedFiltersForQuery
-          }
-        });
-      },
-      changeFilter(name, selected) {
-        if (!Object.hasOwn(this.selectedFilters, name) || this.filterIsSetTo(name, selected)) {
-          return;
-        }
-
-        this.setSelectedFilters(name, selected);
-        this.rerouteToFilteredPage();
       }
     }
   };

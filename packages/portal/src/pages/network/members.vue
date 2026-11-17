@@ -81,7 +81,7 @@
         total: null,
         people: null,
         perPage: PER_PAGE,
-        // TODO: fetch actual countries
+        // TODO: fetch actual countries and translations
         countries: ['United Kingdom', 'Netherlands']
       };
     },
@@ -113,7 +113,7 @@
     watch: {
       '$route.query.page': 'handleSearchParamsChanged',
       // '$route.query.communities': 'handleSearchParamsChanged',
-      '$route.query.country': 'handleSearchParamsChanged'
+      '$route.query.country': 'fetchPeople'
     },
 
     methods: {

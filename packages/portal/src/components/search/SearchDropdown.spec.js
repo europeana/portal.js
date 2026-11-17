@@ -11,12 +11,16 @@ const testProps = {
   type: 'checkbox'
 };
 
-const factory = (propsData = testProps) => shallowMount(SearchDropdown, {
+const factory = (propsData = testProps, mocks) => shallowMount(SearchDropdown, {
   localVue,
   propsData,
   mocks: {
-    $t: (key) => key
-  }
+    $t: (key) => key,
+    $route: {},
+    $router: { push: sinon.spy() },
+    ...mocks
+  },
+  stubs: ['NuxtLink']
 });
 
 describe('components/search/SearchDropdown', () => {
@@ -37,32 +41,25 @@ describe('components/search/SearchDropdown', () => {
     });
   });
 
-  describe('when an option in the dropdown is clicked', () => {
+  describe('filterToLink', () => {
     const option = testProps.fields[0];
     const alreadySelectedOption = testProps.fields[1];
-    describe('and type is radio', () => {
-      it('emits the changed event with the selected option only', async() => {
+    describe('when type is radio', () => {
+      it('returns an updated route with the selected option only', () => {
         const wrapper = factory({
           ...testProps,
-          type: 'radio',
-          selected: [alreadySelectedOption]
-        });
+          type: 'radio'
+        },
+        { $route: { query: { country: alreadySelectedOption } } });
 
-        wrapper.find(`[data-qa="dropdown item ${option}"]`).trigger('click');
-
-        expect(wrapper.emitted('changed')[0]).toEqual([testProps.name, [option]]);
+        expect(wrapper.vm.filterToLink(option)).toEqual({ query: { country: 'United Kingdom' } });
       });
     });
-    describe('and type is checkbox', () => {
-      it('emits the changed event with the selected option', async() => {
-        const wrapper = factory({
-          ...testProps,
-          selected: [alreadySelectedOption]
-        });
+    describe('when type is checkbox', () => {
+      it('returns an updated route with the selected options', () => {
+        const wrapper = factory(testProps, { $route: { query: { country: alreadySelectedOption } } });
 
-        wrapper.find(`[data-qa="dropdown item ${option}"]`).trigger('click');
-
-        expect(wrapper.emitted('changed')[0]).toEqual([testProps.name, [alreadySelectedOption, option]]);
+        expect(wrapper.vm.filterToLink(option)).toEqual({ query: { country: 'The Netherlands,United Kingdom' } });
       });
     });
   });
@@ -80,8 +77,8 @@ describe('components/search/SearchDropdown', () => {
   });
   describe('when an option is selected', () => {
     const selectedOption = testProps.fields[0];
-    it('renders the selected option as a removable tag and removes it from the dropdown', () => {
-      const wrapper = factory({ ...testProps, selected: [selectedOption] });
+    it('renders the selected option as a removable tag and removes it from the dropdown', async() => {
+      const wrapper = factory(testProps, { $route: { query: { country: selectedOption } } });
 
       expect(wrapper.find('.selected-tags').isVisible()).toBe(true);
       expect(wrapper.find('.selected-tags .badge .close').isVisible()).toBe(true);
@@ -90,12 +87,12 @@ describe('components/search/SearchDropdown', () => {
     });
 
     describe('and close tag is clicked', () => {
-      it('emits the changed event with the clicked item removed from the selected options', async() => {
-        const wrapper = factory({ ...testProps, selected: [selectedOption] });
+      it('updates the route with the clicked item removed from the selected options', async() => {
+        const wrapper = factory(testProps, { $route: { query: { country: selectedOption } } });
 
         wrapper.find('.selected-tags .badge .close').trigger('click');
 
-        expect(wrapper.emitted('changed')[0]).toEqual([testProps.name, []]);
+        expect(wrapper.vm.$router.push.calledWith({ query: { country: '' } })).toBe(true);
       });
     });
   });
