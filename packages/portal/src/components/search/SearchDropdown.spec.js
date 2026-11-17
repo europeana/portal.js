@@ -7,7 +7,8 @@ const localVue = createLocalVue();
 
 const testProps = {
   name: 'country',
-  fields: ['United Kingdom', 'The Netherlands']
+  fields: ['United Kingdom', 'The Netherlands'],
+  type: 'checkbox'
 };
 
 const factory = (propsData = testProps) => shallowMount(SearchDropdown, {
@@ -37,13 +38,32 @@ describe('components/search/SearchDropdown', () => {
   });
 
   describe('when an option in the dropdown is clicked', () => {
-    it('emits the changed event with the selected option', async() => {
-      const option = testProps.fields[0];
-      const wrapper = factory();
+    const option = testProps.fields[0];
+    const alreadySelectedOption = testProps.fields[1];
+    describe('and type is radio', () => {
+      it('emits the changed event with the selected option only', async() => {
+        const wrapper = factory({
+          ...testProps,
+          type: 'radio',
+          selected: [alreadySelectedOption]
+        });
 
-      wrapper.find(`[data-qa="dropdown item ${option}"]`).trigger('click');
+        wrapper.find(`[data-qa="dropdown item ${option}"]`).trigger('click');
 
-      expect(wrapper.emitted('changed')[0]).toEqual([testProps.name, [option]]);
+        expect(wrapper.emitted('changed')[0]).toEqual([testProps.name, [option]]);
+      });
+    });
+    describe('and type is checkbox', () => {
+      it('emits the changed event with the selected option', async() => {
+        const wrapper = factory({
+          ...testProps,
+          selected: [alreadySelectedOption]
+        });
+
+        wrapper.find(`[data-qa="dropdown item ${option}"]`).trigger('click');
+
+        expect(wrapper.emitted('changed')[0]).toEqual([testProps.name, [alreadySelectedOption, option]]);
+      });
     });
   });
 

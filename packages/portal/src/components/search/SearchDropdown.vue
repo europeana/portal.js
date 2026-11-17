@@ -110,7 +110,6 @@
         type: String,
         required: true
       },
-
       /**
        * Fields, these fields need no fetching
        */
@@ -118,7 +117,6 @@
         type: Array,
         default: () => []
       },
-
       /**
        * Placeholder text for the dropdown button
        */
@@ -126,7 +124,6 @@
         type: String,
         default: null
       },
-
       /**
        * If `true`, enable search of available fields
        */
@@ -134,13 +131,21 @@
         type: Boolean,
         default: false
       },
-
       /**
        * Selected option(s)
        */
       selected: {
-        type: [Array],
+        type: [Array, String],
         default: () => []
+      },
+      /**
+       * Type of input fields in dropdown, could be radio or checkbox
+       *
+       * @values radio, checkbox
+       */
+      type: {
+        type: String,
+        required: true
       }
     },
 
@@ -199,10 +204,12 @@
 
     methods: {
       removeOption(tag) {
-        this.$emit('changed', this.name, this.selected.filter((selection) => selection !== tag));
+        const selectedOptions = this.type === 'radio' ? [] : this.selected.filter((selection) => selection !== tag);
+        this.$emit('changed', this.name, selectedOptions);
       },
       selectOption(option) {
-        this.$emit('changed', this.name, this.selected.concat(option));
+        const selectedOptions = this.type === 'radio' ? [option] : this.selected.concat(option);
+        this.$emit('changed', this.name, selectedOptions);
         this.handleClickOutside();
       },
       setSearchFocus() {

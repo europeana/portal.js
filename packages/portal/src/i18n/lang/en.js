@@ -1262,6 +1262,8 @@ export default {
     },
     "enaMembers": {
       "table": {
+        "allCommunities": "All communities",
+        "allCountries": "All countries",
         "communities": "Communities",
         "contact": "Contact",
         "country": "Country",

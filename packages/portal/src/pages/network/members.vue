@@ -33,6 +33,7 @@
               :items="people"
               :total-results="total"
               :per-page="perPage"
+              :countries="countries"
             />
           </article>
         </b-col>
@@ -79,7 +80,9 @@
         pageFetched: false,
         total: null,
         people: null,
-        perPage: PER_PAGE
+        perPage: PER_PAGE,
+        // TODO: fetch actual countries
+        countries: ['United Kingdom', 'Netherlands']
       };
     },
 
@@ -101,13 +104,16 @@
       },
       skip() {
         return ((this.$route.query.page || 1) - 1) * this.perPage;
+      },
+      countryQuery() {
+        return this.$route.query.country;
       }
     },
 
     watch: {
-      '$route.query.page': 'handleSearchParamsChanged'
+      '$route.query.page': 'handleSearchParamsChanged',
       // '$route.query.communities': 'handleSearchParamsChanged',
-      // '$route.query.country': 'handleSearchParamsChanged'
+      '$route.query.country': 'handleSearchParamsChanged'
     },
 
     methods: {
@@ -135,6 +141,7 @@
         const variables = {
           participation: ['Network Association'],
           skip: this.skip,
+          country: this.countryQuery,
           locale: this.$i18n.localeProperties.iso,
           preview: this.$route.query.mode === 'preview'
         };

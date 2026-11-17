@@ -4,10 +4,11 @@
     <!-- TODO: Add communities filter -->
     <SearchDropdown
       name="country"
-      type="checkbox"
+      type="radio"
       :fields="countries"
-      :selected="selectedFilters.country"
+      :placeholder="$t('pages.enaMembers.table.allCountries')"
       :search="true"
+      :selected="selectedFilters.country"
       @changed="changeFilter"
     />
     <table
@@ -206,8 +207,16 @@
         people: [...this.items].map((p) => ({ ...p, showDetails: false }))
       };
     },
+
+    watch: {
+      '$route.query.country': {
+        handler(newVal) {
+          this.setSelectedFilters('country', newVal?.split(',') || []);
+        },
+        immediate: true
+      }
+    },
     // TODO: get translated country values
-    // TODO: watch route queries and set selectedFilters
     methods: {
       toggleDetails(person) {
         person.showDetails = !person.showDetails;
@@ -218,7 +227,7 @@
       setSelectedFilters(name, selected) {
         this.selectedFilters[name] = selected;
       },
-      retouteToFilteredPage() {
+      rerouteToFilteredPage() {
         const joinedselectedFiltersForQuery = {};
 
         for (const filter in this.selectedFilters) {
@@ -238,12 +247,12 @@
         });
       },
       changeFilter(name, selected) {
-        if (!this.selectedFilters[name] || this.filterIsSetTo(name, selected)) {
+        if (!Object.hasOwn(this.selectedFilters, name) || this.filterIsSetTo(name, selected)) {
           return;
         }
 
         this.setSelectedFilters(name, selected);
-        this.retouteToFilteredPage();
+        this.rerouteToFilteredPage();
       }
     }
   };
