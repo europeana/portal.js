@@ -38,7 +38,7 @@
   import { langMapValueForLocale } from '@europeana/i18n';
   import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
   import elasticApmReporterMixin from '@/mixins/elasticApmReporter';
-  import similarItemsMixin from '@/mixins/similarItems';
+  import { similarItemsQuery } from '@/utils/europeana/similarItems.js';
 
   const PORTAL_ALGORITHM = 'Portal similar items query';
   const RECOMMENDATION_ALGORITHM = 'Recommendation API';
@@ -50,8 +50,7 @@
     },
 
     mixins: [
-      elasticApmReporterMixin,
-      similarItemsMixin
+      elasticApmReporterMixin
     ],
 
     props: {
@@ -102,7 +101,7 @@
         this.similarItemsAlgorithm = RECOMMENDATION_ALGORITHM;
       } else {
         response = await this.$apis.record.search({
-          query: this.similarItemsQuery(this.identifier, this.similarItemsFields),
+          query: similarItemsQuery(this.identifier, this.similarItemsFields),
           qf: addContentTierFilter(),
           rows: 4,
           profile: 'minimal',
