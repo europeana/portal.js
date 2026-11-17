@@ -1,6 +1,10 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "dependencyDashboard": true,
   "extends": [
-    "config:recommended"
-  ]
+    "config:best-practices",
+    ":automergeMinor",
+    "security:minimumReleaseAgeNpm"
+  ],
+  "prConcurrentLimit": 5,
+  "lockFileMaintenance": { "enabled": true }
 }
