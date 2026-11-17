@@ -107,7 +107,7 @@
       v-if="perPage"
       :total-results="totalResults"
       :per-page="perPage"
-      aria-controls="entity-table"
+      :aria-controls="id"
       data-qa="entity table pagination"
     />
   </div>

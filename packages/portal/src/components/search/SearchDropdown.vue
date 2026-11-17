@@ -128,7 +128,7 @@
       },
 
       /**
-       * If `true`, enable search of available fields.
+       * If `true`, enable search of available fields
        */
       search: {
         type: Boolean,
