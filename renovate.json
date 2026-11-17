@@ -1,5 +1,7 @@
 {
-  "dependencyDashboard": true,
+  "dependencyDashboard": {
+    "enabled": true
+  },
   "extends": [
     "config:best-practices",
     ":automergeMinor",
