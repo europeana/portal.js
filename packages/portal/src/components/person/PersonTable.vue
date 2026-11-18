@@ -227,14 +227,13 @@
             placeholder: this.$t('pages.enaMembers.table.allCommunities')
           } }
         },
-        people: [...this.items].map((p) => ({ ...p, showDetails: false }))
-
+        people: this.addShowDetailsPropToPeopleItems()
       };
     },
 
     watch: {
       items() {
-        this.people = [...this.items].map((p) => ({ ...p, showDetails: false }));
+        this.people = this.addShowDetailsPropToPeopleItems();
       }
     },
 
@@ -244,6 +243,9 @@
       },
       filterIsSetTo(name, value) {
         return this.selectedFilters[name].includes(value);
+      },
+      addShowDetailsPropToPeopleItems() {
+        return [...this.items].map((p) => ({ ...p, showDetails: false }));
       }
     }
   };
