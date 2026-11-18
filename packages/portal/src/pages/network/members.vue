@@ -1,5 +1,5 @@
 <template>
-  <div class="page text-page xxl-page">
+  <div class="page browse-page-4-col xxl-page">
     <LoadingSpinner
       v-if="$fetchState.pending"
       class="flex-md-row py-4 text-center"
@@ -16,7 +16,7 @@
       <b-row class="justify-content-center">
         <b-col
           cols="12"
-          class="col-lg-8"
+          class="col-xl-10"
         >
           <article>
             <ContentHeader

@@ -1,0 +1,12 @@
+{
+  "dependencyDashboard": {
+    "enabled": true
+  },
+  "extends": [
+    "config:best-practices",
+    ":automergeMinor",
+    "security:minimumReleaseAgeNpm"
+  ],
+  "prConcurrentLimit": 5,
+  "lockFileMaintenance": { "enabled": true }
+}
