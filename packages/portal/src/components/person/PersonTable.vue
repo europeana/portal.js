@@ -66,7 +66,9 @@
                   class="btn btn-light-flat button-icon-only"
                   @click="toggleDetails(person)"
                 >
-                  <!-- TODO: add SR text -->
+                  <span class="visually-hidden">
+                    {{ $t('pages.enaMembers.table.showMoreData', {person: person.name}) }}
+                  </span>
                   <span class="icon-chevron" />
                 </button>
               </template>
@@ -224,13 +226,15 @@
             fields: this.communities,
             placeholder: this.$t('pages.enaMembers.table.allCommunities')
           } }
-        }
+        },
+        people: [...this.items].map((p) => ({ ...p, showDetails: false }))
+
       };
     },
 
-    computed: {
-      people() {
-        return [...this.items].map((p) => ({ ...p, showDetails: false }));
+    watch: {
+      items() {
+        this.people = [...this.items].map((p) => ({ ...p, showDetails: false }));
       }
     },
 

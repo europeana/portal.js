@@ -1267,7 +1267,8 @@ export default {
         "communities": "Communities",
         "contact": "Contact",
         "country": "Country",
-        "name": "Name"
+        "name": "Name",
+        "showMoreData": "Show more data for {person}"
       }
     }
   },
