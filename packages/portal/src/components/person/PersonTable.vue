@@ -1,14 +1,18 @@
 <template>
   <div class="person-table">
     <!-- TODO: move up to page level? -->
-    <!-- TODO: Add communities filter -->
-    <SearchDropdown
-      name="country"
-      type="radio"
-      :fields="countries"
-      :placeholder="$t('pages.enaMembers.table.allCountries')"
-      :search="true"
-    />
+    <div class="d-flex flex-wrap align-items-bottom">
+      <SearchDropdown
+        v-for="filter in filters"
+        :key="filter.name"
+        :name="filter.name"
+        :type="filter.type"
+        :fields="filter.fields"
+        :placeholder="filter.placeholder"
+        :search="true"
+        class="search-dropdown d-inline-flex flex-column justify-content-end mb-2 mr-sm-3"
+      />
+    </div>
     <table
       v-if="people.length"
       :id="tableId"
@@ -145,8 +149,14 @@
       /**
        * Countries to list in the search filter dropdown
        */
-      // TODO: prevent prop drilling
       countries: {
+        type: Array,
+        default: () => []
+      },
+      /**
+       * Communities to list in the search filter dropdown
+       */
+      communities: {
         type: Array,
         default: () => []
       },
@@ -200,7 +210,21 @@
             key: 'showDetails',
             class: 'table-toggle-cell d-lg-none'
           }
-        ]
+        ],
+        filters: {
+          ...this.countries.length && { country: {
+            name: 'country',
+            type: 'radio',
+            fields: this.countries,
+            placeholder: this.$t('pages.enaMembers.table.allCountries')
+          } },
+          ...this.communities.length && { communities: {
+            name: 'communities',
+            type: 'checkbox',
+            fields: this.communities,
+            placeholder: this.$t('pages.enaMembers.table.allCommunities')
+          } }
+        }
       };
     },
 
@@ -319,6 +343,12 @@
       }
     }
   }
+
+  .search-dropdown {
+    @media (max-width: ($bp-small - 1px)) {
+      flex-basis: 100%;
+    }
+  }
 }
 </style>
 
@@ -326,7 +356,6 @@
 ```jsx
 <PersonTable
   :items="people"
-  :countries="['United Kingdom', 'The Netherlands']"
 />
 ```
 With pagination
@@ -335,6 +364,14 @@ With pagination
   :items="people"
   :per-page="4"
   :total-results="5"
+/>
+```
+With filters
+```jsx
+<PersonTable
+  :items="people"
+  :countries="['France', 'Mexico']"
+  :communities="['Research', 'Education']"
 />
 ```
 </docs>

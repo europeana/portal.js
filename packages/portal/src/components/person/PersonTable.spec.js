@@ -85,4 +85,29 @@ describe('components/content/PersonTable', () => {
       expect(wrapper.vm.people[0].showDetails).toBe(true);
     });
   });
+
+  describe('when countries prop is set', () => {
+    it('renders countries filter dropdown of type radio', () => {
+      const countries = ['France', 'United Kingdom'];
+      const wrapper = factory({ ...testProps, countries });
+
+      expect(wrapper.find('searchdropdown-stub').isVisible()).toBe(true);
+      expect(wrapper.find('searchdropdown-stub').attributes('name')).toEqual('country');
+      expect(wrapper.find('searchdropdown-stub').attributes('type')).toEqual('radio');
+      expect(wrapper.find('searchdropdown-stub').attributes('fields')).toEqual(countries.join(','));
+      expect(wrapper.find('searchdropdown-stub').attributes('placeholder')).toEqual('pages.enaMembers.table.allCountries');
+    });
+  });
+  describe('when communities prop is set', () => {
+    it('renders communities filter dropdown of type checkbox', () => {
+      const communities = ['Research', 'Education'];
+      const wrapper = factory({ ...testProps, communities });
+
+      expect(wrapper.find('searchdropdown-stub').isVisible()).toBe(true);
+      expect(wrapper.find('searchdropdown-stub').attributes('name')).toEqual('communities');
+      expect(wrapper.find('searchdropdown-stub').attributes('type')).toEqual('checkbox');
+      expect(wrapper.find('searchdropdown-stub').attributes('fields')).toEqual(communities.join(','));
+      expect(wrapper.find('searchdropdown-stub').attributes('placeholder')).toEqual('pages.enaMembers.table.allCommunities');
+    });
+  });
 });

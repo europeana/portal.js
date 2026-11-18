@@ -30,7 +30,7 @@
         type="button"
         :aria-owns="showDropdown ? dropdownMenuId : null"
         :aria-controls="showDropdown ? dropdownMenuId : null"
-        @focusin="handleFocusin"
+        @click="handleDropdownToggleClick"
       >
         {{ placeholder || name }}
       </button>
@@ -148,7 +148,7 @@
         clickOutsideConfig: {
           capture: true,
           events: ['click', 'dblclick', 'focusin', 'touchstart'],
-          handler: this.handleClickOutside,
+          handler: this.closeDropdown,
           isActive: false
         },
         dropdownSearchQuery: '',
@@ -199,7 +199,7 @@
           this.searchable && this.setSearchFocus();
         }
       },
-      activeQueryValue: 'handleClickOutside'
+      activeQueryValue: 'closeDropdown'
     },
 
     methods: {
@@ -210,11 +210,13 @@
         return this.type === 'radio' ? [] : [...this.selectedOptions].filter((selection) => selection !== option);
       },
       getNewRouteWithUpdatedQuery(options) {
+        const optionsForQuery = options.length ? options.join(',') : undefined;
+
         const newRoute = {
           ...this.$route,
           query: {
             ...this.$route.query,
-            [this.name]: options.join(',')
+            [this.name]: optionsForQuery
           }
         };
         return newRoute;
@@ -239,11 +241,15 @@
           isActive
         };
       },
-      handleFocusin() {
-        this.setClickOutsideConfigIsActive(true);
-        this.showDropdown = true;
+      handleDropdownToggleClick() {
+        if (this.showDropdown) {
+          this.closeDropdown();
+        } else {
+          this.setClickOutsideConfigIsActive(true);
+          this.showDropdown = true;
+        }
       },
-      handleClickOutside() {
+      closeDropdown() {
         this.setClickOutsideConfigIsActive(false);
         this.showDropdown = false;
         this.dropdownSearchQuery = '';
@@ -276,6 +282,14 @@
 <SearchDropdown
   name="country"
   :fields="['United Kingdom', 'The Netherlands']"
+/>
+```
+Searchable options
+```jsx
+<SearchDropdown
+  name="country"
+  :fields="['United Kingdom', 'The Netherlands']"
+  :search="true"
 />
 ```
 </docs>

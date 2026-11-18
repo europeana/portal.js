@@ -88,6 +88,8 @@ describe('pages/network/members', () => {
       expect(contentfulQueryStub.calledWith(sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'People'), {
         participation: ['Network Association'],
         skip: 0,
+        communities: undefined,
+        country: undefined,
         locale: 'en-GB',
         preview: false
       })).toBe(true);
@@ -110,6 +112,8 @@ describe('pages/network/members', () => {
       expect(contentfulQueryStub.calledWith(sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'People'), {
         participation: ['Network Association'],
         skip: 20,
+        communities: undefined,
+        country: undefined,
         locale: 'en-GB',
         preview: false
       })).toBe(true);
@@ -159,6 +163,45 @@ describe('pages/network/members', () => {
 
         expect(errorContainer.exists()).toBe(true);
       });
+    });
+  });
+  describe('when country query update', () => {
+    it('re-fetches people filtered to country', async() => {
+      const country = 'Netherlands';
+      const wrapper = factory();
+
+      wrapper.vm.$route.query.country = country;
+
+      await wrapper.vm.fetchPeople();
+
+      expect(contentfulQueryStub.calledWith(sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'People'), {
+        participation: ['Network Association'],
+        skip: 0,
+        communities: undefined,
+        country,
+        locale: 'en-GB',
+        preview: false
+      })).toBe(true);
+    });
+  });
+
+  describe('when communities query update', () => {
+    it('re-fetches people filtered to communities', async() => {
+      const communities = ['Education', 'Research'];
+      const wrapper = factory();
+
+      wrapper.vm.$route.query.communities = communities.join(',');
+
+      await wrapper.vm.fetchPeople();
+
+      expect(contentfulQueryStub.calledWith(sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'People'), {
+        participation: ['Network Association'],
+        skip: 0,
+        communities,
+        country: undefined,
+        locale: 'en-GB',
+        preview: false
+      })).toBe(true);
     });
   });
 });

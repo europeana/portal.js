@@ -30,11 +30,11 @@ describe('components/search/SearchDropdown', () => {
     expect(wrapper.find('.dropdown-toggle').isVisible()).toBe(true);
   });
 
-  describe('when the dropdown toggle receives focus', () => {
+  describe('when the dropdown toggle is clicked', () => {
     it('opens the options and starts listening to clicks outside', async() => {
       const wrapper = factory();
 
-      wrapper.find('.dropdown-toggle').trigger('focusin');
+      wrapper.find('.dropdown-toggle').trigger('click');
 
       expect(wrapper.vm.showDropdown).toBe(true);
       expect(wrapper.vm.clickOutsideConfig.isActive).toBe(true);
@@ -69,7 +69,7 @@ describe('components/search/SearchDropdown', () => {
       const wrapper = factory();
 
       await wrapper.setData({ showDropdown: true });
-      wrapper.vm.handleClickOutside();
+      wrapper.vm.closeDropdown();
 
       expect(wrapper.vm.showDropdown).toBe(false);
       expect(wrapper.vm.clickOutsideConfig.isActive).toBe(false);
@@ -92,7 +92,7 @@ describe('components/search/SearchDropdown', () => {
 
         wrapper.find('.selected-tags .badge .close').trigger('click');
 
-        expect(wrapper.vm.$router.push.calledWith({ query: { country: '' } })).toBe(true);
+        expect(wrapper.vm.$router.push.calledWith({ query: { country: undefined } })).toBe(true);
       });
     });
   });

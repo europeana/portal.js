@@ -34,6 +34,7 @@
               :total-results="total"
               :per-page="perPage"
               :countries="countries"
+              :communities="communities"
             />
           </article>
         </b-col>
@@ -82,7 +83,8 @@
         people: null,
         perPage: PER_PAGE,
         // TODO: fetch actual countries and translations
-        countries: ['United Kingdom', 'Netherlands']
+        countries: ['United Kingdom', 'Netherlands'],
+        communities: ['Research', 'Education']
       };
     },
 
@@ -107,12 +109,15 @@
       },
       countryQuery() {
         return this.$route.query.country;
+      },
+      communitiesQuery() {
+        return this.$route.query.communities;
       }
     },
 
     watch: {
       '$route.query.page': 'handleSearchParamsChanged',
-      // '$route.query.communities': 'handleSearchParamsChanged',
+      '$route.query.communities': 'fetchPeople',
       '$route.query.country': 'fetchPeople'
     },
 
@@ -141,6 +146,7 @@
         const variables = {
           participation: ['Network Association'],
           skip: this.skip,
+          communities: this.communitiesQuery?.split(','),
           country: this.countryQuery,
           locale: this.$i18n.localeProperties.iso,
           preview: this.$route.query.mode === 'preview'
