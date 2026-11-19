@@ -52,11 +52,13 @@ export default {
     "depublish": "Išskelbti",
     "download": "Parsisiųsti",
     "edit": "Redaguoti",
+    "email": "El. paštas",
     "filter": "Filtras",
     "goHome": "Eikite į pagrindinį puslapį",
     "hide": "Slėpti",
     "learnMore": "Sužinokite daugiau",
     "like": "Patinka",
+    "linkedIn": "„LinkedIn\" profilis",
     "login": "Prisijungti",
     "move": "Perkelti",
     "next": "Kitas",
@@ -1052,6 +1054,15 @@ export default {
     }
   },
   "landing": {
+    "apis": {
+      "header": {
+        "navigation": {
+          "builtWith": "Sukurta naudojant mūsų API",
+          "canDo": "Ką galite nuveikti naudodami API",
+          "getKey": "Gaukite nemokamą API raktą"
+        }
+      }
+    },
     "counts": {
       "apiRequests": "Mėnesio API užklausos, vidutiniškai",
       "dataProviders": "Duomenų teikėjai",
@@ -1211,6 +1222,14 @@ export default {
       },
       "topics": {
         "title": "Potemė"
+      }
+    },
+    "enaMembers": {
+      "table": {
+        "communities": "Bendruomenės",
+        "contact": "Kontaktai",
+        "country": "Šalis",
+        "name": "Vardas"
       }
     }
   },

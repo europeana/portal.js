@@ -52,11 +52,13 @@ export default {
     "depublish": "Depublicēt",
     "download": "Lejupielādēt",
     "edit": "Rediģēt",
+    "email": "E-pasts",
     "filter": "Filtrs",
     "goHome": "Dodieties uz sākumlapu",
     "hide": "Slēpt",
     "learnMore": "Apgūt vairāk",
     "like": "Patīk",
+    "linkedIn": "LinkedIn profils",
     "login": "Pieteikties",
     "move": "Pārvietot",
     "next": "Nākamais",
@@ -1052,6 +1054,15 @@ export default {
     }
   },
   "landing": {
+    "apis": {
+      "header": {
+        "navigation": {
+          "builtWith": "Izveidots ar mūsu API",
+          "canDo": "Ko var darīt ar API",
+          "getKey": "Iegūstiet savu bezmaksas API atslēgu"
+        }
+      }
+    },
     "counts": {
       "apiRequests": "Vidēji ikmēneša API pieprasījumi",
       "dataProviders": "Datu sniedzēji",
@@ -1211,6 +1222,14 @@ export default {
       },
       "topics": {
         "title": "Tematikas"
+      }
+    },
+    "enaMembers": {
+      "table": {
+        "communities": "Kopienas",
+        "contact": "Kontakti",
+        "country": "Valsts",
+        "name": "Vārds"
       }
     }
   },

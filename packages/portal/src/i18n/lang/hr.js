@@ -52,11 +52,13 @@ export default {
     "depublish": "Depublish",
     "download": "Preuzmi",
     "edit": "Uredi",
+    "email": "E-pošta",
     "filter": "Filtar",
     "goHome": "Idite na početnu stranicu",
     "hide": "Sakriti",
     "learnMore": "Uči više",
     "like": "Lajk",
+    "linkedIn": "LinkedIn profil",
     "login": "Prijava",
     "move": "Potez",
     "next": "Sljedeći",
@@ -1052,6 +1054,15 @@ export default {
     }
   },
   "landing": {
+    "apis": {
+      "header": {
+        "navigation": {
+          "builtWith": "Izrađeno pomoću naših API-ja",
+          "canDo": "Što možete učiniti s API-jima",
+          "getKey": "Unesite svoj osobni API ključ"
+        }
+      }
+    },
     "counts": {
       "apiRequests": "Mjesečni API zahtjevi, u prosjeku",
       "dataProviders": "Davatelji podataka",
@@ -1211,6 +1222,14 @@ export default {
       },
       "topics": {
         "title": "Sadržaj"
+      }
+    },
+    "enaMembers": {
+      "table": {
+        "communities": "Zajednice",
+        "contact": "Kontakt",
+        "country": "Država",
+        "name": "Ime"
       }
     }
   },

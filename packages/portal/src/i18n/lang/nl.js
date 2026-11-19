@@ -52,11 +52,13 @@ export default {
     "depublish": "Depubliceren",
     "download": "Download",
     "edit": "Bewerken",
+    "email": "E-mail",
     "filter": "Filter",
     "goHome": "Ga naar de homepage",
     "hide": "Verbergen",
     "learnMore": "Leer meer",
     "like": "Like",
+    "linkedIn": "LinkedIn-profiel",
     "login": "Inloggen",
     "move": "Verplaats",
     "next": "Volgende",
@@ -1052,6 +1054,15 @@ export default {
     }
   },
   "landing": {
+    "apis": {
+      "header": {
+        "navigation": {
+          "builtWith": "Gebouwd met onze API's",
+          "canDo": "Wat u kunt doen met de API's",
+          "getKey": "Ontvang uw gratis API-sleutel"
+        }
+      }
+    },
     "counts": {
       "apiRequests": "Gemiddeld maandelijkse API-verzoeken",
       "dataProviders": "Dataleveranciers",
@@ -1211,6 +1222,14 @@ export default {
       },
       "topics": {
         "title": "Onderwerpen"
+      }
+    },
+    "enaMembers": {
+      "table": {
+        "communities": "Gemeenschappen",
+        "contact": "Contact",
+        "country": "Land",
+        "name": "Naam"
       }
     }
   },

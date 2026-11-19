@@ -52,11 +52,13 @@ export default {
     "depublish": "Dífhoilsiú",
     "download": "Íoslódáil",
     "edit": "Cuir in eagar",
+    "email": "Ríomhphost",
     "filter": "Scagaire",
     "goHome": "Téigh go dtí an leathanach baile",
     "hide": "Folaigh",
     "learnMore": "Foghlaim níos mó",
     "like": "Is maith liom",
+    "linkedIn": "Próifíl LinkedIn",
     "login": "Logáil isteach",
     "move": "Bog",
     "next": "Ar Aghaidh",
@@ -1052,6 +1054,15 @@ export default {
     }
   },
   "landing": {
+    "apis": {
+      "header": {
+        "navigation": {
+          "builtWith": "Tógtha lenár APIanna",
+          "canDo": "Na rudaí is féidir leat a dhéanamh leis na APIanna",
+          "getKey": "Faigh d’eochair API saor in aisce"
+        }
+      }
+    },
     "counts": {
       "apiRequests": "Iarratais API míosúla, ar an meán",
       "dataProviders": "Soláthraithe Sonraí",
@@ -1211,6 +1222,14 @@ export default {
       },
       "topics": {
         "title": "Ábhair"
+      }
+    },
+    "enaMembers": {
+      "table": {
+        "communities": "Pobail",
+        "contact": "Teagmháil",
+        "country": "Tír",
+        "name": "Ainm"
       }
     }
   },

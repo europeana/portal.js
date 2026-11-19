@@ -52,11 +52,13 @@ export default {
     "depublish": "Argitalpena bertan behera utzi",
     "download": "Deskargatu",
     "edit": "Editatu",
+    "email": "Posta elektronikoa",
     "filter": "Iragazkia",
     "goHome": "Joan hasierako orrialdera",
     "hide": "Ezkutatu",
     "learnMore": "Gehiago ikasi",
     "like": "Atsegin dut",
+    "linkedIn": "LinkedIn profila",
     "login": "Hasi saioa",
     "move": "Mugitu",
     "next": "Hurrengoa",
@@ -1052,6 +1054,15 @@ export default {
     }
   },
   "landing": {
+    "apis": {
+      "header": {
+        "navigation": {
+          "builtWith": "Gure APIekin eraikia",
+          "canDo": "APIekin egin dezakezuna",
+          "getKey": "Lortu zure doako API gakoa"
+        }
+      }
+    },
     "counts": {
       "apiRequests": "Hileroko API eskaerak, batez beste",
       "dataProviders": "Datu-hornitzaileak",
@@ -1211,6 +1222,14 @@ export default {
       },
       "topics": {
         "title": "Gaiak"
+      }
+    },
+    "enaMembers": {
+      "table": {
+        "communities": "Komunitateak",
+        "contact": "Kontaktua",
+        "country": "Herrialdea",
+        "name": "Izena"
       }
     }
   },

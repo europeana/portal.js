@@ -52,11 +52,13 @@ export default {
     "depublish": "Tühista avaldamine",
     "download": "Lae alla",
     "edit": "Muuda",
+    "email": "E-post",
     "filter": "Filter",
     "goHome": "Minge avalehele",
     "hide": "Peida",
     "learnMore": "Lisateave",
     "like": "Meeldib",
+    "linkedIn": "LinkedIni profiil",
     "login": "Logi sisse",
     "move": "Liiguta",
     "next": "Järgmine",
@@ -1052,6 +1054,15 @@ export default {
     }
   },
   "landing": {
+    "apis": {
+      "header": {
+        "navigation": {
+          "builtWith": "Loodud meie API-de abil",
+          "canDo": "Mida API-dega teha saab",
+          "getKey": "Hangi tasuta API-võti"
+        }
+      }
+    },
     "counts": {
       "apiRequests": "Igakuised API taotlused keskmiselt",
       "dataProviders": "Andmepakkujad",
@@ -1211,6 +1222,14 @@ export default {
       },
       "topics": {
         "title": "Teemad"
+      }
+    },
+    "enaMembers": {
+      "table": {
+        "communities": "Kogukonnad",
+        "contact": "Kontakt",
+        "country": "Riik",
+        "name": "Nimi"
       }
     }
   },

@@ -52,11 +52,13 @@ export default {
     "depublish": "Zrušiť zverejnenie",
     "download": "Stiahnuť",
     "edit": "Upraviť",
+    "email": "E-mail",
     "filter": "Filter",
     "goHome": "Prejsť na domovskú stránku",
     "hide": "Skryť",
     "learnMore": "Uč sa viac",
     "like": "Páči sa mi",
+    "linkedIn": "Profil na LinkedIn",
     "login": "Prihlásiť sa",
     "move": "Hýbať",
     "next": "Ďalšie",
@@ -1052,6 +1054,15 @@ export default {
     }
   },
   "landing": {
+    "apis": {
+      "header": {
+        "navigation": {
+          "builtWith": "Vytvorené pomocou našich API",
+          "canDo": "Čo môžete robiť s rozhraniami API",
+          "getKey": "Získajte svoj bezplatný kľúč API"
+        }
+      }
+    },
     "counts": {
       "apiRequests": "Priemerný počet mesačných API požiadaviek",
       "dataProviders": "Poskytovatelia údajov",
@@ -1211,6 +1222,14 @@ export default {
       },
       "topics": {
         "title": "Témy"
+      }
+    },
+    "enaMembers": {
+      "table": {
+        "communities": "Komunity",
+        "contact": "Kontakt",
+        "country": "Krajina:",
+        "name": "Meno"
       }
     }
   },

@@ -52,11 +52,13 @@ export default {
     "depublish": "Tneħħi l-pubblikazzjoni",
     "download": "Niżżel",
     "edit": "Editja",
+    "email": "Email",
     "filter": "Filtru",
     "goHome": "Mur fil-homepage",
     "hide": "Aħbi",
     "learnMore": "Itagħllem iżjed",
     "like": "Like",
+    "linkedIn": "Profil ta’ LinkedIn",
     "login": "Illoggja",
     "move": "Nimxu",
     "next": "Li jmiss",
@@ -1052,6 +1054,15 @@ export default {
     }
   },
   "landing": {
+    "apis": {
+      "header": {
+        "navigation": {
+          "builtWith": "Mibni bl-APIs tagħna",
+          "canDo": "X'tista' tagħmel bl-APIs",
+          "getKey": "Ikseb iċ-ċavetta API b'xejn tiegħek"
+        }
+      }
+    },
     "counts": {
       "apiRequests": "Talbiet API ta' kull xahar, bħala medja",
       "dataProviders": "Fornituri tad-Data",
@@ -1211,6 +1222,14 @@ export default {
       },
       "topics": {
         "title": "Suġġetti"
+      }
+    },
+    "enaMembers": {
+      "table": {
+        "communities": "Komunitajiet",
+        "contact": "Kuntatt",
+        "country": "Pajjiż",
+        "name": "Isem"
       }
     }
   },

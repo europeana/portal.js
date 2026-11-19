@@ -52,11 +52,13 @@ export default {
     "depublish": "Αναδημοσίευση",
     "download": "Μεταφόρτωση",
     "edit": "Επεξεργασία",
+    "email": "Ηλεκτρονικό ταχυδρομείο",
     "filter": "Φίλτρο",
     "goHome": "Μεταβείτε στην αρχική σελίδα",
     "hide": "Απόκρυψη",
     "learnMore": "Μάθε περισσότερα",
     "like": "Μου αρέσει",
+    "linkedIn": "Προφίλ LinkedIn",
     "login": "Σύνδεση",
     "move": "Μετακινήστε",
     "next": "Επόμενο",
@@ -1052,6 +1054,15 @@ export default {
     }
   },
   "landing": {
+    "apis": {
+      "header": {
+        "navigation": {
+          "builtWith": "Δημιουργήθηκε με τα API μας",
+          "canDo": "Τι μπορείτε να κάνετε με τα API",
+          "getKey": "Αποκτήστε το δωρεάν κλειδί API σας"
+        }
+      }
+    },
     "counts": {
       "apiRequests": "Μηνιαία αιτήματα API, κατά μέσο όρο",
       "dataProviders": "Πάροχοι δεδομένων",
@@ -1211,6 +1222,14 @@ export default {
       },
       "topics": {
         "title": "Θέματα"
+      }
+    },
+    "enaMembers": {
+      "table": {
+        "communities": "Κοινότητες",
+        "contact": "Επικοινωνία",
+        "country": "Χώρα",
+        "name": "Ονομα"
       }
     }
   },

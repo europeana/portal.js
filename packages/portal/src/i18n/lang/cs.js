@@ -52,11 +52,13 @@ export default {
     "depublish": "Zrušit publikování",
     "download": "Stáhnout",
     "edit": "Upravit",
+    "email": "E-mail",
     "filter": "Filtr",
     "goHome": "Přejít na domovskou stránku",
     "hide": "Skrýt",
     "learnMore": "Zjistěte více",
     "like": "Líbí se mi",
+    "linkedIn": "Profil na LinkedInu",
     "login": "Přihlásit se",
     "move": "Přestěhovat se",
     "next": "Další",
@@ -1052,6 +1054,15 @@ export default {
     }
   },
   "landing": {
+    "apis": {
+      "header": {
+        "navigation": {
+          "builtWith": "Vytvořeno pomocí našich API",
+          "canDo": "Co můžete pomocí API dělat",
+          "getKey": "Získejte bezplatný klíč API"
+        }
+      }
+    },
     "counts": {
       "apiRequests": "Průměrně měsíční požadavky API",
       "dataProviders": "Poskytovatelé dat",
@@ -1211,6 +1222,14 @@ export default {
       },
       "topics": {
         "title": "Tématy"
+      }
+    },
+    "enaMembers": {
+      "table": {
+        "communities": "Komunity",
+        "contact": "Kontakt",
+        "country": "Země",
+        "name": "Název"
       }
     }
   },

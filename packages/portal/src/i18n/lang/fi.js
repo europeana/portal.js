@@ -52,11 +52,13 @@ export default {
     "depublish": "Julkaisun peruuttaminen",
     "download": "Lataa",
     "edit": "Muokkaa",
+    "email": "Sähköposti",
     "filter": "Suodattaa",
     "goHome": "Siirry kotisivulle",
     "hide": "Piilota",
     "learnMore": "Opi lisää",
     "like": "Tykkää",
+    "linkedIn": "LinkedIn-profiili",
     "login": "Kirjaudu sisään",
     "move": "Liikkua",
     "next": "Seuraava",
@@ -1052,6 +1054,15 @@ export default {
     }
   },
   "landing": {
+    "apis": {
+      "header": {
+        "navigation": {
+          "builtWith": "Rakennettu sovellusliittymillämme",
+          "canDo": "Mitä voit tehdä API-rajapinnoilla",
+          "getKey": "Hanki ilmainen API-avain"
+        }
+      }
+    },
     "counts": {
       "apiRequests": "Kuukausittaiset API-pyynnöt keskimäärin",
       "dataProviders": "Tietojen tarjoajat",
@@ -1211,6 +1222,14 @@ export default {
       },
       "topics": {
         "title": "Aiheet"
+      }
+    },
+    "enaMembers": {
+      "table": {
+        "communities": "Yhteisöt",
+        "contact": "Yhteystiedot",
+        "country": "Maa",
+        "name": "Nimi"
       }
     }
   },

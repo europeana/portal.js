@@ -52,11 +52,13 @@ export default {
     "depublish": "Депубликувай",
     "download": "Изтегляне",
     "edit": "Редактиране",
+    "email": "Имейл",
     "filter": "Филтър",
     "goHome": "Отидете на началната страница",
     "hide": "Скрий",
     "learnMore": "Научете повече",
     "like": "Харесвам",
+    "linkedIn": "Профил в LinkedIn",
     "login": "Влизане",
     "move": "Ход",
     "next": "Следваща",
@@ -1052,6 +1054,15 @@ export default {
     }
   },
   "landing": {
+    "apis": {
+      "header": {
+        "navigation": {
+          "builtWith": "Създадено с нашите API",
+          "canDo": "Какво можете да правите с API",
+          "getKey": "Вземете своя безплатен API ключ"
+        }
+      }
+    },
     "counts": {
       "apiRequests": "Средно месечни заявки за API",
       "dataProviders": "Доставчици на данни",
@@ -1211,6 +1222,14 @@ export default {
       },
       "topics": {
         "title": "Рубрика"
+      }
+    },
+    "enaMembers": {
+      "table": {
+        "communities": "Общности",
+        "contact": "Контакт",
+        "country": "Държава:",
+        "name": "Име"
       }
     }
   },

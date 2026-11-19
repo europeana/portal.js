@@ -52,11 +52,13 @@ export default {
     "depublish": "Avpublicera",
     "download": "Ladda ner",
     "edit": "Redigera",
+    "email": "E-post",
     "filter": "Filtrera",
     "goHome": "Gå till hemsidan",
     "hide": "Dölj",
     "learnMore": "Läs mer",
     "like": "Gilla",
+    "linkedIn": "LinkedIn-profil",
     "login": "Logga in",
     "move": "Flytta",
     "next": "Nästa",
@@ -1052,6 +1054,15 @@ export default {
     }
   },
   "landing": {
+    "apis": {
+      "header": {
+        "navigation": {
+          "builtWith": "Byggt med våra API:er",
+          "canDo": "Vad du kan göra med API:erna",
+          "getKey": "Skaffa din kostnadsfria API-nyckel"
+        }
+      }
+    },
     "counts": {
       "apiRequests": "Månatliga API-förfrågningar, i genomsnitt",
       "dataProviders": "Dataleverantörer",
@@ -1211,6 +1222,14 @@ export default {
       },
       "topics": {
         "title": "Ämnen"
+      }
+    },
+    "enaMembers": {
+      "table": {
+        "communities": "Samhällen",
+        "contact": "Kontakt",
+        "country": "Land",
+        "name": "Namn"
       }
     }
   },

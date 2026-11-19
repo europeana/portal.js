@@ -52,11 +52,13 @@ export default {
     "depublish": "Közzététel visszavonása",
     "download": "Letöltés",
     "edit": "Szerkesztés",
+    "email": "E-mail",
     "filter": "Szűrő",
     "goHome": "Ugrás a kezdőlapra",
     "hide": "elrejtése",
     "learnMore": "Tudj meg többet",
     "like": "Kedvelés",
+    "linkedIn": "LinkedIn-profil",
     "login": "Bejelentkezés",
     "move": "Mozgatás",
     "next": "Következő",
@@ -1052,6 +1054,15 @@ export default {
     }
   },
   "landing": {
+    "apis": {
+      "header": {
+        "navigation": {
+          "builtWith": "API-jainkkal építve",
+          "canDo": "Mire használhatók az API-k?",
+          "getKey": "Szerezze meg az ingyenes API-kulcsát"
+        }
+      }
+    },
     "counts": {
       "apiRequests": "Átlagos havi API-kérés",
       "dataProviders": "Adatszolgáltató",
@@ -1211,6 +1222,14 @@ export default {
       },
       "topics": {
         "title": "Témák"
+      }
+    },
+    "enaMembers": {
+      "table": {
+        "communities": "Közösségek",
+        "contact": "Kapcsolat",
+        "country": "Ország",
+        "name": "Név"
       }
     }
   },

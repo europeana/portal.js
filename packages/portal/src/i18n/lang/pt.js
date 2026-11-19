@@ -52,11 +52,13 @@ export default {
     "depublish": "Despublicar",
     "download": "Descarregar",
     "edit": "Editar",
+    "email": "E-mail",
     "filter": "Filtro",
     "goHome": "Vá para a página inicial",
     "hide": "Esconder",
     "learnMore": "Saiba mais",
     "like": "Gosto",
+    "linkedIn": "Perfil do LinkedIn",
     "login": "Inicie sessão",
     "move": "Jogada",
     "next": "Próximo",
@@ -1052,6 +1054,15 @@ export default {
     }
   },
   "landing": {
+    "apis": {
+      "header": {
+        "navigation": {
+          "builtWith": "Desenvolvido com as nossas APIs",
+          "canDo": "O que pode fazer com as APIs",
+          "getKey": "Obtenha a sua chave de API gratuita"
+        }
+      }
+    },
     "counts": {
       "apiRequests": "Pedidos de API mensais, em média",
       "dataProviders": "Fornecedores de Dados",
@@ -1211,6 +1222,14 @@ export default {
       },
       "topics": {
         "title": "Tópicos"
+      }
+    },
+    "enaMembers": {
+      "table": {
+        "communities": "Comunidades",
+        "contact": "Contacto",
+        "country": "País",
+        "name": "Nome"
       }
     }
   },

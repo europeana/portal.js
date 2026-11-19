@@ -52,11 +52,13 @@ export default {
     "depublish": "Depublicer",
     "download": "Hent",
     "edit": "Rediger",
+    "email": "E-mail",
     "filter": "Filter",
     "goHome": "Gå til hjemmesiden",
     "hide": "Skjul",
     "learnMore": "Lær mere",
     "like": "Like",
+    "linkedIn": "LinkedIn-profil",
     "login": "Log ind",
     "move": "Bevæge sig",
     "next": "Næste",
@@ -1052,6 +1054,15 @@ export default {
     }
   },
   "landing": {
+    "apis": {
+      "header": {
+        "navigation": {
+          "builtWith": "Bygget med vores API'er",
+          "canDo": "Hvad du kan gøre med API'erne",
+          "getKey": "Få din gratis API-nøgle"
+        }
+      }
+    },
     "counts": {
       "apiRequests": "Månedlige API-anmodninger i gennemsnit",
       "dataProviders": "Dataudbydere",
@@ -1211,6 +1222,14 @@ export default {
       },
       "topics": {
         "title": "Emner"
+      }
+    },
+    "enaMembers": {
+      "table": {
+        "communities": "Fællesskaber",
+        "contact": "Kontakt",
+        "country": "Land",
+        "name": "Navn"
       }
     }
   },

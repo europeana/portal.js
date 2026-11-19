@@ -52,11 +52,13 @@ export default {
     "depublish": "Depublicați",
     "download": "Descarcă",
     "edit": "Editare",
+    "email": "E-mail",
     "filter": "Filtru",
     "goHome": "Mergeți la pagina de pornire",
     "hide": "Ascunde",
     "learnMore": "Află mai multe",
     "like": "Îmi place",
+    "linkedIn": "Profil LinkedIn",
     "login": "Autentificare",
     "move": "Muta",
     "next": "Următorul",
@@ -1052,6 +1054,15 @@ export default {
     }
   },
   "landing": {
+    "apis": {
+      "header": {
+        "navigation": {
+          "builtWith": "Construit cu API-urile noastre",
+          "canDo": "Ce puteți face cu API-urile",
+          "getKey": "Obțineți cheia API gratuită"
+        }
+      }
+    },
     "counts": {
       "apiRequests": "Solicitări API lunare, în medie",
       "dataProviders": "Furnizorii de date",
@@ -1211,6 +1222,14 @@ export default {
       },
       "topics": {
         "title": "Subiecte"
+      }
+    },
+    "enaMembers": {
+      "table": {
+        "communities": "Comunități",
+        "contact": "Contact",
+        "country": "Țara",
+        "name": "Nume"
       }
     }
   },
