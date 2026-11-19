@@ -24,6 +24,6 @@ RUN npm --prefix ./styleguide ci ./styleguide
 RUN npm run styleguide:build
 
 
-FROM nginx:stable-alpine
+FROM nginx:stable-alpine@sha256:3bc3836dc0be3b811f238210360bf8e7ca8a2d0effdae46160bf1f3578710051
 
 COPY --from=build /app/styleguide/dist /usr/share/nginx/html

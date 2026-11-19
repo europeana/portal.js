@@ -15,12 +15,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v6
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
           fetch-depth: 0
 
       - name: Push files to Lokalise
-        uses: lokalise/lokalise-push-action@v5.2.0
+        uses: lokalise/lokalise-push-action@12fed75405fdb9812ef80bd9d9ef3d45cd5d70eb # v5.2.0
         with:
           api_token: ${{ secrets.LOKALISE_API_TOKEN_RW }}
           project_id: ${{ secrets.LOKALISE_PROJECT_ID }}
