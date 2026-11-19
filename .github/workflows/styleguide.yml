@@ -143,7 +143,7 @@ jobs:
       -
         name: Comment with deployment link on pull request
         if: env.K8S_NEW_DEPLOYMENT == 'true'
-        uses: actions/github-script@d7906e4ad0b1822421a7e6a35d5ca353c962f410 # v6
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
         with:
           script: |
             github.rest.issues.createComment({
