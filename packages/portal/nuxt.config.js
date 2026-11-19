@@ -607,6 +607,7 @@ export default {
       'ol/View.js',
       'ssr-window',
       'swiper',
+      'uuid',
       'vue-router-query'
     ]
   },
