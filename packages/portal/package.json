@@ -39,7 +39,7 @@
     "dateformat": "^4.6.3",
     "deepmerge": "^4.2.2",
     "defu": "^6.1.5",
-    "dotenv": "^10.0.0",
+    "dotenv": "^18.0.0",
     "elastic-apm-node": "^3.24.0",
     "event-target-shim": "^6.0.2",
     "express": "^4.22.2",
