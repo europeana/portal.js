@@ -9,7 +9,6 @@ query PeopleCommunities(
   personCollection(
     locale: $locale
     preview: $preview
-    order: country_ASC
     limit: 1000
     skip: $skip
     where: { AND: [

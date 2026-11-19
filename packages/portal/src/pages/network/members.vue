@@ -223,7 +223,7 @@
           hasMore = total > skip;
         }
 
-        return [...new Set(results)];
+        return [...new Set(results)].sort();
       },
 
       async fetchOptions(name) {
