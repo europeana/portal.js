@@ -36,7 +36,7 @@
     "cookie": "^1.0.2",
     "core-js": "^3.19.1",
     "cors": "^2.8.5",
-    "dateformat": "^4.6.3",
+    "dateformat": "^5.0.0",
     "deepmerge": "^4.2.2",
     "defu": "^6.1.5",
     "dotenv": "^10.0.0",
