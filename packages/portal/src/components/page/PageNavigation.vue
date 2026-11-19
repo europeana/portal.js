@@ -1,29 +1,47 @@
 <template>
-  <b-navbar-nav
+  <div
     class="ml-xl-auto top-navbar"
     data-qa="main navigation"
   >
-    <li
-      v-for="(link, index) in links"
+    <b-navbar-nav
+      v-for="(group, index) in linkGroups"
       :key="index"
-      class="nav-item"
-      :class="{ 'sidebar-nav-item': sidebarNav }"
     >
-      <b-link
-        v-b-toggle.menu
-        :to="link.to || localePath(link.url)"
-        :target="null"
-        :data-qa="link.dataQa"
-        class="nav-link"
+      <h3
+        v-if="group.key"
       >
-        <span
-          v-if="sidebarNav"
-          :class="renderIcon(link.url)"
-        />
-        {{ link.text }}
-      </b-link>
-    </li>
-  </b-navbar-nav>
+        {{ $t(`sideNavigation.${group.key}`) }}
+      </h3>
+      <li
+        v-for="(link, i) in group.items"
+        :key="i"
+        class="nav-item"
+        :class="{ 'sidebar-nav-item': sidebarNav }"
+      >
+        <b-link
+          v-b-toggle.menu
+          :to="link.to || localePath(link.url)"
+          :target="null"
+          :data-qa="link.dataQa"
+          class="nav-link"
+        >
+          <span
+            v-if="sidebarNav"
+            :class="renderIcon(link.url)"
+          />
+          {{ link.text }}
+        </b-link>
+      </li>
+    </b-navbar-nav>
+    <b-button
+      v-if="sidebarNav"
+      :url="authLinks.items[0].url"
+      :to="authLinks.items[0].to"
+      :data-qa="authLinks.items[0].dataQa"
+    >
+      {{ authLinks.items[0].text }}
+    </b-button>
+  </div>
 </template>
 
 <script>
@@ -39,12 +57,13 @@
 
     computed: {
       authLinks() {
-        return this.isAuthenticated ? [
-          { url: '/account', text: this.$t('account.title'), dataQa: 'account link' },
-          this.sidebarNav && { url: '/account/logout', to: '/account/logout', text: this.$t('account.linkLogout'), dataQa: 'log out link' }
-        ].filter(Boolean) : [
-          { url: '/account/login', to: { name: 'account-login', query: { redirect: this.$route.fullPath } }, text: this.$t('account.linkLoginJoin'), dataQa: 'log in link' }
-        ];
+        return {
+          items: this.isAuthenticated ? [
+            this.sidebarNav ? { url: '/account/logout', to: '/account/logout', text: this.$t('account.linkLogout'), dataQa: 'log out link' } : { url: '/account', text: this.$t('account.title'), dataQa: 'account link' }
+          ] : [
+            { url: '/account/login', to: { name: 'account-login', query: { redirect: this.$route.fullPath } }, text: this.$t('account.linkLoginJoin'), dataQa: 'log in link' }
+          ]
+        };
       },
       mainNavigation() {
         return [
@@ -56,16 +75,30 @@
       },
       sidebarNavigation() {
         return [
-          { url: '/partners', text: this.$t('header.navigation.partners') },
-          { url: '/educators', text: this.$t('header.navigation.educators') },
-          { url: '/research', text: this.$t('header.navigation.research') },
-          { url: '/about-us', text: this.$t('header.navigation.about') },
-          { url: '/help', text: this.$t('header.navigation.help') },
-          { url: '/feature-ideas', text: this.$t('header.navigation.featureIdeas') }
+          {
+            key: 'collections',
+            items: [
+              { url: '/educators', text: this.$t('header.navigation.educators') },
+              { url: '/research', text: this.$t('header.navigation.research') },
+              { url: '/partners', text: this.$t('header.navigation.partners') }
+            ]
+          },
+          {
+            key: 'about',
+            items: [
+              { url: '/about-us', text: this.$t('header.navigation.about') },
+              { url: '/help', text: this.$t('header.navigation.help') },
+              { url: '/feature-ideas', text: this.$t('header.navigation.featureIdeas') }
+            ].concat(this.isAuthenticated ? { url: '/account', text: this.$t('account.title'), dataQa: 'account link' } : [])
+          }
         ];
       },
-      links() {
-        return this.mainNavigation.concat(this.sidebarNav ? this.sidebarNavigation : []).concat(this.authLinks);
+      linkGroups() {
+        return [
+          {
+            items: this.mainNavigation
+          }
+        ].concat(this.sidebarNav ? this.sidebarNavigation : this.authLinks);
       },
       isAuthenticated() {
         return this.$store.state.auth.loggedIn;
@@ -129,6 +162,10 @@
 
   .nav-item {
     margin-right: 1rem;
+
+    .topnav {
+      display: inherit;
+    }
 
     &:nth-last-child(2) {
       margin-right: 0;

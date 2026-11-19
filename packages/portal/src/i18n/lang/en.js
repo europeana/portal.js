@@ -1530,6 +1530,10 @@ export default {
     }
   },
   "shareWhere": "Where would you like to share this?",
+  "sideNavigation": {
+    "collections": "Using the collections",
+    "about": "About and help"
+  },
   "sideFilters": {
     "noOptions": "There are no options available to select",
     "search": "Search"
