@@ -39,54 +39,60 @@
         class="dropdown-menu"
         :class="{ show: showDropdown }"
       >
-        <form
-          v-if="searchable"
-          class="dropdown-form"
-          @submit.stop.prevent="() => {}"
-        >
-          <div
-            class="form-group"
+        <LoadingSpinner
+          v-if="!fieldsFetched"
+          class="text-center"
+        />
+        <template v-else>
+          <form
+            v-if="searchable"
+            class="dropdown-form"
+            @submit.stop.prevent="() => {}"
           >
-            <div>
-              <input
-                ref="search-input"
-                v-model="dropdownSearchQuery"
-                type="text"
-                autocomplete="off"
-                :placeholder="$t('sideFilters.search')"
-                :aria-label="$t('sideFilters.search')"
-                class="form-control"
-                :aria-owns="showDropdown ? optionsId : null"
-                :aria-controls="showDropdown ? optionsId : null"
-              >
-              <span class="icon-search" />
-            </div>
-          </div>
-        </form>
-        <ul
-          v-if="fieldsFilteredToSearch.length > 0"
-          :id="optionsId"
-          class="list-unstyled mb-0"
-        >
-          <li
-            v-for="item in fieldsFilteredToSearch"
-            :key="item"
-          >
-            <NuxtLink
-              class="dropdown-item"
-              :data-qa="`dropdown item ${item}`"
-              :to="filterToLink(item)"
+            <div
+              class="form-group"
             >
-              {{ item }}
-            </NuxtLink>
-          </li>
-        </ul>
-        <div
-          v-else
-          class="px-2"
-        >
-          {{ $t('sideFilters.noOptions') }}
-        </div>
+              <div>
+                <input
+                  ref="search-input"
+                  v-model="dropdownSearchQuery"
+                  type="text"
+                  autocomplete="off"
+                  :placeholder="$t('sideFilters.search')"
+                  :aria-label="$t('sideFilters.search')"
+                  class="form-control"
+                  :aria-owns="showDropdown ? optionsId : null"
+                  :aria-controls="showDropdown ? optionsId : null"
+                >
+                <span class="icon-search" />
+              </div>
+            </div>
+          </form>
+          <ul
+            v-if="fieldsFilteredToSearch.length > 0"
+            :id="optionsId"
+            class="list-unstyled mb-0"
+          >
+            <li
+              v-for="item in fieldsFilteredToSearch"
+              :key="item"
+            >
+              <NuxtLink
+                class="dropdown-item"
+                :data-qa="`dropdown item ${item}`"
+                :to="filterToLink(item)"
+              >
+                {{ item }}
+              </NuxtLink>
+            </li>
+          </ul>
+          <div
+            v-else
+            class="px-2"
+          >
+            {{ $t('sideFilters.noOptions') }}
+          </div>
+        </template>
       </div>
     </div>
   </div>
@@ -100,6 +106,10 @@
 
     directives: {
       clickOutside: vClickOutside.directive
+    },
+
+    components: {
+      LoadingSpinner: () => import('@/components/generic/LoadingSpinner')
     },
 
     props: {
@@ -116,6 +126,13 @@
       fields: {
         type: Array,
         default: () => []
+      },
+      /**
+       * Fetch state of the fields
+       */
+      fieldsFetched: {
+        type: Boolean,
+        default: false
       },
       /**
        * Placeholder text for the dropdown button
@@ -245,6 +262,7 @@
         if (this.showDropdown) {
           this.closeDropdown();
         } else {
+          this.$emit('showDropdown');
           this.setClickOutsideConfigIsActive(true);
           this.showDropdown = true;
         }

@@ -8,6 +8,7 @@ const localVue = createLocalVue();
 const testProps = {
   name: 'country',
   fields: ['United Kingdom', 'The Netherlands'],
+  fieldsFetched: true,
   type: 'checkbox'
 };
 
@@ -31,11 +32,12 @@ describe('components/search/SearchDropdown', () => {
   });
 
   describe('when the dropdown toggle is clicked', () => {
-    it('opens the options and starts listening to clicks outside', async() => {
+    it('emits showDropdown , opens the options and starts listening to clicks outside', async() => {
       const wrapper = factory();
 
       wrapper.find('.dropdown-toggle').trigger('click');
 
+      expect(wrapper.emitted('showDropdown').length).toBe(1);
       expect(wrapper.vm.showDropdown).toBe(true);
       expect(wrapper.vm.clickOutsideConfig.isActive).toBe(true);
     });

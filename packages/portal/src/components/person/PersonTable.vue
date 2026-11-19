@@ -8,9 +8,11 @@
         :name="filter.name"
         :type="filter.type"
         :fields="filter.fields"
+        :fields-fetched="filter.fieldsFetched"
         :placeholder="filter.placeholder"
         :search="true"
         class="search-dropdown d-inline-flex flex-column justify-content-end mb-2 mr-sm-3"
+        @showDropdown="$emit('showDropdown', filter.name)"
       />
     </div>
     <table
@@ -156,6 +158,13 @@
         default: () => []
       },
       /**
+       * Country and communities options are fetched
+       */
+      optionsFetched: {
+        type: Object,
+        default: () => ({ country: false, communities: false })
+      },
+      /**
        * Communities to list in the search filter dropdown
        */
       communities: {
@@ -213,22 +222,29 @@
             class: 'table-toggle-cell d-lg-none'
           }
         ],
-        filters: {
-          ...this.countries.length && { country: {
+        people: this.addShowDetailsPropToPeopleItems()
+      };
+    },
+
+    computed: {
+      filters() {
+        return {
+          ...this.countries && { country: {
             name: 'country',
             type: 'radio',
             fields: this.countries,
-            placeholder: this.$t('pages.enaMembers.table.allCountries')
+            placeholder: this.$t('pages.enaMembers.table.allCountries'),
+            fieldsFetched: this.optionsFetched.country
           } },
-          ...this.communities.length && { communities: {
+          ...this.communities && { communities: {
             name: 'communities',
             type: 'checkbox',
             fields: this.communities,
-            placeholder: this.$t('pages.enaMembers.table.allCommunities')
+            placeholder: this.$t('pages.enaMembers.table.allCommunities'),
+            fieldsFetched: this.optionsFetched.communities
           } }
-        },
-        people: this.addShowDetailsPropToPeopleItems()
-      };
+        };
+      }
     },
 
     watch: {

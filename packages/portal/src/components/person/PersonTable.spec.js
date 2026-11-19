@@ -91,11 +91,23 @@ describe('components/content/PersonTable', () => {
       const countries = ['France', 'United Kingdom'];
       const wrapper = factory({ ...testProps, countries });
 
-      expect(wrapper.find('searchdropdown-stub').isVisible()).toBe(true);
-      expect(wrapper.find('searchdropdown-stub').attributes('name')).toEqual('country');
-      expect(wrapper.find('searchdropdown-stub').attributes('type')).toEqual('radio');
-      expect(wrapper.find('searchdropdown-stub').attributes('fields')).toEqual(countries.join(','));
-      expect(wrapper.find('searchdropdown-stub').attributes('placeholder')).toEqual('pages.enaMembers.table.allCountries');
+      const countryDropdown = wrapper.findAll('searchdropdown-stub').at(0);
+
+      expect(countryDropdown.isVisible()).toBe(true);
+      expect(countryDropdown.attributes('name')).toEqual('country');
+      expect(countryDropdown.attributes('type')).toEqual('radio');
+      expect(countryDropdown.attributes('fields')).toEqual(countries.join(','));
+      expect(countryDropdown.attributes('placeholder')).toEqual('pages.enaMembers.table.allCountries');
+    });
+    describe('when showDropdown is called', () => {
+      it('emits showDropdown with the filter name', () => {
+        const countries = ['France', 'United Kingdom'];
+        const wrapper = factory({ ...testProps, countries });
+
+        wrapper.find('searchdropdown-stub').vm.$emit('showDropdown');
+
+        expect(wrapper.emitted('showDropdown')[0][0]).toBe('country');
+      });
     });
   });
   describe('when communities prop is set', () => {
@@ -103,11 +115,13 @@ describe('components/content/PersonTable', () => {
       const communities = ['Research', 'Education'];
       const wrapper = factory({ ...testProps, communities });
 
-      expect(wrapper.find('searchdropdown-stub').isVisible()).toBe(true);
-      expect(wrapper.find('searchdropdown-stub').attributes('name')).toEqual('communities');
-      expect(wrapper.find('searchdropdown-stub').attributes('type')).toEqual('checkbox');
-      expect(wrapper.find('searchdropdown-stub').attributes('fields')).toEqual(communities.join(','));
-      expect(wrapper.find('searchdropdown-stub').attributes('placeholder')).toEqual('pages.enaMembers.table.allCommunities');
+      const communitiesDropdown = wrapper.findAll('searchdropdown-stub').at(1);
+
+      expect(communitiesDropdown.isVisible()).toBe(true);
+      expect(communitiesDropdown.attributes('name')).toEqual('communities');
+      expect(communitiesDropdown.attributes('type')).toEqual('checkbox');
+      expect(communitiesDropdown.attributes('fields')).toEqual(communities.join(','));
+      expect(communitiesDropdown.attributes('placeholder')).toEqual('pages.enaMembers.table.allCommunities');
     });
   });
 });

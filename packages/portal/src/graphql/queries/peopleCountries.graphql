@@ -1,0 +1,27 @@
+query PeopleCountries(
+  $locale: String!
+  $preview: Boolean = false
+  $limit: Int = 1000
+  $skip: Int = 0
+  $participation: [String] = []
+  $communities: [String] = []
+) {
+  personCollection(
+    locale: $locale
+    preview: $preview
+    order: country_ASC
+    limit: $limit
+    skip: $skip
+    where: { AND: [
+      { participation_contains_all: $participation }
+      { communities_contains_all: $communities }
+      { country_exists: true } 
+      { country_not: "" }
+    ]}
+  ) {
+    total
+    items {
+      country
+    }
+  }
+}
