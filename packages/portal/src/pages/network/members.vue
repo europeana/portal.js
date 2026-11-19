@@ -223,7 +223,7 @@
           hasMore = total > skip;
         }
 
-        return [...new Set(results)].sort();
+        return [...new Set(results)].sort((a, b) => a.localeCompare(b));
       },
 
       async fetchOptions(name) {

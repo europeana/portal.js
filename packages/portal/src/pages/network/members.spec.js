@@ -282,7 +282,7 @@ describe('pages/network/members', () => {
           preview: false,
           limit: 1000
         })).toBe(true);
-        expect(wrapper.vm.communities).toEqual(fixtures.peopleCommunities.data.personCollection.items[0].communities.sort());
+        expect(wrapper.vm.communities).toEqual(['Climate', 'Education', 'Research']);
       });
     });
   });
