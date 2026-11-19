@@ -30,7 +30,7 @@ const fixtures = {
         items: [
           {
             name: 'Test Person',
-            communities: ['One', 'Two', 'Three'],
+            communities: ['Research', 'Climate', 'Education'],
             country: 'The Netherlands',
             email: 'test@person@example.org',
             url: 'https://www.linkedin.com/test_person'
@@ -55,7 +55,7 @@ const fixtures = {
       personCollection: {
         items: [
           {
-            communities: ['One', 'Two', 'Three']
+            communities: ['Research', 'Climate', 'Education']
           }
         ]
       }
@@ -268,7 +268,7 @@ describe('pages/network/members', () => {
       });
     });
     describe('when name is communities', () => {
-      it('fetches people communities values filtered to current query', async() => {
+      it('fetches people communities values filtered to current query and sorted', async() => {
         const wrapper = factory({ mocks: { $route: { query: { communities, country } } } });
 
         await wrapper.vm.fetchOptions('communities');
@@ -282,7 +282,7 @@ describe('pages/network/members', () => {
           preview: false,
           limit: 1000
         })).toBe(true);
-        expect(wrapper.vm.communities).toEqual(fixtures.peopleCommunities.data.personCollection.items[0].communities);
+        expect(wrapper.vm.communities).toEqual(fixtures.peopleCommunities.data.personCollection.items[0].communities.sort());
       });
     });
   });
