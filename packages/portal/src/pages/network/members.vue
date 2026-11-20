@@ -33,6 +33,10 @@
               :items="people"
               :total-results="total"
               :per-page="perPage"
+              :countries="countries"
+              :communities="communities"
+              :options-fetched="{ country: countryOptionsFetched, communities: communitiesOptionsFetched }"
+              @showDropdown="fetchOptions"
             />
           </article>
         </b-col>
@@ -46,6 +50,8 @@
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import staticPageGraphql from '@/graphql/queries/staticPage.graphql';
   import peopleGraphql  from '@/graphql/queries/people.graphql';
+  import peopleCommunitiesGraphql  from '@/graphql/queries/peopleCommunities.graphql';
+  import peopleCountriesGraphql  from '@/graphql/queries/peopleCountries.graphql';
   import pageMetaMixin from '@/mixins/pageMeta';
   import PersonTable from '../../components/person/PersonTable.vue';
   import useScrollTo from '@/composables/scrollTo.js';
@@ -79,7 +85,12 @@
         pageFetched: false,
         total: null,
         people: null,
-        perPage: PER_PAGE
+        perPage: PER_PAGE,
+        // TODO: countries translations
+        countries: [],
+        communities: [],
+        countryOptionsFetched: false,
+        communitiesOptionsFetched: false
       };
     },
 
@@ -101,13 +112,28 @@
       },
       skip() {
         return ((this.$route.query.page || 1) - 1) * this.perPage;
+      },
+      countryQuery() {
+        return this.$route.query.country;
+      },
+      communitiesQuery() {
+        return this.$route.query.communities;
+      },
+      basePeopleQueryVariables() {
+        return Object.entries({
+          participation: ['Network Association'],
+          communities: this.communitiesQuery?.split(','),
+          country: this.countryQuery,
+          locale: this.$i18n.localeProperties.iso,
+          preview: this.$route.query.mode === 'preview'
+        }).reduce((memo, [key, value]) => value ? { ...memo, [key]: value } : memo, {});
       }
     },
 
     watch: {
-      '$route.query.page': 'handleSearchParamsChanged'
-      // '$route.query.communities': 'handleSearchParamsChanged',
-      // '$route.query.country': 'handleSearchParamsChanged'
+      '$route.query.page': 'handlePageChanged',
+      '$route.query.communities': 'handleFilterChange',
+      '$route.query.country': 'handleFilterChange'
     },
 
     methods: {
@@ -133,26 +159,76 @@
       },
       async fetchPeople() {
         const variables = {
-          participation: ['Network Association'],
-          skip: this.skip,
-          locale: this.$i18n.localeProperties.iso,
-          preview: this.$route.query.mode === 'preview'
+          ...this.basePeopleQueryVariables,
+          skip: this.skip
         };
         const peopleResponse = await this.$contentful.query(peopleGraphql, variables);
 
         this.people = peopleResponse?.data?.personCollection?.items;
         this.total = peopleResponse?.data?.personCollection?.total;
       },
-      handleSearchParamsChanged() {
+      resetFilterOptions() {
+        this.countries = [];
+        this.communities = [];
+        this.countryOptionsFetched = false;
+        this.communitiesOptionsFetched = false;
+      },
+      handleFilterChange() {
+        this.resetFilterOptions();
+        this.fetchPeople();
+      },
+      handlePageChanged() {
         this.scrollToSelector('#members-table', {
           behavior: 'smooth'
         });
         this.$fetch();
+      },
+      async fetchPaginatedOptions(name) {
+        let query;
+        let variables = this.basePeopleQueryVariables;
+
+        if (name === 'country') {
+          query = peopleCountriesGraphql;
+          delete variables.country;
+        } else if (name === 'communities') {
+          query = peopleCommunitiesGraphql;
+        }
+
+        const limit = 1000;
+        let skip = 0;
+        let hasMore = true;
+        let results = [];
+
+        while (hasMore) {
+          const response = await this.$contentful.query(query, {
+            ...variables,
+            limit,
+            skip
+          });
+
+          const collection = response?.data?.personCollection;
+          const items = collection?.items || [];
+          const total = collection?.total || 0;
+
+          results = results.concat(items.map(person => person[name]).flat().filter(Boolean));
+
+          skip += limit;
+          hasMore = total > skip;
+        }
+
+        return [...new Set(results)].sort((a, b) => a.localeCompare(b));
+      },
+
+      async fetchOptions(name) {
+        if (name === 'country' && !this.countryOptionsFetched) {
+          this.countries = await this.fetchPaginatedOptions('country');
+          this.countryOptionsFetched = true;
+        } else if (name === 'communities' && !this.communitiesOptionsFetched) {
+          this.communities = await this.fetchPaginatedOptions('communities');
+          this.communitiesOptionsFetched = true;
+        }
       }
+
     }
   };
 </script>
-
-<style lang="scss" scoped>
-@import '@europeana/style/scss/variables';
-</style>

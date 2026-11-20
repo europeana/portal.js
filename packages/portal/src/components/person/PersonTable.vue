@@ -1,5 +1,20 @@
 <template>
   <div class="person-table">
+    <!-- TODO: move up to page level? -->
+    <div class="d-flex flex-wrap align-items-bottom">
+      <SearchDropdown
+        v-for="filter in filters"
+        :key="filter.name"
+        :name="filter.name"
+        :type="filter.type"
+        :fields="filter.fields"
+        :fields-fetched="filter.fieldsFetched"
+        :placeholder="filter.placeholder"
+        :search="true"
+        class="search-dropdown d-inline-flex flex-column justify-content-end mb-2 mr-sm-3"
+        @showDropdown="$emit('showDropdown', filter.name)"
+      />
+    </div>
     <table
       v-if="people.length"
       :id="tableId"
@@ -22,8 +37,8 @@
           <tr
             :key="`row-${index}`"
             :class="{ 'details-open': person.showDetails }"
-            :aria-owns="`table-details-${index}`"
-            :aria-details="`table-details-${index}`"
+            :aria-owns="person.showDetails ? `table-details-${index}` : null"
+            :aria-details="person.showDetails ? `table-details-${index}` : null"
           >
             <td
               v-for="(field, fieldIndex) in fields"
@@ -53,6 +68,9 @@
                   class="btn btn-light-flat button-icon-only"
                   @click="toggleDetails(person)"
                 >
+                  <span class="visually-hidden">
+                    {{ $t('pages.enaMembers.table.showMoreData', {person: person.name}) }}
+                  </span>
                   <span class="icon-chevron" />
                 </button>
               </template>
@@ -111,15 +129,17 @@
 </template>
 
 <script>
+  import PersonContactLinks from '@/components/person/PersonContactLinks';
+  import SearchDropdown from '@/components/search/SearchDropdown';
   import PaginationNavInput from '@/components/generic/PaginationNavInput';
-  import PersonContactLinks from '@/components/person/PersonContactLinks.vue';
 
   export default {
     name: 'PersonTable',
 
     components: {
-      PaginationNavInput,
-      PersonContactLinks
+      PersonContactLinks,
+      SearchDropdown,
+      PaginationNavInput
     },
 
     props: {
@@ -127,6 +147,27 @@
        * Items (persons) to render in the table
        */
       items: {
+        type: Array,
+        default: () => []
+      },
+      /**
+       * Countries to list in the search filter dropdown
+       */
+      countries: {
+        type: Array,
+        default: () => []
+      },
+      /**
+       * Country and communities options are fetched
+       */
+      optionsFetched: {
+        type: Object,
+        default: () => ({ country: false, communities: false })
+      },
+      /**
+       * Communities to list in the search filter dropdown
+       */
+      communities: {
         type: Array,
         default: () => []
       },
@@ -181,13 +222,46 @@
             class: 'table-toggle-cell d-lg-none'
           }
         ],
-        people: [...this.items].map((p) => ({ ...p, showDetails: false }))
+        people: this.addShowDetailsPropToPeopleItems()
       };
+    },
+
+    computed: {
+      filters() {
+        return {
+          ...this.countries && { country: {
+            name: 'country',
+            type: 'radio',
+            fields: this.countries,
+            placeholder: this.$t('pages.enaMembers.table.allCountries'),
+            fieldsFetched: this.optionsFetched.country
+          } },
+          ...this.communities && { communities: {
+            name: 'communities',
+            type: 'checkbox',
+            fields: this.communities,
+            placeholder: this.$t('pages.enaMembers.table.allCommunities'),
+            fieldsFetched: this.optionsFetched.communities
+          } }
+        };
+      }
+    },
+
+    watch: {
+      items() {
+        this.people = this.addShowDetailsPropToPeopleItems();
+      }
     },
 
     methods: {
       toggleDetails(person) {
         person.showDetails = !person.showDetails;
+      },
+      filterIsSetTo(name, value) {
+        return this.selectedFilters[name].includes(value);
+      },
+      addShowDetailsPropToPeopleItems() {
+        return [...this.items].map((p) => ({ ...p, showDetails: false }));
       }
     }
   };
@@ -291,6 +365,12 @@
       }
     }
   }
+
+  .search-dropdown {
+    @media (max-width: ($bp-small - 1px)) {
+      flex-basis: 100%;
+    }
+  }
 }
 </style>
 
@@ -306,6 +386,14 @@ With pagination
   :items="people"
   :per-page="4"
   :total-results="5"
+/>
+```
+With filters
+```jsx
+<PersonTable
+  :items="people"
+  :countries="['France', 'Mexico']"
+  :communities="['Research', 'Education']"
 />
 ```
 </docs>
