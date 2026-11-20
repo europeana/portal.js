@@ -233,6 +233,7 @@
           ...this.$route,
           query: {
             ...this.$route.query,
+            page: 1,
             [this.name]: optionsForQuery
           }
         };

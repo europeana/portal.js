@@ -54,14 +54,14 @@ describe('components/search/SearchDropdown', () => {
         },
         { $route: { query: { country: alreadySelectedOption } } });
 
-        expect(wrapper.vm.filterToLink(option)).toEqual({ query: { country: 'United Kingdom' } });
+        expect(wrapper.vm.filterToLink(option)).toEqual({ query: { country: 'United Kingdom', page: 1 } });
       });
     });
     describe('when type is checkbox', () => {
       it('returns an updated route with the selected options', () => {
         const wrapper = factory(testProps, { $route: { query: { country: alreadySelectedOption } } });
 
-        expect(wrapper.vm.filterToLink(option)).toEqual({ query: { country: 'The Netherlands,United Kingdom' } });
+        expect(wrapper.vm.filterToLink(option)).toEqual({ query: { country: 'The Netherlands,United Kingdom', page: 1 } });
       });
     });
   });
@@ -94,7 +94,7 @@ describe('components/search/SearchDropdown', () => {
 
         wrapper.find('.selected-tags .badge .close').trigger('click');
 
-        expect(wrapper.vm.$router.push.calledWith({ query: { country: undefined } })).toBe(true);
+        expect(wrapper.vm.$router.push.calledWith({ query: { country: undefined, page: 1 } })).toBe(true);
       });
     });
   });

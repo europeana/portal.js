@@ -210,8 +210,7 @@
           const items = collection?.items || [];
           const total = collection?.total || 0;
 
-          results = results.concat(items.map(person => person[name]).flat().filter(Boolean)
-          );
+          results = results.concat(items.map(person => person[name]).flat().filter(Boolean));
 
           skip += limit;
           hasMore = total > skip;
