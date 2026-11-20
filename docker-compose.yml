@@ -1,6 +1,6 @@
 services:
   pgadmin:
-    image: dpage/pgadmin4:9
+    image: dpage/pgadmin4:9@sha256:3591b3d02910dcd817dec6fcaa681c278ba6966945283dd0ea0042731c330c83
     depends_on:
       - postgres
     environment:
@@ -26,7 +26,7 @@ services:
       - ./docker/compose/postgres/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
       - ./docker/compose/postgres/model:/var/lib/postgresql/model
   redis:
-    image: redis:8
+    image: redis:8@sha256:1f88291b4c57bdf249f02eb085a8669889b2d2954e91d4de5118a5da6b78dd53
     command: redis-server --appendonly yes
     ports:
       - "16379:6379"
