@@ -120,19 +120,13 @@
         return this.$route.query.communities;
       },
       basePeopleQueryVariables() {
-        return {
+        return Object.entries({
           participation: ['Network Association'],
           communities: this.communitiesQuery?.split(','),
           country: this.countryQuery,
           locale: this.$i18n.localeProperties.iso,
           preview: this.$route.query.mode === 'preview'
-        };
-      },
-      countriesQueryVariables() {
-        return {
-          ...this.basePeopleQueryVariables,
-          country: undefined
-        };
+        }).reduce((memo, [key, value]) => value ? { ...memo, [key]: value } : memo, {});
       }
     },
 
@@ -195,7 +189,7 @@
 
         if (name === 'country') {
           query = peopleCountriesGraphql;
-          variables = this.countriesQueryVariables;
+          delete variables.country;
         } else if (name === 'communities') {
           query = peopleCommunitiesGraphql;
         }

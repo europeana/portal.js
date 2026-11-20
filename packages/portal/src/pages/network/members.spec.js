@@ -121,10 +121,7 @@ describe('pages/network/members', () => {
       expect(contentfulQueryStub.calledWith(sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'People'), {
         participation: ['Network Association'],
         skip: 0,
-        communities: undefined,
-        country: undefined,
-        locale: 'en-GB',
-        preview: false
+        locale: 'en-GB'
       })).toBe(true);
     });
 
@@ -138,17 +135,13 @@ describe('pages/network/members', () => {
 
       expect(contentfulQueryStub.calledWith(sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'StaticPage'), {
         identifier: 'network/members',
-        locale: 'en-GB',
-        preview: false
+        locale: 'en-GB'
       })).toBe(false);
 
       expect(contentfulQueryStub.calledWith(sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'People'), {
         participation: ['Network Association'],
         skip: 20,
-        communities: undefined,
-        country: undefined,
-        locale: 'en-GB',
-        preview: false
+        locale: 'en-GB'
       })).toBe(true);
     });
 
@@ -210,10 +203,8 @@ describe('pages/network/members', () => {
       expect(contentfulQueryStub.calledWith(sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'People'), {
         participation: ['Network Association'],
         skip: 0,
-        communities: undefined,
         country,
-        locale: 'en-GB',
-        preview: false
+        locale: 'en-GB'
       })).toBe(true);
       expect(wrapper.vm.countries).toEqual([]);
       expect(wrapper.vm.communities).toEqual([]);
@@ -235,9 +226,7 @@ describe('pages/network/members', () => {
         participation: ['Network Association'],
         skip: 0,
         communities,
-        country: undefined,
-        locale: 'en-GB',
-        preview: false
+        locale: 'en-GB'
       })).toBe(true);
       expect(wrapper.vm.countries).toEqual([]);
       expect(wrapper.vm.communities).toEqual([]);
@@ -259,9 +248,7 @@ describe('pages/network/members', () => {
           participation: ['Network Association'],
           skip: 0,
           communities: [communities],
-          country: undefined,
           locale: 'en-GB',
-          preview: false,
           limit: 1000
         })).toBe(true);
         expect(wrapper.vm.countries).toEqual([fixtures.peopleCountries.data.personCollection.items[0].country]);
@@ -279,7 +266,6 @@ describe('pages/network/members', () => {
           communities: [communities],
           country,
           locale: 'en-GB',
-          preview: false,
           limit: 1000
         })).toBe(true);
         expect(wrapper.vm.communities).toEqual(['Climate', 'Education', 'Research']);
