@@ -58,7 +58,7 @@
     "lerna": "10.1.2",
     "postcss-scss": "4.0.9",
     "stylelint": "14.16.1",
-    "stylelint-config-recommended-scss": "7.0.0",
+    "stylelint-config-recommended-scss": "18.0.0",
     "stylelint-config-recommended-vue": "1.6.1",
     "vue": "2.7.16"
   },
