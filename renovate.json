@@ -1,0 +1,17 @@
+{
+  "$schema": "https://renovatebot.com",
+  "dependencyDashboard": {
+    "enabled": true
+  },
+  "extends": [
+    "config:best-practices",
+    ":automergeMinor",
+    "security:minimumReleaseAgeNpm"
+  ],
+  "platformAutomerge": true,
+  "prConcurrentLimit": 10,
+  "lockFileMaintenance": {
+    "enabled": true,
+    "automerge": true
+  }
+}

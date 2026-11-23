@@ -98,6 +98,7 @@ Object.assign(Vue.prototype, {
     params: {
       pathMatch: 'example-page'
     } },
+  $router: { push: () => {} },
   localePath: () => '/en/localepath',
   switchLocalePath: () => '/'
 });

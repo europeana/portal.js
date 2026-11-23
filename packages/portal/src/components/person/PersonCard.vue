@@ -20,6 +20,7 @@
       v-if="renderButtons"
       class="buttons-overlay position-absolute w-100 mx-auto"
     >
+      <!-- TODO: use PersonContactLinks? -->
       <SmartLink
         v-if="email"
         v-b-tooltip.top="{

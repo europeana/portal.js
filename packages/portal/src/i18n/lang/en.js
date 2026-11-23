@@ -1263,7 +1263,16 @@ export default {
     },
     "enaMembers": {
       "directory": "ENA members directory",
-      "ena": "Europeana Network Association"
+      "ena": "Europeana Network Association",
+      "table": {
+        "allCommunities": "All communities",
+        "allCountries": "All countries",
+        "communities": "Communities",
+        "contact": "Contact",
+        "country": "Country",
+        "name": "Name",
+        "showMoreData": "Show more data for {person}"
+      }
     }
   },
   "pagination": {
