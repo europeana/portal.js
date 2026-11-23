@@ -544,6 +544,15 @@ export default {
       }
     },
 
+    loaders: {
+      scss: {
+        sassOptions: {
+          // Silence deprecation warnings interfering with dev build
+          silenceDeprecations: ['legacy-js-api', 'import']
+        }
+      }
+    },
+
     // Prevent irrelevant postcss warnings
     // See https://github.com/postcss/postcss/issues/1375
     postcss: {},
