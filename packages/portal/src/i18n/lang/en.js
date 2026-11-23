@@ -170,6 +170,7 @@ export default {
     "time": "Centuries",
     "topic": "Topics"
   },
+  "breadcrumb": "Breadcrumb",
   "cardLabels": {
     "aggregator": "Aggregator",
     "organisation": "Institution",
@@ -1261,6 +1262,8 @@ export default {
       }
     },
     "enaMembers": {
+      "directory": "ENA members directory",
+      "ena": "Europeana Network Association",
       "table": {
         "allCommunities": "All communities",
         "allCountries": "All countries",

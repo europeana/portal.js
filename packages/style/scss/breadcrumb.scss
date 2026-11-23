@@ -10,8 +10,21 @@
     top: -3.05rem;
   }
 
+  @at-root .xxl-page & {
+    @media (min-width: $bp-4k) {
+      top: -6.1rem;
+      padding: calc(1.5 * 0.75rem) 1.5rem;
+    }
+  }
+
   .breadcrumb-item {
     font-size: $font-size-small;
+
+    @at-root .xxl-page & {
+      @media (min-width: $bp-4k) {
+        font-size: $font-size-small-4k;
+      }
+    }
   }
 
   .breadcrumb-item.active,

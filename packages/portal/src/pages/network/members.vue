@@ -1,5 +1,20 @@
 <template>
   <div class="page browse-page-4-col xxl-page">
+    <nav :aria-label="$t('breadcrumb')">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <SmartLink destination="/network">
+            {{ $t('pages.enaMembers.ena') }}
+          </SmartLink>
+        </li>
+        <li
+          class="breadcrumb-item active"
+          aria-current="page"
+        >
+          {{ $t('pages.enaMembers.directory') }}
+        </li>
+      </ol>
+    </nav>
     <LoadingSpinner
       v-if="$fetchState.pending"
       class="flex-md-row py-4 text-center"
@@ -48,6 +63,7 @@
 <script>
   import ContentHeader from '@/components/content/ContentHeader';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
+  import SmartLink from '@/components/generic/SmartLink';
   import staticPageGraphql from '@/graphql/queries/staticPage.graphql';
   import peopleGraphql  from '@/graphql/queries/people.graphql';
   import peopleCommunitiesGraphql  from '@/graphql/queries/peopleCommunities.graphql';
@@ -65,7 +81,8 @@
       ContentHeader,
       ErrorMessage: () => import('@/components/error/ErrorMessage'),
       LoadingSpinner,
-      PersonTable
+      PersonTable,
+      SmartLink
     },
 
     mixins: [
