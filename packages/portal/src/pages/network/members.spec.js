@@ -75,6 +75,7 @@ const factory = ({ mocks = {} } = {}) => {
       $i18n: { localeProperties: { iso: 'en-GB' } },
       $route: { query: {} },
       $t: (key) => key,
+      $te: () => true,
       ...mocks
     },
     stubs: ['b-container', 'b-row', 'b-col']
@@ -259,7 +260,12 @@ describe('pages/network/members', () => {
           locale: 'en-GB',
           limit: 1000
         })).toBe(true);
-        expect(wrapper.vm.countries).toEqual([fixtures.peopleCountries.data.personCollection.items[0].country]);
+        expect(wrapper.vm.countries).toEqual([
+          {
+            label: 'facets.COUNTRY.options.The Netherlands',
+            value: 'The Netherlands'
+          }
+        ]);
       });
     });
     describe('when name is communities', () => {

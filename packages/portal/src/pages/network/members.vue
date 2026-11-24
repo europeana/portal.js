@@ -154,6 +154,15 @@
     },
 
     methods: {
+      countryLabel(country) {
+        if (this.$te(`facets.COUNTRY.options.${country}`, 'en')) {
+          return this.$t(`facets.COUNTRY.options.${country}`);
+        }
+        if (this.$te(`zoho.countries.${country}`, 'en')) {
+          return this.$t(`zoho.countries.${country}`);
+        }
+        return false;
+      },
       async fetchPage() {
         if (this.pageFetched) {
           return;
@@ -181,7 +190,11 @@
         };
         const peopleResponse = await this.$contentful.query(peopleGraphql, variables);
 
-        this.people = peopleResponse?.data?.personCollection?.items;
+        this.people = peopleResponse?.data?.personCollection?.items.reduce((memo, person) => {
+          person.country = { value: person.country, label: this.countryLabel(person.country) };
+          memo.push(person);
+          return memo;
+        }, []);
         this.total = peopleResponse?.data?.personCollection?.total;
       },
       resetFilterOptions() {
@@ -238,7 +251,13 @@
 
       async fetchOptions(name) {
         if (name === 'country' && !this.countryOptionsFetched) {
-          this.countries = await this.fetchPaginatedOptions('country');
+          this.countries = (await this.fetchPaginatedOptions('country')).reduce((memo, country) => {
+            country = { value: country, label: this.countryLabel(country)};
+            if (country.label) { 
+              memo.push(country) 
+            };
+            return memo;
+          }, []);
           this.countryOptionsFetched = true;
         } else if (name === 'communities' && !this.communitiesOptionsFetched) {
           this.communities = await this.fetchPaginatedOptions('communities');

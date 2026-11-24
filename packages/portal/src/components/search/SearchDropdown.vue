@@ -5,7 +5,7 @@
       class="selected-tags pl-0 mb-1"
     >
       <li
-        v-for="tag in selectedOptions"
+        v-for="tag in selectedTags"
         :key="tag"
         class="d-inline-block mw-100 mr-2 mb-2"
       >
@@ -75,14 +75,14 @@
           >
             <li
               v-for="item in fieldsFilteredToSearch"
-              :key="item"
+              :key="item.label || item "
             >
               <NuxtLink
                 class="dropdown-item"
                 :data-qa="`dropdown item ${item}`"
                 :to="filterToLink(item)"
               >
-                {{ item }}
+                {{ item.label || item }}
               </NuxtLink>
             </li>
           </ul>
@@ -187,14 +187,14 @@
         return `${this.nameNoSpaces}-options`;
       },
       fieldsWithoutSelected() {
-        return this.fields.filter((field) => !this.selectedOptions.includes(field));
+        return this.fields.filter((field) => !this.selectedOptions.includes(field.value || field));
       },
       fieldsFilteredToSearch() {
         const criteria = this.trimmedDropdownSearchQuery;
         const options = this.fieldsWithoutSelected;
 
         return options.filter(option => {
-          const exactMatch = option.toLowerCase().indexOf(criteria) > -1;
+          const exactMatch = (option.value?.concat(option.label) || option).toLowerCase().indexOf(criteria) > -1;
           return exactMatch;
         });
       },
@@ -206,6 +206,15 @@
       },
       selectedOptions() {
         return this.activeQueryValue?.split(',') || [];
+      },
+      selectedTags() {
+        if (this.name === 'country') {
+          return this.selectedOptions.reduce((memo, option) => {
+          memo.push(this.countryLabel(option));
+          return memo;
+        }, []);
+        }
+        return this.selectedOptions;
       }
     },
 
@@ -222,6 +231,16 @@
     methods: {
       addNewSelectedOption(option) {
         return this.type === 'radio' ? [option] : [...this.selectedOptions].concat(option);
+      },
+      // Duplicates logic from members page. Where should this live?
+      countryLabel(country) {
+        if (this.$te(`facets.COUNTRY.options.${country}`, 'en')) {
+          return this.$t(`facets.COUNTRY.options.${country}`);
+        }
+        if (this.$te(`zoho.countries.${country}`, 'en')) {
+          return this.$t(`zoho.countries.${country}`);
+        }
+        return false;
       },
       removeSelectedOption(option) {
         return this.type === 'radio' ? [] : [...this.selectedOptions].filter((selection) => selection !== option);
@@ -240,7 +259,7 @@
         return newRoute;
       },
       filterToLink(option) {
-        const selectedOptions = this.addNewSelectedOption(option);
+        const selectedOptions = this.addNewSelectedOption(option.value || option);
         return this.getNewRouteWithUpdatedQuery(selectedOptions);
       },
       removeOption(option) {
