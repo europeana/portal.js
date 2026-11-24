@@ -26,7 +26,7 @@ services:
       - ./docker/compose/postgres/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
       - ./docker/compose/postgres/model:/var/lib/postgresql/model
   redis:
-    image: redis:8@sha256:1f88291b4c57bdf249f02eb085a8669889b2d2954e91d4de5118a5da6b78dd53
+    image: redis:8@sha256:ca1cb6df9313d0186b68f19b60fc2802e0c76e8542b2c05650b560e7bbb3cc8f
     command: redis-server --appendonly yes
     ports:
       - "16379:6379"
