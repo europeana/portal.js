@@ -82,7 +82,7 @@
     "sass-loader": "10.5.2",
     "sinon": "13.0.2",
     "style-resources-loader": "1.5.0",
-    "svg-url-loader": "7.1.1",
+    "svg-url-loader": "8.1.0",
     "video.js": "8.24.2",
     "vue-masonry": "0.13.0",
     "vue-matomo": "4.2.0",
