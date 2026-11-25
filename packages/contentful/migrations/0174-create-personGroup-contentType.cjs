@@ -57,7 +57,7 @@ module.exports = function(migration) {
 
       validations: [
         {
-          linkContentType: ['person']
+          linkContentType: ['zohoContact']
         }
       ],
 
