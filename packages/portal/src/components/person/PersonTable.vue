@@ -32,10 +32,14 @@
           </th>
         </tr>
       </thead>
-      <tbody>
+      <TransitionGroup
+        appear
+        name="fade"
+        tag="tbody"
+      >
         <template v-for="(person, index) in people">
           <tr
-            :key="`row-${index}`"
+            :key="`row-${nameNoSpaces(person.name)}`"
             :class="{ 'details-open': person.showDetails }"
             :aria-owns="person.showDetails ? `table-details-${index}` : null"
             :aria-details="person.showDetails ? `table-details-${index}` : null"
@@ -117,7 +121,7 @@
             </tr>
           </Transition>
         </template>
-      </tbody>
+      </TransitionGroup>
     </table>
     <PaginationNavInput
       v-if="perPage"
@@ -262,6 +266,9 @@
       },
       addShowDetailsPropToPeopleItems() {
         return [...this.items].map((p) => ({ ...p, showDetails: false }));
+      },
+      nameNoSpaces(name) {
+        return name.replace(/\s/g, '-').toLowerCase();
       }
     }
   };
