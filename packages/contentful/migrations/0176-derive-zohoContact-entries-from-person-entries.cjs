@@ -22,6 +22,22 @@ module.exports = async function(migration) {
 
   const items = JSON.parse(await fs.readFileSync(process.env.CONTENTFUL_ZOHO_IDS_FILE_NAME));
 
+  // temporary field to be used in the derivation of linked entries
+  const person = migration.editContentType('person');
+  person
+    .createField('zohoId')
+    .name('Zoho CRM ID')
+    .type('Symbol')
+    .localized(false)
+    .required(false)
+    .validations([
+      {
+        unique: true,
+      },
+    ])
+    .disabled(false)
+    .omitted(false);
+
   migration.transformEntries({
     contentType: 'person',
     from: [],
@@ -36,4 +52,32 @@ module.exports = async function(migration) {
     },
     shouldPublish: 'preserve'
   });
+
+  migration.deriveLinkedEntries({
+    contentType: 'person',
+    derivedContentType: 'zohoContact',
+    from: ['name', 'zohoId'],
+    toReferenceField: 'zohoContact',
+    derivedFields: ['name', 'identifier'],
+    identityKey: async(fromFields) => {
+      return `zohoContact-${fromFields.zohoId?.['en-GB']}`;
+    },
+    shouldPublish: true,
+    deriveEntryForLocale: (fromFields, locale) => {
+      if (locale !== 'en-GB') {
+        return;
+      }
+      if (!fromFields.zohoId?.[locale] || !fromFields.name?.[locale]) {
+        return;
+      }
+
+      return {
+        name: fromFields.name[locale],
+        identifier: fromFields.zohoId[locale]
+      };
+    }
+  });
+
+  person
+    .deleteField('zohoId');
 };
