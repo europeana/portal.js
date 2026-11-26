@@ -1,4 +1,4 @@
-query PeopleCommunities(
+query ContactsCommunities(
   $locale: String!
   $preview: Boolean = false
   $limit: Int = 1000
@@ -7,7 +7,7 @@ query PeopleCommunities(
   $communities: [String] = []
   $country: String = ""
 ) {
-  personCollection(
+  zohoContactCollection(
     locale: $locale
     preview: $preview
     limit: $limit

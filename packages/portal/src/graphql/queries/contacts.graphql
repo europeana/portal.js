@@ -1,27 +1,32 @@
-query PeopleCountries(
+query Contacts(
   $locale: String!
   $preview: Boolean = false
-  $limit: Int = 1000
   $skip: Int = 0
+  $limit: Int = 20,
+  $order: [ZohoContactOrder] = [name_ASC]
   $participation: [String] = []
+  $country: String = ""
   $communities: [String] = []
 ) {
-  personCollection(
+  zohoContactCollection(
     locale: $locale
     preview: $preview
-    order: country_ASC
+    order: $order
     limit: $limit
     skip: $skip
     where: { AND: [
       { participation_contains_all: $participation }
+      { country_contains: $country }
       { communities_contains_all: $communities }
-      { country_exists: true } 
-      { country_not: "" }
     ]}
   ) {
     total
     items {
-      country
+       name
+       country
+       communities
+       email
+       linkedInUrl
     }
   }
 }
