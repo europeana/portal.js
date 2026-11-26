@@ -1,4 +1,4 @@
-#import "./personFields.graphql"
+#import "./zohoContactFields.graphql"
 
 fragment personGroupFields on PersonGroup {
   identifier
@@ -7,8 +7,8 @@ fragment personGroupFields on PersonGroup {
   hasPartCollection(limit: 20) {
     total
     items {
-      ... on Person {
-        ...personFields
+      ... on ZohoContact {
+        ...zohoContactFields
       }
     }
   }
