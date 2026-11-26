@@ -6,7 +6,18 @@
   "extends": [
     "config:best-practices",
     ":automergeMinor",
-    "security:minimumReleaseAgeNpm"
+    "security:minimumReleaseAgeNpm",
+    "group:stylelint",
+    "group:postcss",
+    "group:jsUnitTest"
+  ],
+  "packageRules": [
+    {
+      "extends": ["packages:eslint"],
+      "groupName": "eslint packages",
+      "groupSlug": "eslint",
+      "separateMajorMinor": false
+    }
   ],
   "platformAutomerge": true,
   "prConcurrentLimit": 10,

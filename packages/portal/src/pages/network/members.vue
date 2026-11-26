@@ -65,9 +65,9 @@
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import SmartLink from '@/components/generic/SmartLink';
   import staticPageGraphql from '@/graphql/queries/staticPage.graphql';
-  import peopleGraphql  from '@/graphql/queries/people.graphql';
-  import peopleCommunitiesGraphql  from '@/graphql/queries/peopleCommunities.graphql';
-  import peopleCountriesGraphql  from '@/graphql/queries/peopleCountries.graphql';
+  import contactsGraphql  from '@/graphql/queries/contacts.graphql';
+  import contactsCommunitiesGraphql  from '@/graphql/queries/contactsCommunities.graphql';
+  import contactsCountriesGraphql  from '@/graphql/queries/contactsCountries.graphql';
   import pageMetaMixin from '@/mixins/pageMeta';
   import PersonTable from '../../components/person/PersonTable.vue';
   import useScrollTo from '@/composables/scrollTo.js';
@@ -188,14 +188,15 @@
           ...this.basePeopleQueryVariables,
           skip: this.skip
         };
-        const peopleResponse = await this.$contentful.query(peopleGraphql, variables);
 
-        this.people = peopleResponse?.data?.personCollection?.items.reduce((memo, person) => {
+        const peopleResponse = await this.$contentful.query(contactsGraphql, variables);
+
+        this.people = peopleResponse?.data?.zohoContactCollection?.items.reduce((memo, person) => {
           person.country = { value: person.country, label: this.countryLabel(person.country) };
           memo.push(person);
           return memo;
         }, []);
-        this.total = peopleResponse?.data?.personCollection?.total;
+        this.total = peopleResponse?.data?.zohoContactCollection?.total;
       },
       resetFilterOptions() {
         this.countries = [];
@@ -218,10 +219,10 @@
         let variables = this.basePeopleQueryVariables;
 
         if (name === 'country') {
-          query = peopleCountriesGraphql;
+          query = contactsCountriesGraphql;
           delete variables.country;
         } else if (name === 'communities') {
-          query = peopleCommunitiesGraphql;
+          query = contactsCommunitiesGraphql;
         }
 
         const limit = 1000;
@@ -236,7 +237,7 @@
             skip
           });
 
-          const collection = response?.data?.personCollection;
+          const collection = response?.data?.zohoContactCollection;
           const items = collection?.items || [];
           const total = collection?.total || 0;
 

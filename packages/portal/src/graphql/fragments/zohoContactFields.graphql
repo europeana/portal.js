@@ -1,8 +1,8 @@
 #import "./imageFields.graphql"
 
-fragment personFields on Person {
+fragment zohoContactFields on ZohoContact {
   name
-  url
+  linkedInUrl
   image {
     ...imageFields
   }

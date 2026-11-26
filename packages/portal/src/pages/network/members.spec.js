@@ -24,9 +24,9 @@ const fixtures = {
       }
     }
   },
-  people: {
+  contacts: {
     data: {
-      personCollection: {
+      zohoContactCollection: {
         items: [
           {
             name: 'Test Person',
@@ -39,9 +39,9 @@ const fixtures = {
       }
     }
   },
-  peopleCountries: {
+  contactsCountries: {
     data: {
-      personCollection: {
+      zohoContactCollection: {
         items: [
           {
             country: 'The Netherlands'
@@ -50,9 +50,9 @@ const fixtures = {
       }
     }
   },
-  peopleCommunities: {
+  contactsCommunities: {
     data: {
-      personCollection: {
+      zohoContactCollection: {
         items: [
           {
             communities: ['Research', 'Climate', 'Education']
@@ -90,19 +90,19 @@ describe('pages/network/members', () => {
     ).resolves(cloneDeep(fixtures.staticPage));
 
     contentfulQueryStub.withArgs(
-      sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'People'),
+      sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'Contacts'),
       sinon.match.object
-    ).resolves(cloneDeep(fixtures.people));
+    ).resolves(cloneDeep(fixtures.contacts));
 
     contentfulQueryStub.withArgs(
-      sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'PeopleCountries'),
+      sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'ContactsCountries'),
       sinon.match.object
-    ).resolves(cloneDeep(fixtures.peopleCountries));
+    ).resolves(cloneDeep(fixtures.contactsCountries));
 
     contentfulQueryStub.withArgs(
-      sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'PeopleCommunities'),
+      sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'ContactsCommunities'),
       sinon.match.object
-    ).resolves(cloneDeep(fixtures.peopleCommunities));
+    ).resolves(cloneDeep(fixtures.contactsCommunities));
   });
   afterEach(sinon.resetHistory);
   afterAll(sinon.restore);
@@ -127,7 +127,7 @@ describe('pages/network/members', () => {
         preview: false
       })).toBe(true);
 
-      expect(contentfulQueryStub.calledWith(sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'People'), {
+      expect(contentfulQueryStub.calledWith(sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'Contacts'), {
         participation: ['Network Association'],
         skip: 0,
         locale: 'en-GB'
@@ -147,7 +147,7 @@ describe('pages/network/members', () => {
         locale: 'en-GB'
       })).toBe(false);
 
-      expect(contentfulQueryStub.calledWith(sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'People'), {
+      expect(contentfulQueryStub.calledWith(sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'Contacts'), {
         participation: ['Network Association'],
         skip: 20,
         locale: 'en-GB'
@@ -209,7 +209,7 @@ describe('pages/network/members', () => {
 
       await wrapper.vm.fetchPeople();
 
-      expect(contentfulQueryStub.calledWith(sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'People'), {
+      expect(contentfulQueryStub.calledWith(sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'Contacts'), {
         participation: ['Network Association'],
         skip: 0,
         country,
@@ -231,7 +231,7 @@ describe('pages/network/members', () => {
 
       await wrapper.vm.fetchPeople();
 
-      expect(contentfulQueryStub.calledWith(sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'People'), {
+      expect(contentfulQueryStub.calledWith(sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'Contacts'), {
         participation: ['Network Association'],
         skip: 0,
         communities,
@@ -253,7 +253,7 @@ describe('pages/network/members', () => {
 
         await wrapper.vm.fetchOptions('country');
 
-        expect(contentfulQueryStub.calledWith(sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'PeopleCountries'), {
+        expect(contentfulQueryStub.calledWith(sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'ContactsCountries'), {
           participation: ['Network Association'],
           skip: 0,
           communities: [communities],
@@ -274,7 +274,7 @@ describe('pages/network/members', () => {
 
         await wrapper.vm.fetchOptions('communities');
 
-        expect(contentfulQueryStub.calledWith(sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'PeopleCommunities'), {
+        expect(contentfulQueryStub.calledWith(sinon.match((ast) => ast?.definitions?.[0]?.name?.value === 'ContactsCommunities'), {
           participation: ['Network Association'],
           skip: 0,
           communities: [communities],

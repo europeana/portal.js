@@ -1,4 +1,4 @@
-#import "../fragments/personFields.graphql"
+#import "../fragments/zohoContactFields.graphql"
 
 query PeopleByGroup(
   $identifier: String!
@@ -15,8 +15,8 @@ query PeopleByGroup(
     items {
       hasPartCollection(limit: 100, skip: $skip) {
         items {
-          ... on Person {
-            ...personFields
+          ... on zohoContactCollection {
+            ...zohoContactFields
           }
         }
       }
