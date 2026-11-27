@@ -133,6 +133,9 @@
       countryQuery() {
         return this.$route.query.country;
       },
+      translatedCountryQuery() {
+        return this.countryQuery && this.$i18n.t(`countries.${this.countryQuery}`);
+      },
       communitiesQuery() {
         return this.$route.query.communities;
       },

@@ -1,3 +1,3 @@
 import locales from './locales.js';
 
-export default locales.map(locale => locale.code);
+export default locales.map((locale) => locale.code);
