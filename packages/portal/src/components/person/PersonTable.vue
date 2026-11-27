@@ -53,7 +53,7 @@
                 {{ person.name }}
               </template>
               <template v-if="field.key === 'country'">
-                {{ person.country || "—" }}
+                {{ person.country?.label || "—" }}
               </template>
               <div v-if="field.key === 'communities'">
                 {{ person.communities?.join(", ") || "—" }}
@@ -84,7 +84,7 @@
           <tr
             v-if="person.showDetails"
             :key="`row-details-hidden-${index}`"
-            tabindex="-1"
+            tabindex="-1" 
             aria-hidden="true"
             class="d-none"
           />
@@ -260,9 +260,6 @@
     methods: {
       toggleDetails(person) {
         person.showDetails = !person.showDetails;
-      },
-      filterIsSetTo(name, value) {
-        return this.selectedFilters[name].includes(value);
       },
       addShowDetailsPropToPeopleItems() {
         return [...this.items].map((p) => ({ ...p, showDetails: false }));

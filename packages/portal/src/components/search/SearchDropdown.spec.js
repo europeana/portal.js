@@ -16,7 +16,12 @@ const factory = (propsData = testProps, mocks) => shallowMount(SearchDropdown, {
   localVue,
   propsData,
   mocks: {
-    $t: (key) => key,
+    $i18n: {
+      t: (key) => key.split('.').pop(),
+      te: () => true
+    },
+    $t: (key) => key.split('.').pop(),
+    $te: () => true,
     $route: {},
     $router: { push: sinon.spy() },
     ...mocks

@@ -71,6 +71,7 @@
   import pageMetaMixin from '@/mixins/pageMeta';
   import PersonTable from '../../components/person/PersonTable.vue';
   import useScrollTo from '@/composables/scrollTo.js';
+  import useZohoCountries from '@/composables/zohoCountries.js';
 
   const PER_PAGE = 20;
 
@@ -91,7 +92,8 @@
 
     setup() {
       const { scrollToSelector } = useScrollTo();
-      return { scrollToSelector };
+      const { countryLabel } = useZohoCountries();
+      return { countryLabel, scrollToSelector };
     },
 
     data() {
@@ -182,7 +184,11 @@
 
         const peopleResponse = await this.$contentful.query(contactsGraphql, variables);
 
-        this.people = peopleResponse?.data?.zohoContactCollection?.items;
+        this.people = peopleResponse?.data?.zohoContactCollection?.items.reduce((memo, person) => {
+          person.country = { value: person.country, label: this.countryLabel(person.country) };
+          memo.push(person);
+          return memo;
+        }, []);
         this.total = peopleResponse?.data?.zohoContactCollection?.total;
       },
       resetFilterOptions() {
@@ -239,7 +245,13 @@
 
       async fetchOptions(name) {
         if (name === 'country' && !this.countryOptionsFetched) {
-          this.countries = await this.fetchPaginatedOptions('country');
+          this.countries = (await this.fetchPaginatedOptions('country')).reduce((memo, country) => {
+            country = { value: country, label: this.countryLabel(country)};
+            if (country.label) {
+              memo.push(country);
+            }
+            return memo;
+          }, []);
           this.countryOptionsFetched = true;
         } else if (name === 'communities' && !this.communitiesOptionsFetched) {
           this.communities = await this.fetchPaginatedOptions('communities');

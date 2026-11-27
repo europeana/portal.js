@@ -72,9 +72,14 @@ const factory = ({ mocks = {} } = {}) => {
       $contentful: {
         query: contentfulQueryStub
       },
-      $i18n: { localeProperties: { iso: 'en-GB' } },
-      $route: { query: {} },
+      $i18n: {
+        localeProperties: { iso: 'en-GB' },
+        t: (key) => key,
+        te: () => true
+      },
       $t: (key) => key,
+      $te: () => true,
+      $route: { query: {} },
       ...mocks
     },
     stubs: ['b-container', 'b-row', 'b-col']
@@ -259,7 +264,12 @@ describe('pages/network/members', () => {
           locale: 'en-GB',
           limit: 1000
         })).toBe(true);
-        expect(wrapper.vm.countries).toEqual([fixtures.contactsCountries.data.zohoContactCollection.items[0].country]);
+        expect(wrapper.vm.countries).toEqual([
+          {
+            label: 'facets.COUNTRY.options.The Netherlands',
+            value: 'The Netherlands'
+          }
+        ]);
       });
     });
     describe('when name is communities', () => {
