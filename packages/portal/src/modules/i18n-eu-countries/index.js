@@ -36,9 +36,18 @@ export default function() {
     const countryMessages = {};
     for (const lang of LANGUAGES) {
       const langData = await readFileSync(fileURLToPath(new URL(`./lang/${lang}.json`, import.meta.url)));
-      countryMessages[lang] = { 'eu-countries': JSON.parse(langData) };
+      countryMessages[lang] = JSON.parse(langData);
     }
 
-    messages.push(countryMessages);
+    const countryMessagesByEnglishLabel = {};
+    for (const lang of LANGUAGES) {
+      countryMessagesByEnglishLabel[lang] = { countries: {} };
+      for (const countryCode in countryMessages.en) {
+        const englishLabel = countryMessages.en[countryCode];
+        countryMessagesByEnglishLabel[lang].countries[englishLabel] = countryMessages[lang][countryCode];
+      }
+    }
+
+    messages.push(countryMessagesByEnglishLabel);
   });
 }
