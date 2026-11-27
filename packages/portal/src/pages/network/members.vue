@@ -133,6 +133,11 @@
       countryQuery() {
         return this.$route.query.country;
       },
+      translatedCountryQuery() {
+        const englishCountryNames = this.$i18n.t('eu-countries', 'en');
+        const countryCode = Object.keys(englishCountryNames).find((countryCode) => englishCountryNames[countryCode] === this.countryQuery);
+        return countryCode && this.$i18n.t(`eu-countries.${countryCode}`);
+      },
       communitiesQuery() {
         return this.$route.query.communities;
       },

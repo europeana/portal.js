@@ -368,7 +368,8 @@ export default {
 
   buildModules: [
     '@nuxtjs/axios',
-    '@nuxtjs/auth'
+    '@nuxtjs/auth',
+    '~/modules/i18n-eu-countries/index.js'
   ],
 
   /*
