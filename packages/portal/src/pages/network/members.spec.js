@@ -72,10 +72,14 @@ const factory = ({ mocks = {} } = {}) => {
       $contentful: {
         query: contentfulQueryStub
       },
-      $i18n: { localeProperties: { iso: 'en-GB' } },
-      $route: { query: {} },
+      $i18n: {
+        localeProperties: { iso: 'en-GB' },
+        t: (key) => key,
+        te: () => true
+      },
       $t: (key) => key,
       $te: () => true,
+      $route: { query: {} },
       ...mocks
     },
     stubs: ['b-container', 'b-row', 'b-col']

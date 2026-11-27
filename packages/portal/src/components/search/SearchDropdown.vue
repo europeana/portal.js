@@ -99,6 +99,7 @@
 </template>
 
 <script>
+  import useZohoCountries from '@/composables/zohoCountries.js';
   import vClickOutside from 'v-click-outside';
 
   export default {
@@ -159,6 +160,14 @@
       }
     },
 
+    setup() {
+      const { countryLabel } = useZohoCountries();
+
+      return {
+        countryLabel
+      };
+    },
+
     data() {
       return {
         // https://www.npmjs.com/package/v-click-outside
@@ -210,9 +219,9 @@
       selectedTags() {
         if (this.name === 'country') {
           return this.selectedOptions.reduce((memo, option) => {
-          memo.push(this.countryLabel(option));
-          return memo;
-        }, []);
+            memo.push(this.countryLabel(option));
+            return memo;
+          }, []);
         }
         return this.selectedOptions;
       }
@@ -231,16 +240,6 @@
     methods: {
       addNewSelectedOption(option) {
         return this.type === 'radio' ? [option] : [...this.selectedOptions].concat(option);
-      },
-      // Duplicates logic from members page. Where should this live?
-      countryLabel(country) {
-        if (this.$te(`facets.COUNTRY.options.${country}`, 'en')) {
-          return this.$t(`facets.COUNTRY.options.${country}`);
-        }
-        if (this.$te(`zoho.countries.${country}`, 'en')) {
-          return this.$t(`zoho.countries.${country}`);
-        }
-        return false;
       },
       removeSelectedOption(option) {
         return this.type === 'radio' ? [] : [...this.selectedOptions].filter((selection) => selection !== option);

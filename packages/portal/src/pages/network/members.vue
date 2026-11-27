@@ -71,6 +71,7 @@
   import pageMetaMixin from '@/mixins/pageMeta';
   import PersonTable from '../../components/person/PersonTable.vue';
   import useScrollTo from '@/composables/scrollTo.js';
+  import useZohoCountries from '@/composables/zohoCountries.js';
 
   const PER_PAGE = 20;
 
@@ -91,7 +92,8 @@
 
     setup() {
       const { scrollToSelector } = useScrollTo();
-      return { scrollToSelector };
+      const { countryLabel } = useZohoCountries();
+      return { countryLabel, scrollToSelector };
     },
 
     data() {
@@ -154,15 +156,6 @@
     },
 
     methods: {
-      countryLabel(country) {
-        if (this.$te(`facets.COUNTRY.options.${country}`, 'en')) {
-          return this.$t(`facets.COUNTRY.options.${country}`);
-        }
-        if (this.$te(`zoho.countries.${country}`, 'en')) {
-          return this.$t(`zoho.countries.${country}`);
-        }
-        return false;
-      },
       async fetchPage() {
         if (this.pageFetched) {
           return;
@@ -254,9 +247,9 @@
         if (name === 'country' && !this.countryOptionsFetched) {
           this.countries = (await this.fetchPaginatedOptions('country')).reduce((memo, country) => {
             country = { value: country, label: this.countryLabel(country)};
-            if (country.label) { 
-              memo.push(country) 
-            };
+            if (country.label) {
+              memo.push(country);
+            }
             return memo;
           }, []);
           this.countryOptionsFetched = true;
