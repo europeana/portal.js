@@ -70,7 +70,7 @@
     "Alan Sutherland <alan.sutherland@europeana.eu>"
   ],
   "engines": {
-    "node": "^24"
+    "node": "^26.0.0"
   },
   "keywords": [
     "code4lib"
