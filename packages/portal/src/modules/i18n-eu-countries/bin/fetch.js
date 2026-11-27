@@ -1,12 +1,12 @@
 import { fileURLToPath, URL } from 'node:url';
 import { writeFileSync } from 'node:fs';
 
-import { LANGUAGES } from '../index.js';
+import { codes as langCodes } from '@europeana/i18n';
 
 const endpoint = 'https://publications.europa.eu/webapi/rdf/sparql';
 
-const selectVars = LANGUAGES.map(lang => `?${lang}`).join(' ');
-const optionalBlocks = LANGUAGES
+const selectVars = langCodes.map(lang => `?${lang}`).join(' ');
+const optionalBlocks = langCodes
   .map(
     (lang) =>
       `OPTIONAL { ?country_uri skos:prefLabel ?l_${lang} . FILTER(lang(?l_${lang}) = "${lang}") BIND(str(?l_${lang}) AS ?${lang}) }`
@@ -62,7 +62,7 @@ async function fetchCountries() {
   const countries = data.results.bindings.map((row) => {
     const entry = { id: row.id.value };
     entry.code = entry.id.split('/').pop();
-    for (const lang of LANGUAGES) {
+    for (const lang of langCodes) {
       entry[lang] = row[lang]?.value ?? null;
     }
     return entry;
@@ -72,7 +72,7 @@ async function fetchCountries() {
 }
 
 async function writeLangFiles(countries) {
-  const langData = LANGUAGES.reduce((memo, lang) => {
+  const langData = langCodes.reduce((memo, lang) => {
     memo[lang] = {};
 
     for (const country of countries) {
@@ -84,7 +84,7 @@ async function writeLangFiles(countries) {
     return memo;
   }, {});
 
-  for (const lang of LANGUAGES) {
+  for (const lang of langCodes) {
     const langFile = fileURLToPath(new URL(`../lang/${lang}.json`, import.meta.url));
 
     await writeFileSync(langFile, JSON.stringify(langData[lang], null, 2));
